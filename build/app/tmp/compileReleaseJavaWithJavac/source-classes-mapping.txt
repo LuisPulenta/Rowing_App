@@ -1,0 +1,4 @@
+io/flutter/plugins/GeneratedPluginRegistrant.java
+ io.flutter.plugins.GeneratedPluginRegistrant
+com/luisnu/rowing_app/BuildConfig.java
+ com.luisnu.rowing_app.BuildConfig
