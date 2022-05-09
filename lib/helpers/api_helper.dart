@@ -674,10 +674,9 @@ class ApiHelper {
     return Response(isSuccess: true, result: list);
   }
 
-  static Future<Response> GetDetallesFormularios(
-      int idcliente, int idgrupoformulario) async {
+  static Future<Response> GetDetallesFormularios(int idcliente) async {
     var url = Uri.parse(
-        '${Constants.apiUrl}/api/Inspecciones/GetDetallesFormularios/$idcliente/$idgrupoformulario');
+        '${Constants.apiUrl}/api/Inspecciones/GetDetallesFormularios/$idcliente');
     var response = await http.get(
       url,
       headers: {

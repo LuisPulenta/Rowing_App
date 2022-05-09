@@ -50,6 +50,7 @@ dependencies:
   flutter_native_splash: ^1.2.4   # Para poner el splash
   geolocator: ^8.0.0              # Para latitud y longitud
   geocoding: ^2.0.1               # Para direccion de una latitud y longitud
+  grouped_list: ^4.2.0
 
 flutter_icons:
   android: "launcher_icon"

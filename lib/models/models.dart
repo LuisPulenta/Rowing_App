@@ -2,6 +2,7 @@ export 'package:rowing_app/models/catalogo.dart';
 export 'package:rowing_app/models/causante.dart';
 export 'package:rowing_app/models/cliente.dart';
 export 'package:rowing_app/models/detalles_formulario.dart';
+export 'package:rowing_app/models/detalles_formulario_completo.dart';
 export 'package:rowing_app/models/entrega.dart';
 export 'package:rowing_app/models/grupos_formulario.dart';
 export 'package:rowing_app/models/inspeccion.dart';

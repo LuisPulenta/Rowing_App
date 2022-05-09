@@ -2,6 +2,7 @@ import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:rowing_app/helpers/api_helper.dart';
+import 'package:rowing_app/models/detalles_formulario_completo.dart';
 import 'package:rowing_app/models/models.dart';
 import 'package:rowing_app/models/user.dart';
 import 'package:rowing_app/screens/inspeccion_cuestionario_screen.dart';
@@ -42,6 +43,16 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
   List<GruposFormulario> _gruposFormularios = [];
   List<DetallesFormulario> _detallesFormularios = [];
   List<DetallesFormulario> _detallesFormulariosAux = [];
+  List<DetallesFormularioCompleto> _detallesFormulariosCompleto = [];
+  DetallesFormularioCompleto detallesFormularioCompleto =
+      DetallesFormularioCompleto(
+          idcliente: 0,
+          idgrupoformulario: 0,
+          descgrupoformulario: '',
+          detallef: '',
+          descripcion: '',
+          ponderacionpuntos: 0,
+          cumple: '');
 
 //*****************************************************************************
 //************************** INIT STATE ***************************************
@@ -573,34 +584,36 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
     }
 
     _detallesFormularios = [];
+    _detallesFormulariosAux = [];
+    _detallesFormulariosCompleto = [];
 
-    _gruposFormularios.forEach((grupoFormulario) async {
-      _detallesFormulariosAux = [];
-      Response response = Response(isSuccess: false);
+    Response response = Response(isSuccess: false);
 
-      response = await ApiHelper.GetDetallesFormularios(
-          _cliente, grupoFormulario.idgrupoformulario);
+    response = await ApiHelper.GetDetallesFormularios(_cliente);
 
-      if (response.isSuccess) {
-        _detallesFormulariosAux = response.result;
-        _detallesFormulariosAux.forEach((element) {
-          _detallesFormularios.add(element);
-        });
-      }
+    if (response.isSuccess) {
+      _detallesFormulariosAux = response.result;
+    }
+
+    _detallesFormulariosAux.forEach((detalleFormularioAux) {
+      _gruposFormularios.forEach((grupoFormulario) {
+        if (detalleFormularioAux.idgrupoformulario ==
+            grupoFormulario.idgrupoformulario) {
+          _detallesFormularios.add(detalleFormularioAux);
+          detallesFormularioCompleto = new DetallesFormularioCompleto(
+              idcliente: detalleFormularioAux.idcliente,
+              idgrupoformulario: detalleFormularioAux.idgrupoformulario,
+              descgrupoformulario: grupoFormulario.descripcion,
+              detallef: detalleFormularioAux.detallef,
+              descripcion: detalleFormularioAux.descripcion,
+              ponderacionpuntos: detalleFormularioAux.ponderacionpuntos,
+              cumple: detalleFormularioAux.cumple);
+          _detallesFormulariosCompleto.add(detallesFormularioCompleto);
+        }
+      });
     });
 
-    // _gruposFormularios.forEach((grupoFormulario) async {
-    //   _detallesFormulariosAux = [];
-
-    //   Response response = Response(isSuccess: false);
-    //   response = await ApiHelper.GetDetallesFormularios(
-    //       _cliente, grupoFormulario.idgrupoformulario);
-    //   _detallesFormulariosAux = response.result;
-
-    //   _detallesFormulariosAux.forEach((element) {
-    //     _detallesFormularios.add(element);
-    //   });
-    // });
+    var gg = 1;
 
     setState(() {});
   }
@@ -614,7 +627,11 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
     String? result = await Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => InspeccionCuestionarioScreen()));
+            builder: (context) => InspeccionCuestionarioScreen(
+                  user: widget.user,
+                  causante: _causante,
+                  detallesFormulariosCompleto: _detallesFormulariosCompleto,
+                )));
     if (result == 'yes') {}
   }
 }
