@@ -119,6 +119,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 menuitem: 'Obras',
                 screen: ObrasScreen(
                   user: widget.user,
+                  opcion: 1,
                 )),
             widget.user.habilitaMedidores == 1
                 ? MenuTile(

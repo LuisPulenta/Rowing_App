@@ -10,7 +10,8 @@ import 'package:rowing_app/screens/obrainfoscreen.dart';
 
 class ObrasScreen extends StatefulWidget {
   final User user;
-  ObrasScreen({required this.user});
+  final int opcion;
+  ObrasScreen({required this.user, required this.opcion});
 
   @override
   _ObrasScreenState createState() => _ObrasScreenState();
@@ -408,16 +409,21 @@ class _ObrasScreenState extends State<ObrasScreen> {
 //*****************************************************************************
 
   void _goInfoObra(Obra obra) async {
-    String? result = await Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => ObraInfoScreen(
-                  user: widget.user,
-                  obra: obra,
-                )));
-    if (result == 'yes' || result != 'yes') {
-      _getObras();
-      setState(() {});
+    if (widget.opcion == 1) {
+      String? result = await Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => ObraInfoScreen(
+                    user: widget.user,
+                    obra: obra,
+                  )));
+      if (result == 'yes' || result != 'yes') {
+        _getObras();
+        setState(() {});
+      }
+    }
+    if (widget.opcion == 2) {
+      Navigator.pop(context, obra);
     }
   }
 }

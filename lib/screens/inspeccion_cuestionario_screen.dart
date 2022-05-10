@@ -10,7 +10,8 @@ import 'package:grouped_list/grouped_list.dart';
 class InspeccionCuestionarioScreen extends StatefulWidget {
   final User user;
   final Causante causante;
-  final observaciones;
+  final String observaciones;
+  final Obra obra;
   final List<DetallesFormularioCompleto> detallesFormulariosCompleto;
   final Position positionUser;
 
@@ -18,6 +19,7 @@ class InspeccionCuestionarioScreen extends StatefulWidget {
       {required this.user,
       required this.causante,
       required this.observaciones,
+      required this.obra,
       required this.detallesFormulariosCompleto,
       required this.positionUser});
 
@@ -32,6 +34,11 @@ class _InspeccionCuestionarioScreenState
 //************************** DEFINICION DE VARIABLES **************************
 //*****************************************************************************
 
+  Color colorVerde = Color.fromARGB(255, 30, 120, 98);
+  Color colorRojo = Color.fromARGB(255, 194, 24, 47);
+  Color colorNaranja = Color.fromARGB(255, 210, 88, 22);
+  Color colorCeleste = Color.fromARGB(255, 49, 136, 207);
+
   List _elements = [];
   int puntos = 0;
   int respSI = 0;
@@ -39,6 +46,7 @@ class _InspeccionCuestionarioScreenState
   int respNA = 0;
 
   bool _showLoader = false;
+  bool _todas = true;
 
   Position _positionUser = Position(
       longitude: 0,
@@ -84,6 +92,24 @@ class _InspeccionCuestionarioScreenState
       appBar: AppBar(
         title: Text('Cuestionario'),
         centerTitle: true,
+        actions: [
+          Row(
+            children: [
+              Text(
+                "Todas:",
+                style: TextStyle(color: Colors.white, fontSize: 14),
+              ),
+              Switch(
+                  value: _todas,
+                  activeColor: Colors.green,
+                  inactiveThumbColor: Colors.grey,
+                  onChanged: (value) {
+                    _todas = value;
+                    setState(() {});
+                  }),
+            ],
+          ),
+        ],
       ),
       body: Stack(
         children: [
@@ -307,187 +333,410 @@ class _InspeccionCuestionarioScreenState
         ),
       ),
       itemBuilder: (c, element) {
-        return Card(
-          elevation: 8.0,
-          margin: EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
-          child: Container(
-            color: (element['cumple'] != "SI" &&
-                    element['cumple'] != "NO" &&
-                    element['cumple'] != "N/A")
-                ? Colors.white
-                : Colors.blue[400],
-            child: Column(
-              children: [
-                ListTile(
-                  contentPadding:
-                      EdgeInsets.symmetric(horizontal: 5.0, vertical: 5.0),
-                  leading: CircleAvatar(
-                      child: Text(
-                    element['detallef'],
-                    style: TextStyle(fontSize: 10),
-                  )),
-                  title: Text(
-                    element['descripcion'],
-                    style: TextStyle(fontSize: 12),
-                  ),
-                  trailing: Container(
-                    width: 60,
-                    height: 60,
-                    color: Colors.blue[200],
-                    child: Center(
-                        child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Text('${element['ponderacionpuntos']} pts'),
-                        element['cumple'] != "null"
-                            ? Text(element['cumple'])
-                            : Text(''),
-                      ],
-                    )),
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.only(left: 10, right: 10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: <Widget>[
-                      Expanded(
-                        child: ElevatedButton(
-                          child: Row(
+        return _todas
+            ? Card(
+                elevation: 8.0,
+                margin: EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
+                child: Container(
+                  color: (element['cumple'] != "SI" &&
+                          element['cumple'] != "NO" &&
+                          element['cumple'] != "N/A")
+                      ? Colors.white
+                      : Colors.blue[400],
+                  child: Column(
+                    children: [
+                      ListTile(
+                        contentPadding: EdgeInsets.symmetric(
+                            horizontal: 5.0, vertical: 5.0),
+                        leading: CircleAvatar(
+                            child: Text(
+                          element['detallef'],
+                          style: TextStyle(fontSize: 10),
+                        )),
+                        title: Text(
+                          element['descripcion'],
+                          style: TextStyle(fontSize: 12),
+                        ),
+                        trailing: Container(
+                          width: 60,
+                          height: 60,
+                          color: element['cumple'] == "SI"
+                              ? colorVerde
+                              : element['cumple'] == "NO"
+                                  ? colorRojo
+                                  : element['cumple'] == "N/A"
+                                      ? colorNaranja
+                                      : colorCeleste,
+                          child: Center(
+                              child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
-                              Icon(Icons.toggle_on),
-                              SizedBox(
-                                width: 5,
+                              Text(
+                                '${element['ponderacionpuntos']} pts',
+                                style: TextStyle(color: Colors.white),
                               ),
-                              Text('SI'),
+                              element['cumple'] != "null"
+                                  ? Text(
+                                      element['cumple'],
+                                      style: TextStyle(color: Colors.white),
+                                    )
+                                  : Text(''),
                             ],
-                          ),
-                          style: ElevatedButton.styleFrom(
-                            primary: Color.fromARGB(255, 30, 120, 98),
-                            minimumSize: Size(double.infinity, 40),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                          ),
-                          onPressed: () {
-                            if (element['cumple'] == "NO") {
-                              respNO--;
-                              respSI++;
-                              puntos = puntos +
-                                  int.parse(element['ponderacionpuntos']);
-                            }
-                            if (element['cumple'] == "N/A") {
-                              respNA--;
-                              respSI++;
-                              puntos = puntos +
-                                  int.parse(element['ponderacionpuntos']);
-                            }
-                            if (element['cumple'] != "SI" &&
-                                element['cumple'] != "NO" &&
-                                element['cumple'] != "N/A") {
-                              respSI++;
-                              puntos = puntos +
-                                  int.parse(element['ponderacionpuntos']);
-                            }
-
-                            _elements.forEach((e) {
-                              if (e == element) {
-                                e['cumple'] = "SI";
-                              }
-                            });
-
-                            setState(() {});
-                          },
+                          )),
                         ),
                       ),
-                      SizedBox(
-                        width: 20,
-                      ),
-                      Expanded(
-                        child: ElevatedButton(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Icon(Icons.toggle_off),
-                              Text('NO'),
-                            ],
-                          ),
-                          style: ElevatedButton.styleFrom(
-                            primary: Color.fromARGB(255, 194, 24, 47),
-                            minimumSize: Size(double.infinity, 40),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(5),
+                      Container(
+                        margin: EdgeInsets.only(left: 10, right: 10),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: <Widget>[
+                            Expanded(
+                              child: ElevatedButton(
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [
+                                    Icon(Icons.toggle_on),
+                                    SizedBox(
+                                      width: 5,
+                                    ),
+                                    Text('SI'),
+                                  ],
+                                ),
+                                style: ElevatedButton.styleFrom(
+                                  primary: colorVerde,
+                                  minimumSize: Size(double.infinity, 40),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(5),
+                                  ),
+                                ),
+                                onPressed: () {
+                                  if (element['cumple'] == "NO") {
+                                    respNO--;
+                                    respSI++;
+                                    puntos = puntos +
+                                        int.parse(element['ponderacionpuntos']);
+                                  }
+                                  if (element['cumple'] == "N/A") {
+                                    respNA--;
+                                    respSI++;
+                                    puntos = puntos +
+                                        int.parse(element['ponderacionpuntos']);
+                                  }
+                                  if (element['cumple'] != "SI" &&
+                                      element['cumple'] != "NO" &&
+                                      element['cumple'] != "N/A") {
+                                    respSI++;
+                                    puntos = puntos +
+                                        int.parse(element['ponderacionpuntos']);
+                                  }
+
+                                  _elements.forEach((e) {
+                                    if (e == element) {
+                                      e['cumple'] = "SI";
+                                    }
+                                  });
+
+                                  setState(() {});
+                                },
+                              ),
                             ),
-                          ),
-                          onPressed: () {
-                            if (element['cumple'] == "SI") {
-                              respSI--;
-                              respNO++;
-                              puntos = puntos -
-                                  int.parse(element['ponderacionpuntos']);
-                            }
-                            if (element['cumple'] == "N/A") {
-                              respNA--;
-                              respNO++;
-                            }
-                            if (element['cumple'] != "SI" &&
-                                element['cumple'] != "NO" &&
-                                element['cumple'] != "N/A") {
-                              respNO++;
-                            }
-                            element['cumple'] = "NO";
-                            setState(() {});
-                          },
-                        ),
-                      ),
-                      SizedBox(
-                        width: 20,
-                      ),
-                      Expanded(
-                        child: ElevatedButton(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Icon(Icons.cancel),
-                              Text('N/A'),
-                            ],
-                          ),
-                          style: ElevatedButton.styleFrom(
-                            primary: Color.fromARGB(255, 210, 88, 22),
-                            minimumSize: Size(double.infinity, 40),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(5),
+                            SizedBox(
+                              width: 20,
                             ),
-                          ),
-                          onPressed: () {
-                            if (element['cumple'] == "SI") {
-                              respSI--;
-                              respNA++;
-                              puntos = puntos -
-                                  int.parse(element['ponderacionpuntos']);
-                            }
-                            if (element['cumple'] == "NO") {
-                              respNO--;
-                              respNA++;
-                            }
-                            if (element['cumple'] != "SI" &&
-                                element['cumple'] != "NO" &&
-                                element['cumple'] != "N/A") {
-                              respNA++;
-                            }
-                            element['cumple'] = "N/A";
-                            setState(() {});
-                          },
+                            Expanded(
+                              child: ElevatedButton(
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    Icon(Icons.toggle_off),
+                                    Text('NO'),
+                                  ],
+                                ),
+                                style: ElevatedButton.styleFrom(
+                                  primary: colorRojo,
+                                  minimumSize: Size(double.infinity, 40),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(5),
+                                  ),
+                                ),
+                                onPressed: () {
+                                  if (element['cumple'] == "SI") {
+                                    respSI--;
+                                    respNO++;
+                                    puntos = puntos -
+                                        int.parse(element['ponderacionpuntos']);
+                                  }
+                                  if (element['cumple'] == "N/A") {
+                                    respNA--;
+                                    respNO++;
+                                  }
+                                  if (element['cumple'] != "SI" &&
+                                      element['cumple'] != "NO" &&
+                                      element['cumple'] != "N/A") {
+                                    respNO++;
+                                  }
+                                  element['cumple'] = "NO";
+                                  setState(() {});
+                                },
+                              ),
+                            ),
+                            SizedBox(
+                              width: 20,
+                            ),
+                            Expanded(
+                              child: ElevatedButton(
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    Icon(Icons.cancel),
+                                    Text('N/A'),
+                                  ],
+                                ),
+                                style: ElevatedButton.styleFrom(
+                                  primary: colorNaranja,
+                                  minimumSize: Size(double.infinity, 40),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(5),
+                                  ),
+                                ),
+                                onPressed: () {
+                                  if (element['cumple'] == "SI") {
+                                    respSI--;
+                                    respNA++;
+                                    puntos = puntos -
+                                        int.parse(element['ponderacionpuntos']);
+                                  }
+                                  if (element['cumple'] == "NO") {
+                                    respNO--;
+                                    respNA++;
+                                  }
+                                  if (element['cumple'] != "SI" &&
+                                      element['cumple'] != "NO" &&
+                                      element['cumple'] != "N/A") {
+                                    respNA++;
+                                  }
+                                  element['cumple'] = "N/A";
+                                  setState(() {});
+                                },
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ],
                   ),
                 ),
-              ],
-            ),
-          ),
-        );
+              )
+            : (element['cumple'] != "SI" &&
+                    element['cumple'] != "NO" &&
+                    element['cumple'] != "N/A")
+                ? Card(
+                    elevation: 8.0,
+                    margin:
+                        EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
+                    child: Container(
+                      color: (element['cumple'] != "SI" &&
+                              element['cumple'] != "NO" &&
+                              element['cumple'] != "N/A")
+                          ? Colors.white
+                          : Colors.blue[400],
+                      child: Column(
+                        children: [
+                          ListTile(
+                            contentPadding: EdgeInsets.symmetric(
+                                horizontal: 5.0, vertical: 5.0),
+                            leading: CircleAvatar(
+                                child: Text(
+                              element['detallef'],
+                              style: TextStyle(fontSize: 10),
+                            )),
+                            title: Text(
+                              element['descripcion'],
+                              style: TextStyle(fontSize: 12),
+                            ),
+                            trailing: Container(
+                              width: 60,
+                              height: 60,
+                              color: element['cumple'] == "SI"
+                                  ? colorVerde
+                                  : element['cumple'] == "NO"
+                                      ? colorRojo
+                                      : element['cumple'] == "N/A"
+                                          ? colorNaranja
+                                          : colorCeleste,
+                              child: Center(
+                                  child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: [
+                                  Text(
+                                    '${element['ponderacionpuntos']} pts',
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                  element['cumple'] != "null"
+                                      ? Text(
+                                          element['cumple'],
+                                          style: TextStyle(color: Colors.white),
+                                        )
+                                      : Text(''),
+                                ],
+                              )),
+                            ),
+                          ),
+                          Container(
+                            margin: EdgeInsets.only(left: 10, right: 10),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: <Widget>[
+                                Expanded(
+                                  child: ElevatedButton(
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                      children: [
+                                        Icon(Icons.toggle_on),
+                                        SizedBox(
+                                          width: 5,
+                                        ),
+                                        Text('SI'),
+                                      ],
+                                    ),
+                                    style: ElevatedButton.styleFrom(
+                                      primary: colorVerde,
+                                      minimumSize: Size(double.infinity, 40),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(5),
+                                      ),
+                                    ),
+                                    onPressed: () {
+                                      if (element['cumple'] == "NO") {
+                                        respNO--;
+                                        respSI++;
+                                        puntos = puntos +
+                                            int.parse(
+                                                element['ponderacionpuntos']);
+                                      }
+                                      if (element['cumple'] == "N/A") {
+                                        respNA--;
+                                        respSI++;
+                                        puntos = puntos +
+                                            int.parse(
+                                                element['ponderacionpuntos']);
+                                      }
+                                      if (element['cumple'] != "SI" &&
+                                          element['cumple'] != "NO" &&
+                                          element['cumple'] != "N/A") {
+                                        respSI++;
+                                        puntos = puntos +
+                                            int.parse(
+                                                element['ponderacionpuntos']);
+                                      }
+
+                                      _elements.forEach((e) {
+                                        if (e == element) {
+                                          e['cumple'] = "SI";
+                                        }
+                                      });
+
+                                      setState(() {});
+                                    },
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 20,
+                                ),
+                                Expanded(
+                                  child: ElevatedButton(
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        Icon(Icons.toggle_off),
+                                        Text('NO'),
+                                      ],
+                                    ),
+                                    style: ElevatedButton.styleFrom(
+                                      primary: colorRojo,
+                                      minimumSize: Size(double.infinity, 40),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(5),
+                                      ),
+                                    ),
+                                    onPressed: () {
+                                      if (element['cumple'] == "SI") {
+                                        respSI--;
+                                        respNO++;
+                                        puntos = puntos -
+                                            int.parse(
+                                                element['ponderacionpuntos']);
+                                      }
+                                      if (element['cumple'] == "N/A") {
+                                        respNA--;
+                                        respNO++;
+                                      }
+                                      if (element['cumple'] != "SI" &&
+                                          element['cumple'] != "NO" &&
+                                          element['cumple'] != "N/A") {
+                                        respNO++;
+                                      }
+                                      element['cumple'] = "NO";
+                                      setState(() {});
+                                    },
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 20,
+                                ),
+                                Expanded(
+                                  child: ElevatedButton(
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        Icon(Icons.cancel),
+                                        Text('N/A'),
+                                      ],
+                                    ),
+                                    style: ElevatedButton.styleFrom(
+                                      primary: colorNaranja,
+                                      minimumSize: Size(double.infinity, 40),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(5),
+                                      ),
+                                    ),
+                                    onPressed: () {
+                                      if (element['cumple'] == "SI") {
+                                        respSI--;
+                                        respNA++;
+                                        puntos = puntos -
+                                            int.parse(
+                                                element['ponderacionpuntos']);
+                                      }
+                                      if (element['cumple'] == "NO") {
+                                        respNO--;
+                                        respNA++;
+                                      }
+                                      if (element['cumple'] != "SI" &&
+                                          element['cumple'] != "NO" &&
+                                          element['cumple'] != "N/A") {
+                                        respNA++;
+                                      }
+                                      element['cumple'] = "N/A";
+                                      setState(() {});
+                                    },
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  )
+                : Container();
       },
     );
   }
@@ -622,8 +871,8 @@ class _InspeccionCuestionarioScreenState
       'usuarioalta': widget.user.idUsuario,
       'latitud': widget.positionUser.latitude.toString(),
       'longitud': widget.positionUser.longitude.toString(),
-      'idobra': 0,
-      'supervisor': '',
+      'idobra': widget.obra.nroObra,
+      'supervisor': widget.obra.supervisore,
       'vehiculo': '',
       'nrolegajo': widget.causante.codigo,
       'grupoc': widget.causante.grupo,

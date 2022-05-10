@@ -7,6 +7,7 @@ import 'package:rowing_app/models/detalles_formulario_completo.dart';
 import 'package:rowing_app/models/models.dart';
 import 'package:rowing_app/models/user.dart';
 import 'package:rowing_app/screens/inspeccion_cuestionario_screen.dart';
+import 'package:rowing_app/screens/screens.dart';
 import 'package:rowing_app/widgets/widgets.dart';
 
 class InspeccionesScreen extends StatefulWidget {
@@ -70,6 +71,18 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
   String _observacionesError = '';
   bool _observacionesShowError = false;
   TextEditingController _observacionesController = TextEditingController();
+
+  Obra obra = Obra(
+      nroObra: 0,
+      nombreObra: '',
+      elempep: '',
+      observaciones: '',
+      finalizada: 0,
+      supervisore: '',
+      codigoEstado: '',
+      modulo: '',
+      grupoAlmacen: '',
+      obrasDocumentos: []);
 
 //*****************************************************************************
 //************************** INIT STATE ***************************************
@@ -141,6 +154,7 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
                 _showClientes(),
                 _showTiposTrabajos(),
                 _showObservaciones(),
+                _showObra(),
                 SizedBox(
                   height: 10,
                 ),
@@ -661,6 +675,7 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
                   user: widget.user,
                   causante: _causante,
                   observaciones: _observacionesController.text,
+                  obra: obra,
                   detallesFormulariosCompleto: _detallesFormulariosCompleto,
                   positionUser: _positionUser,
                 )));
@@ -759,5 +774,52 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
         //enabled: _enabled,
       ),
     );
+  }
+
+  Widget _showObra() {
+    return Container(
+        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+        child: Row(
+          children: [
+            Text("Obra: "),
+            Expanded(
+                child: obra.nombreObra != null
+                    ? Text(obra!.nombreObra)
+                    : Text("")),
+            ElevatedButton(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(Icons.search),
+                  SizedBox(
+                    width: 5,
+                  ),
+                ],
+              ),
+              style: ElevatedButton.styleFrom(
+                primary: Color(0xFF781f1e),
+                minimumSize: Size(50, 50),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(5),
+                ),
+              ),
+              onPressed: () async {
+                Obra? obra2 = await Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ObrasScreen(
+                      user: widget.user,
+                      opcion: 2,
+                    ),
+                  ),
+                );
+                if (obra2 != null) {
+                  obra = obra2 as Obra;
+                }
+                setState(() {});
+              },
+            ),
+          ],
+        ));
   }
 }
