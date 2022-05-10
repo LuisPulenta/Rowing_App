@@ -1,6 +1,7 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:rowing_app/helpers/api_helper.dart';
 import 'package:rowing_app/models/detalles_formulario_completo.dart';
 import 'package:rowing_app/models/models.dart';
@@ -23,7 +24,8 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
   String _codigo = '';
   String _codigoError = '';
   bool _codigoShowError = false;
-  bool _enabled = false;
+  bool _enabled1 = false;
+  bool _enabled2 = false;
   bool _showLoader = false;
   late Causante _causante;
   bool bandera = false;
@@ -54,6 +56,21 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
           ponderacionpuntos: 0,
           cumple: '');
 
+  Position _positionUser = Position(
+      longitude: 0,
+      latitude: 0,
+      timestamp: null,
+      accuracy: 0,
+      altitude: 0,
+      heading: 0,
+      speed: 0,
+      speedAccuracy: 0);
+
+  String _observaciones = '';
+  String _observacionesError = '';
+  bool _observacionesShowError = false;
+  TextEditingController _observacionesController = TextEditingController();
+
 //*****************************************************************************
 //************************** INIT STATE ***************************************
 //*****************************************************************************
@@ -69,6 +86,7 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
         grupo: '',
         nroSAP: '',
         estado: false);
+    _getPosition();
     _loadData();
   }
 
@@ -86,40 +104,49 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
       ),
       body: Stack(
         children: [
-          Column(
-            children: <Widget>[
-              SizedBox(
-                height: 10,
-              ),
-              Card(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20)),
-                elevation: 15,
-                margin: EdgeInsets.symmetric(horizontal: 5),
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 15, vertical: 0),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Row(
-                        children: [
-                          Expanded(flex: 4, child: _showLegajo()),
-                          Expanded(flex: 1, child: _showButton()),
-                        ],
-                      ),
-                    ],
+          SingleChildScrollView(
+            child: Column(
+              children: <Widget>[
+                SizedBox(
+                  height: 10,
+                ),
+                Card(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20)),
+                  elevation: 15,
+                  margin: EdgeInsets.symmetric(horizontal: 5),
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 15, vertical: 0),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Row(
+                          children: [
+                            Expanded(flex: 4, child: _showLegajo()),
+                            Expanded(flex: 1, child: _showButton()),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              _showInfo(),
-              _showClientes(),
-              _showTiposTrabajos(),
-              _showButton2(),
-            ],
+                SizedBox(
+                  height: 10,
+                ),
+                _showInfo(),
+                SizedBox(
+                  height: 10,
+                ),
+                _showClientes(),
+                _showTiposTrabajos(),
+                _showObservaciones(),
+                SizedBox(
+                  height: 10,
+                ),
+                _showButton2(),
+              ],
+            ),
           )
         ],
       ),
@@ -223,7 +250,7 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
                   borderRadius: BorderRadius.circular(5),
                 ),
               ),
-              onPressed: _generarCuestionario,
+              onPressed: _enabled1 && _enabled2 ? _generarCuestionario : null,
             ),
           ),
         ],
@@ -333,7 +360,7 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
 
       setState(() {
         _showLoader = false;
-        _enabled = false;
+        _enabled1 = false;
       });
       return;
     }
@@ -341,7 +368,7 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
     setState(() {
       _showLoader = false;
       _causante = response.result;
-      _enabled = true;
+      _enabled1 = true;
     });
   }
 
@@ -494,6 +521,9 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
               value: _tipoTrabajoSelected,
               onChanged: (option) {
                 _tipoTrabajoSelected = option as int;
+                if (_tipoTrabajoSelected > 0) {
+                  _enabled2 = true;
+                }
                 _gruposFormularios = [];
                 _getGruposFormularios();
 
@@ -630,8 +660,104 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
             builder: (context) => InspeccionCuestionarioScreen(
                   user: widget.user,
                   causante: _causante,
+                  observaciones: _observacionesController.text,
                   detallesFormulariosCompleto: _detallesFormulariosCompleto,
+                  positionUser: _positionUser,
                 )));
     if (result == 'yes') {}
+  }
+
+  //*****************************************************************************
+//************************** METODO GETPOSITION **********************************
+//*****************************************************************************
+
+  Future _getPosition() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        showDialog(
+            context: context,
+            builder: (context) {
+              return AlertDialog(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                title: Text('Aviso'),
+                content:
+                    Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
+                  Text('El permiso de localización está negado.'),
+                  SizedBox(
+                    height: 10,
+                  ),
+                ]),
+                actions: <Widget>[
+                  TextButton(
+                      onPressed: () => Navigator.of(context).pop(),
+                      child: Text('Ok')),
+                ],
+              );
+            });
+        return;
+      }
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              title: Text('Aviso'),
+              content:
+                  Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
+                Text(
+                    'El permiso de localización está negado permanentemente. No se puede requerir este permiso.'),
+                SizedBox(
+                  height: 10,
+                ),
+              ]),
+              actions: <Widget>[
+                TextButton(
+                    onPressed: () => Navigator.of(context).pop(),
+                    child: Text('Ok')),
+              ],
+            );
+          });
+      return;
+    }
+
+    var connectivityResult = await Connectivity().checkConnectivity();
+
+    if (connectivityResult != ConnectivityResult.none) {
+      _positionUser = await Geolocator.getCurrentPosition(
+          desiredAccuracy: LocationAccuracy.high);
+    }
+  }
+
+  Widget _showObservaciones() {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+      child: TextField(
+        controller: _observacionesController,
+        decoration: InputDecoration(
+            fillColor: Colors.white,
+            filled: true,
+            hintText: 'Ingrese Observaciones...',
+            labelText: 'Observaciones:',
+            errorText: _observacionesShowError ? _observacionesError : null,
+            prefixIcon: Icon(Icons.chat),
+            border:
+                OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
+        onChanged: (value) {
+          _observaciones = value;
+        },
+        //enabled: _enabled,
+      ),
+    );
   }
 }

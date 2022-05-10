@@ -15,7 +15,7 @@ class Causante {
       required this.encargado,
       required this.telefono,
       required this.grupo,
-      required this.nroSAP,
+      required this.nroSAP, //DNI
       required this.estado});
 
   Causante.fromJson(Map<String, dynamic> json) {

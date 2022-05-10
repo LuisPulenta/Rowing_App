@@ -1,16 +1,25 @@
+import 'package:adaptive_dialog/adaptive_dialog.dart';
+import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:rowing_app/components/loader_component.dart';
+import 'package:rowing_app/helpers/api_helper.dart';
 import 'package:rowing_app/models/models.dart';
 import 'package:grouped_list/grouped_list.dart';
 
 class InspeccionCuestionarioScreen extends StatefulWidget {
   final User user;
   final Causante causante;
+  final observaciones;
   final List<DetallesFormularioCompleto> detallesFormulariosCompleto;
+  final Position positionUser;
 
   const InspeccionCuestionarioScreen(
       {required this.user,
       required this.causante,
-      required this.detallesFormulariosCompleto});
+      required this.observaciones,
+      required this.detallesFormulariosCompleto,
+      required this.positionUser});
 
   @override
   State<InspeccionCuestionarioScreen> createState() =>
@@ -28,6 +37,18 @@ class _InspeccionCuestionarioScreenState
   int respSI = 0;
   int respNO = 0;
   int respNA = 0;
+
+  bool _showLoader = false;
+
+  Position _positionUser = Position(
+      longitude: 0,
+      latitude: 0,
+      timestamp: null,
+      accuracy: 0,
+      altitude: 0,
+      heading: 0,
+      speed: 0,
+      speedAccuracy: 0);
 
 //*****************************************************************************
 //************************** INIT STATE ***************************************
@@ -64,8 +85,17 @@ class _InspeccionCuestionarioScreenState
         title: Text('Cuestionario'),
         centerTitle: true,
       ),
-      body: Center(
-        child: _getContent(),
+      body: Stack(
+        children: [
+          Center(
+            child: _getContent(),
+          ),
+          _showLoader
+              ? LoaderComponent(
+                  text: 'Por favor espere...',
+                )
+              : Container(),
+        ],
       ),
     );
   }
@@ -234,7 +264,7 @@ class _InspeccionCuestionarioScreenState
               ),
               Row(
                 children: [
-                  Text("Puntos: ",
+                  Text("Total Puntos: ",
                       style: TextStyle(
                         fontSize: 14,
                         color: Colors.black,
@@ -494,7 +524,7 @@ class _InspeccionCuestionarioScreenState
                       ),
                     ),
                     onPressed: () {
-                      //_guardar();
+                      _guardar();
                     }),
               ),
               SizedBox(
@@ -529,5 +559,112 @@ class _InspeccionCuestionarioScreenState
         ],
       ),
     );
+  }
+
+//*****************************************************************************
+//************************** METODO GUARDAR ***********************************
+//*****************************************************************************
+
+  _guardar() async {
+    // if (widget.detallesFormulariosCompleto.length - respSI - respNO - respNA !=
+    //     0) {
+    //   showDialog(
+    //       context: context,
+    //       builder: (context) {
+    //         return AlertDialog(
+    //           shape: RoundedRectangleBorder(
+    //             borderRadius: BorderRadius.circular(10),
+    //           ),
+    //           title: Text('Aviso!'),
+    //           content:
+    //               Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
+    //             Text(
+    //                 'Todavía no puede guardar el Cuestionario. Quedan ${widget.detallesFormulariosCompleto.length - respSI - respNO - respNA} preguntas sin responder.'),
+    //             SizedBox(
+    //               height: 10,
+    //             ),
+    //           ]),
+    //           actions: <Widget>[
+    //             TextButton(
+    //                 onPressed: () => Navigator.of(context).pop(),
+    //                 child: Text('Ok')),
+    //           ],
+    //         );
+    //       });
+    //   setState(() {});
+    //   return;
+    // }
+
+    setState(() {
+      _showLoader = true;
+    });
+
+    var connectivityResult = await Connectivity().checkConnectivity();
+
+    if (connectivityResult == ConnectivityResult.none) {
+      setState(() {
+        _showLoader = false;
+      });
+      await showAlertDialog(
+          context: context,
+          title: 'Error',
+          message: 'Verifica que estés conectado a Internet',
+          actions: <AlertDialogAction>[
+            AlertDialogAction(key: null, label: 'Aceptar'),
+          ]);
+      return;
+    }
+
+    Map<String, dynamic> request = {
+      'idinspeccion': 0,
+      'idcliente': widget.detallesFormulariosCompleto[0].idcliente,
+      'fecha': DateTime.now().toString(),
+      'usuarioalta': widget.user.idUsuario,
+      'latitud': widget.positionUser.latitude.toString(),
+      'longitud': widget.positionUser.longitude.toString(),
+      'idobra': 0,
+      'supervisor': '',
+      'vehiculo': '',
+      'nrolegajo': widget.causante.codigo,
+      'grupoc': widget.causante.grupo,
+      'causantec': widget.causante.nroCausante,
+      'dni': widget.causante.nroSAP,
+      'estado': '0',
+      'observacionesinspeccion': widget.observaciones,
+      'aviso': 'NO',
+      'emailenviado': 0,
+      'requiereinspeccion': 0,
+      'totalpreguntas': widget.detallesFormulariosCompleto.length,
+      'respsi': respSI,
+      'respno': respNO,
+      'respna': respNA,
+      'totalpuntos': puntos,
+    };
+
+    Response response = await ApiHelper.postNoToken(
+        '/api/Inspecciones/PostInspeccion', request);
+
+    setState(() {
+      _showLoader = false;
+    });
+
+    if (!response.isSuccess) {
+      await showAlertDialog(
+          context: context,
+          title: 'Error',
+          message: response.message,
+          actions: <AlertDialogAction>[
+            AlertDialogAction(key: null, label: 'Aceptar'),
+          ]);
+      return;
+    }
+    showAlertDialog(
+        context: context,
+        title: 'Aviso',
+        message: response.message,
+        actions: <AlertDialogAction>[
+          AlertDialogAction(key: null, label: 'Custionario grabado con éxito!'),
+        ]);
+    Navigator.pop(context, 'yes');
   }
 }
