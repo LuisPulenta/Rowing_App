@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +14,7 @@ class InspeccionCuestionarioScreen extends StatefulWidget {
   final Causante causante;
   final String observaciones;
   final Obra obra;
+  final int cliente;
   final List<DetallesFormularioCompleto> detallesFormulariosCompleto;
   final Position positionUser;
 
@@ -20,6 +23,7 @@ class InspeccionCuestionarioScreen extends StatefulWidget {
       required this.causante,
       required this.observaciones,
       required this.obra,
+      required this.cliente,
       required this.detallesFormulariosCompleto,
       required this.positionUser});
 
@@ -34,16 +38,18 @@ class _InspeccionCuestionarioScreenState
 //************************** DEFINICION DE VARIABLES **************************
 //*****************************************************************************
 
-  Color colorVerde = Color.fromARGB(255, 30, 120, 98);
-  Color colorRojo = Color.fromARGB(255, 194, 24, 47);
-  Color colorNaranja = Color.fromARGB(255, 210, 88, 22);
-  Color colorCeleste = Color.fromARGB(255, 49, 136, 207);
+  Color colorVerde = Color.fromARGB(255, 22, 175, 22);
+  Color colorRojo = Color.fromARGB(255, 243, 6, 38);
+  Color colorNaranja = Color.fromARGB(255, 244, 104, 28);
+  Color colorCeleste = Color.fromARGB(255, 123, 220, 247);
 
   List _elements = [];
   int puntos = 0;
   int respSI = 0;
   int respNO = 0;
   int respNA = 0;
+
+  int _idCab = 0;
 
   bool _showLoader = false;
   bool _todas = true;
@@ -342,7 +348,7 @@ class _InspeccionCuestionarioScreenState
                           element['cumple'] != "NO" &&
                           element['cumple'] != "N/A")
                       ? Colors.white
-                      : Colors.blue[400],
+                      : colorCeleste,
                   child: Column(
                     children: [
                       ListTile(
@@ -358,30 +364,38 @@ class _InspeccionCuestionarioScreenState
                           style: TextStyle(fontSize: 12),
                         ),
                         trailing: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10),
+                            border: Border.all(
+                              color: element['cumple'] == "SI"
+                                  ? colorVerde
+                                  : element['cumple'] == "NO"
+                                      ? colorRojo
+                                      : element['cumple'] == "N/A"
+                                          ? colorNaranja
+                                          : colorCeleste,
+                              width: 4,
+                            ),
+                          ),
                           width: 60,
                           height: 60,
-                          color: element['cumple'] == "SI"
-                              ? colorVerde
-                              : element['cumple'] == "NO"
-                                  ? colorRojo
-                                  : element['cumple'] == "N/A"
-                                      ? colorNaranja
-                                      : colorCeleste,
+                          //****************** */
                           child: Center(
-                              child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Text(
-                                '${element['ponderacionpuntos']} pts',
-                                style: TextStyle(color: Colors.white),
-                              ),
-                              element['cumple'] != "null"
-                                  ? Text(
-                                      element['cumple'],
-                                      style: TextStyle(color: Colors.white),
-                                    )
-                                  : Text(''),
-                            ],
+                              child: Container(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Text(
+                                  '${element['ponderacionpuntos']} pts',
+                                ),
+                                element['cumple'] != "null"
+                                    ? Text(
+                                        element['cumple'],
+                                      )
+                                    : Text(''),
+                              ],
+                            ),
                           )),
                         ),
                       ),
@@ -815,34 +829,34 @@ class _InspeccionCuestionarioScreenState
 //*****************************************************************************
 
   _guardar() async {
-    // if (widget.detallesFormulariosCompleto.length - respSI - respNO - respNA !=
-    //     0) {
-    //   showDialog(
-    //       context: context,
-    //       builder: (context) {
-    //         return AlertDialog(
-    //           shape: RoundedRectangleBorder(
-    //             borderRadius: BorderRadius.circular(10),
-    //           ),
-    //           title: Text('Aviso!'),
-    //           content:
-    //               Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
-    //             Text(
-    //                 'Todavía no puede guardar el Cuestionario. Quedan ${widget.detallesFormulariosCompleto.length - respSI - respNO - respNA} preguntas sin responder.'),
-    //             SizedBox(
-    //               height: 10,
-    //             ),
-    //           ]),
-    //           actions: <Widget>[
-    //             TextButton(
-    //                 onPressed: () => Navigator.of(context).pop(),
-    //                 child: Text('Ok')),
-    //           ],
-    //         );
-    //       });
-    //   setState(() {});
-    //   return;
-    // }
+    if (widget.detallesFormulariosCompleto.length - respSI - respNO - respNA !=
+        0) {
+      showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              title: Text('Aviso!'),
+              content:
+                  Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
+                Text(
+                    'Todavía no puede guardar el Cuestionario. Quedan ${widget.detallesFormulariosCompleto.length - respSI - respNO - respNA} preguntas sin responder.'),
+                SizedBox(
+                  height: 10,
+                ),
+              ]),
+              actions: <Widget>[
+                TextButton(
+                    onPressed: () => Navigator.of(context).pop(),
+                    child: Text('Ok')),
+              ],
+            );
+          });
+      setState(() {});
+      return;
+    }
 
     setState(() {
       _showLoader = true;
@@ -890,8 +904,8 @@ class _InspeccionCuestionarioScreenState
       'totalpuntos': puntos,
     };
 
-    Response response = await ApiHelper.postNoToken(
-        '/api/Inspecciones/PostInspeccion', request);
+    Response response =
+        await ApiHelper.post('/api/Inspecciones/PostInspeccion', request);
 
     setState(() {
       _showLoader = false;
@@ -906,14 +920,36 @@ class _InspeccionCuestionarioScreenState
             AlertDialogAction(key: null, label: 'Aceptar'),
           ]);
       return;
+    } else {
+      var body = response.result;
+      var decodedJson = jsonDecode(body);
+      var inspeccionCab = Inspeccion.fromJson(decodedJson);
+      _idCab = inspeccionCab.idInspeccion;
     }
-    showAlertDialog(
+
+    _elements.forEach((element) async {
+      Map<String, dynamic> request2 = {
+        'iDRegistro': 0,
+        'inspeccionCab': _idCab,
+        'idCliente': widget.cliente.toString(),
+        'iDGrupoFormulario': element['idgrupoformulario'],
+        'detalleF': element['detallef'],
+        'descripcion': element['descripcion'],
+        'ponderacionPuntos': element['ponderacionpuntos'],
+        'cumple': element['cumple'],
+      };
+
+      await ApiHelper.post('/api/Inspecciones/PostInspeccionDetalle', request2);
+    });
+
+    await showAlertDialog(
         context: context,
         title: 'Aviso',
-        message: response.message,
+        message: 'Cuestionario grabado con éxito!',
         actions: <AlertDialogAction>[
-          AlertDialogAction(key: null, label: 'Custionario grabado con éxito!'),
+          AlertDialogAction(key: null, label: 'Ok'),
         ]);
+    Navigator.pop(context, 'yes');
     Navigator.pop(context, 'yes');
   }
 }

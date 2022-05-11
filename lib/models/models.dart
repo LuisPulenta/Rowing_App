@@ -6,6 +6,7 @@ export 'package:rowing_app/models/detalles_formulario_completo.dart';
 export 'package:rowing_app/models/entrega.dart';
 export 'package:rowing_app/models/grupos_formulario.dart';
 export 'package:rowing_app/models/inspeccion.dart';
+export 'package:rowing_app/models/inspeccion_detalle.dart';
 export 'package:rowing_app/models/obra_poste_caja_detalle.dart';
 export 'package:rowing_app/models/obra.dart';
 export 'package:rowing_app/models/obras_documento.dart';

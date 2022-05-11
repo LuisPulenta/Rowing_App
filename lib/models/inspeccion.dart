@@ -1,84 +1,104 @@
 class Inspeccion {
-  int idinspeccion = 0;
-  int idcliente = 0;
+  int idInspeccion = 0;
+  int idCliente = 0;
   String fecha = '';
-  int usuarioalta = 0;
+  int usuarioAlta = 0;
   String latitud = '';
   String longitud = '';
-  int idobra = 0;
+  int idObra = 0;
   String supervisor = '';
   String vehiculo = '';
-  int nrolegajo = 0;
-  String grupoc = '';
-  String causantec = '';
+  int nroLegajo = 0;
+  String grupoC = '';
+  String causanteC = '';
   String dni = '';
   int estado = 0;
-  String observacionesinspeccion = '';
+  String observacionesInspeccion = '';
   String aviso = '';
-  int emailenviado = 0;
-  int requiereinspeccion = 0;
+  int emailEnviado = 0;
+  int requiereReinspeccion = 0;
+  int totalPreguntas = 0;
+  int respSi = 0;
+  int respNo = 0;
+  int respNA = 0;
+  int totalPuntos = 0;
 
   Inspeccion(
-      {required this.idinspeccion,
-      required this.idcliente,
+      {required this.idInspeccion,
+      required this.idCliente,
       required this.fecha,
-      required this.usuarioalta,
+      required this.usuarioAlta,
       required this.latitud,
       required this.longitud,
-      required this.idobra,
+      required this.idObra,
       required this.supervisor,
       required this.vehiculo,
-      required this.nrolegajo,
-      required this.grupoc,
-      required this.causantec,
+      required this.nroLegajo,
+      required this.grupoC,
+      required this.causanteC,
       required this.dni,
       required this.estado,
-      required this.observacionesinspeccion,
+      required this.observacionesInspeccion,
       required this.aviso,
-      required this.emailenviado,
-      required this.requiereinspeccion});
+      required this.emailEnviado,
+      required this.requiereReinspeccion,
+      required this.totalPreguntas,
+      required this.respSi,
+      required this.respNo,
+      required this.respNA,
+      required this.totalPuntos});
 
   Inspeccion.fromJson(Map<String, dynamic> json) {
-    idinspeccion = json['idinspeccion'];
-    idcliente = json['idcliente'];
+    idInspeccion = json['idInspeccion'];
+    idCliente = json['idCliente'];
     fecha = json['fecha'];
-    usuarioalta = json['usuarioalta'];
+    usuarioAlta = json['usuarioAlta'];
     latitud = json['latitud'];
     longitud = json['longitud'];
-    idobra = json['idobra'];
+    idObra = json['idObra'];
     supervisor = json['supervisor'];
     vehiculo = json['vehiculo'];
-    nrolegajo = json['nrolegajo'];
-    grupoc = json['grupoc'];
-    causantec = json['causantec'];
+    nroLegajo = json['nroLegajo'];
+    grupoC = json['grupoC'];
+    causanteC = json['causanteC'];
     dni = json['dni'];
     estado = json['estado'];
-    observacionesinspeccion = json['noobservacionesinspeccionmbre'];
+    observacionesInspeccion = json['observacionesInspeccion'];
     aviso = json['aviso'];
-    emailenviado = json['emailenviado'];
-    requiereinspeccion = json['requiereinspeccion'];
+    emailEnviado = json['emailEnviado'];
+    requiereReinspeccion = json['requiereReinspeccion'];
+    totalPreguntas = json['totalPreguntas'];
+    respSi = json['respSi'];
+    respNo = json['respNo'];
+    respNA = json['respNA'];
+    totalPuntos = json['totalPuntos'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['idinspeccion'] = this.idinspeccion;
-    data['idcliente'] = this.idcliente;
+    data['idInspeccion'] = this.idInspeccion;
+    data['idCliente'] = this.idCliente;
     data['fecha'] = this.fecha;
-    data['usuarioalta'] = this.usuarioalta;
+    data['usuarioAlta'] = this.usuarioAlta;
     data['latitud'] = this.latitud;
     data['longitud'] = this.longitud;
-    data['idobra'] = this.idobra;
+    data['idObra'] = this.idObra;
     data['supervisor'] = this.supervisor;
     data['vehiculo'] = this.vehiculo;
-    data['nrolegajo'] = this.nrolegajo;
-    data['grupoc'] = this.grupoc;
-    data['causantec'] = this.causantec;
+    data['nroLegajo'] = this.nroLegajo;
+    data['grupoC'] = this.grupoC;
+    data['causanteC'] = this.causanteC;
     data['dni'] = this.dni;
     data['estado'] = this.estado;
-    data['observacionesinspeccion'] = this.observacionesinspeccion;
+    data['observacionesInspeccion'] = this.observacionesInspeccion;
     data['aviso'] = this.aviso;
-    data['emailenviado'] = this.emailenviado;
-    data['requiereinspeccion'] = this.requiereinspeccion;
+    data['emailEnviado'] = this.emailEnviado;
+    data['requiereReinspeccion'] = this.requiereReinspeccion;
+    data['totalPreguntas'] = this.totalPreguntas;
+    data['respSi'] = this.respSi;
+    data['respNo'] = this.respNo;
+    data['respNA'] = this.respNA;
+    data['totalPuntos'] = this.totalPuntos;
     return data;
   }
 }

@@ -151,10 +151,10 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
                 SizedBox(
                   height: 10,
                 ),
+                _showObra(),
+                _showObservaciones(),
                 _showClientes(),
                 _showTiposTrabajos(),
-                _showObservaciones(),
-                _showObra(),
                 SizedBox(
                   height: 10,
                 ),
@@ -264,7 +264,9 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
                   borderRadius: BorderRadius.circular(5),
                 ),
               ),
-              onPressed: _enabled1 && _enabled2 ? _generarCuestionario : null,
+              onPressed: _enabled1 && _enabled2 && obra.nroObra > 0
+                  ? _generarCuestionario
+                  : null,
             ),
           ),
         ],
@@ -676,6 +678,7 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
                   causante: _causante,
                   observaciones: _observacionesController.text,
                   obra: obra,
+                  cliente: _cliente,
                   detallesFormulariosCompleto: _detallesFormulariosCompleto,
                   positionUser: _positionUser,
                 )));
@@ -781,21 +784,44 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
         padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
         child: Row(
           children: [
-            Text("Obra: "),
             Expanded(
-                child: obra.nombreObra != null
-                    ? Text(obra!.nombreObra)
-                    : Text("")),
-            ElevatedButton(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(Icons.search),
-                  SizedBox(
-                    width: 5,
+              child: Container(
+                height: 60,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(
+                    color: Colors.black,
+                    width: 1,
                   ),
-                ],
+                  color: Colors.white,
+                ),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Row(
+                        children: [
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Text("Obra: ",
+                              style: TextStyle(fontWeight: FontWeight.bold)),
+                          Expanded(
+                            child: obra.nombreObra != null
+                                ? Text(obra.nombreObra)
+                                : Text(""),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
+            ),
+            SizedBox(
+              width: 10,
+            ),
+            ElevatedButton(
+              child: Icon(Icons.search),
               style: ElevatedButton.styleFrom(
                 primary: Color(0xFF781f1e),
                 minimumSize: Size(50, 50),

@@ -19,14 +19,14 @@ class _LoginScreenState extends State<LoginScreen> {
 //************************** DEFINICION DE VARIABLES **************************
 //*****************************************************************************
 
-  String _email = 'AVASILE';
-  //String _email = '';
+  //String _email = 'AVASILE';
+  String _email = '';
   //String _email = 'CHIDALGO';
   String _emailError = '';
   bool _emailShowError = false;
 
-  String _password = 'AVA123';
-  //String _password = '';
+  //String _password = 'AVA123';
+  String _password = '';
   //String _password = 'CHI123';
   String _passwordError = '';
   bool _passwordShowError = false;
