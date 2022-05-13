@@ -571,10 +571,13 @@ class _InspeccionCuestionarioScreenState
                             ? Container()
                             : Image.file(
                                 File(element['image'].path),
-                                width: 80,
-                                height: 60,
+                                width: 100,
+                                height: 100,
                                 fit: BoxFit.contain,
                               ),
+                      ),
+                      SizedBox(
+                        height: 5,
                       ),
                     ],
                   ),
@@ -964,6 +967,12 @@ class _InspeccionCuestionarioScreenState
     }
 
     _elements.forEach((element) async {
+      String base64image = '';
+      if (element['photoChanged']) {
+        List<int> imageBytes = await element['image'].readAsBytes();
+        base64image = base64Encode(imageBytes);
+      }
+
       Map<String, dynamic> request2 = {
         'iDRegistro': 0,
         'inspeccionCab': _idCab,
@@ -973,6 +982,7 @@ class _InspeccionCuestionarioScreenState
         'descripcion': element['descripcion'],
         'ponderacionPuntos': element['ponderacionpuntos'],
         'cumple': element['cumple'],
+        'imagearray': base64image,
       };
 
       await ApiHelper.post('/api/Inspecciones/PostInspeccionDetalle', request2);
