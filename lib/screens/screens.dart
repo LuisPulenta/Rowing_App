@@ -1,5 +1,6 @@
 export 'package:rowing_app/screens/display_picture_screen.dart';
 export 'package:rowing_app/screens/display_picture2_screen.dart';
+export 'package:rowing_app/screens/display_picture3_screen.dart';
 export 'package:rowing_app/screens/entregas_screen.dart';
 export 'package:rowing_app/screens/flotas_screen.dart';
 export 'package:rowing_app/screens/home_screen.dart';
@@ -17,4 +18,5 @@ export 'package:rowing_app/screens/reclamos_screen.dart';
 export 'package:rowing_app/screens/seguridad_screen.dart';
 export 'package:rowing_app/screens/take_picture.dart';
 export 'package:rowing_app/screens/take_picture2.dart';
+export 'package:rowing_app/screens/take_pictureC.dart';
 export 'package:rowing_app/screens/wait_screen.dart';

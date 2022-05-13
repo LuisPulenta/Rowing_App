@@ -1,5 +1,6 @@
 import 'dart:convert';
-
+import 'dart:io';
+import 'package:camera/camera.dart';
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +9,7 @@ import 'package:rowing_app/components/loader_component.dart';
 import 'package:rowing_app/helpers/api_helper.dart';
 import 'package:rowing_app/models/models.dart';
 import 'package:grouped_list/grouped_list.dart';
+import 'package:rowing_app/screens/screens.dart';
 
 class InspeccionCuestionarioScreen extends StatefulWidget {
   final User user;
@@ -51,6 +53,9 @@ class _InspeccionCuestionarioScreenState
 
   int _idCab = 0;
 
+  bool _photoChanged = false;
+  late XFile _image;
+
   bool _showLoader = false;
   bool _todas = true;
 
@@ -82,6 +87,8 @@ class _InspeccionCuestionarioScreenState
           'detallef': element.detallef,
           'ponderacionpuntos': element.ponderacionpuntos.toString(),
           'cumple': element.cumple.toString(),
+          'photoChanged': false,
+          'image': null,
         },
       );
     });
@@ -428,21 +435,17 @@ class _InspeccionCuestionarioScreenState
                                   if (element['cumple'] == "NO") {
                                     respNO--;
                                     respSI++;
-                                    puntos = puntos +
+                                    puntos = puntos -
                                         int.parse(element['ponderacionpuntos']);
                                   }
                                   if (element['cumple'] == "N/A") {
                                     respNA--;
                                     respSI++;
-                                    puntos = puntos +
-                                        int.parse(element['ponderacionpuntos']);
                                   }
                                   if (element['cumple'] != "SI" &&
                                       element['cumple'] != "NO" &&
                                       element['cumple'] != "N/A") {
                                     respSI++;
-                                    puntos = puntos +
-                                        int.parse(element['ponderacionpuntos']);
                                   }
 
                                   _elements.forEach((e) {
@@ -479,17 +482,21 @@ class _InspeccionCuestionarioScreenState
                                   if (element['cumple'] == "SI") {
                                     respSI--;
                                     respNO++;
-                                    puntos = puntos -
+                                    puntos = puntos +
                                         int.parse(element['ponderacionpuntos']);
                                   }
                                   if (element['cumple'] == "N/A") {
                                     respNA--;
                                     respNO++;
+                                    puntos = puntos +
+                                        int.parse(element['ponderacionpuntos']);
                                   }
                                   if (element['cumple'] != "SI" &&
                                       element['cumple'] != "NO" &&
                                       element['cumple'] != "N/A") {
                                     respNO++;
+                                    puntos = puntos +
+                                        int.parse(element['ponderacionpuntos']);
                                   }
                                   element['cumple'] = "NO";
                                   setState(() {});
@@ -520,12 +527,12 @@ class _InspeccionCuestionarioScreenState
                                   if (element['cumple'] == "SI") {
                                     respSI--;
                                     respNA++;
-                                    puntos = puntos -
-                                        int.parse(element['ponderacionpuntos']);
                                   }
                                   if (element['cumple'] == "NO") {
                                     respNO--;
                                     respNA++;
+                                    puntos = puntos -
+                                        int.parse(element['ponderacionpuntos']);
                                   }
                                   if (element['cumple'] != "SI" &&
                                       element['cumple'] != "NO" &&
@@ -537,8 +544,37 @@ class _InspeccionCuestionarioScreenState
                                 },
                               ),
                             ),
+                            SizedBox(
+                              width: 20,
+                            ),
+                            InkWell(
+                              onTap: () => _takePicture(element),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(30),
+                                child: Container(
+                                  color: Color(0xFF282886),
+                                  width: 40,
+                                  height: 40,
+                                  child: Icon(
+                                    Icons.photo_camera,
+                                    size: 30,
+                                    color: Color(0xFFf6faf8),
+                                  ),
+                                ),
+                              ),
+                            )
                           ],
                         ),
+                      ),
+                      Container(
+                        child: !element['photoChanged']
+                            ? Container()
+                            : Image.file(
+                                File(element['image'].path),
+                                width: 80,
+                                height: 60,
+                                fit: BoxFit.contain,
+                              ),
                       ),
                     ],
                   ),
@@ -951,5 +987,45 @@ class _InspeccionCuestionarioScreenState
         ]);
     Navigator.pop(context, 'yes');
     Navigator.pop(context, 'yes');
+  }
+
+//*****************************************************************************
+//************************** TAKEPICTURE **************************************
+//*****************************************************************************
+
+  void _takePicture(dynamic element) async {
+    WidgetsFlutterBinding.ensureInitialized();
+    final cameras = await availableCameras();
+    var firstCamera = cameras.first;
+    var response1 = await showAlertDialog(
+        context: context,
+        title: 'Seleccionar cámara',
+        message: '¿Qué cámara desea utilizar?',
+        actions: <AlertDialogAction>[
+          AlertDialogAction(key: 'no', label: 'Trasera'),
+          AlertDialogAction(key: 'yes', label: 'Delantera'),
+          AlertDialogAction(key: 'cancel', label: 'Cancelar'),
+        ]);
+    if (response1 == 'yes') {
+      firstCamera = cameras.first;
+    }
+    if (response1 == 'no') {
+      firstCamera = cameras.last;
+    }
+
+    if (response1 != 'cancel') {
+      Response? response = await Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => TakePictureCScreen(
+                    camera: firstCamera,
+                  )));
+      if (response != null) {
+        setState(() {
+          element['photoChanged'] = true;
+          element['image'] = response.result;
+        });
+      }
+    }
   }
 }
