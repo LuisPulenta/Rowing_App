@@ -3,9 +3,7 @@ import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:rowing_app/helpers/api_helper.dart';
-import 'package:rowing_app/models/detalles_formulario_completo.dart';
 import 'package:rowing_app/models/models.dart';
-import 'package:rowing_app/models/user.dart';
 import 'package:rowing_app/screens/inspeccion_cuestionario_screen.dart';
 import 'package:rowing_app/screens/screens.dart';
 import 'package:rowing_app/widgets/widgets.dart';
@@ -27,7 +25,9 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
   bool _codigoShowError = false;
   bool _enabled1 = false;
   bool _enabled2 = false;
+  bool _enabled3 = true;
   bool _showLoader = false;
+  bool _esContratista = false;
   late Causante _causante;
   bool bandera = false;
   int intentos = 0;
@@ -72,6 +72,16 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
   bool _observacionesShowError = false;
   TextEditingController _observacionesController = TextEditingController();
 
+  String _nombreSR = '';
+  String _nombreSRError = '';
+  bool _nombreSRShowError = false;
+  TextEditingController _nombreSRController = TextEditingController();
+
+  String _dniSR = '';
+  String _dniSRError = '';
+  bool _dniSRShowError = false;
+  TextEditingController _dniSRController = TextEditingController();
+
   Obra obra = Obra(
       nroObra: 0,
       nombreObra: '',
@@ -112,7 +122,7 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 195, 191, 191),
       appBar: AppBar(
-        title: Text('Inspecciones'),
+        title: Text('Nueva Inspección'),
         centerTitle: true,
       ),
       body: Stack(
@@ -147,7 +157,7 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
                 SizedBox(
                   height: 10,
                 ),
-                _showInfo(),
+                _esContratista ? _showCamposContratista() : _showInfo(),
                 SizedBox(
                   height: 10,
                 ),
@@ -264,7 +274,7 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
                   borderRadius: BorderRadius.circular(5),
                 ),
               ),
-              onPressed: _enabled1 && _enabled2 && obra.nroObra > 0
+              onPressed: _enabled1 && _enabled2 && _enabled3 && obra.nroObra > 0
                   ? _generarCuestionario
                   : null,
             ),
@@ -321,6 +331,16 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
   }
 
 //-----------------------------------------------------------------
+//--------------------- METODO SHOCAMPOSCONTRATISTA ---------------
+//-----------------------------------------------------------------
+
+  Widget _showCamposContratista() {
+    return Column(
+      children: [_shownombreSR(), _showdniSR()],
+    );
+  }
+
+//-----------------------------------------------------------------
 //--------------------- METODO SEARCH -----------------------------
 //-----------------------------------------------------------------
 
@@ -344,10 +364,21 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
 //-----------------------------------------------------------------
 
   Future<Null> _getCausante() async {
+    if (_codigo == "000000") {
+      _esContratista = true;
+      _enabled3 = false;
+      _enabled1 = true;
+      setState(() {});
+      return;
+    }
+
+    _esContratista = false;
+    _enabled1 = false;
     setState(() {
       _showLoader = true;
     });
 
+    _esContratista = false;
     var connectivityResult = await Connectivity().checkConnectivity();
     if (connectivityResult == ConnectivityResult.none) {
       setState(() {
@@ -679,13 +710,17 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
                   observaciones: _observacionesController.text,
                   obra: obra,
                   cliente: _cliente,
+                  tipotrabajo: _tipoTrabajoSelected,
+                  esContratista: _esContratista,
+                  nombreSR: _nombreSRController.text,
+                  dniSR: _dniSRController.text,
                   detallesFormulariosCompleto: _detallesFormulariosCompleto,
                   positionUser: _positionUser,
                 )));
     if (result == 'yes') {}
   }
 
-  //*****************************************************************************
+//*****************************************************************************
 //************************** METODO GETPOSITION **********************************
 //*****************************************************************************
 
@@ -773,6 +808,55 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
                 OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
         onChanged: (value) {
           _observaciones = value;
+        },
+        //enabled: _enabled,
+      ),
+    );
+  }
+
+  Widget _shownombreSR() {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+      child: TextField(
+        controller: _nombreSRController,
+        decoration: InputDecoration(
+            fillColor: Colors.white,
+            filled: true,
+            hintText: 'Ingrese Nombre Contratista...',
+            labelText: 'Nombre Contratista:',
+            errorText: _nombreSRShowError ? _nombreSRError : null,
+            prefixIcon: Icon(Icons.person),
+            border:
+                OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
+        onChanged: (value) {
+          _nombreSR = value;
+          _enabled3 = _dniSR.length > 0 && _nombreSR.length > 0;
+          setState(() {});
+        },
+
+        //enabled: _enabled,
+      ),
+    );
+  }
+
+  Widget _showdniSR() {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+      child: TextField(
+        controller: _dniSRController,
+        decoration: InputDecoration(
+            fillColor: Colors.white,
+            filled: true,
+            hintText: 'Ingrese DNI Contratista...',
+            labelText: 'DNI Contratista:',
+            errorText: _dniSRShowError ? _dniSRError : null,
+            prefixIcon: Icon(Icons.assignment_ind),
+            border:
+                OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
+        onChanged: (value) {
+          _dniSR = value;
+          _enabled3 = _dniSR.length > 0 && _nombreSR.length > 0;
+          setState(() {});
         },
         //enabled: _enabled,
       ),

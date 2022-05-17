@@ -155,7 +155,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ? MenuTile(
                     icon: Icons.format_list_bulleted,
                     menuitem: 'Inspecciones',
-                    screen: InspeccionesScreen(
+                    screen: InspeccionesListaScreen(
                       user: widget.user,
                     ))
                 : Container(),

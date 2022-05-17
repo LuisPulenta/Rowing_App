@@ -17,6 +17,10 @@ class InspeccionCuestionarioScreen extends StatefulWidget {
   final String observaciones;
   final Obra obra;
   final int cliente;
+  final int tipotrabajo;
+  final bool esContratista;
+  final String nombreSR;
+  final String dniSR;
   final List<DetallesFormularioCompleto> detallesFormulariosCompleto;
   final Position positionUser;
 
@@ -26,6 +30,10 @@ class InspeccionCuestionarioScreen extends StatefulWidget {
       required this.observaciones,
       required this.obra,
       required this.cliente,
+      required this.tipotrabajo,
+      required this.esContratista,
+      required this.nombreSR,
+      required this.dniSR,
       required this.detallesFormulariosCompleto,
       required this.positionUser});
 
@@ -927,9 +935,10 @@ class _InspeccionCuestionarioScreenState
       'idobra': widget.obra.nroObra,
       'supervisor': widget.obra.supervisore,
       'vehiculo': '',
-      'nrolegajo': widget.causante.codigo,
-      'grupoc': widget.causante.grupo,
-      'causantec': widget.causante.nroCausante,
+      'nrolegajo': widget.esContratista == true ? 0 : widget.causante.codigo,
+      'grupoc': widget.esContratista == true ? 'PPR' : widget.causante.grupo,
+      'causantec':
+          widget.esContratista == true ? '000000' : widget.causante.codigo,
       'dni': widget.causante.nroSAP,
       'estado': '0',
       'observacionesinspeccion': widget.observaciones,
@@ -941,6 +950,9 @@ class _InspeccionCuestionarioScreenState
       'respno': respNO,
       'respna': respNA,
       'totalpuntos': puntos,
+      'dniSr': widget.esContratista == true ? widget.dniSR : '',
+      'nombreSr': widget.esContratista == true ? widget.nombreSR : '',
+      'idTipoTrabajo': widget.tipotrabajo,
     };
 
     Response response =

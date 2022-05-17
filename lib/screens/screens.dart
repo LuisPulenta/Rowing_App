@@ -4,6 +4,7 @@ export 'package:rowing_app/screens/display_picture3_screen.dart';
 export 'package:rowing_app/screens/entregas_screen.dart';
 export 'package:rowing_app/screens/flotas_screen.dart';
 export 'package:rowing_app/screens/home_screen.dart';
+export 'package:rowing_app/screens/inspecciones_lista_screen.dart';
 export 'package:rowing_app/screens/inspecciones_screen.dart';
 export 'package:rowing_app/screens/login_screen.dart';
 export 'package:rowing_app/screens/medidores_screen.dart';
