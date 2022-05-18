@@ -8,6 +8,8 @@ class VistaInspeccion {
   int totalPreguntas = 0;
   int totalNo = 0;
   int puntos = 0;
+  String? dniSR = '';
+  String? nombreSR = '';
 
   VistaInspeccion(
       {required this.usuarioAlta,
@@ -18,7 +20,9 @@ class VistaInspeccion {
       required this.obra,
       required this.totalPreguntas,
       required this.totalNo,
-      required this.puntos});
+      required this.puntos,
+      required this.dniSR,
+      required this.nombreSR});
 
   VistaInspeccion.fromJson(Map<String, dynamic> json) {
     usuarioAlta = json['usuarioAlta'];
@@ -30,6 +34,8 @@ class VistaInspeccion {
     totalPreguntas = json['totalPreguntas'];
     totalNo = json['totalNo'];
     puntos = json['puntos'];
+    dniSR = json['dniSR'];
+    nombreSR = json['nombreSR'];
   }
 
   Map<String, dynamic> toJson() {
@@ -43,6 +49,8 @@ class VistaInspeccion {
     data['totalPreguntas'] = this.totalPreguntas;
     data['totalNo'] = this.totalNo;
     data['puntos'] = this.puntos;
+    data['dniSR'] = this.dniSR;
+    data['nombreSR'] = this.nombreSR;
     return data;
   }
 }

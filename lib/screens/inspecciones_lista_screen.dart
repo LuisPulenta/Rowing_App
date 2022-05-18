@@ -5,12 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:rowing_app/components/loader_component.dart';
 import 'package:rowing_app/helpers/api_helper.dart';
 import 'package:rowing_app/models/models.dart';
-import 'package:rowing_app/models/reclamo.dart';
-import 'package:rowing_app/models/response.dart';
-import 'package:rowing_app/models/user.dart';
 import 'package:rowing_app/screens/inspecciones_screen.dart';
-import 'package:rowing_app/screens/reclamoagregar_screen.dart';
-import 'package:rowing_app/screens/reclamoinfo_screen.dart';
 
 class InspeccionesListaScreen extends StatefulWidget {
   final User user;
@@ -35,7 +30,9 @@ class _InspeccionesListaScreenState extends State<InspeccionesListaScreen> {
       obra: '',
       totalPreguntas: 0,
       totalNo: 0,
-      puntos: 0);
+      puntos: 0,
+      dniSR: '',
+      nombreSR: '');
 
   @override
   void initState() {
@@ -357,7 +354,11 @@ class _InspeccionesListaScreenState extends State<InspeccionesListaScreen> {
                                     ),
                                     Row(
                                       children: [
-                                        Text(e.empleado.toString().trim(),
+                                        Text(
+                                            e.empleado.toString().trim() ==
+                                                    'SIN REGISTRAR'
+                                                ? e.nombreSR.toString().trim()
+                                                : e.empleado.toString().trim(),
                                             style: TextStyle(
                                               fontSize: 12,
                                             )),
