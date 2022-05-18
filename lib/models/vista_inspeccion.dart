@@ -1,4 +1,5 @@
 class VistaInspeccion {
+  int idInspeccion = 0;
   int usuarioAlta = 0;
   String fecha = '';
   String empleado = '';
@@ -12,7 +13,8 @@ class VistaInspeccion {
   String? nombreSR = '';
 
   VistaInspeccion(
-      {required this.usuarioAlta,
+      {required this.idInspeccion,
+      required this.usuarioAlta,
       required this.fecha,
       required this.empleado,
       required this.cliente,
@@ -25,6 +27,7 @@ class VistaInspeccion {
       required this.nombreSR});
 
   VistaInspeccion.fromJson(Map<String, dynamic> json) {
+    idInspeccion = json['idInspeccion'];
     usuarioAlta = json['usuarioAlta'];
     fecha = json['fecha'];
     empleado = json['empleado'];
@@ -40,6 +43,7 @@ class VistaInspeccion {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['idInspeccion'] = this.idInspeccion;
     data['usuarioAlta'] = this.usuarioAlta;
     data['fecha'] = this.fecha;
     data['empleado'] = this.empleado;

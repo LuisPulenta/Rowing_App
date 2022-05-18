@@ -1,28 +1,28 @@
 class InspeccionDetalle {
-  int iDRegistro = 0;
+  int idRegistro = 0;
   int inspeccionCab = 0;
   int idCliente = 0;
-  int iDGrupoFormulario = 0;
+  int idGrupoFormulario = 0;
   String detalleF = '';
   String descripcion = '';
   int ponderacionPuntos = 0;
   String cumple = '';
 
   InspeccionDetalle(
-      {required this.iDRegistro,
+      {required this.idRegistro,
       required this.inspeccionCab,
       required this.idCliente,
-      required this.iDGrupoFormulario,
+      required this.idGrupoFormulario,
       required this.detalleF,
       required this.descripcion,
       required this.ponderacionPuntos,
       required this.cumple});
 
   InspeccionDetalle.fromJson(Map<String, dynamic> json) {
-    iDRegistro = json['iDRegistro'];
+    idRegistro = json['idRegistro'];
     inspeccionCab = json['inspeccionCab'];
     idCliente = json['idCliente'];
-    iDGrupoFormulario = json['iDGrupoFormulario'];
+    idGrupoFormulario = json['idGrupoFormulario'];
     detalleF = json['detalleF'];
     descripcion = json['descripcion'];
     ponderacionPuntos = json['ponderacionPuntos'];
@@ -31,10 +31,10 @@ class InspeccionDetalle {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['iDRegistro'] = this.iDRegistro;
+    data['idRegistro'] = this.idRegistro;
     data['inspeccionCab'] = this.inspeccionCab;
     data['idCliente'] = this.idCliente;
-    data['iDGrupoFormulario'] = this.iDGrupoFormulario;
+    data['idGrupoFormulario'] = this.idGrupoFormulario;
     data['detalleF'] = this.detalleF;
     data['descripcion'] = this.descripcion;
     data['ponderacionPuntos'] = this.ponderacionPuntos;

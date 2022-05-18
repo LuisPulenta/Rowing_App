@@ -5,7 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:rowing_app/components/loader_component.dart';
 import 'package:rowing_app/helpers/api_helper.dart';
 import 'package:rowing_app/models/models.dart';
-import 'package:rowing_app/screens/inspecciones_screen.dart';
+import 'package:rowing_app/screens/screens.dart';
 
 class InspeccionesListaScreen extends StatefulWidget {
   final User user;
@@ -22,6 +22,7 @@ class _InspeccionesListaScreenState extends State<InspeccionesListaScreen> {
   bool _isFiltered = false;
   String _search = '';
   VistaInspeccion _inspeccionSelected = new VistaInspeccion(
+      idInspeccion: 0,
       usuarioAlta: 0,
       fecha: '',
       empleado: '',
@@ -240,7 +241,6 @@ class _InspeccionesListaScreenState extends State<InspeccionesListaScreen> {
             child: InkWell(
               onTap: () {
                 _inspeccionSelected = e;
-                _goInfoInspeccion();
               },
               child: Container(
                 height: 136,
@@ -432,7 +432,9 @@ class _InspeccionesListaScreenState extends State<InspeccionesListaScreen> {
                             size: 45,
                             color: Color(0xFF781f1e),
                           ),
-                          onPressed: () {}),
+                          onPressed: () {
+                            _goInfoInspeccion(e);
+                          }),
                     )
                   ],
                 ),
@@ -444,7 +446,15 @@ class _InspeccionesListaScreenState extends State<InspeccionesListaScreen> {
     );
   }
 
-  void _goInfoInspeccion() {}
+  void _goInfoInspeccion(VistaInspeccion e) async {
+    String? result = await Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => InspeccionDuplicarScreen(
+                  user: widget.user,
+                  vistaInspeccion: e,
+                )));
+  }
 
   Widget _showReclamosCount() {
     return Container(

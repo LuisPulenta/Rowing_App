@@ -22,6 +22,9 @@ class Inspeccion {
   int respNo = 0;
   int respNA = 0;
   int totalPuntos = 0;
+  String dniSR = '';
+  String nombreSR = '';
+  int idTipoTrabajo = 0;
 
   Inspeccion(
       {required this.idInspeccion,
@@ -46,7 +49,10 @@ class Inspeccion {
       required this.respSi,
       required this.respNo,
       required this.respNA,
-      required this.totalPuntos});
+      required this.totalPuntos,
+      required this.dniSR,
+      required this.nombreSR,
+      required this.idTipoTrabajo});
 
   Inspeccion.fromJson(Map<String, dynamic> json) {
     idInspeccion = json['idInspeccion'];
@@ -72,6 +78,9 @@ class Inspeccion {
     respNo = json['respNo'];
     respNA = json['respNA'];
     totalPuntos = json['totalPuntos'];
+    dniSR = json['dniSR'];
+    nombreSR = json['nombreSR'];
+    idTipoTrabajo = json['idTipoTrabajo'];
   }
 
   Map<String, dynamic> toJson() {
@@ -99,6 +108,9 @@ class Inspeccion {
     data['respNo'] = this.respNo;
     data['respNA'] = this.respNA;
     data['totalPuntos'] = this.totalPuntos;
+    data['dniSR'] = this.dniSR;
+    data['nombreSR'] = this.nombreSR;
+    data['idTipoTrabajo'] = this.idTipoTrabajo;
     return data;
   }
 }
