@@ -6,6 +6,7 @@ class DetallesFormularioCompleto {
   String descripcion = '';
   int ponderacionpuntos = 0;
   String? cumple = '';
+  String? foto = '';
 
   DetallesFormularioCompleto(
       {required this.idcliente,
@@ -14,7 +15,8 @@ class DetallesFormularioCompleto {
       required this.detallef,
       required this.descripcion,
       required this.ponderacionpuntos,
-      required this.cumple});
+      required this.cumple,
+      required this.foto});
 
   DetallesFormularioCompleto.fromJson(Map<String, dynamic> json) {
     idcliente = json['idcliente'];
@@ -24,6 +26,7 @@ class DetallesFormularioCompleto {
     descripcion = json['descripcion'];
     ponderacionpuntos = json['ponderacionpuntos'];
     cumple = json['cumple'];
+    foto = json['foto'];
   }
 
   Map<String, dynamic> toJson() {
@@ -35,6 +38,7 @@ class DetallesFormularioCompleto {
     data['descripcion'] = this.descripcion;
     data['ponderacionpuntos'] = this.ponderacionpuntos;
     data['cumple'] = this.cumple;
+    data['foto'] = this.foto;
     return data;
   }
 
@@ -47,5 +51,6 @@ class DetallesFormularioCompleto {
         descripcion: json["descripcion"],
         ponderacionpuntos: json["ponderacionpuntos"],
         cumple: json["cumple"],
+        foto: json["foto"],
       );
 }

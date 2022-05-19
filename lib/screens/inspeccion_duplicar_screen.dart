@@ -34,11 +34,27 @@ class _InspeccionDuplicarScreenState extends State<InspeccionDuplicarScreen> {
   bool _enabled3 = true;
   bool _esContratista = false;
 
+  bool bandera = false;
+  int intentos = 0;
+  List<GruposFormulario> _gruposFormularios = [];
+
   late Causante _causante;
   late Inspeccion _inspeccion;
   late Obra _obra;
   late List<InspeccionDetalle> _inspeccionDetalles;
+
   List<DetallesFormularioCompleto> _detallesFormulariosCompleto = [];
+
+  DetallesFormularioCompleto detallesFormularioCompleto =
+      DetallesFormularioCompleto(
+          idcliente: 0,
+          idgrupoformulario: 0,
+          descgrupoformulario: '',
+          detallef: '',
+          descripcion: '',
+          ponderacionpuntos: 0,
+          cumple: '',
+          foto: '');
 
   String _nombreSR = '';
   String _nombreSRError = '';
@@ -671,6 +687,32 @@ class _InspeccionDuplicarScreenState extends State<InspeccionDuplicarScreen> {
 //-----------------------------------------------------------------
 
   _generarCuestionario() async {
+    _detallesFormulariosCompleto = [];
+
+    await _getGruposFormularios(widget.vistaInspeccion.idCliente,
+        widget.vistaInspeccion.idTipoTrabajo as int);
+
+    _inspeccionDetalles.forEach((element) {
+      String descgpoform = '';
+      _gruposFormularios.forEach((element2) {
+        if (element2.idgrupoformulario == element.idGrupoFormulario) {
+          descgpoform = element2.descripcion;
+        }
+        ;
+      });
+
+      detallesFormularioCompleto = new DetallesFormularioCompleto(
+          idcliente: element.idCliente,
+          idgrupoformulario: element.idGrupoFormulario,
+          descgrupoformulario: descgpoform,
+          detallef: element.detalleF,
+          descripcion: element.descripcion,
+          ponderacionpuntos: element.ponderacionPuntos,
+          cumple: element.cumple,
+          foto: element.imageFullPath);
+      _detallesFormulariosCompleto.add(detallesFormularioCompleto);
+    });
+
     FocusScope.of(context).unfocus();
     String? result = await Navigator.push(
         context,
@@ -842,7 +884,7 @@ class _InspeccionDuplicarScreenState extends State<InspeccionDuplicarScreen> {
   }
 
 //*****************************************************************************
-//************************** METODO GETINSPECCION *****************************
+//************************** METODO GETINSPECCIONDETALLES *********************
 //*****************************************************************************
 
   Future<Null> _getInspeccionDetalles() async {
@@ -940,5 +982,39 @@ class _InspeccionDuplicarScreenState extends State<InspeccionDuplicarScreen> {
     setState(() {
       _obra = response.result;
     });
+  }
+
+//*****************************************************************************
+//************************** METODO GETGRUPOSFORMULARIOS **********************
+//*****************************************************************************
+
+  Future<Null> _getGruposFormularios(int cliente, int tipotrabajo) async {
+    var connectivityResult = await Connectivity().checkConnectivity();
+
+    if (connectivityResult == ConnectivityResult.none) {
+      await showAlertDialog(
+          context: context,
+          title: 'Error',
+          message: 'Verifica que estés conectado a Internet',
+          actions: <AlertDialogAction>[
+            AlertDialogAction(key: null, label: 'Aceptar'),
+          ]);
+      return;
+    }
+
+    bandera = false;
+    intentos = 0;
+
+    do {
+      Response response = Response(isSuccess: false);
+      response = await ApiHelper.GetGruposFormularios(cliente, tipotrabajo);
+      intentos++;
+      if (response.isSuccess) {
+        bandera = true;
+        _gruposFormularios = response.result;
+      }
+    } while (bandera == false);
+    setState(() {});
+    var b = 1;
   }
 }

@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:camera/camera.dart';
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:connectivity/connectivity.dart';
@@ -96,9 +97,25 @@ class _InspeccionCuestionarioScreenState
           'ponderacionpuntos': element.ponderacionpuntos.toString(),
           'cumple': element.cumple.toString(),
           'photoChanged': false,
-          'image': null,
+          'image': '',
+          'imagedesdeweb': element.foto,
+          'fotodesdeweb': element.foto !=
+              "http://190.111.249.225/RowingAppApi/images/Inspecciones/noimage.png"
         },
       );
+      if (element.cumple == 'SI') {
+        respSI++;
+      }
+      ;
+      if (element.cumple == 'NO') {
+        respNO++;
+        puntos = puntos + element.ponderacionpuntos;
+      }
+      ;
+      if (element.cumple == 'N/A') {
+        respNA++;
+      }
+      ;
     });
   }
 
@@ -574,6 +591,28 @@ class _InspeccionCuestionarioScreenState
                           ],
                         ),
                       ),
+                      !element['photoChanged']
+                          ? element['imagedesdeweb'] !=
+                                  "http://190.111.249.225/RowingAppApi/images/Inspecciones/noimage.png"
+                              ? CachedNetworkImage(
+                                  imageUrl: element['imagedesdeweb'],
+                                  errorWidget: (context, url, error) =>
+                                      Icon(Icons.error),
+                                  fit: BoxFit.contain,
+                                  height: 100,
+                                  width: 100,
+                                  placeholder: (context, url) => Image(
+                                    image: AssetImage('assets/loading.gif'),
+                                    fit: BoxFit.cover,
+                                    height: 200,
+                                    width: 200,
+                                  ),
+                                )
+                              : Container()
+                          : Container(),
+                      SizedBox(
+                        height: 5,
+                      ),
                       Container(
                         child: !element['photoChanged']
                             ? Container()
@@ -583,9 +622,6 @@ class _InspeccionCuestionarioScreenState
                                 height: 100,
                                 fit: BoxFit.contain,
                               ),
-                      ),
-                      SizedBox(
-                        height: 5,
                       ),
                     ],
                   ),

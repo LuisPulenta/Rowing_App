@@ -7,6 +7,8 @@ class InspeccionDetalle {
   String descripcion = '';
   int ponderacionPuntos = 0;
   String cumple = '';
+  String linkFoto = '';
+  String imageFullPath = '';
 
   InspeccionDetalle(
       {required this.idRegistro,
@@ -16,7 +18,9 @@ class InspeccionDetalle {
       required this.detalleF,
       required this.descripcion,
       required this.ponderacionPuntos,
-      required this.cumple});
+      required this.cumple,
+      required this.linkFoto,
+      required this.imageFullPath});
 
   InspeccionDetalle.fromJson(Map<String, dynamic> json) {
     idRegistro = json['idRegistro'];
@@ -27,6 +31,8 @@ class InspeccionDetalle {
     descripcion = json['descripcion'];
     ponderacionPuntos = json['ponderacionPuntos'];
     cumple = json['cumple'];
+    linkFoto = json['linkFoto'];
+    imageFullPath = json['imageFullPath'];
   }
 
   Map<String, dynamic> toJson() {
@@ -39,6 +45,8 @@ class InspeccionDetalle {
     data['descripcion'] = this.descripcion;
     data['ponderacionPuntos'] = this.ponderacionPuntos;
     data['cumple'] = this.cumple;
+    data['linkFoto'] = this.linkFoto;
+    data['imageFullPath'] = this.imageFullPath;
     return data;
   }
 }

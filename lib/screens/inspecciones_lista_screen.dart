@@ -33,7 +33,9 @@ class _InspeccionesListaScreenState extends State<InspeccionesListaScreen> {
       totalNo: 0,
       puntos: 0,
       dniSR: '',
-      nombreSR: '');
+      nombreSR: '',
+      idCliente: 0,
+      idTipoTrabajo: 0);
 
   @override
   void initState() {
@@ -70,6 +72,7 @@ class _InspeccionesListaScreenState extends State<InspeccionesListaScreen> {
         backgroundColor: Color(0xFF781f1e),
         onPressed: () => _addInspeccion(),
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 
@@ -201,7 +204,7 @@ class _InspeccionesListaScreenState extends State<InspeccionesListaScreen> {
   Widget _getContent() {
     return Column(
       children: <Widget>[
-        _showReclamosCount(),
+        _showInspeccionesCount(),
         Expanded(
           child: _inspecciones.length == 0 ? _noContent() : _getListView(),
         )
@@ -454,9 +457,12 @@ class _InspeccionesListaScreenState extends State<InspeccionesListaScreen> {
                   user: widget.user,
                   vistaInspeccion: e,
                 )));
+    if (result == 'yes') {
+      _getInspecciones();
+    }
   }
 
-  Widget _showReclamosCount() {
+  Widget _showInspeccionesCount() {
     return Container(
       padding: EdgeInsets.all(10),
       height: 40,

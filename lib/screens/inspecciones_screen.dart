@@ -55,7 +55,8 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
           detallef: '',
           descripcion: '',
           ponderacionpuntos: 0,
-          cumple: '');
+          cumple: '',
+          foto: '');
 
   Position _positionUser = Position(
       longitude: 0,
@@ -684,7 +685,8 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
               detallef: detalleFormularioAux.detallef,
               descripcion: detalleFormularioAux.descripcion,
               ponderacionpuntos: detalleFormularioAux.ponderacionpuntos,
-              cumple: detalleFormularioAux.cumple);
+              cumple: detalleFormularioAux.cumple,
+              foto: '');
           _detallesFormulariosCompleto.add(detallesFormularioCompleto);
         }
       });
