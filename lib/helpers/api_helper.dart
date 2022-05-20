@@ -10,6 +10,7 @@ import 'package:rowing_app/models/tipos_trabajo.dart';
 import 'constants.dart';
 
 class ApiHelper {
+//---------------------------------------------------------------------------
   static Future<Response> getObrasRowing() async {
     var url = Uri.parse('${Constants.apiUrl}/api/Account/GetObrasRowing');
     var response = await http.get(
@@ -35,6 +36,7 @@ class ApiHelper {
     return Response(isSuccess: true, result: list);
   }
 
+//---------------------------------------------------------------------------
   static Future<Response> getObrasEnergia() async {
     var url = Uri.parse('${Constants.apiUrl}/api/Account/GetObrasEnergia');
     var response = await http.get(
@@ -60,6 +62,7 @@ class ApiHelper {
     return Response(isSuccess: true, result: list);
   }
 
+//---------------------------------------------------------------------------
   static Future<Response> getObrasTasa() async {
     var url = Uri.parse('${Constants.apiUrl}/api/Account/GetObrasObrasTasa');
     var response = await http.get(
@@ -85,6 +88,7 @@ class ApiHelper {
     return Response(isSuccess: true, result: list);
   }
 
+//---------------------------------------------------------------------------
   static Future<Response> put(
       String controller, String id, Map<String, dynamic> request) async {
     var url = Uri.parse('${Constants.apiUrl}$controller$id');
@@ -104,6 +108,7 @@ class ApiHelper {
     return Response(isSuccess: true);
   }
 
+//---------------------------------------------------------------------------
   static Future<Response> post(
       String controller, Map<String, dynamic> request) async {
     var url = Uri.parse('${Constants.apiUrl}$controller');
@@ -123,6 +128,7 @@ class ApiHelper {
     return Response(isSuccess: true, result: response.body);
   }
 
+//---------------------------------------------------------------------------
   static Future<Response> delete(String controller, String id) async {
     var url = Uri.parse('${Constants.apiUrl}$controller$id');
     var response = await http.delete(
@@ -140,6 +146,7 @@ class ApiHelper {
     return Response(isSuccess: true);
   }
 
+//---------------------------------------------------------------------------
   static Future<Response> getCausante(String codigo) async {
     var url = Uri.parse(
         '${Constants.apiUrl}/api/Causantes/GetCausanteByCodigo2/$codigo');
@@ -160,6 +167,7 @@ class ApiHelper {
     return Response(isSuccess: true, result: Causante.fromJson(decodedJson));
   }
 
+//---------------------------------------------------------------------------
   static Future<Response> getEntregas(String codigo) async {
     var url =
         Uri.parse('${Constants.apiUrl}/api/Entregas/GetEntregas2/$codigo');
@@ -186,6 +194,7 @@ class ApiHelper {
     return Response(isSuccess: true, result: list);
   }
 
+//---------------------------------------------------------------------------
   static Future<Response> getTicket(String codigo) async {
     var url =
         Uri.parse('${Constants.apiUrl}/api/ObrasPostes/GetTicket2/$codigo');
@@ -206,6 +215,7 @@ class ApiHelper {
     return Response(isSuccess: true, result: Ticket.fromJson(decodedJson));
   }
 
+//---------------------------------------------------------------------------
   static Future<Response> getObrasDocumentos(String codigo) async {
     var url = Uri.parse(
         '${Constants.apiUrl}/api/ObrasDocuments/GetObrasDocumentos/$codigo');
@@ -232,6 +242,7 @@ class ApiHelper {
     return Response(isSuccess: true, result: list);
   }
 
+//---------------------------------------------------------------------------
   static Future<Response> getReclamos(String codigo) async {
     var url = Uri.parse(
         '${Constants.apiUrl}/api/ObrasPostes/GetReclamosByUser/$codigo');
@@ -258,6 +269,7 @@ class ApiHelper {
     return Response(isSuccess: true, result: list);
   }
 
+//---------------------------------------------------------------------------
   static Future<Response> getObrasReclamosRowing() async {
     var url =
         Uri.parse('${Constants.apiUrl}/api/Account/GetObrasReclamosRowing');
@@ -284,6 +296,7 @@ class ApiHelper {
     return Response(isSuccess: true, result: list);
   }
 
+//---------------------------------------------------------------------------
   static Future<Response> getObrasReclamosEnergia() async {
     var url =
         Uri.parse('${Constants.apiUrl}/api/Account/GetObrasReclamosEnergia');
@@ -310,6 +323,7 @@ class ApiHelper {
     return Response(isSuccess: true, result: list);
   }
 
+//---------------------------------------------------------------------------
   static Future<Response> getObrasReclamosTasa() async {
     var url =
         Uri.parse('${Constants.apiUrl}/api/Account/GetObrasReclamosObrasTasa');
@@ -336,6 +350,7 @@ class ApiHelper {
     return Response(isSuccess: true, result: list);
   }
 
+//---------------------------------------------------------------------------
   static Future<Response> getCatalogosRowing() async {
     var url = Uri.parse('${Constants.apiUrl}/api/Catalogos/GetCatalogosRowing');
     var response = await http.get(
@@ -361,6 +376,7 @@ class ApiHelper {
     return Response(isSuccess: true, result: list);
   }
 
+//---------------------------------------------------------------------------
   static Future<Response> getCatalogosEnergia() async {
     var url =
         Uri.parse('${Constants.apiUrl}/api/Catalogos/GetCatalogosEnergia');
@@ -387,6 +403,7 @@ class ApiHelper {
     return Response(isSuccess: true, result: list);
   }
 
+//---------------------------------------------------------------------------
   static Future<Response> getCatalogosObrasTasa() async {
     var url =
         Uri.parse('${Constants.apiUrl}/api/Catalogos/GetCatalogosObrasTasa');
@@ -413,6 +430,7 @@ class ApiHelper {
     return Response(isSuccess: true, result: list);
   }
 
+//---------------------------------------------------------------------------
   static Future<Response> getObra(String id) async {
     var url = Uri.parse('${Constants.apiUrl}/api/Account/GetObra/$id');
     var response = await http.get(
@@ -432,6 +450,7 @@ class ApiHelper {
     return Response(isSuccess: true, result: Obra.fromJson(decodedJson));
   }
 
+//---------------------------------------------------------------------------
   static Future<Response> getVehiculoByChapa(String chapa) async {
     var url = Uri.parse(
         '${Constants.apiUrl}/api/Vehiculos/GetVehiculoByChapa/$chapa');
@@ -452,6 +471,7 @@ class ApiHelper {
     return Response(isSuccess: true, result: Vehiculo.fromJson(decodedJson));
   }
 
+//---------------------------------------------------------------------------
   static Future<Response> getKilometrajes(String codigo) async {
     var url =
         Uri.parse('${Constants.apiUrl}/api/Vehiculos/GetKilometrajes/$codigo');
@@ -478,6 +498,7 @@ class ApiHelper {
     return Response(isSuccess: true, result: list);
   }
 
+//---------------------------------------------------------------------------
   static Future<Response> postNoToken(
       String controller, Map<String, dynamic> request) async {
     var url = Uri.parse('${Constants.apiUrl}$controller');
@@ -497,6 +518,7 @@ class ApiHelper {
     return Response(isSuccess: true);
   }
 
+//---------------------------------------------------------------------------
   static Future<Response> getNroRegistroMax() async {
     var url = Uri.parse(
         '${Constants.apiUrl}/api/VehiculosKilometraje/GetNroRegistroMax');
@@ -518,6 +540,7 @@ class ApiHelper {
     return Response(isSuccess: true, result: decodedJson);
   }
 
+//---------------------------------------------------------------------------
   static Future<Response> GetProgramasPrev(String codigo) async {
     var url =
         Uri.parse('${Constants.apiUrl}/api/Vehiculos/GetProgramasPrev/$codigo');
@@ -544,6 +567,7 @@ class ApiHelper {
     return Response(isSuccess: true, result: list);
   }
 
+//---------------------------------------------------------------------------
   static Future<Response> getTipoNovedades() async {
     var url = Uri.parse(
         '${Constants.apiUrl}/api/CausantesNovedades/GetTipoNovedades');
@@ -570,6 +594,7 @@ class ApiHelper {
     return Response(isSuccess: true, result: list);
   }
 
+//---------------------------------------------------------------------------
   static Future<Response> GetNovedades(String grupo, String causante) async {
     var url = Uri.parse(
         '${Constants.apiUrl}/api/CausantesNovedades/GetNovedades/$grupo/$causante');
@@ -596,6 +621,7 @@ class ApiHelper {
     return Response(isSuccess: true, result: list);
   }
 
+//---------------------------------------------------------------------------
   static Future<Response> GetClientes() async {
     var url = Uri.parse('${Constants.apiUrl}/api/Inspecciones/GetClientes');
     var response = await http.get(
@@ -621,6 +647,7 @@ class ApiHelper {
     return Response(isSuccess: true, result: list);
   }
 
+//---------------------------------------------------------------------------
   static Future<Response> GetTiposTrabajos(int idcliente) async {
     var url = Uri.parse(
         '${Constants.apiUrl}/api/Inspecciones/GetTiposTrabajos/$idcliente');
@@ -647,6 +674,7 @@ class ApiHelper {
     return Response(isSuccess: true, result: list);
   }
 
+//---------------------------------------------------------------------------
   static Future<Response> GetGruposFormularios(
       int idcliente, int idtipotrabajo) async {
     var url = Uri.parse(
@@ -674,6 +702,7 @@ class ApiHelper {
     return Response(isSuccess: true, result: list);
   }
 
+//---------------------------------------------------------------------------
   static Future<Response> GetDetallesFormularios(int idcliente) async {
     var url = Uri.parse(
         '${Constants.apiUrl}/api/Inspecciones/GetDetallesFormularios/$idcliente');
@@ -700,6 +729,7 @@ class ApiHelper {
     return Response(isSuccess: true, result: list);
   }
 
+//---------------------------------------------------------------------------
   static Future<Response> getInspecciones(String codigo) async {
     var url = Uri.parse(
         '${Constants.apiUrl}/api/Inspecciones/GetInspecciones/$codigo');
@@ -726,6 +756,7 @@ class ApiHelper {
     return Response(isSuccess: true, result: list);
   }
 
+//---------------------------------------------------------------------------
   static Future<Response> getInspeccion(int codigo) async {
     var url =
         Uri.parse('${Constants.apiUrl}/api/Inspecciones/GetInspeccion/$codigo');
@@ -746,6 +777,7 @@ class ApiHelper {
     return Response(isSuccess: true, result: Inspeccion.fromJson(decodedJson));
   }
 
+//---------------------------------------------------------------------------
   static Future<Response> GetDetallesInspecciones(int codigo) async {
     var url = Uri.parse(
         '${Constants.apiUrl}/api/Inspecciones/GetDetallesInspecciones/$codigo');
@@ -772,6 +804,7 @@ class ApiHelper {
     return Response(isSuccess: true, result: list);
   }
 
+//---------------------------------------------------------------------------
   static Future<Response> getObraInspeccion(int codigo) async {
     var url = Uri.parse('${Constants.apiUrl}/api/Inspecciones/GetObra/$codigo');
     var response = await http.get(
@@ -789,5 +822,45 @@ class ApiHelper {
 
     var decodedJson = jsonDecode(body);
     return Response(isSuccess: true, result: Obra.fromJson(decodedJson));
+  }
+
+  //---------------------------------------------------------------------------
+  static Future<Response> PostInspeccionDetalle(
+      String controller, Map<String, dynamic> request) async {
+    var url = Uri.parse('${Constants.apiUrl}$controller');
+    var response = await http.post(
+      url,
+      headers: {
+        'content-type': 'application/json',
+        'accept': 'application/json',
+      },
+      body: jsonEncode(request),
+    );
+
+    if (response.statusCode >= 400) {
+      return Response(isSuccess: false, message: response.body);
+    }
+
+    return Response(isSuccess: true, result: response.body);
+  }
+
+  //---------------------------------------------------------------------------
+  static Future<Response> PostInspeccionDetalleConFotoExistente(
+      String controller, Map<String, dynamic> request) async {
+    var url = Uri.parse('${Constants.apiUrl}$controller');
+    var response = await http.post(
+      url,
+      headers: {
+        'content-type': 'application/json',
+        'accept': 'application/json',
+      },
+      body: jsonEncode(request),
+    );
+
+    if (response.statusCode >= 400) {
+      return Response(isSuccess: false, message: response.body);
+    }
+
+    return Response(isSuccess: true, result: response.body);
   }
 }

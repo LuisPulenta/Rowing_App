@@ -5,6 +5,7 @@ export 'package:rowing_app/screens/entregas_screen.dart';
 export 'package:rowing_app/screens/flotas_screen.dart';
 export 'package:rowing_app/screens/home_screen.dart';
 export 'package:rowing_app/screens/inspeccion_cuestionario_screen.dart';
+export 'package:rowing_app/screens/inspeccion_cuestionario_duplicado_screen.dart';
 export 'package:rowing_app/screens/inspecciones_lista_screen.dart';
 export 'package:rowing_app/screens/inspeccion_duplicar_screen.dart';
 export 'package:rowing_app/screens/inspecciones_screen.dart';

@@ -717,7 +717,13 @@ class _InspeccionDuplicarScreenState extends State<InspeccionDuplicarScreen> {
     String? result = await Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => InspeccionCuestionarioScreen(
+//******************************************************************************
+//******************************************************************************
+//******************************************************************************
+//******************************************************************************
+//******************************************************************************
+
+            builder: (context) => InspeccionCuestionarioDuplicadoScreen(
                   user: widget.user,
                   causante: _causante,
                   observaciones: _observacionesController.text,
