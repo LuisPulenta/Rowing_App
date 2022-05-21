@@ -7085,8 +7085,8 @@ com.google.common.collect.AbstractIndexedListIterator
 kotlinx.coroutines.ObsoleteCoroutinesApi
 com.google.common.util.concurrent.Striped$3
 kotlin.contracts.ExperimentalContracts
-com.google.common.collect.TreeRangeSet$SubRangeSet
 kotlin.StandardKt__StandardKt
+com.google.common.collect.TreeRangeSet$SubRangeSet
 kotlin.math.MathKt__MathHKt
 com.google.common.hash.Murmur3_128HashFunction
 kotlinx.coroutines.flow.FlowKt__DelayKt$debounceInternal$1
@@ -7869,13 +7869,13 @@ androidx.core.app.ComponentActivity:
     public void putExtraData(androidx.core.app.ComponentActivity$ExtraData)
     public androidx.core.app.ComponentActivity$ExtraData getExtraData(java.lang.Class)
     public androidx.lifecycle.Lifecycle getLifecycle()
-kotlinx.coroutines.channels.ChannelsKt__ChannelsKt$sendBlocking$1
 kotlinx.coroutines.scheduling.TasksKt:
     public static final boolean isBlocking(kotlinx.coroutines.scheduling.Task)
     public static final java.lang.String DEFAULT_DISPATCHER_NAME
     public static final java.lang.String DEFAULT_SCHEDULER_NAME
     public static final int TASK_NON_BLOCKING
     public static final int TASK_PROBABLY_BLOCKING
+kotlinx.coroutines.channels.ChannelsKt__ChannelsKt$sendBlocking$1
 kotlin.coroutines.CombinedContext$Serialized
 com.google.common.base.CharMatcher$Any
 com.google.common.cache.LocalCache$Segment$1
@@ -13647,6 +13647,6 @@ androidx.arch.core.executor.TaskExecutor:
     public abstract void postToMainThread(java.lang.Runnable)
 androidx.core.view.ViewCompat$AccessibilityViewProperty:
     private final int mContentChangeType
+io.flutter.plugin.platform.PlatformView$-CC
 androidx.lifecycle.DefaultLifecycleObserver$-CC
 io.flutter.plugin.common.BinaryMessenger$-CC
-io.flutter.plugin.platform.PlatformView$-CC
