@@ -12,6 +12,12 @@ class Novedad {
   int vistaRRHH = 0;
   int idusuario = 0;
 
+  String? fechaEstado = '';
+  String? observacionEstado = '';
+  int? confirmaLeido = 0;
+  int? iIDUsrEstado = 0;
+  String? estado = '';
+
   Novedad(
       {required this.idnovedad,
       required this.grupo,
@@ -24,7 +30,12 @@ class Novedad {
       required this.tiponovedad,
       required this.observaciones,
       required this.vistaRRHH,
-      required this.idusuario});
+      required this.idusuario,
+      required this.fechaEstado,
+      required this.observacionEstado,
+      required this.confirmaLeido,
+      required this.iIDUsrEstado,
+      required this.estado});
 
   Novedad.fromJson(Map<String, dynamic> json) {
     idnovedad = json['idnovedad'];
@@ -39,6 +50,12 @@ class Novedad {
     observaciones = json['observaciones'];
     vistaRRHH = json['vistaRRHH'];
     idusuario = json['idusuario'];
+
+    fechaEstado = json['fechaEstado'];
+    observacionEstado = json['observacionEstado'];
+    confirmaLeido = json['confirmaLeido'];
+    iIDUsrEstado = json['iIDUsrEstado'];
+    estado = json['estado'];
   }
 
   Map<String, dynamic> toJson() {
@@ -55,6 +72,12 @@ class Novedad {
     data['observaciones'] = this.observaciones;
     data['vistaRRHH'] = this.vistaRRHH;
     data['idusuario'] = this.idusuario;
+
+    data['fechaEstado'] = this.fechaEstado;
+    data['observacionEstado'] = this.observacionEstado;
+    data['confirmaLeido'] = this.confirmaLeido;
+    data['iIDUsrEstado'] = this.iIDUsrEstado;
+    data['estado'] = this.estado;
     return data;
   }
 }

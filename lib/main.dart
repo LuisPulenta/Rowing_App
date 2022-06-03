@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:rowing_app/models/user.dart';
 import 'package:rowing_app/screens/home_screen.dart';
 import 'package:rowing_app/screens/login_screen.dart';
+import 'package:rowing_app/screens/screens.dart';
 import 'package:rowing_app/screens/wait_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -55,7 +56,9 @@ class _MyAppState extends State<MyApp> {
           ? WaitScreen()
           : _showLoginPage
               ? LoginScreen()
-              : HomeScreen(user: _user),
+              : _user.codigoCausante != _user.login
+                  ? HomeScreen(user: _user)
+                  : NovedadesScreen(user: _user),
     );
   }
 

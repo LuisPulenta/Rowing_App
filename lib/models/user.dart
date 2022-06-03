@@ -1,5 +1,6 @@
 class User {
   int idUsuario = 0;
+  String codigoCausante = '';
   String login = '';
   String contrasena = '';
   String? nombre = '';
@@ -10,14 +11,17 @@ class User {
   int? habilitaFotos = 0;
   int? habilitaReclamos = 0;
   int? habilitaSSHH = 0;
+  int? habilitaRRHH = 0;
   String modulo = '';
   int? habilitaMedidores = 0;
+  String habilitaFlotas = '';
   String? codigogrupo = '';
   String? codigocausante = '';
   String fullName = '';
 
   User(
       {required this.idUsuario,
+      required this.codigoCausante,
       required this.login,
       required this.contrasena,
       required this.nombre,
@@ -28,14 +32,17 @@ class User {
       required this.habilitaFotos,
       required this.habilitaReclamos,
       required this.habilitaSSHH,
+      required this.habilitaRRHH,
       required this.modulo,
       required this.habilitaMedidores,
+      required this.habilitaFlotas,
       required this.codigogrupo,
       required this.codigocausante,
       required this.fullName});
 
   User.fromJson(Map<String, dynamic> json) {
     idUsuario = json['idUsuario'];
+    codigoCausante = json['codigoCausante'];
     login = json['login'];
     contrasena = json['contrasena'];
     nombre = json['nombre'];
@@ -46,8 +53,10 @@ class User {
     habilitaFotos = json['habilitaFotos'];
     habilitaReclamos = json['habilitaReclamos'];
     habilitaSSHH = json['habilitaSSHH'];
+    habilitaRRHH = json['habilitaRRHH'];
     modulo = json['modulo'];
     habilitaMedidores = json['habilitaMedidores'];
+    habilitaFlotas = json['habilitaFlotas'];
     codigogrupo = json['codigogrupo'];
     codigocausante = json['codigocausante'];
     fullName = json['fullName'];
@@ -56,6 +65,7 @@ class User {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['idUsuario'] = this.idUsuario;
+    data['codigoCausante'] = this.codigoCausante;
     data['login'] = this.login;
     data['contrasena'] = this.contrasena;
     data['nombre'] = this.nombre;
@@ -66,8 +76,10 @@ class User {
     data['habilitaFotos'] = this.habilitaFotos;
     data['habilitaReclamos'] = this.habilitaReclamos;
     data['habilitaSSHH'] = this.habilitaSSHH;
+    data['habilitaRRHH'] = this.habilitaRRHH;
     data['modulo'] = this.modulo;
     data['habilitaMedidores'] = this.habilitaMedidores;
+    data['habilitaFlotas'] = this.habilitaFlotas;
     data['codigogrupo'] = this.codigogrupo;
     data['codigoCausante'] = this.codigocausante;
     data['fullName'] = this.fullName;

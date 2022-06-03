@@ -35,7 +35,7 @@ class _NovedadAgregarScreenState extends State<NovedadAgregarScreen> {
   bool _photoChanged2 = false;
   DateTime? fechaInicio = null;
   DateTime? fechaFin = null;
-  DateTime? fechaNovedad = null;
+  //DateTime? fechaNovedad = null;
 
   List<TipoNovedad> _tiposnovedades = [];
 
@@ -298,54 +298,54 @@ class _NovedadAgregarScreenState extends State<NovedadAgregarScreen> {
                 flex: 2,
                 child: Row(
                   children: [
-                    Container(
-                      alignment: Alignment.centerLeft,
-                      color: Color(0xFF781f1e),
-                      width: 140,
-                      height: 30,
-                      child: Text(
-                        '  Fecha Novedad:',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, color: Colors.white),
-                      ),
-                    ),
-                    Expanded(
-                      flex: 3,
-                      child: Container(
-                        alignment: Alignment.center,
-                        color: Color(0xFF781f1e).withOpacity(0.2),
-                        width: 140,
-                        height: 30,
-                        child: Text(
-                          fechaNovedad != null
-                              ? "    ${fechaNovedad!.day}/${fechaNovedad!.month}/${fechaNovedad!.year}"
-                              : "",
-                          style: TextStyle(color: Color(0xFF781f1e)),
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Expanded(
-                      flex: 1,
-                      child: ElevatedButton(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(Icons.calendar_month),
-                          ],
-                        ),
-                        style: ElevatedButton.styleFrom(
-                          primary: Color(0xFF781f1e),
-                          minimumSize: Size(double.infinity, 50),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5),
-                          ),
-                        ),
-                        onPressed: () => _fechaNovedad(),
-                      ),
-                    ),
+                    // Container(
+                    //   alignment: Alignment.centerLeft,
+                    //   color: Color(0xFF781f1e),
+                    //   width: 140,
+                    //   height: 30,
+                    //   child: Text(
+                    //     '  Fecha Novedad:',
+                    //     style: TextStyle(
+                    //         fontWeight: FontWeight.bold, color: Colors.white),
+                    //   ),
+                    // ),
+                    // Expanded(
+                    //   flex: 3,
+                    //   child: Container(
+                    //     alignment: Alignment.center,
+                    //     color: Color(0xFF781f1e).withOpacity(0.2),
+                    //     width: 140,
+                    //     height: 30,
+                    //     child: Text(
+                    //       fechaNovedad != null
+                    //           ? "    ${fechaNovedad!.day}/${fechaNovedad!.month}/${fechaNovedad!.year}"
+                    //           : "",
+                    //       style: TextStyle(color: Color(0xFF781f1e)),
+                    //     ),
+                    //   ),
+                    // ),
+                    // SizedBox(
+                    //   width: 10,
+                    // ),
+                    // Expanded(
+                    //   flex: 1,
+                    //   child: ElevatedButton(
+                    //     child: Row(
+                    //       mainAxisAlignment: MainAxisAlignment.center,
+                    //       children: [
+                    //         Icon(Icons.calendar_month),
+                    //       ],
+                    //     ),
+                    //     style: ElevatedButton.styleFrom(
+                    //       primary: Color(0xFF781f1e),
+                    //       minimumSize: Size(double.infinity, 50),
+                    //       shape: RoundedRectangleBorder(
+                    //         borderRadius: BorderRadius.circular(5),
+                    //       ),
+                    //     ),
+                    //     onPressed: () => _fechaNovedad(),
+                    //   ),
+                    // ),
                   ],
                 ),
               ),
@@ -571,33 +571,33 @@ class _NovedadAgregarScreenState extends State<NovedadAgregarScreen> {
       _tiponovedadShowError = false;
     }
 
-    if (fechaNovedad == null) {
-      isValid = false;
-      showDialog(
-          context: context,
-          builder: (context) {
-            return AlertDialog(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
-              ),
-              title: Text('Aviso!'),
-              content:
-                  Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
-                Text('Debe ingresar una Fecha Novedad.'),
-                SizedBox(
-                  height: 10,
-                ),
-              ]),
-              actions: <Widget>[
-                TextButton(
-                    onPressed: () => Navigator.of(context).pop(),
-                    child: Text('Ok')),
-              ],
-            );
-          });
-      setState(() {});
-      return isValid;
-    }
+    // if (fechaNovedad == null) {
+    //   isValid = false;
+    //   showDialog(
+    //       context: context,
+    //       builder: (context) {
+    //         return AlertDialog(
+    //           shape: RoundedRectangleBorder(
+    //             borderRadius: BorderRadius.circular(10),
+    //           ),
+    //           title: Text('Aviso!'),
+    //           content:
+    //               Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
+    //             Text('Debe ingresar una Fecha Novedad.'),
+    //             SizedBox(
+    //               height: 10,
+    //             ),
+    //           ]),
+    //           actions: <Widget>[
+    //             TextButton(
+    //                 onPressed: () => Navigator.of(context).pop(),
+    //                 child: Text('Ok')),
+    //           ],
+    //         );
+    //       });
+    //   setState(() {});
+    //   return isValid;
+    // }
 
     if (fechaInicio == null) {
       isValid = false;
@@ -727,12 +727,14 @@ class _NovedadAgregarScreenState extends State<NovedadAgregarScreen> {
       base64image2 = base64Encode(imageBytes2);
     }
 
+    String ahora = DateTime.now().toString();
+
     Map<String, dynamic> request = {
       //'nroregistro': _ticket.nroregistro,
       'grupo': widget.causante.grupo,
-      'causante': widget.causante.nroCausante,
-      'fechacarga': DateTime.now().toString(),
-      'fechanovedad': fechaNovedad.toString(),
+      'causante': widget.causante.codigo,
+      'fechacarga': ahora,
+      'fechanovedad': ahora,
       'empresa': 'Rowing',
       'fechainicio': fechaInicio.toString(),
       'fechafin': fechaFin.toString(),
@@ -744,6 +746,12 @@ class _NovedadAgregarScreenState extends State<NovedadAgregarScreen> {
       'linkadjunto2': '',
       'imagearray1': base64image1,
       'imagearray2': base64image2,
+      'fec': base64image2,
+      'fechaEstado': '',
+      'observacionEstado': '',
+      'confirmaLeido': null,
+      'iIDUsrEstado': null,
+      'estado': 'Pendiente',
     };
 
     Response response = await ApiHelper.postNoToken(
@@ -814,19 +822,19 @@ class _NovedadAgregarScreenState extends State<NovedadAgregarScreen> {
     setState(() {});
   }
 
-  _fechaNovedad() async {
-    FocusScope.of(context).unfocus();
-    final DateTime? selected = await showDatePicker(
-      context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime(DateTime.now().year - 1),
-      lastDate: DateTime(DateTime.now().year + 1),
-    );
-    if (selected != null && selected != fechaNovedad)
-      setState(() {
-        fechaNovedad = selected;
-      });
-  }
+  // _fechaNovedad() async {
+  //   FocusScope.of(context).unfocus();
+  //   final DateTime? selected = await showDatePicker(
+  //     context: context,
+  //     initialDate: DateTime.now(),
+  //     firstDate: DateTime(DateTime.now().year - 1),
+  //     lastDate: DateTime(DateTime.now().year + 1),
+  //   );
+  //   if (selected != null && selected != fechaNovedad)
+  //     setState(() {
+  //       fechaNovedad = selected;
+  //     });
+  // }
 
   _fechaInicio() async {
     FocusScope.of(context).unfocus();

@@ -5,6 +5,7 @@ import 'package:rowing_app/helpers/constants.dart';
 import 'package:rowing_app/components/loader_component.dart';
 import 'package:rowing_app/models/user.dart';
 import 'package:rowing_app/screens/home_screen.dart';
+import 'package:rowing_app/screens/novedades_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -322,12 +323,21 @@ class _LoginScreenState extends State<LoginScreen> {
       _showLoader = false;
     });
 
-    Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-            builder: (context) => HomeScreen(
-                  user: user,
-                )));
+    if (user.codigoCausante != user.login) {
+      Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+              builder: (context) => HomeScreen(
+                    user: user,
+                  )));
+    } else {
+      Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+              builder: (context) => NovedadesScreen(
+                    user: user,
+                  )));
+    }
   }
 
 //*****************************************************************************

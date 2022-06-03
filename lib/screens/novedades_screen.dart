@@ -8,6 +8,7 @@ import 'package:rowing_app/models/models.dart';
 import 'package:rowing_app/models/novedad.dart';
 import 'package:rowing_app/screens/screens.dart';
 import 'package:rowing_app/widgets/widgets.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class NovedadesScreen extends StatefulWidget {
   final User user;
@@ -30,6 +31,10 @@ class _NovedadesScreenState extends State<NovedadesScreen> {
   late Causante _causante;
   List<Novedad> _novedades = [];
 
+//*****************************************************************************
+//************************** INITSTATE *****************************************
+//*****************************************************************************
+
   void initState() {
     super.initState();
     _causante = new Causante(
@@ -41,6 +46,11 @@ class _NovedadesScreenState extends State<NovedadesScreen> {
         grupo: '',
         nroSAP: '',
         estado: false);
+
+    if (widget.user.habilitaRRHH != 1) {
+      _codigo = widget.user.codigoCausante;
+      _getCausante();
+    }
   }
 
 //*****************************************************************************
@@ -52,85 +62,97 @@ class _NovedadesScreenState extends State<NovedadesScreen> {
     return Scaffold(
       backgroundColor: Color(0xFF484848),
       appBar: AppBar(
-        title: Text("Novedades"),
+        title:
+            Text(widget.user.habilitaRRHH == 0 ? "Mis Novedades" : "Novedades"),
         centerTitle: true,
+        actions: [
+          (widget.user.codigoCausante == widget.user.login)
+              ? IconButton(onPressed: _logOut, icon: Icon(Icons.logout))
+              : Container()
+        ],
       ),
       body: Stack(
         children: [
-          SingleChildScrollView(
-            child: Column(
-              children: [
-                SizedBox(
-                  height: 0,
-                ),
-                _showLogo(),
-                SizedBox(
-                  height: 0,
-                ),
-                Card(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20)),
-                  elevation: 15,
-                  margin: EdgeInsets.symmetric(horizontal: 5),
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 15, vertical: 0),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Row(
-                          children: [
-                            Expanded(flex: 4, child: _showLegajo()),
-                            Expanded(flex: 1, child: _showButton()),
+          Column(
+            children: [
+              SizedBox(
+                height: 0,
+              ),
+              _showLogo(),
+              SizedBox(
+                height: 0,
+              ),
+              widget.user.habilitaRRHH == 1
+                  ? Card(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20)),
+                      elevation: 15,
+                      margin: EdgeInsets.symmetric(horizontal: 5),
+                      child: Padding(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 15, vertical: 0),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Row(
+                              children: [
+                                Expanded(flex: 4, child: _showLegajo()),
+                                Expanded(flex: 1, child: _showButton()),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 0,
+                            ),
                           ],
                         ),
-                        SizedBox(
-                          height: 0,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                _showInfo(),
-                SizedBox(
-                  height: 3,
-                ),
-                _causante.nroCausante != 0
-                    ? _novedades.length == 0
-                        ? Container()
-                        : Row(
-                            children: [
-                              Text('Cant. Novedades: ',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.bold)),
-                              Text(_novedades.length.toString(),
-                                  textAlign: TextAlign.start,
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.bold)),
-                            ],
-                          )
-                    : Container(),
-                SizedBox(
-                  height: 5,
-                ),
-                _causante.nroCausante != 0
+                      ),
+                    )
+                  : Container(),
+              SizedBox(
+                height: 5,
+              ),
+              _showInfo(),
+              SizedBox(
+                height: 3,
+              ),
+              _causante.nroCausante != 0
+                  ? _novedades.length == 0
+                      ? Container()
+                      : Row(
+                          children: [
+                            SizedBox(
+                              width: 5,
+                            ),
+                            Text('Cant. Novedades: ',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.bold)),
+                            Text(_novedades.length.toString(),
+                                textAlign: TextAlign.start,
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.bold)),
+                          ],
+                        )
+                  : Container(),
+              SizedBox(
+                height: 5,
+              ),
+              Expanded(
+                child: _causante.nroCausante != 0
                     ? _novedades.length == 0
                         ? _noContent()
                         : _getListView()
                     : Container(),
-                SizedBox(
-                  height: 20,
-                ),
-              ],
-            ),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+            ],
           ),
           _showLoader
               ? LoaderComponent(
@@ -176,162 +198,343 @@ class _NovedadesScreenState extends State<NovedadesScreen> {
 //-----------------------------------------------------------------------------
 
   Widget _getListView() {
-    return Container(
-      height: 300,
-      child: ListView(
-        children: _novedades.map((e) {
-          return Card(
-            color: Colors.white,
-            //color: Color(0xFFC7C7C8),
-            shadowColor: Colors.white,
-            elevation: 10,
-            margin: EdgeInsets.fromLTRB(10, 0, 10, 10),
-            child: InkWell(
-              onTap: () {
-                // asignacionSelected = e;
-                // _goInfoAsignacion(e);
-              },
-              child: Container(
-                margin: EdgeInsets.all(0),
-                padding: EdgeInsets.all(5),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Container(
-                        margin: EdgeInsets.symmetric(horizontal: 10),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Expanded(
-                              child: Column(
-                                children: [
-                                  Row(
-                                    children: [
-                                      Text("Tipo Novedad: ",
+    return ListView(
+      children: _novedades.map((e) {
+        return Card(
+          color: Colors.white,
+          //color: Color(0xFFC7C7C8),
+          shadowColor: Colors.white,
+          elevation: 10,
+          margin: EdgeInsets.fromLTRB(10, 0, 10, 10),
+          child: InkWell(
+            onTap: () {
+              // asignacionSelected = e;
+              // _goInfoAsignacion(e);
+            },
+            child: Container(
+              margin: EdgeInsets.all(0),
+              padding: EdgeInsets.all(5),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Container(
+                      margin: EdgeInsets.symmetric(horizontal: 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Expanded(
+                            child: Column(
+                              children: [
+                                Row(
+                                  children: [
+                                    Container(
+                                      width: 100,
+                                      child: Text("Tipo Novedad: ",
                                           style: TextStyle(
                                             fontSize: 12,
                                             color: Color(0xFF0e4888),
                                             fontWeight: FontWeight.bold,
                                           )),
-                                      Expanded(
-                                        child: Text(e.tiponovedad.toString(),
-                                            style: TextStyle(
-                                              fontSize: 12,
-                                            )),
-                                      ),
-                                      Text("Vista RRHH: ",
+                                    ),
+                                    Expanded(
+                                      child: Text(e.tiponovedad.toString(),
+                                          style: TextStyle(
+                                            fontSize: 12,
+                                          )),
+                                    ),
+                                    Container(
+                                      width: 100,
+                                      child: Text("Vista RRHH: ",
                                           style: TextStyle(
                                             fontSize: 12,
                                             color: Color(0xFF0e4888),
                                             fontWeight: FontWeight.bold,
                                           )),
-                                      Checkbox(
-                                          value:
-                                              e.vistaRRHH == 1 ? true : false,
-                                          checkColor: Color(0xFF781f1e),
-                                          materialTapTargetSize:
-                                              MaterialTapTargetSize.padded,
-                                          onChanged: null),
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: 1,
-                                  ),
-                                  Row(
-                                    children: [
-                                      Text("Fecha Novedad: ",
+                                    ),
+                                    Checkbox(
+                                        value: e.vistaRRHH == 1 ? true : false,
+                                        checkColor: Color(0xFF781f1e),
+                                        materialTapTargetSize:
+                                            MaterialTapTargetSize.padded,
+                                        onChanged: null),
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 1,
+                                ),
+                                Row(
+                                  children: [
+                                    Container(
+                                      width: 100,
+                                      child: Text("Fecha Novedad: ",
                                           style: TextStyle(
                                             fontSize: 12,
                                             color: Color(0xFF0e4888),
                                             fontWeight: FontWeight.bold,
                                           )),
-                                      Expanded(
-                                        child: Text(
-                                            '${DateFormat('dd/MM/yyyy').format(DateTime.parse(e.fechanovedad.toString()))}',
-                                            style: TextStyle(
-                                              fontSize: 12,
-                                            )),
-                                      ),
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: 1,
-                                  ),
-                                  Row(
-                                    children: [
-                                      Text("Fecha Inicio: ",
+                                    ),
+                                    Expanded(
+                                      child: Text(
+                                          '${DateFormat('dd/MM/yyyy').format(DateTime.parse(e.fechanovedad.toString()))}',
+                                          style: TextStyle(
+                                            fontSize: 12,
+                                          )),
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 1,
+                                ),
+                                Row(
+                                  children: [
+                                    Container(
+                                      width: 100,
+                                      child: Text("Fecha Inicio: ",
                                           style: TextStyle(
                                             fontSize: 12,
                                             color: Color(0xFF0e4888),
                                             fontWeight: FontWeight.bold,
                                           )),
-                                      Expanded(
-                                        child: Text(
-                                            '${DateFormat('dd/MM/yyyy').format(DateTime.parse(e.fechainicio.toString()))}',
-                                            style: TextStyle(
-                                              fontSize: 12,
-                                            )),
-                                      ),
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: 1,
-                                  ),
-                                  Row(
-                                    children: [
-                                      Text("Fecha Fin: ",
+                                    ),
+                                    Expanded(
+                                      child: Text(
+                                          '${DateFormat('dd/MM/yyyy').format(DateTime.parse(e.fechainicio.toString()))}',
+                                          style: TextStyle(
+                                            fontSize: 12,
+                                          )),
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 1,
+                                ),
+                                Row(
+                                  children: [
+                                    Container(
+                                      width: 100,
+                                      child: Text("Fecha Fin: ",
                                           style: TextStyle(
                                             fontSize: 12,
                                             color: Color(0xFF0e4888),
                                             fontWeight: FontWeight.bold,
                                           )),
-                                      Expanded(
-                                        child: Text(
-                                            '${DateFormat('dd/MM/yyyy').format(DateTime.parse(e.fechafin.toString()))}',
-                                            style: TextStyle(
-                                              fontSize: 12,
-                                            )),
-                                      ),
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: 1,
-                                  ),
-                                  Row(
-                                    children: [
-                                      Text("Observaciones: ",
+                                    ),
+                                    Expanded(
+                                      child: Text(
+                                          '${DateFormat('dd/MM/yyyy').format(DateTime.parse(e.fechafin.toString()))}',
+                                          style: TextStyle(
+                                            fontSize: 12,
+                                          )),
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 1,
+                                ),
+                                Row(
+                                  children: [
+                                    Container(
+                                      width: 100,
+                                      child: Text("Observaciones: ",
                                           style: TextStyle(
                                             fontSize: 12,
                                             color: Color(0xFF0e4888),
                                             fontWeight: FontWeight.bold,
                                           )),
-                                      Expanded(
-                                        child: Text(
-                                          e.observaciones.toString(),
-                                          style: TextStyle(
-                                            fontSize: 12,
-                                          ),
+                                    ),
+                                    Expanded(
+                                      child: Text(
+                                        e.observaciones.toString(),
+                                        style: TextStyle(
+                                          fontSize: 12,
                                         ),
                                       ),
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: 1,
-                                  ),
-                                ],
-                              ),
+                                    ),
+                                  ],
+                                ),
+                                Divider(
+                                  height: 1,
+                                  color: Colors.black,
+                                ),
+                                Row(
+                                  children: [
+                                    Container(
+                                      width: 100,
+                                      child: Text("Estado: ",
+                                          style: TextStyle(
+                                            fontSize: 12,
+                                            color: Color(0xFF0e4888),
+                                            fontWeight: FontWeight.bold,
+                                          )),
+                                    ),
+                                    Expanded(
+                                      child: Text(
+                                        e.estado.toString(),
+                                        style: TextStyle(
+                                            fontSize: 12,
+                                            color: e.estado == "Rechazado"
+                                                ? Colors.red
+                                                : e.estado == "Aprobado"
+                                                    ? Colors.green
+                                                    : Colors.black,
+                                            fontWeight:
+                                                e.estado == "Rechazado" ||
+                                                        e.estado == "Aprobado"
+                                                    ? FontWeight.bold
+                                                    : FontWeight.normal),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 1,
+                                ),
+                                Row(
+                                  children: [
+                                    Container(
+                                      width: 100,
+                                      child: Text("Fecha RRHH: ",
+                                          style: TextStyle(
+                                            fontSize: 12,
+                                            color: Color(0xFF0e4888),
+                                            fontWeight: FontWeight.bold,
+                                          )),
+                                    ),
+                                    Expanded(
+                                      child: e.fechaEstado != null
+                                          ? Text(
+                                              '${DateFormat('dd/MM/yyyy').format(DateTime.parse(e.fechaEstado.toString()))}',
+                                              style: TextStyle(
+                                                fontSize: 12,
+                                                color: e.estado == "Rechazado"
+                                                    ? Colors.red
+                                                    : e.estado == "Aprobado"
+                                                        ? Colors.green
+                                                        : Colors.black,
+                                              ))
+                                          : Text(""),
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 1,
+                                ),
+                                Row(
+                                  children: [
+                                    Container(
+                                      width: 100,
+                                      child: Text("Obs RRHH: ",
+                                          style: TextStyle(
+                                            fontSize: 12,
+                                            color: Color(0xFF0e4888),
+                                            fontWeight: FontWeight.bold,
+                                          )),
+                                    ),
+                                    Expanded(
+                                      child: Text(
+                                        e.observacionEstado != null
+                                            ? e.observacionEstado.toString()
+                                            : "",
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                          color: e.estado == "Rechazado"
+                                              ? Colors.red
+                                              : e.estado == "Aprobado"
+                                                  ? Colors.green
+                                                  : Colors.black,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                Divider(
+                                  height: 1,
+                                  color: Colors.black,
+                                ),
+                                SizedBox(
+                                  height: 5,
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    e.confirmaLeido == 1
+                                        ? Container(
+                                            width: 84,
+                                            child: Text("Leído:",
+                                                style: TextStyle(
+                                                  fontSize: 12,
+                                                  color: Color(0xFF0e4888),
+                                                  fontWeight: FontWeight.bold,
+                                                )),
+                                          )
+                                        : Container(),
+                                    e.confirmaLeido == 1
+                                        ? Checkbox(
+                                            value: e.confirmaLeido == 1
+                                                ? true
+                                                : false,
+                                            checkColor: Color(0xFF781f1e),
+                                            materialTapTargetSize:
+                                                MaterialTapTargetSize.padded,
+                                            onChanged: null)
+                                        : Container(),
+                                    e.estado != "Pendiente" &&
+                                            e.confirmaLeido != 1
+                                        ? Container(
+                                            width: 100,
+                                            height: 40,
+                                            color: Colors.red,
+                                            child: Container(
+                                              alignment: Alignment.center,
+                                              width: double.infinity,
+                                              child: ElevatedButton(
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    Icon(Icons.done),
+                                                    SizedBox(
+                                                      width: 5,
+                                                    ),
+                                                    Text("Leído"),
+                                                  ],
+                                                ),
+                                                style: ElevatedButton.styleFrom(
+                                                  primary: Color(0xFF781f1e),
+                                                  minimumSize: Size(80, 40),
+                                                  shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            5),
+                                                  ),
+                                                ),
+                                                onPressed: () {
+                                                  _novedades.forEach((novedad) {
+                                                    if (novedad.idnovedad ==
+                                                        e.idnovedad) {
+                                                      _grabarNovedad(novedad);
+                                                    }
+                                                  });
+                                                },
+                                              ),
+                                            ),
+                                          )
+                                        : Container(),
+                                  ],
+                                ),
+                              ],
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
-          );
-        }).toList(),
-      ),
+          ),
+        );
+      }).toList(),
     );
   }
 
@@ -574,7 +777,7 @@ class _NovedadesScreenState extends State<NovedadesScreen> {
     }
 
     Response response2 = await ApiHelper.GetNovedades(
-        _causante.grupo, _causante.nroCausante.toString());
+        _causante.grupo, _causante.codigo.toString());
 
     if (!response2.isSuccess) {
       await showAlertDialog(
@@ -613,5 +816,70 @@ class _NovedadesScreenState extends State<NovedadesScreen> {
     if (result == 'yes') {
       _getNovedades();
     }
+  }
+
+//-----------------------------------------------------------------
+//--------------------- METODO _logOut ----------------------------
+//-----------------------------------------------------------------
+  void _logOut() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('isRemembered', false);
+    await prefs.setString('userBody', '');
+    await prefs.setString('date', '');
+    Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: (context) => LoginScreen()));
+  }
+
+//*****************************************************************************
+//************************** GRABAR NOVEDAD ***********************************
+//*****************************************************************************
+
+  void _grabarNovedad(Novedad novedad) async {
+    setState(() {
+      _showLoader = true;
+    });
+
+    var connectivityResult = await Connectivity().checkConnectivity();
+
+    if (connectivityResult == ConnectivityResult.none) {
+      setState(() {
+        _showLoader = false;
+      });
+      await showAlertDialog(
+          context: context,
+          title: 'Error',
+          message: 'Verifica que estés conectado a Internet',
+          actions: <AlertDialogAction>[
+            AlertDialogAction(key: null, label: 'Aceptar'),
+          ]);
+      return;
+    }
+
+    Map<String, dynamic> request = {
+      //'nroregistro': _ticket.nroregistro,
+      'iDNOVEDAD': novedad.idnovedad,
+    };
+
+    Response response = await ApiHelper.put(
+      '/api/CausantesNovedades/',
+      novedad.idnovedad.toString(),
+      request,
+    );
+
+    setState(() {
+      _showLoader = false;
+    });
+
+    if (!response.isSuccess) {
+      await showAlertDialog(
+          context: context,
+          title: 'Error',
+          message: response.message,
+          actions: <AlertDialogAction>[
+            AlertDialogAction(key: null, label: 'Aceptar'),
+          ]);
+      return;
+    }
+    Navigator.pop(context, 'yes');
   }
 }

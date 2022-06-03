@@ -143,14 +143,14 @@ class _HomeScreenState extends State<HomeScreen> {
                     menuitem: 'Seguridad e Higiene',
                     screen: SeguridadScreen())
                 : Container(),
-            widget.user.habilitaSSHH == 1
-                ? MenuTile(
-                    icon: Icons.newspaper,
-                    menuitem: 'Novedades',
-                    screen: NovedadesScreen(
-                      user: widget.user,
-                    ))
-                : Container(),
+            MenuTile(
+                icon: Icons.newspaper,
+                menuitem: widget.user.habilitaRRHH == 1
+                    ? 'Novedades'
+                    : 'Mis Novedades',
+                screen: NovedadesScreen(
+                  user: widget.user,
+                )),
             widget.user.habilitaSSHH == 1
                 ? MenuTile(
                     icon: Icons.format_list_bulleted,
@@ -159,7 +159,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       user: widget.user,
                     ))
                 : Container(),
-            widget.user.habilitaSSHH == 1
+            widget.user.habilitaFlotas.toLowerCase() != "no"
                 ? MenuTile(
                     icon: Icons.directions_car,
                     menuitem: 'Flotas',
