@@ -1,8 +1,12 @@
 import 'dart:convert';
+import 'package:adaptive_dialog/adaptive_dialog.dart';
+import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:rowing_app/helpers/api_helper.dart';
 import 'package:rowing_app/helpers/constants.dart';
 import 'package:rowing_app/components/loader_component.dart';
+import 'package:rowing_app/models/models.dart';
 import 'package:rowing_app/models/user.dart';
 import 'package:rowing_app/screens/home_screen.dart';
 import 'package:rowing_app/screens/novedades_screen.dart';
@@ -20,14 +24,16 @@ class _LoginScreenState extends State<LoginScreen> {
 //************************** DEFINICION DE VARIABLES **************************
 //*****************************************************************************
 
+  String _email = 'GPRIETO';
   //String _email = 'AVASILE';
-  String _email = '';
+  //String _email = '';
   //String _email = 'CHIDALGO';
   String _emailError = '';
   bool _emailShowError = false;
 
+  String _password = 'CELESTE';
   //String _password = 'AVA123';
-  String _password = '';
+  //String _password = '';
   //String _password = 'CHI123';
   String _passwordError = '';
   bool _passwordShowError = false;
@@ -268,6 +274,21 @@ class _LoginScreenState extends State<LoginScreen> {
     setState(() {
       _showLoader = true;
     });
+
+    var connectivityResult = await Connectivity().checkConnectivity();
+    if (connectivityResult == ConnectivityResult.none) {
+      setState(() {
+        _showLoader = false;
+      });
+      await showAlertDialog(
+          context: context,
+          title: 'Error',
+          message: 'Verifica que estes conectado a internet.',
+          actions: <AlertDialogAction>[
+            AlertDialogAction(key: null, label: 'Aceptar'),
+          ]);
+      return;
+    }
 
     Map<String, dynamic> request = {
       'Email': _email,

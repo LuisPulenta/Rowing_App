@@ -1,4 +1,7 @@
+import 'package:adaptive_dialog/adaptive_dialog.dart';
+import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
+import 'package:rowing_app/helpers/api_helper.dart';
 import 'package:rowing_app/models/models.dart';
 import 'package:rowing_app/screens/screens.dart';
 import 'package:rowing_app/widgets/widgets.dart';
@@ -14,6 +17,43 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+//*****************************************************************************
+//************************** DEFINICION DE VARIABLES **************************
+//*****************************************************************************
+
+  bool _showLoader = false;
+  List<Novedad> _novedadesAux = [];
+  List<Novedad> _novedades = [];
+  late Causante _causante;
+  String _codigo = '';
+
+//*****************************************************************************
+//************************** INITSTATE *****************************************
+//*****************************************************************************
+
+  void initState() {
+    super.initState();
+
+    _causante = new Causante(
+        nroCausante: 0,
+        codigo: '',
+        nombre: '',
+        encargado: '',
+        telefono: '',
+        grupo: '',
+        nroSAP: '',
+        estado: false);
+
+    if (widget.user.habilitaRRHH != 1) {
+      _codigo = widget.user.codigoCausante;
+      _getCausante();
+    }
+  }
+
+//*****************************************************************************
+//************************** PANTALLA *****************************************
+//*****************************************************************************
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -143,14 +183,33 @@ class _HomeScreenState extends State<HomeScreen> {
                     menuitem: 'Seguridad e Higiene',
                     screen: SeguridadScreen())
                 : Container(),
-            MenuTile(
-                icon: Icons.newspaper,
-                menuitem: widget.user.habilitaRRHH == 1
-                    ? 'Novedades'
-                    : 'Mis Novedades',
-                screen: NovedadesScreen(
-                  user: widget.user,
-                )),
+            Row(
+              children: [
+                Expanded(
+                  child: MenuTile(
+                      icon: Icons.newspaper,
+                      menuitem: widget.user.habilitaRRHH == 1
+                          ? 'Novedades'
+                          : 'Mis Novedades',
+                      screen: NovedadesScreen(
+                        user: widget.user,
+                      )),
+                ),
+                _novedades.length > 0
+                    ? Container(
+                        height: 30,
+                        width: 30,
+                        child: CircleAvatar(
+                          child: Text(_novedades.length.toString()),
+                          backgroundColor: Colors.red,
+                        ),
+                      )
+                    : Container(),
+                SizedBox(
+                  width: 10,
+                )
+              ],
+            ),
             widget.user.habilitaSSHH == 1
                 ? MenuTile(
                     icon: Icons.format_list_bulleted,
@@ -196,5 +255,106 @@ class _HomeScreenState extends State<HomeScreen> {
     await prefs.setString('date', '');
     Navigator.pushReplacement(
         context, MaterialPageRoute(builder: (context) => LoginScreen()));
+  }
+
+//-----------------------------------------------------------------
+//--------------------- METODO GETCAUSANTE ---------------------------
+//-----------------------------------------------------------------
+
+  Future<Null> _getCausante() async {
+    setState(() {
+      _showLoader = true;
+    });
+
+    var connectivityResult = await Connectivity().checkConnectivity();
+    if (connectivityResult == ConnectivityResult.none) {
+      setState(() {
+        _showLoader = false;
+      });
+      await showAlertDialog(
+          context: context,
+          title: 'Error',
+          message: 'Verifica que estes conectado a internet.',
+          actions: <AlertDialogAction>[
+            AlertDialogAction(key: null, label: 'Aceptar'),
+          ]);
+      return;
+    }
+
+    Response response = await ApiHelper.getCausante(_codigo);
+
+    if (!response.isSuccess) {
+      await showAlertDialog(
+          context: context,
+          title: 'Error',
+          message: "Legajo o Documento no válido",
+          actions: <AlertDialogAction>[
+            AlertDialogAction(key: null, label: 'Aceptar'),
+          ]);
+
+      setState(() {
+        _showLoader = false;
+      });
+      return;
+    }
+
+    setState(() {
+      _showLoader = false;
+      _causante = response.result;
+    });
+
+    await _getNovedades();
+  }
+
+//-----------------------------------------------------------------
+//--------------------- METODO GETNOVEDADES -----------------------
+//-----------------------------------------------------------------
+
+  Future<Null> _getNovedades() async {
+    setState(() {
+      _showLoader = true;
+    });
+
+    var connectivityResult = await Connectivity().checkConnectivity();
+    if (connectivityResult == ConnectivityResult.none) {
+      setState(() {
+        _showLoader = false;
+      });
+      await showAlertDialog(
+          context: context,
+          title: 'Error',
+          message: 'Verifica que estes conectado a internet.',
+          actions: <AlertDialogAction>[
+            AlertDialogAction(key: null, label: 'Aceptar'),
+          ]);
+      return;
+    }
+
+    Response response2 = await ApiHelper.GetNovedades(
+        _causante.grupo, _causante.codigo.toString());
+
+    if (!response2.isSuccess) {
+      await showAlertDialog(
+          context: context,
+          title: 'Error',
+          message: "Legajo o Documento no válido",
+          actions: <AlertDialogAction>[
+            AlertDialogAction(key: null, label: 'Aceptar'),
+          ]);
+
+      setState(() {
+        _showLoader = false;
+      });
+      return;
+    }
+
+    _novedadesAux = response2.result;
+    _novedadesAux.forEach((novedad) {
+      if (novedad.estado != "Pendiente" && novedad.confirmaLeido != 1) {
+        _novedades.add(novedad);
+        ;
+      }
+    });
+    setState(() {});
   }
 }

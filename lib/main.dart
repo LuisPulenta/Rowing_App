@@ -57,7 +57,9 @@ class _MyAppState extends State<MyApp> {
           : _showLoginPage
               ? LoginScreen()
               : _user.codigoCausante != _user.login
-                  ? HomeScreen(user: _user)
+                  ? HomeScreen(
+                      user: _user,
+                    )
                   : NovedadesScreen(user: _user),
     );
   }

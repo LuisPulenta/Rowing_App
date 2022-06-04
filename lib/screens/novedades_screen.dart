@@ -5,7 +5,6 @@ import 'package:intl/intl.dart';
 import 'package:rowing_app/components/loader_component.dart';
 import 'package:rowing_app/helpers/api_helper.dart';
 import 'package:rowing_app/models/models.dart';
-import 'package:rowing_app/models/novedad.dart';
 import 'package:rowing_app/screens/screens.dart';
 import 'package:rowing_app/widgets/widgets.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -30,6 +29,7 @@ class _NovedadesScreenState extends State<NovedadesScreen> {
 
   late Causante _causante;
   List<Novedad> _novedades = [];
+  List<Novedad> _novedadesSinLeer = [];
 
 //*****************************************************************************
 //************************** INITSTATE *****************************************
@@ -799,6 +799,13 @@ class _NovedadesScreenState extends State<NovedadesScreen> {
       _novedades = response2.result;
       _enabled = true;
     });
+
+    _novedades.forEach((novedad) {
+      if (novedad.estado != "Pendiente" && novedad.confirmaLeido != 1) {
+        _novedadesSinLeer.add(novedad);
+        ;
+      }
+    });
   }
 
 //-----------------------------------------------------------------
@@ -806,6 +813,18 @@ class _NovedadesScreenState extends State<NovedadesScreen> {
 //-----------------------------------------------------------------
 
   void _addNovedad() async {
+    if (_novedadesSinLeer.length > 0) {
+      await showAlertDialog(
+          context: context,
+          title: 'Error',
+          message:
+              "No puede agregar nuevas novedades si tiene novedades aprobadas / rechazadas sin leer.",
+          actions: <AlertDialogAction>[
+            AlertDialogAction(key: null, label: 'Aceptar'),
+          ]);
+      return;
+    }
+
     String? result = await Navigator.push(
         context,
         MaterialPageRoute(
