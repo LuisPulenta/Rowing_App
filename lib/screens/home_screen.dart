@@ -186,14 +186,31 @@ class _HomeScreenState extends State<HomeScreen> {
             Row(
               children: [
                 Expanded(
-                  child: MenuTile(
-                      icon: Icons.newspaper,
-                      menuitem: widget.user.habilitaRRHH == 1
-                          ? 'Novedades'
-                          : 'Mis Novedades',
-                      screen: NovedadesScreen(
-                        user: widget.user,
-                      )),
+                  child: ListTile(
+                    leading: Icon(
+                      Icons.newspaper,
+                      color: Colors.white,
+                    ),
+                    tileColor: Color(0xff8c8c94),
+                    title: Text(
+                        widget.user.habilitaRRHH == 1
+                            ? 'Novedades'
+                            : 'Mis Novedades',
+                        style: TextStyle(fontSize: 15, color: Colors.white)),
+                    onTap: () async {
+                      String? result = await Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => NovedadesScreen(
+                            user: widget.user,
+                          ),
+                        ),
+                      );
+                      if (result != 'zzz') {
+                        _getCausante();
+                      }
+                    },
+                  ),
                 ),
                 _novedades.length > 0
                     ? Container(
@@ -348,6 +365,7 @@ class _HomeScreenState extends State<HomeScreen> {
       return;
     }
 
+    _novedades = [];
     _novedadesAux = response2.result;
     _novedadesAux.forEach((novedad) {
       if (novedad.estado != "Pendiente" && novedad.confirmaLeido != 1) {
