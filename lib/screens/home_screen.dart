@@ -235,14 +235,48 @@ class _HomeScreenState extends State<HomeScreen> {
                       user: widget.user,
                     ))
                 : Container(),
+            // widget.user.habilitaFlotas.toLowerCase() != "no"
+            //     ? MenuTile(
+            //         icon: Icons.directions_car,
+            //         menuitem: 'Flotas',
+            //         screen: FlotaScreen(
+            //           user: widget.user,
+            //         ))
+            //     : Container(),
+
             widget.user.habilitaFlotas.toLowerCase() != "no"
-                ? MenuTile(
-                    icon: Icons.directions_car,
-                    menuitem: 'Flotas',
-                    screen: FlotaScreen(
-                      user: widget.user,
-                    ))
+                ? Row(
+                    children: [
+                      Expanded(
+                        child: ListTile(
+                          leading: Icon(
+                            Icons.directions_car,
+                            color: Colors.white,
+                          ),
+                          tileColor: Color(0xff8c8c94),
+                          title: Text(
+                              widget.user.habilitaFlotas.toLowerCase() ==
+                                      "admin"
+                                  ? 'Flotas'
+                                  : 'Mis Vehículos',
+                              style:
+                                  TextStyle(fontSize: 15, color: Colors.white)),
+                          onTap: () async {
+                            String? result = await Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => FlotaScreen(
+                                  user: widget.user,
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    ],
+                  )
                 : Container(),
+
             Divider(
               color: Colors.white,
               height: 1,

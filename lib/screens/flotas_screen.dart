@@ -272,7 +272,7 @@ class _FlotaScreenState extends State<FlotaScreen> {
             ),
             CustomRow(
               icon: Icons.date_range,
-              nombredato: 'Vencim. VTV:',
+              nombredato: 'Venc. VTV:',
               dato: _vehiculo.fechaVencITV != 0
                   ? _Dato(
                       '${DateFormat('dd/MM/yyyy').format(DateTime(2022, 01, 01).add(Duration(days: (_vehiculo.fechaVencITV! - 80723))))}')
@@ -283,6 +283,23 @@ class _FlotaScreenState extends State<FlotaScreen> {
                                   days: (_vehiculo.fechaVencITV! - 80723)))
                               .difference(DateTime.now()) >=
                           Duration(days: 50)
+                      ? false
+                      : true
+                  : false,
+            ),
+            CustomRow(
+              icon: Icons.date_range,
+              nombredato: 'Venc. Oblea Gas:',
+              dato: _vehiculo.fechaVencObleaGAS != 0
+                  ? _Dato(
+                      '${DateFormat('dd/MM/yyyy').format(DateTime(2022, 01, 01).add(Duration(days: (_vehiculo.fechaVencObleaGAS! - 80723))))}')
+                  : '',
+              alert: _vehiculo.fechaVencObleaGAS != 0
+                  ? DateTime(2022, 01, 01)
+                              .add(Duration(
+                                  days: (_vehiculo.fechaVencObleaGAS! - 80723)))
+                              .difference(DateTime.now()) >=
+                          Duration(days: 30)
                       ? false
                       : true
                   : false,
@@ -322,23 +339,6 @@ class _FlotaScreenState extends State<FlotaScreen> {
               dato: _vehiculo.numcha != ''
                   ? (_vehiculo.habilitado == 1 ? 'Si' : 'No')
                   : '',
-            ),
-            CustomRow(
-              icon: Icons.date_range,
-              nombredato: 'Oblea Gas:',
-              dato: _vehiculo.fechaVencObleaGAS != 0
-                  ? _Dato(
-                      '${DateFormat('dd/MM/yyyy').format(DateTime(2022, 01, 01).add(Duration(days: (_vehiculo.fechaVencObleaGAS! - 80723))))}')
-                  : '',
-              alert: _vehiculo.fechaVencObleaGAS != 0
-                  ? DateTime(2022, 01, 01)
-                              .add(Duration(
-                                  days: (_vehiculo.fechaVencObleaGAS! - 80723)))
-                              .difference(DateTime.now()) >=
-                          Duration(days: 30)
-                      ? false
-                      : true
-                  : false,
             ),
             CustomRow(
               icon: Icons.code,
