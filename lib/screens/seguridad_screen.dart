@@ -5,6 +5,7 @@ import 'package:rowing_app/components/loader_component.dart';
 import 'package:rowing_app/helpers/api_helper.dart';
 import 'package:rowing_app/models/causante.dart';
 import 'package:rowing_app/models/response.dart';
+import 'package:rowing_app/screens/causante_datos_screen.dart';
 import 'package:rowing_app/screens/entregas_screen.dart';
 import 'package:rowing_app/widgets/widgets.dart';
 
@@ -16,12 +17,20 @@ class SeguridadScreen extends StatefulWidget {
 }
 
 class _SeguridadScreenState extends State<SeguridadScreen> {
+//*****************************************************************************
+//************************** DEFINICION DE VARIABLES **************************
+//*****************************************************************************
+
   String _codigo = '';
   String _codigoError = '';
   bool _codigoShowError = false;
   bool _enabled = false;
   bool _showLoader = false;
   late Causante _causante;
+
+//*****************************************************************************
+//************************** INIT STATE ***************************************
+//*****************************************************************************
 
   void initState() {
     super.initState();
@@ -35,6 +44,10 @@ class _SeguridadScreenState extends State<SeguridadScreen> {
         nroSAP: '',
         estado: false);
   }
+
+//*****************************************************************************
+//************************** PANTALLA *****************************************
+//*****************************************************************************
 
   @override
   Widget build(BuildContext context) {
@@ -97,6 +110,10 @@ class _SeguridadScreenState extends State<SeguridadScreen> {
         ));
   }
 
+//-----------------------------------------------------------------------------
+//--------------------------- SHOWLOGO ----------------------------------------
+//-----------------------------------------------------------------------------
+
   Widget _showLogo() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -120,6 +137,9 @@ class _SeguridadScreenState extends State<SeguridadScreen> {
     );
   }
 
+//-----------------------------------------------------------------------------
+//--------------------------- SHOWLEGAJO --------------------------------------
+//-----------------------------------------------------------------------------
   Widget _showLegajo() {
     return Container(
       padding: EdgeInsets.all(10),
@@ -148,6 +168,9 @@ class _SeguridadScreenState extends State<SeguridadScreen> {
     );
   }
 
+//-----------------------------------------------------------------------------
+//--------------------------- SHOWBUTTON --------------------------------------
+//-----------------------------------------------------------------------------
   Widget _showButton() {
     return Container(
       margin: EdgeInsets.only(left: 20, right: 20),
@@ -180,6 +203,10 @@ class _SeguridadScreenState extends State<SeguridadScreen> {
       ),
     );
   }
+
+//-----------------------------------------------------------------------------
+//--------------------------- SHOWINFO ----------------------------------------
+//-----------------------------------------------------------------------------
 
   Widget _showInfo() {
     return Card(
@@ -223,60 +250,127 @@ class _SeguridadScreenState extends State<SeguridadScreen> {
     );
   }
 
+//-----------------------------------------------------------------------------
+//--------------------------- SHOWBUTTONS LOGO --------------------------------
+//-----------------------------------------------------------------------------
+
   Widget _showButtons() {
-    return Container(
-      margin: EdgeInsets.only(left: 10, right: 10),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: <Widget>[
-          Expanded(
-            child: ElevatedButton(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Icon(Icons.checkroom),
-                  SizedBox(
-                    width: 5,
+    return Column(
+      children: [
+        Container(
+          margin: EdgeInsets.only(left: 10, right: 10),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: <Widget>[
+              Expanded(
+                child: ElevatedButton(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Icon(Icons.checkroom),
+                      SizedBox(
+                        width: 5,
+                      ),
+                      Text('Entregas por ítem'),
+                    ],
                   ),
-                  Text('Entregas por ítem'),
-                ],
-              ),
-              style: ElevatedButton.styleFrom(
-                primary: Color(0xFF120E43),
-                minimumSize: Size(double.infinity, 50),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(5),
+                  style: ElevatedButton.styleFrom(
+                    primary: Color(0xFF120E43),
+                    minimumSize: Size(double.infinity, 50),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                  ),
+                  onPressed: _enabled ? _entregas : null,
                 ),
               ),
-              onPressed: _enabled ? _entregas : null,
-            ),
-          ),
-          SizedBox(
-            width: 20,
-          ),
-          Expanded(
-            child: ElevatedButton(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Icon(Icons.list),
-                  Text('Informes'),
-                ],
+              SizedBox(
+                width: 20,
               ),
-              style: ElevatedButton.styleFrom(
-                primary: Color(0xFFB4161B),
-                minimumSize: Size(double.infinity, 50),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(5),
+              Expanded(
+                child: ElevatedButton(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Icon(Icons.list),
+                      Text('Informes'),
+                    ],
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    primary: Color(0xFFB4161B),
+                    minimumSize: Size(double.infinity, 50),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                  ),
+                  onPressed: _enabled ? _informes : null,
                 ),
               ),
-              onPressed: _enabled ? _informes : null,
-            ),
+            ],
           ),
-        ],
-      ),
+        ),
+        SizedBox(
+          height: 10,
+        ),
+        Container(
+          margin: EdgeInsets.only(left: 10, right: 10),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: <Widget>[
+              Expanded(
+                child: ElevatedButton(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Icon(Icons.person),
+                      SizedBox(
+                        width: 5,
+                      ),
+                      Text('Actualizar Datos'),
+                    ],
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    primary: Color.fromARGB(255, 180, 38, 236),
+                    minimumSize: Size(double.infinity, 50),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                  ),
+                  onPressed: _enabled ? _causanteDatos : null,
+                ),
+              ),
+              SizedBox(
+                width: 20,
+              ),
+              Expanded(
+                child: ElevatedButton(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Icon(Icons.image),
+                      Text('Foto'),
+                    ],
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    primary: Color.fromARGB(255, 235, 58, 27),
+                    minimumSize: Size(double.infinity, 50),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                  ),
+                  onPressed: _enabled ? _informes : null,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
+
+//-----------------------------------------------------------------------------
+//--------------------------- SHOWSEARCH --------------------------------------
+//-----------------------------------------------------------------------------
 
   _search() async {
     FocusScope.of(context).unfocus();
@@ -293,6 +387,10 @@ class _SeguridadScreenState extends State<SeguridadScreen> {
     await _getCausante();
   }
 
+//-----------------------------------------------------------------------------
+//--------------------------- ENTREGAS ----------------------------------------
+//-----------------------------------------------------------------------------
+
   void _entregas() async {
     await Navigator.push(
         context,
@@ -300,7 +398,31 @@ class _SeguridadScreenState extends State<SeguridadScreen> {
             builder: (context) => EntregasScreen(codigo: _causante.codigo)));
   }
 
+//-----------------------------------------------------------------------------
+//--------------------------- CAUSANTEDATOS -----------------------------------
+//-----------------------------------------------------------------------------
+
+  void _causanteDatos() async {
+    String? response = await Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => CausanteDatosScreen(causante: _causante)));
+
+    if (response == 'yes') {
+      _getCausante();
+      setState(() {});
+    }
+  }
+
+//-----------------------------------------------------------------------------
+//--------------------------- INFORMES ----------------------------------------
+//-----------------------------------------------------------------------------
+
   _informes() {}
+
+//-----------------------------------------------------------------------------
+//--------------------------- GETCAUSANTE -------------------------------------
+//-----------------------------------------------------------------------------
 
   Future<Null> _getCausante() async {
     setState(() {

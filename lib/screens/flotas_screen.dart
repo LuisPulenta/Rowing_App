@@ -27,6 +27,7 @@ class _FlotaScreenState extends State<FlotaScreen> {
   bool _enabled = false;
   bool _showLoader = false;
   late Vehiculo _vehiculo;
+  late VFlota _vFlota;
   TextEditingController _codigoController = TextEditingController();
 
   String kmFechaAnterior = '';
@@ -431,7 +432,12 @@ class _FlotaScreenState extends State<FlotaScreen> {
           ]);
       return;
     }
-    await _getVehiculo();
+
+    if (widget.user.habilitaFlotas == "SI") {
+      await _getUsuarioChapa();
+    } else {
+      await _getVehiculo();
+    }
   }
 
 //*****************************************************************************
@@ -624,6 +630,68 @@ class _FlotaScreenState extends State<FlotaScreen> {
         ? _kilometrajes[_kilometrajes.length - 1].kilfin!
         : _vehiculo.kmhsactual)!;
     var a = 1;
+  }
+
+//*****************************************************************************
+//************************** METODO GETUSUARIOCHAPA ***************************
+//*****************************************************************************
+
+  Future<Null> _getUsuarioChapa() async {
+    setState(() {
+      _showLoader = true;
+    });
+
+    var connectivityResult = await Connectivity().checkConnectivity();
+    if (connectivityResult == ConnectivityResult.none) {
+      setState(() {
+        _showLoader = false;
+      });
+      await showAlertDialog(
+          context: context,
+          title: 'Error',
+          message: 'Verifica que estes conectado a internet.',
+          actions: <AlertDialogAction>[
+            AlertDialogAction(key: null, label: 'Aceptar'),
+          ]);
+      return;
+    }
+
+    Response response = await ApiHelper.getUsuarioChapa(_codigo);
+
+    if (!response.isSuccess) {
+      await showAlertDialog(
+          context: context,
+          title: 'Error',
+          message: "Patente no válida",
+          actions: <AlertDialogAction>[
+            AlertDialogAction(key: null, label: 'Aceptar'),
+          ]);
+
+      setState(() {
+        _showLoader = false;
+        _enabled = false;
+      });
+      return;
+    }
+    setState(() {
+      _showLoader = false;
+      _vFlota = response.result;
+      _enabled = true;
+    });
+
+    if (_vFlota.grupoV == widget.user.codigogrupo &&
+        _vFlota.causanteV == widget.user.codigoCausante) {
+      _getVehiculo();
+    } else {
+      await showAlertDialog(
+          context: context,
+          title: 'Error',
+          message: "Esta patente no está asignada a su Usuario",
+          actions: <AlertDialogAction>[
+            AlertDialogAction(key: null, label: 'Aceptar'),
+          ]);
+    }
+    setState(() {});
   }
 
 //*****************************************************************************

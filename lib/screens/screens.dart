@@ -1,3 +1,4 @@
+export 'package:rowing_app/screens/causante_datos_screen.dart';
 export 'package:rowing_app/screens/display_picture_screen.dart';
 export 'package:rowing_app/screens/display_picture2_screen.dart';
 export 'package:rowing_app/screens/display_picture3_screen.dart';

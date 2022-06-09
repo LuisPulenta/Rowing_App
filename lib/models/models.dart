@@ -22,3 +22,4 @@ export 'package:rowing_app/models/vehiculoskilometraje.dart';
 export 'package:rowing_app/models/vehiculosprogramaprev.dart';
 export 'package:rowing_app/models/vista_inspeccion.dart';
 export 'package:rowing_app/models/novedad.dart';
+export 'package:rowing_app/models/vflota.dart';

@@ -459,8 +459,8 @@ class _NovedadesScreenState extends State<NovedadesScreen> {
                                   children: [
                                     e.confirmaLeido == 1
                                         ? Container(
-                                            width: 84,
-                                            child: Text("Leído:",
+                                            width: 110,
+                                            child: Text("Leído/Notificado:",
                                                 style: TextStyle(
                                                   fontSize: 12,
                                                   color: Color(0xFF0e4888),
@@ -481,7 +481,7 @@ class _NovedadesScreenState extends State<NovedadesScreen> {
                                     e.estado != "Pendiente" &&
                                             e.confirmaLeido != 1
                                         ? Container(
-                                            width: 100,
+                                            width: 200,
                                             height: 40,
                                             color: Colors.red,
                                             child: Container(
@@ -496,7 +496,7 @@ class _NovedadesScreenState extends State<NovedadesScreen> {
                                                     SizedBox(
                                                       width: 5,
                                                     ),
-                                                    Text("Leído"),
+                                                    Text("Leído/Notificado"),
                                                   ],
                                                 ),
                                                 style: ElevatedButton.styleFrom(
@@ -509,12 +509,62 @@ class _NovedadesScreenState extends State<NovedadesScreen> {
                                                   ),
                                                 ),
                                                 onPressed: () {
-                                                  _novedades.forEach((novedad) {
-                                                    if (novedad.idnovedad ==
-                                                        e.idnovedad) {
-                                                      _grabarNovedad(novedad);
-                                                    }
-                                                  });
+                                                  showDialog(
+                                                      barrierDismissible: false,
+                                                      context: context,
+                                                      builder: (context) {
+                                                        return AlertDialog(
+                                                          title: const Text(
+                                                              "Atencion!!"),
+                                                          elevation: 5,
+                                                          shape: RoundedRectangleBorder(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          15)),
+                                                          content: Column(
+                                                            mainAxisSize:
+                                                                MainAxisSize
+                                                                    .min,
+                                                            children: const [
+                                                              Text(
+                                                                  "¿Confirma Ud. que marca la Novedad como Leida/Notificada?"),
+                                                              Text(
+                                                                  "Esto no es posible deshacer",
+                                                                  style: TextStyle(
+                                                                      color: Colors
+                                                                          .red,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold)),
+                                                            ],
+                                                          ),
+                                                          actions: [
+                                                            TextButton(
+                                                              onPressed: () {
+                                                                _novedades.forEach(
+                                                                    (novedad) {
+                                                                  if (novedad
+                                                                          .idnovedad ==
+                                                                      e.idnovedad) {
+                                                                    _grabarNovedad(
+                                                                        novedad);
+                                                                  }
+                                                                });
+                                                              },
+                                                              child: const Text(
+                                                                  "SI"),
+                                                            ),
+                                                            TextButton(
+                                                              onPressed: () =>
+                                                                  Navigator.pop(
+                                                                      context),
+                                                              child: const Text(
+                                                                  "NO"),
+                                                            ),
+                                                          ],
+                                                        );
+                                                      });
                                                 },
                                               ),
                                             ),
