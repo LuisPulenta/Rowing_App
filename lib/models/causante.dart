@@ -1,3 +1,5 @@
+import 'package:camera/camera.dart';
+
 class Causante {
   int nroCausante = 0;
   String codigo = '';
@@ -10,6 +12,7 @@ class Causante {
   String razonSocial = '';
   String? linkFoto = '';
   String? imageFullPath = '';
+  XFile? image;
 
   Causante(
       {required this.nroCausante,
@@ -22,7 +25,8 @@ class Causante {
       required this.estado,
       required this.razonSocial,
       required this.linkFoto,
-      required this.imageFullPath});
+      required this.imageFullPath,
+      required this.image});
 
   Causante.fromJson(Map<String, dynamic> json) {
     nroCausante = json['nroCausante'];
@@ -36,6 +40,7 @@ class Causante {
     razonSocial = json['razonSocial'];
     linkFoto = json['linkFoto'];
     imageFullPath = json['imageFullPath'];
+    image = json['image'];
   }
 
   Map<String, dynamic> toJson() {
@@ -51,6 +56,7 @@ class Causante {
     data['razonSocial'] = this.razonSocial;
     data['linkFoto'] = this.linkFoto;
     data['imageFullPath'] = this.imageFullPath;
+    data['image'] = this.image;
     return data;
   }
 }

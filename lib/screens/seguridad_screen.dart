@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:adaptive_dialog/adaptive_dialog.dart';
+import 'package:camera/camera.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:rowing_app/components/loader_component.dart';
@@ -8,6 +11,8 @@ import 'package:rowing_app/models/response.dart';
 import 'package:rowing_app/screens/causante_datos_screen.dart';
 import 'package:rowing_app/screens/entregas_screen.dart';
 import 'package:rowing_app/widgets/widgets.dart';
+
+import 'take_pictureD.dart';
 
 class SeguridadScreen extends StatefulWidget {
   const SeguridadScreen({Key? key}) : super(key: key);
@@ -27,6 +32,8 @@ class _SeguridadScreenState extends State<SeguridadScreen> {
   bool _enabled = false;
   bool _showLoader = false;
   late Causante _causante;
+  late XFile _image;
+  bool _photoChanged = false;
 
 //*****************************************************************************
 //************************** INIT STATE ***************************************
@@ -46,7 +53,8 @@ class _SeguridadScreenState extends State<SeguridadScreen> {
         razonSocial: '',
         linkFoto: '',
         imageFullPath:
-            'http://190.111.249.225/RowingAppApi/images/Causantes/nouser.png');
+            'http://190.111.249.225/RowingAppApi/images/Causantes/nouser.png',
+        image: null);
   }
 
 //*****************************************************************************
@@ -376,7 +384,7 @@ class _SeguridadScreenState extends State<SeguridadScreen> {
                       borderRadius: BorderRadius.circular(5),
                     ),
                   ),
-                  onPressed: _enabled ? _informes : null,
+                  onPressed: _enabled ? _takePicture : null,
                 ),
               ),
             ],
@@ -484,5 +492,109 @@ class _SeguridadScreenState extends State<SeguridadScreen> {
       _causante = response.result;
       _enabled = true;
     });
+  }
+
+//-----------------------------------------------------------------------------
+//--------------------------- _takePicture ------------------------------------
+//-----------------------------------------------------------------------------
+
+  void _takePicture() async {
+    WidgetsFlutterBinding.ensureInitialized();
+    final cameras = await availableCameras();
+    var firstCamera = cameras.first;
+    var response1 = await showAlertDialog(
+        context: context,
+        title: 'Seleccionar cámara',
+        message: '¿Qué cámara desea utilizar?',
+        actions: <AlertDialogAction>[
+          AlertDialogAction(key: 'no', label: 'Trasera'),
+          AlertDialogAction(key: 'yes', label: 'Delantera'),
+          AlertDialogAction(key: 'cancel', label: 'Cancelar'),
+        ]);
+    if (response1 == 'yes') {
+      firstCamera = cameras.first;
+    }
+    if (response1 == 'no') {
+      firstCamera = cameras.last;
+    }
+
+    if (response1 != 'cancel') {
+      String? response = await Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => TakePictureDScreen(
+                    camera: firstCamera,
+                    causante: _causante,
+                  )));
+      if (response == 'yes') {
+        _getCausante();
+        setState(() {});
+      }
+    }
+  }
+
+  //*****************************************************************************
+//************************** _saveRecord ***********************************
+//*****************************************************************************
+
+  _saveRecord() async {
+    setState(() {
+      _showLoader = true;
+    });
+
+    String base64image = '';
+    if (_photoChanged) {
+      List<int> imageBytes = await _image.readAsBytes();
+      base64image = base64Encode(imageBytes);
+    }
+
+    var connectivityResult = await Connectivity().checkConnectivity();
+
+    if (connectivityResult == ConnectivityResult.none) {
+      setState(() {
+        _showLoader = false;
+      });
+      await showAlertDialog(
+          context: context,
+          title: 'Error',
+          message: 'Verifica que estés conectado a Internet',
+          actions: <AlertDialogAction>[
+            AlertDialogAction(key: null, label: 'Aceptar'),
+          ]);
+      return;
+    }
+
+    Map<String, dynamic> request = {
+      'id': _causante.nroCausante,
+      'telefono': _causante.telefono,
+      'image': base64image,
+    };
+
+    Response response = await ApiHelper.put(
+        '/api/Causantes/', _causante.nroCausante.toString(), request);
+
+    setState(() {
+      _showLoader = false;
+    });
+
+    if (!response.isSuccess) {
+      await showAlertDialog(
+          context: context,
+          title: 'Error',
+          message: response.message,
+          actions: <AlertDialogAction>[
+            AlertDialogAction(key: null, label: 'Aceptar'),
+          ]);
+      return;
+    } else {
+      await showAlertDialog(
+          context: context,
+          title: 'Aviso',
+          message: 'Guardado con éxito!',
+          actions: <AlertDialogAction>[
+            AlertDialogAction(key: null, label: 'Aceptar'),
+          ]);
+      Navigator.pop(context, 'yes');
+    }
   }
 }

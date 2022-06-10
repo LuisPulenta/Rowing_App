@@ -112,7 +112,8 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
         estado: false,
         razonSocial: '',
         linkFoto: '',
-        imageFullPath: '');
+        imageFullPath: '',
+        image: null);
     _getPosition();
     _loadData();
   }

@@ -99,7 +99,8 @@ class _InspeccionDuplicarScreenState extends State<InspeccionDuplicarScreen> {
         estado: false,
         razonSocial: '',
         linkFoto: '',
-        imageFullPath: '');
+        imageFullPath: '',
+        image: null);
     _getPosition();
     _getInspeccion();
   }

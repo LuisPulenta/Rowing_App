@@ -45,6 +45,7 @@ class _HomeScreenState extends State<HomeScreen> {
         estado: false,
         razonSocial: '',
         linkFoto: '',
+        image: null,
         imageFullPath: '');
 
     if (widget.user.habilitaRRHH != 1) {
