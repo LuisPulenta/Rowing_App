@@ -45,7 +45,10 @@ class _NovedadesScreenState extends State<NovedadesScreen> {
         telefono: '',
         grupo: '',
         nroSAP: '',
-        estado: false);
+        estado: false,
+        razonSocial: '',
+        linkFoto: '',
+        imageFullPath: '');
 
     if (widget.user.habilitaRRHH != 1) {
       _codigo = widget.user.codigoCausante;

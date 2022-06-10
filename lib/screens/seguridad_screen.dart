@@ -42,7 +42,11 @@ class _SeguridadScreenState extends State<SeguridadScreen> {
         telefono: '',
         grupo: '',
         nroSAP: '',
-        estado: false);
+        estado: false,
+        razonSocial: '',
+        linkFoto: '',
+        imageFullPath:
+            'http://190.111.249.225/RowingAppApi/images/Causantes/nouser.png');
   }
 
 //*****************************************************************************
@@ -77,14 +81,28 @@ class _SeguridadScreenState extends State<SeguridadScreen> {
                     child: Padding(
                       padding:
                           EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          _showLegajo(),
-                          _showButton(),
-                          SizedBox(
-                            height: 10,
+                      child: Row(
+                        children: [
+                          Expanded(
+                            flex: 2,
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                _showLegajo(),
+                                _showButton(),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                              ],
+                            ),
+                          ),
+                          Expanded(
+                            flex: 1,
+                            child: FadeInImage(
+                              placeholder: AssetImage('assets/loading.gif'),
+                              image: NetworkImage(_causante.imageFullPath!),
+                            ),
                           ),
                         ],
                       ),

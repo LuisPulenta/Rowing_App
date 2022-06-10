@@ -7,6 +7,9 @@ class Causante {
   String grupo = '';
   String nroSAP = '';
   bool estado = false;
+  String razonSocial = '';
+  String? linkFoto = '';
+  String? imageFullPath = '';
 
   Causante(
       {required this.nroCausante,
@@ -16,7 +19,10 @@ class Causante {
       required this.telefono,
       required this.grupo,
       required this.nroSAP, //DNI
-      required this.estado});
+      required this.estado,
+      required this.razonSocial,
+      required this.linkFoto,
+      required this.imageFullPath});
 
   Causante.fromJson(Map<String, dynamic> json) {
     nroCausante = json['nroCausante'];
@@ -27,6 +33,9 @@ class Causante {
     grupo = json['grupo'];
     nroSAP = json['nroSAP'];
     estado = json['estado'];
+    razonSocial = json['razonSocial'];
+    linkFoto = json['linkFoto'];
+    imageFullPath = json['imageFullPath'];
   }
 
   Map<String, dynamic> toJson() {
@@ -39,6 +48,9 @@ class Causante {
     data['grupo'] = this.grupo;
     data['nroSAP'] = this.nroSAP;
     data['estado'] = this.estado;
+    data['razonSocial'] = this.razonSocial;
+    data['linkFoto'] = this.linkFoto;
+    data['imageFullPath'] = this.imageFullPath;
     return data;
   }
 }

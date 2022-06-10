@@ -96,7 +96,10 @@ class _InspeccionDuplicarScreenState extends State<InspeccionDuplicarScreen> {
         telefono: '',
         grupo: '',
         nroSAP: '',
-        estado: false);
+        estado: false,
+        razonSocial: '',
+        linkFoto: '',
+        imageFullPath: '');
     _getPosition();
     _getInspeccion();
   }

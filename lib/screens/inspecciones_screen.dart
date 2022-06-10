@@ -109,7 +109,10 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
         telefono: '',
         grupo: '',
         nroSAP: '',
-        estado: false);
+        estado: false,
+        razonSocial: '',
+        linkFoto: '',
+        imageFullPath: '');
     _getPosition();
     _loadData();
   }
