@@ -211,7 +211,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       );
                       if (result != 'zzz') {
-                        _getCausante();
+                        if (widget.user.habilitaRRHH != 1) {
+                          _getCausante();
+                        }
                       }
                     },
                   ),
