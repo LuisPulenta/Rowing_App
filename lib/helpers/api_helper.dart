@@ -1,12 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:rowing_app/models/cliente.dart';
-import 'package:rowing_app/models/detalles_formulario.dart';
-import 'package:rowing_app/models/grupos_formulario.dart';
 import 'package:rowing_app/models/models.dart';
-import 'package:rowing_app/models/novedad.dart';
 import 'package:rowing_app/models/tipo_novedad.dart';
-import 'package:rowing_app/models/tipos_trabajo.dart';
 import 'constants.dart';
 
 class ApiHelper {
@@ -541,7 +536,7 @@ class ApiHelper {
   }
 
 //---------------------------------------------------------------------------
-  static Future<Response> GetProgramasPrev(String codigo) async {
+  static Future<Response> getProgramasPrev(String codigo) async {
     var url =
         Uri.parse('${Constants.apiUrl}/api/Vehiculos/GetProgramasPrev/$codigo');
     var response = await http.post(
@@ -595,7 +590,7 @@ class ApiHelper {
   }
 
 //---------------------------------------------------------------------------
-  static Future<Response> GetNovedades(String grupo, String causante) async {
+  static Future<Response> getNovedades(String grupo, String causante) async {
     var url = Uri.parse(
         '${Constants.apiUrl}/api/CausantesNovedades/GetNovedades/$grupo/$causante');
     var response = await http.post(
@@ -622,7 +617,7 @@ class ApiHelper {
   }
 
 //---------------------------------------------------------------------------
-  static Future<Response> GetClientes() async {
+  static Future<Response> getClientes() async {
     var url = Uri.parse('${Constants.apiUrl}/api/Inspecciones/GetClientes');
     var response = await http.get(
       url,
@@ -648,7 +643,7 @@ class ApiHelper {
   }
 
 //---------------------------------------------------------------------------
-  static Future<Response> GetTiposTrabajos(int idcliente) async {
+  static Future<Response> getTiposTrabajos(int idcliente) async {
     var url = Uri.parse(
         '${Constants.apiUrl}/api/Inspecciones/GetTiposTrabajos/$idcliente');
     var response = await http.get(
@@ -675,7 +670,7 @@ class ApiHelper {
   }
 
 //---------------------------------------------------------------------------
-  static Future<Response> GetGruposFormularios(
+  static Future<Response> getGruposFormularios(
       int idcliente, int idtipotrabajo) async {
     var url = Uri.parse(
         '${Constants.apiUrl}/api/Inspecciones/GetGruposFormularios/$idcliente/$idtipotrabajo');
@@ -703,7 +698,7 @@ class ApiHelper {
   }
 
 //---------------------------------------------------------------------------
-  static Future<Response> GetDetallesFormularios(int idcliente) async {
+  static Future<Response> getDetallesFormularios(int idcliente) async {
     var url = Uri.parse(
         '${Constants.apiUrl}/api/Inspecciones/GetDetallesFormularios/$idcliente');
     var response = await http.get(
@@ -778,7 +773,7 @@ class ApiHelper {
   }
 
 //---------------------------------------------------------------------------
-  static Future<Response> GetDetallesInspecciones(int codigo) async {
+  static Future<Response> getDetallesInspecciones(int codigo) async {
     var url = Uri.parse(
         '${Constants.apiUrl}/api/Inspecciones/GetDetallesInspecciones/$codigo');
     var response = await http.get(
@@ -825,7 +820,7 @@ class ApiHelper {
   }
 
   //---------------------------------------------------------------------------
-  static Future<Response> PostInspeccionDetalle(
+  static Future<Response> postInspeccionDetalle(
       String controller, Map<String, dynamic> request) async {
     var url = Uri.parse('${Constants.apiUrl}$controller');
     var response = await http.post(
@@ -845,7 +840,7 @@ class ApiHelper {
   }
 
   //---------------------------------------------------------------------------
-  static Future<Response> PostInspeccionDetalleConFotoExistente(
+  static Future<Response> postInspeccionDetalleConFotoExistente(
       String controller, Map<String, dynamic> request) async {
     var url = Uri.parse('${Constants.apiUrl}$controller');
     var response = await http.post(
@@ -883,5 +878,53 @@ class ApiHelper {
 
     var decodedJson = jsonDecode(body);
     return Response(isSuccess: true, result: VFlota.fromJson(decodedJson));
+  }
+
+  //---------------------------------------------------------------------------
+
+  static Future<Response> putWebSesion(int nroConexion) async {
+    var url = Uri.parse('${Constants.apiUrl}/api/WebSesions/$nroConexion');
+    var response = await http.put(
+      url,
+      headers: {
+        'content-type': 'application/json',
+        'accept': 'application/json',
+      },
+    );
+    var body = response.body;
+
+    if (response.statusCode >= 400) {
+      return Response(isSuccess: false, message: body);
+    }
+
+    var decodedJson = jsonDecode(body);
+    return Response(isSuccess: true, result: decodedJson);
+  }
+
+  //---------------------------------------------------------------------------
+  static Future<Response> getPreventivos(String codigo) async {
+    var url =
+        Uri.parse('${Constants.apiUrl}/api/Vehiculos/GetPreventivos/$codigo');
+    var response = await http.post(
+      url,
+      headers: {
+        'content-type': 'application/json',
+        'accept': 'application/json',
+      },
+    );
+    var body = response.body;
+
+    if (response.statusCode >= 400) {
+      return Response(isSuccess: false, message: body);
+    }
+
+    List<Preventivo> list = [];
+    var decodedJson = jsonDecode(body);
+    if (decodedJson != null) {
+      for (var item in decodedJson) {
+        list.add(Preventivo.fromJson(item));
+      }
+    }
+    return Response(isSuccess: true, result: list);
   }
 }

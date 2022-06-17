@@ -59,25 +59,25 @@ class Novedad {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['idnovedad'] = this.idnovedad;
-    data['grupo'] = this.grupo;
-    data['causante'] = this.causante;
-    data['fechacarga'] = this.fechacarga;
-    data['fechanovedad'] = this.fechanovedad;
-    data['empresa'] = this.empresa;
-    data['fechainicio'] = this.fechainicio;
-    data['fechafin'] = this.fechafin;
-    data['tiponovedad'] = this.tiponovedad;
-    data['observaciones'] = this.observaciones;
-    data['vistaRRHH'] = this.vistaRRHH;
-    data['idusuario'] = this.idusuario;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['idnovedad'] = idnovedad;
+    data['grupo'] = grupo;
+    data['causante'] = causante;
+    data['fechacarga'] = fechacarga;
+    data['fechanovedad'] = fechanovedad;
+    data['empresa'] = empresa;
+    data['fechainicio'] = fechainicio;
+    data['fechafin'] = fechafin;
+    data['tiponovedad'] = tiponovedad;
+    data['observaciones'] = observaciones;
+    data['vistaRRHH'] = vistaRRHH;
+    data['idusuario'] = idusuario;
 
-    data['fechaEstado'] = this.fechaEstado;
-    data['observacionEstado'] = this.observacionEstado;
-    data['confirmaLeido'] = this.confirmaLeido;
-    data['iIDUsrEstado'] = this.iIDUsrEstado;
-    data['estado'] = this.estado;
+    data['fechaEstado'] = fechaEstado;
+    data['observacionEstado'] = observacionEstado;
+    data['confirmaLeido'] = confirmaLeido;
+    data['iIDUsrEstado'] = iIDUsrEstado;
+    data['estado'] = estado;
     return data;
   }
 }

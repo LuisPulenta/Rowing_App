@@ -1,15 +1,13 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:rowing_app/models/models.dart';
 import 'package:rowing_app/models/user.dart';
-import 'package:rowing_app/screens/home_screen.dart';
-import 'package:rowing_app/screens/login_screen.dart';
 import 'package:rowing_app/screens/screens.dart';
-import 'package:rowing_app/screens/wait_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -22,6 +20,7 @@ class _MyAppState extends State<MyApp> {
   bool _isLoading = true;
   bool _showLoginPage = true;
   late User _user;
+  int _nroConexion = 0;
 
   @override
   void initState() {
@@ -34,31 +33,32 @@ class _MyAppState extends State<MyApp> {
     SystemChrome.setPreferredOrientations(
         [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
     return MaterialApp(
-      localizationsDelegates: [
+      localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-      supportedLocales: [
+      supportedLocales: const [
         Locale('es', ''),
       ],
       debugShowCheckedModeBanner: false,
       title: 'Rowing App',
       theme: ThemeData(
         brightness: Brightness.light,
-        primaryColor: Color(0xFF781f1e),
-        appBarTheme: AppBarTheme(
+        primaryColor: const Color(0xFF781f1e),
+        appBarTheme: const AppBarTheme(
             backgroundColor: Color(0xFF242424), foregroundColor: Colors.white),
         colorScheme:
             ColorScheme.fromSwatch().copyWith(secondary: Colors.cyan[300]),
       ),
       home: _isLoading
-          ? WaitScreen()
+          ? const WaitScreen()
           : _showLoginPage
-              ? LoginScreen()
+              ? const LoginScreen()
               : _user.codigoCausante != _user.login
                   ? HomeScreen(
                       user: _user,
+                      nroConexion: _nroConexion,
                     )
                   : NovedadesScreen(user: _user),
     );
@@ -72,11 +72,13 @@ class _MyAppState extends State<MyApp> {
     if (isRemembered) {
       String? userBody = prefs.getString('userBody');
       String date = prefs.getString('date').toString();
+      int nroConexion = prefs.getInt('nroConexion') as int;
       String dateAlmacenada = date.substring(0, 10);
       String dateActual = DateTime.now().toString().substring(0, 10);
       if (userBody != null) {
         var decodedJson = jsonDecode(userBody);
         _user = User.fromJson(decodedJson);
+        _nroConexion = nroConexion;
         if (dateAlmacenada != dateActual) {
           _showLoginPage = true;
         } else {

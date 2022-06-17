@@ -84,33 +84,33 @@ class Inspeccion {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['idInspeccion'] = this.idInspeccion;
-    data['idCliente'] = this.idCliente;
-    data['fecha'] = this.fecha;
-    data['usuarioAlta'] = this.usuarioAlta;
-    data['latitud'] = this.latitud;
-    data['longitud'] = this.longitud;
-    data['idObra'] = this.idObra;
-    data['supervisor'] = this.supervisor;
-    data['vehiculo'] = this.vehiculo;
-    data['nroLegajo'] = this.nroLegajo;
-    data['grupoC'] = this.grupoC;
-    data['causanteC'] = this.causanteC;
-    data['dni'] = this.dni;
-    data['estado'] = this.estado;
-    data['observacionesInspeccion'] = this.observacionesInspeccion;
-    data['aviso'] = this.aviso;
-    data['emailEnviado'] = this.emailEnviado;
-    data['requiereReinspeccion'] = this.requiereReinspeccion;
-    data['totalPreguntas'] = this.totalPreguntas;
-    data['respSi'] = this.respSi;
-    data['respNo'] = this.respNo;
-    data['respNA'] = this.respNA;
-    data['totalPuntos'] = this.totalPuntos;
-    data['dniSR'] = this.dniSR;
-    data['nombreSR'] = this.nombreSR;
-    data['idTipoTrabajo'] = this.idTipoTrabajo;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['idInspeccion'] = idInspeccion;
+    data['idCliente'] = idCliente;
+    data['fecha'] = fecha;
+    data['usuarioAlta'] = usuarioAlta;
+    data['latitud'] = latitud;
+    data['longitud'] = longitud;
+    data['idObra'] = idObra;
+    data['supervisor'] = supervisor;
+    data['vehiculo'] = vehiculo;
+    data['nroLegajo'] = nroLegajo;
+    data['grupoC'] = grupoC;
+    data['causanteC'] = causanteC;
+    data['dni'] = dni;
+    data['estado'] = estado;
+    data['observacionesInspeccion'] = observacionesInspeccion;
+    data['aviso'] = aviso;
+    data['emailEnviado'] = emailEnviado;
+    data['requiereReinspeccion'] = requiereReinspeccion;
+    data['totalPreguntas'] = totalPreguntas;
+    data['respSi'] = respSi;
+    data['respNo'] = respNo;
+    data['respNA'] = respNA;
+    data['totalPuntos'] = totalPuntos;
+    data['dniSR'] = dniSR;
+    data['nombreSR'] = nombreSR;
+    data['idTipoTrabajo'] = idTipoTrabajo;
     return data;
   }
 }

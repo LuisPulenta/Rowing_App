@@ -7,7 +7,9 @@ class TakePictureDScreen extends StatefulWidget {
   final CameraDescription camera;
   final Causante causante;
 
-  TakePictureDScreen({required this.camera, required this.causante});
+  const TakePictureDScreen(
+      {Key? key, required this.camera, required this.causante})
+      : super(key: key);
 
   @override
   _TakePictureDScreenState createState() => _TakePictureDScreenState();
@@ -48,7 +50,7 @@ class _TakePictureDScreenState extends State<TakePictureDScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Tomar Foto'),
+        title: const Text('Tomar Foto'),
       ),
       body: FutureBuilder<void>(
         future: _initializeControllerFuture,
@@ -56,14 +58,14 @@ class _TakePictureDScreenState extends State<TakePictureDScreen> {
           if (snapshot.connectionState == ConnectionState.done) {
             return CameraPreview(_controller);
           } else {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           }
         },
       ),
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.camera_alt),
+        child: const Icon(Icons.camera_alt),
         onPressed: () async {
           try {
             await _initializeControllerFuture;
@@ -77,7 +79,9 @@ class _TakePictureDScreenState extends State<TakePictureDScreen> {
             if (response == 'yes') {
               Navigator.pop(context, response);
             }
-          } catch (e) {}
+          } catch (e) {
+            throw Exception('');
+          }
         },
       ),
     );

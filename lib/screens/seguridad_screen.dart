@@ -4,6 +4,7 @@ import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:camera/camera.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:rowing_app/components/loader_component.dart';
 import 'package:rowing_app/helpers/api_helper.dart';
 import 'package:rowing_app/models/causante.dart';
@@ -12,7 +13,7 @@ import 'package:rowing_app/screens/causante_datos_screen.dart';
 import 'package:rowing_app/screens/entregas_screen.dart';
 import 'package:rowing_app/widgets/widgets.dart';
 
-import 'take_pictureD.dart';
+import 'take_pictured.dart';
 
 class SeguridadScreen extends StatefulWidget {
   const SeguridadScreen({Key? key}) : super(key: key);
@@ -27,21 +28,22 @@ class _SeguridadScreenState extends State<SeguridadScreen> {
 //*****************************************************************************
 
   String _codigo = '';
-  String _codigoError = '';
-  bool _codigoShowError = false;
+  final String _codigoError = '';
+  final bool _codigoShowError = false;
   bool _enabled = false;
   bool _showLoader = false;
   late Causante _causante;
-  late XFile _image;
   bool _photoChanged = false;
+  late XFile _image;
 
 //*****************************************************************************
 //************************** INIT STATE ***************************************
 //*****************************************************************************
 
+  @override
   void initState() {
     super.initState();
-    _causante = new Causante(
+    _causante = Causante(
         nroCausante: 0,
         codigo: '',
         nombre: '',
@@ -64,9 +66,9 @@ class _SeguridadScreenState extends State<SeguridadScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Color(0xFF484848),
+        backgroundColor: const Color(0xFF484848),
         appBar: AppBar(
-          title: Text("Seguridad e Higiene"),
+          title: const Text("Seguridad e Higiene"),
           centerTitle: true,
         ),
         body: Stack(
@@ -74,21 +76,21 @@ class _SeguridadScreenState extends State<SeguridadScreen> {
             SingleChildScrollView(
               child: Column(
                 children: [
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   _showLogo(),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Card(
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20)),
                     elevation: 15,
-                    margin: EdgeInsets.all(5),
+                    margin: const EdgeInsets.all(5),
                     child: Padding(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 15, vertical: 10),
                       child: Row(
                         children: [
                           Expanded(
@@ -99,7 +101,7 @@ class _SeguridadScreenState extends State<SeguridadScreen> {
                               children: <Widget>[
                                 _showLegajo(),
                                 _showButton(),
-                                SizedBox(
+                                const SizedBox(
                                   height: 10,
                                 ),
                               ],
@@ -108,7 +110,8 @@ class _SeguridadScreenState extends State<SeguridadScreen> {
                           Expanded(
                             flex: 1,
                             child: FadeInImage(
-                              placeholder: AssetImage('assets/loading.gif'),
+                              placeholder:
+                                  const AssetImage('assets/loading.gif'),
                               image: NetworkImage(_causante.imageFullPath!),
                             ),
                           ),
@@ -116,11 +119,11 @@ class _SeguridadScreenState extends State<SeguridadScreen> {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   _showInfo(),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   _showButtons(),
@@ -128,7 +131,7 @@ class _SeguridadScreenState extends State<SeguridadScreen> {
               ),
             ),
             _showLoader
-                ? LoaderComponent(
+                ? const LoaderComponent(
                     text: 'Por favor espere...',
                   )
                 : Container(),
@@ -168,22 +171,22 @@ class _SeguridadScreenState extends State<SeguridadScreen> {
 //-----------------------------------------------------------------------------
   Widget _showLegajo() {
     return Container(
-      padding: EdgeInsets.all(10),
+      padding: const EdgeInsets.all(10),
       child: TextField(
         keyboardType: TextInputType.emailAddress,
         decoration: InputDecoration(
-          iconColor: Color(0xFF781f1e),
-          prefixIconColor: Color(0xFF781f1e),
-          hoverColor: Color(0xFF781f1e),
-          focusColor: Color(0xFF781f1e),
+          iconColor: const Color(0xFF781f1e),
+          prefixIconColor: const Color(0xFF781f1e),
+          hoverColor: const Color(0xFF781f1e),
+          focusColor: const Color(0xFF781f1e),
           fillColor: Colors.white,
           filled: true,
           hintText: 'Ingrese Legajo o Documento del empleado...',
           labelText: 'Legajo o Documento:',
           errorText: _codigoShowError ? _codigoError : null,
-          prefixIcon: Icon(Icons.badge),
+          prefixIcon: const Icon(Icons.badge),
           border: OutlineInputBorder(
-            borderSide: BorderSide(color: Color(0xFF781f1e)),
+            borderSide: const BorderSide(color: Color(0xFF781f1e)),
             borderRadius: BorderRadius.circular(10),
           ),
         ),
@@ -199,7 +202,7 @@ class _SeguridadScreenState extends State<SeguridadScreen> {
 //-----------------------------------------------------------------------------
   Widget _showButton() {
     return Container(
-      margin: EdgeInsets.only(left: 20, right: 20),
+      margin: const EdgeInsets.only(left: 20, right: 20),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
@@ -207,7 +210,7 @@ class _SeguridadScreenState extends State<SeguridadScreen> {
             child: ElevatedButton(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: [
+                children: const [
                   Icon(Icons.search),
                   SizedBox(
                     width: 20,
@@ -216,8 +219,8 @@ class _SeguridadScreenState extends State<SeguridadScreen> {
                 ],
               ),
               style: ElevatedButton.styleFrom(
-                primary: Color(0xFF781f1e),
-                minimumSize: Size(double.infinity, 50),
+                primary: const Color(0xFF781f1e),
+                minimumSize: const Size(double.infinity, 50),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(5),
                 ),
@@ -238,9 +241,9 @@ class _SeguridadScreenState extends State<SeguridadScreen> {
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       elevation: 15,
-      margin: EdgeInsets.all(5),
+      margin: const EdgeInsets.all(5),
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
@@ -284,7 +287,7 @@ class _SeguridadScreenState extends State<SeguridadScreen> {
     return Column(
       children: [
         Container(
-          margin: EdgeInsets.only(left: 10, right: 10),
+          margin: const EdgeInsets.only(left: 10, right: 10),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
@@ -292,7 +295,7 @@ class _SeguridadScreenState extends State<SeguridadScreen> {
                 child: ElevatedButton(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
+                    children: const [
                       Icon(Icons.checkroom),
                       SizedBox(
                         width: 5,
@@ -301,8 +304,8 @@ class _SeguridadScreenState extends State<SeguridadScreen> {
                     ],
                   ),
                   style: ElevatedButton.styleFrom(
-                    primary: Color(0xFF120E43),
-                    minimumSize: Size(double.infinity, 50),
+                    primary: const Color(0xFF120E43),
+                    minimumSize: const Size(double.infinity, 50),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(5),
                     ),
@@ -310,21 +313,21 @@ class _SeguridadScreenState extends State<SeguridadScreen> {
                   onPressed: _enabled ? _entregas : null,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 width: 20,
               ),
               Expanded(
                 child: ElevatedButton(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
+                    children: const [
                       Icon(Icons.list),
                       Text('Informes'),
                     ],
                   ),
                   style: ElevatedButton.styleFrom(
-                    primary: Color(0xFFB4161B),
-                    minimumSize: Size(double.infinity, 50),
+                    primary: const Color(0xFFB4161B),
+                    minimumSize: const Size(double.infinity, 50),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(5),
                     ),
@@ -335,11 +338,11 @@ class _SeguridadScreenState extends State<SeguridadScreen> {
             ],
           ),
         ),
-        SizedBox(
+        const SizedBox(
           height: 10,
         ),
         Container(
-          margin: EdgeInsets.only(left: 10, right: 10),
+          margin: const EdgeInsets.only(left: 10, right: 10),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
@@ -347,7 +350,7 @@ class _SeguridadScreenState extends State<SeguridadScreen> {
                 child: ElevatedButton(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
+                    children: const [
                       Icon(Icons.person),
                       SizedBox(
                         width: 5,
@@ -356,8 +359,8 @@ class _SeguridadScreenState extends State<SeguridadScreen> {
                     ],
                   ),
                   style: ElevatedButton.styleFrom(
-                    primary: Color.fromARGB(255, 180, 38, 236),
-                    minimumSize: Size(double.infinity, 50),
+                    primary: const Color.fromARGB(255, 180, 38, 236),
+                    minimumSize: const Size(double.infinity, 50),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(5),
                     ),
@@ -365,21 +368,21 @@ class _SeguridadScreenState extends State<SeguridadScreen> {
                   onPressed: _enabled ? _causanteDatos : null,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 width: 20,
               ),
               Expanded(
                 child: ElevatedButton(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
+                    children: const [
                       Icon(Icons.image),
                       Text('Foto'),
                     ],
                   ),
                   style: ElevatedButton.styleFrom(
-                    primary: Color.fromARGB(255, 235, 58, 27),
-                    minimumSize: Size(double.infinity, 50),
+                    primary: const Color.fromARGB(255, 235, 58, 27),
+                    minimumSize: const Size(double.infinity, 50),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(5),
                     ),
@@ -406,7 +409,7 @@ class _SeguridadScreenState extends State<SeguridadScreen> {
           title: 'Error',
           message: 'Ingrese un Legajo o Documento.',
           actions: <AlertDialogAction>[
-            AlertDialogAction(key: null, label: 'Aceptar'),
+            const AlertDialogAction(key: null, label: 'Aceptar'),
           ]);
       return;
     }
@@ -450,7 +453,7 @@ class _SeguridadScreenState extends State<SeguridadScreen> {
 //--------------------------- GETCAUSANTE -------------------------------------
 //-----------------------------------------------------------------------------
 
-  Future<Null> _getCausante() async {
+  Future<void> _getCausante() async {
     setState(() {
       _showLoader = true;
     });
@@ -465,7 +468,7 @@ class _SeguridadScreenState extends State<SeguridadScreen> {
           title: 'Error',
           message: 'Verifica que estes conectado a internet.',
           actions: <AlertDialogAction>[
-            AlertDialogAction(key: null, label: 'Aceptar'),
+            const AlertDialogAction(key: null, label: 'Aceptar'),
           ]);
       return;
     }
@@ -478,7 +481,7 @@ class _SeguridadScreenState extends State<SeguridadScreen> {
           title: 'Error',
           message: "Legajo o Documento no válido",
           actions: <AlertDialogAction>[
-            AlertDialogAction(key: null, label: 'Aceptar'),
+            const AlertDialogAction(key: null, label: 'Aceptar'),
           ]);
 
       setState(() {
@@ -504,18 +507,24 @@ class _SeguridadScreenState extends State<SeguridadScreen> {
     var firstCamera = cameras.first;
     var response1 = await showAlertDialog(
         context: context,
-        title: 'Seleccionar cámara',
-        message: '¿Qué cámara desea utilizar?',
+        title: 'Origen de la Foto',
         actions: <AlertDialogAction>[
-          AlertDialogAction(key: 'no', label: 'Trasera'),
-          AlertDialogAction(key: 'yes', label: 'Delantera'),
-          AlertDialogAction(key: 'cancel', label: 'Cancelar'),
+          const AlertDialogAction(key: 'no', label: 'Cámara Trasera'),
+          const AlertDialogAction(key: 'yes', label: 'Cámara Delantera'),
+          const AlertDialogAction(key: 'gal', label: 'Galería de Fotos'),
+          const AlertDialogAction(key: 'cancel', label: 'Cancelar'),
         ]);
     if (response1 == 'yes') {
       firstCamera = cameras.first;
     }
     if (response1 == 'no') {
       firstCamera = cameras.last;
+    }
+
+    if (response1 == 'gal') {
+      _selectPicture();
+
+      return;
     }
 
     if (response1 != 'cancel') {
@@ -533,15 +542,27 @@ class _SeguridadScreenState extends State<SeguridadScreen> {
     }
   }
 
-  //*****************************************************************************
+//*****************************************************************************
+//************************** METODO SELECTPICTURE *****************************
+//*****************************************************************************
+
+  void _selectPicture() async {
+    final ImagePicker _picker = ImagePicker();
+    final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+    if (image != null) {
+      setState(() {
+        _photoChanged = true;
+        _image = image;
+        _saveRecord();
+      });
+    }
+  }
+
+//*****************************************************************************
 //************************** _saveRecord ***********************************
 //*****************************************************************************
 
   _saveRecord() async {
-    setState(() {
-      _showLoader = true;
-    });
-
     String base64image = '';
     if (_photoChanged) {
       List<int> imageBytes = await _image.readAsBytes();
@@ -551,15 +572,12 @@ class _SeguridadScreenState extends State<SeguridadScreen> {
     var connectivityResult = await Connectivity().checkConnectivity();
 
     if (connectivityResult == ConnectivityResult.none) {
-      setState(() {
-        _showLoader = false;
-      });
       await showAlertDialog(
           context: context,
           title: 'Error',
           message: 'Verifica que estés conectado a Internet',
           actions: <AlertDialogAction>[
-            AlertDialogAction(key: null, label: 'Aceptar'),
+            const AlertDialogAction(key: null, label: 'Aceptar'),
           ]);
       return;
     }
@@ -573,17 +591,13 @@ class _SeguridadScreenState extends State<SeguridadScreen> {
     Response response = await ApiHelper.put(
         '/api/Causantes/', _causante.nroCausante.toString(), request);
 
-    setState(() {
-      _showLoader = false;
-    });
-
     if (!response.isSuccess) {
       await showAlertDialog(
           context: context,
           title: 'Error',
           message: response.message,
           actions: <AlertDialogAction>[
-            AlertDialogAction(key: null, label: 'Aceptar'),
+            const AlertDialogAction(key: null, label: 'Aceptar'),
           ]);
       return;
     } else {
@@ -592,9 +606,10 @@ class _SeguridadScreenState extends State<SeguridadScreen> {
           title: 'Aviso',
           message: 'Guardado con éxito!',
           actions: <AlertDialogAction>[
-            AlertDialogAction(key: null, label: 'Aceptar'),
+            const AlertDialogAction(key: null, label: 'Aceptar'),
           ]);
-      Navigator.pop(context, 'yes');
+      _getCausante();
+      setState(() {});
     }
   }
 }

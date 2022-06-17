@@ -90,35 +90,35 @@ class Ticket {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['nroregistro'] = this.nroregistro;
-    data['nroobra'] = this.nroobra;
-    data['asticket'] = this.asticket;
-    data['cliente'] = this.cliente;
-    data['direccion'] = this.direccion;
-    data['numeracion'] = this.numeracion;
-    data['localidad'] = this.localidad;
-    data['telefono'] = this.telefono;
-    data['tipoImput'] = this.tipoImput;
-    data['certificado'] = this.certificado;
-    data['serieMedidorColocado'] = this.serieMedidorColocado;
-    data['precinto'] = this.precinto;
-    data['cajaDAE'] = this.cajaDAE;
-    data['observaciones'] = this.observaciones;
-    data['lindero1'] = this.lindero1;
-    data['lindero2'] = this.lindero2;
-    data['zona'] = this.zona;
-    data['terminal'] = this.terminal;
-    data['subcontratista'] = this.subcontratista;
-    data['causanteC'] = this.causanteC;
-    data['grxx'] = this.grxx;
-    data['gryy'] = this.gryy;
-    data['idUsrIn'] = this.idUsrIn;
-    data['observacionAdicional'] = this.observacionAdicional;
-    data['fechaCarga'] = this.fechaCarga;
-    data['riesgoElectrico'] = this.riesgoElectrico;
-    data['fechaasignacion'] = this.fechaasignacion;
-    data['mes'] = this.mes;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['nroregistro'] = nroregistro;
+    data['nroobra'] = nroobra;
+    data['asticket'] = asticket;
+    data['cliente'] = cliente;
+    data['direccion'] = direccion;
+    data['numeracion'] = numeracion;
+    data['localidad'] = localidad;
+    data['telefono'] = telefono;
+    data['tipoImput'] = tipoImput;
+    data['certificado'] = certificado;
+    data['serieMedidorColocado'] = serieMedidorColocado;
+    data['precinto'] = precinto;
+    data['cajaDAE'] = cajaDAE;
+    data['observaciones'] = observaciones;
+    data['lindero1'] = lindero1;
+    data['lindero2'] = lindero2;
+    data['zona'] = zona;
+    data['terminal'] = terminal;
+    data['subcontratista'] = subcontratista;
+    data['causanteC'] = causanteC;
+    data['grxx'] = grxx;
+    data['gryy'] = gryy;
+    data['idUsrIn'] = idUsrIn;
+    data['observacionAdicional'] = observacionAdicional;
+    data['fechaCarga'] = fechaCarga;
+    data['riesgoElectrico'] = riesgoElectrico;
+    data['fechaasignacion'] = fechaasignacion;
+    data['mes'] = mes;
     return data;
   }
 }

@@ -24,13 +24,13 @@ class Catalogo {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['catCodigo'] = this.catCodigo;
-    data['codigoSap'] = this.codigoSap;
-    data['catCatalogo'] = this.catCatalogo;
-    data['verEnReclamosApp'] = this.verEnReclamosApp;
-    data['modulo'] = this.modulo;
-    data['cantidad'] = this.cantidad;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['catCodigo'] = catCodigo;
+    data['codigoSap'] = codigoSap;
+    data['catCatalogo'] = catCatalogo;
+    data['verEnReclamosApp'] = verEnReclamosApp;
+    data['modulo'] = modulo;
+    data['cantidad'] = cantidad;
     return data;
   }
 }

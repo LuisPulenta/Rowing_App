@@ -1,20 +1,19 @@
-import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-import 'package:rowing_app/screens/display_pictureA_screen.dart';
+import 'package:camera/camera.dart';
+import 'package:rowing_app/screens/display_picturea_screen.dart';
 
 import '../models/response.dart';
-import 'display_picture_screen.dart';
 
-class TakePictureAScreen extends StatefulWidget {
+class TakePictureaScreen extends StatefulWidget {
   final CameraDescription camera;
 
-  TakePictureAScreen({required this.camera});
+  const TakePictureaScreen({Key? key, required this.camera}) : super(key: key);
 
   @override
-  _TakePictureAScreenState createState() => _TakePictureAScreenState();
+  _TakePictureaScreenState createState() => _TakePictureaScreenState();
 }
 
-class _TakePictureAScreenState extends State<TakePictureAScreen> {
+class _TakePictureaScreenState extends State<TakePictureaScreen> {
   late CameraController _controller;
   late Future<void> _initializeControllerFuture;
 
@@ -38,7 +37,7 @@ class _TakePictureAScreenState extends State<TakePictureAScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Tomar Foto'),
+        title: const Text('Tomar Foto'),
       ),
       body: FutureBuilder<void>(
         future: _initializeControllerFuture,
@@ -46,28 +45,28 @@ class _TakePictureAScreenState extends State<TakePictureAScreen> {
           if (snapshot.connectionState == ConnectionState.done) {
             return CameraPreview(_controller);
           } else {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           }
         },
       ),
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.camera_alt),
+        child: const Icon(Icons.camera_alt),
         onPressed: () async {
           try {
             await _initializeControllerFuture;
             final image = await _controller.takePicture();
             Response? response =
                 await Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => DisplayPictureAScreen(
+                    builder: (context) => DisplayPictureaScreen(
                           image: image,
                         )));
             if (response != null) {
               Navigator.pop(context, response);
             }
           } catch (e) {
-            print(e);
+            throw Exception('');
           }
         },
       ),

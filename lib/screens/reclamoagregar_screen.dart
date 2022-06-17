@@ -9,7 +9,7 @@ import 'package:rowing_app/models/user.dart';
 
 class ReclamoAgregarScreen extends StatefulWidget {
   final User user;
-  ReclamoAgregarScreen({required this.user});
+  const ReclamoAgregarScreen({Key? key, required this.user}) : super(key: key);
 
   @override
   _ReclamoAgregarScreenState createState() => _ReclamoAgregarScreenState();
@@ -26,27 +26,27 @@ class _ReclamoAgregarScreenState extends State<ReclamoAgregarScreen> {
   String _zona = '';
   String _zonaError = '';
   bool _zonaShowError = false;
-  TextEditingController _zonaController = TextEditingController();
+  final TextEditingController _zonaController = TextEditingController();
 
   String _direccion = '';
   String _direccionError = '';
   bool _direccionShowError = false;
-  TextEditingController _direccionController = TextEditingController();
+  final TextEditingController _direccionController = TextEditingController();
 
   String _numero = '';
   String _numeroError = '';
   bool _numeroShowError = false;
-  TextEditingController _numeroController = TextEditingController();
+  final TextEditingController _numeroController = TextEditingController();
 
   String _asreclamo = '';
   String _asreclamoError = '';
   bool _asreclamoShowError = false;
-  TextEditingController _asreclamoController = TextEditingController();
+  final TextEditingController _asreclamoController = TextEditingController();
 
   String _descripcion = '';
   String _descripcionError = '';
   bool _descripcionShowError = false;
-  TextEditingController _descripcionController = TextEditingController();
+  final TextEditingController _descripcionController = TextEditingController();
 
   @override
   void initState() {
@@ -59,7 +59,7 @@ class _ReclamoAgregarScreenState extends State<ReclamoAgregarScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text('Agregar Nuevo Reclamo'),
+        title: const Text('Agregar Nuevo Reclamo'),
         centerTitle: true,
       ),
       body: Stack(
@@ -73,18 +73,18 @@ class _ReclamoAgregarScreenState extends State<ReclamoAgregarScreen> {
                 _showNumero(),
                 _showASReclamo(),
                 _showDescripcion(),
-                SizedBox(
+                const SizedBox(
                   height: 30,
                 ),
                 _showButton(),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
               ],
             ),
           ),
           _showLoader
-              ? LoaderComponent(
+              ? const LoaderComponent(
                   text: 'Por favor espere...',
                 )
               : Container(),
@@ -95,9 +95,9 @@ class _ReclamoAgregarScreenState extends State<ReclamoAgregarScreen> {
 
   Widget _showObra() {
     return Container(
-      padding: EdgeInsets.all(10),
-      child: _obras.length == 0
-          ? Text('Cargando obras...')
+      padding: const EdgeInsets.all(10),
+      child: _obras.isEmpty
+          ? const Text('Cargando obras...')
           : DropdownButtonFormField(
               items: _getComboObras(),
               value: _obraId,
@@ -118,31 +118,31 @@ class _ReclamoAgregarScreenState extends State<ReclamoAgregarScreen> {
 
   List<DropdownMenuItem<int>> _getComboObras() {
     List<DropdownMenuItem<int>> list = [];
-    list.add(DropdownMenuItem(
+    list.add(const DropdownMenuItem(
       child: Text('Seleccione una Obra...'),
       value: 0,
     ));
 
-    _obras.forEach((obra) {
+    for (var obra in _obras) {
       list.add(DropdownMenuItem(
         child: Text(obra.nombreObra),
         value: obra.nroObra,
       ));
-    });
+    }
 
     return list;
   }
 
   Widget _showZona() {
     return Container(
-      padding: EdgeInsets.all(10),
+      padding: const EdgeInsets.all(10),
       child: TextField(
         controller: _zonaController,
         decoration: InputDecoration(
             hintText: 'Ingresa Zona...',
             labelText: 'Zona',
             errorText: _zonaShowError ? _zonaError : null,
-            suffixIcon: Icon(Icons.map),
+            suffixIcon: const Icon(Icons.map),
             border:
                 OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
         onChanged: (value) {
@@ -154,14 +154,14 @@ class _ReclamoAgregarScreenState extends State<ReclamoAgregarScreen> {
 
   Widget _showDireccion() {
     return Container(
-      padding: EdgeInsets.all(10),
+      padding: const EdgeInsets.all(10),
       child: TextField(
         controller: _direccionController,
         decoration: InputDecoration(
             hintText: 'Ingresa Dirección...',
             labelText: 'Dirección',
             errorText: _direccionShowError ? _direccionError : null,
-            suffixIcon: Icon(Icons.home),
+            suffixIcon: const Icon(Icons.home),
             border:
                 OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
         onChanged: (value) {
@@ -173,14 +173,14 @@ class _ReclamoAgregarScreenState extends State<ReclamoAgregarScreen> {
 
   Widget _showNumero() {
     return Container(
-      padding: EdgeInsets.all(10),
+      padding: const EdgeInsets.all(10),
       child: TextField(
         controller: _numeroController,
         decoration: InputDecoration(
             hintText: 'Ingresa Número...',
             labelText: 'Número',
             errorText: _numeroShowError ? _numeroError : null,
-            suffixIcon: Icon(Icons.tag),
+            suffixIcon: const Icon(Icons.tag),
             border:
                 OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
         onChanged: (value) {
@@ -192,14 +192,14 @@ class _ReclamoAgregarScreenState extends State<ReclamoAgregarScreen> {
 
   Widget _showASReclamo() {
     return Container(
-      padding: EdgeInsets.all(10),
+      padding: const EdgeInsets.all(10),
       child: TextField(
         controller: _asreclamoController,
         decoration: InputDecoration(
             hintText: 'Ingresa AS/N° Reclamo...',
             labelText: 'AS/N° Reclamo',
             errorText: _asreclamoShowError ? _asreclamoError : null,
-            suffixIcon: Icon(Icons.pin),
+            suffixIcon: const Icon(Icons.pin),
             border:
                 OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
         onChanged: (value) {
@@ -211,14 +211,14 @@ class _ReclamoAgregarScreenState extends State<ReclamoAgregarScreen> {
 
   Widget _showDescripcion() {
     return Container(
-      padding: EdgeInsets.all(10),
+      padding: const EdgeInsets.all(10),
       child: TextField(
         controller: _descripcionController,
         decoration: InputDecoration(
             hintText: 'Ingresa Descripción / Nombre...',
             labelText: 'Descripción / Nombre',
             errorText: _descripcionShowError ? _descripcionError : null,
-            suffixIcon: Icon(Icons.notes),
+            suffixIcon: const Icon(Icons.notes),
             border:
                 OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
         onChanged: (value) {
@@ -230,7 +230,7 @@ class _ReclamoAgregarScreenState extends State<ReclamoAgregarScreen> {
 
   Widget _showButton() {
     return Container(
-      margin: EdgeInsets.only(left: 10, right: 10),
+      margin: const EdgeInsets.only(left: 10, right: 10),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
@@ -238,7 +238,7 @@ class _ReclamoAgregarScreenState extends State<ReclamoAgregarScreen> {
             child: ElevatedButton(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: [
+                children: const [
                   Icon(Icons.save),
                   SizedBox(
                     width: 20,
@@ -247,8 +247,8 @@ class _ReclamoAgregarScreenState extends State<ReclamoAgregarScreen> {
                 ],
               ),
               style: ElevatedButton.styleFrom(
-                primary: Color(0xFF781f1e),
-                minimumSize: Size(double.infinity, 50),
+                primary: const Color(0xFF781f1e),
+                minimumSize: const Size(double.infinity, 50),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(5),
                 ),
@@ -272,7 +272,7 @@ class _ReclamoAgregarScreenState extends State<ReclamoAgregarScreen> {
     await _getObras();
   }
 
-  Future<Null> _getObras() async {
+  Future<void> _getObras() async {
     setState(() {
       _showLoader = true;
     });
@@ -288,7 +288,7 @@ class _ReclamoAgregarScreenState extends State<ReclamoAgregarScreen> {
           title: 'Error',
           message: 'Verifica que estés conectado a Internet',
           actions: <AlertDialogAction>[
-            AlertDialogAction(key: null, label: 'Aceptar'),
+            const AlertDialogAction(key: null, label: 'Aceptar'),
           ]);
       return;
     }
@@ -318,7 +318,7 @@ class _ReclamoAgregarScreenState extends State<ReclamoAgregarScreen> {
           title: 'Error',
           message: response.message,
           actions: <AlertDialogAction>[
-            AlertDialogAction(key: null, label: 'Aceptar'),
+            const AlertDialogAction(key: null, label: 'Aceptar'),
           ]);
       return;
     }
@@ -400,7 +400,7 @@ class _ReclamoAgregarScreenState extends State<ReclamoAgregarScreen> {
           title: 'Error',
           message: 'Verifica que estés conectado a Internet',
           actions: <AlertDialogAction>[
-            AlertDialogAction(key: null, label: 'Aceptar'),
+            const AlertDialogAction(key: null, label: 'Aceptar'),
           ]);
       return;
     }
@@ -449,7 +449,7 @@ class _ReclamoAgregarScreenState extends State<ReclamoAgregarScreen> {
           title: 'Error',
           message: response.message,
           actions: <AlertDialogAction>[
-            AlertDialogAction(key: null, label: 'Aceptar'),
+            const AlertDialogAction(key: null, label: 'Aceptar'),
           ]);
       return;
     }

@@ -10,7 +10,7 @@ import 'package:rowing_app/models/response.dart';
 class EntregasScreen extends StatefulWidget {
   final String codigo;
 
-  EntregasScreen({required this.codigo});
+  const EntregasScreen({Key? key, required this.codigo}) : super(key: key);
 
   @override
   _EntregasScreenState createState() => _EntregasScreenState();
@@ -31,26 +31,27 @@ class _EntregasScreenState extends State<EntregasScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF484848),
+      backgroundColor: const Color(0xFF484848),
       appBar: AppBar(
-        title: Text('Entregas'),
+        title: const Text('Entregas'),
         centerTitle: true,
         actions: <Widget>[
           _isFiltered
               ? IconButton(
-                  onPressed: _removeFilter, icon: Icon(Icons.filter_none))
-              : IconButton(onPressed: _showFilter, icon: Icon(Icons.filter_alt))
+                  onPressed: _removeFilter, icon: const Icon(Icons.filter_none))
+              : IconButton(
+                  onPressed: _showFilter, icon: const Icon(Icons.filter_alt))
         ],
       ),
       body: Center(
         child: _showLoader
-            ? LoaderComponent(text: 'Por favor espere...')
+            ? const LoaderComponent(text: 'Por favor espere...')
             : _getContent(),
       ),
     );
   }
 
-  Future<Null> _getEntregas() async {
+  Future<void> _getEntregas() async {
     setState(() {
       _showLoader = true;
     });
@@ -66,7 +67,7 @@ class _EntregasScreenState extends State<EntregasScreen> {
           title: 'Error',
           message: 'Verifica que estés conectado a Internet',
           actions: <AlertDialogAction>[
-            AlertDialogAction(key: null, label: 'Aceptar'),
+            const AlertDialogAction(key: null, label: 'Aceptar'),
           ]);
       return;
     }
@@ -85,7 +86,7 @@ class _EntregasScreenState extends State<EntregasScreen> {
           title: 'Error',
           message: response.message,
           actions: <AlertDialogAction>[
-            AlertDialogAction(key: null, label: 'Aceptar'),
+            const AlertDialogAction(key: null, label: 'Aceptar'),
           ]);
       return;
     }
@@ -106,7 +107,7 @@ class _EntregasScreenState extends State<EntregasScreen> {
       children: <Widget>[
         _showEntregasCount(),
         Expanded(
-          child: _entregas.length == 0 ? _noContent() : _getListView(),
+          child: _entregas.isEmpty ? _noContent() : _getListView(),
         )
       ],
     );
@@ -114,13 +115,13 @@ class _EntregasScreenState extends State<EntregasScreen> {
 
   Widget _noContent() {
     return Container(
-      margin: EdgeInsets.all(20),
+      margin: const EdgeInsets.all(20),
       child: Center(
         child: Text(
           _isFiltered
               ? 'No hay Entregas con ese criterio de búsqueda'
               : 'No hay Entregas registradas',
-          style: TextStyle(
+          style: const TextStyle(
               fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
         ),
       ),
@@ -133,10 +134,10 @@ class _EntregasScreenState extends State<EntregasScreen> {
       child: ListView(
         children: _entregas.map((e) {
           return Card(
-            color: Color(0xFFC7C7C8),
+            color: const Color(0xFFC7C7C8),
             shadowColor: Colors.white,
             elevation: 10,
-            margin: EdgeInsets.fromLTRB(10, 0, 5, 10),
+            margin: const EdgeInsets.fromLTRB(10, 0, 5, 10),
             child: InkWell(
               child: Column(
                 children: [
@@ -147,7 +148,7 @@ class _EntregasScreenState extends State<EntregasScreen> {
                       children: [
                         Expanded(
                           child: Container(
-                            margin: EdgeInsets.symmetric(horizontal: 10),
+                            margin: const EdgeInsets.symmetric(horizontal: 10),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
@@ -157,27 +158,27 @@ class _EntregasScreenState extends State<EntregasScreen> {
                                       Row(
                                         children: [
                                           Text(e.codigo.toString(),
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                 fontSize: 10,
                                               )),
-                                          SizedBox(
+                                          const SizedBox(
                                             width: 15,
                                           ),
                                           Text(e.codigosap,
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                 fontSize: 10,
                                               )),
-                                          SizedBox(
+                                          const SizedBox(
                                             width: 15,
                                           ),
                                           Expanded(
                                             child: Text(e.denominacion,
-                                                style: TextStyle(
+                                                style: const TextStyle(
                                                   fontSize: 10,
                                                 )),
                                           ),
                                           Text(e.stockAct.toString(),
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                 fontSize: 10,
                                               )),
                                         ],
@@ -193,22 +194,23 @@ class _EntregasScreenState extends State<EntregasScreen> {
                     ),
                   ),
                   Container(
-                    margin: EdgeInsets.symmetric(horizontal: 10),
+                    margin: const EdgeInsets.symmetric(horizontal: 10),
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 0, vertical: 5),
                       child: Row(
                         children: [
-                          Text("Fecha últ. entr.:",
+                          const Text("Fecha últ. entr.:",
                               style: TextStyle(
                                 fontSize: 10,
                               )),
-                          SizedBox(
+                          const SizedBox(
                             width: 15,
                           ),
                           Text(
-                            '${DateFormat('dd/MM/yyyy').format(DateTime.parse(e.fecha))}',
-                            style: TextStyle(fontSize: 10),
+                            DateFormat('dd/MM/yyyy')
+                                .format(DateTime.parse(e.fecha)),
+                            style: const TextStyle(fontSize: 10),
                           ),
                         ],
                       ),
@@ -231,13 +233,13 @@ class _EntregasScreenState extends State<EntregasScreen> {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10),
             ),
-            title: Text('Filtrar Entregas'),
+            title: const Text('Filtrar Entregas'),
             content: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
-              Text(
+              const Text(
                 'Escriba texto a buscar en Descripción: ',
                 style: TextStyle(fontSize: 12),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               TextField(
@@ -245,7 +247,7 @@ class _EntregasScreenState extends State<EntregasScreen> {
                 decoration: InputDecoration(
                     hintText: 'Criterio de búsqueda...',
                     labelText: 'Buscar',
-                    suffixIcon: Icon(Icons.search),
+                    suffixIcon: const Icon(Icons.search),
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10))),
                 onChanged: (value) {
@@ -256,8 +258,9 @@ class _EntregasScreenState extends State<EntregasScreen> {
             actions: <Widget>[
               TextButton(
                   onPressed: () => Navigator.of(context).pop(),
-                  child: Text('Cancelar')),
-              TextButton(onPressed: () => _filter(), child: Text('Filtrar')),
+                  child: const Text('Cancelar')),
+              TextButton(
+                  onPressed: () => _filter(), child: const Text('Filtrar')),
             ],
           );
         });
@@ -294,18 +297,18 @@ class _EntregasScreenState extends State<EntregasScreen> {
     return Column(
       children: [
         Container(
-          padding: EdgeInsets.all(10),
+          padding: const EdgeInsets.all(10),
           height: 40,
           child: Row(
             children: [
-              Text("Cantidad de Items entregados: ",
+              const Text("Cantidad de Items entregados: ",
                   style: TextStyle(
                     fontSize: 14,
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
                   )),
               Text(_entregas.length.toString(),
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 14,
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
@@ -313,14 +316,14 @@ class _EntregasScreenState extends State<EntregasScreen> {
             ],
           ),
         ),
-        Divider(
+        const Divider(
           height: 3,
           color: Colors.white,
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
           child: Row(
-            children: [
+            children: const [
               Text("Código",
                   style: TextStyle(
                     fontSize: 12,
@@ -352,13 +355,11 @@ class _EntregasScreenState extends State<EntregasScreen> {
             ],
           ),
         ),
-        Divider(
+        const Divider(
           height: 6,
           color: Colors.white,
         ),
       ],
     );
   }
-
-  _showTitle() {}
 }

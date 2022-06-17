@@ -13,7 +13,9 @@ class InspeccionDuplicarScreen extends StatefulWidget {
   final User user;
   final VistaInspeccion vistaInspeccion;
 
-  InspeccionDuplicarScreen({required this.user, required this.vistaInspeccion});
+  const InspeccionDuplicarScreen(
+      {Key? key, required this.user, required this.vistaInspeccion})
+      : super(key: key);
 
   @override
   State<InspeccionDuplicarScreen> createState() =>
@@ -27,8 +29,8 @@ class _InspeccionDuplicarScreenState extends State<InspeccionDuplicarScreen> {
   bool _showLoader = false;
 
   String _codigo = '';
-  String _codigoError = '';
-  bool _codigoShowError = false;
+  final String _codigoError = '';
+  final bool _codigoShowError = false;
 
   bool _enabled1 = false;
   bool _enabled3 = true;
@@ -57,21 +59,21 @@ class _InspeccionDuplicarScreenState extends State<InspeccionDuplicarScreen> {
           foto: '');
 
   String _nombreSR = '';
-  String _nombreSRError = '';
-  bool _nombreSRShowError = false;
-  TextEditingController _nombreSRController = TextEditingController();
+  final String _nombreSRError = '';
+  final bool _nombreSRShowError = false;
+  final TextEditingController _nombreSRController = TextEditingController();
 
   String _dniSR = '';
-  String _dniSRError = '';
-  bool _dniSRShowError = false;
-  TextEditingController _dniSRController = TextEditingController();
+  final String _dniSRError = '';
+  final bool _dniSRShowError = false;
+  final TextEditingController _dniSRController = TextEditingController();
 
-  String _observaciones = '';
-  String _observacionesError = '';
-  bool _observacionesShowError = false;
-  TextEditingController _observacionesController = TextEditingController();
+  final String _observacionesError = '';
+  final bool _observacionesShowError = false;
+  final TextEditingController _observacionesController =
+      TextEditingController();
 
-  Position _positionUser = Position(
+  Position _positionUser = const Position(
       longitude: 0,
       latitude: 0,
       timestamp: null,
@@ -88,7 +90,7 @@ class _InspeccionDuplicarScreenState extends State<InspeccionDuplicarScreen> {
   @override
   void initState() {
     super.initState();
-    _causante = new Causante(
+    _causante = Causante(
         nroCausante: 0,
         codigo: '',
         nombre: '',
@@ -111,16 +113,16 @@ class _InspeccionDuplicarScreenState extends State<InspeccionDuplicarScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF484848),
+      backgroundColor: const Color(0xFF484848),
       appBar: AppBar(
-        title: Text('Duplicar Inspección'),
+        title: const Text('Duplicar Inspección'),
         centerTitle: true,
       ),
       body: Stack(
         children: [
           _getContent(),
           _showLoader
-              ? LoaderComponent(
+              ? const LoaderComponent(
                   text: 'Por favor espere...',
                 )
               : Container(),
@@ -139,11 +141,11 @@ class _InspeccionDuplicarScreenState extends State<InspeccionDuplicarScreen> {
         SingleChildScrollView(
           child: Column(
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
-              Padding(
-                padding: const EdgeInsets.all(10.0),
+              const Padding(
+                padding: EdgeInsets.all(10.0),
                 child: Text(
                     'Está por generar una Nueva Inspección a partir de duplicar la siguiente Inspección:',
                     style: TextStyle(
@@ -151,9 +153,9 @@ class _InspeccionDuplicarScreenState extends State<InspeccionDuplicarScreen> {
                         fontSize: 14,
                         fontWeight: FontWeight.normal)),
               ),
-              _CardInspeccion(),
-              Padding(
-                padding: const EdgeInsets.all(10.0),
+              _cardInspeccion(),
+              const Padding(
+                padding: EdgeInsets.all(10.0),
                 child: Text(
                     'Seleccione el empleado para el cual se generará la Inspección duplicada:',
                     style: TextStyle(
@@ -167,15 +169,15 @@ class _InspeccionDuplicarScreenState extends State<InspeccionDuplicarScreen> {
                   Expanded(flex: 1, child: _showButton()),
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               _esContratista ? _showCamposContratista() : _showInfo(),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               _showObservaciones(),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               _showButton2(),
@@ -190,7 +192,7 @@ class _InspeccionDuplicarScreenState extends State<InspeccionDuplicarScreen> {
 //--------------------- METODO CARDINSPECCION ---------------------
 //-----------------------------------------------------------------
 
-  Widget _CardInspeccion() {
+  Widget _cardInspeccion() {
     int largo = 28;
     int fintipotrabajo = widget.vistaInspeccion.tipoTrabajo.length >= largo
         ? largo
@@ -199,19 +201,19 @@ class _InspeccionDuplicarScreenState extends State<InspeccionDuplicarScreen> {
         ? largo
         : widget.vistaInspeccion.obra.length;
     return Card(
-      color: Color(0xFFC7C7C8),
+      color: const Color(0xFFC7C7C8),
       shadowColor: Colors.white,
       elevation: 10,
-      margin: EdgeInsets.fromLTRB(10, 0, 10, 5),
+      margin: const EdgeInsets.fromLTRB(10, 0, 10, 5),
       child: Container(
         height: 136,
-        margin: EdgeInsets.all(0),
-        padding: EdgeInsets.all(5),
+        margin: const EdgeInsets.all(0),
+        padding: const EdgeInsets.all(5),
         child: Row(
           children: [
             Expanded(
               child: Container(
-                margin: EdgeInsets.symmetric(horizontal: 10),
+                margin: const EdgeInsets.symmetric(horizontal: 10),
                 child: Row(
                   children: [
                     Column(
@@ -219,7 +221,7 @@ class _InspeccionDuplicarScreenState extends State<InspeccionDuplicarScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Row(
-                          children: [
+                          children: const [
                             Text("Fecha: ",
                                 style: TextStyle(
                                   fontSize: 12,
@@ -229,7 +231,7 @@ class _InspeccionDuplicarScreenState extends State<InspeccionDuplicarScreen> {
                           ],
                         ),
                         Row(
-                          children: [
+                          children: const [
                             Text("Empleado: ",
                                 style: TextStyle(
                                   fontSize: 12,
@@ -239,7 +241,7 @@ class _InspeccionDuplicarScreenState extends State<InspeccionDuplicarScreen> {
                           ],
                         ),
                         Row(
-                          children: [
+                          children: const [
                             Text("Cliente: ",
                                 style: TextStyle(
                                   fontSize: 12,
@@ -249,7 +251,7 @@ class _InspeccionDuplicarScreenState extends State<InspeccionDuplicarScreen> {
                           ],
                         ),
                         Row(
-                          children: [
+                          children: const [
                             Text("Tipo Trabajo: ",
                                 style: TextStyle(
                                   fontSize: 12,
@@ -259,7 +261,7 @@ class _InspeccionDuplicarScreenState extends State<InspeccionDuplicarScreen> {
                           ],
                         ),
                         Row(
-                          children: [
+                          children: const [
                             Text("Obra: ",
                                 style: TextStyle(
                                   fontSize: 12,
@@ -269,7 +271,7 @@ class _InspeccionDuplicarScreenState extends State<InspeccionDuplicarScreen> {
                           ],
                         ),
                         Row(
-                          children: [
+                          children: const [
                             Text("Total Preguntas: ",
                                 style: TextStyle(
                                   fontSize: 12,
@@ -279,7 +281,7 @@ class _InspeccionDuplicarScreenState extends State<InspeccionDuplicarScreen> {
                           ],
                         ),
                         Row(
-                          children: [
+                          children: const [
                             Text("Respuestas NO: ",
                                 style: TextStyle(
                                   fontSize: 12,
@@ -289,7 +291,7 @@ class _InspeccionDuplicarScreenState extends State<InspeccionDuplicarScreen> {
                           ],
                         ),
                         Row(
-                          children: [
+                          children: const [
                             Text("Total Puntos: ",
                                 style: TextStyle(
                                   fontSize: 12,
@@ -307,8 +309,10 @@ class _InspeccionDuplicarScreenState extends State<InspeccionDuplicarScreen> {
                             Row(
                               children: [
                                 Text(
-                                    '${DateFormat('dd/MM/yyyy').format(DateTime.parse(widget.vistaInspeccion.fecha))}',
-                                    style: TextStyle(
+                                    DateFormat('dd/MM/yyyy').format(
+                                        DateTime.parse(
+                                            widget.vistaInspeccion.fecha)),
+                                    style: const TextStyle(
                                       fontSize: 12,
                                     ))
                               ],
@@ -326,7 +330,7 @@ class _InspeccionDuplicarScreenState extends State<InspeccionDuplicarScreen> {
                                         : widget.vistaInspeccion.empleado
                                             .toString()
                                             .trim(),
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       fontSize: 12,
                                     )),
                               ],
@@ -334,7 +338,7 @@ class _InspeccionDuplicarScreenState extends State<InspeccionDuplicarScreen> {
                             Row(
                               children: [
                                 Text(widget.vistaInspeccion.cliente.toString(),
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       fontSize: 12,
                                     )),
                               ],
@@ -345,7 +349,7 @@ class _InspeccionDuplicarScreenState extends State<InspeccionDuplicarScreen> {
                                     widget.vistaInspeccion.tipoTrabajo
                                         .toString()
                                         .substring(0, fintipotrabajo),
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       fontSize: 12,
                                     )),
                               ],
@@ -356,7 +360,7 @@ class _InspeccionDuplicarScreenState extends State<InspeccionDuplicarScreen> {
                                     widget.vistaInspeccion.obra
                                         .toString()
                                         .substring(1, finobra),
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       fontSize: 12,
                                     )),
                               ],
@@ -366,7 +370,7 @@ class _InspeccionDuplicarScreenState extends State<InspeccionDuplicarScreen> {
                                 Text(
                                     widget.vistaInspeccion.totalPreguntas
                                         .toString(),
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       fontSize: 12,
                                     )),
                               ],
@@ -374,7 +378,7 @@ class _InspeccionDuplicarScreenState extends State<InspeccionDuplicarScreen> {
                             Row(
                               children: [
                                 Text(widget.vistaInspeccion.totalNo.toString(),
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       fontSize: 12,
                                     )),
                               ],
@@ -382,7 +386,7 @@ class _InspeccionDuplicarScreenState extends State<InspeccionDuplicarScreen> {
                             Row(
                               children: [
                                 Text(widget.vistaInspeccion.puntos.toString(),
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       fontSize: 12,
                                     )),
                               ],
@@ -404,22 +408,22 @@ class _InspeccionDuplicarScreenState extends State<InspeccionDuplicarScreen> {
 
   Widget _showLegajo() {
     return Container(
-      padding: EdgeInsets.all(10),
+      padding: const EdgeInsets.all(10),
       child: TextField(
         keyboardType: TextInputType.emailAddress,
         decoration: InputDecoration(
-          iconColor: Color(0xFF781f1e),
-          prefixIconColor: Color(0xFF781f1e),
-          hoverColor: Color(0xFF781f1e),
-          focusColor: Color(0xFF781f1e),
+          iconColor: const Color(0xFF781f1e),
+          prefixIconColor: const Color(0xFF781f1e),
+          hoverColor: const Color(0xFF781f1e),
+          focusColor: const Color(0xFF781f1e),
           fillColor: Colors.white,
           filled: true,
           hintText: 'Ingrese Legajo o Documento del empleado...',
           labelText: 'Legajo o Documento:',
           errorText: _codigoShowError ? _codigoError : null,
-          prefixIcon: Icon(Icons.badge),
+          prefixIcon: const Icon(Icons.badge),
           border: OutlineInputBorder(
-            borderSide: BorderSide(color: Color(0xFF781f1e)),
+            borderSide: const BorderSide(color: Color(0xFF781f1e)),
             borderRadius: BorderRadius.circular(10),
           ),
         ),
@@ -436,7 +440,7 @@ class _InspeccionDuplicarScreenState extends State<InspeccionDuplicarScreen> {
 
   Widget _showButton() {
     return Container(
-      margin: EdgeInsets.only(left: 5, right: 5),
+      margin: const EdgeInsets.only(left: 5, right: 5),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
@@ -444,7 +448,7 @@ class _InspeccionDuplicarScreenState extends State<InspeccionDuplicarScreen> {
             child: ElevatedButton(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: [
+                children: const [
                   Icon(Icons.search),
                   SizedBox(
                     width: 5,
@@ -452,8 +456,8 @@ class _InspeccionDuplicarScreenState extends State<InspeccionDuplicarScreen> {
                 ],
               ),
               style: ElevatedButton.styleFrom(
-                primary: Color(0xFF781f1e),
-                minimumSize: Size(double.infinity, 50),
+                primary: const Color(0xFF781f1e),
+                minimumSize: const Size(double.infinity, 50),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(5),
                 ),
@@ -477,7 +481,7 @@ class _InspeccionDuplicarScreenState extends State<InspeccionDuplicarScreen> {
           title: 'Error',
           message: 'Ingrese un Legajo o Documento.',
           actions: <AlertDialogAction>[
-            AlertDialogAction(key: null, label: 'Aceptar'),
+            const AlertDialogAction(key: null, label: 'Aceptar'),
           ]);
       return;
     }
@@ -488,7 +492,7 @@ class _InspeccionDuplicarScreenState extends State<InspeccionDuplicarScreen> {
 //--------------------- METODO GETCAUSANTE ---------------------------
 //-----------------------------------------------------------------
 
-  Future<Null> _getCausante() async {
+  Future<void> _getCausante() async {
     if (_codigo == "000000") {
       _esContratista = true;
       _enabled3 = false;
@@ -514,7 +518,7 @@ class _InspeccionDuplicarScreenState extends State<InspeccionDuplicarScreen> {
           title: 'Error',
           message: 'Verifica que estes conectado a internet.',
           actions: <AlertDialogAction>[
-            AlertDialogAction(key: null, label: 'Aceptar'),
+            const AlertDialogAction(key: null, label: 'Aceptar'),
           ]);
       return;
     }
@@ -527,7 +531,7 @@ class _InspeccionDuplicarScreenState extends State<InspeccionDuplicarScreen> {
           title: 'Error',
           message: "Legajo o Documento no válido",
           actions: <AlertDialogAction>[
-            AlertDialogAction(key: null, label: 'Aceptar'),
+            const AlertDialogAction(key: null, label: 'Aceptar'),
           ]);
 
       setState(() {
@@ -556,7 +560,7 @@ class _InspeccionDuplicarScreenState extends State<InspeccionDuplicarScreen> {
 
   Widget _shownombreSR() {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
       child: TextField(
         controller: _nombreSRController,
         decoration: InputDecoration(
@@ -565,12 +569,12 @@ class _InspeccionDuplicarScreenState extends State<InspeccionDuplicarScreen> {
             hintText: 'Ingrese Nombre Contratista...',
             labelText: 'Nombre Contratista:',
             errorText: _nombreSRShowError ? _nombreSRError : null,
-            prefixIcon: Icon(Icons.person),
+            prefixIcon: const Icon(Icons.person),
             border:
                 OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
         onChanged: (value) {
           _nombreSR = value;
-          _enabled3 = _dniSR.length > 0 && _nombreSR.length > 0;
+          _enabled3 = _dniSR.isNotEmpty && _nombreSR.isNotEmpty;
           setState(() {});
         },
 
@@ -581,7 +585,7 @@ class _InspeccionDuplicarScreenState extends State<InspeccionDuplicarScreen> {
 
   Widget _showdniSR() {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
       child: TextField(
         controller: _dniSRController,
         decoration: InputDecoration(
@@ -590,12 +594,12 @@ class _InspeccionDuplicarScreenState extends State<InspeccionDuplicarScreen> {
             hintText: 'Ingrese DNI Contratista...',
             labelText: 'DNI Contratista:',
             errorText: _dniSRShowError ? _dniSRError : null,
-            prefixIcon: Icon(Icons.assignment_ind),
+            prefixIcon: const Icon(Icons.assignment_ind),
             border:
                 OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
         onChanged: (value) {
           _dniSR = value;
-          _enabled3 = _dniSR.length > 0 && _nombreSR.length > 0;
+          _enabled3 = _dniSR.isNotEmpty && _nombreSR.isNotEmpty;
           setState(() {});
         },
         //enabled: _enabled,
@@ -611,9 +615,9 @@ class _InspeccionDuplicarScreenState extends State<InspeccionDuplicarScreen> {
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       elevation: 15,
-      margin: EdgeInsets.all(5),
+      margin: const EdgeInsets.all(5),
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
@@ -655,7 +659,7 @@ class _InspeccionDuplicarScreenState extends State<InspeccionDuplicarScreen> {
 
   Widget _showButton2() {
     return Container(
-      margin: EdgeInsets.only(left: 15, right: 15),
+      margin: const EdgeInsets.only(left: 15, right: 15),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
@@ -663,7 +667,7 @@ class _InspeccionDuplicarScreenState extends State<InspeccionDuplicarScreen> {
             child: ElevatedButton(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: [
+                children: const [
                   Icon(Icons.search),
                   SizedBox(
                     width: 5,
@@ -672,8 +676,8 @@ class _InspeccionDuplicarScreenState extends State<InspeccionDuplicarScreen> {
                 ],
               ),
               style: ElevatedButton.styleFrom(
-                primary: Color(0xFF781f1e),
-                minimumSize: Size(double.infinity, 50),
+                primary: const Color(0xFF781f1e),
+                minimumSize: const Size(double.infinity, 50),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(5),
                 ),
@@ -693,8 +697,8 @@ class _InspeccionDuplicarScreenState extends State<InspeccionDuplicarScreen> {
   _generarCuestionario() async {
     _detallesFormulariosCompleto = [];
 
-    await _getGruposFormularios(widget.vistaInspeccion.idCliente,
-        widget.vistaInspeccion.idTipoTrabajo as int);
+    await _getGruposFormularios(
+        widget.vistaInspeccion.idCliente, widget.vistaInspeccion.idTipoTrabajo);
 
     _inspeccionDetalles.forEach((element) {
       String descgpoform = '';
@@ -702,10 +706,9 @@ class _InspeccionDuplicarScreenState extends State<InspeccionDuplicarScreen> {
         if (element2.idgrupoformulario == element.idGrupoFormulario) {
           descgpoform = element2.descripcion;
         }
-        ;
       });
 
-      detallesFormularioCompleto = new DetallesFormularioCompleto(
+      detallesFormularioCompleto = DetallesFormularioCompleto(
           idcliente: element.idCliente,
           idgrupoformulario: element.idGrupoFormulario,
           descgrupoformulario: descgpoform,
@@ -749,7 +752,7 @@ class _InspeccionDuplicarScreenState extends State<InspeccionDuplicarScreen> {
 
   Widget _showObservaciones() {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
       child: TextField(
         controller: _observacionesController,
         decoration: InputDecoration(
@@ -758,12 +761,10 @@ class _InspeccionDuplicarScreenState extends State<InspeccionDuplicarScreen> {
             hintText: 'Ingrese Observaciones...',
             labelText: 'Observaciones:',
             errorText: _observacionesShowError ? _observacionesError : null,
-            prefixIcon: Icon(Icons.chat),
+            prefixIcon: const Icon(Icons.chat),
             border:
                 OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
-        onChanged: (value) {
-          _observaciones = value;
-        },
+        onChanged: (value) {},
         //enabled: _enabled,
       ),
     );
@@ -774,7 +775,6 @@ class _InspeccionDuplicarScreenState extends State<InspeccionDuplicarScreen> {
 //*****************************************************************************
 
   Future _getPosition() async {
-    bool serviceEnabled;
     LocationPermission permission;
     permission = await Geolocator.checkPermission();
     if (permission == LocationPermission.denied) {
@@ -787,18 +787,19 @@ class _InspeccionDuplicarScreenState extends State<InspeccionDuplicarScreen> {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
                 ),
-                title: Text('Aviso'),
-                content:
-                    Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
-                  Text('El permiso de localización está negado.'),
-                  SizedBox(
-                    height: 10,
-                  ),
-                ]),
+                title: const Text('Aviso'),
+                content: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: const <Widget>[
+                      Text('El permiso de localización está negado.'),
+                      SizedBox(
+                        height: 10,
+                      ),
+                    ]),
                 actions: <Widget>[
                   TextButton(
                       onPressed: () => Navigator.of(context).pop(),
-                      child: Text('Ok')),
+                      child: const Text('Ok')),
                 ],
               );
             });
@@ -814,19 +815,20 @@ class _InspeccionDuplicarScreenState extends State<InspeccionDuplicarScreen> {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10),
               ),
-              title: Text('Aviso'),
-              content:
-                  Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
-                Text(
-                    'El permiso de localización está negado permanentemente. No se puede requerir este permiso.'),
-                SizedBox(
-                  height: 10,
-                ),
-              ]),
+              title: const Text('Aviso'),
+              content: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: const <Widget>[
+                    Text(
+                        'El permiso de localización está negado permanentemente. No se puede requerir este permiso.'),
+                    SizedBox(
+                      height: 10,
+                    ),
+                  ]),
               actions: <Widget>[
                 TextButton(
                     onPressed: () => Navigator.of(context).pop(),
-                    child: Text('Ok')),
+                    child: const Text('Ok')),
               ],
             );
           });
@@ -845,7 +847,7 @@ class _InspeccionDuplicarScreenState extends State<InspeccionDuplicarScreen> {
 //************************** METODO GETINSPECCION *****************************
 //*****************************************************************************
 
-  Future<Null> _getInspeccion() async {
+  Future<void> _getInspeccion() async {
     setState(() {
       _showLoader = true;
     });
@@ -861,7 +863,7 @@ class _InspeccionDuplicarScreenState extends State<InspeccionDuplicarScreen> {
           title: 'Error',
           message: 'Verifica que estés conectado a Internet',
           actions: <AlertDialogAction>[
-            AlertDialogAction(key: null, label: 'Aceptar'),
+            const AlertDialogAction(key: null, label: 'Aceptar'),
           ]);
       return;
     }
@@ -881,7 +883,7 @@ class _InspeccionDuplicarScreenState extends State<InspeccionDuplicarScreen> {
           title: 'Error',
           message: response.message,
           actions: <AlertDialogAction>[
-            AlertDialogAction(key: null, label: 'Aceptar'),
+            const AlertDialogAction(key: null, label: 'Aceptar'),
           ]);
       return;
     }
@@ -897,7 +899,7 @@ class _InspeccionDuplicarScreenState extends State<InspeccionDuplicarScreen> {
 //************************** METODO GETINSPECCIONDETALLES *********************
 //*****************************************************************************
 
-  Future<Null> _getInspeccionDetalles() async {
+  Future<void> _getInspeccionDetalles() async {
     setState(() {
       _showLoader = true;
     });
@@ -913,14 +915,14 @@ class _InspeccionDuplicarScreenState extends State<InspeccionDuplicarScreen> {
           title: 'Error',
           message: 'Verifica que estés conectado a Internet',
           actions: <AlertDialogAction>[
-            AlertDialogAction(key: null, label: 'Aceptar'),
+            const AlertDialogAction(key: null, label: 'Aceptar'),
           ]);
       return;
     }
 
     Response response = Response(isSuccess: false);
 
-    response = await ApiHelper.GetDetallesInspecciones(
+    response = await ApiHelper.getDetallesInspecciones(
         widget.vistaInspeccion.idInspeccion);
 
     setState(() {
@@ -933,7 +935,7 @@ class _InspeccionDuplicarScreenState extends State<InspeccionDuplicarScreen> {
           title: 'Error',
           message: response.message,
           actions: <AlertDialogAction>[
-            AlertDialogAction(key: null, label: 'Aceptar'),
+            const AlertDialogAction(key: null, label: 'Aceptar'),
           ]);
       return;
     }
@@ -949,7 +951,7 @@ class _InspeccionDuplicarScreenState extends State<InspeccionDuplicarScreen> {
 //************************** METODO GETOBRA *****************************
 //*****************************************************************************
 
-  Future<Null> _getObra() async {
+  Future<void> _getObra() async {
     setState(() {
       _showLoader = true;
     });
@@ -965,7 +967,7 @@ class _InspeccionDuplicarScreenState extends State<InspeccionDuplicarScreen> {
           title: 'Error',
           message: 'Verifica que estés conectado a Internet',
           actions: <AlertDialogAction>[
-            AlertDialogAction(key: null, label: 'Aceptar'),
+            const AlertDialogAction(key: null, label: 'Aceptar'),
           ]);
       return;
     }
@@ -984,7 +986,7 @@ class _InspeccionDuplicarScreenState extends State<InspeccionDuplicarScreen> {
           title: 'Error',
           message: response.message,
           actions: <AlertDialogAction>[
-            AlertDialogAction(key: null, label: 'Aceptar'),
+            const AlertDialogAction(key: null, label: 'Aceptar'),
           ]);
       return;
     }
@@ -998,7 +1000,7 @@ class _InspeccionDuplicarScreenState extends State<InspeccionDuplicarScreen> {
 //************************** METODO GETGRUPOSFORMULARIOS **********************
 //*****************************************************************************
 
-  Future<Null> _getGruposFormularios(int cliente, int tipotrabajo) async {
+  Future<void> _getGruposFormularios(int cliente, int tipotrabajo) async {
     var connectivityResult = await Connectivity().checkConnectivity();
 
     if (connectivityResult == ConnectivityResult.none) {
@@ -1007,7 +1009,7 @@ class _InspeccionDuplicarScreenState extends State<InspeccionDuplicarScreen> {
           title: 'Error',
           message: 'Verifica que estés conectado a Internet',
           actions: <AlertDialogAction>[
-            AlertDialogAction(key: null, label: 'Aceptar'),
+            const AlertDialogAction(key: null, label: 'Aceptar'),
           ]);
       return;
     }
@@ -1017,7 +1019,7 @@ class _InspeccionDuplicarScreenState extends State<InspeccionDuplicarScreen> {
 
     do {
       Response response = Response(isSuccess: false);
-      response = await ApiHelper.GetGruposFormularios(cliente, tipotrabajo);
+      response = await ApiHelper.getGruposFormularios(cliente, tipotrabajo);
       intentos++;
       if (response.isSuccess) {
         bandera = true;
@@ -1025,6 +1027,5 @@ class _InspeccionDuplicarScreenState extends State<InspeccionDuplicarScreen> {
       }
     } while (bandera == false);
     setState(() {});
-    var b = 1;
   }
 }

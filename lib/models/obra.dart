@@ -37,26 +37,23 @@ class Obra {
     if (json['obrasDocumentos'] != null) {
       obrasDocumentos = [];
       json['obrasDocumentos'].forEach((v) {
-        obrasDocumentos.add(new ObrasDocumento.fromJson(v));
+        obrasDocumentos.add(ObrasDocumento.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['nroObra'] = this.nroObra;
-    data['nombreObra'] = this.nombreObra;
-    data['elempep'] = this.elempep;
-    data['observaciones'] = this.observaciones;
-    data['finalizada'] = this.finalizada;
-    data['supervisore'] = this.supervisore;
-    data['codigoEstado'] = this.codigoEstado;
-    data['modulo'] = this.modulo;
-    data['grupoAlmacen'] = this.grupoAlmacen;
-    if (this.obrasDocumentos != null) {
-      data['obrasDocumentos'] =
-          this.obrasDocumentos.map((v) => v.toJson()).toList();
-    }
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['nroObra'] = nroObra;
+    data['nombreObra'] = nombreObra;
+    data['elempep'] = elempep;
+    data['observaciones'] = observaciones;
+    data['finalizada'] = finalizada;
+    data['supervisore'] = supervisore;
+    data['codigoEstado'] = codigoEstado;
+    data['modulo'] = modulo;
+    data['grupoAlmacen'] = grupoAlmacen;
+    data['obrasDocumentos'] = obrasDocumentos.map((v) => v.toJson()).toList();
     return data;
   }
 }

@@ -4,13 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:rowing_app/helpers/api_helper.dart';
 import 'package:rowing_app/models/models.dart';
-import 'package:rowing_app/screens/inspeccion_cuestionario_screen.dart';
 import 'package:rowing_app/screens/screens.dart';
 import 'package:rowing_app/widgets/widgets.dart';
 
 class InspeccionesScreen extends StatefulWidget {
   final User user;
-  InspeccionesScreen({required this.user});
+  const InspeccionesScreen({Key? key, required this.user}) : super(key: key);
 
   @override
   _InspeccionesScreenState createState() => _InspeccionesScreenState();
@@ -21,12 +20,11 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
 //************************** DEFINICION DE VARIABLES **************************
 //*****************************************************************************
   String _codigo = '';
-  String _codigoError = '';
-  bool _codigoShowError = false;
+  final String _codigoError = '';
+  final bool _codigoShowError = false;
   bool _enabled1 = false;
   bool _enabled2 = false;
   bool _enabled3 = true;
-  bool _showLoader = false;
   bool _esContratista = false;
   late Causante _causante;
   bool bandera = false;
@@ -34,13 +32,12 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
   List<Cliente> _clientes = [];
 
   int _cliente = 0;
-  String _clienteError = '';
-  bool _clienteShowError = false;
-  TextEditingController _clienteController = TextEditingController();
+  final String _clienteError = '';
+  final bool _clienteShowError = false;
 
   int _tipoTrabajoSelected = 0;
-  String _tipoTrabajoError = '';
-  bool _tipoTrabajoShowError = false;
+  final String _tipoTrabajoError = '';
+  final bool _tipoTrabajoShowError = false;
   List<TiposTrabajo> _tipoTrabajos = [];
 
   List<GruposFormulario> _gruposFormularios = [];
@@ -58,7 +55,7 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
           cumple: '',
           foto: '');
 
-  Position _positionUser = Position(
+  Position _positionUser = const Position(
       longitude: 0,
       latitude: 0,
       timestamp: null,
@@ -68,20 +65,20 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
       speed: 0,
       speedAccuracy: 0);
 
-  String _observaciones = '';
-  String _observacionesError = '';
-  bool _observacionesShowError = false;
-  TextEditingController _observacionesController = TextEditingController();
+  final String _observacionesError = '';
+  final bool _observacionesShowError = false;
+  final TextEditingController _observacionesController =
+      TextEditingController();
 
   String _nombreSR = '';
-  String _nombreSRError = '';
-  bool _nombreSRShowError = false;
-  TextEditingController _nombreSRController = TextEditingController();
+  final String _nombreSRError = '';
+  final bool _nombreSRShowError = false;
+  final TextEditingController _nombreSRController = TextEditingController();
 
   String _dniSR = '';
-  String _dniSRError = '';
-  bool _dniSRShowError = false;
-  TextEditingController _dniSRController = TextEditingController();
+  final String _dniSRError = '';
+  final bool _dniSRShowError = false;
+  final TextEditingController _dniSRController = TextEditingController();
 
   Obra obra = Obra(
       nroObra: 0,
@@ -99,9 +96,10 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
 //************************** INIT STATE ***************************************
 //*****************************************************************************
 
+  @override
   void initState() {
     super.initState();
-    _causante = new Causante(
+    _causante = Causante(
         nroCausante: 0,
         codigo: '',
         nombre: '',
@@ -125,9 +123,9 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 195, 191, 191),
+      backgroundColor: const Color.fromARGB(255, 195, 191, 191),
       appBar: AppBar(
-        title: Text('Nueva Inspección'),
+        title: const Text('Nueva Inspección'),
         centerTitle: true,
       ),
       body: Stack(
@@ -135,16 +133,17 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
           SingleChildScrollView(
             child: Column(
               children: <Widget>[
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 Card(
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20)),
                   elevation: 15,
-                  margin: EdgeInsets.symmetric(horizontal: 5),
+                  margin: const EdgeInsets.symmetric(horizontal: 5),
                   child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 15, vertical: 0),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 15, vertical: 0),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -159,18 +158,18 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 _esContratista ? _showCamposContratista() : _showInfo(),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 _showObra(),
                 _showObservaciones(),
                 _showClientes(),
                 _showTiposTrabajos(),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 _showButton2(),
@@ -188,22 +187,22 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
 
   Widget _showLegajo() {
     return Container(
-      padding: EdgeInsets.all(10),
+      padding: const EdgeInsets.all(10),
       child: TextField(
         keyboardType: TextInputType.emailAddress,
         decoration: InputDecoration(
-          iconColor: Color(0xFF781f1e),
-          prefixIconColor: Color(0xFF781f1e),
-          hoverColor: Color(0xFF781f1e),
-          focusColor: Color(0xFF781f1e),
+          iconColor: const Color(0xFF781f1e),
+          prefixIconColor: const Color(0xFF781f1e),
+          hoverColor: const Color(0xFF781f1e),
+          focusColor: const Color(0xFF781f1e),
           fillColor: Colors.white,
           filled: true,
           hintText: 'Ingrese Legajo o Documento del empleado...',
           labelText: 'Legajo o Documento:',
           errorText: _codigoShowError ? _codigoError : null,
-          prefixIcon: Icon(Icons.badge),
+          prefixIcon: const Icon(Icons.badge),
           border: OutlineInputBorder(
-            borderSide: BorderSide(color: Color(0xFF781f1e)),
+            borderSide: const BorderSide(color: Color(0xFF781f1e)),
             borderRadius: BorderRadius.circular(10),
           ),
         ),
@@ -220,7 +219,7 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
 
   Widget _showButton() {
     return Container(
-      margin: EdgeInsets.only(left: 5, right: 5),
+      margin: const EdgeInsets.only(left: 5, right: 5),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
@@ -228,7 +227,7 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
             child: ElevatedButton(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: [
+                children: const [
                   Icon(Icons.search),
                   SizedBox(
                     width: 5,
@@ -236,8 +235,8 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
                 ],
               ),
               style: ElevatedButton.styleFrom(
-                primary: Color(0xFF781f1e),
-                minimumSize: Size(double.infinity, 50),
+                primary: const Color(0xFF781f1e),
+                minimumSize: const Size(double.infinity, 50),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(5),
                 ),
@@ -256,7 +255,7 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
 
   Widget _showButton2() {
     return Container(
-      margin: EdgeInsets.only(left: 15, right: 15),
+      margin: const EdgeInsets.only(left: 15, right: 15),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
@@ -264,7 +263,7 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
             child: ElevatedButton(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: [
+                children: const [
                   Icon(Icons.search),
                   SizedBox(
                     width: 5,
@@ -273,8 +272,8 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
                 ],
               ),
               style: ElevatedButton.styleFrom(
-                primary: Color(0xFF781f1e),
-                minimumSize: Size(double.infinity, 50),
+                primary: const Color(0xFF781f1e),
+                minimumSize: const Size(double.infinity, 50),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(5),
                 ),
@@ -297,9 +296,9 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       elevation: 15,
-      margin: EdgeInsets.all(5),
+      margin: const EdgeInsets.all(5),
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
@@ -357,7 +356,7 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
           title: 'Error',
           message: 'Ingrese un Legajo o Documento.',
           actions: <AlertDialogAction>[
-            AlertDialogAction(key: null, label: 'Aceptar'),
+            const AlertDialogAction(key: null, label: 'Aceptar'),
           ]);
       return;
     }
@@ -368,7 +367,7 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
 //--------------------- METODO GETCAUSANTE ---------------------------
 //-----------------------------------------------------------------
 
-  Future<Null> _getCausante() async {
+  Future<void> _getCausante() async {
     if (_codigo == "000000") {
       _esContratista = true;
       _enabled3 = false;
@@ -379,22 +378,18 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
 
     _esContratista = false;
     _enabled1 = false;
-    setState(() {
-      _showLoader = true;
-    });
+    setState(() {});
 
     _esContratista = false;
     var connectivityResult = await Connectivity().checkConnectivity();
     if (connectivityResult == ConnectivityResult.none) {
-      setState(() {
-        _showLoader = false;
-      });
+      setState(() {});
       await showAlertDialog(
           context: context,
           title: 'Error',
           message: 'Verifica que estes conectado a internet.',
           actions: <AlertDialogAction>[
-            AlertDialogAction(key: null, label: 'Aceptar'),
+            const AlertDialogAction(key: null, label: 'Aceptar'),
           ]);
       return;
     }
@@ -407,18 +402,16 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
           title: 'Error',
           message: "Legajo o Documento no válido",
           actions: <AlertDialogAction>[
-            AlertDialogAction(key: null, label: 'Aceptar'),
+            const AlertDialogAction(key: null, label: 'Aceptar'),
           ]);
 
       setState(() {
-        _showLoader = false;
         _enabled1 = false;
       });
       return;
     }
 
     setState(() {
-      _showLoader = false;
       _causante = response.result;
       _enabled1 = true;
     });
@@ -436,7 +429,7 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
 //************************** METODO GETCLIENTES *******************************
 //*****************************************************************************
 
-  Future<Null> _getClientes() async {
+  Future<void> _getClientes() async {
     var connectivityResult = await Connectivity().checkConnectivity();
 
     if (connectivityResult == ConnectivityResult.none) {
@@ -445,7 +438,7 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
           title: 'Error',
           message: 'Verifica que estés conectado a Internet',
           actions: <AlertDialogAction>[
-            AlertDialogAction(key: null, label: 'Aceptar'),
+            const AlertDialogAction(key: null, label: 'Aceptar'),
           ]);
       return;
     }
@@ -455,7 +448,7 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
 
     do {
       Response response = Response(isSuccess: false);
-      response = await ApiHelper.GetClientes();
+      response = await ApiHelper.getClientes();
       intentos++;
       if (response.isSuccess) {
         bandera = true;
@@ -474,10 +467,10 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
       children: [
         Expanded(
           child: Container(
-            padding: EdgeInsets.only(left: 10, right: 10, top: 5),
-            child: _clientes.length == 0
+            padding: const EdgeInsets.only(left: 10, right: 10, top: 5),
+            child: _clientes.isEmpty
                 ? Row(
-                    children: [
+                    children: const [
                       CircularProgressIndicator(),
                       SizedBox(
                         width: 10,
@@ -511,7 +504,7 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
 
   List<DropdownMenuItem<int>> _getComboClientes() {
     List<DropdownMenuItem<int>> list = [];
-    list.add(DropdownMenuItem(
+    list.add(const DropdownMenuItem(
       child: Text('Elija un Cliente...'),
       value: 0,
     ));
@@ -530,7 +523,7 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
 //************************** METODO GETTIPOSTRABAJOS *******************************
 //*****************************************************************************
 
-  Future<Null> _getTiposTrabajos() async {
+  Future<void> _getTiposTrabajos() async {
     var connectivityResult = await Connectivity().checkConnectivity();
 
     if (connectivityResult == ConnectivityResult.none) {
@@ -539,7 +532,7 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
           title: 'Error',
           message: 'Verifica que estés conectado a Internet',
           actions: <AlertDialogAction>[
-            AlertDialogAction(key: null, label: 'Aceptar'),
+            const AlertDialogAction(key: null, label: 'Aceptar'),
           ]);
       return;
     }
@@ -549,7 +542,7 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
 
     do {
       Response response = Response(isSuccess: false);
-      response = await ApiHelper.GetTiposTrabajos(_cliente);
+      response = await ApiHelper.getTiposTrabajos(_cliente);
       intentos++;
       if (response.isSuccess) {
         bandera = true;
@@ -565,9 +558,9 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
 
   Widget _showTiposTrabajos() {
     return Container(
-      padding: EdgeInsets.all(10),
-      child: _tipoTrabajos.length == 0
-          ? Text('')
+      padding: const EdgeInsets.all(10),
+      child: _tipoTrabajos.isEmpty
+          ? const Text('')
           : DropdownButtonFormField(
               items: _getComboTiposTrabajos(),
               value: _tipoTrabajoSelected,
@@ -595,17 +588,17 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
 
   List<DropdownMenuItem<int>> _getComboTiposTrabajos() {
     List<DropdownMenuItem<int>> list = [];
-    list.add(DropdownMenuItem(
+    list.add(const DropdownMenuItem(
       child: Text('Seleccione un Tipo de Trabajo...'),
       value: 0,
     ));
 
-    _tipoTrabajos.forEach((tipoTrabajo) {
+    for (var tipoTrabajo in _tipoTrabajos) {
       list.add(DropdownMenuItem(
         child: Text(tipoTrabajo.descripcion),
         value: tipoTrabajo.idtipotrabajo,
       ));
-    });
+    }
 
     return list;
   }
@@ -614,7 +607,7 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
 //************************** METODO GETGRUPOSFORMULARIOS **********************
 //*****************************************************************************
 
-  Future<Null> _getGruposFormularios() async {
+  Future<void> _getGruposFormularios() async {
     var connectivityResult = await Connectivity().checkConnectivity();
 
     if (connectivityResult == ConnectivityResult.none) {
@@ -623,7 +616,7 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
           title: 'Error',
           message: 'Verifica que estés conectado a Internet',
           actions: <AlertDialogAction>[
-            AlertDialogAction(key: null, label: 'Aceptar'),
+            const AlertDialogAction(key: null, label: 'Aceptar'),
           ]);
       return;
     }
@@ -634,7 +627,7 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
     do {
       Response response = Response(isSuccess: false);
       response =
-          await ApiHelper.GetGruposFormularios(_cliente, _tipoTrabajoSelected);
+          await ApiHelper.getGruposFormularios(_cliente, _tipoTrabajoSelected);
       intentos++;
       if (response.isSuccess) {
         bandera = true;
@@ -644,14 +637,13 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
     setState(() {});
     _getDetallesFormularios();
     _detallesFormulariosAux = _detallesFormularios;
-    var b;
   }
 
 //*****************************************************************************
 //************************** METODO GETDETALLESFORMULARIOS **********************
 //*****************************************************************************
 
-  Future<Null> _getDetallesFormularios() async {
+  Future<void> _getDetallesFormularios() async {
     var connectivityResult = await Connectivity().checkConnectivity();
 
     if (connectivityResult == ConnectivityResult.none) {
@@ -660,7 +652,7 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
           title: 'Error',
           message: 'Verifica que estés conectado a Internet',
           actions: <AlertDialogAction>[
-            AlertDialogAction(key: null, label: 'Aceptar'),
+            const AlertDialogAction(key: null, label: 'Aceptar'),
           ]);
       return;
     }
@@ -671,7 +663,7 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
 
     Response response = Response(isSuccess: false);
 
-    response = await ApiHelper.GetDetallesFormularios(_cliente);
+    response = await ApiHelper.getDetallesFormularios(_cliente);
 
     if (response.isSuccess) {
       _detallesFormulariosAux = response.result;
@@ -682,7 +674,7 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
         if (detalleFormularioAux.idgrupoformulario ==
             grupoFormulario.idgrupoformulario) {
           _detallesFormularios.add(detalleFormularioAux);
-          detallesFormularioCompleto = new DetallesFormularioCompleto(
+          detallesFormularioCompleto = DetallesFormularioCompleto(
               idcliente: detalleFormularioAux.idcliente,
               idgrupoformulario: detalleFormularioAux.idgrupoformulario,
               descgrupoformulario: grupoFormulario.descripcion,
@@ -695,9 +687,6 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
         }
       });
     });
-
-    var gg = 1;
-
     setState(() {});
   }
 
@@ -731,7 +720,6 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
 //*****************************************************************************
 
   Future _getPosition() async {
-    bool serviceEnabled;
     LocationPermission permission;
     permission = await Geolocator.checkPermission();
     if (permission == LocationPermission.denied) {
@@ -744,18 +732,19 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
                 ),
-                title: Text('Aviso'),
-                content:
-                    Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
-                  Text('El permiso de localización está negado.'),
-                  SizedBox(
-                    height: 10,
-                  ),
-                ]),
+                title: const Text('Aviso'),
+                content: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: const <Widget>[
+                      Text('El permiso de localización está negado.'),
+                      SizedBox(
+                        height: 10,
+                      ),
+                    ]),
                 actions: <Widget>[
                   TextButton(
                       onPressed: () => Navigator.of(context).pop(),
-                      child: Text('Ok')),
+                      child: const Text('Ok')),
                 ],
               );
             });
@@ -771,19 +760,20 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10),
               ),
-              title: Text('Aviso'),
-              content:
-                  Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
-                Text(
-                    'El permiso de localización está negado permanentemente. No se puede requerir este permiso.'),
-                SizedBox(
-                  height: 10,
-                ),
-              ]),
+              title: const Text('Aviso'),
+              content: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: const <Widget>[
+                    Text(
+                        'El permiso de localización está negado permanentemente. No se puede requerir este permiso.'),
+                    SizedBox(
+                      height: 10,
+                    ),
+                  ]),
               actions: <Widget>[
                 TextButton(
                     onPressed: () => Navigator.of(context).pop(),
-                    child: Text('Ok')),
+                    child: const Text('Ok')),
               ],
             );
           });
@@ -800,7 +790,7 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
 
   Widget _showObservaciones() {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
       child: TextField(
         controller: _observacionesController,
         decoration: InputDecoration(
@@ -809,12 +799,10 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
             hintText: 'Ingrese Observaciones...',
             labelText: 'Observaciones:',
             errorText: _observacionesShowError ? _observacionesError : null,
-            prefixIcon: Icon(Icons.chat),
+            prefixIcon: const Icon(Icons.chat),
             border:
                 OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
-        onChanged: (value) {
-          _observaciones = value;
-        },
+        onChanged: (value) {},
         //enabled: _enabled,
       ),
     );
@@ -822,7 +810,7 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
 
   Widget _shownombreSR() {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
       child: TextField(
         controller: _nombreSRController,
         decoration: InputDecoration(
@@ -831,12 +819,12 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
             hintText: 'Ingrese Nombre Contratista...',
             labelText: 'Nombre Contratista:',
             errorText: _nombreSRShowError ? _nombreSRError : null,
-            prefixIcon: Icon(Icons.person),
+            prefixIcon: const Icon(Icons.person),
             border:
                 OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
         onChanged: (value) {
           _nombreSR = value;
-          _enabled3 = _dniSR.length > 0 && _nombreSR.length > 0;
+          _enabled3 = _dniSR.isNotEmpty && _nombreSR.isNotEmpty;
           setState(() {});
         },
 
@@ -847,7 +835,7 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
 
   Widget _showdniSR() {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
       child: TextField(
         controller: _dniSRController,
         decoration: InputDecoration(
@@ -856,12 +844,12 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
             hintText: 'Ingrese DNI Contratista...',
             labelText: 'DNI Contratista:',
             errorText: _dniSRShowError ? _dniSRError : null,
-            prefixIcon: Icon(Icons.assignment_ind),
+            prefixIcon: const Icon(Icons.assignment_ind),
             border:
                 OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
         onChanged: (value) {
           _dniSR = value;
-          _enabled3 = _dniSR.length > 0 && _nombreSR.length > 0;
+          _enabled3 = _dniSR.isNotEmpty && _nombreSR.isNotEmpty;
           setState(() {});
         },
         //enabled: _enabled,
@@ -871,7 +859,7 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
 
   Widget _showObra() {
     return Container(
-        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
         child: Row(
           children: [
             Expanded(
@@ -890,15 +878,13 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
                     Expanded(
                       child: Row(
                         children: [
-                          SizedBox(
+                          const SizedBox(
                             width: 10,
                           ),
-                          Text("Obra: ",
+                          const Text("Obra: ",
                               style: TextStyle(fontWeight: FontWeight.bold)),
                           Expanded(
-                            child: obra.nombreObra != null
-                                ? Text(obra.nombreObra)
-                                : Text(""),
+                            child: Text(obra.nombreObra),
                           ),
                         ],
                       ),
@@ -907,14 +893,14 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               width: 10,
             ),
             ElevatedButton(
-              child: Icon(Icons.search),
+              child: const Icon(Icons.search),
               style: ElevatedButton.styleFrom(
-                primary: Color(0xFF781f1e),
-                minimumSize: Size(50, 50),
+                primary: const Color(0xFF781f1e),
+                minimumSize: const Size(50, 50),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(5),
                 ),
@@ -930,7 +916,7 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
                   ),
                 );
                 if (obra2 != null) {
-                  obra = obra2 as Obra;
+                  obra = obra2;
                 }
                 setState(() {});
               },

@@ -14,6 +14,7 @@ androidx.core.widget.TextViewOnReceiveContentListener
 com.google.android.gms.internal.location.zzag
 com.google.common.collect.Maps$AsMapView
 androidx.core.view.accessibility.AccessibilityEventCompat$ContentChangeType
+co.creativemind.device_information.R$styleable
 com.google.android.gms.location.LocationAvailability:
     public static boolean hasLocationAvailability(android.content.Intent)
     public static com.google.android.gms.location.LocationAvailability extractLocationAvailability(android.content.Intent)
@@ -464,6 +465,7 @@ androidx.core.widget.TextViewCompat$OreoCallback
 com.google.common.cache.RemovalCause$2
 com.google.common.collect.TreeMultiset$Reference
 com.google.common.base.CharMatcher$JavaLetter
+co.creativemind.device_information.R$color
 com.google.android.gms.common.SignInButton
 kotlinx.coroutines.flow.FlowKt__TransformKt$filter$$inlined$unsafeTransform$1$2
 com.google.common.io.ByteSource$ConcatenatedByteSource
@@ -556,6 +558,7 @@ kotlin.collections.MapsKt__MapsJVMKt:
     public void <init>()
     private static final int INT_MAX_POWER_OF_TWO
 kotlin.PreconditionsKt__PreconditionsKt
+co.creativemind.device_information.R
 com.google.common.collect.Multisets$1$1
 com.google.common.util.concurrent.CycleDetectingLockFactory$CycleDetectingReentrantReadWriteLock
 kotlin.jvm.internal.markers.KMutableCollection
@@ -1341,6 +1344,7 @@ androidx.annotation.MenuRes
 com.google.common.base.Predicates$AndPredicate
 com.google.common.util.concurrent.UncheckedExecutionException
 com.google.common.collect.Cut$BelowValue
+co.creativemind.device_information.R$integer
 com.google.common.cache.CacheLoader$FunctionToCacheLoader
 kotlin.UByteArrayKt
 com.google.android.gms.location.GeofencingRequest
@@ -3388,8 +3392,8 @@ com.google.common.collect.MapMaker$Dummy
 com.google.common.graph.ImmutableNetwork$2
 com.google.common.cache.LocalCache$WriteThroughEntry
 androidx.core.app.JobIntentService$JobServiceEngineImpl$WrapperWorkItem
-kotlin.sequences.USequencesKt
 androidx.core.app.NotificationCompatSideChannelService$NotificationSideChannelStub
+kotlin.sequences.USequencesKt
 org.intellij.lang.annotations.PrintFormatPattern
 com.google.common.collect.EnumMultiset$Itr
 com.google.common.util.concurrent.CycleDetectingLockFactory$CycleDetectingReentrantReadLock
@@ -3418,6 +3422,7 @@ com.google.common.reflect.Types$WildcardTypeImpl
 kotlin.collections.AbstractMap$values$1
 kotlinx.coroutines.flow.FlowKt__DelayKt$fixedPeriodTicker$3
 com.google.common.base.CommonPattern
+com.baseflow.permissionhandler.R$integer
 io.flutter.plugins.flutter_plugin_android_lifecycle.R$color
 com.baseflow.geolocator.GeolocatorPlugin:
     public static void registerWith(io.flutter.plugin.common.PluginRegistry$Registrar)
@@ -3458,6 +3463,7 @@ com.google.common.util.concurrent.CombinedFuture$AsyncCallableInterruptibleTask
 kotlin.TypeCastException
 com.google.common.collect.Sets$2$1
 kotlinx.coroutines.flow.FlowKt__ReduceKt$fold$$inlined$collect$1$1
+com.baseflow.permissionhandler.R$id
 kotlin.jvm.internal.TypeReference$WhenMappings
 com.google.common.cache.CacheBuilderSpec$MaximumWeightParser
 com.google.common.collect.Tables$AbstractCell
@@ -3674,12 +3680,14 @@ io.flutter.plugins.pathprovider.R$styleable
 com.google.android.gms.common.zzo
 androidx.fragment.R
 kotlin.collections.ArraysKt___ArraysJvmKt$asList$2
+co.creativemind.device_information.R$dimen
 io.flutter.embedding.engine.systemchannels.LifecycleChannel:
     private static final java.lang.String TAG
 com.google.android.gms.common.util.concurrent.NumberedThreadFactory
 com.google.common.graph.DirectedMultiNetworkConnections
 kotlinx.coroutines.selects.SelectClause1
 com.google.common.cache.AbstractCache
+com.baseflow.permissionhandler.R$layout
 com.google.common.collect.MinMaxPriorityQueue$Builder
 com.google.common.collect.Synchronized
 kotlin.io.FileSystemException
@@ -3849,6 +3857,7 @@ com.google.common.collect.SortedMultisets$ElementSet
 com.google.android.gms.tasks.zze
 kotlin.time.TimeMark
 kotlin.jvm.internal.Ref$FloatRef
+com.baseflow.permissionhandler.R$attr
 io.flutter.plugins.connectivity.R$dimen
 io.flutter.embedding.engine.renderer.FlutterRenderer:
     public android.graphics.Bitmap getBitmap()
@@ -3898,6 +3907,7 @@ com.google.common.cache.CacheBuilderSpec$MaximumSizeParser
 com.google.android.gms.dynamite.DynamiteModule$VersionPolicy$zzb
 com.google.common.collect.ArrayTable$RowMap
 kotlin.jvm.internal.EnumCompanionObject
+co.creativemind.device_information.R$style
 androidx.core.app.TaskStackBuilder$SupportParentable
 kotlinx.coroutines.flow.SharedFlow
 io.flutter.embedding.engine.renderer.FlutterRenderer$ViewportMetrics:
@@ -5321,6 +5331,7 @@ androidx.core.hardware.fingerprint.FingerprintManagerCompat$CryptoObject
 kotlin.sequences.SequencesKt__SequenceBuilderKt$buildSequence$$inlined$Sequence$1
 com.google.android.gms.location.zzf
 com.google.common.collect.Multisets$4$2
+co.creativemind.device_information.R$string
 com.google.android.gms.internal.base.zan
 kotlin.DeprecationLevel
 com.google.android.gms.common.util.NumberUtils
@@ -5407,6 +5418,7 @@ kotlinx.coroutines.Job$DefaultImpls:
     public static kotlinx.coroutines.Job plus(kotlinx.coroutines.Job,kotlinx.coroutines.Job)
 kotlin.jvm.JvmSuppressWildcards
 com.google.common.collect.Synchronized$SynchronizedSortedSetMultimap
+com.baseflow.permissionhandler.PermissionConstants$PermissionGroup
 androidx.core.view.ViewCompat$Api21Impl$1
 com.google.common.util.concurrent.ForwardingBlockingQueue
 com.google.common.collect.ArrayTable$Column
@@ -5873,7 +5885,55 @@ kotlin.reflect.KProperty
 com.google.android.gms.common.logging.Logger
 com.google.common.base.Platform$JdkPatternCompiler
 kotlinx.coroutines.channels.ProducerScope
-androidx.core.app.NotificationManagerCompat
+androidx.core.app.NotificationManagerCompat:
+    public static java.util.Set getEnabledListenerPackages(android.content.Context)
+    private static boolean useSideChannelForNotification(android.app.Notification)
+    private void pushSideChannelQueue(androidx.core.app.NotificationManagerCompat$Task)
+    public void cancel(int)
+    public void cancel(java.lang.String,int)
+    public void cancelAll()
+    public void notify(int,android.app.Notification)
+    public void notify(java.lang.String,int,android.app.Notification)
+    public int getImportance()
+    public void createNotificationChannel(android.app.NotificationChannel)
+    public void createNotificationChannel(androidx.core.app.NotificationChannelCompat)
+    public void createNotificationChannelGroup(android.app.NotificationChannelGroup)
+    public void createNotificationChannelGroup(androidx.core.app.NotificationChannelGroupCompat)
+    public void createNotificationChannels(java.util.List)
+    public void createNotificationChannelsCompat(java.util.List)
+    public void createNotificationChannelGroups(java.util.List)
+    public void createNotificationChannelGroupsCompat(java.util.List)
+    public void deleteNotificationChannel(java.lang.String)
+    public void deleteNotificationChannelGroup(java.lang.String)
+    public void deleteUnlistedNotificationChannels(java.util.Collection)
+    public android.app.NotificationChannel getNotificationChannel(java.lang.String)
+    public androidx.core.app.NotificationChannelCompat getNotificationChannelCompat(java.lang.String)
+    public android.app.NotificationChannel getNotificationChannel(java.lang.String,java.lang.String)
+    public androidx.core.app.NotificationChannelCompat getNotificationChannelCompat(java.lang.String,java.lang.String)
+    public android.app.NotificationChannelGroup getNotificationChannelGroup(java.lang.String)
+    public androidx.core.app.NotificationChannelGroupCompat getNotificationChannelGroupCompat(java.lang.String)
+    public java.util.List getNotificationChannels()
+    public java.util.List getNotificationChannelsCompat()
+    public java.util.List getNotificationChannelGroups()
+    public java.util.List getNotificationChannelGroupsCompat()
+    private static final java.lang.String TAG
+    private static final java.lang.String CHECK_OP_NO_THROW
+    private static final java.lang.String OP_POST_NOTIFICATION
+    public static final java.lang.String EXTRA_USE_SIDE_CHANNEL
+    public static final java.lang.String ACTION_BIND_SIDE_CHANNEL
+    static final int MAX_SIDE_CHANNEL_SDK_VERSION
+    private static final int SIDE_CHANNEL_RETRY_BASE_INTERVAL_MS
+    private static final int SIDE_CHANNEL_RETRY_MAX_COUNT
+    private static final java.lang.String SETTING_ENABLED_NOTIFICATION_LISTENERS
+    private static java.lang.String sEnabledNotificationListeners
+    private static androidx.core.app.NotificationManagerCompat$SideChannelManager sSideChannelManager
+    public static final int IMPORTANCE_UNSPECIFIED
+    public static final int IMPORTANCE_NONE
+    public static final int IMPORTANCE_MIN
+    public static final int IMPORTANCE_LOW
+    public static final int IMPORTANCE_DEFAULT
+    public static final int IMPORTANCE_HIGH
+    public static final int IMPORTANCE_MAX
 com.google.common.base.FunctionalEquivalence
 androidx.core.app.NotificationManagerCompat$CancelTask
 androidx.core.view.WindowInsetsAnimationControllerCompat
@@ -5917,6 +5977,8 @@ kotlin.properties.Delegates
 com.google.common.collect.Maps$TransformedEntriesSortedMap
 com.google.android.gms.location.ActivityTransitionEvent
 io.flutter.view.FlutterView$ViewportMetrics
+com.baseflow.permissionhandler.PermissionUtils:
+    public void <init>()
 com.google.common.util.concurrent.Monitor$Guard
 androidx.core.view.accessibility.AccessibilityManagerCompat$TouchExplorationStateChangeListenerWrapper
 kotlin.LazyKt:
@@ -5970,11 +6032,12 @@ io.flutter.embedding.engine.plugins.FlutterPlugin$FlutterAssets:
     public abstract java.lang.String getAssetFilePathBySubpath(java.lang.String,java.lang.String)
 kotlinx.coroutines.selects.SelectBuilderImpl$DisposeNode
 com.google.common.escape.ArrayBasedCharEscaper
+com.baseflow.permissionhandler.PermissionConstants
+com.google.common.graph.MutableNetwork
 androidx.activity.OnBackPressedDispatcher:
     public void <init>()
     public void addCallback(androidx.activity.OnBackPressedCallback)
     public boolean hasEnabledCallbacks()
-com.google.common.graph.MutableNetwork
 kotlinx.coroutines.flow.StateFlowSlot
 androidx.annotation.experimental.Experimental$Level
 com.google.common.hash.AbstractNonStreamingHashFunction
@@ -6595,6 +6658,7 @@ kotlinx.coroutines.channels.AbstractChannel:
     public java.lang.Object receiveOrNull(kotlin.coroutines.Continuation)
 com.google.common.reflect.Types$ClassOwnership$1
 kotlin.collections.unsigned.UArraysKt___UArraysKt$withIndex$2
+com.baseflow.permissionhandler.BuildConfig
 kotlin.sequences.SequenceScope
 com.google.android.gms.common.server.response.zap
 kotlinx.coroutines.flow.DistinctFlowImpl$collect$$inlined$collect$1
@@ -6613,6 +6677,7 @@ androidx.annotation.CallSuper
 com.google.common.util.concurrent.AggregateFuture$RunningState$1
 com.google.common.collect.ObjectCountHashMap$MapEntry
 kotlinx.coroutines.flow.internal.CombineKt$combineInternal$2$1$invokeSuspend$$inlined$collect$1$1
+com.baseflow.permissionhandler.PermissionConstants$ServiceStatus
 androidx.loader.R$layout
 com.google.common.util.concurrent.AbstractTransformFuture
 androidx.customview.widget.ExploreByTouchHelper$MyNodeProvider
@@ -7179,6 +7244,7 @@ com.google.common.collect.ImmutableSetMultimap$Builder
 com.google.common.collect.Maps$ViewCachingAbstractMap
 kotlinx.coroutines.flow.FlowKt__BuildersKt$flowOf$$inlined$unsafeFlow$1
 com.google.common.collect.AbstractTable$CellSet
+com.baseflow.permissionhandler.R
 kotlin.internal.RequireKotlin$Container
 com.google.common.collect.FilteredEntryMultimap$ValuePredicate
 androidx.core.text.BidiFormatter
@@ -8075,6 +8141,7 @@ kotlin.jvm.JvmClassMappingKt:
     public static final kotlin.reflect.KClass getAnnotationClass(java.lang.annotation.Annotation)
 com.google.common.io.package-info
 com.google.thirdparty.publicsuffix.TrieParser
+com.baseflow.permissionhandler.R$dimen
 com.google.common.math.LongMath$MillerRabinTester
 androidx.core.R$layout
 com.google.common.collect.RegularContiguousSet$1
@@ -8118,6 +8185,7 @@ kotlin.properties.ObservableProperty
 androidx.core.view.inputmethod.InputContentInfoCompat$InputContentInfoCompatApi25Impl
 kotlin.jvm.internal.StringCompanionObject
 androidx.loader.content.ModernAsyncTask$4
+com.baseflow.permissionhandler.R$style
 com.google.errorprone.annotations.concurrent.UnlockMethod
 com.google.common.collect.Maps$10
 androidx.viewpager.widget.ViewPager$PageTransformer
@@ -8482,6 +8550,7 @@ androidx.annotation.InspectableProperty
 kotlin.io.OnErrorAction
 com.google.android.gms.common.zaa
 kotlinx.coroutines.flow.FlowKt__CountKt$count$1
+com.baseflow.permissionhandler.R$drawable
 com.google.common.base.CharMatcher$AnyOf
 kotlin.jvm.internal.LocalVariableReferencesKt
 com.google.common.collect.TreeMultimap
@@ -8570,6 +8639,7 @@ androidx.core.view.accessibility.AccessibilityViewCommand$CommandArguments
 androidx.annotation.AttrRes
 androidx.core.content.pm.ActivityInfoCompat
 org.intellij.lang.annotations.MagicConstant
+co.creativemind.device_information.R$layout
 androidx.core.app.Person:
     public static androidx.core.app.Person fromBundle(android.os.Bundle)
     public static androidx.core.app.Person fromPersistableBundle(android.os.PersistableBundle)
@@ -9168,6 +9238,7 @@ com.google.common.collect.AbstractBiMap$1
 kotlinx.coroutines.flow.internal.SafeCollector_commonKt:
     public static final kotlinx.coroutines.flow.Flow unsafeFlow(kotlin.jvm.functions.Function2)
 io.flutter.plugins.sharedpreferences.R$string
+com.baseflow.permissionhandler.R$color
 kotlinx.coroutines.flow.internal.ChannelFlowTransformLatest$flowCollect$3
 com.baseflow.geolocator.LocationServiceHandlerImpl:
     private static final java.lang.String TAG
@@ -9604,6 +9675,7 @@ androidx.core.content.res.ComplexColorCompat
 kotlinx.coroutines.scheduling.DefaultScheduler:
     public final java.lang.String toDebugString()
 kotlinx.coroutines.channels.ProduceKt
+com.baseflow.permissionhandler.R$string
 androidx.core.view.WindowInsetsAnimationCompat$Impl
 android.support.v4.os.IResultReceiver$Default
 com.google.common.collect.FilteredSetMultimap
@@ -10746,6 +10818,7 @@ com.google.common.util.concurrent.ForwardingFuture
 com.google.android.gms.common.stats.WakeLockEvent
 com.google.common.graph.MutableGraph
 androidx.loader.R$drawable
+co.creativemind.device_information.R$id
 com.google.common.collect.ImmutableListMultimap$Builder
 kotlinx.coroutines.flow.FlowKt__TransformKt$runningFold$lambda-10$$inlined$collect$1
 kotlin.io.FileTreeWalk$WalkState
@@ -11754,6 +11827,7 @@ com.google.common.util.concurrent.Service$1
 io.flutter.plugins.connectivity.R
 com.google.common.eventbus.Dispatcher$LegacyAsyncDispatcher
 com.google.android.gms.common.internal.IResolveAccountCallbacks$Stub$Proxy
+com.baseflow.permissionhandler.PermissionConstants$PermissionStatus
 com.google.common.graph.MapIteratorCache$1$1
 androidx.annotation.IntDef
 androidx.core.os.CancellationSignal$OnCancelListener
@@ -11861,6 +11935,7 @@ kotlinx.coroutines.sync.MutexImpl$lockSuspend$2$1$1
 androidx.core.provider.FontRequestWorker$TypefaceResult
 kotlin.collections.unsigned.UArraysKt___UArraysJvmKt$asList$2
 io.flutter.view.FlutterNativeView$EngineLifecycleListenerImpl
+co.creativemind.device_information.R$drawable
 com.google.android.gms.common.internal.service.zab
 kotlin.collections.SetsKt:
     private void <init>()
@@ -11906,6 +11981,7 @@ io.flutter.plugin.common.MethodChannel:
     private static final java.lang.String TAG
 org.jetbrains.annotations.TestOnly
 kotlin.collections.AbstractMap$keys$1
+co.creativemind.device_information.R$attr
 com.google.common.eventbus.Subscriber
 kotlin.jvm.internal.MutablePropertyReference2Impl
 com.google.android.gms.common.api.Api:
@@ -12426,6 +12502,7 @@ kotlinx.coroutines.FlowPreview
 androidx.fragment.app.ListFragment$1
 kotlin.ArrayIntrinsicsKt
 com.google.common.util.concurrent.JdkFutureAdapters
+co.creativemind.device_information.BuildConfig
 com.google.common.collect.RegularContiguousSet
 com.google.android.gms.common.util.PlatformVersion:
     private void <init>()
@@ -12799,6 +12876,8 @@ kotlin.text.DelimitedRangesSequence$iterator$1:
     public final void setCounter(int)
 com.google.common.reflect.TypeResolver$TypeMappingIntrospector
 kotlin.collections.BooleanIterator
+com.baseflow.permissionhandler.PermissionHandlerPlugin:
+    public static void registerWith(io.flutter.plugin.common.PluginRegistry$Registrar)
 com.google.common.collect.SortedSetMultimap
 com.google.common.io.PatternFilenameFilter
 com.google.common.reflect.Types$ParameterizedTypeImpl
@@ -13111,6 +13190,7 @@ kotlin.jvm.internal.ArrayFloatIterator
 com.google.android.gms.location.places.zza
 androidx.core.os.LocaleListCompat
 io.flutter.embedding.engine.dart.DartMessenger$ConcurrentTaskQueue
+com.baseflow.permissionhandler.R$styleable
 com.google.common.collect.MapMakerInternalMap$KeySet
 kotlinx.coroutines.channels.ConflatedBroadcastChannel$Subscriber
 com.google.common.hash.HashCode$IntHashCode
@@ -13370,6 +13450,10 @@ com.google.android.gms.common.GooglePlayServicesUtilLight:
 androidx.arch.core.executor.ArchTaskExecutor$2
 io.flutter.embedding.engine.systemchannels.PlatformViewsChannel$1$1:
     final synthetic io.flutter.embedding.engine.systemchannels.PlatformViewsChannel$1 this$1
+androidx.core.app.NotificationManagerCompat:
+    private static final java.lang.Object sEnabledNotificationListenersLock
+    private static java.util.Set sEnabledNotificationListenerPackages
+    private static final java.lang.Object sLock
 com.google.android.gms.internal.location.zzc:
     private static final java.lang.ClassLoader zzd
 io.flutter.plugin.editing.TextInputPlugin$2:
@@ -13648,5 +13732,5 @@ androidx.arch.core.executor.TaskExecutor:
 androidx.core.view.ViewCompat$AccessibilityViewProperty:
     private final int mContentChangeType
 io.flutter.plugin.common.BinaryMessenger$-CC
-androidx.lifecycle.DefaultLifecycleObserver$-CC
 io.flutter.plugin.platform.PlatformView$-CC
+androidx.lifecycle.DefaultLifecycleObserver$-CC

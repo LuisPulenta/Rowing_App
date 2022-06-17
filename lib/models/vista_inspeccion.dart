@@ -48,21 +48,21 @@ class VistaInspeccion {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['idInspeccion'] = this.idInspeccion;
-    data['usuarioAlta'] = this.usuarioAlta;
-    data['fecha'] = this.fecha;
-    data['empleado'] = this.empleado;
-    data['cliente'] = this.cliente;
-    data['tipoTrabajo'] = this.tipoTrabajo;
-    data['obra'] = this.obra;
-    data['totalPreguntas'] = this.totalPreguntas;
-    data['totalNo'] = this.totalNo;
-    data['puntos'] = this.puntos;
-    data['dniSR'] = this.dniSR;
-    data['nombreSR'] = this.nombreSR;
-    data['idCliente'] = this.idCliente;
-    data['idTipoTrabajo'] = this.idTipoTrabajo;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['idInspeccion'] = idInspeccion;
+    data['usuarioAlta'] = usuarioAlta;
+    data['fecha'] = fecha;
+    data['empleado'] = empleado;
+    data['cliente'] = cliente;
+    data['tipoTrabajo'] = tipoTrabajo;
+    data['obra'] = obra;
+    data['totalPreguntas'] = totalPreguntas;
+    data['totalNo'] = totalNo;
+    data['puntos'] = puntos;
+    data['dniSR'] = dniSR;
+    data['nombreSR'] = nombreSR;
+    data['idCliente'] = idCliente;
+    data['idTipoTrabajo'] = idTipoTrabajo;
     return data;
   }
 }

@@ -9,7 +9,7 @@ import 'package:geocoding/geocoding.dart';
 class DisplayPictureScreen extends StatefulWidget {
   final XFile image;
 
-  DisplayPictureScreen({required this.image});
+  const DisplayPictureScreen({Key? key, required this.image}) : super(key: key);
 
   @override
   _DisplayPictureScreenState createState() => _DisplayPictureScreenState();
@@ -17,26 +17,14 @@ class DisplayPictureScreen extends StatefulWidget {
 
 class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
   String _observaciones = '';
-  String _observacionesError = '';
-  bool _observacionesShowError = false;
+  final String _observacionesError = '';
+  final bool _observacionesShowError = false;
 
   int _optionId = -1;
   String _optionIdError = '';
   bool _optionIdShowError = false;
 
-  bool _habilitaPosicion = false;
-
-  Position _positionUser = Position(
-      longitude: 0,
-      latitude: 0,
-      timestamp: null,
-      accuracy: 0,
-      altitude: 0,
-      heading: 0,
-      speed: 0,
-      speedAccuracy: 0);
-
-  List<String> _options = [
+  final List<String> _options = [
     'Relevamiento(Vereda/Calzada/Traza)',
     'Previa al trabajo',
     'Durante el trabajo',
@@ -44,28 +32,26 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
     'Finalización del Trabajo'
   ];
 
-  String? _selectedOption;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Vista previa de la foto'),
+        title: const Text('Vista previa de la foto'),
       ),
       body: SingleChildScrollView(
         child: Column(
           children: [
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
-            Container(
+            SizedBox(
               width: 300,
               height: 440,
               child: OverflowBox(
                 alignment: Alignment.center,
                 child: FittedBox(
                   fit: BoxFit.contain,
-                  child: Container(
+                  child: SizedBox(
                     width: 300,
                     height: 440,
                     child: Image.file(
@@ -88,7 +74,7 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
 
   Widget _showOptions() {
     return Container(
-      padding: EdgeInsets.all(10),
+      padding: const EdgeInsets.all(10),
       child: DropdownButtonFormField(
           value: _optionId,
           onChanged: (option) {
@@ -110,15 +96,15 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
 
   Widget _showButtons() {
     return Container(
-        margin: EdgeInsets.all(10),
+        margin: const EdgeInsets.all(10),
         child: Row(
           children: <Widget>[
             Expanded(
               child: ElevatedButton(
-                child: Text('Usar Foto'),
+                child: const Text('Usar Foto'),
                 style: ElevatedButton.styleFrom(
-                  primary: Color(0xFF120E43),
-                  minimumSize: Size(double.infinity, 50),
+                  primary: const Color(0xFF120E43),
+                  minimumSize: const Size(double.infinity, 50),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(5),
                   ),
@@ -128,15 +114,15 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
                 },
               ),
             ),
-            SizedBox(
+            const SizedBox(
               width: 10,
             ),
             Expanded(
               child: ElevatedButton(
-                child: Text('Volver a tomar'),
+                child: const Text('Volver a tomar'),
                 style: ElevatedButton.styleFrom(
-                  primary: Color(0xFFE03B8B),
-                  minimumSize: Size(double.infinity, 50),
+                  primary: const Color(0xFFE03B8B),
+                  minimumSize: const Size(double.infinity, 50),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(5),
                   ),
@@ -152,7 +138,7 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
 
   Widget _showObservaciones() {
     return Container(
-      padding: EdgeInsets.all(10),
+      padding: const EdgeInsets.all(10),
       child: TextField(
         keyboardType: TextInputType.emailAddress,
         decoration: InputDecoration(
@@ -161,7 +147,7 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
             hintText: 'Observaciones...',
             labelText: 'Observaciones',
             errorText: _observacionesShowError ? _observacionesError : null,
-            prefixIcon: Icon(Icons.person),
+            prefixIcon: const Icon(Icons.person),
             border:
                 OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
         onChanged: (value) {
@@ -186,7 +172,6 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
       return;
     }
 
-    bool serviceEnabled;
     LocationPermission permission;
 
     permission = await Geolocator.checkPermission();
@@ -200,18 +185,19 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
                 ),
-                title: Text('Aviso'),
-                content:
-                    Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
-                  Text('El permiso de localización está negado.'),
-                  SizedBox(
-                    height: 10,
-                  ),
-                ]),
+                title: const Text('Aviso'),
+                content: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: const <Widget>[
+                      Text('El permiso de localización está negado.'),
+                      SizedBox(
+                        height: 10,
+                      ),
+                    ]),
                 actions: <Widget>[
                   TextButton(
                       onPressed: () => Navigator.of(context).pop(),
-                      child: Text('Ok')),
+                      child: const Text('Ok')),
                 ],
               );
             });
@@ -227,28 +213,25 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10),
               ),
-              title: Text('Aviso'),
-              content:
-                  Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
-                Text(
-                    'El permiso de localización está negado permanentemente. No se puede requerir este permiso.'),
-                SizedBox(
-                  height: 10,
-                ),
-              ]),
+              title: const Text('Aviso'),
+              content: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: const <Widget>[
+                    Text(
+                        'El permiso de localización está negado permanentemente. No se puede requerir este permiso.'),
+                    SizedBox(
+                      height: 10,
+                    ),
+                  ]),
               actions: <Widget>[
                 TextButton(
                     onPressed: () => Navigator.of(context).pop(),
-                    child: Text('Ok')),
+                    child: const Text('Ok')),
               ],
             );
           });
       return;
     }
-
-    _habilitaPosicion = true;
-    _positionUser = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high);
 
     Position position = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);
@@ -273,12 +256,12 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
 
   List<DropdownMenuItem<int>> _getOptions() {
     List<DropdownMenuItem<int>> list = [];
-    list.add(DropdownMenuItem(
+    list.add(const DropdownMenuItem(
       child: Text('Seleccione un Tipo de Foto...'),
       value: -1,
     ));
     int nro = 0;
-    _options.forEach((element) {
+    for (var element in _options) {
       //CORREGIR EL NUMERO PARA VEREDA CONFORME
       if (nro == 3) {
         nro = 10;
@@ -292,34 +275,8 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
         value: nro,
       ));
       nro++;
-    });
+    }
 
     return list;
-  }
-
-  Future<Position> _determinePosition() async {
-    bool serviceEnabled;
-    LocationPermission permission;
-
-    serviceEnabled = await Geolocator.isLocationServiceEnabled();
-    if (!serviceEnabled) {
-      return Future.error('El servicio de geolocalización está deshabilitado.');
-    }
-
-    permission = await Geolocator.checkPermission();
-    if (permission == LocationPermission.denied) {
-      permission = await Geolocator.requestPermission();
-      if (permission == LocationPermission.denied) {
-        return Future.error(
-            "Los permisos de geolocalización están deshabilitados.");
-      }
-    }
-
-    if (permission == LocationPermission.deniedForever) {
-      // Permissions are denied forever, handle appropriately.
-      return Future.error(
-          'Los permisos de geolocalización están permanentemente deshabilitados.');
-    }
-    return await Geolocator.getCurrentPosition();
   }
 }

@@ -60,25 +60,25 @@ class Vehiculo {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['codveh'] = this.codveh;
-    data['numcha'] = this.numcha;
-    data['codProducto'] = this.codProducto;
-    data['aniofa'] = this.aniofa;
-    data['descripcion'] = this.descripcion;
-    data['nmotor'] = this.nmotor;
-    data['chasis'] = this.chasis;
-    data['fechaVencITV'] = this.fechaVencITV;
-    data['nroPolizaSeguro'] = this.nroPolizaSeguro;
-    data['centroCosto'] = this.centroCosto;
-    data['propiedadDe'] = this.propiedadDe;
-    data['telepase'] = this.telepase;
-    data['kmhsactual'] = this.kmhsactual;
-    data['usaHoras'] = this.usaHoras;
-    data['habilitado'] = this.habilitado;
-    data['fechaVencObleaGAS'] = this.fechaVencObleaGAS;
-    data['modulo'] = this.modulo;
-    data['campomemo'] = this.campomemo;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['codveh'] = codveh;
+    data['numcha'] = numcha;
+    data['codProducto'] = codProducto;
+    data['aniofa'] = aniofa;
+    data['descripcion'] = descripcion;
+    data['nmotor'] = nmotor;
+    data['chasis'] = chasis;
+    data['fechaVencITV'] = fechaVencITV;
+    data['nroPolizaSeguro'] = nroPolizaSeguro;
+    data['centroCosto'] = centroCosto;
+    data['propiedadDe'] = propiedadDe;
+    data['telepase'] = telepase;
+    data['kmhsactual'] = kmhsactual;
+    data['usaHoras'] = usaHoras;
+    data['habilitado'] = habilitado;
+    data['fechaVencObleaGAS'] = fechaVencObleaGAS;
+    data['modulo'] = modulo;
+    data['campomemo'] = campomemo;
     return data;
   }
 }

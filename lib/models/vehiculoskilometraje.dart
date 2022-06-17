@@ -48,21 +48,21 @@ class VehiculosKilometraje {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['orden'] = this.orden;
-    data['fecha'] = this.fecha;
-    data['equipo'] = this.equipo;
-    data['kilini'] = this.kilini;
-    data['kilfin'] = this.kilfin;
-    data['horsal'] = this.horsal;
-    data['horlle'] = this.horlle;
-    data['codsuc'] = this.codsuc;
-    data['nrodeot'] = this.nrodeot;
-    data['cambio'] = this.cambio;
-    data['procesado'] = this.procesado;
-    data['kmfechaanterior'] = this.kmfechaanterior;
-    data['nopromediar'] = this.nopromediar;
-    data['fechaalta'] = this.fechaalta;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['orden'] = orden;
+    data['fecha'] = fecha;
+    data['equipo'] = equipo;
+    data['kilini'] = kilini;
+    data['kilfin'] = kilfin;
+    data['horsal'] = horsal;
+    data['horlle'] = horlle;
+    data['codsuc'] = codsuc;
+    data['nrodeot'] = nrodeot;
+    data['cambio'] = cambio;
+    data['procesado'] = procesado;
+    data['kmfechaanterior'] = kmfechaanterior;
+    data['nopromediar'] = nopromediar;
+    data['fechaalta'] = fechaalta;
     return data;
   }
 }

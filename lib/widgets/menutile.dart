@@ -6,7 +6,11 @@ class MenuTile extends StatelessWidget {
   final Widget screen;
 
   const MenuTile(
-      {required this.icon, required this.menuitem, required this.screen});
+      {Key? key,
+      required this.icon,
+      required this.menuitem,
+      required this.screen})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,9 +19,9 @@ class MenuTile extends StatelessWidget {
         icon,
         color: Colors.white,
       ),
-      title:
-          Text(menuitem, style: TextStyle(fontSize: 15, color: Colors.white)),
-      tileColor: Color(0xff8c8c94),
+      title: Text(menuitem,
+          style: const TextStyle(fontSize: 15, color: Colors.white)),
+      tileColor: const Color(0xff8c8c94),
       onTap: () {
         Navigator.push(
           context,

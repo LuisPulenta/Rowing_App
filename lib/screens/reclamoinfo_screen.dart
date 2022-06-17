@@ -13,7 +13,8 @@ import 'package:rowing_app/models/user.dart';
 class ReclamoInfoScreen extends StatefulWidget {
   final User user;
   final Reclamo reclamo;
-  ReclamoInfoScreen({required this.user, required this.reclamo});
+  const ReclamoInfoScreen({Key? key, required this.user, required this.reclamo})
+      : super(key: key);
 
   @override
   _ReclamoInfoScreenState createState() => _ReclamoInfoScreenState();
@@ -28,9 +29,9 @@ class _ReclamoInfoScreenState extends State<ReclamoInfoScreen> {
   List<Catalogo> _catalogos = [];
 
   String _cantidad = '';
-  String _cantidadError = '';
-  bool _cantidadShowError = false;
-  TextEditingController _cantidadController = TextEditingController();
+  final String _cantidadError = '';
+  final bool _cantidadShowError = false;
+  final TextEditingController _cantidadController = TextEditingController();
 
   List<TextEditingController> controllers = [];
 
@@ -51,14 +52,14 @@ class _ReclamoInfoScreenState extends State<ReclamoInfoScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF484848),
+      backgroundColor: const Color(0xFF484848),
       appBar: AppBar(
-        title: Text('Reclamo Materiales'),
+        title: const Text('Reclamo Materiales'),
         centerTitle: true,
       ),
       body: Center(
         child: _showLoader
-            ? LoaderComponent(
+            ? const LoaderComponent(
                 text: 'Por favor espere...',
               )
             : _getContent(),
@@ -72,13 +73,13 @@ class _ReclamoInfoScreenState extends State<ReclamoInfoScreen> {
   Widget _getContent() {
     return Column(
       children: <Widget>[
-        SizedBox(
+        const SizedBox(
           height: 10,
         ),
         _showReclamoInfo(),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
+          children: const [
             Text(
               "Material         ",
               style: TextStyle(color: Colors.white),
@@ -97,7 +98,7 @@ class _ReclamoInfoScreenState extends State<ReclamoInfoScreen> {
           child: _getListView(),
         ),
         _showButtons(),
-        SizedBox(
+        const SizedBox(
           height: 10,
         ),
       ],
@@ -110,19 +111,19 @@ class _ReclamoInfoScreenState extends State<ReclamoInfoScreen> {
 
   Widget _showReclamoInfo() {
     return Card(
-      color: Color(0xFFC7C7C8),
+      color: const Color(0xFFC7C7C8),
       shadowColor: Colors.white,
       elevation: 10,
-      margin: EdgeInsets.fromLTRB(10, 0, 10, 5),
+      margin: const EdgeInsets.fromLTRB(10, 0, 10, 5),
       child: Container(
         height: 100,
-        margin: EdgeInsets.all(0),
-        padding: EdgeInsets.all(5),
+        margin: const EdgeInsets.all(0),
+        padding: const EdgeInsets.all(5),
         child: Row(
           children: [
             Expanded(
               child: Container(
-                margin: EdgeInsets.symmetric(horizontal: 10),
+                margin: const EdgeInsets.symmetric(horizontal: 10),
                 child: Row(
                   children: [
                     Expanded(
@@ -130,7 +131,7 @@ class _ReclamoInfoScreenState extends State<ReclamoInfoScreen> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Row(
-                            children: [
+                            children: const [
                               Text("AS/N° Reclamo: ",
                                   style: TextStyle(
                                     fontSize: 12,
@@ -140,7 +141,7 @@ class _ReclamoInfoScreenState extends State<ReclamoInfoScreen> {
                             ],
                           ),
                           Row(
-                            children: [
+                            children: const [
                               Text("Zona: ",
                                   style: TextStyle(
                                     fontSize: 12,
@@ -150,7 +151,7 @@ class _ReclamoInfoScreenState extends State<ReclamoInfoScreen> {
                             ],
                           ),
                           Row(
-                            children: [
+                            children: const [
                               Text("Dirección: ",
                                   style: TextStyle(
                                     fontSize: 12,
@@ -160,7 +161,7 @@ class _ReclamoInfoScreenState extends State<ReclamoInfoScreen> {
                             ],
                           ),
                           Row(
-                            children: [
+                            children: const [
                               Text("N°: ",
                                   style: TextStyle(
                                     fontSize: 12,
@@ -170,7 +171,7 @@ class _ReclamoInfoScreenState extends State<ReclamoInfoScreen> {
                             ],
                           ),
                           Row(
-                            children: [
+                            children: const [
                               Text("Descr./Nombre: ",
                                   style: TextStyle(
                                     fontSize: 12,
@@ -189,7 +190,7 @@ class _ReclamoInfoScreenState extends State<ReclamoInfoScreen> {
                             Row(
                               children: [
                                 Text(widget.reclamo.asticket.toString(),
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       fontSize: 12,
                                     )),
                               ],
@@ -197,7 +198,7 @@ class _ReclamoInfoScreenState extends State<ReclamoInfoScreen> {
                             Row(
                               children: [
                                 Text(widget.reclamo.zona.toString(),
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       fontSize: 12,
                                     )),
                               ],
@@ -205,7 +206,7 @@ class _ReclamoInfoScreenState extends State<ReclamoInfoScreen> {
                             Row(
                               children: [
                                 Text(widget.reclamo.direccion.toString(),
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       fontSize: 12,
                                     )),
                               ],
@@ -213,7 +214,7 @@ class _ReclamoInfoScreenState extends State<ReclamoInfoScreen> {
                             Row(
                               children: [
                                 Text(widget.reclamo.numeracion.toString(),
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       fontSize: 12,
                                     )),
                               ],
@@ -221,7 +222,7 @@ class _ReclamoInfoScreenState extends State<ReclamoInfoScreen> {
                             Row(
                               children: [
                                 Text(widget.reclamo.terminal.toString(),
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       fontSize: 12,
                                     )),
                               ],
@@ -246,18 +247,18 @@ class _ReclamoInfoScreenState extends State<ReclamoInfoScreen> {
     return ListView(
       children: _catalogos.map((e) {
         return Card(
-          color: Color(0xFFC7C7C8),
+          color: const Color(0xFFC7C7C8),
           shadowColor: Colors.white,
           elevation: 10,
-          margin: EdgeInsets.fromLTRB(10, 0, 10, 10),
+          margin: const EdgeInsets.fromLTRB(10, 0, 10, 10),
           child: Container(
-            margin: EdgeInsets.all(0),
-            padding: EdgeInsets.all(5),
+            margin: const EdgeInsets.all(0),
+            padding: const EdgeInsets.all(5),
             child: Row(
               children: [
                 Expanded(
                   child: Container(
-                    margin: EdgeInsets.symmetric(horizontal: 10),
+                    margin: const EdgeInsets.symmetric(horizontal: 10),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
@@ -269,23 +270,23 @@ class _ReclamoInfoScreenState extends State<ReclamoInfoScreen> {
                                   Expanded(
                                     flex: 4,
                                     child: Text(e.catCatalogo.toString(),
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           fontSize: 12,
                                         )),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     width: 5,
                                   ),
                                   Expanded(
                                     flex: 1,
                                     child: Text(e.cantidad.toString(),
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           fontSize: 14,
                                           color: Colors.blue,
                                           fontWeight: FontWeight.bold,
                                         )),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     width: 10,
                                   ),
                                   IconButton(
@@ -300,8 +301,8 @@ class _ReclamoInfoScreenState extends State<ReclamoInfoScreen> {
                                               return AlertDialog(
                                                 backgroundColor:
                                                     Colors.grey[300],
-                                                title:
-                                                    Text("Ingrese la cantidad"),
+                                                title: const Text(
+                                                    "Ingrese la cantidad"),
                                                 content: TextField(
                                                   autofocus: true,
                                                   controller:
@@ -316,7 +317,7 @@ class _ReclamoInfoScreenState extends State<ReclamoInfoScreen> {
                                                               ? _cantidadError
                                                               : null,
                                                       prefixIcon:
-                                                          Icon(Icons.tag),
+                                                          const Icon(Icons.tag),
                                                       border:
                                                           OutlineInputBorder(
                                                               borderRadius:
@@ -336,7 +337,7 @@ class _ReclamoInfoScreenState extends State<ReclamoInfoScreen> {
                                                             mainAxisAlignment:
                                                                 MainAxisAlignment
                                                                     .spaceAround,
-                                                            children: [
+                                                            children: const [
                                                               Icon(
                                                                   Icons.cancel),
                                                               Text('Cancelar'),
@@ -344,11 +345,14 @@ class _ReclamoInfoScreenState extends State<ReclamoInfoScreen> {
                                                           ),
                                                           style: ElevatedButton
                                                               .styleFrom(
-                                                            primary: Color(
-                                                                0xFFB4161B),
-                                                            minimumSize: Size(
-                                                                double.infinity,
-                                                                50),
+                                                            primary:
+                                                                const Color(
+                                                                    0xFFB4161B),
+                                                            minimumSize:
+                                                                const Size(
+                                                                    double
+                                                                        .infinity,
+                                                                    50),
                                                             shape:
                                                                 RoundedRectangleBorder(
                                                               borderRadius:
@@ -363,7 +367,7 @@ class _ReclamoInfoScreenState extends State<ReclamoInfoScreen> {
                                                           },
                                                         ),
                                                       ),
-                                                      SizedBox(
+                                                      const SizedBox(
                                                         width: 10,
                                                       ),
                                                       Expanded(
@@ -372,18 +376,21 @@ class _ReclamoInfoScreenState extends State<ReclamoInfoScreen> {
                                                             mainAxisAlignment:
                                                                 MainAxisAlignment
                                                                     .spaceAround,
-                                                            children: [
+                                                            children: const [
                                                               Icon(Icons.save),
                                                               Text('Aceptar'),
                                                             ],
                                                           ),
                                                           style: ElevatedButton
                                                               .styleFrom(
-                                                            primary: Color(
-                                                                0xFF120E43),
-                                                            minimumSize: Size(
-                                                                double.infinity,
-                                                                50),
+                                                            primary:
+                                                                const Color(
+                                                                    0xFF120E43),
+                                                            minimumSize:
+                                                                const Size(
+                                                                    double
+                                                                        .infinity,
+                                                                    50),
                                                             shape:
                                                                 RoundedRectangleBorder(
                                                               borderRadius:
@@ -421,8 +428,8 @@ class _ReclamoInfoScreenState extends State<ReclamoInfoScreen> {
                                             },
                                             barrierDismissible: false);
                                       },
-                                      icon:
-                                          Icon(Icons.loop, color: Colors.blue)),
+                                      icon: const Icon(Icons.loop,
+                                          color: Colors.blue)),
                                 ],
                               ),
                             ],
@@ -446,7 +453,7 @@ class _ReclamoInfoScreenState extends State<ReclamoInfoScreen> {
 
   Widget _showButtons() {
     return Container(
-      margin: EdgeInsets.only(left: 10, right: 10),
+      margin: const EdgeInsets.only(left: 10, right: 10),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
@@ -465,7 +472,7 @@ class _ReclamoInfoScreenState extends State<ReclamoInfoScreen> {
       child: ElevatedButton(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [
+          children: const [
             Icon(Icons.save),
             SizedBox(
               width: 15,
@@ -474,8 +481,8 @@ class _ReclamoInfoScreenState extends State<ReclamoInfoScreen> {
           ],
         ),
         style: ElevatedButton.styleFrom(
-          primary: Color(0xFF781f1e),
-          minimumSize: Size(double.infinity, 50),
+          primary: const Color(0xFF781f1e),
+          minimumSize: const Size(double.infinity, 50),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(5),
           ),
@@ -500,7 +507,7 @@ class _ReclamoInfoScreenState extends State<ReclamoInfoScreen> {
 //************************** METODO GETCATALOGOS ******************************
 //*****************************************************************************
 
-  Future<Null> _getCatalogos() async {
+  Future<void> _getCatalogos() async {
     setState(() {
       _showLoader = true;
     });
@@ -516,7 +523,7 @@ class _ReclamoInfoScreenState extends State<ReclamoInfoScreen> {
           title: 'Error',
           message: 'Verifica que estés conectado a Internet',
           actions: <AlertDialogAction>[
-            AlertDialogAction(key: null, label: 'Aceptar'),
+            const AlertDialogAction(key: null, label: 'Aceptar'),
           ]);
       return;
     }
@@ -543,7 +550,7 @@ class _ReclamoInfoScreenState extends State<ReclamoInfoScreen> {
           title: 'Error',
           message: response.message,
           actions: <AlertDialogAction>[
-            AlertDialogAction(key: null, label: 'Aceptar'),
+            const AlertDialogAction(key: null, label: 'Aceptar'),
           ]);
       return;
     }
@@ -578,7 +585,7 @@ class _ReclamoInfoScreenState extends State<ReclamoInfoScreen> {
               title: 'Error',
               message: response.message,
               actions: <AlertDialogAction>[
-                AlertDialogAction(key: null, label: 'Aceptar'),
+                const AlertDialogAction(key: null, label: 'Aceptar'),
               ]);
         }
       }
@@ -589,7 +596,7 @@ class _ReclamoInfoScreenState extends State<ReclamoInfoScreen> {
           title: 'Error',
           message: 'No hay materiales que tengan cantidades',
           actions: <AlertDialogAction>[
-            AlertDialogAction(key: null, label: 'Aceptar'),
+            const AlertDialogAction(key: null, label: 'Aceptar'),
           ]);
       return;
     }
@@ -598,19 +605,8 @@ class _ReclamoInfoScreenState extends State<ReclamoInfoScreen> {
         title: 'Aviso',
         message: 'Materiales guardados con éxito!',
         actions: <AlertDialogAction>[
-          AlertDialogAction(key: null, label: 'Aceptar'),
+          const AlertDialogAction(key: null, label: 'Aceptar'),
         ]);
     Navigator.pop(context);
-  }
-
-  void _changeCantidad(Catalogo e, double value) {
-    for (Catalogo catalogo in _catalogos) {
-      if (catalogo.catCodigo == e.catCodigo) {
-        catalogo.cantidad = value;
-      } else {
-        (catalogo.catCodigo = catalogo.catCodigo);
-      }
-    }
-    setState(() {});
   }
 }

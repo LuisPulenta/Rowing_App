@@ -1,42 +1,44 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:connectivity/connectivity.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:rowing_app/components/loader_component.dart';
 import 'package:rowing_app/helpers/api_helper.dart';
 import 'package:rowing_app/models/models.dart';
-import 'package:rowing_app/screens/entregas_screen.dart';
 import 'package:rowing_app/widgets/widgets.dart';
 
 class FlotaScreen extends StatefulWidget {
   final User user;
-  FlotaScreen({required this.user});
+  const FlotaScreen({Key? key, required this.user}) : super(key: key);
 
   @override
   _FlotaScreenState createState() => _FlotaScreenState();
 }
 
-class _FlotaScreenState extends State<FlotaScreen> {
+class _FlotaScreenState extends State<FlotaScreen>
+    with SingleTickerProviderStateMixin {
 //*****************************************************************************
 //************************** DEFINICION DE VARIABLES **************************
 //*****************************************************************************
 
   String _codigo = '';
-  String _codigoError = '';
-  bool _codigoShowError = false;
-  bool _enabled = false;
+  final String _codigoError = '';
+  final bool _codigoShowError = false;
   bool _showLoader = false;
   late Vehiculo _vehiculo;
   late VFlota _vFlota;
-  TextEditingController _codigoController = TextEditingController();
+  final TextEditingController _codigoController = TextEditingController();
 
   String kmFechaAnterior = '';
   int kmFinAnterior = 0;
 
+  List<Preventivo> _preventivos = [];
+
   String _km = '';
-  String _kmError = '';
-  bool _kmShowError = false;
-  TextEditingController _kmController = TextEditingController();
+  final String _kmError = '';
+  final bool _kmShowError = false;
+  final TextEditingController _kmController = TextEditingController();
 
   List<VehiculosKilometraje> _kilometrajes = [];
   List<VehiculosProgramaPrev> _programasprev = [];
@@ -44,9 +46,16 @@ class _FlotaScreenState extends State<FlotaScreen> {
   int _nroReg = 0;
   bool _seguimientoGrabado = false;
 
+  TabController? _tabController;
+
+//*****************************************************************************
+//************************** INIT STATE ***************************************
+//*****************************************************************************
+
+  @override
   void initState() {
     super.initState();
-    _vehiculo = new Vehiculo(
+    _vehiculo = Vehiculo(
         codveh: 0,
         numcha: '',
         codProducto: '',
@@ -65,6 +74,8 @@ class _FlotaScreenState extends State<FlotaScreen> {
         fechaVencObleaGAS: 0,
         modulo: '',
         campomemo: '');
+
+    _tabController = TabController(length: 2, vsync: this);
   }
 
 //*****************************************************************************
@@ -74,68 +85,150 @@ class _FlotaScreenState extends State<FlotaScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Color(0xFF484848),
-        appBar: AppBar(
-          title: Text("Flotas"),
-          centerTitle: true,
-        ),
-        body: Stack(
-          children: [
-            SingleChildScrollView(
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: 20,
+      backgroundColor: const Color(0xFF484848),
+      appBar: AppBar(
+        title: (const Text("Flotas")),
+        centerTitle: true,
+        backgroundColor: const Color(0xff242424),
+      ),
+      body: Stack(
+        children: [
+          Container(
+            decoration: const BoxDecoration(
+              gradient: const LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  Color(
+                    (0xFF484848),
                   ),
-                  _showLogo(),
-                  SizedBox(
-                    height: 20,
+                  Color(
+                    (0xFF484848),
                   ),
-                  Card(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20)),
-                    elevation: 15,
-                    margin: EdgeInsets.all(5),
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Row(
-                            children: [
-                              Expanded(
-                                child: _showLegajo(),
-                                flex: 5,
-                              ),
-                              Expanded(
-                                child: _showButton(),
-                                flex: 3,
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  _showInfo(),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  _showButtons(),
                 ],
               ),
             ),
-            _showLoader
-                ? LoaderComponent(
-                    text: 'Por favor espere...',
-                  )
-                : Container(),
-          ],
-        ));
+            child: TabBarView(
+              controller: _tabController,
+              physics: const AlwaysScrollableScrollPhysics(),
+              dragStartBehavior: DragStartBehavior.start,
+              children: <Widget>[
+//-------------------------------------------------------------------------
+//-------------------------- 1° TABBAR ------------------------------------
+//-------------------------------------------------------------------------
+                SingleChildScrollView(
+                  child: Column(
+                    children: <Widget>[
+                      SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            _showLogo(),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            Card(
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20)),
+                              elevation: 15,
+                              margin: const EdgeInsets.all(5),
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 5, vertical: 5),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    Row(
+                                      children: [
+                                        Expanded(
+                                          child: _showLegajo(),
+                                          flex: 5,
+                                        ),
+                                        Expanded(
+                                          child: _showButton(),
+                                          flex: 3,
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            _showInfo(),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            _showButtons(),
+                          ],
+                        ),
+                      ),
+                      _showLoader
+                          ? const LoaderComponent(
+                              text: 'Por favor espere...',
+                            )
+                          : Container(),
+                    ],
+                  ),
+                ),
+//-------------------------------------------------------------------------
+//-------------------------- 2° TABBAR ------------------------------------
+//-------------------------------------------------------------------------
+                Center(
+                  child: _getContent(),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+      bottomNavigationBar: BottomAppBar(
+        color: const Color(0xff242424),
+        child: TabBar(
+            controller: _tabController,
+            indicatorColor: Colors.white,
+            indicatorSize: TabBarIndicatorSize.tab,
+            indicatorWeight: 5,
+            labelColor: Colors.white,
+            unselectedLabelColor: Colors.grey,
+            labelPadding: const EdgeInsets.all(10),
+            tabs: <Widget>[
+              Tab(
+                child: Column(
+                  children: const [
+                    Icon(Icons.directions_car),
+                    SizedBox(
+                      width: 5,
+                    ),
+                    Text(
+                      "Flotas",
+                      style: TextStyle(fontSize: 14),
+                    ),
+                  ],
+                ),
+              ),
+              Tab(
+                child: Column(
+                  children: const [
+                    Icon(Icons.construction),
+                    SizedBox(
+                      width: 5,
+                    ),
+                    Text(
+                      "Preventivos",
+                      style: TextStyle(fontSize: 14),
+                    ),
+                  ],
+                ),
+              ),
+            ]),
+      ),
+    );
   }
 
 //-----------------------------------------------------------------
@@ -172,7 +265,7 @@ class _FlotaScreenState extends State<FlotaScreen> {
 
   Widget _showLegajo() {
     return Container(
-      padding: EdgeInsets.all(10),
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
       child: TextField(
         keyboardType: TextInputType.emailAddress,
         controller: _codigoController,
@@ -182,7 +275,7 @@ class _FlotaScreenState extends State<FlotaScreen> {
             hintText: 'Ingrese Patente...',
             labelText: 'Patente:',
             errorText: _codigoShowError ? _codigoError : null,
-            prefixIcon: Icon(Icons.badge),
+            prefixIcon: const Icon(Icons.badge),
             border:
                 OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
         onChanged: (value) {
@@ -198,7 +291,7 @@ class _FlotaScreenState extends State<FlotaScreen> {
 
   Widget _showButton() {
     return Container(
-      margin: EdgeInsets.only(left: 5, right: 5),
+      margin: const EdgeInsets.only(left: 5, right: 5),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
@@ -206,7 +299,7 @@ class _FlotaScreenState extends State<FlotaScreen> {
             child: ElevatedButton(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: [
+                children: const [
                   Icon(Icons.search),
                   SizedBox(
                     width: 5,
@@ -215,8 +308,8 @@ class _FlotaScreenState extends State<FlotaScreen> {
                 ],
               ),
               style: ElevatedButton.styleFrom(
-                primary: Color(0xFF781f1e),
-                minimumSize: Size(double.infinity, 50),
+                primary: const Color(0xFF781f1e),
+                minimumSize: const Size(double.infinity, 50),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(5),
                 ),
@@ -237,9 +330,9 @@ class _FlotaScreenState extends State<FlotaScreen> {
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       elevation: 15,
-      margin: EdgeInsets.all(5),
+      margin: const EdgeInsets.all(5),
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
@@ -247,43 +340,43 @@ class _FlotaScreenState extends State<FlotaScreen> {
             CustomRow(
               icon: Icons.abc_outlined,
               nombredato: 'Cód. Inventario:',
-              dato: _Dato(_vehiculo.codProducto),
+              dato: _gato(_vehiculo.codProducto),
             ),
             CustomRow(
               icon: Icons.numbers_outlined,
               nombredato: 'Modelo:',
               dato: _vehiculo.aniofa != 0
-                  ? _Dato(_vehiculo.aniofa.toString())
+                  ? _gato(_vehiculo.aniofa.toString())
                   : '',
             ),
             CustomRow(
               icon: Icons.description,
               nombredato: 'Descripción:',
-              dato: _Dato(_vehiculo.descripcion),
+              dato: _gato(_vehiculo.descripcion),
             ),
             CustomRow(
               icon: Icons.filter_1,
               nombredato: 'N° Motor:',
-              dato: _Dato(_vehiculo.nmotor),
+              dato: _gato(_vehiculo.nmotor),
             ),
             CustomRow(
               icon: Icons.filter_2,
               nombredato: 'N° Chásis:',
-              dato: _Dato(_vehiculo.chasis),
+              dato: _gato(_vehiculo.chasis),
             ),
             CustomRow(
               icon: Icons.date_range,
               nombredato: 'Venc. VTV:',
               dato: _vehiculo.fechaVencITV != 0
-                  ? _Dato(
-                      '${DateFormat('dd/MM/yyyy').format(DateTime(2022, 01, 01).add(Duration(days: (_vehiculo.fechaVencITV! - 80723))))}')
+                  ? _gato(DateFormat('dd/MM/yyyy').format(DateTime(2022, 01, 01)
+                      .add(Duration(days: (_vehiculo.fechaVencITV! - 80723)))))
                   : '',
               alert: _vehiculo.fechaVencITV != 0
                   ? DateTime(2022, 01, 01)
                               .add(Duration(
                                   days: (_vehiculo.fechaVencITV! - 80723)))
                               .difference(DateTime.now()) >=
-                          Duration(days: 50)
+                          const Duration(days: 50)
                       ? false
                       : true
                   : false,
@@ -292,15 +385,16 @@ class _FlotaScreenState extends State<FlotaScreen> {
               icon: Icons.date_range,
               nombredato: 'Venc. Oblea Gas:',
               dato: _vehiculo.fechaVencObleaGAS != 0
-                  ? _Dato(
-                      '${DateFormat('dd/MM/yyyy').format(DateTime(2022, 01, 01).add(Duration(days: (_vehiculo.fechaVencObleaGAS! - 80723))))}')
+                  ? _gato(DateFormat('dd/MM/yyyy').format(DateTime(2022, 01, 01)
+                      .add(Duration(
+                          days: (_vehiculo.fechaVencObleaGAS! - 80723)))))
                   : '',
               alert: _vehiculo.fechaVencObleaGAS != 0
                   ? DateTime(2022, 01, 01)
                               .add(Duration(
                                   days: (_vehiculo.fechaVencObleaGAS! - 80723)))
                               .difference(DateTime.now()) >=
-                          Duration(days: 30)
+                          const Duration(days: 30)
                       ? false
                       : true
                   : false,
@@ -308,28 +402,28 @@ class _FlotaScreenState extends State<FlotaScreen> {
             CustomRow(
               icon: Icons.security,
               nombredato: 'N° Póliza Seguro:',
-              dato: _Dato(_vehiculo.nroPolizaSeguro),
+              dato: _gato(_vehiculo.nroPolizaSeguro),
             ),
             CustomRow(
               icon: Icons.request_quote,
               nombredato: 'Centro de Costo:',
-              dato: _Dato(_vehiculo.centroCosto),
+              dato: _gato(_vehiculo.centroCosto),
             ),
             CustomRow(
               icon: Icons.factory,
               nombredato: 'Propiedad de:',
-              dato: _Dato(_vehiculo.propiedadDe),
+              dato: _gato(_vehiculo.propiedadDe),
             ),
             CustomRow(
               icon: Icons.code,
               nombredato: 'Telepase:',
-              dato: _Dato(_vehiculo.telepase),
+              dato: _gato(_vehiculo.telepase),
             ),
             CustomRow(
               icon: Icons.ac_unit,
               nombredato: _vehiculo.usaHoras == 1 ? 'Horas:' : 'Kilómetros',
               dato: _vehiculo.kmhsactual != 0
-                  ? _Dato(_vehiculo.kmhsactual != null
+                  ? _gato(_vehiculo.kmhsactual != null
                       ? _vehiculo.kmhsactual.toString()
                       : '')
                   : '',
@@ -344,12 +438,12 @@ class _FlotaScreenState extends State<FlotaScreen> {
             CustomRow(
               icon: Icons.code,
               nombredato: 'Módulo:',
-              dato: _Dato(_vehiculo.modulo),
+              dato: _gato(_vehiculo.modulo),
             ),
             CustomRow(
               icon: Icons.person,
               nombredato: 'Asignado a:',
-              dato: _Dato(_vehiculo.campomemo),
+              dato: _gato(_vehiculo.campomemo),
             ),
           ],
         ),
@@ -363,7 +457,7 @@ class _FlotaScreenState extends State<FlotaScreen> {
 
   Widget _showButtons() {
     return Container(
-      margin: EdgeInsets.only(left: 10, right: 10),
+      margin: const EdgeInsets.only(left: 10, right: 10),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
@@ -379,7 +473,7 @@ class _FlotaScreenState extends State<FlotaScreen> {
                       : 'Ingrese Km...',
                   labelText: _vehiculo.usaHoras == 1 ? 'Hs:' : 'Km',
                   errorText: _kmShowError ? _kmError : null,
-                  prefixIcon: Icon(Icons.ac_unit),
+                  prefixIcon: const Icon(Icons.ac_unit),
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10))),
               onChanged: (value) {
@@ -388,21 +482,21 @@ class _FlotaScreenState extends State<FlotaScreen> {
               },
             ),
           ),
-          SizedBox(
+          const SizedBox(
             width: 10,
           ),
           Expanded(
             child: ElevatedButton(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
+                children: const [
                   Icon(Icons.save),
                   Text('Guardar'),
                 ],
               ),
               style: ElevatedButton.styleFrom(
-                primary: Color(0xFF120E43),
-                minimumSize: Size(double.infinity, 50),
+                primary: const Color(0xFF120E43),
+                minimumSize: const Size(double.infinity, 50),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(5),
                 ),
@@ -428,7 +522,7 @@ class _FlotaScreenState extends State<FlotaScreen> {
           title: 'Error',
           message: 'Ingrese una Patente.',
           actions: <AlertDialogAction>[
-            AlertDialogAction(key: null, label: 'Aceptar'),
+            const AlertDialogAction(key: null, label: 'Aceptar'),
           ]);
       return;
     }
@@ -456,8 +550,8 @@ class _FlotaScreenState extends State<FlotaScreen> {
               ? 'El valor de Hs ingresado es menor al último guardado. ¿Está seguro de guardar?'
               : 'El valor de Km ingresado es menor al último guardado. ¿Está seguro de guardar?',
           actions: <AlertDialogAction>[
-            AlertDialogAction(key: 'si', label: 'SI'),
-            AlertDialogAction(key: 'no', label: 'NO'),
+            const AlertDialogAction(key: 'si', label: 'SI'),
+            const AlertDialogAction(key: 'no', label: 'NO'),
           ]);
       if (response == 'no') {
         return;
@@ -477,7 +571,7 @@ class _FlotaScreenState extends State<FlotaScreen> {
           title: 'Error',
           message: 'Verifica que estés conectado a Internet',
           actions: <AlertDialogAction>[
-            AlertDialogAction(key: null, label: 'Aceptar'),
+            const AlertDialogAction(key: null, label: 'Aceptar'),
           ]);
       return;
     }
@@ -524,7 +618,7 @@ class _FlotaScreenState extends State<FlotaScreen> {
             title: 'Error',
             message: response.message,
             actions: <AlertDialogAction>[
-              AlertDialogAction(key: null, label: 'Aceptar'),
+              const AlertDialogAction(key: null, label: 'Aceptar'),
             ]);
         return;
       } else {
@@ -539,14 +633,14 @@ class _FlotaScreenState extends State<FlotaScreen> {
       'kmhsactual': _km,
     };
 
-    Response response = await ApiHelper.put(
+    await ApiHelper.put(
         '/api/Vehiculos/', _vehiculo.codveh.toString(), request2);
 
 //---------------- ACTUALIZA KM EN TABLA VEHICULOSPROGRAMASPREV ---------
     Response response3 = Response(isSuccess: false);
 
     response3 =
-        await ApiHelper.GetProgramasPrev(_vehiculo.codProducto.toString());
+        await ApiHelper.getProgramasPrev(_vehiculo.codProducto.toString());
     _programasprev = response3.result;
 
     _programasprev.forEach((element) async {
@@ -555,7 +649,7 @@ class _FlotaScreenState extends State<FlotaScreen> {
         'kmhsactual': int.parse(_km) - kmFinAnterior,
       };
 
-      Response response = await ApiHelper.put('/api/VehiculosProgramasPrev/',
+      await ApiHelper.put('/api/VehiculosProgramasPrev/',
           element.nroInterno.toString(), request3);
     });
 
@@ -565,7 +659,7 @@ class _FlotaScreenState extends State<FlotaScreen> {
         title: 'Aviso',
         message: 'Valor guardado con éxito!',
         actions: <AlertDialogAction>[
-          AlertDialogAction(key: null, label: 'Aceptar'),
+          const AlertDialogAction(key: null, label: 'Aceptar'),
         ]);
     Navigator.pop(context, 'yes');
   }
@@ -574,7 +668,7 @@ class _FlotaScreenState extends State<FlotaScreen> {
 //************************** METODO GETVEHICULO *******************************
 //*****************************************************************************
 
-  Future<Null> _getVehiculo() async {
+  Future<void> _getVehiculo() async {
     setState(() {
       _showLoader = true;
     });
@@ -589,7 +683,7 @@ class _FlotaScreenState extends State<FlotaScreen> {
           title: 'Error',
           message: 'Verifica que estes conectado a internet.',
           actions: <AlertDialogAction>[
-            AlertDialogAction(key: null, label: 'Aceptar'),
+            const AlertDialogAction(key: null, label: 'Aceptar'),
           ]);
       return;
     }
@@ -602,20 +696,20 @@ class _FlotaScreenState extends State<FlotaScreen> {
           title: 'Error',
           message: "Patente no válida",
           actions: <AlertDialogAction>[
-            AlertDialogAction(key: null, label: 'Aceptar'),
+            const AlertDialogAction(key: null, label: 'Aceptar'),
           ]);
 
       setState(() {
         _showLoader = false;
-        _enabled = false;
       });
       return;
     }
     setState(() {
       _showLoader = false;
       _vehiculo = response.result;
-      _enabled = true;
     });
+
+    _vehiculo.kmhsactual ??= 0;
 
     Response response2 = Response(isSuccess: false);
 
@@ -623,20 +717,25 @@ class _FlotaScreenState extends State<FlotaScreen> {
         await ApiHelper.getKilometrajes(_vehiculo.codProducto.toString());
     _kilometrajes = response2.result;
 
-    kmFechaAnterior = _kilometrajes.length > 0
+    kmFechaAnterior = _kilometrajes.isNotEmpty
         ? _kilometrajes[_kilometrajes.length - 1].fecha.toString()
         : '';
-    kmFinAnterior = (_kilometrajes.length > 0
+    kmFinAnterior = (_kilometrajes.isNotEmpty
         ? _kilometrajes[_kilometrajes.length - 1].kilfin!
         : _vehiculo.kmhsactual)!;
-    var a = 1;
+
+    Response response3 = Response(isSuccess: false);
+
+    response3 = await ApiHelper.getPreventivos(_vehiculo.numcha.toString());
+    _preventivos = response3.result;
+    setState(() {});
   }
 
 //*****************************************************************************
 //************************** METODO GETUSUARIOCHAPA ***************************
 //*****************************************************************************
 
-  Future<Null> _getUsuarioChapa() async {
+  Future<void> _getUsuarioChapa() async {
     setState(() {
       _showLoader = true;
     });
@@ -651,7 +750,7 @@ class _FlotaScreenState extends State<FlotaScreen> {
           title: 'Error',
           message: 'Verifica que estes conectado a internet.',
           actions: <AlertDialogAction>[
-            AlertDialogAction(key: null, label: 'Aceptar'),
+            const AlertDialogAction(key: null, label: 'Aceptar'),
           ]);
       return;
     }
@@ -664,19 +763,17 @@ class _FlotaScreenState extends State<FlotaScreen> {
           title: 'Error',
           message: "Patente no válida",
           actions: <AlertDialogAction>[
-            AlertDialogAction(key: null, label: 'Aceptar'),
+            const AlertDialogAction(key: null, label: 'Aceptar'),
           ]);
 
       setState(() {
         _showLoader = false;
-        _enabled = false;
       });
       return;
     }
     setState(() {
       _showLoader = false;
       _vFlota = response.result;
-      _enabled = true;
     });
 
     if (_vFlota.grupoV == widget.user.codigogrupo &&
@@ -688,7 +785,7 @@ class _FlotaScreenState extends State<FlotaScreen> {
           title: 'Error',
           message: "Esta patente no está asignada a su Usuario",
           actions: <AlertDialogAction>[
-            AlertDialogAction(key: null, label: 'Aceptar'),
+            const AlertDialogAction(key: null, label: 'Aceptar'),
           ]);
     }
     setState(() {});
@@ -698,7 +795,322 @@ class _FlotaScreenState extends State<FlotaScreen> {
 //************************** METODO DATO **************************************
 //*****************************************************************************
 
-  String _Dato(String? dato) {
+  String _gato(String? dato) {
     return dato != null ? dato.toString() : '';
+  }
+
+//-----------------------------------------------------------------------------
+//------------------------------ METODO GETCONTENT --------------------------
+//-----------------------------------------------------------------------------
+
+  Widget _getContent() {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: <Widget>[
+        _preventivos.isEmpty ? Container() : _showPreventivosCount(),
+        Expanded(
+          child: _preventivos.isEmpty ? _noContent() : _getListView(),
+        )
+      ],
+    );
+  }
+
+//-----------------------------------------------------------------------------
+//------------------------------ METODO SHOWOBRASCOUNT ------------------------
+//-----------------------------------------------------------------------------
+
+  Widget _showPreventivosCount() {
+    return Container(
+      padding: const EdgeInsets.all(10),
+      height: 40,
+      child: Row(
+        children: [
+          const Text("Cantidad de Preventivos: ",
+              style: TextStyle(
+                fontSize: 14,
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+              )),
+          Text(_preventivos.length.toString(),
+              style: const TextStyle(
+                fontSize: 14,
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+              )),
+        ],
+      ),
+    );
+  }
+
+//-----------------------------------------------------------------------------
+//------------------------------ METODO NOCONTENT -----------------------------
+//-----------------------------------------------------------------------------
+
+  Widget _noContent() {
+    return Container(
+      margin: const EdgeInsets.all(20),
+      child: const Center(
+        child: Text(
+          'No hay Preventivos',
+          style: TextStyle(
+              color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
+        ),
+      ),
+    );
+  }
+
+  //-----------------------------------------------------------------------------
+//------------------------------ METODO GETLISTVIEW ---------------------------
+//-----------------------------------------------------------------------------
+
+  Widget _getListView() {
+    return ListView(
+      children: _preventivos.map((e) {
+        return Card(
+          color: const Color(0xFFC7C7C8),
+          shadowColor: Colors.white,
+          elevation: 10,
+          margin: const EdgeInsets.fromLTRB(10, 0, 10, 10),
+          child: Container(
+            margin: const EdgeInsets.all(0),
+            padding: const EdgeInsets.all(5),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Expanded(
+                          child: Column(
+                            children: [
+                              Row(
+                                children: [
+                                  const SizedBox(
+                                    width: 90,
+                                    child: Text("Descripción: ",
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                          color: Color(0xFF781f1e),
+                                          fontWeight: FontWeight.bold,
+                                        )),
+                                  ),
+                                  Expanded(
+                                    child: Text(e.descripcionParte.toString(),
+                                        style: const TextStyle(
+                                          fontSize: 12,
+                                        )),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 5,
+                              ),
+                              Row(
+                                children: [
+                                  const SizedBox(
+                                    width: 90,
+                                    child: Text("",
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                          color: Color(0xFF781f1e),
+                                          fontWeight: FontWeight.bold,
+                                        )),
+                                  ),
+                                  Expanded(
+                                    child: Text(e.descripcion.toString(),
+                                        style: const TextStyle(
+                                          fontSize: 12,
+                                        )),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 5,
+                              ),
+                              Row(
+                                children: [
+                                  const SizedBox(
+                                    width: 90,
+                                    child: Text("Unid. Med.: ",
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                          color: Color(0xFF781f1e),
+                                          fontWeight: FontWeight.bold,
+                                        )),
+                                  ),
+                                  Expanded(
+                                    child: Text(e.frecuencia.toString(),
+                                        style: const TextStyle(
+                                          fontSize: 12,
+                                        )),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 5,
+                              ),
+                              Row(
+                                children: [
+                                  const SizedBox(
+                                    width: 90,
+                                    child: Text("Frecuencia.: ",
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                          color: Color(0xFF781f1e),
+                                          fontWeight: FontWeight.bold,
+                                        )),
+                                  ),
+                                  Expanded(
+                                    child: Text(e.cantFrec.toString(),
+                                        style: const TextStyle(
+                                          fontSize: 12,
+                                        )),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 5,
+                              ),
+                              Row(
+                                children: [
+                                  const SizedBox(
+                                    width: 90,
+                                    child: Text("Fecha Ult. Ej.: ",
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                          color: Color(0xFF781f1e),
+                                          fontWeight: FontWeight.bold,
+                                        )),
+                                  ),
+                                  Expanded(
+                                    child: e.ultFechaEJ != null
+                                        ? Text(
+                                            DateFormat('dd/MM/yyyy').format(
+                                                DateTime.parse(
+                                                    e.ultFechaEJ.toString())),
+                                            style: const TextStyle(
+                                              fontSize: 12,
+                                            ))
+                                        : const Text("",
+                                            style: TextStyle(
+                                              fontSize: 12,
+                                            )),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 5,
+                              ),
+                              Row(
+                                children: [
+                                  const SizedBox(
+                                    width: 90,
+                                    child: Text("Km Ult. Ej.: ",
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                          color: Color(0xFF781f1e),
+                                          fontWeight: FontWeight.bold,
+                                        )),
+                                  ),
+                                  Expanded(
+                                    child: Text(e.ultKmHsEj.toString(),
+                                        style: const TextStyle(
+                                          fontSize: 12,
+                                        )),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 5,
+                              ),
+                              Row(
+                                children: [
+                                  const SizedBox(
+                                    width: 90,
+                                    child: Text("Km actual: ",
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                          color: Color(0xFF781f1e),
+                                          fontWeight: FontWeight.bold,
+                                        )),
+                                  ),
+                                  Expanded(
+                                    child: e.actKmHsEj == null
+                                        ? const Text("",
+                                            style: TextStyle(
+                                              fontSize: 12,
+                                            ))
+                                        : Text(e.actKmHsEj.toString(),
+                                            style: const TextStyle(
+                                              fontSize: 12,
+                                            )),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 5,
+                              ),
+                              Row(
+                                children: [
+                                  const SizedBox(
+                                    width: 90,
+                                    child: Text("Diferencia: ",
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                          color: Color(0xFF781f1e),
+                                          fontWeight: FontWeight.bold,
+                                        )),
+                                  ),
+                                  Expanded(
+                                    child: Text(e.diferencia.toString(),
+                                        style: const TextStyle(
+                                          fontSize: 12,
+                                        )),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 5,
+                              ),
+                              Row(
+                                children: [
+                                  const SizedBox(
+                                    width: 90,
+                                    child: Text("Estado: ",
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                          color: Color(0xFF781f1e),
+                                          fontWeight: FontWeight.bold,
+                                        )),
+                                  ),
+                                  Expanded(
+                                    child: e.estados.toString() == "Vencido"
+                                        ? Text(e.estados.toString(),
+                                            style: const TextStyle(
+                                                fontSize: 12,
+                                                color: Colors.red,
+                                                fontWeight: FontWeight.bold))
+                                        : Text(e.estados.toString(),
+                                            style: const TextStyle(
+                                              fontSize: 12,
+                                            )),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      }).toList(),
+    );
   }
 }

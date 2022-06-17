@@ -6,7 +6,8 @@ import 'package:rowing_app/models/response.dart';
 class DisplayPictureBScreen extends StatefulWidget {
   final XFile image;
 
-  DisplayPictureBScreen({required this.image});
+  const DisplayPictureBScreen({Key? key, required this.image})
+      : super(key: key);
 
   @override
   _DisplayPictureBScreenState createState() => _DisplayPictureBScreenState();
@@ -17,7 +18,7 @@ class _DisplayPictureBScreenState extends State<DisplayPictureBScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Vista previa de la foto'),
+        title: const Text('Vista previa de la foto'),
       ),
       body: Column(
         children: [
@@ -27,15 +28,15 @@ class _DisplayPictureBScreenState extends State<DisplayPictureBScreen> {
             fit: BoxFit.cover,
           ),
           Container(
-              margin: EdgeInsets.all(10),
+              margin: const EdgeInsets.all(10),
               child: Row(
                 children: <Widget>[
                   Expanded(
                     child: ElevatedButton(
-                      child: Text('Usar Foto'),
+                      child: const Text('Usar Foto'),
                       style: ElevatedButton.styleFrom(
-                        primary: Color(0xFF120E43),
-                        minimumSize: Size(100, 50),
+                        primary: const Color(0xFF120E43),
+                        minimumSize: const Size(100, 50),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(5),
                         ),
@@ -47,15 +48,15 @@ class _DisplayPictureBScreenState extends State<DisplayPictureBScreen> {
                       },
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 10,
                   ),
                   Expanded(
                     child: ElevatedButton(
-                      child: Text('Volver a tomar'),
+                      child: const Text('Volver a tomar'),
                       style: ElevatedButton.styleFrom(
-                        primary: Color(0xFFE03B8B),
-                        minimumSize: Size(100, 50),
+                        primary: const Color(0xFFE03B8B),
+                        minimumSize: const Size(100, 50),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(5),
                         ),

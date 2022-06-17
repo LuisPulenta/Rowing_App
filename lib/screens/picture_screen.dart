@@ -1,37 +1,30 @@
-import 'dart:io';
-
-import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-import 'package:rowing_app/models/option.dart';
 
 class PictureScreen extends StatefulWidget {
-  PictureScreen();
+  const PictureScreen({Key? key}) : super(key: key);
 
   @override
   _PictureScreenState createState() => _PictureScreenState();
 }
 
 class _PictureScreenState extends State<PictureScreen> {
-  String _observaciones = '';
-  String _observacionesError = '';
-  bool _observacionesShowError = false;
+  final String _observacionesError = '';
+  final bool _observacionesShowError = false;
   String dropdownValue = 'Seleccione un Tipo de Foto...';
 
-  int _optionId = 0;
-  String _optionIdError = '';
-  bool _optionIdShowError = false;
-  List<Option> _options = [];
+  final String _optionIdError = '';
+  final bool _optionIdShowError = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xff8c8c94),
+      backgroundColor: const Color(0xff8c8c94),
       appBar: AppBar(
-        title: Text('Nueva Foto'),
+        title: const Text('Nueva Foto'),
       ),
       body: Column(
         children: [
-          SizedBox(height: 5),
+          const SizedBox(height: 5),
           // image.path.length == 0
           //     ? Image.asset(
           //         "assets/noimage.png",
@@ -43,9 +36,9 @@ class _PictureScreenState extends State<PictureScreen> {
           //         width: MediaQuery.of(context).size.width,
           //         fit: BoxFit.cover,
           //       ),
-          SizedBox(height: 5),
+          const SizedBox(height: 5),
           _showOptions(),
-          SizedBox(height: 5),
+          const SizedBox(height: 5),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10),
             child: TextField(
@@ -57,35 +50,31 @@ class _PictureScreenState extends State<PictureScreen> {
                   labelText: 'Observaciones',
                   errorText:
                       _observacionesShowError ? _observacionesError : null,
-                  prefixIcon: Icon(Icons.text_fields),
+                  prefixIcon: const Icon(Icons.text_fields),
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10))),
-              onChanged: (value) {
-                _observaciones = value;
-              },
+              onChanged: (value) {},
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           _showButtons(),
         ],
       ),
       floatingActionButton: FloatingActionButton(
-          child: Icon(Icons.camera_alt), onPressed: () async {}),
+          child: const Icon(Icons.camera_alt), onPressed: () async {}),
       floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
     );
   }
 
   Widget _showOptions() {
     return Container(
-      padding: EdgeInsets.all(10),
+      padding: const EdgeInsets.all(10),
       child: DropdownButtonFormField(
           value: dropdownValue,
           onChanged: (option) {
-            setState(() {
-              _optionId = option as int;
-            });
+            setState(() {});
           },
           items: <String>[
             'Seleccione un Tipo de Foto...',
@@ -112,7 +101,7 @@ class _PictureScreenState extends State<PictureScreen> {
 
   Widget _showButtons() {
     return Container(
-      margin: EdgeInsets.only(left: 10, right: 10),
+      margin: const EdgeInsets.only(left: 10, right: 10),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
@@ -120,7 +109,7 @@ class _PictureScreenState extends State<PictureScreen> {
             child: ElevatedButton(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: [
+                children: const [
                   Icon(Icons.save),
                   SizedBox(
                     width: 20,
@@ -131,7 +120,7 @@ class _PictureScreenState extends State<PictureScreen> {
               style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.resolveWith<Color>(
                     (Set<MaterialState> states) {
-                  return Color(0xFF781f1e);
+                  return const Color(0xFF781f1e);
                 }),
               ),
               onPressed: () => _savePhoto(),

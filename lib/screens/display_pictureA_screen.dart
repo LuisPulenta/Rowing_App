@@ -3,21 +3,22 @@ import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:rowing_app/models/response.dart';
 
-class DisplayPictureAScreen extends StatefulWidget {
+class DisplayPictureaScreen extends StatefulWidget {
   final XFile image;
 
-  DisplayPictureAScreen({required this.image});
+  const DisplayPictureaScreen({Key? key, required this.image})
+      : super(key: key);
 
   @override
-  _DisplayPictureAScreenState createState() => _DisplayPictureAScreenState();
+  _DisplayPictureaScreenState createState() => _DisplayPictureaScreenState();
 }
 
-class _DisplayPictureAScreenState extends State<DisplayPictureAScreen> {
+class _DisplayPictureaScreenState extends State<DisplayPictureaScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Vista previa de la foto'),
+        title: const Text('Vista previa de la foto'),
       ),
       body: Column(
         children: [
@@ -27,15 +28,15 @@ class _DisplayPictureAScreenState extends State<DisplayPictureAScreen> {
             fit: BoxFit.cover,
           ),
           Container(
-              margin: EdgeInsets.all(10),
+              margin: const EdgeInsets.all(10),
               child: Row(
                 children: <Widget>[
                   Expanded(
                     child: ElevatedButton(
-                      child: Text('Usar Foto'),
+                      child: const Text('Usar Foto'),
                       style: ElevatedButton.styleFrom(
-                        primary: Color(0xFF120E43),
-                        minimumSize: Size(100, 50),
+                        primary: const Color(0xFF120E43),
+                        minimumSize: const Size(100, 50),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(5),
                         ),
@@ -47,15 +48,15 @@ class _DisplayPictureAScreenState extends State<DisplayPictureAScreen> {
                       },
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 10,
                   ),
                   Expanded(
                     child: ElevatedButton(
-                      child: Text('Volver a tomar'),
+                      child: const Text('Volver a tomar'),
                       style: ElevatedButton.styleFrom(
-                        primary: Color(0xFFE03B8B),
-                        minimumSize: Size(100, 50),
+                        primary: const Color(0xFFE03B8B),
+                        minimumSize: const Size(100, 50),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(5),
                         ),

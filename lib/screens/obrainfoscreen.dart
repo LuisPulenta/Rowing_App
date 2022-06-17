@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:camera/camera.dart';
-import 'package:carousel_slider/carousel_controller.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +20,8 @@ class ObraInfoScreen extends StatefulWidget {
   final User user;
   final Obra obra;
 
-  ObraInfoScreen({required this.user, required this.obra});
+  const ObraInfoScreen({Key? key, required this.user, required this.obra})
+      : super(key: key);
 
   @override
   _ObraInfoScreenState createState() => _ObraInfoScreenState();
@@ -32,14 +32,11 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
 //************************** DEFINICION DE VARIABLES **************************
 //*****************************************************************************
 
-  bool _showLoader = false;
   bool _photoChanged = false;
   late XFile _image;
 
   late Photo _photo;
   int _current = 0;
-  final int _nroReg = 0;
-  int _currentIndex = 0;
   final CarouselController _carouselController = CarouselController();
 
   Obra _obra = Obra(
@@ -61,7 +58,6 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
 //*****************************************************************************
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _getObra();
   }
@@ -73,9 +69,9 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF484848),
+      backgroundColor: const Color(0xFF484848),
       appBar: AppBar(
-        title: Text('Obra Info'),
+        title: const Text('Obra Info'),
       ),
       body: Stack(
         children: [
@@ -97,17 +93,17 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
 
   Widget _getInfoObra() {
     return Card(
-      color: Color(0xFFC7C7C8),
+      color: const Color(0xFFC7C7C8),
       shadowColor: Colors.white,
       elevation: 10,
-      margin: EdgeInsets.fromLTRB(5, 5, 5, 5),
+      margin: const EdgeInsets.fromLTRB(5, 5, 5, 5),
       child: Container(
-        padding: EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
         child: Column(
           children: [
             Row(
               children: [
-                Text("N° Obra: ",
+                const Text("N° Obra: ",
                     style: TextStyle(
                       fontSize: 14,
                       color: Color(0xFF781f1e),
@@ -115,18 +111,18 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
                     )),
                 Expanded(
                   child: Text(_obra.nroObra.toString(),
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 14,
                       )),
                 ),
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 5,
             ),
             Row(
               children: [
-                Text("Nombre: ",
+                const Text("Nombre: ",
                     style: TextStyle(
                       fontSize: 14,
                       color: Color(0xFF781f1e),
@@ -134,18 +130,18 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
                     )),
                 Expanded(
                   child: Text(_obra.nombreObra,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 14,
                       )),
                 ),
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 5,
             ),
             Row(
               children: [
-                Text("OP/N° Fuga: ",
+                const Text("OP/N° Fuga: ",
                     style: TextStyle(
                       fontSize: 14,
                       color: Color(0xFF781f1e),
@@ -153,7 +149,7 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
                     )),
                 Expanded(
                   child: Text(_obra.elempep,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 14,
                       )),
                 ),
@@ -171,7 +167,7 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
 
   Widget _showPhotosCarousel() {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 20),
+      margin: const EdgeInsets.symmetric(vertical: 20),
       child: Column(
         children: [
           CarouselSlider(
@@ -179,7 +175,7 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
                 height: 460,
                 autoPlay: false,
                 initialPage: 0,
-                autoPlayInterval: Duration(seconds: 0),
+                autoPlayInterval: const Duration(seconds: 0),
                 enlargeCenterPage: true,
                 onPageChanged: (index, reason) {
                   setState(() {
@@ -195,7 +191,7 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
                       Expanded(
                         child: Container(
                             width: MediaQuery.of(context).size.width,
-                            margin: EdgeInsets.symmetric(horizontal: 5),
+                            margin: const EdgeInsets.symmetric(horizontal: 5),
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(20),
                               child: CachedNetworkImage(
@@ -203,11 +199,11 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
                                     ? ''
                                     : i.imageFullPath.toString(),
                                 errorWidget: (context, url, error) =>
-                                    Icon(Icons.error),
+                                    const Icon(Icons.error),
                                 fit: BoxFit.contain,
                                 height: 360,
                                 width: 460,
-                                placeholder: (context, url) => Image(
+                                placeholder: (context, url) => const Image(
                                   image: AssetImage('assets/loading.gif'),
                                   fit: BoxFit.contain,
                                   height: 100,
@@ -216,7 +212,7 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
                               ),
                             )),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 5,
                       ),
                       Text(
@@ -231,7 +227,7 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
                                         : i.tipoDeFoto == 4
                                             ? 'Finalización del Trabajo'
                                             : '',
-                        style: TextStyle(
+                        style: const TextStyle(
                             color: Colors.white, fontWeight: FontWeight.bold),
                       ),
                     ],
@@ -248,7 +244,8 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
                 child: Container(
                   width: 12.0,
                   height: 12.0,
-                  margin: EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
+                  margin: const EdgeInsets.symmetric(
+                      vertical: 8.0, horizontal: 4.0),
                   decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       color: (Theme.of(context).brightness == Brightness.dark
@@ -270,7 +267,7 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
 
   Widget _showImageButtons() {
     return Container(
-      margin: EdgeInsets.only(left: 10, right: 10),
+      margin: const EdgeInsets.only(left: 10, right: 10),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
@@ -278,14 +275,14 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
             child: ElevatedButton(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
+                children: const [
                   Icon(Icons.add_a_photo),
                   Text('Adicionar Foto'),
                 ],
               ),
               style: ElevatedButton.styleFrom(
-                primary: Color(0xFF120E43),
-                minimumSize: Size(double.infinity, 50),
+                primary: const Color(0xFF120E43),
+                minimumSize: const Size(double.infinity, 50),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(5),
                 ),
@@ -293,21 +290,21 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
               onPressed: () => _goAddPhoto(),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             width: 20,
           ),
           Expanded(
             child: ElevatedButton(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
+                children: const [
                   Icon(Icons.delete),
                   Text('Eliminar Foto'),
                 ],
               ),
               style: ElevatedButton.styleFrom(
-                primary: Color(0xFFB4161B),
-                minimumSize: Size(double.infinity, 50),
+                primary: const Color(0xFFB4161B),
+                minimumSize: const Size(double.infinity, 50),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(5),
                 ),
@@ -331,7 +328,7 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
           title: 'Error',
           message: 'Su usuario no está habilitado para agregar Fotos.',
           actions: <AlertDialogAction>[
-            AlertDialogAction(key: null, label: 'Aceptar'),
+            const AlertDialogAction(key: null, label: 'Aceptar'),
           ]);
       return;
     }
@@ -341,9 +338,9 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
         title: 'Confirmación',
         message: '¿De donde deseas obtener la imagen?',
         actions: <AlertDialogAction>[
-          AlertDialogAction(key: 'cancel', label: 'Cancelar'),
-          AlertDialogAction(key: 'camera', label: 'Cámara'),
-          AlertDialogAction(key: 'gallery', label: 'Galería'),
+          const AlertDialogAction(key: 'cancel', label: 'Cancelar'),
+          const AlertDialogAction(key: 'camera', label: 'Cámara'),
+          const AlertDialogAction(key: 'gallery', label: 'Galería'),
         ]);
 
     if (response == 'cancel') {
@@ -374,9 +371,9 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
         title: 'Seleccionar cámara',
         message: '¿Qué cámara desea utilizar?',
         actions: <AlertDialogAction>[
-          AlertDialogAction(key: 'no', label: 'Trasera'),
-          AlertDialogAction(key: 'yes', label: 'Delantera'),
-          AlertDialogAction(key: 'cancel', label: 'Cancelar'),
+          const AlertDialogAction(key: 'no', label: 'Trasera'),
+          const AlertDialogAction(key: 'yes', label: 'Delantera'),
+          const AlertDialogAction(key: 'cancel', label: 'Cancelar'),
         ]);
     if (response1 == 'yes') {
       firstCamera = cameras.first;
@@ -406,7 +403,7 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
 //************************** METODO SELECTPICTURE *****************************
 //*****************************************************************************
 
-  Future<Null> _selectPicture() async {
+  Future<void> _selectPicture() async {
     final ImagePicker _picker = ImagePicker();
     final XFile? _image2 = await _picker.pickImage(source: ImageSource.gallery);
 
@@ -431,21 +428,17 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
 //*****************************************************************************
 
   void _addPicture() async {
-    setState(() {
-      _showLoader = true;
-    });
+    setState(() {});
 
     var connectivityResult = await Connectivity().checkConnectivity();
     if (connectivityResult == ConnectivityResult.none) {
-      setState(() {
-        _showLoader = false;
-      });
+      setState(() {});
       await showAlertDialog(
           context: context,
           title: 'Error',
           message: 'Verifica que estes conectado a internet.',
           actions: <AlertDialogAction>[
-            AlertDialogAction(key: null, label: 'Aceptar'),
+            const AlertDialogAction(key: null, label: 'Aceptar'),
           ]);
       return;
     }
@@ -475,9 +468,7 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
     Response response =
         await ApiHelper.post('/api/ObrasDocuments/ObrasDocument', request);
 
-    setState(() {
-      _showLoader = false;
-    });
+    setState(() {});
 
     if (!response.isSuccess) {
       await showAlertDialog(
@@ -485,7 +476,7 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
           title: 'Error',
           message: response.message,
           actions: <AlertDialogAction>[
-            AlertDialogAction(key: null, label: 'Aceptar'),
+            const AlertDialogAction(key: null, label: 'Aceptar'),
           ]);
       return;
     }
@@ -500,7 +491,7 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
 //*****************************************************************************
 
   void _confirmDeletePhoto() async {
-    if (_obrasDocumentos.length == 0) {
+    if (_obrasDocumentos.isEmpty) {
       return;
     }
 
@@ -510,7 +501,7 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
           title: 'Error',
           message: 'Su usuario no está habilitado para eliminar Fotos.',
           actions: <AlertDialogAction>[
-            AlertDialogAction(key: null, label: 'Aceptar'),
+            const AlertDialogAction(key: null, label: 'Aceptar'),
           ]);
       return;
     }
@@ -520,8 +511,8 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
         title: 'Confirmación',
         message: '¿Estas seguro de querer borrar esta foto?',
         actions: <AlertDialogAction>[
-          AlertDialogAction(key: 'no', label: 'No'),
-          AlertDialogAction(key: 'yes', label: 'Sí'),
+          const AlertDialogAction(key: 'no', label: 'No'),
+          const AlertDialogAction(key: 'yes', label: 'Sí'),
         ]);
 
     if (response == 'yes') {
@@ -534,21 +525,17 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
 //*****************************************************************************
 
   Future<void> _deletePhoto() async {
-    setState(() {
-      _showLoader = true;
-    });
+    setState(() {});
 
     var connectivityResult = await Connectivity().checkConnectivity();
     if (connectivityResult == ConnectivityResult.none) {
-      setState(() {
-        _showLoader = false;
-      });
+      setState(() {});
       await showAlertDialog(
           context: context,
           title: 'Error',
           message: 'Verifica que estes conectado a internet.',
           actions: <AlertDialogAction>[
-            AlertDialogAction(key: null, label: 'Aceptar'),
+            const AlertDialogAction(key: null, label: 'Aceptar'),
           ]);
       return;
     }
@@ -556,9 +543,7 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
     Response response = await ApiHelper.delete('/api/ObrasDocuments/',
         _obra.obrasDocumentos[_current].nroregistro.toString());
 
-    setState(() {
-      _showLoader = false;
-    });
+    setState(() {});
 
     if (!response.isSuccess) {
       await showAlertDialog(
@@ -566,7 +551,7 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
           title: 'Error',
           message: response.message,
           actions: <AlertDialogAction>[
-            AlertDialogAction(key: null, label: 'Aceptar'),
+            const AlertDialogAction(key: null, label: 'Aceptar'),
           ]);
       return;
     }
@@ -580,22 +565,18 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
 //************************** METODO GETOBRA ***********************************
 //*****************************************************************************
 
-  Future<Null> _getObra() async {
-    setState(() {
-      _showLoader = true;
-    });
+  Future<void> _getObra() async {
+    setState(() {});
 
     var connectivityResult = await Connectivity().checkConnectivity();
     if (connectivityResult == ConnectivityResult.none) {
-      setState(() {
-        _showLoader = false;
-      });
+      setState(() {});
       await showAlertDialog(
           context: context,
           title: 'Error',
           message: 'Verifica que estes conectado a internet.',
           actions: <AlertDialogAction>[
-            AlertDialogAction(key: null, label: 'Aceptar'),
+            const AlertDialogAction(key: null, label: 'Aceptar'),
           ]);
       return;
     }
@@ -608,12 +589,10 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
           title: 'Error',
           message: "N° de Obra no válido",
           actions: <AlertDialogAction>[
-            AlertDialogAction(key: null, label: 'Aceptar'),
+            const AlertDialogAction(key: null, label: 'Aceptar'),
           ]);
 
-      setState(() {
-        _showLoader = false;
-      });
+      setState(() {});
       return;
     }
     _obra = response.result;
@@ -637,7 +616,6 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
     _current = 0;
 
     setState(() {
-      _showLoader = false;
       _carouselController.jumpToPage(0);
     });
   }

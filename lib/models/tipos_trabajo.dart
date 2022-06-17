@@ -18,11 +18,11 @@ class TiposTrabajo {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['idregistro'] = this.idregistro;
-    data['idtipotrabajo'] = this.idtipotrabajo;
-    data['descripcion'] = this.descripcion;
-    data['idcliente'] = this.idcliente;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['idregistro'] = idregistro;
+    data['idtipotrabajo'] = idtipotrabajo;
+    data['descripcion'] = descripcion;
+    data['idcliente'] = idcliente;
     return data;
   }
 }

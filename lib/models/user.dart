@@ -63,26 +63,26 @@ class User {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['idUsuario'] = this.idUsuario;
-    data['codigoCausante'] = this.codigoCausante;
-    data['login'] = this.login;
-    data['contrasena'] = this.contrasena;
-    data['nombre'] = this.nombre;
-    data['apellido'] = this.apellido;
-    data['autorWOM'] = this.autorWOM;
-    data['estado'] = this.estado;
-    data['habilitaAPP'] = this.habilitaAPP;
-    data['habilitaFotos'] = this.habilitaFotos;
-    data['habilitaReclamos'] = this.habilitaReclamos;
-    data['habilitaSSHH'] = this.habilitaSSHH;
-    data['habilitaRRHH'] = this.habilitaRRHH;
-    data['modulo'] = this.modulo;
-    data['habilitaMedidores'] = this.habilitaMedidores;
-    data['habilitaFlotas'] = this.habilitaFlotas;
-    data['codigogrupo'] = this.codigogrupo;
-    data['codigoCausante'] = this.codigocausante;
-    data['fullName'] = this.fullName;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['idUsuario'] = idUsuario;
+    data['codigoCausante'] = codigoCausante;
+    data['login'] = login;
+    data['contrasena'] = contrasena;
+    data['nombre'] = nombre;
+    data['apellido'] = apellido;
+    data['autorWOM'] = autorWOM;
+    data['estado'] = estado;
+    data['habilitaAPP'] = habilitaAPP;
+    data['habilitaFotos'] = habilitaFotos;
+    data['habilitaReclamos'] = habilitaReclamos;
+    data['habilitaSSHH'] = habilitaSSHH;
+    data['habilitaRRHH'] = habilitaRRHH;
+    data['modulo'] = modulo;
+    data['habilitaMedidores'] = habilitaMedidores;
+    data['habilitaFlotas'] = habilitaFlotas;
+    data['codigogrupo'] = codigogrupo;
+    data['codigoCausante'] = codigocausante;
+    data['fullName'] = fullName;
 
     return data;
   }

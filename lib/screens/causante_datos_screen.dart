@@ -8,7 +8,8 @@ import 'package:rowing_app/models/models.dart';
 class CausanteDatosScreen extends StatefulWidget {
   final Causante causante;
 
-  const CausanteDatosScreen({required this.causante});
+  const CausanteDatosScreen({Key? key, required this.causante})
+      : super(key: key);
 
   @override
   State<CausanteDatosScreen> createState() => _CausanteDatosScreenState();
@@ -24,21 +25,20 @@ class _CausanteDatosScreenState extends State<CausanteDatosScreen> {
   String _phoneNumber = '';
   String _phoneNumberError = '';
   bool _phoneNumberShowError = false;
-  TextEditingController _phoneNumberController = TextEditingController();
+  final TextEditingController _phoneNumberController = TextEditingController();
 
 //*****************************************************************************
 //************************** INIT STATE ***************************************
 //*****************************************************************************
 
+  @override
   void initState() {
     super.initState();
-    _phoneNumber =
-        (widget.causante.telefono != null ? widget.causante.telefono : '')!;
+    _phoneNumber = (widget.causante.telefono ?? '');
 
     _phoneNumber = _phoneNumber.replaceAll(" ", "");
 
-    _phoneNumberController.text =
-        (widget.causante.telefono != null ? widget.causante.telefono : '')!;
+    _phoneNumberController.text = (widget.causante.telefono ?? '');
 
     _phoneNumberController.text =
         _phoneNumberController.text.replaceAll(" ", "");
@@ -52,31 +52,31 @@ class _CausanteDatosScreenState extends State<CausanteDatosScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 192, 190, 190),
+      backgroundColor: const Color.fromARGB(255, 192, 190, 190),
       appBar: AppBar(
         title: Text('Datos de ' + widget.causante.nombre,
-            style: TextStyle(fontSize: 14)),
+            style: const TextStyle(fontSize: 14)),
         centerTitle: true,
-        backgroundColor: Color(0xFF484848),
+        backgroundColor: const Color(0xFF484848),
       ),
       body: Stack(
         children: [
           SingleChildScrollView(
             child: Column(
               children: <Widget>[
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 _showPhoneNumber(),
                 _showButtons(),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
               ],
             ),
           ),
           _showLoader
-              ? LoaderComponent(
+              ? const LoaderComponent(
                   text: 'Por favor espere...',
                 )
               : Container(),
@@ -91,7 +91,7 @@ class _CausanteDatosScreenState extends State<CausanteDatosScreen> {
 
   Widget _showPhoneNumber() {
     return Container(
-      padding: EdgeInsets.all(10),
+      padding: const EdgeInsets.all(10),
       child: TextField(
         controller: _phoneNumberController,
         keyboardType: TextInputType.phone,
@@ -101,7 +101,7 @@ class _CausanteDatosScreenState extends State<CausanteDatosScreen> {
             hintText: 'Ingresa Teléfono...',
             labelText: 'Teléfono',
             errorText: _phoneNumberShowError ? _phoneNumberError : null,
-            suffixIcon: Icon(Icons.phone),
+            suffixIcon: const Icon(Icons.phone),
             border:
                 OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
         onChanged: (value) {
@@ -117,7 +117,7 @@ class _CausanteDatosScreenState extends State<CausanteDatosScreen> {
 
   Widget _showButtons() {
     return Container(
-      margin: EdgeInsets.only(left: 10, right: 10),
+      margin: const EdgeInsets.only(left: 10, right: 10),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
@@ -125,7 +125,7 @@ class _CausanteDatosScreenState extends State<CausanteDatosScreen> {
             child: ElevatedButton(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: [
+                children: const [
                   Icon(Icons.save),
                   SizedBox(
                     width: 15,
@@ -134,8 +134,8 @@ class _CausanteDatosScreenState extends State<CausanteDatosScreen> {
                 ],
               ),
               style: ElevatedButton.styleFrom(
-                primary: Color(0xFF120E43),
-                minimumSize: Size(100, 50),
+                primary: const Color(0xFF120E43),
+                minimumSize: const Size(100, 50),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(5),
                 ),
@@ -200,7 +200,7 @@ class _CausanteDatosScreenState extends State<CausanteDatosScreen> {
           title: 'Error',
           message: 'Verifica que estés conectado a Internet',
           actions: <AlertDialogAction>[
-            AlertDialogAction(key: null, label: 'Aceptar'),
+            const AlertDialogAction(key: null, label: 'Aceptar'),
           ]);
       return;
     }
@@ -223,7 +223,7 @@ class _CausanteDatosScreenState extends State<CausanteDatosScreen> {
           title: 'Error',
           message: response.message,
           actions: <AlertDialogAction>[
-            AlertDialogAction(key: null, label: 'Aceptar'),
+            const AlertDialogAction(key: null, label: 'Aceptar'),
           ]);
       return;
     } else {
@@ -232,7 +232,7 @@ class _CausanteDatosScreenState extends State<CausanteDatosScreen> {
           title: 'Aviso',
           message: 'Guardado con éxito!',
           actions: <AlertDialogAction>[
-            AlertDialogAction(key: null, label: 'Aceptar'),
+            const AlertDialogAction(key: null, label: 'Aceptar'),
           ]);
       Navigator.pop(context, 'yes');
     }

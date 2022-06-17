@@ -4,10 +4,15 @@ class CustomRow extends StatelessWidget {
   final IconData icon;
   final String nombredato;
   final String? dato;
-  bool? alert = false;
+  bool? alert;
 
   CustomRow(
-      {required this.icon, required this.nombredato, this.dato, this.alert});
+      {Key? key,
+      required this.icon,
+      required this.nombredato,
+      required this.dato,
+      this.alert})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,27 +22,27 @@ class CustomRow extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
           alert == true
-              ? Icon(
+              ? const Icon(
                   Icons.warning,
                   color: Colors.red,
                 )
               : Icon(
                   icon,
-                  color: Color(0xFF781f1e),
+                  color: const Color(0xFF781f1e),
                 ),
-          SizedBox(
+          const SizedBox(
             width: 15,
           ),
           Text(
             nombredato,
-            style: TextStyle(
+            style: const TextStyle(
                 fontWeight: FontWeight.bold, color: Color(0xFF781f1e)),
           ),
           Expanded(
             child: Text(
               dato != null ? dato.toString() : '',
               textAlign: TextAlign.end,
-              style: TextStyle(color: Colors.black),
+              style: const TextStyle(color: Colors.black),
             ),
           ),
         ],

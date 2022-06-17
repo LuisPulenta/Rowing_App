@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_const
+
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +13,7 @@ import 'package:rowing_app/screens/reclamoinfo_screen.dart';
 
 class ReclamosScreen extends StatefulWidget {
   final User user;
-  ReclamosScreen({required this.user});
+  const ReclamosScreen({Key? key, required this.user}) : super(key: key);
 
   @override
   _ReclamosScreenState createState() => _ReclamosScreenState();
@@ -22,35 +24,6 @@ class _ReclamosScreenState extends State<ReclamosScreen> {
   bool _showLoader = false;
   bool _isFiltered = false;
   String _search = '';
-  Reclamo _reclamoSelected = new Reclamo(
-      nroregistro: 0,
-      nroobra: 0,
-      asticket: '',
-      cliente: '',
-      direccion: '',
-      numeracion: '',
-      localidad: '',
-      telefono: '',
-      tipoImput: '',
-      certificado: '',
-      serieMedidorColocado: '',
-      precinto: '',
-      cajaDAE: '',
-      observaciones: '',
-      lindero1: '',
-      lindero2: '',
-      zona: '',
-      terminal: '',
-      subcontratista: '',
-      causanteC: '',
-      grxx: '',
-      gryy: '',
-      idUsrIn: 0,
-      observacionAdicional: '',
-      fechaCarga: '',
-      riesgoElectrico: '',
-      fechaasignacion: '',
-      mes: 0);
 
   @override
   void initState() {
@@ -61,36 +34,36 @@ class _ReclamosScreenState extends State<ReclamosScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF484848),
+      backgroundColor: const Color(0xFF484848),
       appBar: AppBar(
-        title: Text('Reclamos'),
+        title: const Text('Reclamos'),
         centerTitle: true,
         actions: <Widget>[
           _isFiltered
               ? IconButton(
-                  onPressed: _removeFilter, icon: Icon(Icons.filter_none))
+                  onPressed: _removeFilter, icon: const Icon(Icons.filter_none))
               : IconButton(
-                  onPressed: _showFilter, icon: Icon(Icons.filter_alt)),
+                  onPressed: _showFilter, icon: const Icon(Icons.filter_alt)),
           // IconButton(onPressed: _addReclamo, icon: Icon(Icons.add_circle))
         ],
       ),
       body: Center(
         child: _showLoader
-            ? LoaderComponent(text: 'Por favor espere...')
+            ? const LoaderComponent(text: 'Por favor espere...')
             : _getContent(),
       ),
       floatingActionButton: FloatingActionButton(
-        child: Icon(
+        child: const Icon(
           Icons.add,
           size: 38,
         ),
-        backgroundColor: Color(0xFF781f1e),
+        backgroundColor: const Color(0xFF781f1e),
         onPressed: () => _addReclamo(),
       ),
     );
   }
 
-  Future<Null> _getReclamos() async {
+  Future<void> _getReclamos() async {
     setState(() {
       _showLoader = true;
     });
@@ -106,7 +79,7 @@ class _ReclamosScreenState extends State<ReclamosScreen> {
           title: 'Error',
           message: 'Verifica que estés conectado a Internet',
           actions: <AlertDialogAction>[
-            AlertDialogAction(key: null, label: 'Aceptar'),
+            const AlertDialogAction(key: null, label: 'Aceptar'),
           ]);
       return;
     }
@@ -125,7 +98,7 @@ class _ReclamosScreenState extends State<ReclamosScreen> {
           title: 'Error',
           message: response.message,
           actions: <AlertDialogAction>[
-            AlertDialogAction(key: null, label: 'Aceptar'),
+            const AlertDialogAction(key: null, label: 'Aceptar'),
           ]);
       return;
     }
@@ -156,13 +129,13 @@ class _ReclamosScreenState extends State<ReclamosScreen> {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10),
             ),
-            title: Text('Filtrar Reclamos'),
+            title: const Text('Filtrar Reclamos'),
             content: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
-              Text(
+              const Text(
                 'Escriba texto o números a buscar en Dirección o Número del Reclamo: ',
-                style: TextStyle(fontSize: 12),
+                style: const TextStyle(fontSize: 12),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               TextField(
@@ -170,7 +143,7 @@ class _ReclamosScreenState extends State<ReclamosScreen> {
                 decoration: InputDecoration(
                     hintText: 'Criterio de búsqueda...',
                     labelText: 'Buscar',
-                    suffixIcon: Icon(Icons.search),
+                    suffixIcon: const Icon(Icons.search),
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10))),
                 onChanged: (value) {
@@ -181,8 +154,9 @@ class _ReclamosScreenState extends State<ReclamosScreen> {
             actions: <Widget>[
               TextButton(
                   onPressed: () => Navigator.of(context).pop(),
-                  child: Text('Cancelar')),
-              TextButton(onPressed: () => _filter(), child: Text('Filtrar')),
+                  child: const Text('Cancelar')),
+              TextButton(
+                  onPressed: () => _filter(), child: const Text('Filtrar')),
             ],
           );
         });
@@ -219,7 +193,7 @@ class _ReclamosScreenState extends State<ReclamosScreen> {
       children: <Widget>[
         _showReclamosCount(),
         Expanded(
-          child: _reclamos.length == 0 ? _noContent() : _getListView(),
+          child: _reclamos.isEmpty ? _noContent() : _getListView(),
         )
       ],
     );
@@ -227,13 +201,13 @@ class _ReclamosScreenState extends State<ReclamosScreen> {
 
   Widget _noContent() {
     return Container(
-      margin: EdgeInsets.all(20),
+      margin: const EdgeInsets.all(20),
       child: Center(
         child: Text(
           _isFiltered
               ? 'No hay Reclamos con ese criterio de búsqueda'
               : 'No hay Reclamos registrados',
-          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
         ),
       ),
     );
@@ -245,24 +219,23 @@ class _ReclamosScreenState extends State<ReclamosScreen> {
       child: ListView(
         children: _reclamos.map((e) {
           return Card(
-            color: Color(0xFFC7C7C8),
+            color: const Color(0xFFC7C7C8),
             shadowColor: Colors.white,
             elevation: 10,
-            margin: EdgeInsets.fromLTRB(10, 0, 10, 5),
+            margin: const EdgeInsets.fromLTRB(10, 0, 10, 5),
             child: InkWell(
               onTap: () {
-                _reclamoSelected = e;
                 _goInfoReclamo(e);
               },
               child: Container(
                 height: 100,
-                margin: EdgeInsets.all(0),
-                padding: EdgeInsets.all(5),
+                margin: const EdgeInsets.all(0),
+                padding: const EdgeInsets.all(5),
                 child: Row(
                   children: [
                     Expanded(
                       child: Container(
-                        margin: EdgeInsets.symmetric(horizontal: 10),
+                        margin: const EdgeInsets.symmetric(horizontal: 10),
                         child: Row(
                           children: [
                             Expanded(
@@ -270,7 +243,7 @@ class _ReclamosScreenState extends State<ReclamosScreen> {
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   Row(
-                                    children: [
+                                    children: const [
                                       Text("AS/N° Reclamo: ",
                                           style: TextStyle(
                                             fontSize: 12,
@@ -280,7 +253,7 @@ class _ReclamosScreenState extends State<ReclamosScreen> {
                                     ],
                                   ),
                                   Row(
-                                    children: [
+                                    children: const [
                                       Text("Zona: ",
                                           style: TextStyle(
                                             fontSize: 12,
@@ -290,7 +263,7 @@ class _ReclamosScreenState extends State<ReclamosScreen> {
                                     ],
                                   ),
                                   Row(
-                                    children: [
+                                    children: const [
                                       Text("Dirección: ",
                                           style: TextStyle(
                                             fontSize: 12,
@@ -300,7 +273,7 @@ class _ReclamosScreenState extends State<ReclamosScreen> {
                                     ],
                                   ),
                                   Row(
-                                    children: [
+                                    children: const [
                                       Text("N°: ",
                                           style: TextStyle(
                                             fontSize: 12,
@@ -310,7 +283,7 @@ class _ReclamosScreenState extends State<ReclamosScreen> {
                                     ],
                                   ),
                                   Row(
-                                    children: [
+                                    children: const [
                                       Text("Descr./Nombre: ",
                                           style: TextStyle(
                                             fontSize: 12,
@@ -329,7 +302,7 @@ class _ReclamosScreenState extends State<ReclamosScreen> {
                                     Row(
                                       children: [
                                         Text(e.asticket.toString(),
-                                            style: TextStyle(
+                                            style: const TextStyle(
                                               fontSize: 12,
                                             )),
                                       ],
@@ -337,7 +310,7 @@ class _ReclamosScreenState extends State<ReclamosScreen> {
                                     Row(
                                       children: [
                                         Text(e.zona.toString(),
-                                            style: TextStyle(
+                                            style: const TextStyle(
                                               fontSize: 12,
                                             )),
                                       ],
@@ -345,7 +318,7 @@ class _ReclamosScreenState extends State<ReclamosScreen> {
                                     Row(
                                       children: [
                                         Text(e.direccion.toString(),
-                                            style: TextStyle(
+                                            style: const TextStyle(
                                               fontSize: 12,
                                             )),
                                       ],
@@ -353,7 +326,7 @@ class _ReclamosScreenState extends State<ReclamosScreen> {
                                     Row(
                                       children: [
                                         Text(e.numeracion.toString(),
-                                            style: TextStyle(
+                                            style: const TextStyle(
                                               fontSize: 12,
                                             )),
                                       ],
@@ -361,7 +334,7 @@ class _ReclamosScreenState extends State<ReclamosScreen> {
                                     Row(
                                       children: [
                                         Text(e.terminal.toString(),
-                                            style: TextStyle(
+                                            style: const TextStyle(
                                               fontSize: 12,
                                             )),
                                       ],
@@ -372,7 +345,7 @@ class _ReclamosScreenState extends State<ReclamosScreen> {
                         ),
                       ),
                     ),
-                    Icon(Icons.arrow_forward_ios),
+                    const Icon(Icons.arrow_forward_ios),
                   ],
                 ),
               ),
@@ -399,18 +372,18 @@ class _ReclamosScreenState extends State<ReclamosScreen> {
 
   Widget _showReclamosCount() {
     return Container(
-      padding: EdgeInsets.all(10),
+      padding: const EdgeInsets.all(10),
       height: 40,
       child: Row(
         children: [
-          Text("Cantidad de Reclamos: ",
+          const Text("Cantidad de Reclamos: ",
               style: TextStyle(
                 fontSize: 14,
                 color: Colors.white,
                 fontWeight: FontWeight.bold,
               )),
           Text(_reclamos.length.toString(),
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 14,
                 color: Colors.white,
                 fontWeight: FontWeight.bold,

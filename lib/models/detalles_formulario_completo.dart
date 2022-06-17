@@ -30,15 +30,15 @@ class DetallesFormularioCompleto {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['idcliente'] = this.idcliente;
-    data['idgrupoformulario'] = this.idgrupoformulario;
-    data['descgrupoformulario'] = this.descgrupoformulario;
-    data['detallef'] = this.detallef;
-    data['descripcion'] = this.descripcion;
-    data['ponderacionpuntos'] = this.ponderacionpuntos;
-    data['cumple'] = this.cumple;
-    data['foto'] = this.foto;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['idcliente'] = idcliente;
+    data['idgrupoformulario'] = idgrupoformulario;
+    data['descgrupoformulario'] = descgrupoformulario;
+    data['detallef'] = detallef;
+    data['descripcion'] = descripcion;
+    data['ponderacionpuntos'] = ponderacionpuntos;
+    data['cumple'] = cumple;
+    data['foto'] = foto;
     return data;
   }
 

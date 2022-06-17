@@ -11,7 +11,8 @@ import 'package:rowing_app/screens/obrainfoscreen.dart';
 class ObrasScreen extends StatefulWidget {
   final User user;
   final int opcion;
-  ObrasScreen({required this.user, required this.opcion});
+  const ObrasScreen({Key? key, required this.user, required this.opcion})
+      : super(key: key);
 
   @override
   _ObrasScreenState createState() => _ObrasScreenState();
@@ -55,22 +56,23 @@ class _ObrasScreenState extends State<ObrasScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF484848),
+      backgroundColor: const Color(0xFF484848),
       appBar: AppBar(
         title: widget.user.modulo == 'ObrasTasa'
-            ? Text('Obras Tasa')
+            ? const Text('Obras Tasa')
             : Text('Obras ' + widget.user.modulo),
         centerTitle: true,
         actions: <Widget>[
           _isFiltered
               ? IconButton(
-                  onPressed: _removeFilter, icon: Icon(Icons.filter_none))
-              : IconButton(onPressed: _showFilter, icon: Icon(Icons.filter_alt))
+                  onPressed: _removeFilter, icon: const Icon(Icons.filter_none))
+              : IconButton(
+                  onPressed: _showFilter, icon: const Icon(Icons.filter_alt))
         ],
       ),
       body: Center(
         child: _showLoader
-            ? LoaderComponent(text: 'Por favor espere...')
+            ? const LoaderComponent(text: 'Por favor espere...')
             : _getContent(),
       ),
     );
@@ -127,13 +129,13 @@ class _ObrasScreenState extends State<ObrasScreen> {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10),
             ),
-            title: Text('Filtrar Obras'),
+            title: const Text('Filtrar Obras'),
             content: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
-              Text(
+              const Text(
                 'Escriba texto o números a buscar en Nombre o Número de la Obra, o en OP/N° de Fuga: ',
                 style: TextStyle(fontSize: 12),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               TextField(
@@ -141,7 +143,7 @@ class _ObrasScreenState extends State<ObrasScreen> {
                 decoration: InputDecoration(
                     hintText: 'Criterio de búsqueda...',
                     labelText: 'Buscar',
-                    suffixIcon: Icon(Icons.search),
+                    suffixIcon: const Icon(Icons.search),
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10))),
                 onChanged: (value) {
@@ -152,8 +154,9 @@ class _ObrasScreenState extends State<ObrasScreen> {
             actions: <Widget>[
               TextButton(
                   onPressed: () => Navigator.of(context).pop(),
-                  child: Text('Cancelar')),
-              TextButton(onPressed: () => _filter(), child: Text('Filtrar')),
+                  child: const Text('Cancelar')),
+              TextButton(
+                  onPressed: () => _filter(), child: const Text('Filtrar')),
             ],
           );
         });
@@ -168,7 +171,7 @@ class _ObrasScreenState extends State<ObrasScreen> {
       children: <Widget>[
         _showObrasCount(),
         Expanded(
-          child: _obras.length == 0 ? _noContent() : _getListView(),
+          child: _obras.isEmpty ? _noContent() : _getListView(),
         )
       ],
     );
@@ -180,18 +183,18 @@ class _ObrasScreenState extends State<ObrasScreen> {
 
   Widget _showObrasCount() {
     return Container(
-      padding: EdgeInsets.all(10),
+      padding: const EdgeInsets.all(10),
       height: 40,
       child: Row(
         children: [
-          Text("Cantidad de Obras: ",
+          const Text("Cantidad de Obras: ",
               style: TextStyle(
                 fontSize: 14,
                 color: Colors.white,
                 fontWeight: FontWeight.bold,
               )),
           Text(_obras.length.toString(),
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 14,
                 color: Colors.white,
                 fontWeight: FontWeight.bold,
@@ -207,13 +210,13 @@ class _ObrasScreenState extends State<ObrasScreen> {
 
   Widget _noContent() {
     return Container(
-      margin: EdgeInsets.all(20),
+      margin: const EdgeInsets.all(20),
       child: Center(
         child: Text(
           _isFiltered
               ? 'No hay Obras con ese criterio de búsqueda'
               : 'No hay Obras registradas',
-          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
         ),
       ),
     );
@@ -229,23 +232,23 @@ class _ObrasScreenState extends State<ObrasScreen> {
       child: ListView(
         children: _obras.map((e) {
           return Card(
-            color: Color(0xFFC7C7C8),
+            color: const Color(0xFFC7C7C8),
             shadowColor: Colors.white,
             elevation: 10,
-            margin: EdgeInsets.fromLTRB(10, 0, 10, 10),
+            margin: const EdgeInsets.fromLTRB(10, 0, 10, 10),
             child: InkWell(
               onTap: () {
                 obraSelected = e;
                 _goInfoObra(e);
               },
               child: Container(
-                margin: EdgeInsets.all(0),
-                padding: EdgeInsets.all(5),
+                margin: const EdgeInsets.all(0),
+                padding: const EdgeInsets.all(5),
                 child: Row(
                   children: [
                     Expanded(
                       child: Container(
-                        margin: EdgeInsets.symmetric(horizontal: 10),
+                        margin: const EdgeInsets.symmetric(horizontal: 10),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
@@ -254,7 +257,7 @@ class _ObrasScreenState extends State<ObrasScreen> {
                                 children: [
                                   Row(
                                     children: [
-                                      Text("N° Obra: ",
+                                      const Text("N° Obra: ",
                                           style: TextStyle(
                                             fontSize: 12,
                                             color: Color(0xFF781f1e),
@@ -262,18 +265,18 @@ class _ObrasScreenState extends State<ObrasScreen> {
                                           )),
                                       Expanded(
                                         child: Text(e.nroObra.toString(),
-                                            style: TextStyle(
+                                            style: const TextStyle(
                                               fontSize: 12,
                                             )),
                                       ),
                                     ],
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 5,
                                   ),
                                   Row(
                                     children: [
-                                      Text("Nombre: ",
+                                      const Text("Nombre: ",
                                           style: TextStyle(
                                             fontSize: 12,
                                             color: Color(0xFF781f1e),
@@ -281,18 +284,18 @@ class _ObrasScreenState extends State<ObrasScreen> {
                                           )),
                                       Expanded(
                                         child: Text(e.nombreObra,
-                                            style: TextStyle(
+                                            style: const TextStyle(
                                               fontSize: 12,
                                             )),
                                       ),
                                     ],
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 5,
                                   ),
                                   Row(
                                     children: [
-                                      Text("OP/N° Fuga: ",
+                                      const Text("OP/N° Fuga: ",
                                           style: TextStyle(
                                             fontSize: 12,
                                             color: Color(0xFF781f1e),
@@ -300,21 +303,21 @@ class _ObrasScreenState extends State<ObrasScreen> {
                                           )),
                                       Expanded(
                                         child: Text(e.elempep,
-                                            style: TextStyle(
+                                            style: const TextStyle(
                                               fontSize: 12,
                                             )),
                                       ),
-                                      SizedBox(
+                                      const SizedBox(
                                         width: 20,
                                       ),
-                                      Text("Fotos y Doc: ",
+                                      const Text("Fotos y Doc: ",
                                           style: TextStyle(
                                             fontSize: 12,
                                             color: Color(0xFF781f1e),
                                             fontWeight: FontWeight.bold,
                                           )),
                                       Text(e.obrasDocumentos.length.toString(),
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             fontSize: 12,
                                           )),
                                     ],
@@ -326,7 +329,7 @@ class _ObrasScreenState extends State<ObrasScreen> {
                         ),
                       ),
                     ),
-                    Icon(Icons.arrow_forward_ios),
+                    const Icon(Icons.arrow_forward_ios),
                   ],
                 ),
               ),
@@ -341,7 +344,7 @@ class _ObrasScreenState extends State<ObrasScreen> {
 //************************** METODO GETOBRAS **********************************
 //*****************************************************************************
 
-  Future<Null> _getObras() async {
+  Future<void> _getObras() async {
     setState(() {
       _showLoader = true;
     });
@@ -357,7 +360,7 @@ class _ObrasScreenState extends State<ObrasScreen> {
           title: 'Error',
           message: 'Verifica que estés conectado a Internet',
           actions: <AlertDialogAction>[
-            AlertDialogAction(key: null, label: 'Aceptar'),
+            const AlertDialogAction(key: null, label: 'Aceptar'),
           ]);
       return;
     }
@@ -388,7 +391,7 @@ class _ObrasScreenState extends State<ObrasScreen> {
           title: 'Error',
           message: response.message,
           actions: <AlertDialogAction>[
-            AlertDialogAction(key: null, label: 'Aceptar'),
+            const AlertDialogAction(key: null, label: 'Aceptar'),
           ]);
       return;
     }

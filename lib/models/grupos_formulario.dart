@@ -18,11 +18,12 @@ class GruposFormulario {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['idcliente'] = this.idcliente;
-    data['idtipotrabajo'] = this.idtipotrabajo;
-    data['idgrupoformulario'] = this.idgrupoformulario;
-    data['descripcion'] = this.descripcion;
+    // ignore: prefer_collection_literals
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['idcliente'] = idcliente;
+    data['idtipotrabajo'] = idtipotrabajo;
+    data['idgrupoformulario'] = idgrupoformulario;
+    data['descripcion'] = descripcion;
     return data;
   }
 }

@@ -21,12 +21,12 @@ class ObraPosteCajaDetalle {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['nroregistrod'] = this.nroregistrod;
-    data['nroregistrocab'] = this.nroregistrocab;
-    data['catcodigo'] = this.catcodigo;
-    data['codigosap'] = this.codigosap;
-    data['cantidad'] = this.cantidad;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['nroregistrod'] = nroregistrod;
+    data['nroregistrocab'] = nroregistrocab;
+    data['catcodigo'] = catcodigo;
+    data['codigosap'] = codigosap;
+    data['cantidad'] = cantidad;
     return data;
   }
 }

@@ -6,7 +6,7 @@ import 'package:rowing_app/models/models.dart';
 class TakePictureCScreen extends StatefulWidget {
   final CameraDescription camera;
 
-  TakePictureCScreen({required this.camera});
+  const TakePictureCScreen({Key? key, required this.camera}) : super(key: key);
 
   @override
   _TakePictureCScreenState createState() => _TakePictureCScreenState();
@@ -36,7 +36,7 @@ class _TakePictureCScreenState extends State<TakePictureCScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Tomar Foto'),
+        title: const Text('Tomar Foto'),
       ),
       body: FutureBuilder<void>(
         future: _initializeControllerFuture,
@@ -44,14 +44,14 @@ class _TakePictureCScreenState extends State<TakePictureCScreen> {
           if (snapshot.connectionState == ConnectionState.done) {
             return CameraPreview(_controller);
           } else {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           }
         },
       ),
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.camera_alt),
+        child: const Icon(Icons.camera_alt),
         onPressed: () async {
           try {
             await _initializeControllerFuture;
@@ -64,7 +64,9 @@ class _TakePictureCScreenState extends State<TakePictureCScreen> {
             if (response != null) {
               Navigator.pop(context, response);
             }
-          } catch (e) {}
+          } catch (e) {
+            throw Exception('');
+          }
         },
       ),
     );

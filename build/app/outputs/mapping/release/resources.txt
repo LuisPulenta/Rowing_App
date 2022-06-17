@@ -290,6 +290,7 @@ Referenced Strings:
   HapticFeedbackType.lightImpact
   HapticFeedbackType.mediumImpact
   HapticFeedbackType.selectionClick
+  HardwareIds
   I
   IFD
   II
@@ -419,6 +420,7 @@ Referenced Strings:
   ON_START
   ON_STOP
   OPACITY
+  OP_POST_NOTIFICATION
   OP_SET_MAX_LIFECYCLE
   ORIENTATION_CHANGED
   OffsetTime
@@ -471,6 +473,9 @@ Referenced Strings:
   PROTECTED
   PUBLIC
   PathProviderPlugin
+  PermissionHandler.AppSettingsManager
+  PermissionHandler.PermissionManager
+  PermissionHandler.ServiceManager
   PhotographicSensitivity
   PhotometricInterpretation
   PixelXDimension
@@ -777,9 +782,11 @@ Referenced Strings:
   android
   android.bigText
   android.car.EXTENSIONS
+  android.hardware.telephony
   android.hardware.type.embedded
   android.hardware.type.iot
   android.hardware.type.watch
+  android.intent.action.CALL
   android.intent.action.CONFIGURATION_C...
   android.intent.action.GET_CONTENT
   android.intent.action.PROVIDER_CHANGED
@@ -799,10 +806,47 @@ Referenced Strings:
   android.permission.ACCESS_BACKGROUND_...
   android.permission.ACCESS_COARSE_LOCA...
   android.permission.ACCESS_FINE_LOCATION
+  android.permission.ACCESS_MEDIA_LOCATION
+  android.permission.ACCESS_NOTIFICATIO...
+  android.permission.ACTIVITY_RECOGNITION
+  android.permission.ANSWER_PHONE_CALLS
+  android.permission.BIND_CALL_REDIRECT...
+  android.permission.BLUETOOTH
+  android.permission.BLUETOOTH_ADVERTISE
+  android.permission.BLUETOOTH_CONNECT
+  android.permission.BLUETOOTH_SCAN
+  android.permission.BODY_SENSORS
+  android.permission.CALL_PHONE
   android.permission.CAMERA
+  android.permission.GET_ACCOUNTS
+  android.permission.MANAGE_EXTERNAL_ST...
+  android.permission.READ_CALENDAR
+  android.permission.READ_CALL_LOG
+  android.permission.READ_CONTACTS
+  android.permission.READ_EXTERNAL_STORAGE
+  android.permission.READ_PHONE_NUMBERS
+  android.permission.READ_PHONE_STATE
+  android.permission.READ_SMS
+  android.permission.RECEIVE_MMS
+  android.permission.RECEIVE_SMS
+  android.permission.RECEIVE_WAP_PUSH
   android.permission.RECORD_AUDIO
+  android.permission.REQUEST_IGNORE_BAT...
+  android.permission.REQUEST_INSTALL_PA...
+  android.permission.SEND_SMS
+  android.permission.SYSTEM_ALERT_WINDOW
+  android.permission.USE_SIP
+  android.permission.WRITE_CALENDAR
+  android.permission.WRITE_CALL_LOG
+  android.permission.WRITE_CONTACTS
+  android.permission.WRITE_EXTERNAL_STO...
   android.settings.APPLICATION_DETAILS_...
   android.settings.LOCATION_SOURCE_SETT...
+  android.settings.MANAGE_APP_ALL_FILES...
+  android.settings.MANAGE_UNKNOWN_APP_S...
+  android.settings.NOTIFICATION_POLICY_...
+  android.settings.REQUEST_IGNORE_BATTE...
+  android.settings.action.MANAGE_OVERLA...
   android.summaryText
   android.support.FILE_PROVIDER_PATHS
   android.support.action.semanticAction
@@ -857,6 +901,7 @@ Referenced Strings:
   anim
   announce
   app_flutter
+  appops
   arch_disk_io_%d
   args
   arguments
@@ -885,6 +930,7 @@ Referenced Strings:
   birthdayMonth
   birthdayYear
   blockingTasksInBuffer
+  bluetooth
   boolean
   bounds
   buffer
@@ -916,7 +962,10 @@ Referenced Strings:
   character
   chars
   check
+  checkOpNoThrow
   checkPermission
+  checkPermissionStatus
+  checkServiceStatus
   choices
   circles
   class
@@ -938,6 +987,7 @@ Referenced Strings:
   collection
   columns
   com.android.vending
+  com.android.voicemail.permission.ADD_...
   com.google
   com.google.android.clockwork.home.UPD...
   com.google.android.gms
@@ -1042,6 +1092,8 @@ Referenced Strings:
   destroy_engine_with_activity
   deviceId
   deviceState
+  deviceUniqueId
+  device_information
   dimen
   direction
   disabled
@@ -1087,8 +1139,6 @@ Referenced Strings:
   external
   extras
   f
-  f.a.c.a.b$c
-  f.a.c.a.j
   failing_client_id
   false
   familyName
@@ -1111,6 +1161,7 @@ Referenced Strings:
   flutter.baseflow.com/geolocator
   flutter.baseflow.com/geolocator_servi...
   flutter.baseflow.com/geolocator_updates
+  flutter.baseflow.com/permissions/methods
   flutter.io/cameraPlugin/camera
   flutter.io/cameraPlugin/device
   flutter/accessibility
@@ -1148,40 +1199,47 @@ Referenced Strings:
   framework
   front
   fullStreetAddress
-  g.s.j.a.a
-  g.t.d.a
-  g.t.e.a
+  g.a.c.a.b$c
+  g.a.c.a.j
   gcore_
   gender
   get
+  getAPILevel
   getAll
   getAppBounds
   getApplicationDocumentsDirectory
   getApplicationSupportDirectory
   getBounds
+  getCPUType
   getChildId
   getCurrentPosition
   getDatabasesPath
   getDeferredComponentInstallState
   getDescriptor
+  getDevice
   getDisplayFeatures
   getDisplayInfo
   getExposureOffsetStepSize
   getExternalCacheDirectories
   getExternalStorageDirectories
+  getHardware
+  getIMEINumber
   getJavaLangAccess
   getLastKnownPosition
   getLocationAccuracy
+  getManufacturer
   getMaxExposureOffset
   getMaxZoomLevel
   getMinExposureOffset
   getMinZoomLevel
+  getModel
   getModule
   getNextMatch
   getParentNodeId
   getPlatformVersion
   getPoolSize
   getPosture
+  getProduct
   getRealSize
   getResId
   getResPackage
@@ -1203,6 +1261,9 @@ Referenced Strings:
   grabbing
   grantedScopes
   guava.concurrent.generate_cancellatio...
+  h.s.j.a.a
+  h.t.d.a
+  h.t.e.a
   handled
   heading
   height
@@ -1373,6 +1434,8 @@ Referenced Strings:
   locationFromAddress
   locationServices
   locationServicesDisabled
+  location_mode
+  location_providers_allowed
   lockAutoFocus
   lockCaptureOrientation
   locked
@@ -1494,6 +1557,7 @@ Referenced Strings:
   permissionDefinitionsNotFound
   permissionDenied
   permissionRequestInProgress
+  permissions_handler
   personFamilyName
   personGivenName
   personMiddleInitial
@@ -1501,6 +1565,7 @@ Referenced Strings:
   personName
   personNamePrefix
   personNameSuffix
+  phone
   phoneCountryCode
   phoneNational
   phoneNumber
@@ -1532,6 +1597,7 @@ Referenced Strings:
   postalAddressExtendedPostalCode
   postalCode
   postfix
+  power
   precise
   prefix
   prepareForVideoRecording
@@ -1571,6 +1637,7 @@ Referenced Strings:
   removeViewImmediate
   repeatCount
   requestPermission
+  requestPermissions
   reset
   resize
   resizeColumn
@@ -1652,6 +1719,7 @@ Referenced Strings:
   setZoomLevel
   setZoomLevelFailed
   short
+  shouldShowRequestPermissionRationale
   showsUserInterface
   sidecarAdapter
   sidecarCompat
@@ -1702,6 +1770,7 @@ Referenced Strings:
   takePicture
   tap
   tekartik_sqflite.db
+  tel:123123
   telephoneNumber
   telephoneNumberCountryCode
   telephoneNumberDevice

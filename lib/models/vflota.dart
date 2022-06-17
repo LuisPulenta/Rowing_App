@@ -12,10 +12,10 @@ class VFlota {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['numcha'] = this.numcha;
-    data['grupoV'] = this.grupoV;
-    data['causanteV'] = this.causanteV;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['numcha'] = numcha;
+    data['grupoV'] = grupoV;
+    data['causanteV'] = causanteV;
     return data;
   }
 }

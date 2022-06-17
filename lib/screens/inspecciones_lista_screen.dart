@@ -9,7 +9,8 @@ import 'package:rowing_app/screens/screens.dart';
 
 class InspeccionesListaScreen extends StatefulWidget {
   final User user;
-  InspeccionesListaScreen({required this.user});
+  const InspeccionesListaScreen({Key? key, required this.user})
+      : super(key: key);
 
   @override
   _InspeccionesListaScreenState createState() =>
@@ -21,21 +22,6 @@ class _InspeccionesListaScreenState extends State<InspeccionesListaScreen> {
   bool _showLoader = false;
   bool _isFiltered = false;
   String _search = '';
-  VistaInspeccion _inspeccionSelected = new VistaInspeccion(
-      idInspeccion: 0,
-      usuarioAlta: 0,
-      fecha: '',
-      empleado: '',
-      cliente: '',
-      tipoTrabajo: '',
-      obra: '',
-      totalPreguntas: 0,
-      totalNo: 0,
-      puntos: 0,
-      dniSR: '',
-      nombreSR: '',
-      idCliente: 0,
-      idTipoTrabajo: 0);
 
   @override
   void initState() {
@@ -46,37 +32,37 @@ class _InspeccionesListaScreenState extends State<InspeccionesListaScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF484848),
+      backgroundColor: const Color(0xFF484848),
       appBar: AppBar(
-        title: Text('Inspecciones'),
+        title: const Text('Inspecciones'),
         centerTitle: true,
         actions: <Widget>[
           _isFiltered
               ? IconButton(
-                  onPressed: _removeFilter, icon: Icon(Icons.filter_none))
+                  onPressed: _removeFilter, icon: const Icon(Icons.filter_none))
               : IconButton(
-                  onPressed: _showFilter, icon: Icon(Icons.filter_alt)),
+                  onPressed: _showFilter, icon: const Icon(Icons.filter_alt)),
           // IconButton(onPressed: _addReclamo, icon: Icon(Icons.add_circle))
         ],
       ),
       body: Center(
         child: _showLoader
-            ? LoaderComponent(text: 'Por favor espere...')
+            ? const LoaderComponent(text: 'Por favor espere...')
             : _getContent(),
       ),
       floatingActionButton: FloatingActionButton(
-        child: Icon(
+        child: const Icon(
           Icons.add,
           size: 38,
         ),
-        backgroundColor: Color(0xFF781f1e),
+        backgroundColor: const Color(0xFF781f1e),
         onPressed: () => _addInspeccion(),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 
-  Future<Null> _getInspecciones() async {
+  Future<void> _getInspecciones() async {
     setState(() {
       _showLoader = true;
     });
@@ -92,7 +78,7 @@ class _InspeccionesListaScreenState extends State<InspeccionesListaScreen> {
           title: 'Error',
           message: 'Verifica que estés conectado a Internet',
           actions: <AlertDialogAction>[
-            AlertDialogAction(key: null, label: 'Aceptar'),
+            const AlertDialogAction(key: null, label: 'Aceptar'),
           ]);
       return;
     }
@@ -112,7 +98,7 @@ class _InspeccionesListaScreenState extends State<InspeccionesListaScreen> {
           title: 'Error',
           message: response.message,
           actions: <AlertDialogAction>[
-            AlertDialogAction(key: null, label: 'Aceptar'),
+            const AlertDialogAction(key: null, label: 'Aceptar'),
           ]);
       return;
     }
@@ -143,13 +129,13 @@ class _InspeccionesListaScreenState extends State<InspeccionesListaScreen> {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10),
             ),
-            title: Text('Filtrar Inspecciones'),
+            title: const Text('Filtrar Inspecciones'),
             content: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
-              Text(
+              const Text(
                 'Escriba texto o números a buscar en Cliente o Tipo de Trabajo: ',
                 style: TextStyle(fontSize: 12),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               TextField(
@@ -157,7 +143,7 @@ class _InspeccionesListaScreenState extends State<InspeccionesListaScreen> {
                 decoration: InputDecoration(
                     hintText: 'Criterio de búsqueda...',
                     labelText: 'Buscar',
-                    suffixIcon: Icon(Icons.search),
+                    suffixIcon: const Icon(Icons.search),
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10))),
                 onChanged: (value) {
@@ -168,8 +154,9 @@ class _InspeccionesListaScreenState extends State<InspeccionesListaScreen> {
             actions: <Widget>[
               TextButton(
                   onPressed: () => Navigator.of(context).pop(),
-                  child: Text('Cancelar')),
-              TextButton(onPressed: () => _filter(), child: Text('Filtrar')),
+                  child: const Text('Cancelar')),
+              TextButton(
+                  onPressed: () => _filter(), child: const Text('Filtrar')),
             ],
           );
         });
@@ -206,7 +193,7 @@ class _InspeccionesListaScreenState extends State<InspeccionesListaScreen> {
       children: <Widget>[
         _showInspeccionesCount(),
         Expanded(
-          child: _inspecciones.length == 0 ? _noContent() : _getListView(),
+          child: _inspecciones.isEmpty ? _noContent() : _getListView(),
         )
       ],
     );
@@ -214,13 +201,13 @@ class _InspeccionesListaScreenState extends State<InspeccionesListaScreen> {
 
   Widget _noContent() {
     return Container(
-      margin: EdgeInsets.all(20),
+      margin: const EdgeInsets.all(20),
       child: Center(
         child: Text(
           _isFiltered
               ? 'No hay Inspecciones con ese criterio de búsqueda'
               : 'No hay Inspecciones registradas',
-          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
         ),
       ),
     );
@@ -237,23 +224,21 @@ class _InspeccionesListaScreenState extends State<InspeccionesListaScreen> {
           int finobra = e.obra.length >= largo ? largo : e.obra.length;
 
           return Card(
-            color: Color(0xFFC7C7C8),
+            color: const Color(0xFFC7C7C8),
             shadowColor: Colors.white,
             elevation: 10,
-            margin: EdgeInsets.fromLTRB(10, 0, 10, 5),
+            margin: const EdgeInsets.fromLTRB(10, 0, 10, 5),
             child: InkWell(
-              onTap: () {
-                _inspeccionSelected = e;
-              },
+              onTap: () {},
               child: Container(
                 height: 136,
-                margin: EdgeInsets.all(0),
-                padding: EdgeInsets.all(5),
+                margin: const EdgeInsets.all(0),
+                padding: const EdgeInsets.all(5),
                 child: Row(
                   children: [
                     Expanded(
                       child: Container(
-                        margin: EdgeInsets.symmetric(horizontal: 10),
+                        margin: const EdgeInsets.symmetric(horizontal: 10),
                         child: Row(
                           children: [
                             Column(
@@ -261,7 +246,7 @@ class _InspeccionesListaScreenState extends State<InspeccionesListaScreen> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Row(
-                                  children: [
+                                  children: const [
                                     Text("Fecha: ",
                                         style: TextStyle(
                                           fontSize: 12,
@@ -271,7 +256,7 @@ class _InspeccionesListaScreenState extends State<InspeccionesListaScreen> {
                                   ],
                                 ),
                                 Row(
-                                  children: [
+                                  children: const [
                                     Text("Empleado: ",
                                         style: TextStyle(
                                           fontSize: 12,
@@ -281,7 +266,7 @@ class _InspeccionesListaScreenState extends State<InspeccionesListaScreen> {
                                   ],
                                 ),
                                 Row(
-                                  children: [
+                                  children: const [
                                     Text("Cliente: ",
                                         style: TextStyle(
                                           fontSize: 12,
@@ -291,7 +276,7 @@ class _InspeccionesListaScreenState extends State<InspeccionesListaScreen> {
                                   ],
                                 ),
                                 Row(
-                                  children: [
+                                  children: const [
                                     Text("Tipo Trabajo: ",
                                         style: TextStyle(
                                           fontSize: 12,
@@ -301,7 +286,7 @@ class _InspeccionesListaScreenState extends State<InspeccionesListaScreen> {
                                   ],
                                 ),
                                 Row(
-                                  children: [
+                                  children: const [
                                     Text("Obra: ",
                                         style: TextStyle(
                                           fontSize: 12,
@@ -311,7 +296,7 @@ class _InspeccionesListaScreenState extends State<InspeccionesListaScreen> {
                                   ],
                                 ),
                                 Row(
-                                  children: [
+                                  children: const [
                                     Text("Total Preguntas: ",
                                         style: TextStyle(
                                           fontSize: 12,
@@ -321,7 +306,7 @@ class _InspeccionesListaScreenState extends State<InspeccionesListaScreen> {
                                   ],
                                 ),
                                 Row(
-                                  children: [
+                                  children: const [
                                     Text("Respuestas NO: ",
                                         style: TextStyle(
                                           fontSize: 12,
@@ -331,7 +316,7 @@ class _InspeccionesListaScreenState extends State<InspeccionesListaScreen> {
                                   ],
                                 ),
                                 Row(
-                                  children: [
+                                  children: const [
                                     Text("Total Puntos: ",
                                         style: TextStyle(
                                           fontSize: 12,
@@ -349,8 +334,9 @@ class _InspeccionesListaScreenState extends State<InspeccionesListaScreen> {
                                     Row(
                                       children: [
                                         Text(
-                                            '${DateFormat('dd/MM/yyyy').format(DateTime.parse(e.fecha))}',
-                                            style: TextStyle(
+                                            DateFormat('dd/MM/yyyy').format(
+                                                DateTime.parse(e.fecha)),
+                                            style: const TextStyle(
                                               fontSize: 12,
                                             ))
                                       ],
@@ -362,7 +348,7 @@ class _InspeccionesListaScreenState extends State<InspeccionesListaScreen> {
                                                     'SIN REGISTRAR'
                                                 ? e.nombreSR.toString().trim()
                                                 : e.empleado.toString().trim(),
-                                            style: TextStyle(
+                                            style: const TextStyle(
                                               fontSize: 12,
                                             )),
                                       ],
@@ -370,7 +356,7 @@ class _InspeccionesListaScreenState extends State<InspeccionesListaScreen> {
                                     Row(
                                       children: [
                                         Text(e.cliente.toString(),
-                                            style: TextStyle(
+                                            style: const TextStyle(
                                               fontSize: 12,
                                             )),
                                       ],
@@ -381,7 +367,7 @@ class _InspeccionesListaScreenState extends State<InspeccionesListaScreen> {
                                             e.tipoTrabajo
                                                 .toString()
                                                 .substring(0, fintipotrabajo),
-                                            style: TextStyle(
+                                            style: const TextStyle(
                                               fontSize: 12,
                                             )),
                                       ],
@@ -392,7 +378,7 @@ class _InspeccionesListaScreenState extends State<InspeccionesListaScreen> {
                                             e.obra
                                                 .toString()
                                                 .substring(1, finobra),
-                                            style: TextStyle(
+                                            style: const TextStyle(
                                               fontSize: 12,
                                             )),
                                       ],
@@ -400,7 +386,7 @@ class _InspeccionesListaScreenState extends State<InspeccionesListaScreen> {
                                     Row(
                                       children: [
                                         Text(e.totalPreguntas.toString(),
-                                            style: TextStyle(
+                                            style: const TextStyle(
                                               fontSize: 12,
                                             )),
                                       ],
@@ -408,7 +394,7 @@ class _InspeccionesListaScreenState extends State<InspeccionesListaScreen> {
                                     Row(
                                       children: [
                                         Text(e.totalNo.toString(),
-                                            style: TextStyle(
+                                            style: const TextStyle(
                                               fontSize: 12,
                                             )),
                                       ],
@@ -416,7 +402,7 @@ class _InspeccionesListaScreenState extends State<InspeccionesListaScreen> {
                                     Row(
                                       children: [
                                         Text(e.puntos.toString(),
-                                            style: TextStyle(
+                                            style: const TextStyle(
                                               fontSize: 12,
                                             )),
                                       ],
@@ -430,7 +416,7 @@ class _InspeccionesListaScreenState extends State<InspeccionesListaScreen> {
                     Padding(
                       padding: const EdgeInsets.only(right: 10),
                       child: IconButton(
-                          icon: Icon(
+                          icon: const Icon(
                             Icons.looks_two_outlined,
                             size: 45,
                             color: Color(0xFF781f1e),
@@ -464,18 +450,18 @@ class _InspeccionesListaScreenState extends State<InspeccionesListaScreen> {
 
   Widget _showInspeccionesCount() {
     return Container(
-      padding: EdgeInsets.all(10),
+      padding: const EdgeInsets.all(10),
       height: 40,
       child: Row(
         children: [
-          Text("Cantidad de Inspecciones: ",
+          const Text("Cantidad de Inspecciones: ",
               style: TextStyle(
                 fontSize: 14,
                 color: Colors.white,
                 fontWeight: FontWeight.bold,
               )),
           Text(_inspecciones.length.toString(),
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 14,
                 color: Colors.white,
                 fontWeight: FontWeight.bold,

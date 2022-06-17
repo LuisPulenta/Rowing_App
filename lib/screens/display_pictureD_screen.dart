@@ -12,20 +12,15 @@ class DisplayPictureDScreen extends StatefulWidget {
   final XFile image;
   final Causante causante;
 
-  DisplayPictureDScreen({required this.image, required this.causante});
+  const DisplayPictureDScreen(
+      {Key? key, required this.image, required this.causante})
+      : super(key: key);
 
   @override
   _DisplayPictureDScreenState createState() => _DisplayPictureDScreenState();
 }
 
 class _DisplayPictureDScreenState extends State<DisplayPictureDScreen> {
-//*****************************************************************************
-//************************** DEFINICION DE VARIABLES **************************
-//*****************************************************************************
-
-  bool _showLoader = false;
-  bool _photoChanged = false;
-
 //*****************************************************************************
 //************************** PANTALLA *****************************************
 //*****************************************************************************
@@ -34,7 +29,7 @@ class _DisplayPictureDScreenState extends State<DisplayPictureDScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Vista previa de la foto'),
+        title: const Text('Vista previa de la foto'),
       ),
       body: Column(
         children: [
@@ -44,38 +39,36 @@ class _DisplayPictureDScreenState extends State<DisplayPictureDScreen> {
             fit: BoxFit.cover,
           ),
           Container(
-              margin: EdgeInsets.all(10),
+              margin: const EdgeInsets.all(10),
               child: Row(
                 children: <Widget>[
                   Expanded(
                     child: ElevatedButton(
-                      child: Text('Usar Foto'),
+                      child: const Text('Usar Foto'),
                       style: ButtonStyle(
                         backgroundColor:
                             MaterialStateProperty.resolveWith<Color>(
                                 (Set<MaterialState> states) {
-                          return Color(0xFF120E43);
+                          return const Color(0xFF120E43);
                         }),
                       ),
                       onPressed: () {
-                        Response response =
-                            Response(isSuccess: true, result: widget.image);
                         _saveRecord();
                         //Navigator.pop(context, response);
                       },
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 10,
                   ),
                   Expanded(
                     child: ElevatedButton(
-                      child: Text('Volver a tomar'),
+                      child: const Text('Volver a tomar'),
                       style: ButtonStyle(
                         backgroundColor:
                             MaterialStateProperty.resolveWith<Color>(
                                 (Set<MaterialState> states) {
-                          return Color(0xFFE03B8B);
+                          return const Color(0xFFE03B8B);
                         }),
                       ),
                       onPressed: () {
@@ -108,7 +101,7 @@ class _DisplayPictureDScreenState extends State<DisplayPictureDScreen> {
           title: 'Error',
           message: 'Verifica que estés conectado a Internet',
           actions: <AlertDialogAction>[
-            AlertDialogAction(key: null, label: 'Aceptar'),
+            const AlertDialogAction(key: null, label: 'Aceptar'),
           ]);
       return;
     }
@@ -128,7 +121,7 @@ class _DisplayPictureDScreenState extends State<DisplayPictureDScreen> {
           title: 'Error',
           message: response.message,
           actions: <AlertDialogAction>[
-            AlertDialogAction(key: null, label: 'Aceptar'),
+            const AlertDialogAction(key: null, label: 'Aceptar'),
           ]);
       return;
     } else {
@@ -137,7 +130,7 @@ class _DisplayPictureDScreenState extends State<DisplayPictureDScreen> {
           title: 'Aviso',
           message: 'Guardado con éxito!',
           actions: <AlertDialogAction>[
-            AlertDialogAction(key: null, label: 'Aceptar'),
+            const AlertDialogAction(key: null, label: 'Aceptar'),
           ]);
       Navigator.pop(context, 'yes');
     }

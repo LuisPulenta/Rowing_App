@@ -30,15 +30,15 @@ class Entrega {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['identity_column'] = this.identityColumn;
-    data['codigo'] = this.codigo;
-    data['grupo'] = this.grupo;
-    data['causante'] = this.causante;
-    data['fecha'] = this.fecha;
-    data['codigosap'] = this.codigosap;
-    data['denominacion'] = this.denominacion;
-    data['stock_act'] = this.stockAct;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['identity_column'] = identityColumn;
+    data['codigo'] = codigo;
+    data['grupo'] = grupo;
+    data['causante'] = causante;
+    data['fecha'] = fecha;
+    data['codigosap'] = codigosap;
+    data['denominacion'] = denominacion;
+    data['stock_act'] = stockAct;
     return data;
   }
 }

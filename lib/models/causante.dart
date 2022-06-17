@@ -44,19 +44,19 @@ class Causante {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['nroCausante'] = this.nroCausante;
-    data['codigo'] = this.codigo;
-    data['nombre'] = this.nombre;
-    data['encargado'] = this.encargado;
-    data['telefono'] = this.telefono;
-    data['grupo'] = this.grupo;
-    data['nroSAP'] = this.nroSAP;
-    data['estado'] = this.estado;
-    data['razonSocial'] = this.razonSocial;
-    data['linkFoto'] = this.linkFoto;
-    data['imageFullPath'] = this.imageFullPath;
-    data['image'] = this.image;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['nroCausante'] = nroCausante;
+    data['codigo'] = codigo;
+    data['nombre'] = nombre;
+    data['encargado'] = encargado;
+    data['telefono'] = telefono;
+    data['grupo'] = grupo;
+    data['nroSAP'] = nroSAP;
+    data['estado'] = estado;
+    data['razonSocial'] = razonSocial;
+    data['linkFoto'] = linkFoto;
+    data['imageFullPath'] = imageFullPath;
+    data['image'] = image;
     return data;
   }
 }

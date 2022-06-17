@@ -57,24 +57,24 @@ class ObrasDocumento {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['nroregistro'] = this.nroregistro;
-    data['nroobra'] = this.nroobra;
-    data['idObrasPostes'] = this.idObrasPostes;
-    data['observacion'] = this.observacion;
-    data['link'] = this.link;
-    data['fecha'] = this.fecha;
-    data['modulo'] = this.modulo;
-    data['nroLote'] = this.nroLote;
-    data['sector'] = this.sector;
-    data['estante'] = this.estante;
-    data['generadoPor'] = this.generadoPor;
-    data['latitud'] = this.latitud;
-    data['longitud'] = this.longitud;
-    data['fechaHsFoto'] = this.fechaHsFoto;
-    data['tipoDeFoto'] = this.tipoDeFoto;
-    data['direccionFoto'] = this.direccionFoto;
-    data['imageFullPath'] = this.imageFullPath;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['nroregistro'] = nroregistro;
+    data['nroobra'] = nroobra;
+    data['idObrasPostes'] = idObrasPostes;
+    data['observacion'] = observacion;
+    data['link'] = link;
+    data['fecha'] = fecha;
+    data['modulo'] = modulo;
+    data['nroLote'] = nroLote;
+    data['sector'] = sector;
+    data['estante'] = estante;
+    data['generadoPor'] = generadoPor;
+    data['latitud'] = latitud;
+    data['longitud'] = longitud;
+    data['fechaHsFoto'] = fechaHsFoto;
+    data['tipoDeFoto'] = tipoDeFoto;
+    data['direccionFoto'] = direccionFoto;
+    data['imageFullPath'] = imageFullPath;
     return data;
   }
 }

@@ -54,23 +54,23 @@ class VehiculosProgramaPrev {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['nroInterno'] = this.nroInterno;
-    data['codigoDePrograma'] = this.codigoDePrograma;
-    data['codigoDeEquipo'] = this.codigoDeEquipo;
-    data['codigoDeParte'] = this.codigoDeParte;
-    data['codigoDeTarea'] = this.codigoDeTarea;
-    data['cantFrec'] = this.cantFrec;
-    data['ultimaLectura'] = this.ultimaLectura;
-    data['ejecucion'] = this.ejecucion;
-    data['frecDias'] = this.frecDias;
-    data['contador'] = this.contador;
-    data['actualizado'] = this.actualizado;
-    data['kmDesdeUltimaVerificacion'] = this.kmDesdeUltimaVerificacion;
-    data['frecuencia'] = this.frecuencia;
-    data['estados'] = this.estados;
-    data['diferencia'] = this.diferencia;
-    data['proximarev'] = this.proximarev;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['nroInterno'] = nroInterno;
+    data['codigoDePrograma'] = codigoDePrograma;
+    data['codigoDeEquipo'] = codigoDeEquipo;
+    data['codigoDeParte'] = codigoDeParte;
+    data['codigoDeTarea'] = codigoDeTarea;
+    data['cantFrec'] = cantFrec;
+    data['ultimaLectura'] = ultimaLectura;
+    data['ejecucion'] = ejecucion;
+    data['frecDias'] = frecDias;
+    data['contador'] = contador;
+    data['actualizado'] = actualizado;
+    data['kmDesdeUltimaVerificacion'] = kmDesdeUltimaVerificacion;
+    data['frecuencia'] = frecuencia;
+    data['estados'] = estados;
+    data['diferencia'] = diferencia;
+    data['proximarev'] = proximarev;
     return data;
   }
 }

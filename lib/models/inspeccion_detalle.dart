@@ -36,17 +36,17 @@ class InspeccionDetalle {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['idRegistro'] = this.idRegistro;
-    data['inspeccionCab'] = this.inspeccionCab;
-    data['idCliente'] = this.idCliente;
-    data['idGrupoFormulario'] = this.idGrupoFormulario;
-    data['detalleF'] = this.detalleF;
-    data['descripcion'] = this.descripcion;
-    data['ponderacionPuntos'] = this.ponderacionPuntos;
-    data['cumple'] = this.cumple;
-    data['linkFoto'] = this.linkFoto;
-    data['imageFullPath'] = this.imageFullPath;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['idRegistro'] = idRegistro;
+    data['inspeccionCab'] = inspeccionCab;
+    data['idCliente'] = idCliente;
+    data['idGrupoFormulario'] = idGrupoFormulario;
+    data['detalleF'] = detalleF;
+    data['descripcion'] = descripcion;
+    data['ponderacionPuntos'] = ponderacionPuntos;
+    data['cumple'] = cumple;
+    data['linkFoto'] = linkFoto;
+    data['imageFullPath'] = imageFullPath;
     return data;
   }
 }

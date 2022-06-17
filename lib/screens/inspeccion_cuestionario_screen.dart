@@ -25,7 +25,8 @@ class InspeccionCuestionarioScreen extends StatefulWidget {
   final Position positionUser;
 
   const InspeccionCuestionarioScreen(
-      {required this.user,
+      {Key? key,
+      required this.user,
       required this.causante,
       required this.observaciones,
       required this.obra,
@@ -35,7 +36,8 @@ class InspeccionCuestionarioScreen extends StatefulWidget {
       required this.nombreSR,
       required this.dniSR,
       required this.detallesFormulariosCompleto,
-      required this.positionUser});
+      required this.positionUser})
+      : super(key: key);
 
   @override
   State<InspeccionCuestionarioScreen> createState() =>
@@ -48,12 +50,12 @@ class _InspeccionCuestionarioScreenState
 //************************** DEFINICION DE VARIABLES **************************
 //*****************************************************************************
 
-  Color colorVerde = Color.fromARGB(255, 22, 175, 22);
-  Color colorRojo = Color.fromARGB(255, 243, 6, 38);
-  Color colorNaranja = Color.fromARGB(255, 244, 104, 28);
-  Color colorCeleste = Color.fromARGB(255, 123, 220, 247);
+  Color colorVerde = const Color.fromARGB(255, 22, 175, 22);
+  Color colorRojo = const Color.fromARGB(255, 243, 6, 38);
+  Color colorNaranja = const Color.fromARGB(255, 244, 104, 28);
+  Color colorCeleste = const Color.fromARGB(255, 123, 220, 247);
 
-  List _elements = [];
+  final List _elements = [];
   int puntos = 0;
   int respSI = 0;
   int respNO = 0;
@@ -61,21 +63,8 @@ class _InspeccionCuestionarioScreenState
 
   int _idCab = 0;
 
-  bool _photoChanged = false;
-  late XFile _image;
-
   bool _showLoader = false;
   bool _todas = true;
-
-  Position _positionUser = Position(
-      longitude: 0,
-      latitude: 0,
-      timestamp: null,
-      accuracy: 0,
-      altitude: 0,
-      heading: 0,
-      speed: 0,
-      speedAccuracy: 0);
 
 //*****************************************************************************
 //************************** INIT STATE ***************************************
@@ -102,16 +91,13 @@ class _InspeccionCuestionarioScreenState
       if (element.cumple == 'SI') {
         respSI++;
       }
-      ;
       if (element.cumple == 'NO') {
         respNO++;
         puntos = puntos + element.ponderacionpuntos;
       }
-      ;
       if (element.cumple == 'N/A') {
         respNA++;
       }
-      ;
     });
   }
 
@@ -122,14 +108,14 @@ class _InspeccionCuestionarioScreenState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 195, 191, 191),
+      backgroundColor: const Color.fromARGB(255, 195, 191, 191),
       appBar: AppBar(
-        title: Text('Cuestionario'),
+        title: const Text('Cuestionario'),
         centerTitle: true,
         actions: [
           Row(
             children: [
-              Text(
+              const Text(
                 "Todas:",
                 style: TextStyle(color: Colors.white, fontSize: 14),
               ),
@@ -151,7 +137,7 @@ class _InspeccionCuestionarioScreenState
             child: _getContent(),
           ),
           _showLoader
-              ? LoaderComponent(
+              ? const LoaderComponent(
                   text: 'Por favor espere...',
                 )
               : Container(),
@@ -182,7 +168,7 @@ class _InspeccionCuestionarioScreenState
 
   Widget _showResultado() {
     return Container(
-      padding: EdgeInsets.all(10),
+      padding: const EdgeInsets.all(10),
       height: 80,
       child: Row(
         children: [
@@ -191,14 +177,14 @@ class _InspeccionCuestionarioScreenState
             children: [
               Row(
                 children: [
-                  Text("Preguntas: ",
+                  const Text("Preguntas: ",
                       style: TextStyle(
                         fontSize: 14,
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
                       )),
                   Text(widget.detallesFormulariosCompleto.length.toString(),
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 14,
                         color: Colors.blue,
                         fontWeight: FontWeight.normal,
@@ -207,14 +193,14 @@ class _InspeccionCuestionarioScreenState
               ),
               Row(
                 children: [
-                  Text("Resp SI: ",
+                  const Text("Resp SI: ",
                       style: TextStyle(
                         fontSize: 14,
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
                       )),
                   Text(respSI.toString(),
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 14,
                         color: Colors.blue,
                         fontWeight: FontWeight.normal,
@@ -223,7 +209,7 @@ class _InspeccionCuestionarioScreenState
               ),
               Row(
                 children: [
-                  Text("Faltan Responder: ",
+                  const Text("Faltan Responder: ",
                       style: TextStyle(
                         fontSize: 14,
                         color: Colors.black,
@@ -235,7 +221,7 @@ class _InspeccionCuestionarioScreenState
                               respNO -
                               respNA)
                           .toString(),
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 14,
                         color: Colors.blue,
                         fontWeight: FontWeight.normal,
@@ -244,14 +230,14 @@ class _InspeccionCuestionarioScreenState
               ),
             ],
           ),
-          SizedBox(
+          const SizedBox(
             width: 10,
           ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
-                children: [
+                children: const [
                   Text("",
                       style: TextStyle(
                         fontSize: 14,
@@ -268,14 +254,14 @@ class _InspeccionCuestionarioScreenState
               ),
               Row(
                 children: [
-                  Text("Resp. NO: ",
+                  const Text("Resp. NO: ",
                       style: TextStyle(
                         fontSize: 14,
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
                       )),
                   Text(respNO.toString(),
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 14,
                         color: Colors.blue,
                         fontWeight: FontWeight.normal,
@@ -284,14 +270,14 @@ class _InspeccionCuestionarioScreenState
               ),
             ],
           ),
-          SizedBox(
+          const SizedBox(
             width: 10,
           ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
-                children: [
+                children: const [
                   Text("",
                       style: TextStyle(
                         fontSize: 14,
@@ -308,14 +294,14 @@ class _InspeccionCuestionarioScreenState
               ),
               Row(
                 children: [
-                  Text("Resp. N/A: ",
+                  const Text("Resp. N/A: ",
                       style: TextStyle(
                         fontSize: 14,
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
                       )),
                   Text(respNA.toString(),
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 14,
                         color: Colors.blue,
                         fontWeight: FontWeight.normal,
@@ -324,14 +310,14 @@ class _InspeccionCuestionarioScreenState
               ),
               Row(
                 children: [
-                  Text("Total Puntos: ",
+                  const Text("Total Puntos: ",
                       style: TextStyle(
                         fontSize: 14,
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
                       )),
                   Text(puntos.toString(),
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 14,
                         color: Colors.blue,
                         fontWeight: FontWeight.normal,
@@ -363,14 +349,15 @@ class _InspeccionCuestionarioScreenState
         child: Text(
           value,
           textAlign: TextAlign.center,
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
         ),
       ),
       itemBuilder: (c, element) {
         return _todas
             ? Card(
                 elevation: 8.0,
-                margin: EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
+                margin:
+                    const EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
                 child: Container(
                   color: (element['cumple'] != "SI" &&
                           element['cumple'] != "NO" &&
@@ -380,16 +367,16 @@ class _InspeccionCuestionarioScreenState
                   child: Column(
                     children: [
                       ListTile(
-                        contentPadding: EdgeInsets.symmetric(
+                        contentPadding: const EdgeInsets.symmetric(
                             horizontal: 5.0, vertical: 5.0),
                         leading: CircleAvatar(
                             child: Text(
                           element['detallef'],
-                          style: TextStyle(fontSize: 10),
+                          style: const TextStyle(fontSize: 10),
                         )),
                         title: Text(
                           element['descripcion'],
-                          style: TextStyle(fontSize: 12),
+                          style: const TextStyle(fontSize: 12),
                         ),
                         trailing: Container(
                           decoration: BoxDecoration(
@@ -410,25 +397,23 @@ class _InspeccionCuestionarioScreenState
                           height: 60,
                           //****************** */
                           child: Center(
-                              child: Container(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                Text(
-                                  '${element['ponderacionpuntos']} pts',
-                                ),
-                                element['cumple'] != "null"
-                                    ? Text(
-                                        element['cumple'],
-                                      )
-                                    : Text(''),
-                              ],
-                            ),
+                              child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Text(
+                                '${element['ponderacionpuntos']} pts',
+                              ),
+                              element['cumple'] != "null"
+                                  ? Text(
+                                      element['cumple'],
+                                    )
+                                  : const Text(''),
+                            ],
                           )),
                         ),
                       ),
                       Container(
-                        margin: EdgeInsets.only(left: 10, right: 10),
+                        margin: const EdgeInsets.only(left: 10, right: 10),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: <Widget>[
@@ -437,7 +422,7 @@ class _InspeccionCuestionarioScreenState
                                 child: Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceAround,
-                                  children: [
+                                  children: const [
                                     Icon(Icons.toggle_on),
                                     SizedBox(
                                       width: 5,
@@ -447,7 +432,7 @@ class _InspeccionCuestionarioScreenState
                                 ),
                                 style: ElevatedButton.styleFrom(
                                   primary: colorVerde,
-                                  minimumSize: Size(double.infinity, 40),
+                                  minimumSize: const Size(double.infinity, 40),
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(5),
                                   ),
@@ -479,7 +464,7 @@ class _InspeccionCuestionarioScreenState
                                 },
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 20,
                             ),
                             Expanded(
@@ -487,14 +472,14 @@ class _InspeccionCuestionarioScreenState
                                 child: Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceEvenly,
-                                  children: [
+                                  children: const [
                                     Icon(Icons.toggle_off),
                                     Text('NO'),
                                   ],
                                 ),
                                 style: ElevatedButton.styleFrom(
                                   primary: colorRojo,
-                                  minimumSize: Size(double.infinity, 40),
+                                  minimumSize: const Size(double.infinity, 40),
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(5),
                                   ),
@@ -524,7 +509,7 @@ class _InspeccionCuestionarioScreenState
                                 },
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 20,
                             ),
                             Expanded(
@@ -532,14 +517,14 @@ class _InspeccionCuestionarioScreenState
                                 child: Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceEvenly,
-                                  children: [
+                                  children: const [
                                     Icon(Icons.cancel),
                                     Text('N/A'),
                                   ],
                                 ),
                                 style: ElevatedButton.styleFrom(
                                   primary: colorNaranja,
-                                  minimumSize: Size(double.infinity, 40),
+                                  minimumSize: const Size(double.infinity, 40),
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(5),
                                   ),
@@ -565,7 +550,7 @@ class _InspeccionCuestionarioScreenState
                                 },
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 20,
                             ),
                             InkWell(
@@ -573,10 +558,10 @@ class _InspeccionCuestionarioScreenState
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(30),
                                 child: Container(
-                                  color: Color(0xFF282886),
+                                  color: const Color(0xFF282886),
                                   width: 40,
                                   height: 40,
-                                  child: Icon(
+                                  child: const Icon(
                                     Icons.photo_camera,
                                     size: 30,
                                     color: Color(0xFFf6faf8),
@@ -587,7 +572,7 @@ class _InspeccionCuestionarioScreenState
                           ],
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 5,
                       ),
                       Container(
@@ -609,8 +594,8 @@ class _InspeccionCuestionarioScreenState
                     element['cumple'] != "N/A")
                 ? Card(
                     elevation: 8.0,
-                    margin:
-                        EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
+                    margin: const EdgeInsets.symmetric(
+                        horizontal: 10.0, vertical: 6.0),
                     child: Container(
                       color: (element['cumple'] != "SI" &&
                               element['cumple'] != "NO" &&
@@ -620,16 +605,16 @@ class _InspeccionCuestionarioScreenState
                       child: Column(
                         children: [
                           ListTile(
-                            contentPadding: EdgeInsets.symmetric(
+                            contentPadding: const EdgeInsets.symmetric(
                                 horizontal: 5.0, vertical: 5.0),
                             leading: CircleAvatar(
                                 child: Text(
                               element['detallef'],
-                              style: TextStyle(fontSize: 10),
+                              style: const TextStyle(fontSize: 10),
                             )),
                             title: Text(
                               element['descripcion'],
-                              style: TextStyle(fontSize: 12),
+                              style: const TextStyle(fontSize: 12),
                             ),
                             trailing: Container(
                               width: 60,
@@ -648,20 +633,21 @@ class _InspeccionCuestionarioScreenState
                                 children: [
                                   Text(
                                     '${element['ponderacionpuntos']} pts',
-                                    style: TextStyle(color: Colors.white),
+                                    style: const TextStyle(color: Colors.white),
                                   ),
                                   element['cumple'] != "null"
                                       ? Text(
                                           element['cumple'],
-                                          style: TextStyle(color: Colors.white),
+                                          style: const TextStyle(
+                                              color: Colors.white),
                                         )
-                                      : Text(''),
+                                      : const Text(''),
                                 ],
                               )),
                             ),
                           ),
                           Container(
-                            margin: EdgeInsets.only(left: 10, right: 10),
+                            margin: const EdgeInsets.only(left: 10, right: 10),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: <Widget>[
@@ -670,7 +656,7 @@ class _InspeccionCuestionarioScreenState
                                     child: Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceAround,
-                                      children: [
+                                      children: const [
                                         Icon(Icons.toggle_on),
                                         SizedBox(
                                           width: 5,
@@ -680,7 +666,8 @@ class _InspeccionCuestionarioScreenState
                                     ),
                                     style: ElevatedButton.styleFrom(
                                       primary: colorVerde,
-                                      minimumSize: Size(double.infinity, 40),
+                                      minimumSize:
+                                          const Size(double.infinity, 40),
                                       shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(5),
                                       ),
@@ -719,7 +706,7 @@ class _InspeccionCuestionarioScreenState
                                     },
                                   ),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   width: 20,
                                 ),
                                 Expanded(
@@ -727,14 +714,15 @@ class _InspeccionCuestionarioScreenState
                                     child: Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceEvenly,
-                                      children: [
+                                      children: const [
                                         Icon(Icons.toggle_off),
                                         Text('NO'),
                                       ],
                                     ),
                                     style: ElevatedButton.styleFrom(
                                       primary: colorRojo,
-                                      minimumSize: Size(double.infinity, 40),
+                                      minimumSize:
+                                          const Size(double.infinity, 40),
                                       shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(5),
                                       ),
@@ -761,7 +749,7 @@ class _InspeccionCuestionarioScreenState
                                     },
                                   ),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   width: 20,
                                 ),
                                 Expanded(
@@ -769,14 +757,15 @@ class _InspeccionCuestionarioScreenState
                                     child: Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceEvenly,
-                                      children: [
+                                      children: const [
                                         Icon(Icons.cancel),
                                         Text('N/A'),
                                       ],
                                     ),
                                     style: ElevatedButton.styleFrom(
                                       primary: colorNaranja,
-                                      minimumSize: Size(double.infinity, 40),
+                                      minimumSize:
+                                          const Size(double.infinity, 40),
                                       shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(5),
                                       ),
@@ -831,7 +820,7 @@ class _InspeccionCuestionarioScreenState
                 child: ElevatedButton(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
+                      children: const [
                         Icon(Icons.save),
                         SizedBox(
                           width: 2,
@@ -840,8 +829,8 @@ class _InspeccionCuestionarioScreenState
                       ],
                     ),
                     style: ElevatedButton.styleFrom(
-                      primary: Color(0xFF282886),
-                      minimumSize: Size(double.infinity, 40),
+                      primary: const Color(0xFF282886),
+                      minimumSize: const Size(double.infinity, 40),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(5),
                       ),
@@ -850,14 +839,14 @@ class _InspeccionCuestionarioScreenState
                       _guardar();
                     }),
               ),
-              SizedBox(
+              const SizedBox(
                 width: 5,
               ),
               Expanded(
                 child: ElevatedButton(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
+                    children: const [
                       Icon(Icons.cancel),
                       SizedBox(
                         width: 2,
@@ -866,8 +855,8 @@ class _InspeccionCuestionarioScreenState
                     ],
                   ),
                   style: ElevatedButton.styleFrom(
-                    primary: Color(0xffdf281e),
-                    minimumSize: Size(double.infinity, 40),
+                    primary: const Color(0xffdf281e),
+                    minimumSize: const Size(double.infinity, 40),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(5),
                     ),
@@ -898,19 +887,19 @@ class _InspeccionCuestionarioScreenState
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10),
               ),
-              title: Text('Aviso!'),
+              title: const Text('Aviso!'),
               content:
                   Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
                 Text(
                     'Todavía no puede guardar el Cuestionario. Quedan ${widget.detallesFormulariosCompleto.length - respSI - respNO - respNA} preguntas sin responder.'),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
               ]),
               actions: <Widget>[
                 TextButton(
                     onPressed: () => Navigator.of(context).pop(),
-                    child: Text('Ok')),
+                    child: const Text('Ok')),
               ],
             );
           });
@@ -933,7 +922,7 @@ class _InspeccionCuestionarioScreenState
           title: 'Error',
           message: 'Verifica que estés conectado a Internet',
           actions: <AlertDialogAction>[
-            AlertDialogAction(key: null, label: 'Aceptar'),
+            const AlertDialogAction(key: null, label: 'Aceptar'),
           ]);
       return;
     }
@@ -981,7 +970,7 @@ class _InspeccionCuestionarioScreenState
           title: 'Error',
           message: response.message,
           actions: <AlertDialogAction>[
-            AlertDialogAction(key: null, label: 'Aceptar'),
+            const AlertDialogAction(key: null, label: 'Aceptar'),
           ]);
       return;
     } else {
@@ -1018,7 +1007,7 @@ class _InspeccionCuestionarioScreenState
         title: 'Aviso',
         message: 'Cuestionario grabado con éxito!',
         actions: <AlertDialogAction>[
-          AlertDialogAction(key: null, label: 'Ok'),
+          const AlertDialogAction(key: null, label: 'Ok'),
         ]);
     Navigator.pop(context, 'yes');
     Navigator.pop(context, 'yes');
@@ -1037,9 +1026,9 @@ class _InspeccionCuestionarioScreenState
         title: 'Seleccionar cámara',
         message: '¿Qué cámara desea utilizar?',
         actions: <AlertDialogAction>[
-          AlertDialogAction(key: 'no', label: 'Trasera'),
-          AlertDialogAction(key: 'yes', label: 'Delantera'),
-          AlertDialogAction(key: 'cancel', label: 'Cancelar'),
+          const AlertDialogAction(key: 'no', label: 'Trasera'),
+          const AlertDialogAction(key: 'yes', label: 'Delantera'),
+          const AlertDialogAction(key: 'cancel', label: 'Cancelar'),
         ]);
     if (response1 == 'yes') {
       firstCamera = cameras.first;

@@ -9,8 +9,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeScreen extends StatefulWidget {
   final User user;
+  final int nroConexion;
 
-  HomeScreen({required this.user});
+  const HomeScreen({Key? key, required this.user, required this.nroConexion})
+      : super(key: key);
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -21,20 +23,21 @@ class _HomeScreenState extends State<HomeScreen> {
 //************************** DEFINICION DE VARIABLES **************************
 //*****************************************************************************
 
-  bool _showLoader = false;
   List<Novedad> _novedadesAux = [];
   List<Novedad> _novedades = [];
   late Causante _causante;
   String _codigo = '';
+  int? _nroConexion = 0;
 
 //*****************************************************************************
 //************************** INITSTATE *****************************************
 //*****************************************************************************
 
+  @override
   void initState() {
     super.initState();
 
-    _causante = new Causante(
+    _causante = Causante(
         nroCausante: 0,
         codigo: '',
         nombre: '',
@@ -62,7 +65,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Rowing App'),
+        title: const Text('Rowing App'),
       ),
       body: _getBody(),
       drawer: _getMenu(),
@@ -72,8 +75,8 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget _getBody() {
     return Container(
         width: double.infinity,
-        padding: EdgeInsets.symmetric(vertical: 60),
-        decoration: BoxDecoration(
+        padding: const EdgeInsets.symmetric(vertical: 60),
+        decoration: const BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
@@ -91,7 +94,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             Text(
               'Bienvenido/a ${widget.user.fullName}',
-              style: TextStyle(
+              style: const TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                   color: Colors.white),
@@ -103,7 +106,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget _getMenu() {
     return Drawer(
       child: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
@@ -116,7 +119,7 @@ class _HomeScreenState extends State<HomeScreen> {
         child: ListView(
           children: <Widget>[
             DrawerHeader(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 gradient: LinearGradient(
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
@@ -128,33 +131,33 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               child: Column(
                 children: [
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
-                  Image(
+                  const Image(
                     image: AssetImage('assets/logo.png'),
                     width: 200,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 40,
                   ),
                   Row(
                     children: [
-                      Text(
+                      const Text(
                         "Usuario: ",
                         style: (TextStyle(
                             color: Colors.white, fontWeight: FontWeight.bold)),
                       ),
                       Text(
                         widget.user.fullName,
-                        style: (TextStyle(color: Colors.white)),
+                        style: (const TextStyle(color: Colors.white)),
                       ),
                     ],
                   ),
                 ],
               ),
             ),
-            Divider(
+            const Divider(
               color: Colors.white,
               height: 1,
             ),
@@ -182,7 +185,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ))
                 : Container(),
             widget.user.habilitaSSHH == 1
-                ? MenuTile(
+                ? const MenuTile(
                     icon: Icons.engineering,
                     menuitem: 'Seguridad e Higiene',
                     screen: SeguridadScreen())
@@ -191,16 +194,17 @@ class _HomeScreenState extends State<HomeScreen> {
               children: [
                 Expanded(
                   child: ListTile(
-                    leading: Icon(
+                    leading: const Icon(
                       Icons.newspaper,
                       color: Colors.white,
                     ),
-                    tileColor: Color(0xff8c8c94),
+                    tileColor: const Color(0xff8c8c94),
                     title: Text(
                         widget.user.habilitaRRHH == 1
                             ? 'Novedades'
                             : 'Mis Novedades',
-                        style: TextStyle(fontSize: 15, color: Colors.white)),
+                        style:
+                            const TextStyle(fontSize: 15, color: Colors.white)),
                     onTap: () async {
                       String? result = await Navigator.push(
                         context,
@@ -218,8 +222,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     },
                   ),
                 ),
-                _novedades.length > 0
-                    ? Container(
+                _novedades.isNotEmpty
+                    ? SizedBox(
                         height: 30,
                         width: 30,
                         child: CircleAvatar(
@@ -228,7 +232,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       )
                     : Container(),
-                SizedBox(
+                const SizedBox(
                   width: 10,
                 )
               ],
@@ -255,20 +259,20 @@ class _HomeScreenState extends State<HomeScreen> {
                     children: [
                       Expanded(
                         child: ListTile(
-                          leading: Icon(
+                          leading: const Icon(
                             Icons.directions_car,
                             color: Colors.white,
                           ),
-                          tileColor: Color(0xff8c8c94),
+                          tileColor: const Color(0xff8c8c94),
                           title: Text(
                               widget.user.habilitaFlotas.toLowerCase() ==
                                       "admin"
                                   ? 'Flotas'
                                   : 'Mis Vehículos',
-                              style:
-                                  TextStyle(fontSize: 15, color: Colors.white)),
+                              style: const TextStyle(
+                                  fontSize: 15, color: Colors.white)),
                           onTap: () async {
-                            String? result = await Navigator.push(
+                            await Navigator.push(
                               context,
                               MaterialPageRoute(
                                 builder: (context) => FlotaScreen(
@@ -283,17 +287,17 @@ class _HomeScreenState extends State<HomeScreen> {
                   )
                 : Container(),
 
-            Divider(
+            const Divider(
               color: Colors.white,
               height: 1,
             ),
             ListTile(
-              leading: Icon(
+              leading: const Icon(
                 Icons.logout,
                 color: Colors.white,
               ),
-              tileColor: Color(0xff8c8c94),
-              title: Text('Cerrar Sesión',
+              tileColor: const Color(0xff8c8c94),
+              title: const Text('Cerrar Sesión',
                   style: TextStyle(fontSize: 15, color: Colors.white)),
               onTap: () {
                 _logOut();
@@ -305,11 +309,25 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+//*****************************************************************************
+//************************** METODO LOGOUT ************************************
+//*****************************************************************************
+
   void _logOut() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setBool('isRemembered', false);
     await prefs.setString('userBody', '');
     await prefs.setString('date', '');
+
+    //------------ Guarda en WebSesion la fecha y hora de salida ----------
+    _nroConexion = prefs.getInt('nroConexion');
+
+    var connectivityResult = await Connectivity().checkConnectivity();
+
+    if (connectivityResult != ConnectivityResult.none) {
+      Response response = await ApiHelper.putWebSesion(_nroConexion!);
+    }
+
     Navigator.pushReplacement(
         context, MaterialPageRoute(builder: (context) => LoginScreen()));
   }
@@ -318,22 +336,18 @@ class _HomeScreenState extends State<HomeScreen> {
 //--------------------- METODO GETCAUSANTE ---------------------------
 //-----------------------------------------------------------------
 
-  Future<Null> _getCausante() async {
-    setState(() {
-      _showLoader = true;
-    });
+  Future<void> _getCausante() async {
+    setState(() {});
 
     var connectivityResult = await Connectivity().checkConnectivity();
     if (connectivityResult == ConnectivityResult.none) {
-      setState(() {
-        _showLoader = false;
-      });
+      setState(() {});
       await showAlertDialog(
           context: context,
           title: 'Error',
           message: 'Verifica que estes conectado a internet.',
           actions: <AlertDialogAction>[
-            AlertDialogAction(key: null, label: 'Aceptar'),
+            const AlertDialogAction(key: null, label: 'Aceptar'),
           ]);
       return;
     }
@@ -346,17 +360,14 @@ class _HomeScreenState extends State<HomeScreen> {
           title: 'Error',
           message: "Legajo o Documento no válido",
           actions: <AlertDialogAction>[
-            AlertDialogAction(key: null, label: 'Aceptar'),
+            const AlertDialogAction(key: null, label: 'Aceptar'),
           ]);
 
-      setState(() {
-        _showLoader = false;
-      });
+      setState(() {});
       return;
     }
 
     setState(() {
-      _showLoader = false;
       _causante = response.result;
     });
 
@@ -367,27 +378,23 @@ class _HomeScreenState extends State<HomeScreen> {
 //--------------------- METODO GETNOVEDADES -----------------------
 //-----------------------------------------------------------------
 
-  Future<Null> _getNovedades() async {
-    setState(() {
-      _showLoader = true;
-    });
+  Future<void> _getNovedades() async {
+    setState(() {});
 
     var connectivityResult = await Connectivity().checkConnectivity();
     if (connectivityResult == ConnectivityResult.none) {
-      setState(() {
-        _showLoader = false;
-      });
+      setState(() {});
       await showAlertDialog(
           context: context,
           title: 'Error',
           message: 'Verifica que estes conectado a internet.',
           actions: <AlertDialogAction>[
-            AlertDialogAction(key: null, label: 'Aceptar'),
+            const AlertDialogAction(key: null, label: 'Aceptar'),
           ]);
       return;
     }
 
-    Response response2 = await ApiHelper.GetNovedades(
+    Response response2 = await ApiHelper.getNovedades(
         _causante.grupo, _causante.codigo.toString());
 
     if (!response2.isSuccess) {
@@ -396,23 +403,20 @@ class _HomeScreenState extends State<HomeScreen> {
           title: 'Error',
           message: "Legajo o Documento no válido",
           actions: <AlertDialogAction>[
-            AlertDialogAction(key: null, label: 'Aceptar'),
+            const AlertDialogAction(key: null, label: 'Aceptar'),
           ]);
 
-      setState(() {
-        _showLoader = false;
-      });
+      setState(() {});
       return;
     }
 
     _novedades = [];
     _novedadesAux = response2.result;
-    _novedadesAux.forEach((novedad) {
+    for (var novedad in _novedadesAux) {
       if (novedad.estado != "Pendiente" && novedad.confirmaLeido != 1) {
         _novedades.add(novedad);
-        ;
       }
-    });
+    }
     setState(() {});
   }
 }

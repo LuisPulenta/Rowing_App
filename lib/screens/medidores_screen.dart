@@ -19,7 +19,7 @@ import 'package:rowing_app/screens/take_picture2.dart';
 
 class MedidoresScreen extends StatefulWidget {
   final User user;
-  MedidoresScreen({required this.user});
+  const MedidoresScreen({Key? key, required this.user}) : super(key: key);
 
   @override
   _MedidoresScreenState createState() => _MedidoresScreenState();
@@ -33,7 +33,7 @@ class _MedidoresScreenState extends State<MedidoresScreen> {
   bool _showLoader = false;
   bool _photoChanged = false;
   bool _enabled = false;
-  bool _codigoShowError = false;
+  final bool _codigoShowError = false;
 
   int _current = 0;
 
@@ -43,7 +43,7 @@ class _MedidoresScreenState extends State<MedidoresScreen> {
 
   //String _codigo = 'SE0012641832';
   String _codigo = '';
-  String _codigoError = '';
+  final String _codigoError = '';
 
   List<ObrasDocumento> _obrasDocumentos = [];
 
@@ -52,37 +52,39 @@ class _MedidoresScreenState extends State<MedidoresScreen> {
   String _medidor = '';
   String _medidorError = '';
   bool _medidorShowError = false;
-  TextEditingController _medidorController = TextEditingController();
+  final TextEditingController _medidorController = TextEditingController();
 
   String _precinto = '';
   String _precintoError = '';
   bool _precintoShowError = false;
-  TextEditingController _precintoController = TextEditingController();
+  final TextEditingController _precintoController = TextEditingController();
 
   String _cajaDAE = '';
   String _cajaDAEError = '';
   bool _cajaDAEShowError = false;
-  TextEditingController _cajaDAEController = TextEditingController();
+  final TextEditingController _cajaDAEController = TextEditingController();
 
   String _lindero1 = '';
   String _lindero1Error = '';
   bool _lindero1ShowError = false;
-  TextEditingController _lindero1Controller = TextEditingController();
+  final TextEditingController _lindero1Controller = TextEditingController();
 
   String _lindero2 = '';
   String _lindero2Error = '';
   bool _lindero2ShowError = false;
-  TextEditingController _lindero2Controller = TextEditingController();
+  final TextEditingController _lindero2Controller = TextEditingController();
 
   String _observaciones = '';
   String _observacionesError = '';
   bool _observacionesShowError = false;
-  TextEditingController _observacionesController = TextEditingController();
+  final TextEditingController _observacionesController =
+      TextEditingController();
 
 //*****************************************************************************
 //************************** INIT STATE ***************************************
 //*****************************************************************************
 
+  @override
   void initState() {
     super.initState();
     _ticket = Ticket(
@@ -123,9 +125,9 @@ class _MedidoresScreenState extends State<MedidoresScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF484848),
+      backgroundColor: const Color(0xFF484848),
       appBar: AppBar(
-        title: Text('Medidores'),
+        title: const Text('Medidores'),
         centerTitle: true,
       ),
       body: Stack(
@@ -138,10 +140,10 @@ class _MedidoresScreenState extends State<MedidoresScreen> {
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20)),
                     elevation: 15,
-                    margin: EdgeInsets.all(5),
+                    margin: const EdgeInsets.all(5),
                     child: Padding(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 15, vertical: 10),
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -153,35 +155,35 @@ class _MedidoresScreenState extends State<MedidoresScreen> {
                   ),
                 ),
                 _showInfoTicket(),
-                Divider(
+                const Divider(
                   height: 3,
                   color: Colors.white,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 _showCampos(),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 _showButton(),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
-                Divider(
+                const Divider(
                   height: 3,
                   color: Colors.white,
                 ),
                 _showPhotosCarousel(),
                 _showImageButtons(),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
               ],
             ),
           ),
           _showLoader
-              ? LoaderComponent(
+              ? const LoaderComponent(
                   text: 'Por favor espere...',
                 )
               : Container(),
@@ -206,7 +208,7 @@ class _MedidoresScreenState extends State<MedidoresScreen> {
                 hintText: 'Ingrese N° de Ticket...',
                 labelText: 'N° de Ticket:',
                 errorText: _codigoShowError ? _codigoError : null,
-                prefixIcon: Icon(Icons.confirmation_number),
+                prefixIcon: const Icon(Icons.confirmation_number),
                 border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10))),
             onChanged: (value) {
@@ -214,14 +216,14 @@ class _MedidoresScreenState extends State<MedidoresScreen> {
             },
           ),
         ),
-        SizedBox(
+        const SizedBox(
           width: 10,
         ),
         ElevatedButton(
-          child: Icon(Icons.search),
+          child: const Icon(Icons.search),
           style: ElevatedButton.styleFrom(
-            primary: Color(0xFF781f1e),
-            minimumSize: Size(50, 50),
+            primary: const Color(0xFF781f1e),
+            minimumSize: const Size(50, 50),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(5),
             ),
@@ -238,21 +240,21 @@ class _MedidoresScreenState extends State<MedidoresScreen> {
 
   Widget _showInfoTicket() {
     return Card(
-      color: Color(0xFFC7C7C8),
+      color: const Color(0xFFC7C7C8),
       shadowColor: Colors.white,
       elevation: 10,
-      margin: EdgeInsets.fromLTRB(5, 5, 5, 5),
+      margin: const EdgeInsets.fromLTRB(5, 5, 5, 5),
       child: Container(
-        padding: EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
         child: Column(
           children: [
             Row(
               children: [
-                Icon(
+                const Icon(
                   Icons.person,
                   color: Colors.blue,
                 ),
-                Text("Cliente: ",
+                const Text("Cliente: ",
                     style: TextStyle(
                       fontSize: 14,
                       color: Color(0xFF781f1e),
@@ -261,22 +263,22 @@ class _MedidoresScreenState extends State<MedidoresScreen> {
                 Expanded(
                   child: Text(
                       _ticket.cliente == null ? '' : _ticket.cliente.toString(),
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 14,
                       )),
                 ),
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 5,
             ),
             Row(
               children: [
-                Icon(
+                const Icon(
                   Icons.directions,
                   color: Colors.blue,
                 ),
-                Text("Dirección: ",
+                const Text("Dirección: ",
                     style: TextStyle(
                       fontSize: 14,
                       color: Color(0xFF781f1e),
@@ -287,22 +289,22 @@ class _MedidoresScreenState extends State<MedidoresScreen> {
                       _ticket.direccion == null
                           ? ''
                           : _ticket.direccion.toString(),
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 14,
                       )),
                 ),
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 5,
             ),
             Row(
               children: [
-                Icon(
+                const Icon(
                   Icons.phone,
                   color: Colors.blue,
                 ),
-                Text("Teléfono: ",
+                const Text("Teléfono: ",
                     style: TextStyle(
                       fontSize: 14,
                       color: Color(0xFF781f1e),
@@ -313,7 +315,7 @@ class _MedidoresScreenState extends State<MedidoresScreen> {
                       _ticket.telefono == null
                           ? ''
                           : _ticket.telefono.toString(),
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 14,
                       )),
                 ),
@@ -333,13 +335,14 @@ class _MedidoresScreenState extends State<MedidoresScreen> {
     return Card(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         elevation: 15,
-        margin: EdgeInsets.all(5),
+        margin: const EdgeInsets.all(5),
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 15, vertical: 0),
+          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 0),
           child: Column(
             children: [
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                 child: TextField(
                   controller: _medidorController,
                   decoration: InputDecoration(
@@ -348,7 +351,7 @@ class _MedidoresScreenState extends State<MedidoresScreen> {
                       hintText: 'Ingrese Serie Medidor colocado:...',
                       labelText: 'Serie Medidor colocado:',
                       errorText: _medidorShowError ? _medidorError : null,
-                      prefixIcon: Icon(Icons.pin),
+                      prefixIcon: const Icon(Icons.pin),
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10))),
                   onChanged: (value) {
@@ -358,7 +361,8 @@ class _MedidoresScreenState extends State<MedidoresScreen> {
                 ),
               ),
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                 child: TextField(
                   controller: _precintoController,
                   decoration: InputDecoration(
@@ -367,7 +371,7 @@ class _MedidoresScreenState extends State<MedidoresScreen> {
                       hintText: 'Ingrese Precinto...',
                       labelText: 'Precinto:',
                       errorText: _precintoShowError ? _precintoError : null,
-                      prefixIcon: Icon(Icons.tag),
+                      prefixIcon: const Icon(Icons.tag),
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10))),
                   onChanged: (value) {
@@ -377,7 +381,8 @@ class _MedidoresScreenState extends State<MedidoresScreen> {
                 ),
               ),
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                 child: TextField(
                   controller: _cajaDAEController,
                   decoration: InputDecoration(
@@ -386,7 +391,7 @@ class _MedidoresScreenState extends State<MedidoresScreen> {
                       hintText: 'Ingrese Caja DAE...',
                       labelText: 'Caja DAE:',
                       errorText: _cajaDAEShowError ? _cajaDAEError : null,
-                      prefixIcon: Icon(Icons.inbox),
+                      prefixIcon: const Icon(Icons.inbox),
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10))),
                   onChanged: (value) {
@@ -396,7 +401,8 @@ class _MedidoresScreenState extends State<MedidoresScreen> {
                 ),
               ),
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                 child: TextField(
                   controller: _lindero1Controller,
                   decoration: InputDecoration(
@@ -405,7 +411,7 @@ class _MedidoresScreenState extends State<MedidoresScreen> {
                       hintText: 'Ingrese Lindero 1...',
                       labelText: 'Lindero 1:',
                       errorText: _lindero1ShowError ? _lindero1Error : null,
-                      prefixIcon: Icon(Icons.looks_one),
+                      prefixIcon: const Icon(Icons.looks_one),
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10))),
                   onChanged: (value) {
@@ -415,7 +421,8 @@ class _MedidoresScreenState extends State<MedidoresScreen> {
                 ),
               ),
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                 child: TextField(
                   controller: _lindero2Controller,
                   decoration: InputDecoration(
@@ -424,7 +431,7 @@ class _MedidoresScreenState extends State<MedidoresScreen> {
                       hintText: 'Ingrese Lindero 2...',
                       labelText: 'Lindero 2:',
                       errorText: _lindero2ShowError ? _lindero2Error : null,
-                      prefixIcon: Icon(Icons.looks_two),
+                      prefixIcon: const Icon(Icons.looks_two),
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10))),
                   onChanged: (value) {
@@ -434,7 +441,8 @@ class _MedidoresScreenState extends State<MedidoresScreen> {
                 ),
               ),
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                 child: TextField(
                   controller: _observacionesController,
                   decoration: InputDecoration(
@@ -444,7 +452,7 @@ class _MedidoresScreenState extends State<MedidoresScreen> {
                       labelText: 'Observaciones:',
                       errorText:
                           _observacionesShowError ? _observacionesError : null,
-                      prefixIcon: Icon(Icons.chat),
+                      prefixIcon: const Icon(Icons.chat),
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10))),
                   onChanged: (value) {
@@ -464,7 +472,7 @@ class _MedidoresScreenState extends State<MedidoresScreen> {
 
   Widget _showButton() {
     return Container(
-      margin: EdgeInsets.only(left: 20, right: 20),
+      margin: const EdgeInsets.only(left: 20, right: 20),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
@@ -472,7 +480,7 @@ class _MedidoresScreenState extends State<MedidoresScreen> {
             child: ElevatedButton(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: [
+                children: const [
                   Icon(Icons.save),
                   SizedBox(
                     width: 20,
@@ -481,8 +489,8 @@ class _MedidoresScreenState extends State<MedidoresScreen> {
                 ],
               ),
               style: ElevatedButton.styleFrom(
-                primary: Color(0xFF781f1e),
-                minimumSize: Size(double.infinity, 50),
+                primary: const Color(0xFF781f1e),
+                minimumSize: const Size(double.infinity, 50),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(5),
                 ),
@@ -501,7 +509,7 @@ class _MedidoresScreenState extends State<MedidoresScreen> {
 
   Widget _showPhotosCarousel() {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 20),
+      margin: const EdgeInsets.symmetric(vertical: 20),
       child: Column(
         children: [
           CarouselSlider(
@@ -509,7 +517,7 @@ class _MedidoresScreenState extends State<MedidoresScreen> {
                 height: 460,
                 autoPlay: false,
                 initialPage: 0,
-                autoPlayInterval: Duration(seconds: 0),
+                autoPlayInterval: const Duration(seconds: 0),
                 enlargeCenterPage: true,
                 onPageChanged: (index, reason) {
                   setState(() {
@@ -525,7 +533,7 @@ class _MedidoresScreenState extends State<MedidoresScreen> {
                       Expanded(
                         child: Container(
                             width: MediaQuery.of(context).size.width,
-                            margin: EdgeInsets.symmetric(horizontal: 5),
+                            margin: const EdgeInsets.symmetric(horizontal: 5),
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(20),
                               child: CachedNetworkImage(
@@ -533,11 +541,11 @@ class _MedidoresScreenState extends State<MedidoresScreen> {
                                     ? ''
                                     : i.imageFullPath.toString(),
                                 errorWidget: (context, url, error) =>
-                                    Icon(Icons.error),
+                                    const Icon(Icons.error),
                                 fit: BoxFit.contain,
                                 height: 360,
                                 width: 460,
-                                placeholder: (context, url) => Image(
+                                placeholder: (context, url) => const Image(
                                   image: AssetImage('assets/loading.gif'),
                                   fit: BoxFit.contain,
                                   height: 100,
@@ -546,7 +554,7 @@ class _MedidoresScreenState extends State<MedidoresScreen> {
                               ),
                             )),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 5,
                       ),
                       Text(
@@ -563,7 +571,7 @@ class _MedidoresScreenState extends State<MedidoresScreen> {
                                             : i.tipoDeFoto == 9
                                                 ? 'Lindero 2'
                                                 : '',
-                        style: TextStyle(
+                        style: const TextStyle(
                             color: Colors.white, fontWeight: FontWeight.bold),
                       ),
                     ],
@@ -580,7 +588,8 @@ class _MedidoresScreenState extends State<MedidoresScreen> {
                 child: Container(
                   width: 12.0,
                   height: 12.0,
-                  margin: EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
+                  margin: const EdgeInsets.symmetric(
+                      vertical: 8.0, horizontal: 4.0),
                   decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       color: (Theme.of(context).brightness == Brightness.dark
@@ -602,7 +611,7 @@ class _MedidoresScreenState extends State<MedidoresScreen> {
 
   Widget _showImageButtons() {
     return Container(
-      margin: EdgeInsets.only(left: 10, right: 10),
+      margin: const EdgeInsets.only(left: 10, right: 10),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
@@ -610,14 +619,14 @@ class _MedidoresScreenState extends State<MedidoresScreen> {
             child: ElevatedButton(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
+                children: const [
                   Icon(Icons.add_a_photo),
                   Text('Adicionar Foto'),
                 ],
               ),
               style: ElevatedButton.styleFrom(
-                primary: Color(0xFF120E43),
-                minimumSize: Size(double.infinity, 50),
+                primary: const Color(0xFF120E43),
+                minimumSize: const Size(double.infinity, 50),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(5),
                 ),
@@ -625,21 +634,21 @@ class _MedidoresScreenState extends State<MedidoresScreen> {
               onPressed: _enabled ? _goAddPhoto : null,
             ),
           ),
-          SizedBox(
+          const SizedBox(
             width: 20,
           ),
           Expanded(
             child: ElevatedButton(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
+                children: const [
                   Icon(Icons.delete),
                   Text('Eliminar Foto'),
                 ],
               ),
               style: ElevatedButton.styleFrom(
-                primary: Color(0xFFB4161B),
-                minimumSize: Size(double.infinity, 50),
+                primary: const Color(0xFFB4161B),
+                minimumSize: const Size(double.infinity, 50),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(5),
                 ),
@@ -663,7 +672,7 @@ class _MedidoresScreenState extends State<MedidoresScreen> {
           title: 'Error',
           message: 'Su usuario no está habilitado para agregar Fotos.',
           actions: <AlertDialogAction>[
-            AlertDialogAction(key: null, label: 'Aceptar'),
+            const AlertDialogAction(key: null, label: 'Aceptar'),
           ]);
       return;
     }
@@ -672,9 +681,9 @@ class _MedidoresScreenState extends State<MedidoresScreen> {
         title: 'Confirmación',
         message: '¿De donde deseas obtener la imagen?',
         actions: <AlertDialogAction>[
-          AlertDialogAction(key: 'cancel', label: 'Cancelar'),
-          AlertDialogAction(key: 'camera', label: 'Cámara'),
-          AlertDialogAction(key: 'gallery', label: 'Galería'),
+          const AlertDialogAction(key: 'cancel', label: 'Cancelar'),
+          const AlertDialogAction(key: 'camera', label: 'Cámara'),
+          const AlertDialogAction(key: 'gallery', label: 'Galería'),
         ]);
 
     if (response == 'cancel') {
@@ -705,9 +714,9 @@ class _MedidoresScreenState extends State<MedidoresScreen> {
         title: 'Seleccionar cámara',
         message: '¿Qué cámara desea utilizar?',
         actions: <AlertDialogAction>[
-          AlertDialogAction(key: 'no', label: 'Trasera'),
-          AlertDialogAction(key: 'yes', label: 'Delantera'),
-          AlertDialogAction(key: 'cancel', label: 'Cancelar'),
+          const AlertDialogAction(key: 'no', label: 'Trasera'),
+          const AlertDialogAction(key: 'yes', label: 'Delantera'),
+          const AlertDialogAction(key: 'cancel', label: 'Cancelar'),
         ]);
     if (response1 == 'yes') {
       firstCamera = cameras.first;
@@ -737,7 +746,7 @@ class _MedidoresScreenState extends State<MedidoresScreen> {
 //************************** METODO SELECTPICTURE *****************************
 //*****************************************************************************
 
-  Future<Null> _selectPicture() async {
+  Future<void> _selectPicture() async {
     final ImagePicker _picker = ImagePicker();
     final XFile? _image2 = await _picker.pickImage(source: ImageSource.gallery);
 
@@ -776,7 +785,7 @@ class _MedidoresScreenState extends State<MedidoresScreen> {
           title: 'Error',
           message: 'Verifica que estes conectado a internet.',
           actions: <AlertDialogAction>[
-            AlertDialogAction(key: null, label: 'Aceptar'),
+            const AlertDialogAction(key: null, label: 'Aceptar'),
           ]);
       return;
     }
@@ -817,7 +826,7 @@ class _MedidoresScreenState extends State<MedidoresScreen> {
           title: 'Error',
           message: response.message,
           actions: <AlertDialogAction>[
-            AlertDialogAction(key: null, label: 'Aceptar'),
+            const AlertDialogAction(key: null, label: 'Aceptar'),
           ]);
       return;
     }
@@ -832,7 +841,7 @@ class _MedidoresScreenState extends State<MedidoresScreen> {
 //*****************************************************************************
 
   void _confirmDeletePhoto() async {
-    if (_obrasDocumentos.length == 0) {
+    if (_obrasDocumentos.isEmpty) {
       return;
     }
 
@@ -842,7 +851,7 @@ class _MedidoresScreenState extends State<MedidoresScreen> {
           title: 'Error',
           message: 'Su usuario no está habilitado para eliminar Fotos.',
           actions: <AlertDialogAction>[
-            AlertDialogAction(key: null, label: 'Aceptar'),
+            const AlertDialogAction(key: null, label: 'Aceptar'),
           ]);
       return;
     }
@@ -852,8 +861,8 @@ class _MedidoresScreenState extends State<MedidoresScreen> {
         title: 'Confirmación',
         message: '¿Estas seguro de querer borrar esta foto?',
         actions: <AlertDialogAction>[
-          AlertDialogAction(key: 'no', label: 'No'),
-          AlertDialogAction(key: 'yes', label: 'Sí'),
+          const AlertDialogAction(key: 'no', label: 'No'),
+          const AlertDialogAction(key: 'yes', label: 'Sí'),
         ]);
 
     if (response == 'yes') {
@@ -880,7 +889,7 @@ class _MedidoresScreenState extends State<MedidoresScreen> {
           title: 'Error',
           message: 'Verifica que estes conectado a internet.',
           actions: <AlertDialogAction>[
-            AlertDialogAction(key: null, label: 'Aceptar'),
+            const AlertDialogAction(key: null, label: 'Aceptar'),
           ]);
       return;
     }
@@ -898,7 +907,7 @@ class _MedidoresScreenState extends State<MedidoresScreen> {
           title: 'Error',
           message: response.message,
           actions: <AlertDialogAction>[
-            AlertDialogAction(key: null, label: 'Aceptar'),
+            const AlertDialogAction(key: null, label: 'Aceptar'),
           ]);
       return;
     }
@@ -920,7 +929,7 @@ class _MedidoresScreenState extends State<MedidoresScreen> {
           title: 'Error',
           message: 'Ingrese un Ticket.',
           actions: <AlertDialogAction>[
-            AlertDialogAction(key: null, label: 'Aceptar'),
+            const AlertDialogAction(key: null, label: 'Aceptar'),
           ]);
       return;
     }
@@ -937,7 +946,7 @@ class _MedidoresScreenState extends State<MedidoresScreen> {
 //************************** METODO GETTICKET *********************************
 //*****************************************************************************
 
-  Future<Null> _getTicket() async {
+  Future<void> _getTicket() async {
     setState(() {
       _showLoader = true;
     });
@@ -952,7 +961,7 @@ class _MedidoresScreenState extends State<MedidoresScreen> {
           title: 'Error',
           message: 'Verifica que estes conectado a internet.',
           actions: <AlertDialogAction>[
-            AlertDialogAction(key: null, label: 'Aceptar'),
+            const AlertDialogAction(key: null, label: 'Aceptar'),
           ]);
       return;
     }
@@ -965,7 +974,7 @@ class _MedidoresScreenState extends State<MedidoresScreen> {
           title: 'Error',
           message: "N° de Ticket no válido",
           actions: <AlertDialogAction>[
-            AlertDialogAction(key: null, label: 'Aceptar'),
+            const AlertDialogAction(key: null, label: 'Aceptar'),
           ]);
 
       setState(() {
@@ -1023,7 +1032,7 @@ class _MedidoresScreenState extends State<MedidoresScreen> {
   bool validateFields() {
     bool isValid = true;
 
-    if (!_medidor.isEmpty) {
+    if (_medidor.isNotEmpty) {
       if (_medidor.length > 20) {
         isValid = false;
         _medidorShowError = true;
@@ -1034,7 +1043,7 @@ class _MedidoresScreenState extends State<MedidoresScreen> {
       }
     }
 
-    if (!_precinto.isEmpty) {
+    if (_precinto.isNotEmpty) {
       if (_precinto.length > 20) {
         isValid = false;
         _precintoShowError = true;
@@ -1044,7 +1053,7 @@ class _MedidoresScreenState extends State<MedidoresScreen> {
       }
     }
 
-    if (!_cajaDAE.isEmpty) {
+    if (_cajaDAE.isNotEmpty) {
       if (_cajaDAE.length > 20) {
         isValid = false;
         _cajaDAEShowError = true;
@@ -1054,7 +1063,7 @@ class _MedidoresScreenState extends State<MedidoresScreen> {
       }
     }
 
-    if (!_lindero1.isEmpty) {
+    if (_lindero1.isNotEmpty) {
       if (_lindero1.length > 50) {
         isValid = false;
         _lindero1ShowError = true;
@@ -1064,7 +1073,7 @@ class _MedidoresScreenState extends State<MedidoresScreen> {
       }
     }
 
-    if (!_lindero1.isEmpty) {
+    if (_lindero1.isNotEmpty) {
       if (_lindero2.length > 50) {
         isValid = false;
         _lindero2ShowError = true;
@@ -1074,7 +1083,7 @@ class _MedidoresScreenState extends State<MedidoresScreen> {
       }
     }
 
-    if (!_lindero1.isEmpty) {
+    if (_lindero1.isNotEmpty) {
       if (_observaciones.length > 500) {
         isValid = false;
         _observacionesShowError = true;
@@ -1141,7 +1150,7 @@ class _MedidoresScreenState extends State<MedidoresScreen> {
           title: 'Error',
           message: 'Verifica que estés conectado a Internet',
           actions: <AlertDialogAction>[
-            AlertDialogAction(key: null, label: 'Aceptar'),
+            const AlertDialogAction(key: null, label: 'Aceptar'),
           ]);
       return;
     }
@@ -1159,7 +1168,7 @@ class _MedidoresScreenState extends State<MedidoresScreen> {
           title: 'Error',
           message: response.message,
           actions: <AlertDialogAction>[
-            AlertDialogAction(key: null, label: 'Aceptar'),
+            const AlertDialogAction(key: null, label: 'Aceptar'),
           ]);
       return;
     }
