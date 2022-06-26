@@ -73,15 +73,22 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
       appBar: AppBar(
         title: const Text('Obra Info'),
       ),
-      body: Stack(
+      body: Column(
         children: [
-          Column(
-            children: <Widget>[
-              _getInfoObra(),
-              _showPhotosCarousel(),
-              _showImageButtons()
-            ],
-          )
+          _getInfoObra(),
+          Expanded(
+            child: SingleChildScrollView(
+              child: Column(
+                children: <Widget>[
+                  _showPhotosCarousel(),
+                ],
+              ),
+            ),
+          ),
+          _showImageButtons(),
+          SizedBox(
+            height: 5,
+          ),
         ],
       ),
     );

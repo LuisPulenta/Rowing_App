@@ -11,8 +11,7 @@ import 'package:rowing_app/components/loader_component.dart';
 import 'package:rowing_app/models/models.dart';
 import 'package:device_information/device_information.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:rowing_app/screens/home_screen.dart';
-import 'package:rowing_app/screens/novedades_screen.dart';
+import 'package:rowing_app/screens/screens.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -404,8 +403,9 @@ class _LoginScreenState extends State<LoginScreen> {
       Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-              builder: (context) => NovedadesScreen(
+              builder: (context) => Home2Screen(
                     user: user,
+                    nroConexion: webSesion.nroConexion,
                   )));
     }
   }

@@ -298,9 +298,9 @@ class _SeguridadScreenState extends State<SeguridadScreen> {
                     children: const [
                       Icon(Icons.checkroom),
                       SizedBox(
-                        width: 5,
+                        width: 2,
                       ),
-                      Text('Entregas por ítem'),
+                      Text('Entr. por ítem'),
                     ],
                   ),
                   style: ElevatedButton.styleFrom(
@@ -353,9 +353,9 @@ class _SeguridadScreenState extends State<SeguridadScreen> {
                     children: const [
                       Icon(Icons.person),
                       SizedBox(
-                        width: 5,
+                        width: 2,
                       ),
-                      Text('Actualizar Datos'),
+                      Text('Actual. Datos'),
                     ],
                   ),
                   style: ElevatedButton.styleFrom(

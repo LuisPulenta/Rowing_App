@@ -17,3 +17,13 @@ class Photo {
     required this.direccion,
   });
 }
+
+class PhotoSiniestro {
+  XFile image;
+  String? observaciones = '';
+
+  PhotoSiniestro({
+    required this.image,
+    required this.observaciones,
+  });
+}

@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:rowing_app/models/models.dart';
 import 'package:rowing_app/models/tipo_novedad.dart';
+import 'package:rowing_app/models/vehiculos_siniestros_foto.dart';
 import 'constants.dart';
 
 class ApiHelper {
@@ -107,6 +108,7 @@ class ApiHelper {
   static Future<Response> post(
       String controller, Map<String, dynamic> request) async {
     var url = Uri.parse('${Constants.apiUrl}$controller');
+    print(url);
     var response = await http.post(
       url,
       headers: {
@@ -923,6 +925,60 @@ class ApiHelper {
     if (decodedJson != null) {
       for (var item in decodedJson) {
         list.add(Preventivo.fromJson(item));
+      }
+    }
+    return Response(isSuccess: true, result: list);
+  }
+
+  //---------------------------------------------------------------------------
+  static Future<Response> getSiniestros(String grupo, String causante) async {
+    var url = Uri.parse(
+        '${Constants.apiUrl}/api/VehiculosSiniestros/GetSiniestros/$grupo/$causante');
+    var response = await http.post(
+      url,
+      headers: {
+        'content-type': 'application/json',
+        'accept': 'application/json',
+      },
+    );
+    var body = response.body;
+
+    if (response.statusCode >= 400) {
+      return Response(isSuccess: false, message: body);
+    }
+
+    List<VehiculosSiniestro> list = [];
+    var decodedJson = jsonDecode(body);
+    if (decodedJson != null) {
+      for (var item in decodedJson) {
+        list.add(VehiculosSiniestro.fromJson(item));
+      }
+    }
+    return Response(isSuccess: true, result: list);
+  }
+
+  //---------------------------------------------------------------------------
+  static Future<Response> getFotosSiniestro(String codigo) async {
+    var url = Uri.parse(
+        '${Constants.apiUrl}/api/VehiculosSiniestrosFotos/GetVehiculosSiniestrosFotos/$codigo');
+    var response = await http.post(
+      url,
+      headers: {
+        'content-type': 'application/json',
+        'accept': 'application/json',
+      },
+    );
+    var body = response.body;
+
+    if (response.statusCode >= 400) {
+      return Response(isSuccess: false, message: body);
+    }
+
+    List<VehiculosSiniestrosFoto> list = [];
+    var decodedJson = jsonDecode(body);
+    if (decodedJson != null) {
+      for (var item in decodedJson) {
+        list.add(VehiculosSiniestrosFoto.fromJson(item));
       }
     }
     return Response(isSuccess: true, result: list);

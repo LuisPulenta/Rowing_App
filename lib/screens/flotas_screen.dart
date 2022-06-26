@@ -145,11 +145,11 @@ class _FlotaScreenState extends State<FlotaScreen>
                                       children: [
                                         Expanded(
                                           child: _showLegajo(),
-                                          flex: 5,
+                                          flex: 10,
                                         ),
                                         Expanded(
                                           child: _showButton(),
-                                          flex: 3,
+                                          flex: 7,
                                         ),
                                       ],
                                     ),

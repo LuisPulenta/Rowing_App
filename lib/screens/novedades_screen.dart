@@ -70,11 +70,6 @@ class _NovedadesScreenState extends State<NovedadesScreen> {
         title:
             Text(widget.user.habilitaRRHH == 0 ? "Mis Novedades" : "Novedades"),
         centerTitle: true,
-        actions: [
-          (widget.user.codigoCausante == widget.user.login)
-              ? IconButton(onPressed: _logOut, icon: const Icon(Icons.logout))
-              : Container()
-        ],
       ),
       body: Stack(
         children: [
@@ -102,8 +97,8 @@ class _NovedadesScreenState extends State<NovedadesScreen> {
                           children: <Widget>[
                             Row(
                               children: [
-                                Expanded(flex: 4, child: _showLegajo()),
-                                Expanded(flex: 1, child: _showButton()),
+                                Expanded(flex: 7, child: _showLegajo()),
+                                Expanded(flex: 2, child: _showButton()),
                               ],
                             ),
                             const SizedBox(
@@ -566,6 +561,9 @@ class _NovedadesScreenState extends State<NovedadesScreen> {
                                                                         novedad);
                                                                   }
                                                                 }
+                                                                ;
+                                                                Navigator.pop(
+                                                                    context);
                                                               },
                                                               child: const Text(
                                                                   "SI"),

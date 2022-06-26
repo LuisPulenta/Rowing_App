@@ -66,6 +66,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Rowing App'),
+        centerTitle: true,
       ),
       body: _getBody(),
       drawer: _getMenu(),
@@ -190,6 +191,55 @@ class _HomeScreenState extends State<HomeScreen> {
                     menuitem: 'Seguridad e Higiene',
                     screen: SeguridadScreen())
                 : Container(),
+
+            Row(
+              children: [
+                Expanded(
+                  child: ListTile(
+                    leading: const Icon(
+                      Icons.warning,
+                      color: Colors.white,
+                    ),
+                    tileColor: const Color(0xff8c8c94),
+                    title: Text(
+                        widget.user.habilitaSSHH == 1
+                            ? 'Siniestros'
+                            : 'Mis Siniestros',
+                        style:
+                            const TextStyle(fontSize: 15, color: Colors.white)),
+                    onTap: () async {
+                      String? result = await Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => SiniestrosScreen(
+                            user: widget.user,
+                          ),
+                        ),
+                      );
+                      if (result != 'zzz') {
+                        if (widget.user.habilitaRRHH != 1) {
+                          _getCausante();
+                        }
+                      }
+                    },
+                  ),
+                ),
+                _novedades.isNotEmpty
+                    ? SizedBox(
+                        height: 30,
+                        width: 30,
+                        child: CircleAvatar(
+                          child: Text(_novedades.length.toString()),
+                          backgroundColor: Colors.red,
+                        ),
+                      )
+                    : Container(),
+                const SizedBox(
+                  width: 10,
+                )
+              ],
+            ),
+
             Row(
               children: [
                 Expanded(
@@ -201,8 +251,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     tileColor: const Color(0xff8c8c94),
                     title: Text(
                         widget.user.habilitaRRHH == 1
-                            ? 'Novedades'
-                            : 'Mis Novedades',
+                            ? 'Novedades RRHH'
+                            : 'Mis Novedades RRHH',
                         style:
                             const TextStyle(fontSize: 15, color: Colors.white)),
                     onTap: () async {
@@ -240,7 +290,7 @@ class _HomeScreenState extends State<HomeScreen> {
             widget.user.habilitaSSHH == 1
                 ? MenuTile(
                     icon: Icons.format_list_bulleted,
-                    menuitem: 'Inspecciones',
+                    menuitem: 'Inspecciones S&H',
                     screen: InspeccionesListaScreen(
                       user: widget.user,
                     ))
