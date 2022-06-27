@@ -60,7 +60,10 @@ class _MyAppState extends State<MyApp> {
                       user: _user,
                       nroConexion: _nroConexion,
                     )
-                  : NovedadesScreen(user: _user),
+                  : Home2Screen(
+                      user: _user,
+                      nroConexion: _nroConexion,
+                    ),
     );
   }
 

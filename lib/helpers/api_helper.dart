@@ -108,7 +108,6 @@ class ApiHelper {
   static Future<Response> post(
       String controller, Map<String, dynamic> request) async {
     var url = Uri.parse('${Constants.apiUrl}$controller');
-    print(url);
     var response = await http.post(
       url,
       headers: {

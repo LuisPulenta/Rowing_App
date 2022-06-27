@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:math';
 import 'package:adaptive_dialog/adaptive_dialog.dart';
@@ -13,6 +14,7 @@ import 'package:device_information/device_information.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:rowing_app/screens/screens.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:geolocator/geolocator.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -26,16 +28,18 @@ class _LoginScreenState extends State<LoginScreen> {
 //************************** DEFINICION DE VARIABLES **************************
 //*****************************************************************************
 
+  bool _isRunning = false;
+
   //String _email = 'GPRIETO';
-  //String _email = 'AVASILE';
+  //String _password = 'CELESTE';
   String _email = '';
+  String _password = '';
+
+  //String _email = 'AVASILE';
   //String _email = 'CHIDALGO';
   String _emailError = '';
   bool _emailShowError = false;
-
-  //String _password = 'CELESTE';
   //String _password = 'AVA123';
-  String _password = '';
   //String _password = 'CHI123';
   String _passwordError = '';
   bool _passwordShowError = false;
@@ -54,6 +58,16 @@ class _LoginScreenState extends State<LoginScreen> {
   bool _passwordShow = false;
   bool _showLoader = false;
 
+  Position _positionUser = const Position(
+      longitude: 0,
+      latitude: 0,
+      timestamp: null,
+      accuracy: 0,
+      altitude: 0,
+      heading: 0,
+      speed: 0,
+      speedAccuracy: 0);
+
 //*****************************************************************************
 //************************** INIT STATE ***************************************
 //*****************************************************************************
@@ -61,7 +75,10 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   void initState() {
     super.initState();
+    _isRunning = false;
     initPlatformState();
+    _getPosition();
+    setState(() {});
   }
 
 //*****************************************************************************
@@ -387,6 +404,9 @@ class _LoginScreenState extends State<LoginScreen> {
       await _postWebSesion(webSesion);
     }
 
+    //Guarda ubicación del Usuario en Tabla UsuariosGeos
+    _isRunning = true;
+
     setState(() {
       _showLoader = false;
     });
@@ -550,5 +570,78 @@ class _LoginScreenState extends State<LoginScreen> {
       _cpuType = cpuType;
       _hardware = hardware;
     });
+  }
+
+//*****************************************************************************
+//************************** METODO GETPOSITION **********************************
+//*****************************************************************************
+
+  Future _getPosition() async {
+    LocationPermission permission;
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        showDialog(
+            context: context,
+            builder: (context) {
+              return AlertDialog(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                title: const Text('Aviso'),
+                content: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: const <Widget>[
+                      Text('El permiso de localización está negado.'),
+                      SizedBox(
+                        height: 10,
+                      ),
+                    ]),
+                actions: <Widget>[
+                  TextButton(
+                      onPressed: () => Navigator.of(context).pop(),
+                      child: const Text('Ok')),
+                ],
+              );
+            });
+        return;
+      }
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              title: const Text('Aviso'),
+              content: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: const <Widget>[
+                    Text(
+                        'El permiso de localización está negado permanentemente. No se puede requerir este permiso.'),
+                    SizedBox(
+                      height: 10,
+                    ),
+                  ]),
+              actions: <Widget>[
+                TextButton(
+                    onPressed: () => Navigator.of(context).pop(),
+                    child: const Text('Ok')),
+              ],
+            );
+          });
+      return;
+    }
+
+    var connectivityResult = await Connectivity().checkConnectivity();
+
+    if (connectivityResult != ConnectivityResult.none) {
+      _positionUser = await Geolocator.getCurrentPosition(
+          desiredAccuracy: LocationAccuracy.high);
+    }
   }
 }

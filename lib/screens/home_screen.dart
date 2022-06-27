@@ -1,6 +1,9 @@
+import 'dart:async';
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:rowing_app/helpers/api_helper.dart';
 import 'package:rowing_app/models/models.dart';
 import 'package:rowing_app/screens/screens.dart';
@@ -23,11 +26,25 @@ class _HomeScreenState extends State<HomeScreen> {
 //************************** DEFINICION DE VARIABLES **************************
 //*****************************************************************************
 
+  bool _isRunning = true;
+
   List<Novedad> _novedadesAux = [];
   List<Novedad> _novedades = [];
   late Causante _causante;
   String _codigo = '';
   int? _nroConexion = 0;
+
+  String direccion = '';
+
+  Position _positionUser = const Position(
+      longitude: 0,
+      latitude: 0,
+      timestamp: null,
+      accuracy: 0,
+      altitude: 0,
+      heading: 0,
+      speed: 0,
+      speedAccuracy: 0);
 
 //*****************************************************************************
 //************************** INITSTATE *****************************************
@@ -55,6 +72,8 @@ class _HomeScreenState extends State<HomeScreen> {
       _codigo = widget.user.codigoCausante;
       _getCausante();
     }
+
+    _getTimer();
   }
 
 //*****************************************************************************
@@ -378,6 +397,9 @@ class _HomeScreenState extends State<HomeScreen> {
       Response response = await ApiHelper.putWebSesion(_nroConexion!);
     }
 
+    _isRunning = false;
+    _getTimer();
+
     Navigator.pushReplacement(
         context, MaterialPageRoute(builder: (context) => LoginScreen()));
   }
@@ -468,5 +490,130 @@ class _HomeScreenState extends State<HomeScreen> {
       }
     }
     setState(() {});
+  }
+
+//-----------------------------------------------------------------
+//--------------------- METODO handleTimeout ----------------------
+//-----------------------------------------------------------------
+
+  handleTimeout(User user) async {
+    var connectivityResult = Connectivity().checkConnectivity();
+    if (connectivityResult == ConnectivityResult.none) {
+      return;
+    }
+
+    await _getPosition();
+
+    Map<String, dynamic> request1 = {
+      'IdUsuario': user.idUsuario,
+      'UsuarioStr': user.fullName,
+      'LATITUD': _positionUser.latitude,
+      'LONGITUD': _positionUser.longitude,
+      'PIN': "mapinred.ico",
+      'PosicionCalle': direccion,
+      'Velocidad': 0,
+      'Bateria': 0,
+      'Fecha': DateTime.now().toString(),
+      'Modulo': user.modulo,
+    };
+
+    ApiHelper.post('/api/UsuariosGeos', request1);
+
+    return;
+  }
+
+//*****************************************************************************
+//************************** METODO GETPOSITION **********************************
+//*****************************************************************************
+
+  Future _getPosition() async {
+    LocationPermission permission;
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        showDialog(
+            context: context,
+            builder: (context) {
+              return AlertDialog(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                title: const Text('Aviso'),
+                content: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: const <Widget>[
+                      Text('El permiso de localización está negado.'),
+                      SizedBox(
+                        height: 10,
+                      ),
+                    ]),
+                actions: <Widget>[
+                  TextButton(
+                      onPressed: () => Navigator.of(context).pop(),
+                      child: const Text('Ok')),
+                ],
+              );
+            });
+        return;
+      }
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              title: const Text('Aviso'),
+              content: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: const <Widget>[
+                    Text(
+                        'El permiso de localización está negado permanentemente. No se puede requerir este permiso.'),
+                    SizedBox(
+                      height: 10,
+                    ),
+                  ]),
+              actions: <Widget>[
+                TextButton(
+                    onPressed: () => Navigator.of(context).pop(),
+                    child: const Text('Ok')),
+              ],
+            );
+          });
+      return;
+    }
+
+    var connectivityResult = await Connectivity().checkConnectivity();
+
+    if (connectivityResult != ConnectivityResult.none) {
+      _positionUser = await Geolocator.getCurrentPosition(
+          desiredAccuracy: LocationAccuracy.high);
+
+      List<Placemark> placemarks = await placemarkFromCoordinates(
+          _positionUser.latitude, _positionUser.longitude);
+      direccion = placemarks[0].street.toString() +
+          " - " +
+          placemarks[0].locality.toString() +
+          " - " +
+          placemarks[0].country.toString();
+      ;
+    }
+  }
+
+//*****************************************************************************
+//************************** METODO _getTimer *********************************
+//*****************************************************************************
+
+  void _getTimer() async {
+    Timer.periodic(const Duration(seconds: 900), (Timer timer) {
+      if (!_isRunning) {
+        timer.cancel();
+      }
+      handleTimeout(widget.user);
+    });
   }
 }
