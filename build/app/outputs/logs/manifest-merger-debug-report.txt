@@ -5,17 +5,18 @@ INJECTED from D:\Flutter\rowing_app\android\app\src\main\AndroidManifest.xml:1:1
 INJECTED from D:\Flutter\rowing_app\android\app\src\main\AndroidManifest.xml:1:1-47:12
 INJECTED from D:\Flutter\rowing_app\android\app\src\main\AndroidManifest.xml:1:1-47:12
 MERGED from D:\Flutter\rowing_app\android\app\src\main\AndroidManifest.xml:1:1-47:12
-MERGED from [:shared_preferences_android] D:\Flutter\rowing_app\build\shared_preferences_android\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-7:12
-MERGED from [:permission_handler_android] D:\Flutter\rowing_app\build\permission_handler_android\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-7:12
 MERGED from [:geolocator_android] D:\Flutter\rowing_app\build\geolocator_android\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-7:12
 MERGED from [:image_picker] D:\Flutter\rowing_app\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-19:12
 MERGED from [:camera] D:\Flutter\rowing_app\build\camera\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-12:12
 MERGED from [:flutter_plugin_android_lifecycle] D:\Flutter\rowing_app\build\flutter_plugin_android_lifecycle\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-7:12
+MERGED from [:sqflite] D:\Flutter\rowing_app\build\sqflite\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-7:12
+MERGED from [:path_provider_android] D:\Flutter\rowing_app\build\path_provider_android\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-7:12
+MERGED from [:shared_preferences_android] D:\Flutter\rowing_app\build\shared_preferences_android\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-7:12
+MERGED from [:permission_handler_android] D:\Flutter\rowing_app\build\permission_handler_android\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-7:12
 MERGED from [:connectivity] D:\Flutter\rowing_app\build\connectivity\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-9:12
 MERGED from [:geocoding] D:\Flutter\rowing_app\build\geocoding\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-7:12
-MERGED from [:sqflite] D:\Flutter\rowing_app\build\sqflite\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-7:12
+MERGED from [:battery_plus] D:\Flutter\rowing_app\build\battery_plus\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-7:12
 MERGED from [:device_information] D:\Flutter\rowing_app\build\device_information\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-7:12
-MERGED from [:path_provider_android] D:\Flutter\rowing_app\build\path_provider_android\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-7:12
 MERGED from [androidx.window:window-java:1.0.0-beta04] C:\Users\Luis\.gradle\caches\transforms-2\files-2.1\ad201fac15a88598107ec645f351f5b4\jetified-window-java-1.0.0-beta04\AndroidManifest.xml:17:1-23:12
 MERGED from [androidx.window:window:1.0.0-beta04] C:\Users\Luis\.gradle\caches\transforms-2\files-2.1\03c633e46d75bfb21f082f0417f55161\jetified-window-1.0.0-beta04\AndroidManifest.xml:17:1-33:12
 MERGED from [com.google.android.gms:play-services-location:17.0.0] C:\Users\Luis\.gradle\caches\transforms-2\files-2.1\cb96bb2c73a9a359ac6db36b67e75b6a\jetified-play-services-location-17.0.0\AndroidManifest.xml:2:1-9:12
@@ -150,10 +151,6 @@ uses-sdk
 INJECTED from D:\Flutter\rowing_app\android\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from D:\Flutter\rowing_app\android\app\src\main\AndroidManifest.xml
 INJECTED from D:\Flutter\rowing_app\android\app\src\main\AndroidManifest.xml
-MERGED from [:shared_preferences_android] D:\Flutter\rowing_app\build\shared_preferences_android\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
-MERGED from [:shared_preferences_android] D:\Flutter\rowing_app\build\shared_preferences_android\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
-MERGED from [:permission_handler_android] D:\Flutter\rowing_app\build\permission_handler_android\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
-MERGED from [:permission_handler_android] D:\Flutter\rowing_app\build\permission_handler_android\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:geolocator_android] D:\Flutter\rowing_app\build\geolocator_android\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:geolocator_android] D:\Flutter\rowing_app\build\geolocator_android\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:image_picker] D:\Flutter\rowing_app\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
@@ -162,16 +159,22 @@ MERGED from [:camera] D:\Flutter\rowing_app\build\camera\intermediates\library_m
 MERGED from [:camera] D:\Flutter\rowing_app\build\camera\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-7:41
 MERGED from [:flutter_plugin_android_lifecycle] D:\Flutter\rowing_app\build\flutter_plugin_android_lifecycle\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:flutter_plugin_android_lifecycle] D:\Flutter\rowing_app\build\flutter_plugin_android_lifecycle\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:sqflite] D:\Flutter\rowing_app\build\sqflite\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:sqflite] D:\Flutter\rowing_app\build\sqflite\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:path_provider_android] D:\Flutter\rowing_app\build\path_provider_android\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:path_provider_android] D:\Flutter\rowing_app\build\path_provider_android\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:shared_preferences_android] D:\Flutter\rowing_app\build\shared_preferences_android\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:shared_preferences_android] D:\Flutter\rowing_app\build\shared_preferences_android\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:permission_handler_android] D:\Flutter\rowing_app\build\permission_handler_android\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:permission_handler_android] D:\Flutter\rowing_app\build\permission_handler_android\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:connectivity] D:\Flutter\rowing_app\build\connectivity\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:connectivity] D:\Flutter\rowing_app\build\connectivity\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:geocoding] D:\Flutter\rowing_app\build\geocoding\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:geocoding] D:\Flutter\rowing_app\build\geocoding\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
-MERGED from [:sqflite] D:\Flutter\rowing_app\build\sqflite\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
-MERGED from [:sqflite] D:\Flutter\rowing_app\build\sqflite\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:battery_plus] D:\Flutter\rowing_app\build\battery_plus\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:battery_plus] D:\Flutter\rowing_app\build\battery_plus\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:device_information] D:\Flutter\rowing_app\build\device_information\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:device_information] D:\Flutter\rowing_app\build\device_information\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
-MERGED from [:path_provider_android] D:\Flutter\rowing_app\build\path_provider_android\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
-MERGED from [:path_provider_android] D:\Flutter\rowing_app\build\path_provider_android\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [androidx.window:window-java:1.0.0-beta04] C:\Users\Luis\.gradle\caches\transforms-2\files-2.1\ad201fac15a88598107ec645f351f5b4\jetified-window-java-1.0.0-beta04\AndroidManifest.xml:19:5-21:41
 MERGED from [androidx.window:window-java:1.0.0-beta04] C:\Users\Luis\.gradle\caches\transforms-2\files-2.1\ad201fac15a88598107ec645f351f5b4\jetified-window-java-1.0.0-beta04\AndroidManifest.xml:19:5-21:41
 MERGED from [androidx.window:window:1.0.0-beta04] C:\Users\Luis\.gradle\caches\transforms-2\files-2.1\03c633e46d75bfb21f082f0417f55161\jetified-window-1.0.0-beta04\AndroidManifest.xml:20:5-22:41

@@ -32,6 +32,42 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "battery_plus",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/battery_plus-2.1.4",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "battery_plus_linux",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/battery_plus_linux-1.1.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "battery_plus_macos",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/battery_plus_macos-1.1.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "battery_plus_platform_interface",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/battery_plus_platform_interface-1.2.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "battery_plus_web",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/battery_plus_web-1.1.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "battery_plus_windows",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/battery_plus_windows-1.1.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "boolean_selector",
       "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/boolean_selector-2.1.0",
       "packageUri": "lib/",
@@ -144,6 +180,12 @@
       "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/cupertino_icons-1.0.4",
       "packageUri": "lib/",
       "languageVersion": "2.12"
+    },
+    {
+      "name": "dbus",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/dbus-0.7.3",
+      "packageUri": "lib/",
+      "languageVersion": "2.15"
     },
     {
       "name": "device_information",
@@ -650,7 +692,7 @@
       "languageVersion": "2.12"
     }
   ],
-  "generated": "2022-06-27T18:00:03.425308Z",
+  "generated": "2022-06-28T20:48:29.893208Z",
   "generator": "pub",
   "generatorVersion": "2.16.1"
 }

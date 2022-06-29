@@ -11,6 +11,7 @@ export 'package:rowing_app/main.dart';
 import 'package:rowing_app/main.dart' as entrypoint;
 import 'dart:io'; // flutter_ignore: dart_io_import.
 import 'package:path_provider_android/path_provider_android.dart';
+import 'package:battery_plus_linux/battery_plus_linux.dart';
 import 'package:path_provider_linux/path_provider_linux.dart';
 import 'package:shared_preferences_linux/shared_preferences_linux.dart';
 import 'package:path_provider_macos/path_provider_macos.dart';
@@ -35,6 +36,16 @@ class _PluginRegistrant {
 
     } else if (Platform.isIOS) {
     } else if (Platform.isLinux) {
+      try {
+        BatteryPlusLinux.registerWith();
+      } catch (err) {
+        print(
+          '`battery_plus_linux` threw an error: $err. '
+          'The app may not function as expected until you remove this plugin from pubspec.yaml'
+        );
+        rethrow;
+      }
+
       try {
         PathProviderLinux.registerWith();
       } catch (err) {

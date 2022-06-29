@@ -53,6 +53,7 @@ dependencies:
   grouped_list: ^4.2.0
   permission_handler: ^9.2.0
   device_information: ^0.0.4
+  battery_plus: ^2.1.4
 
 flutter_icons:
   android: "launcher_icon"

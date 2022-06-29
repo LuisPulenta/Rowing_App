@@ -9,6 +9,7 @@ import 'package:rowing_app/models/models.dart';
 import 'package:rowing_app/screens/screens.dart';
 import 'package:rowing_app/widgets/widgets.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:battery_plus/battery_plus.dart';
 
 class HomeScreen extends StatefulWidget {
   final User user;
@@ -25,6 +26,10 @@ class _HomeScreenState extends State<HomeScreen> {
 //*****************************************************************************
 //************************** DEFINICION DE VARIABLES **************************
 //*****************************************************************************
+
+  final Battery _battery = Battery();
+  BatteryState? _batteryState;
+  StreamSubscription<BatteryState>? _batteryStateSubscription;
 
   bool _isRunning = true;
 
@@ -72,6 +77,10 @@ class _HomeScreenState extends State<HomeScreen> {
       _codigo = widget.user.codigoCausante;
       _getCausante();
     }
+
+    _battery.batteryState.then(_updateBatteryState);
+    _batteryStateSubscription =
+        _battery.onBatteryStateChanged.listen(_updateBatteryState);
 
     _getTimer();
   }
@@ -504,6 +513,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
     await _getPosition();
 
+    _battery.batteryState.then(_updateBatteryState);
+    int batnivel = await _battery.batteryLevel;
+
     Map<String, dynamic> request1 = {
       'IdUsuario': user.idUsuario,
       'UsuarioStr': user.fullName,
@@ -512,7 +524,7 @@ class _HomeScreenState extends State<HomeScreen> {
       'PIN': "mapinred.ico",
       'PosicionCalle': direccion,
       'Velocidad': 0,
-      'Bateria': 0,
+      'Bateria': batnivel,
       'Fecha': DateTime.now().toString(),
       'Modulo': user.modulo,
     };
@@ -614,6 +626,16 @@ class _HomeScreenState extends State<HomeScreen> {
         timer.cancel();
       }
       handleTimeout(widget.user);
+    });
+  }
+
+//*****************************************************************************
+//************************** METODO _updateBatteryState ***********************
+//*****************************************************************************
+  void _updateBatteryState(BatteryState state) {
+    if (_batteryState == state) return;
+    setState(() {
+      _batteryState = state;
     });
   }
 }
