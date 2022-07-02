@@ -49,7 +49,14 @@ class _Home2ScreenState extends State<Home2Screen> {
         razonSocial: '',
         linkFoto: '',
         image: null,
-        imageFullPath: '');
+        imageFullPath: '',
+        direccion: '',
+        numero: 0,
+        telefonoContacto1: '',
+        telefonoContacto2: '',
+        telefonoContacto3: '',
+        fecha: '',
+        notasCausantes: '');
 
     if (widget.user.habilitaRRHH != 1) {
       _codigo = widget.user.codigoCausante;

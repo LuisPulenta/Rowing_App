@@ -30,10 +30,10 @@ class _LoginScreenState extends State<LoginScreen> {
 
   bool _isRunning = false;
 
-  //String _email = 'GPRIETO';
-  //String _password = 'CELESTE';
-  String _email = '';
-  String _password = '';
+  String _email = 'GPRIETO';
+  String _password = 'CELESTE';
+  //String _email = '';
+  //String _password = '';
 
   //String _email = 'AVASILE';
   //String _email = 'CHIDALGO';

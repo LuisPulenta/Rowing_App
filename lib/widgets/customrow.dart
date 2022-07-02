@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
 class CustomRow extends StatelessWidget {
-  final IconData icon;
+  IconData? icon;
   final String nombredato;
   final String? dato;
   bool? alert;
 
   CustomRow(
       {Key? key,
-      required this.icon,
+      this.icon,
       required this.nombredato,
       required this.dato,
       this.alert})
@@ -21,15 +21,17 @@ class CustomRow extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
-          alert == true
-              ? const Icon(
-                  Icons.warning,
-                  color: Colors.red,
-                )
-              : Icon(
-                  icon,
-                  color: const Color(0xFF781f1e),
-                ),
+          icon != null
+              ? alert == true
+                  ? const Icon(
+                      Icons.warning,
+                      color: Colors.red,
+                    )
+                  : Icon(
+                      icon,
+                      color: const Color(0xFF781f1e),
+                    )
+              : Container(),
           const SizedBox(
             width: 15,
           ),

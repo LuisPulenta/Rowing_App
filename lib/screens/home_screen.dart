@@ -31,8 +31,6 @@ class _HomeScreenState extends State<HomeScreen> {
   BatteryState? _batteryState;
   StreamSubscription<BatteryState>? _batteryStateSubscription;
 
-  bool _isRunning = true;
-
   List<Novedad> _novedadesAux = [];
   List<Novedad> _novedades = [];
   late Causante _causante;
@@ -71,7 +69,14 @@ class _HomeScreenState extends State<HomeScreen> {
         razonSocial: '',
         linkFoto: '',
         image: null,
-        imageFullPath: '');
+        imageFullPath: '',
+        direccion: '',
+        numero: 0,
+        telefonoContacto1: '',
+        telefonoContacto2: '',
+        telefonoContacto3: '',
+        fecha: '',
+        notasCausantes: '');
 
     if (widget.user.habilitaRRHH != 1) {
       _codigo = widget.user.codigoCausante;
@@ -82,7 +87,8 @@ class _HomeScreenState extends State<HomeScreen> {
     _batteryStateSubscription =
         _battery.onBatteryStateChanged.listen(_updateBatteryState);
 
-    _getTimer();
+    guardarHoraLocalizacion();
+    handleTimeout(widget.user);
   }
 
 //*****************************************************************************
@@ -190,36 +196,119 @@ class _HomeScreenState extends State<HomeScreen> {
               color: Colors.white,
               height: 1,
             ),
-            MenuTile(
-                icon: Icons.construction,
-                menuitem: 'Obras',
-                screen: ObrasScreen(
-                  user: widget.user,
-                  opcion: 1,
-                )),
+            Row(
+              children: [
+                Expanded(
+                  child: ListTile(
+                    leading: const Icon(
+                      Icons.construction,
+                      color: Colors.white,
+                    ),
+                    tileColor: const Color(0xff8c8c94),
+                    title: Text('Obras',
+                        style:
+                            const TextStyle(fontSize: 15, color: Colors.white)),
+                    onTap: () async {
+                      guardarLocalizacion();
+                      String? result = await Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ObrasScreen(
+                            user: widget.user,
+                            opcion: 1,
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ],
+            ),
             widget.user.habilitaMedidores == 1
-                ? MenuTile(
-                    icon: Icons.schedule,
-                    menuitem: 'Medidores',
-                    screen: MedidoresScreen(
-                      user: widget.user,
-                    ))
+                ? Row(
+                    children: [
+                      Expanded(
+                        child: ListTile(
+                          leading: const Icon(
+                            Icons.schedule,
+                            color: Colors.white,
+                          ),
+                          tileColor: const Color(0xff8c8c94),
+                          title: Text('Medidores',
+                              style: const TextStyle(
+                                  fontSize: 15, color: Colors.white)),
+                          onTap: () async {
+                            guardarLocalizacion();
+                            String? result = await Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => MedidoresScreen(
+                                  user: widget.user,
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    ],
+                  )
                 : Container(),
             widget.user.habilitaReclamos == 1
-                ? MenuTile(
-                    icon: Icons.border_color,
-                    menuitem: 'Reclamos',
-                    screen: ReclamosScreen(
-                      user: widget.user,
-                    ))
+                ? Row(
+                    children: [
+                      Expanded(
+                        child: ListTile(
+                          leading: const Icon(
+                            Icons.border_color,
+                            color: Colors.white,
+                          ),
+                          tileColor: const Color(0xff8c8c94),
+                          title: Text('Reclamos',
+                              style: const TextStyle(
+                                  fontSize: 15, color: Colors.white)),
+                          onTap: () async {
+                            guardarLocalizacion();
+                            String? result = await Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ReclamosScreen(
+                                  user: widget.user,
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    ],
+                  )
                 : Container(),
             widget.user.habilitaSSHH == 1
-                ? const MenuTile(
-                    icon: Icons.engineering,
-                    menuitem: 'Seguridad e Higiene',
-                    screen: SeguridadScreen())
+                ? Row(
+                    children: [
+                      Expanded(
+                        child: ListTile(
+                          leading: const Icon(
+                            Icons.engineering,
+                            color: Colors.white,
+                          ),
+                          tileColor: const Color(0xff8c8c94),
+                          title: Text('Seguridad e Higiene',
+                              style: const TextStyle(
+                                  fontSize: 15, color: Colors.white)),
+                          onTap: () async {
+                            guardarLocalizacion();
+                            String? result = await Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => SeguridadScreen(),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    ],
+                  )
                 : Container(),
-
             Row(
               children: [
                 Expanded(
@@ -236,6 +325,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         style:
                             const TextStyle(fontSize: 15, color: Colors.white)),
                     onTap: () async {
+                      guardarLocalizacion();
                       String? result = await Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -267,7 +357,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 )
               ],
             ),
-
             Row(
               children: [
                 Expanded(
@@ -284,6 +373,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         style:
                             const TextStyle(fontSize: 15, color: Colors.white)),
                     onTap: () async {
+                      guardarLocalizacion();
                       String? result = await Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -316,22 +406,34 @@ class _HomeScreenState extends State<HomeScreen> {
               ],
             ),
             widget.user.habilitaSSHH == 1
-                ? MenuTile(
-                    icon: Icons.format_list_bulleted,
-                    menuitem: 'Inspecciones S&H',
-                    screen: InspeccionesListaScreen(
-                      user: widget.user,
-                    ))
+                ? Row(
+                    children: [
+                      Expanded(
+                        child: ListTile(
+                          leading: const Icon(
+                            Icons.format_list_bulleted,
+                            color: Colors.white,
+                          ),
+                          tileColor: const Color(0xff8c8c94),
+                          title: Text('Inspecciones S&H',
+                              style: const TextStyle(
+                                  fontSize: 15, color: Colors.white)),
+                          onTap: () async {
+                            guardarLocalizacion();
+                            String? result = await Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => InspeccionesListaScreen(
+                                  user: widget.user,
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    ],
+                  )
                 : Container(),
-            // widget.user.habilitaFlotas.toLowerCase() != "no"
-            //     ? MenuTile(
-            //         icon: Icons.directions_car,
-            //         menuitem: 'Flotas',
-            //         screen: FlotaScreen(
-            //           user: widget.user,
-            //         ))
-            //     : Container(),
-
             widget.user.habilitaFlotas.toLowerCase() != "no"
                 ? Row(
                     children: [
@@ -350,6 +452,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               style: const TextStyle(
                                   fontSize: 15, color: Colors.white)),
                           onTap: () async {
+                            guardarLocalizacion();
                             await Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -364,7 +467,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     ],
                   )
                 : Container(),
-
             const Divider(
               color: Colors.white,
               height: 1,
@@ -378,6 +480,7 @@ class _HomeScreenState extends State<HomeScreen> {
               title: const Text('Cerrar Sesión',
                   style: TextStyle(fontSize: 15, color: Colors.white)),
               onTap: () {
+                guardarLocalizacion();
                 _logOut();
               },
             ),
@@ -405,9 +508,6 @@ class _HomeScreenState extends State<HomeScreen> {
     if (connectivityResult != ConnectivityResult.none) {
       Response response = await ApiHelper.putWebSesion(_nroConexion!);
     }
-
-    _isRunning = false;
-    _getTimer();
 
     Navigator.pushReplacement(
         context, MaterialPageRoute(builder: (context) => LoginScreen()));
@@ -516,6 +616,10 @@ class _HomeScreenState extends State<HomeScreen> {
     _battery.batteryState.then(_updateBatteryState);
     int batnivel = await _battery.batteryLevel;
 
+    if (_positionUser.latitude == 0 || _positionUser.longitude == 0) {
+      return;
+    }
+
     Map<String, dynamic> request1 = {
       'IdUsuario': user.idUsuario,
       'UsuarioStr': user.fullName,
@@ -531,6 +635,34 @@ class _HomeScreenState extends State<HomeScreen> {
 
     ApiHelper.post('/api/UsuariosGeos', request1);
 
+    return;
+  }
+
+//-----------------------------------------------------------------
+//--------------------- METODO guardarHoraLocalizacion ------------
+//-----------------------------------------------------------------
+
+  guardarHoraLocalizacion() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('horaLocalizacion', DateTime.now().toString());
+    return;
+  }
+
+//-----------------------------------------------------------------
+//--------------------- METODO guardarLocalizacion ----------------
+//-----------------------------------------------------------------
+
+  guardarLocalizacion() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String horaLocalizacion = prefs.getString('horaLocalizacion') ?? '';
+
+    if (horaLocalizacion != '') {
+      DateTime dateAlmacenada = DateTime.parse(horaLocalizacion);
+      if (dateAlmacenada.isBefore(DateTime.now().add(Duration(minutes: -15)))) {
+        handleTimeout(widget.user);
+        guardarHoraLocalizacion();
+      }
+    }
     return;
   }
 
@@ -614,19 +746,6 @@ class _HomeScreenState extends State<HomeScreen> {
           placemarks[0].country.toString();
       ;
     }
-  }
-
-//*****************************************************************************
-//************************** METODO _getTimer *********************************
-//*****************************************************************************
-
-  void _getTimer() async {
-    Timer.periodic(const Duration(seconds: 900), (Timer timer) {
-      if (!_isRunning) {
-        timer.cancel();
-      }
-      handleTimeout(widget.user);
-    });
   }
 
 //*****************************************************************************

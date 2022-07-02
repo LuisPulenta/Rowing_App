@@ -13,20 +13,35 @@ class Causante {
   String? linkFoto = '';
   String? imageFullPath = '';
   XFile? image;
+  String? direccion = '';
+  int numero = 0;
+  String? telefonoContacto1 = '';
+  String? telefonoContacto2 = '';
+  String? telefonoContacto3 = '';
+  String? fecha = '';
+  String? notasCausantes = '';
 
-  Causante(
-      {required this.nroCausante,
-      required this.codigo,
-      required this.nombre,
-      required this.encargado,
-      required this.telefono,
-      required this.grupo,
-      required this.nroSAP, //DNI
-      required this.estado,
-      required this.razonSocial,
-      required this.linkFoto,
-      required this.imageFullPath,
-      required this.image});
+  Causante({
+    required this.nroCausante,
+    required this.codigo,
+    required this.nombre,
+    required this.encargado,
+    required this.telefono,
+    required this.grupo,
+    required this.nroSAP, //DNI
+    required this.estado,
+    required this.razonSocial,
+    required this.linkFoto,
+    required this.imageFullPath,
+    required this.image,
+    required this.direccion,
+    required this.numero,
+    required this.telefonoContacto1,
+    required this.telefonoContacto2,
+    required this.telefonoContacto3,
+    required this.fecha,
+    required this.notasCausantes,
+  });
 
   Causante.fromJson(Map<String, dynamic> json) {
     nroCausante = json['nroCausante'];
@@ -41,6 +56,13 @@ class Causante {
     linkFoto = json['linkFoto'];
     imageFullPath = json['imageFullPath'];
     image = json['image'];
+    direccion = json['direccion'];
+    numero = json['numero'];
+    telefonoContacto1 = json['telefonoContacto1'];
+    telefonoContacto2 = json['telefonoContacto2'];
+    telefonoContacto3 = json['telefonoContacto3'];
+    fecha = json['fecha'];
+    notasCausantes = json['notasCausantes'];
   }
 
   Map<String, dynamic> toJson() {
@@ -57,6 +79,13 @@ class Causante {
     data['linkFoto'] = linkFoto;
     data['imageFullPath'] = imageFullPath;
     data['image'] = image;
+    data['direccion'] = direccion;
+    data['numero'] = numero;
+    data['telefonoContacto1'] = telefonoContacto1;
+    data['telefonoContacto2'] = telefonoContacto2;
+    data['telefonoContacto3'] = telefonoContacto3;
+    data['fecha'] = fecha;
+    data['notasCausantes'] = notasCausantes;
     return data;
   }
 }

@@ -5,6 +5,7 @@ import 'package:camera/camera.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:rowing_app/components/loader_component.dart';
 import 'package:rowing_app/helpers/api_helper.dart';
 import 'package:rowing_app/models/causante.dart';
@@ -56,7 +57,14 @@ class _SeguridadScreenState extends State<SeguridadScreen> {
         linkFoto: '',
         imageFullPath:
             'http://190.111.249.225/RowingAppApi/images/Causantes/nouser.png',
-        image: null);
+        image: null,
+        direccion: '',
+        numero: 0,
+        telefonoContacto1: '',
+        telefonoContacto2: '',
+        telefonoContacto3: '',
+        fecha: '',
+        notasCausantes: '');
   }
 
 //*****************************************************************************
@@ -120,11 +128,11 @@ class _SeguridadScreenState extends State<SeguridadScreen> {
                     ),
                   ),
                   const SizedBox(
-                    height: 20,
+                    height: 5,
                   ),
                   _showInfo(),
                   const SizedBox(
-                    height: 20,
+                    height: 5,
                   ),
                   _showButtons(),
                 ],
@@ -243,7 +251,7 @@ class _SeguridadScreenState extends State<SeguridadScreen> {
       elevation: 15,
       margin: const EdgeInsets.all(5),
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
@@ -272,6 +280,54 @@ class _SeguridadScreenState extends State<SeguridadScreen> {
               icon: Icons.assignment_ind,
               nombredato: 'Documento:',
               dato: _causante.nroSAP,
+            ),
+            CustomRow(
+              icon: Icons.home,
+              nombredato: 'Domicilio:',
+              dato: _causante.direccion != ""
+                  ? _causante.direccion.toString().replaceAll("  ", "")
+                  : "" + _causante.numero.toString(),
+
+              // _causante.numero.toString() != 0
+              //     ? _causante.numero.toString()
+              //     : "",
+            ),
+            CustomRow(
+              icon: Icons.numbers,
+              nombredato: 'N°:',
+              dato: _causante.numero != 0 ? _causante.numero.toString() : "",
+
+              // _causante.numero.toString() != 0
+              //     ? _causante.numero.toString()
+              //     : "",
+            ),
+            CustomRow(
+              icon: Icons.contact_phone,
+              nombredato: 'Contacto:',
+              dato: _causante.telefonoContacto3,
+            ),
+            CustomRow(
+              nombredato: '',
+              dato: _causante.telefonoContacto2 != ""
+                  ? '(${_causante.telefonoContacto2})'
+                  : "",
+            ),
+            CustomRow(
+              nombredato: '',
+              dato: _causante.telefonoContacto1,
+            ),
+            CustomRow(
+              icon: Icons.calendar_month,
+              nombredato: 'Fecha Ingreso:',
+              dato: _causante.fecha != ""
+                  ? DateFormat('dd/MM/yyyy')
+                      .format(DateTime.parse(_causante.fecha.toString()))
+                  : '',
+            ),
+            CustomRow(
+              icon: Icons.abc,
+              nombredato: 'CECO:',
+              dato: _causante.notasCausantes,
             ),
           ],
         ),

@@ -617,15 +617,23 @@ class _InspeccionCuestionarioScreenState
                               style: const TextStyle(fontSize: 12),
                             ),
                             trailing: Container(
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(10),
+                                border: Border.all(
+                                  color: element['cumple'] == "SI"
+                                      ? colorVerde
+                                      : element['cumple'] == "NO"
+                                          ? colorRojo
+                                          : element['cumple'] == "N/A"
+                                              ? colorNaranja
+                                              : colorCeleste,
+                                  width: 4,
+                                ),
+                              ),
                               width: 60,
                               height: 60,
-                              color: element['cumple'] == "SI"
-                                  ? colorVerde
-                                  : element['cumple'] == "NO"
-                                      ? colorRojo
-                                      : element['cumple'] == "N/A"
-                                          ? colorNaranja
-                                          : colorCeleste,
+                              //****************** */
                               child: Center(
                                   child: Column(
                                 mainAxisAlignment:
@@ -633,13 +641,10 @@ class _InspeccionCuestionarioScreenState
                                 children: [
                                   Text(
                                     '${element['ponderacionpuntos']} pts',
-                                    style: const TextStyle(color: Colors.white),
                                   ),
                                   element['cumple'] != "null"
                                       ? Text(
                                           element['cumple'],
-                                          style: const TextStyle(
-                                              color: Colors.white),
                                         )
                                       : const Text(''),
                                 ],
@@ -790,6 +795,25 @@ class _InspeccionCuestionarioScreenState
                                       element['cumple'] = "N/A";
                                       setState(() {});
                                     },
+                                  ),
+                                ),
+                                const SizedBox(
+                                  width: 20,
+                                ),
+                                InkWell(
+                                  onTap: () => _takePicture(element),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(30),
+                                    child: Container(
+                                      color: const Color(0xFF282886),
+                                      width: 40,
+                                      height: 40,
+                                      child: const Icon(
+                                        Icons.photo_camera,
+                                        size: 30,
+                                        color: Color(0xFFf6faf8),
+                                      ),
+                                    ),
                                   ),
                                 ),
                               ],

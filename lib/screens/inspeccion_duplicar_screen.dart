@@ -102,7 +102,14 @@ class _InspeccionDuplicarScreenState extends State<InspeccionDuplicarScreen> {
         razonSocial: '',
         linkFoto: '',
         imageFullPath: '',
-        image: null);
+        image: null,
+        direccion: '',
+        numero: 0,
+        telefonoContacto1: '',
+        telefonoContacto2: '',
+        telefonoContacto3: '',
+        fecha: '',
+        notasCausantes: '');
     _getPosition();
     _getInspeccion();
   }
