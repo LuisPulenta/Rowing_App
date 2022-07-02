@@ -3,6 +3,7 @@ import 'package:http/http.dart' as http;
 import 'package:rowing_app/models/models.dart';
 import 'package:rowing_app/models/tipo_novedad.dart';
 import 'package:rowing_app/models/vehiculos_siniestros_foto.dart';
+import 'package:rowing_app/models/vista_inspecciones%20_foto.dart';
 import 'constants.dart';
 
 class ApiHelper {
@@ -978,6 +979,33 @@ class ApiHelper {
     if (decodedJson != null) {
       for (var item in decodedJson) {
         list.add(VehiculosSiniestrosFoto.fromJson(item));
+      }
+    }
+    return Response(isSuccess: true, result: list);
+  }
+
+//---------------------------------------------------------------------------
+  static Future<Response> getFotosInspecciones() async {
+    var url = Uri.parse(
+        '${Constants.apiUrl}/api/Inspecciones/GetVistaInspeccionesFotos');
+    var response = await http.get(
+      url,
+      headers: {
+        'content-type': 'application/json',
+        'accept': 'application/json',
+      },
+    );
+    var body = response.body;
+
+    if (response.statusCode >= 400) {
+      return Response(isSuccess: false, message: body);
+    }
+
+    List<VistaInspeccionesFoto> list = [];
+    var decodedJson = jsonDecode(body);
+    if (decodedJson != null) {
+      for (var item in decodedJson) {
+        list.add(VistaInspeccionesFoto.fromJson(item));
       }
     }
     return Response(isSuccess: true, result: list);

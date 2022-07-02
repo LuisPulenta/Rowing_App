@@ -3,8 +3,6 @@ import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:rowing_app/models/photo.dart';
 import 'package:rowing_app/models/response.dart';
-import 'package:geolocator/geolocator.dart';
-import 'package:geocoding/geocoding.dart';
 
 class DisplayPicture4Screen extends StatefulWidget {
   final XFile image;
@@ -20,10 +18,6 @@ class _DisplayPicture4ScreenState extends State<DisplayPicture4Screen> {
   String _observaciones = '';
   final String _observacionesError = '';
   final bool _observacionesShowError = false;
-
-  int _optionId = -1;
-  String _optionIdError = '';
-  bool _optionIdShowError = false;
 
   @override
   Widget build(BuildContext context) {

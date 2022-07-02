@@ -423,7 +423,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             String? result = await Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => InspeccionesListaScreen(
+                                builder: (context) => InspeccionesMenuScreen(
                                   user: widget.user,
                                 ),
                               ),

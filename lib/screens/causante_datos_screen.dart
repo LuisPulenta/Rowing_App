@@ -48,7 +48,6 @@ class _CausanteDatosScreenState extends State<CausanteDatosScreen> {
   bool _optionContactoShowError = false;
   final TextEditingController _optionContactoController =
       TextEditingController();
-  List<String> _listContactos = [];
 
   String _nombreContacto = '';
   String _nombreContactoError = '';
