@@ -985,9 +985,9 @@ class ApiHelper {
   }
 
 //---------------------------------------------------------------------------
-  static Future<Response> getFotosInspecciones() async {
+  static Future<Response> getFotosInspecciones(String codigo) async {
     var url = Uri.parse(
-        '${Constants.apiUrl}/api/Inspecciones/GetVistaInspeccionesFotos');
+        '${Constants.apiUrl}/api/Inspecciones/GetVistaInspeccionesFotos/$codigo');
     var response = await http.get(
       url,
       headers: {

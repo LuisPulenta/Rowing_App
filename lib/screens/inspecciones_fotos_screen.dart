@@ -24,10 +24,12 @@ class _InspeccionesFotosScreenState extends State<InspeccionesFotosScreen> {
 //************************** DEFINICION DE VARIABLES **************************
 //*****************************************************************************
   int _current = 0;
+  double _sliderValue = 3;
   final CarouselController _carouselController = CarouselController();
 
   List<VistaInspeccionesFoto> _fotos = [];
 
+  bool _mostrar = false;
 //*****************************************************************************
 //************************** INIT STATE ***************************************
 //*****************************************************************************
@@ -49,14 +51,33 @@ class _InspeccionesFotosScreenState extends State<InspeccionesFotosScreen> {
       appBar: AppBar(
         title: const Text('Fotos Inspecciones'),
         centerTitle: true,
+        actions: [
+          Row(
+            children: [
+              const Text(
+                "Datos:",
+                style: TextStyle(color: Colors.white, fontSize: 14),
+              ),
+              Switch(
+                  value: _mostrar,
+                  activeColor: Colors.green,
+                  inactiveThumbColor: Colors.grey,
+                  onChanged: (value) {
+                    _mostrar = value;
+                    setState(() {});
+                  }),
+            ],
+          ),
+        ],
       ),
       body: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.symmetric(vertical: 0),
         child: Column(children: [
           Expanded(
             child: SingleChildScrollView(
               child: Column(
                 children: <Widget>[
+                  _showFiltro(),
                   _showPhotosCarousel(),
                 ],
               ),
@@ -73,18 +94,18 @@ class _InspeccionesFotosScreenState extends State<InspeccionesFotosScreen> {
 
   Widget _showPhotosCarousel() {
     return Container(
-      margin: const EdgeInsets.symmetric(vertical: 20),
+      margin: const EdgeInsets.symmetric(vertical: 0),
       child: Column(
         children: [
           CarouselSlider(
             options: CarouselOptions(
-                height: 560,
+                height: MediaQuery.of(context).size.height * 0.75,
                 autoPlay: false,
                 initialPage: 0,
                 autoPlayInterval: const Duration(seconds: 0),
                 enlargeCenterPage: true,
                 viewportFraction: 0.9,
-                aspectRatio: 2.0,
+                aspectRatio: 1.0,
                 onPageChanged: (index, reason) {
                   setState(() {
                     _current = index;
@@ -99,7 +120,7 @@ class _InspeccionesFotosScreenState extends State<InspeccionesFotosScreen> {
                       Expanded(
                         child: Container(
                             width: MediaQuery.of(context).size.width,
-                            margin: const EdgeInsets.symmetric(horizontal: 5),
+                            margin: const EdgeInsets.symmetric(horizontal: 0),
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(20),
                               child: CachedNetworkImage(
@@ -120,165 +141,195 @@ class _InspeccionesFotosScreenState extends State<InspeccionesFotosScreen> {
                               ),
                             )),
                       ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      Row(
-                        children: [
-                          Text(
-                            "Supervisor: ",
-                            style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 12,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          Expanded(
-                            child: Text(
-                              i.apellido + " " + i.nombre,
-                              style: const TextStyle(
-                                color: Colors.white,
+                      _mostrar
+                          ? Column(children: [
+                              const SizedBox(
+                                height: 5,
                               ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      Row(
-                        children: [
-                          Text(
-                            "Fecha: ",
-                            style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 12,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          Text(
-                            DateFormat('dd/MM/yyyy')
-                                .format(DateTime.parse(i.fecha.toString())),
-                            style: const TextStyle(
-                              color: Colors.white,
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      Row(
-                        children: [
-                          Text(
-                            "Causante: ",
-                            style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 12,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          Expanded(
-                            child: Text(
-                              i.causante,
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 12,
+                              Row(
+                                children: [
+                                  Container(
+                                    width: 86,
+                                    child: const Text(
+                                      "Supervisor: ",
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: Text(
+                                      i.apellido + " " + i.nombre,
+                                      style: const TextStyle(
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      Row(
-                        children: [
-                          Text(
-                            "Descripción: ",
-                            style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 12,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          Expanded(
-                            child: Text(
-                              i.descripcion,
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 12,
+                              const SizedBox(
+                                height: 5,
                               ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      Row(
-                        children: [
-                          Text(
-                            "Cumple: ",
-                            style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 12,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          Text(
-                            i.cumple,
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 12,
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      Row(
-                        children: [
-                          Text(
-                            "Cliente: ",
-                            style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 12,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          Text(
-                            i.cliente,
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 12,
-                            ),
-                          ),
-                        ],
-                      ),
+                              Row(
+                                children: [
+                                  Container(
+                                    width: 86,
+                                    child: const Text(
+                                      "Fecha: ",
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                  Text(
+                                    DateFormat('dd/MM/yyyy').format(
+                                        DateTime.parse(i.fecha.toString())),
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 5,
+                              ),
+                              Row(
+                                children: [
+                                  Container(
+                                    width: 86,
+                                    child: const Text(
+                                      "Causante: ",
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: Text(
+                                      i.causante,
+                                      style: const TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 12,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 5,
+                              ),
+                              Row(
+                                children: [
+                                  Container(
+                                    width: 86,
+                                    child: const Text(
+                                      "Descripción: ",
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: Text(
+                                      i.descripcion,
+                                      style: const TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 12,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 5,
+                              ),
+                              Row(
+                                children: [
+                                  Container(
+                                    width: 86,
+                                    child: const Text(
+                                      "Cumple: ",
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                  Text(
+                                    i.cumple,
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 12,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 5,
+                              ),
+                              Row(
+                                children: [
+                                  Container(
+                                    width: 86,
+                                    child: const Text(
+                                      "Cliente: ",
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                  Text(
+                                    i.cliente,
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 12,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ])
+                          : Container(),
                     ],
                   );
                 },
               );
             }).toList(),
           ),
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: _fotos.asMap().entries.map((entry) {
-                return GestureDetector(
-                  onTap: () => _carouselController.animateToPage(entry.key),
-                  child: Container(
-                    width: 10.0,
-                    height: 10.0,
-                    margin: const EdgeInsets.symmetric(
-                        vertical: 8.0, horizontal: 4.0),
-                    decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: (Theme.of(context).brightness == Brightness.dark
-                                ? Colors.white
-                                : Colors.black)
-                            .withOpacity(_current == entry.key ? 0.9 : 0.4)),
-                  ),
-                );
-              }).toList(),
-            ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: <Widget>[
+              Flexible(
+                child: ElevatedButton(
+                  onPressed: () => _carouselController.previousPage(),
+                  child: Text('←'),
+                ),
+              ),
+              Text("Fotos: ${_fotos.length.toString()}",
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold)),
+              Flexible(
+                child: ElevatedButton(
+                  onPressed: () => _carouselController.nextPage(),
+                  child: Text('→'),
+                ),
+              ),
+              // ...Iterable<int>.generate(_fotos.length).map(
+              //   (int pageIndex) => Flexible(
+              //     child: ElevatedButton(
+              //       onPressed: () =>
+              //           _carouselController.animateToPage(pageIndex),
+              //       child: Text("$pageIndex"),
+              //     ),
+              //   ),
+              // ),
+            ],
           ),
         ],
       ),
@@ -305,7 +356,8 @@ class _InspeccionesFotosScreenState extends State<InspeccionesFotosScreen> {
       return;
     }
 
-    Response response = await ApiHelper.getFotosInspecciones();
+    Response response =
+        await ApiHelper.getFotosInspecciones(_sliderValue.round().toString());
 
     if (!response.isSuccess) {
       await showAlertDialog(
@@ -326,5 +378,47 @@ class _InspeccionesFotosScreenState extends State<InspeccionesFotosScreen> {
     setState(() {
       _carouselController.jumpToPage(0);
     });
+  }
+//-----------------------------------------------------------------------------
+//------------------------------ METODO SHOWAFILTRO ---------------------------
+//-----------------------------------------------------------------------------
+
+  Widget _showFiltro() {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Text("Antiguedad (días): ",
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  )),
+              Slider(
+                min: 3,
+                max: 15,
+                activeColor: Color.fromARGB(255, 228, 193, 18),
+                value: _sliderValue,
+                onChanged: (value) {
+                  _sliderValue = value;
+                  _getFotosInspecciones();
+                },
+                divisions: 4,
+              ),
+              Center(
+                  child: Text(_sliderValue.round().toString(),
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ))),
+            ],
+          ),
+        ],
+      ),
+    );
   }
 }
