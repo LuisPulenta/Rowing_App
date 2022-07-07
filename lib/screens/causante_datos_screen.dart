@@ -42,6 +42,16 @@ class _CausanteDatosScreenState extends State<CausanteDatosScreen> {
   bool _numeroShowError = false;
   final TextEditingController _numeroController = TextEditingController();
 
+  String _ciudad = '';
+  String _ciudadError = '';
+  bool _ciudadShowError = false;
+  final TextEditingController _ciudadController = TextEditingController();
+
+  String _provincia = '';
+  String _provinciaError = '';
+  bool _provinciaShowError = false;
+  final TextEditingController _provinciaController = TextEditingController();
+
   String _optionContacto = 'Seleccione un Contacto...';
   String _contacto = '';
   String _optionContactoError = '';
@@ -94,6 +104,16 @@ class _CausanteDatosScreenState extends State<CausanteDatosScreen> {
     _numero = _numero.replaceAll(" ", "");
     _numeroController.text = (widget.causante.numero.toString());
     _numeroController.text = _numeroController.text.replaceAll(" ", "");
+
+    _ciudad = (widget.causante.ciudad ?? '');
+    _ciudad = _ciudad.replaceAll("  ", "");
+    _ciudadController.text = (widget.causante.ciudad ?? '');
+    _ciudadController.text = _ciudadController.text.replaceAll("  ", "");
+
+    _provincia = (widget.causante.provincia ?? '');
+    _provincia = _provincia.replaceAll("  ", "");
+    _provinciaController.text = (widget.causante.provincia ?? '');
+    _provinciaController.text = _provinciaController.text.replaceAll("  ", "");
 
     _optionContacto = widget.causante.telefonoContacto2.toString() != ""
         ? widget.causante.telefonoContacto2.toString()
@@ -152,6 +172,8 @@ class _CausanteDatosScreenState extends State<CausanteDatosScreen> {
                 _showPhoneNumber(),
                 _showDireccion(),
                 _showNumero(),
+                _showCiudad(),
+                _showProvincia(),
                 _showContacto(),
                 _showNombreContacto(),
                 _showTelefonoContacto(),
@@ -252,12 +274,62 @@ class _CausanteDatosScreenState extends State<CausanteDatosScreen> {
   }
 
 //*****************************************************************************
+//************************** _showCiudad **************************************
+//*****************************************************************************
+
+  Widget _showCiudad() {
+    return Container(
+      padding: const EdgeInsets.all(10),
+      child: TextField(
+        controller: _ciudadController,
+        decoration: InputDecoration(
+            fillColor: Colors.white,
+            filled: true,
+            hintText: 'Ingrese Ciudad...',
+            labelText: 'Ciudad',
+            errorText: _ciudadShowError ? _ciudadError : null,
+            suffixIcon: const Icon(Icons.location_city),
+            border:
+                OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
+        onChanged: (value) {
+          _ciudad = value;
+        },
+      ),
+    );
+  }
+
+//*****************************************************************************
+//************************** _showProvincia ***********************************
+//*****************************************************************************
+
+  Widget _showProvincia() {
+    return Container(
+      padding: const EdgeInsets.all(10),
+      child: TextField(
+        controller: _provinciaController,
+        decoration: InputDecoration(
+            fillColor: Colors.white,
+            filled: true,
+            hintText: 'Ingrese Provincia...',
+            labelText: 'Provincia',
+            errorText: _provinciaShowError ? _provinciaError : null,
+            suffixIcon: const Icon(Icons.south_america),
+            border:
+                OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
+        onChanged: (value) {
+          _provincia = value;
+        },
+      ),
+    );
+  }
+
+//*****************************************************************************
 //************************** _showContacto ************************************
 //*****************************************************************************
 
   Widget _showContacto() {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10),
+      padding: const EdgeInsets.all(10),
       child: DropdownButtonFormField(
           items: _items,
           value: _optionContacto,
@@ -528,7 +600,7 @@ class _CausanteDatosScreenState extends State<CausanteDatosScreen> {
       _direccionShowError = true;
       _direccionError = 'Debes ingresar una Calle';
     } else {
-      _phoneNumberShowError = false;
+      _direccionShowError = false;
     }
 
     if (_numero.isEmpty) {
@@ -537,6 +609,22 @@ class _CausanteDatosScreenState extends State<CausanteDatosScreen> {
       _numeroError = 'Debes ingresar un N°';
     } else {
       _numeroShowError = false;
+    }
+
+    if (_ciudad.isEmpty) {
+      isValid = false;
+      _ciudadShowError = true;
+      _ciudadError = 'Debes ingresar una Ciudad';
+    } else {
+      _ciudadShowError = false;
+    }
+
+    if (_provincia.isEmpty) {
+      isValid = false;
+      _provinciaShowError = true;
+      _provinciaError = 'Debes ingresar una Provincia';
+    } else {
+      _provinciaShowError = false;
     }
 
     if (_contacto == "Seleccione un Contacto...") {
@@ -612,6 +700,8 @@ class _CausanteDatosScreenState extends State<CausanteDatosScreen> {
       'TelefonoContacto3': _nombreContacto,
       'fecha': fechaIngreso.toString(),
       'NotasCausantes': _ceco,
+      'ciudad': _ciudad,
+      'Provincia': _provincia,
     };
 
     Response response = await ApiHelper.put(

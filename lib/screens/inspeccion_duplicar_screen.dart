@@ -109,7 +109,9 @@ class _InspeccionDuplicarScreenState extends State<InspeccionDuplicarScreen> {
         telefonoContacto2: '',
         telefonoContacto3: '',
         fecha: '',
-        notasCausantes: '');
+        notasCausantes: '',
+        ciudad: '',
+        provincia: '');
     _getPosition();
     _getInspeccion();
   }
@@ -703,6 +705,18 @@ class _InspeccionDuplicarScreenState extends State<InspeccionDuplicarScreen> {
 
   _generarCuestionario() async {
     _detallesFormulariosCompleto = [];
+
+    if (_observacionesController.text.length > 199) {
+      await showAlertDialog(
+          context: context,
+          title: 'Error',
+          message:
+              'Las Observaciones tienen ${_observacionesController.text.length} caracteres. No pueden tener más de 199.',
+          actions: <AlertDialogAction>[
+            const AlertDialogAction(key: null, label: 'Aceptar'),
+          ]);
+      return;
+    }
 
     await _getGruposFormularios(
         widget.vistaInspeccion.idCliente, widget.vistaInspeccion.idTipoTrabajo);

@@ -39,6 +39,7 @@ class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
 
   bool _intervinoPolicia = false;
   bool _intervinoAmbulancia = false;
+  bool _notifico = false;
 
   //DateTime? fechaNovedad = null;
 
@@ -96,6 +97,11 @@ class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
   String _emailterceroError = '';
   bool _emailterceroShowError = false;
   TextEditingController _emailterceroController = TextEditingController();
+
+  String _notificadoa = '';
+  String _notificadoaError = '';
+  bool _notificadoaShowError = false;
+  TextEditingController _notificadoaController = TextEditingController();
 
 //*****************************************************************************
 //************************** INIT STATE ***************************************
@@ -159,6 +165,8 @@ class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
                 _showPolicia(),
                 _showAmbulancia(),
                 _showObservaciones(),
+                _showNotificado(),
+                _showNotificadoa(),
                 const SizedBox(
                   height: 5,
                 ),
@@ -579,6 +587,64 @@ class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
   }
 
 //-----------------------------------------------------------------
+//--------------------- METODO _showNotificado --------------------
+//-----------------------------------------------------------------
+
+  Widget _showNotificado() {
+    return Padding(
+      padding: const EdgeInsets.only(left: 15.0),
+      child: Row(
+        children: [
+          const SizedBox(
+            width: 160,
+            child: Text("Notif. a la Empresa: ",
+                style: TextStyle(
+                  fontSize: 15,
+                  color: Colors.black,
+                )),
+          ),
+          Checkbox(
+            value: _notifico,
+            onChanged: (value) {
+              _notifico = !_notifico;
+              value = _notifico;
+              setState(() {});
+            },
+            checkColor: Colors.white,
+            materialTapTargetSize: MaterialTapTargetSize.padded,
+            activeColor: const Color(0xFF781f1e),
+          ),
+        ],
+      ),
+    );
+  }
+
+//-----------------------------------------------------------------
+//--------------------- METODO _showNotificadoa -------------------
+//-----------------------------------------------------------------
+
+  Widget _showNotificadoa() {
+    return Container(
+      padding: const EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 4),
+      child: TextField(
+        controller: _notificadoaController,
+        decoration: InputDecoration(
+            fillColor: Colors.white,
+            filled: true,
+            hintText: 'Notificado a...',
+            labelText: 'Notificado a...',
+            errorText: _notificadoaShowError ? _notificadoaError : null,
+            suffixIcon: const Icon(Icons.support_agent),
+            border:
+                OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
+        onChanged: (value) {
+          _notificadoa = value;
+        },
+      ),
+    );
+  }
+
+//-----------------------------------------------------------------
 //--------------------- METODO SHOWFECHA --------------------------
 //-----------------------------------------------------------------
 
@@ -853,6 +919,18 @@ class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
       _observacionesShowError = false;
     }
 
+    if (_notifico) {
+      if (_notificadoa.isEmpty) {
+        isValid = false;
+        _notificadoaShowError = true;
+        _notificadoaError = 'Debe ingresar a quién notificó';
+      } else {
+        _notificadoaShowError = false;
+      }
+    } else {
+      _notificadoaShowError = false;
+    }
+
     setState(() {});
 
     return isValid;
@@ -892,8 +970,8 @@ class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
       'nropolizatercero': _nropoliza,
       'telefonocontactotercero': _telefonotercero,
       'emailtercero': _emailtercero,
-      'notificadoempresa': "NO",
-      'notificadoa': "",
+      'notificadoempresa': _notifico ? "SI" : "NO",
+      'notificadoa': _notificadoa,
       'direccionsiniestro': PLMayusc(_calle),
       'altura': _numero,
       'ciudad': PLMayusc(_ciudad),

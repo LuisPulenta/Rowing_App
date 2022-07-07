@@ -20,6 +20,8 @@ class Causante {
   String? telefonoContacto3 = '';
   String? fecha = '';
   String? notasCausantes = '';
+  String? ciudad = '';
+  String? provincia = '';
 
   Causante({
     required this.nroCausante,
@@ -41,6 +43,8 @@ class Causante {
     required this.telefonoContacto3,
     required this.fecha,
     required this.notasCausantes,
+    required this.ciudad,
+    required this.provincia,
   });
 
   Causante.fromJson(Map<String, dynamic> json) {
@@ -63,6 +67,8 @@ class Causante {
     telefonoContacto3 = json['telefonoContacto3'];
     fecha = json['fecha'];
     notasCausantes = json['notasCausantes'];
+    ciudad = json['ciudad'];
+    provincia = json['provincia'];
   }
 
   Map<String, dynamic> toJson() {
@@ -86,6 +92,8 @@ class Causante {
     data['telefonoContacto3'] = telefonoContacto3;
     data['fecha'] = fecha;
     data['notasCausantes'] = notasCausantes;
+    data['ciudad'] = ciudad;
+    data['provincia'] = provincia;
     return data;
   }
 }

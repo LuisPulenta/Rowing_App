@@ -56,7 +56,9 @@ class _Home2ScreenState extends State<Home2Screen> {
         telefonoContacto2: '',
         telefonoContacto3: '',
         fecha: '',
-        notasCausantes: '');
+        notasCausantes: '',
+        ciudad: '',
+        provincia: '');
 
     if (widget.user.habilitaRRHH != 1) {
       _codigo = widget.user.codigoCausante;

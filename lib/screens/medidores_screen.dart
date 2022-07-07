@@ -1137,6 +1137,9 @@ class _MedidoresScreenState extends State<MedidoresScreen> {
       'riesgoElectrico': _ticket.riesgoElectrico,
       'fechaasignacion': _ticket.fechaasignacion,
       'mes': _ticket.mes,
+      'fechaActualizada': DateTime.now().toString(),
+      'iDUsrAcualiza': widget.user.idUsuario,
+      'provieneAct': "APP",
     };
 
     var connectivityResult = await Connectivity().checkConnectivity();

@@ -21,6 +21,7 @@ Referenced Strings:
   /scaled_
   0
   0x%08x
+  1
   :memory:
   A::
   ACCESSIBLE_NAVIGATION
@@ -465,6 +466,7 @@ Referenced Strings:
   POSTAL_ADDRESS
   POSTURE_FLAT
   POSTURE_HALF_OPENED
+  POWER_SAVE_MODE_OPEN
   PRIORITY_BALANCED_POWER_ACCURACY
   PRIORITY_HIGH_ACCURACY
   PRIORITY_LOW_POWER
@@ -577,6 +579,7 @@ Referenced Strings:
   SignIn.INTERNAL_API
   SignInClientImpl
   SignInCoordinator
+  SmartModeStatus
   Software
   SpatialFrequencyResponse
   SpectralSensitivity
@@ -680,6 +683,7 @@ Referenced Strings:
   ThumbnailOrientation
   TransferFunction
   ULONG
+  UNAVAILABLE
   UNDECIDED
   UNDEFINED
   UNDISPATCHED
@@ -786,6 +790,7 @@ Referenced Strings:
   android.hardware.type.embedded
   android.hardware.type.iot
   android.hardware.type.watch
+  android.intent.action.BATTERY_CHANGED
   android.intent.action.CALL
   android.intent.action.CONFIGURATION_C...
   android.intent.action.GET_CONTENT
@@ -919,6 +924,7 @@ Referenced Strings:
   baseKey
   basic
   batch
+  batterymanager
   best
   bestForNavigation
   birthDateDay
@@ -960,6 +966,7 @@ Referenced Strings:
   cell
   char
   character
+  charging
   chars
   check
   checkOpNoThrow
@@ -1090,6 +1097,8 @@ Referenced Strings:
   description
   destination
   destroy_engine_with_activity
+  dev.fluttercommunity.plus/battery
+  dev.fluttercommunity.plus/charging
   deviceId
   deviceState
   deviceUniqueId
@@ -1097,6 +1106,7 @@ Referenced Strings:
   dimen
   direction
   disabled
+  discharging
   display
   displayCutout
   displayFeature.rect
@@ -1198,9 +1208,8 @@ Referenced Strings:
   frame
   framework
   front
+  full
   fullStreetAddress
-  g.a.c.a.b$c
-  g.a.c.a.j
   gcore_
   gender
   get
@@ -1209,6 +1218,8 @@ Referenced Strings:
   getAppBounds
   getApplicationDocumentsDirectory
   getApplicationSupportDirectory
+  getBatteryLevel
+  getBatteryState
   getBounds
   getCPUType
   getChildId
@@ -1261,9 +1272,8 @@ Referenced Strings:
   grabbing
   grantedScopes
   guava.concurrent.generate_cancellatio...
-  h.s.j.a.a
-  h.t.d.a
-  h.t.e.a
+  h.a.c.a.b$c
+  h.a.c.a.j
   handled
   heading
   height
@@ -1274,7 +1284,11 @@ Referenced Strings:
   hints
   http://ns.adobe.com/xap/1.0/
   https://plus.google.com/
+  huawei
   hybrid
+  i.s.j.a.a
+  i.t.d.a
+  i.t.e.a
   icon
   id
   image
@@ -1306,6 +1320,7 @@ Referenced Strings:
   io.flutter.embedding.android.OldGenHe...
   io.flutter.embedding.android.SplashSc...
   io.flutter.plugins.GeneratedPluginReg...
+  isInBatterySaveMode
   isLocationServiceEnabled
   is_mocked
   isoCountryCode
@@ -1420,6 +1435,7 @@ Referenced Strings:
   left
   lensAperture
   lensFacing
+  level
   libapp.so
   libflutter.so
   light
@@ -1615,6 +1631,7 @@ Referenced Strings:
   producerIndex
   productId
   profile
+  psm_switch
   push
   pushRoute
   put
@@ -1673,6 +1690,8 @@ Referenced Strings:
   rw
   rwt
   safeCast
+  samsung
+  scale
   scanCode
   secondaryActivity
   secondaryActivity.intent
@@ -1746,6 +1765,7 @@ Referenced Strings:
   startPreviewWithImageStream
   startVideoRecording
   state
+  status
   statusBarColor
   statusBarIconBrightness
   statusCode
@@ -1841,6 +1861,7 @@ Referenced Strings:
   write
   wt
   x
+  xiaomi
   y
   yes
   yuv420
@@ -1901,6 +1922,8 @@ Marking id:action_text:2131034148 used because its prefix matches string pool co
 Marking id:actions:2131034149 used because its prefix matches string pool constant action
 Marking id:text:2131034192 used because its prefix matches string pool constant text
 Marking id:text2:2131034193 used because its prefix matches string pool constant text
+Marking integer:status_bar_notification_info_maxnum:2131099649 used because its prefix matches string pool constant status
+Marking string:status_bar_notification_info_overflow:2131296274 used because its prefix matches string pool constant status
 Marking drawable:background:2130968576 used because its prefix matches string pool constant background
 Marking drawable:googleg_disabled_color_18:2130968596 used because its prefix matches string pool constant google
 Marking drawable:googleg_standard_color_18:2130968597 used because its prefix matches string pool constant google
@@ -2165,6 +2188,7 @@ attr:activityAction:2130771968,
    id:text2:2131034193,
    id:title:2131034195,
    integer:google_play_services_version:2131099648,
+   integer:status_bar_notification_info_maxnum:2131099649,
    layout:notification_action:2131165185,
    layout:notification_action_tombstone:2131165186,
    layout:notification_template_custom_big:2131165187,
@@ -2188,6 +2212,7 @@ attr:activityAction:2130771968,
    string:common_google_play_services_updating_text:2131296269,
    string:common_google_play_services_wear_update_text:2131296270,
    string:common_open_on_phone:2131296271,
+   string:status_bar_notification_info_overflow:2131296274,
    style:LaunchTheme:2131361792,
    style:NormalTheme:2131361793,
    styleable:ActivityFilter:-1,

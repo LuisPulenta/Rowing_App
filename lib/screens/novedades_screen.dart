@@ -57,7 +57,9 @@ class _NovedadesScreenState extends State<NovedadesScreen> {
         telefonoContacto2: '',
         telefonoContacto3: '',
         fecha: '',
-        notasCausantes: '');
+        notasCausantes: '',
+        ciudad: '',
+        provincia: '');
 
     if (widget.user.habilitaRRHH != 1) {
       _codigo = widget.user.codigoCausante;

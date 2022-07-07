@@ -219,8 +219,17 @@ class _InspeccionesListaScreenState extends State<InspeccionesListaScreen> {
       child: ListView(
         children: _inspecciones.map((e) {
           int largo = 28;
+          e.empleado = e.empleado.trim();
+          if (e.empleado.length > 25) {
+            e.empleado = e.empleado.substring(0, 25);
+          }
+
+          int finempleado =
+              e.empleado.length >= largo ? largo : e.empleado.length;
+
           int fintipotrabajo =
               e.tipoTrabajo.length >= largo ? largo : e.tipoTrabajo.length;
+
           int finobra = e.obra.length >= largo ? largo : e.obra.length;
 
           return Card(
@@ -347,7 +356,9 @@ class _InspeccionesListaScreenState extends State<InspeccionesListaScreen> {
                                             e.empleado.toString().trim() ==
                                                     'SIN REGISTRAR'
                                                 ? e.nombreSR.toString().trim()
-                                                : e.empleado.toString().trim(),
+                                                : e.empleado
+                                                    .toString()
+                                                    .substring(0, finempleado),
                                             style: const TextStyle(
                                               fontSize: 12,
                                             )),

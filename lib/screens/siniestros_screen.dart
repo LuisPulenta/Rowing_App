@@ -82,7 +82,9 @@ class _SiniestrosScreenState extends State<SiniestrosScreen> {
         telefonoContacto2: '',
         telefonoContacto3: '',
         fecha: '',
-        notasCausantes: '');
+        notasCausantes: '',
+        ciudad: '',
+        provincia: '');
 
     if (widget.user.habilitaSSHH != 1) {
       _codigo = widget.user.codigoCausante;
@@ -260,7 +262,7 @@ class _SiniestrosScreenState extends State<SiniestrosScreen> {
                                 Row(
                                   children: [
                                     const SizedBox(
-                                      width: 70,
+                                      width: 80,
                                       child: Text("Fecha: ",
                                           style: TextStyle(
                                             fontSize: 12,
@@ -301,7 +303,7 @@ class _SiniestrosScreenState extends State<SiniestrosScreen> {
                                 Row(
                                   children: [
                                     const SizedBox(
-                                      width: 70,
+                                      width: 80,
                                       child: Text("Patente: ",
                                           style: TextStyle(
                                             fontSize: 12,
@@ -323,7 +325,7 @@ class _SiniestrosScreenState extends State<SiniestrosScreen> {
                                 Row(
                                   children: [
                                     const SizedBox(
-                                      width: 70,
+                                      width: 80,
                                       child: Text("Tercero: ",
                                           style: TextStyle(
                                             fontSize: 12,
@@ -345,7 +347,7 @@ class _SiniestrosScreenState extends State<SiniestrosScreen> {
                                 Row(
                                   children: [
                                     const SizedBox(
-                                      width: 70,
+                                      width: 80,
                                       child: Text("Dirección: ",
                                           style: TextStyle(
                                             fontSize: 12,
@@ -368,7 +370,7 @@ class _SiniestrosScreenState extends State<SiniestrosScreen> {
                                 Row(
                                   children: [
                                     const SizedBox(
-                                      width: 70,
+                                      width: 80,
                                       child: Text("Ciudad: ",
                                           style: TextStyle(
                                             fontSize: 12,
@@ -390,7 +392,7 @@ class _SiniestrosScreenState extends State<SiniestrosScreen> {
                                 Row(
                                   children: [
                                     const SizedBox(
-                                      width: 70,
+                                      width: 80,
                                       child: Text("Provincia: ",
                                           style: TextStyle(
                                             fontSize: 12,
@@ -400,6 +402,50 @@ class _SiniestrosScreenState extends State<SiniestrosScreen> {
                                     ),
                                     Expanded(
                                       child: Text(e.provincia,
+                                          style: const TextStyle(
+                                            fontSize: 12,
+                                          )),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(
+                                  height: 1,
+                                ),
+                                Row(
+                                  children: [
+                                    const SizedBox(
+                                      width: 80,
+                                      child: Text("Notificó: ",
+                                          style: TextStyle(
+                                            fontSize: 12,
+                                            color: Color(0xFF0e4888),
+                                            fontWeight: FontWeight.bold,
+                                          )),
+                                    ),
+                                    Expanded(
+                                      child: Text(e.notificadoempresa,
+                                          style: const TextStyle(
+                                            fontSize: 12,
+                                          )),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(
+                                  height: 1,
+                                ),
+                                Row(
+                                  children: [
+                                    const SizedBox(
+                                      width: 80,
+                                      child: Text("Notificado a: ",
+                                          style: TextStyle(
+                                            fontSize: 12,
+                                            color: Color(0xFF0e4888),
+                                            fontWeight: FontWeight.bold,
+                                          )),
+                                    ),
+                                    Expanded(
+                                      child: Text(e.notificadoa,
                                           style: const TextStyle(
                                             fontSize: 12,
                                           )),

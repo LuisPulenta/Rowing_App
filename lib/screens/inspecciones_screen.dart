@@ -118,7 +118,9 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
         telefonoContacto2: '',
         telefonoContacto3: '',
         fecha: '',
-        notasCausantes: '');
+        notasCausantes: '',
+        ciudad: '',
+        provincia: '');
     _getPosition();
     _loadData();
   }
@@ -703,6 +705,19 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
 
   _generarCuestionario() async {
     FocusScope.of(context).unfocus();
+
+    if (_observacionesController.text.length > 199) {
+      await showAlertDialog(
+          context: context,
+          title: 'Error',
+          message:
+              'Las Observaciones tienen ${_observacionesController.text.length} caracteres. No pueden tener más de 199.',
+          actions: <AlertDialogAction>[
+            const AlertDialogAction(key: null, label: 'Aceptar'),
+          ]);
+      return;
+    }
+
     String? result = await Navigator.push(
         context,
         MaterialPageRoute(

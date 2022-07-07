@@ -64,7 +64,9 @@ class _SeguridadScreenState extends State<SeguridadScreen> {
         telefonoContacto2: '',
         telefonoContacto3: '',
         fecha: '',
-        notasCausantes: '');
+        notasCausantes: '',
+        ciudad: '',
+        provincia: '');
   }
 
 //*****************************************************************************
@@ -135,6 +137,9 @@ class _SeguridadScreenState extends State<SeguridadScreen> {
                     height: 5,
                   ),
                   _showButtons(),
+                  const SizedBox(
+                    height: 15,
+                  ),
                 ],
               ),
             ),
@@ -286,7 +291,9 @@ class _SeguridadScreenState extends State<SeguridadScreen> {
               nombredato: 'Domicilio:',
               dato: _causante.direccion != ""
                   ? _causante.direccion.toString().replaceAll("  ", "")
-                  : "" + _causante.numero.toString(),
+                  : "" + _causante.numero.toString() != "0"
+                      ? _causante.numero.toString().replaceAll("  ", "")
+                      : "",
 
               // _causante.numero.toString() != 0
               //     ? _causante.numero.toString()
@@ -300,6 +307,16 @@ class _SeguridadScreenState extends State<SeguridadScreen> {
               // _causante.numero.toString() != 0
               //     ? _causante.numero.toString()
               //     : "",
+            ),
+            CustomRow(
+              icon: Icons.location_city,
+              nombredato: 'Ciudad:',
+              dato: _causante.ciudad,
+            ),
+            CustomRow(
+              icon: Icons.south_america,
+              nombredato: 'Provincia:',
+              dato: _causante.provincia,
             ),
             CustomRow(
               icon: Icons.contact_phone,
