@@ -15,9 +15,42 @@ class DisplayPicture4Screen extends StatefulWidget {
 }
 
 class _DisplayPicture4ScreenState extends State<DisplayPicture4Screen> {
+//*****************************************************************************
+//************************** DEFINICION DE VARIABLES **************************
+//*****************************************************************************
+
   String _observaciones = '';
   final String _observacionesError = '';
   final bool _observacionesShowError = false;
+
+  String _optionId = 'Seleccione un Tipo de Foto...';
+  String _optionIdError = '';
+  bool _optionIdShowError = false;
+
+  final List<String> _options = [
+    'Propio-Carnet-Frente',
+    'Propio-Carnet-Dorso',
+    'Propio-Cédula-Frente',
+    'Propio-Cédula-Dorso',
+    'Propio-Siniestro-Lateral Derecho',
+    'Propio-Siniestro-Lateral Izquierdo',
+    'Propio-Siniestro-Frente',
+    'Propio-Siniestro-Trasero',
+    'Tercero-Carnet-Frente',
+    'Tercero-Carnet-Dorso',
+    'Tercero-Cédula-Frente',
+    'Tercero-Cédula-Dorso',
+    'Tercero-Seguro-Frente',
+    'Tercero-Seguro-Dorso',
+    'Tercero-Siniestro-Lateral Derecho',
+    'Tercero-Siniestro-Lateral Izquierdo',
+    'Tercero-Siniestro-Frente',
+    'Tercero-Siniestro-Trasero',
+  ];
+
+//*****************************************************************************
+//************************** PANTALLA *****************************************
+//*****************************************************************************
 
   @override
   Widget build(BuildContext context) {
@@ -50,6 +83,7 @@ class _DisplayPicture4ScreenState extends State<DisplayPicture4Screen> {
                 ),
               ),
             ),
+            _showOptions(),
             _showObservaciones(),
             _showButtons(),
           ],
@@ -58,6 +92,34 @@ class _DisplayPicture4ScreenState extends State<DisplayPicture4Screen> {
     );
   }
 
+//---------------------------------------------------------------------
+//----------------------- _showOptions --------------------------------
+//---------------------------------------------------------------------
+  Widget _showOptions() {
+    return Container(
+      padding: const EdgeInsets.all(10),
+      child: DropdownButtonFormField(
+          value: _optionId,
+          onChanged: (option) {
+            setState(() {
+              _optionId = option as String;
+            });
+          },
+          items: _getOptions(),
+          decoration: InputDecoration(
+            hintText: 'Seleccione un Tipo de Foto...',
+            labelText: '',
+            fillColor: Colors.white,
+            filled: true,
+            errorText: _optionIdShowError ? _optionIdError : null,
+            border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+          )),
+    );
+  }
+
+//---------------------------------------------------------------------
+//----------------------- _showButtons --------------------------------
+//---------------------------------------------------------------------
   Widget _showButtons() {
     return Container(
         margin: const EdgeInsets.all(10),
@@ -100,6 +162,10 @@ class _DisplayPicture4ScreenState extends State<DisplayPicture4Screen> {
         ));
   }
 
+//---------------------------------------------------------------------
+//----------------------- _showObservaciones --------------------------
+//---------------------------------------------------------------------
+
   Widget _showObservaciones() {
     return Container(
       padding: const EdgeInsets.all(10),
@@ -121,12 +187,51 @@ class _DisplayPicture4ScreenState extends State<DisplayPicture4Screen> {
     );
   }
 
+//---------------------------------------------------------------------
+//----------------------- _usePhoto -----------------------------------
+//---------------------------------------------------------------------
+
   void _usePhoto() async {
+    if (_optionId == 'Seleccione un Tipo de Foto...') {
+      _optionIdShowError = true;
+      _optionIdError = 'Debe seleccionar un Tipo de Foto';
+      setState(() {});
+      return;
+    } else {
+      _optionIdShowError = false;
+      setState(() {});
+    }
+
+    if (_optionId == -1) {
+      return;
+    }
+
     PhotoSiniestro _photo = PhotoSiniestro(
       image: widget.image,
+      tipofoto: _optionId,
       observaciones: _observaciones,
     );
     Response response = Response(isSuccess: true, result: _photo);
     Navigator.pop(context, response);
+  }
+
+//---------------------------------------------------------------------
+//----------------------- _getOptions ---------------------------------
+//---------------------------------------------------------------------
+
+  List<DropdownMenuItem<String>> _getOptions() {
+    List<DropdownMenuItem<String>> list = [];
+    list.add(const DropdownMenuItem(
+      child: Text('Seleccione un Tipo de Foto...'),
+      value: 'Seleccione un Tipo de Foto...',
+    ));
+    for (var element in _options) {
+      list.add(DropdownMenuItem(
+        child: Text(element),
+        value: element,
+      ));
+    }
+
+    return list;
   }
 }

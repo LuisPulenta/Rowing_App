@@ -39,6 +39,25 @@ class _SiniestroInfoScreenState extends State<SiniestroInfoScreen> {
 
   List<VehiculosSiniestrosFoto> _fotos = [];
 
+  int fotospropiocarnetfrente = 0;
+  int fotospropiocarnetdorso = 0;
+  int fotospropiocedulafrente = 0;
+  int fotospropioceduladorso = 0;
+  int fotospropiosiniestrolateralderecho = 0;
+  int fotospropiosiniestrolateralizquierdo = 0;
+  int fotospropiosiniestrofrente = 0;
+  int fotospropiosiniestrotrasero = 0;
+  int fotostercerocarnetfrente = 0;
+  int fotostercerocarnetdorso = 0;
+  int fotostercerocedulafrente = 0;
+  int fotosterceroceduladorso = 0;
+  int fotostercerosiniestrolateralderecho = 0;
+  int fotostercerosiniestrolateralizquierdo = 0;
+  int fotostercerosiniestrofrente = 0;
+  int fotostercerosiniestrotrasero = 0;
+  int fotostercerosegurofrente = 0;
+  int fotostercerosegurodorso = 0;
+
 //*****************************************************************************
 //************************** INIT STATE ***************************************
 //*****************************************************************************
@@ -62,18 +81,18 @@ class _SiniestroInfoScreenState extends State<SiniestroInfoScreen> {
       ),
       body: Column(
         children: [
-          _getInfoSiniestro(),
           Expanded(
             child: SingleChildScrollView(
               child: Column(
                 children: <Widget>[
+                  _getInfoSiniestro(),
                   _showPhotosCarousel(),
                 ],
               ),
             ),
           ),
           _showImageButtons(),
-          SizedBox(
+          const SizedBox(
             height: 5,
           ),
         ],
@@ -260,6 +279,315 @@ class _SiniestroInfoScreenState extends State<SiniestroInfoScreen> {
                               ),
                             ],
                           ),
+                          const Divider(
+                            height: 2,
+                            color: Colors.black,
+                          ),
+                          const Text("FOTOS",
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold)),
+                          Table(
+                            defaultVerticalAlignment:
+                                TableCellVerticalAlignment.middle,
+                            //defaultColumnWidth: FixedColumnWidth(100),
+                            columnWidths: const {
+                              0: FractionColumnWidth(0.5),
+                              1: FractionColumnWidth(0.5),
+                            },
+                            border: TableBorder.all(),
+                            children: const [
+                              TableRow(children: [
+                                Text("PROPIO",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold)),
+                                Text("TERCERO",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold)),
+                              ]),
+                            ],
+                          ),
+                          Table(
+                            defaultVerticalAlignment:
+                                TableCellVerticalAlignment.middle,
+                            //defaultColumnWidth: FixedColumnWidth(100),
+                            columnWidths: const {
+                              0: FractionColumnWidth(0.4),
+                              1: FractionColumnWidth(0.1),
+                              2: FractionColumnWidth(0.4),
+                              3: FractionColumnWidth(0.1),
+                            },
+                            border: TableBorder.all(),
+                            children: [
+                              TableRow(children: [
+                                const Padding(
+                                  padding: const EdgeInsets.only(left: 8.0),
+                                  child: Text("Carnet Frente:",
+                                      style: TextStyle(fontSize: 12)),
+                                ),
+                                Text(fotospropiocarnetfrente.toString(),
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        fontSize: 12,
+                                        color: fotospropiocarnetfrente == 0
+                                            ? Colors.red
+                                            : Colors.blue)),
+                                const Padding(
+                                  padding: EdgeInsets.only(left: 8.0),
+                                  child: Text("Carnet Frente:",
+                                      style: TextStyle(fontSize: 12)),
+                                ),
+                                Text(fotostercerocarnetfrente.toString(),
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        fontSize: 12,
+                                        color: fotostercerocarnetfrente == 0
+                                            ? Colors.red
+                                            : Colors.blue)),
+                              ]),
+                              TableRow(children: [
+                                const Padding(
+                                  padding: EdgeInsets.only(left: 8.0),
+                                  child: Text("Carnet Dorso:",
+                                      style: TextStyle(fontSize: 12)),
+                                ),
+                                Text(fotospropiocarnetdorso.toString(),
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        fontSize: 12,
+                                        color: fotospropiocarnetdorso == 0
+                                            ? Colors.red
+                                            : Colors.blue)),
+                                const Padding(
+                                  padding: EdgeInsets.only(left: 8.0),
+                                  child: Text("Carnet Dorso:",
+                                      style: TextStyle(fontSize: 12)),
+                                ),
+                                Text(fotostercerocarnetdorso.toString(),
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        fontSize: 12,
+                                        color: fotostercerocarnetdorso == 0
+                                            ? Colors.red
+                                            : Colors.blue)),
+                              ]),
+                              TableRow(children: [
+                                const Padding(
+                                  padding: EdgeInsets.only(left: 8.0),
+                                  child: const Text("Cédula Frente:",
+                                      style: const TextStyle(fontSize: 12)),
+                                ),
+                                Text(fotospropiocedulafrente.toString(),
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        fontSize: 12,
+                                        color: fotospropiocedulafrente == 0
+                                            ? Colors.red
+                                            : Colors.blue)),
+                                const Padding(
+                                  padding: EdgeInsets.only(left: 8.0),
+                                  child: Text("Cédula Frente:",
+                                      style: TextStyle(fontSize: 12)),
+                                ),
+                                Text(fotostercerocedulafrente.toString(),
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        fontSize: 12,
+                                        color: fotostercerocedulafrente == 0
+                                            ? Colors.red
+                                            : Colors.blue)),
+                              ]),
+                              TableRow(children: [
+                                const Padding(
+                                  padding: EdgeInsets.only(left: 8.0),
+                                  child: const Text("Cédula Dorso:",
+                                      style: TextStyle(fontSize: 12)),
+                                ),
+                                Text(fotospropioceduladorso.toString(),
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        fontSize: 12,
+                                        color: fotospropioceduladorso == 0
+                                            ? Colors.red
+                                            : Colors.blue)),
+                                const Padding(
+                                  padding: const EdgeInsets.only(left: 8.0),
+                                  child: const Text("Cédula Dorso:",
+                                      style: const TextStyle(fontSize: 12)),
+                                ),
+                                Text(fotosterceroceduladorso.toString(),
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        fontSize: 12,
+                                        color: fotosterceroceduladorso == 0
+                                            ? Colors.red
+                                            : Colors.blue)),
+                              ]),
+                              TableRow(children: [
+                                const Padding(
+                                  padding: const EdgeInsets.only(left: 8.0),
+                                  child: const Text("Sin. Lateral Derecho:",
+                                      style: TextStyle(fontSize: 12)),
+                                ),
+                                Text(
+                                    fotospropiosiniestrolateralderecho
+                                        .toString(),
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        fontSize: 12,
+                                        color:
+                                            fotospropiosiniestrolateralderecho ==
+                                                    0
+                                                ? Colors.red
+                                                : Colors.blue)),
+                                const Padding(
+                                  padding: EdgeInsets.only(left: 8.0),
+                                  child: Text("Sin. Lateral Derecho:",
+                                      style: TextStyle(fontSize: 12)),
+                                ),
+                                Text(
+                                    fotostercerosiniestrolateralderecho
+                                        .toString(),
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        fontSize: 12,
+                                        color:
+                                            fotostercerosiniestrolateralderecho ==
+                                                    0
+                                                ? Colors.red
+                                                : Colors.blue)),
+                              ]),
+                              TableRow(children: [
+                                const Padding(
+                                  padding: const EdgeInsets.only(left: 8.0),
+                                  child: const Text("Sin. Lateral Izquierdo:",
+                                      style: TextStyle(fontSize: 12)),
+                                ),
+                                Text(
+                                    fotospropiosiniestrolateralizquierdo
+                                        .toString(),
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        fontSize: 12,
+                                        color:
+                                            fotospropiosiniestrolateralizquierdo ==
+                                                    0
+                                                ? Colors.red
+                                                : Colors.blue)),
+                                const Padding(
+                                  padding: EdgeInsets.only(left: 8.0),
+                                  child: Text("Sin. Lateral Izquierdo:",
+                                      style: TextStyle(fontSize: 12)),
+                                ),
+                                Text(
+                                    fotostercerosiniestrolateralizquierdo
+                                        .toString(),
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        fontSize: 12,
+                                        color:
+                                            fotostercerosiniestrolateralizquierdo ==
+                                                    0
+                                                ? Colors.red
+                                                : Colors.blue)),
+                              ]),
+                              TableRow(children: [
+                                const Padding(
+                                  padding: EdgeInsets.only(left: 8.0),
+                                  child: const Text("Sin. Frente:",
+                                      style: TextStyle(fontSize: 12)),
+                                ),
+                                Text(fotospropiosiniestrofrente.toString(),
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        fontSize: 12,
+                                        color: fotospropiosiniestrofrente == 0
+                                            ? Colors.red
+                                            : Colors.blue)),
+                                const Padding(
+                                  padding: const EdgeInsets.only(left: 8.0),
+                                  child: const Text("Sin. Frente:",
+                                      style: TextStyle(fontSize: 12)),
+                                ),
+                                Text(fotostercerosiniestrofrente.toString(),
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        fontSize: 12,
+                                        color: fotostercerosiniestrofrente == 0
+                                            ? Colors.red
+                                            : Colors.blue)),
+                              ]),
+                              TableRow(children: [
+                                const Padding(
+                                  padding: const EdgeInsets.only(left: 8.0),
+                                  child: Text("Sin. Trasero:",
+                                      style: TextStyle(fontSize: 12)),
+                                ),
+                                Text(fotospropiosiniestrotrasero.toString(),
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        fontSize: 12,
+                                        color: fotospropiosiniestrotrasero == 0
+                                            ? Colors.red
+                                            : Colors.blue)),
+                                const Padding(
+                                  padding: const EdgeInsets.only(left: 8.0),
+                                  child: Text("Sin. Trasero:",
+                                      style: TextStyle(fontSize: 12)),
+                                ),
+                                Text(fotostercerosiniestrotrasero.toString(),
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        fontSize: 12,
+                                        color: fotostercerosiniestrotrasero == 0
+                                            ? Colors.red
+                                            : Colors.blue)),
+                              ]),
+                              TableRow(children: [
+                                const Padding(
+                                  padding: EdgeInsets.only(left: 8.0),
+                                  child: Text(""),
+                                ),
+                                const Text(""),
+                                const Padding(
+                                  padding: EdgeInsets.only(left: 8.0),
+                                  child: Text("Seguro Frente:",
+                                      style: TextStyle(fontSize: 12)),
+                                ),
+                                Text(fotostercerosegurofrente.toString(),
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        fontSize: 12,
+                                        color: fotostercerosegurofrente == 0
+                                            ? Colors.red
+                                            : Colors.blue)),
+                              ]),
+                              TableRow(children: [
+                                const Padding(
+                                  padding: const EdgeInsets.only(left: 8.0),
+                                  child: const Text(""),
+                                ),
+                                const Text(""),
+                                const Padding(
+                                  padding: const EdgeInsets.only(left: 8.0),
+                                  child: const Text("Seguro Dorso:",
+                                      style: const TextStyle(fontSize: 12)),
+                                ),
+                                Text(fotostercerosegurodorso.toString(),
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        fontSize: 12,
+                                        color: fotostercerosegurodorso == 0
+                                            ? Colors.red
+                                            : Colors.blue)),
+                              ]),
+                            ],
+                          ),
                           const SizedBox(
                             height: 1,
                           ),
@@ -282,7 +610,7 @@ class _SiniestroInfoScreenState extends State<SiniestroInfoScreen> {
 
   Widget _showPhotosCarousel() {
     return Container(
-      margin: const EdgeInsets.symmetric(vertical: 20),
+      margin: const EdgeInsets.symmetric(vertical: 5),
       child: Column(
         children: [
           CarouselSlider(
@@ -331,9 +659,18 @@ class _SiniestroInfoScreenState extends State<SiniestroInfoScreen> {
                         height: 5,
                       ),
                       Text(
-                        i.observacion,
+                        i.correspondea,
                         style: const TextStyle(
-                            color: Colors.white, fontWeight: FontWeight.bold),
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16),
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      Text(
+                        i.observacion,
+                        style: const TextStyle(color: Colors.white),
                       ),
                     ],
                   );
@@ -342,24 +679,26 @@ class _SiniestroInfoScreenState extends State<SiniestroInfoScreen> {
             }).toList(),
           ),
           Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: _fotos.asMap().entries.map((entry) {
-              return GestureDetector(
-                onTap: () => _carouselController.animateToPage(entry.key),
-                child: Container(
-                  width: 12.0,
-                  height: 12.0,
-                  margin: const EdgeInsets.symmetric(
-                      vertical: 8.0, horizontal: 4.0),
-                  decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: (Theme.of(context).brightness == Brightness.dark
-                              ? Colors.white
-                              : Colors.black)
-                          .withOpacity(_current == entry.key ? 0.9 : 0.4)),
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: <Widget>[
+              Flexible(
+                child: ElevatedButton(
+                  onPressed: () => _carouselController.previousPage(),
+                  child: Text('←'),
                 ),
-              );
-            }).toList(),
+              ),
+              Text("Fotos: ${_fotos.length.toString()}",
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold)),
+              Flexible(
+                child: ElevatedButton(
+                  onPressed: () => _carouselController.nextPage(),
+                  child: Text('→'),
+                ),
+              ),
+            ],
           ),
         ],
       ),
@@ -545,6 +884,7 @@ class _SiniestroInfoScreenState extends State<SiniestroInfoScreen> {
       'ImageArray': base64Image,
       'NROSINIESTROCAB': widget.siniestro.nrosiniestro,
       'OBSERVACION': _photo.observaciones,
+      'CORRESPONDEA': _photo.tipofoto,
       'LINKFOTO': '',
     };
 
@@ -680,6 +1020,85 @@ class _SiniestroInfoScreenState extends State<SiniestroInfoScreen> {
 
     _current = 0;
 
+    fotospropiocarnetfrente = 0;
+    fotospropiocarnetdorso = 0;
+    fotospropiocedulafrente = 0;
+    fotospropioceduladorso = 0;
+    fotospropiosiniestrolateralderecho = 0;
+    fotospropiosiniestrolateralizquierdo = 0;
+    fotospropiosiniestrofrente = 0;
+    fotospropiosiniestrotrasero = 0;
+    fotostercerocarnetfrente = 0;
+    fotostercerocarnetdorso = 0;
+    fotostercerocedulafrente = 0;
+    fotosterceroceduladorso = 0;
+    fotostercerosiniestrolateralderecho = 0;
+    fotostercerosiniestrolateralizquierdo = 0;
+    fotostercerosiniestrofrente = 0;
+    fotostercerosiniestrotrasero = 0;
+    fotostercerosegurofrente = 0;
+    fotostercerosegurodorso = 0;
+
+    _fotos.forEach((foto) {
+      if (foto.correspondea == 'Propio-Carnet-Frente') {
+        fotospropiocarnetfrente = fotospropiocarnetfrente + 1;
+      }
+      if (foto.correspondea == 'Propio-Carnet-Dorso') {
+        fotospropiocarnetdorso = fotospropiocarnetdorso + 1;
+      }
+      if (foto.correspondea == 'Propio-Cédula-Frente') {
+        fotospropiocedulafrente = fotospropiocedulafrente + 1;
+      }
+      if (foto.correspondea == 'Propio-Cédula-Dorso') {
+        fotospropioceduladorso = fotospropioceduladorso + 1;
+      }
+      if (foto.correspondea == 'Propio-Siniestro-Lateral Derecho') {
+        fotospropiosiniestrolateralderecho =
+            fotospropiosiniestrolateralderecho + 1;
+      }
+      if (foto.correspondea == 'Propio-Siniestro-Lateral Izquierdo') {
+        fotospropiosiniestrolateralizquierdo =
+            fotospropiosiniestrolateralizquierdo + 1;
+      }
+      if (foto.correspondea == 'Propio-Siniestro-Frente') {
+        fotospropiosiniestrofrente = fotospropiosiniestrofrente + 1;
+      }
+      if (foto.correspondea == 'Propio-Siniestro-Trasero') {
+        fotospropiosiniestrotrasero = fotospropiosiniestrotrasero + 1;
+      }
+      if (foto.correspondea == 'Tercero-Carnet-Frente') {
+        fotostercerocarnetfrente = fotostercerocarnetfrente + 1;
+      }
+      if (foto.correspondea == 'Tercero-Carnet-Dorso') {
+        fotostercerocarnetdorso = fotostercerocarnetdorso + 1;
+      }
+      if (foto.correspondea == 'Tercero-Cédula-Frente') {
+        fotostercerocedulafrente = fotostercerocedulafrente + 1;
+      }
+      if (foto.correspondea == 'Tercero-Cédula-Dorso') {
+        fotosterceroceduladorso = fotosterceroceduladorso + 1;
+      }
+      if (foto.correspondea == 'Tercero-Seguro-Frente') {
+        fotostercerosegurofrente = fotostercerosegurofrente + 1;
+      }
+      if (foto.correspondea == 'Tercero-Seguro-Dorso') {
+        fotostercerosegurodorso = fotostercerosegurodorso + 1;
+      }
+      if (foto.correspondea == 'Tercero-Siniestro-Lateral Derecho') {
+        fotostercerosiniestrolateralderecho =
+            fotostercerosiniestrolateralderecho + 1;
+      }
+      if (foto.correspondea == 'Tercero-Siniestro-Lateral Izquierdo') {
+        fotostercerosiniestrolateralizquierdo =
+            fotostercerosiniestrolateralizquierdo + 1;
+      }
+      if (foto.correspondea == 'Tercero-Siniestro-Frente') {
+        fotostercerosiniestrofrente = fotostercerosiniestrofrente + 1;
+      }
+      if (foto.correspondea == 'Tercero-Siniestro-Trasero') {
+        fotostercerosiniestrotrasero = fotostercerosiniestrotrasero + 1;
+      }
+    });
     setState(() {
       _carouselController.jumpToPage(0);
     });

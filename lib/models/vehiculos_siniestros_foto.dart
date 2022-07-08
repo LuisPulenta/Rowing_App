@@ -3,6 +3,7 @@ class VehiculosSiniestrosFoto {
   int nrosiniestrocab = 0;
   String observacion = '';
   String linkfoto = '';
+  String correspondea = '';
   String? imageFullPath = '';
 
   VehiculosSiniestrosFoto(
@@ -10,6 +11,7 @@ class VehiculosSiniestrosFoto {
       required this.nrosiniestrocab,
       required this.observacion,
       required this.linkfoto,
+      required this.correspondea,
       required this.imageFullPath});
 
   VehiculosSiniestrosFoto.fromJson(Map<String, dynamic> json) {
@@ -17,6 +19,7 @@ class VehiculosSiniestrosFoto {
     nrosiniestrocab = json['nrosiniestrocab'];
     observacion = json['observacion'];
     linkfoto = json['linkfoto'];
+    correspondea = json['correspondea'];
     imageFullPath = json['imageFullPath'];
   }
 
@@ -26,6 +29,7 @@ class VehiculosSiniestrosFoto {
     data['nrosiniestrocab'] = nrosiniestrocab;
     data['observacion'] = observacion;
     data['linkfoto'] = linkfoto;
+    data['correspondea'] = correspondea;
     data['imageFullPath'] = imageFullPath;
     return data;
   }

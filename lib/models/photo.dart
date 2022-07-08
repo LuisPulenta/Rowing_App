@@ -20,10 +20,12 @@ class Photo {
 
 class PhotoSiniestro {
   XFile image;
+  String tipofoto = '';
   String? observaciones = '';
 
   PhotoSiniestro({
     required this.image,
+    required this.tipofoto,
     required this.observaciones,
   });
 }
