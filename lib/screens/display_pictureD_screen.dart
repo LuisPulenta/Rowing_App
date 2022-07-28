@@ -109,6 +109,15 @@ class _DisplayPictureDScreenState extends State<DisplayPictureDScreen> {
     Map<String, dynamic> request = {
       'id': widget.causante.nroCausante,
       'telefono': widget.causante.telefono,
+      'direccion': widget.causante.direccion,
+      'Numero': widget.causante.numero,
+      'TelefonoContacto1': widget.causante.telefonoContacto1,
+      'TelefonoContacto2': widget.causante.telefonoContacto2,
+      'TelefonoContacto3': widget.causante.telefonoContacto3,
+      'fecha': widget.causante.fecha,
+      'NotasCausantes': widget.causante.notasCausantes,
+      'ciudad': widget.causante.ciudad,
+      'Provincia': widget.causante.provincia,
       'image': base64image,
     };
 

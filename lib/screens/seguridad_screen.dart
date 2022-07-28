@@ -658,6 +658,15 @@ class _SeguridadScreenState extends State<SeguridadScreen> {
     Map<String, dynamic> request = {
       'id': _causante.nroCausante,
       'telefono': _causante.telefono,
+      'direccion': _causante.direccion,
+      'Numero': _causante.numero,
+      'TelefonoContacto1': _causante.telefonoContacto1,
+      'TelefonoContacto2': _causante.telefonoContacto2,
+      'TelefonoContacto3': _causante.telefonoContacto3,
+      'fecha': _causante.fecha,
+      'NotasCausantes': _causante.notasCausantes,
+      'ciudad': _causante.ciudad,
+      'Provincia': _causante.provincia,
       'image': base64image,
     };
 
