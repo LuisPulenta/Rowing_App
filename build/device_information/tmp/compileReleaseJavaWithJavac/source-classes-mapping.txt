@@ -1,0 +1,4 @@
+co/creativemind/device_information/BuildConfig.java
+ co.creativemind.device_information.BuildConfig
+co/creativemind/device_information/DeviceInformationPlugin.java
+ co.creativemind.device_information.DeviceInformationPlugin
