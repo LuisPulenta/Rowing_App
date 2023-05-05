@@ -117,6 +117,7 @@ class _GruasCheckListScreenState extends State<GruasCheckListScreen> {
       habilitaVeredas: 0,
       habilitaJuicios: 0,
       habilitaPresentismo: 0,
+      habilitaSeguimientoUsuarios: 0,
       firmaUsuario: '',
       firmaUsuarioImageFullPath: '');
 

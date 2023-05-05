@@ -214,6 +214,39 @@ class _PresentismoScreenState extends State<PresentismoScreen> {
     int hora = (hoy.hour * 3600 + hoy.minute * 60 + hoy.second);
 
     for (Causante empleado in _empleados) {
+      if (empleado.presentismo.toString() == 'Elija un Estado...') {
+        await showAlertDialog(
+            context: context,
+            title: 'Error',
+            message: 'Hay empleados sin Estado seleccionado',
+            actions: <AlertDialogAction>[
+              const AlertDialogAction(key: null, label: 'Aceptar'),
+            ]);
+        return;
+      }
+      if (empleado.zonaTrabajo == 'Elija una Zona...') {
+        await showAlertDialog(
+            context: context,
+            title: 'Error',
+            message: 'Hay empleados sin Zona seleccionada',
+            actions: <AlertDialogAction>[
+              const AlertDialogAction(key: null, label: 'Aceptar'),
+            ]);
+        return;
+      }
+      if (empleado.nombreActividad == 'Elija una Actividad...') {
+        await showAlertDialog(
+            context: context,
+            title: 'Error',
+            message: 'Hay empleados sin Actividad seleccionada',
+            actions: <AlertDialogAction>[
+              const AlertDialogAction(key: null, label: 'Aceptar'),
+            ]);
+        return;
+      }
+    }
+
+    for (Causante empleado in _empleados) {
       Map<String, dynamic> request = {
         'IDPRESENTISMO': 0,
         'IDSUPERVISOR': widget.user.idUsuario,
@@ -224,7 +257,9 @@ class _PresentismoScreenState extends State<PresentismoScreen> {
         'ESTADO': empleado.presentismo,
         'ZONATRABAJO': empleado.zonaTrabajo,
         'ACTIVIDAD': empleado.nombreActividad,
-        'CECO': empleado.notas,
+        'CECO': empleado.notas!.length <= 50
+            ? empleado.notas
+            : empleado.notas!.substring(0, 50),
         'OBSERVACIONES': empleado.imageFullPath!.length <= 50
             ? empleado.imageFullPath
             : empleado.imageFullPath!.substring(
@@ -328,7 +363,7 @@ class _PresentismoScreenState extends State<PresentismoScreen> {
               ),
               SizedBox(
                 width: ancho * 0.15,
-                child: const Text("Presente",
+                child: const Text("Estado",
                     style: TextStyle(
                       fontSize: 12,
                       color: Colors.white,

@@ -746,7 +746,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ],
                   )
                 : Container(),
-            widget.user.idUsuario == 1 || widget.user.idUsuario == 2
+            widget.user.habilitaSeguimientoUsuarios == 1
                 ? Row(
                     children: [
                       Expanded(
