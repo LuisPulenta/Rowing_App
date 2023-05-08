@@ -257,9 +257,11 @@ class _PresentismoScreenState extends State<PresentismoScreen> {
         'ESTADO': empleado.presentismo,
         'ZONATRABAJO': empleado.zonaTrabajo,
         'ACTIVIDAD': empleado.nombreActividad,
-        'CECO': empleado.notas!.length <= 50
-            ? empleado.notas
-            : empleado.notas!.substring(0, 50),
+        'CECO': empleado.notas != null
+            ? empleado.notas!.length <= 50
+                ? empleado.notas
+                : empleado.notas!.substring(0, 50)
+            : '',
         'OBSERVACIONES': empleado.imageFullPath!.length <= 50
             ? empleado.imageFullPath
             : empleado.imageFullPath!.substring(

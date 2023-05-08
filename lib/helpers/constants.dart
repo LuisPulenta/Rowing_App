@@ -3,5 +3,5 @@ class Constants {
 
   static String get version => '1.0.42';
 
-  static bool get grabarCoord => true;
+  static bool get grabarCoord => false;
 }
