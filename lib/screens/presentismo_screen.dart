@@ -334,7 +334,7 @@ class _PresentismoScreenState extends State<PresentismoScreen> {
           child: Row(
             children: [
               SizedBox(
-                width: ancho * 0.25,
+                width: ancho * 0.35,
                 child: const Text("Empleado",
                     style: TextStyle(
                       fontSize: 12,
@@ -345,7 +345,7 @@ class _PresentismoScreenState extends State<PresentismoScreen> {
                 width: 15,
               ),
               SizedBox(
-                width: ancho * 0.25,
+                width: ancho * 0.21,
                 child: const Text("Zona de Trabajo",
                     style: TextStyle(
                       fontSize: 12,
@@ -356,7 +356,7 @@ class _PresentismoScreenState extends State<PresentismoScreen> {
                 width: 15,
               ),
               SizedBox(
-                width: ancho * 0.25,
+                width: ancho * 0.21,
                 child: const Text("Actividad",
                     style: TextStyle(
                       fontSize: 12,
@@ -364,7 +364,7 @@ class _PresentismoScreenState extends State<PresentismoScreen> {
                     )),
               ),
               SizedBox(
-                width: ancho * 0.15,
+                width: ancho * 0.13,
                 child: const Text("Estado",
                     style: TextStyle(
                       fontSize: 12,
@@ -625,7 +625,7 @@ class _PresentismoScreenState extends State<PresentismoScreen> {
                                           Row(
                                             children: [
                                               SizedBox(
-                                                width: ancho * 0.25,
+                                                width: ancho * 0.35,
                                                 child: Text(
                                                     e.nombre.toUpperCase(),
                                                     style: const TextStyle(
@@ -639,7 +639,7 @@ class _PresentismoScreenState extends State<PresentismoScreen> {
                                                 width: 15,
                                               ),
                                               SizedBox(
-                                                width: ancho * 0.25,
+                                                width: ancho * 0.21,
                                                 child: Text(
                                                     e.zonaTrabajo != null
                                                         ? e.zonaTrabajo!
@@ -652,7 +652,7 @@ class _PresentismoScreenState extends State<PresentismoScreen> {
                                                 width: 15,
                                               ),
                                               SizedBox(
-                                                width: ancho * 0.25,
+                                                width: ancho * 0.21,
                                                 child: Text(
                                                     e.nombreActividad != null
                                                         ? e.nombreActividad!
@@ -662,7 +662,7 @@ class _PresentismoScreenState extends State<PresentismoScreen> {
                                                     )),
                                               ),
                                               SizedBox(
-                                                width: ancho * 0.15,
+                                                width: ancho * 0.13,
                                                 child: Text(
                                                     e.presentismo != null
                                                         ? e.presentismo!
