@@ -46,6 +46,7 @@ class _PresentismoScreenState extends State<PresentismoScreen> {
   List<CausantesZona> _zonas = [];
   List<CausantesActividad> _actividades = [];
   bool _showLoader = false;
+  bool _showLoader2 = false;
 
   List<CausantesPresentismo> _presentismosHoy = [];
 
@@ -118,7 +119,17 @@ class _PresentismoScreenState extends State<PresentismoScreen> {
             children: <Widget>[
               _showEmpleadosCount(),
               Expanded(
-                child: _empleados.isEmpty ? _noContent() : _getListView(),
+                child: _empleados.isEmpty
+                    ? _noContent()
+                    : Stack(
+                        children: [
+                          _getListView(),
+                          _showLoader2
+                              ? const LoaderComponent(
+                                  text: 'Grabando Presentismos...')
+                              : Container(),
+                        ],
+                      ),
               ),
               _empleados.isEmpty ? Container() : _showButton(),
             ],
@@ -210,6 +221,10 @@ class _PresentismoScreenState extends State<PresentismoScreen> {
 //-----------------------------------------------------------------
 
   _save() async {
+    setState(() {
+      _showLoader2 = true;
+    });
+
     DateTime hoy = DateTime.now();
     int hora = (hoy.hour * 3600 + hoy.minute * 60 + hoy.second);
 
@@ -269,13 +284,10 @@ class _PresentismoScreenState extends State<PresentismoScreen> {
         'PerteneceCuadrilla': empleado.perteneceCuadrilla
       };
 
-      _showLoader = true;
-
       Response response =
           await ApiHelper.post('/api/Causantes/PostPresentismos', request);
 
       if (!response.isSuccess) {
-        _showLoader = false;
         await showAlertDialog(
             context: context,
             title: 'Error',
@@ -286,7 +298,10 @@ class _PresentismoScreenState extends State<PresentismoScreen> {
         return;
       }
     }
-    _showLoader = false;
+    setState(() {
+      _showLoader2 = false;
+    });
+
     await showAlertDialog(
         context: context,
         title: 'Aviso',
