@@ -2968,6 +2968,21 @@ class _GruasCheckListAgregarScreenState
       return isValid;
     }
 
+    if (_observaciones.length > 200) {
+      isValid = false;
+      showAlertDialog(
+          context: context,
+          title: 'Error',
+          message:
+              'Observaciones no puede superar los 200 caracteres. Ha escrito ' +
+                  _observaciones.length.toString() +
+                  ".",
+          actions: <AlertDialogAction>[
+            const AlertDialogAction(key: null, label: 'Aceptar'),
+          ]);
+      return isValid;
+    }
+
     if (_vtv == null ||
         _vth == null ||
         _seguro == null ||
