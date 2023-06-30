@@ -1,10 +1,12 @@
 import 'dart:convert';
+import 'dart:typed_data';
 
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:camera/camera.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:connectivity/connectivity.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
@@ -60,6 +62,9 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
       fechaUltimoMovimiento: '');
 
   List<ObrasDocumento> _obrasDocumentos = [];
+  List<ObrasDocumento> _obrasDocumentosFotos = [];
+  List<ObrasDocumento> _obrasDocumentosAudios = [];
+  List<ObrasDocumento> _obrasDocumentosVideos = [];
 
   DateTime selectedDate = DateTime.now();
 
@@ -255,7 +260,7 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
                   });
                 }),
             carouselController: _carouselController,
-            items: _obrasDocumentos.map((i) {
+            items: _obrasDocumentosFotos.map((i) {
               return Builder(
                 builder: (BuildContext context) {
                   return Column(
@@ -310,7 +315,7 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: _obra.obrasDocumentos.asMap().entries.map((entry) {
+            children: _obrasDocumentosFotos.asMap().entries.map((entry) {
               return GestureDetector(
                 onTap: () => _carouselController.animateToPage(entry.key),
                 child: Container(
@@ -356,7 +361,7 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
                   ),
                   style: ElevatedButton.styleFrom(
                     primary: const Color(0xFF120E43),
-                    minimumSize: const Size(double.infinity, 50),
+                    minimumSize: const Size(double.infinity, 40),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(5),
                     ),
@@ -378,7 +383,7 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
                   ),
                   style: ElevatedButton.styleFrom(
                     primary: const Color(0xFFB4161B),
-                    minimumSize: const Size(double.infinity, 50),
+                    minimumSize: const Size(double.infinity, 40),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(5),
                     ),
@@ -389,7 +394,7 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
             ],
           ),
           const SizedBox(
-            height: 5,
+            height: 0,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -400,12 +405,12 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: const [
                       Icon(Icons.list),
-                      Text('Req. Material'),
+                      Text('Req. Mat.'),
                     ],
                   ),
                   style: ElevatedButton.styleFrom(
                     primary: const Color.fromARGB(255, 180, 38, 236),
-                    minimumSize: const Size(double.infinity, 50),
+                    minimumSize: const Size(double.infinity, 40),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(5),
                     ),
@@ -414,7 +419,7 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
                 ),
               ),
               const SizedBox(
-                width: 20,
+                width: 5,
               ),
               Expanded(
                 child: ElevatedButton(
@@ -427,7 +432,7 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
                   ),
                   style: ElevatedButton.styleFrom(
                     primary: const Color.fromARGB(255, 80, 5, 8),
-                    minimumSize: const Size(double.infinity, 50),
+                    minimumSize: const Size(double.infinity, 40),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(5),
                     ),
@@ -437,6 +442,28 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
                   //         _obra.fechaCierreElectrico != null
                   //     ? _veredas
                   //     : null,
+                ),
+              ),
+              const SizedBox(
+                width: 5,
+              ),
+              Expanded(
+                child: ElevatedButton(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: const [
+                      Icon(Icons.video_call),
+                      Text('Multim.'),
+                    ],
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    primary: Color.fromARGB(255, 5, 43, 80),
+                    minimumSize: const Size(double.infinity, 40),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                  ),
+                  onPressed: _goAddMultimedia,
                 ),
               ),
             ],
@@ -647,7 +674,7 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
 //*****************************************************************************
 
   void _confirmDeletePhoto() async {
-    if (_obrasDocumentos.isEmpty) {
+    if (_obrasDocumentosFotos.isEmpty) {
       return;
     }
 
@@ -737,6 +764,11 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
 //*****************************************************************************
 
   Future<void> _getObra() async {
+    _obrasDocumentos = [];
+    _obrasDocumentosFotos = [];
+    _obrasDocumentosAudios = [];
+    _obrasDocumentosVideos = [];
+
     setState(() {});
 
     var connectivityResult = await Connectivity().checkConnectivity();
@@ -776,9 +808,18 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
       if (obraDocumento.tipoDeFoto == 10) {
         obraDocumento.tipoDeFoto = 3;
       }
+      if (obraDocumento.tipoDeFoto == 20) {
+        _obrasDocumentosAudios.add(obraDocumento);
+      }
+      if (obraDocumento.tipoDeFoto == 30) {
+        _obrasDocumentosVideos.add(obraDocumento);
+      }
+      if (obraDocumento.tipoDeFoto! < 20) {
+        _obrasDocumentosFotos.add(obraDocumento);
+      }
     }
 
-    _obrasDocumentos.sort((a, b) {
+    _obrasDocumentosFotos.sort((a, b) {
       return a.tipoDeFoto
           .toString()
           .toLowerCase()
@@ -832,7 +873,7 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
     }
   }
 
-  //-------------------------------------------------------------
+//-------------------------------------------------------------
 //-------------------- _showSnackbar --------------------------
 //-------------------------------------------------------------
 
@@ -844,5 +885,206 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
     );
     ScaffoldMessenger.of(context).showSnackBar(snackbar);
     //ScaffoldMessenger.of(context).hideCurrentSnackBar();
+  }
+
+//-------------------------------------------------------------
+//-------------------- _selectAudio ---------------------------
+//-------------------------------------------------------------
+
+  Future<void> _selectAudio() async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      type: FileType.custom,
+      allowMultiple: false,
+      withData: true,
+      allowedExtensions: ['wav'],
+    );
+
+    if (result != null) {
+      Uint8List? fileBytes = result.files.first.bytes;
+      String fileName = result.files.first.name;
+
+      //await FirebaseStorage.instance.ref('uploads/$fileName').putData(fileBytes);
+
+      String base64imageFile = '';
+
+      List<int> imageBytesFile = fileBytes!.buffer.asUint8List();
+      base64imageFile = base64Encode(imageBytesFile);
+
+      var connectivityResult = await Connectivity().checkConnectivity();
+      if (connectivityResult == ConnectivityResult.none) {
+        setState(() {});
+        await showAlertDialog(
+            context: context,
+            title: 'Error',
+            message: 'Verifica que estes conectado a internet.',
+            actions: <AlertDialogAction>[
+              const AlertDialogAction(key: null, label: 'Aceptar'),
+            ]);
+        return;
+      }
+
+      // List<int> imageBytes = await _image.readAsBytes();
+
+      // String base64Image = base64Encode(imageBytes);
+
+      Map<String, dynamic> request = {
+        'imagearray': base64imageFile,
+        'fecha': DateTime.now().toString(),
+        'nroobra': _obra.nroObra,
+        'observacion': '',
+        'estante': 'App',
+        'generadopor': widget.user.login,
+        'modulo': widget.user.modulo,
+        'nrolote': 'App',
+        'sector': 'App',
+        'latitud': '',
+        'longitud': '',
+        'tipodefoto': 20,
+        'direccionfoto': '',
+        'fechaHsFoto': DateTime.now().toString(),
+        'obra': _obra,
+      };
+
+      Response response = await ApiHelper.post(
+          '/api/ObrasDocuments/ObrasDocumentMultimediaAudio', request);
+
+      setState(() {});
+
+      if (!response.isSuccess) {
+        await showAlertDialog(
+            context: context,
+            title: 'Error',
+            message: response.message,
+            actions: <AlertDialogAction>[
+              const AlertDialogAction(key: null, label: 'Aceptar'),
+            ]);
+        return;
+      }
+
+      setState(() {
+        _getObra();
+      });
+    }
+  }
+
+//-------------------------------------------------------------
+//-------------------- _selectVideo ---------------------------
+//-------------------------------------------------------------
+
+  Future<void> _selectVideo() async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      type: FileType.custom,
+      allowMultiple: false,
+      withData: true,
+      allowedExtensions: ['mp4'],
+    );
+
+    if (result != null) {
+      Uint8List? fileBytes = result.files.first.bytes;
+      String fileName = result.files.first.name;
+
+      //await FirebaseStorage.instance.ref('uploads/$fileName').putData(fileBytes);
+
+      String base64imageFile = '';
+
+      List<int> imageBytesFile = fileBytes!.buffer.asUint8List();
+      base64imageFile = base64Encode(imageBytesFile);
+
+      var connectivityResult = await Connectivity().checkConnectivity();
+      if (connectivityResult == ConnectivityResult.none) {
+        setState(() {});
+        await showAlertDialog(
+            context: context,
+            title: 'Error',
+            message: 'Verifica que estes conectado a internet.',
+            actions: <AlertDialogAction>[
+              const AlertDialogAction(key: null, label: 'Aceptar'),
+            ]);
+        return;
+      }
+
+      // List<int> imageBytes = await _image.readAsBytes();
+
+      // String base64Image = base64Encode(imageBytes);
+
+      Map<String, dynamic> request = {
+        'imagearray': base64imageFile,
+        'fecha': DateTime.now().toString(),
+        'nroobra': _obra.nroObra,
+        'observacion': '',
+        'estante': 'App',
+        'generadopor': widget.user.login,
+        'modulo': widget.user.modulo,
+        'nrolote': 'App',
+        'sector': 'App',
+        'latitud': '',
+        'longitud': '',
+        'tipodefoto': 20,
+        'direccionfoto': '',
+        'fechaHsFoto': DateTime.now().toString(),
+        'obra': _obra,
+      };
+
+      Response response = await ApiHelper.post(
+          '/api/ObrasDocuments/ObrasDocumentMultimediaVideo', request);
+
+      setState(() {});
+
+      if (!response.isSuccess) {
+        await showAlertDialog(
+            context: context,
+            title: 'Error',
+            message: response.message,
+            actions: <AlertDialogAction>[
+              const AlertDialogAction(key: null, label: 'Aceptar'),
+            ]);
+        return;
+      }
+
+      setState(() {
+        _getObra();
+      });
+    }
+  }
+
+//---------------------------------------------------------------------
+//------------------------- _goAddMultimedia --------------------------
+//---------------------------------------------------------------------
+
+  void _goAddMultimedia() async {
+    if (widget.user.habilitaFotos != 1) {
+      await showAlertDialog(
+          context: context,
+          title: 'Error',
+          message: 'Su usuario no está habilitado para agregar Multimedia.',
+          actions: <AlertDialogAction>[
+            const AlertDialogAction(key: null, label: 'Aceptar'),
+          ]);
+      return;
+    }
+
+    var response = await showAlertDialog(
+        context: context,
+        title: 'Confirmación',
+        message: '¿Qué tipo de archivo desea guardar?',
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: 'cancel', label: 'Cancelar'),
+          const AlertDialogAction(key: 'audio', label: 'Audio'),
+          const AlertDialogAction(key: 'video', label: 'Video'),
+        ]);
+
+    if (response == 'cancel') {
+      return;
+    }
+
+    if (response == 'audio') {
+      await _selectAudio();
+    } else {
+      await _selectVideo();
+    }
+
+    if (_photoChanged) {
+      _addPicture();
+    }
   }
 }
