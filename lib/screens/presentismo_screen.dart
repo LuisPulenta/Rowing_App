@@ -631,65 +631,78 @@ class _PresentismoScreenState extends State<PresentismoScreen> {
                               child: Container(
                                 margin:
                                     const EdgeInsets.symmetric(horizontal: 10),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Expanded(
-                                      child: Column(
-                                        children: [
-                                          Row(
+                                    Text(e.perteneceCuadrilla.toString(),
+                                        textAlign: TextAlign.start,
+                                        style: const TextStyle(
+                                            fontSize: 10,
+                                            color: Colors.purple)),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        Expanded(
+                                          child: Column(
                                             children: [
-                                              SizedBox(
-                                                width: ancho * 0.35,
-                                                child: Text(
-                                                    e.nombre.toUpperCase(),
-                                                    style: const TextStyle(
-                                                        fontSize: 10,
-                                                        color:
-                                                            Color(0xFF781f1e),
-                                                        fontWeight:
-                                                            FontWeight.bold)),
-                                              ),
-                                              const SizedBox(
-                                                width: 15,
-                                              ),
-                                              SizedBox(
-                                                width: ancho * 0.21,
-                                                child: Text(
-                                                    e.zonaTrabajo != null
-                                                        ? e.zonaTrabajo!
-                                                        : '',
-                                                    style: const TextStyle(
-                                                      fontSize: 10,
-                                                    )),
-                                              ),
-                                              const SizedBox(
-                                                width: 15,
-                                              ),
-                                              SizedBox(
-                                                width: ancho * 0.21,
-                                                child: Text(
-                                                    e.nombreActividad != null
-                                                        ? e.nombreActividad!
-                                                        : '',
-                                                    style: const TextStyle(
-                                                      fontSize: 10,
-                                                    )),
-                                              ),
-                                              SizedBox(
-                                                width: ancho * 0.13,
-                                                child: Text(
-                                                    e.presentismo != null
-                                                        ? e.presentismo!
-                                                        : '',
-                                                    style: const TextStyle(
-                                                      fontSize: 10,
-                                                    )),
+                                              Row(
+                                                children: [
+                                                  SizedBox(
+                                                    width: ancho * 0.35,
+                                                    child: Text(
+                                                        e.nombre.toUpperCase(),
+                                                        style: const TextStyle(
+                                                            fontSize: 10,
+                                                            color: Color(
+                                                                0xFF781f1e),
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold)),
+                                                  ),
+                                                  const SizedBox(
+                                                    width: 15,
+                                                  ),
+                                                  SizedBox(
+                                                    width: ancho * 0.21,
+                                                    child: Text(
+                                                        e.zonaTrabajo != null
+                                                            ? e.zonaTrabajo!
+                                                            : '',
+                                                        style: const TextStyle(
+                                                          fontSize: 10,
+                                                        )),
+                                                  ),
+                                                  const SizedBox(
+                                                    width: 15,
+                                                  ),
+                                                  SizedBox(
+                                                    width: ancho * 0.21,
+                                                    child: Text(
+                                                        e.nombreActividad !=
+                                                                null
+                                                            ? e.nombreActividad!
+                                                            : '',
+                                                        style: const TextStyle(
+                                                          fontSize: 10,
+                                                        )),
+                                                  ),
+                                                  SizedBox(
+                                                    width: ancho * 0.13,
+                                                    child: Text(
+                                                        e.presentismo != null
+                                                            ? e.presentismo!
+                                                            : '',
+                                                        style: const TextStyle(
+                                                          fontSize: 10,
+                                                        )),
+                                                  ),
+                                                ],
                                               ),
                                             ],
                                           ),
-                                        ],
-                                      ),
+                                        ),
+                                      ],
                                     ),
                                   ],
                                 ),
@@ -763,7 +776,9 @@ class _PresentismoScreenState extends State<PresentismoScreen> {
       });
 
       _empleados.sort((b, a) {
-        return a.nombre.compareTo(b.nombre);
+        return a.perteneceCuadrilla
+            .toString()
+            .compareTo(b.perteneceCuadrilla.toString());
       });
 
       _getEstados();

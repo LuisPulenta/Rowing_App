@@ -89,7 +89,8 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
       modulo: '',
       grupoAlmacen: '',
       obrasDocumentos: [],
-      fechaCierreElectrico: '');
+      fechaCierreElectrico: '',
+      fechaUltimoMovimiento: '');
 
 //*****************************************************************************
 //************************** INIT STATE ***************************************

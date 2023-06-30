@@ -56,7 +56,8 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
       modulo: '',
       grupoAlmacen: '',
       obrasDocumentos: [],
-      fechaCierreElectrico: '');
+      fechaCierreElectrico: '',
+      fechaUltimoMovimiento: '');
 
   List<ObrasDocumento> _obrasDocumentos = [];
 
@@ -131,6 +132,23 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
                       style: const TextStyle(
                         fontSize: 14,
                       )),
+                ),
+                const Text("Ult.Mov.: ",
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Color(0xFF781f1e),
+                      fontWeight: FontWeight.bold,
+                    )),
+                Expanded(
+                  flex: 4,
+                  child: _obra.fechaUltimoMovimiento != null
+                      ? Text(
+                          DateFormat('dd/MM/yyyy').format(DateTime.parse(
+                              _obra.fechaUltimoMovimiento.toString())),
+                          style: const TextStyle(
+                            fontSize: 14,
+                          ))
+                      : Container(),
                 ),
               ],
             ),

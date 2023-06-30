@@ -47,7 +47,8 @@ class _ObrasScreenState extends State<ObrasScreen> {
       modulo: '',
       grupoAlmacen: '',
       obrasDocumentos: [],
-      fechaCierreElectrico: '');
+      fechaCierreElectrico: '',
+      fechaUltimoMovimiento: '');
 
   Obra _obraSeleccionada = Obra(
       nroObra: 0,
@@ -60,7 +61,8 @@ class _ObrasScreenState extends State<ObrasScreen> {
       modulo: '',
       grupoAlmacen: '',
       obrasDocumentos: [],
-      fechaCierreElectrico: '');
+      fechaCierreElectrico: '',
+      fechaUltimoMovimiento: '');
 
   List<ObrasReparo> _obrasReparosTodas = [];
 
@@ -298,11 +300,30 @@ class _ObrasScreenState extends State<ObrasScreen> {
                                             fontWeight: FontWeight.bold,
                                           )),
                                       Expanded(
-                                        flex: 5,
+                                        flex: 2,
                                         child: Text(e.nroObra.toString(),
                                             style: const TextStyle(
                                               fontSize: 12,
                                             )),
+                                      ),
+                                      const Text("Ult.Mov.: ",
+                                          style: TextStyle(
+                                            fontSize: 12,
+                                            color: Color(0xFF781f1e),
+                                            fontWeight: FontWeight.bold,
+                                          )),
+                                      Expanded(
+                                        flex: 4,
+                                        child: e.fechaUltimoMovimiento != null
+                                            ? Text(
+                                                DateFormat('dd/MM/yyyy').format(
+                                                    DateTime.parse(e
+                                                        .fechaUltimoMovimiento
+                                                        .toString())),
+                                                style: const TextStyle(
+                                                  fontSize: 12,
+                                                ))
+                                            : Container(),
                                       ),
                                       const Text("Módulo: ",
                                           style: TextStyle(

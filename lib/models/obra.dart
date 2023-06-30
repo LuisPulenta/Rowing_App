@@ -12,6 +12,7 @@ class Obra {
   String? grupoAlmacen = '';
   List<ObrasDocumento> obrasDocumentos = [];
   String? fechaCierreElectrico = '';
+  String? fechaUltimoMovimiento = '';
 
   Obra(
       {required this.nroObra,
@@ -24,7 +25,8 @@ class Obra {
       required this.modulo,
       required this.grupoAlmacen,
       required this.obrasDocumentos,
-      required this.fechaCierreElectrico});
+      required this.fechaCierreElectrico,
+      required this.fechaUltimoMovimiento});
 
   Obra.fromJson(Map<String, dynamic> json) {
     nroObra = json['nroObra'];
@@ -43,6 +45,7 @@ class Obra {
       });
     }
     fechaCierreElectrico = json['fechaCierreElectrico'];
+    fechaUltimoMovimiento = json['fechaUltimoMovimiento'];
   }
 
   Map<String, dynamic> toJson() {
@@ -58,6 +61,7 @@ class Obra {
     data['grupoAlmacen'] = grupoAlmacen;
     data['obrasDocumentos'] = obrasDocumentos.map((v) => v.toJson()).toList();
     data['fechaCierreElectrico'] = fechaCierreElectrico;
+    data['fechaUltimoMovimiento'] = fechaUltimoMovimiento;
     return data;
   }
 }
