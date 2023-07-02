@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:typed_data';
-
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:camera/camera.dart';
@@ -11,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
+import 'package:rowing_app/components/loader_component.dart';
 import 'package:rowing_app/helpers/api_helper.dart';
 import 'package:rowing_app/models/obra.dart';
 import 'package:rowing_app/models/obras_documento.dart';
@@ -18,13 +18,14 @@ import 'package:rowing_app/models/photo.dart';
 import 'package:rowing_app/models/response.dart';
 import 'package:rowing_app/models/user.dart';
 import 'package:rowing_app/screens/screens.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ObraInfoScreen extends StatefulWidget {
   final User user;
   final Obra obra;
   final Position positionUser;
 
-  ObraInfoScreen(
+  const ObraInfoScreen(
       {Key? key,
       required this.user,
       required this.obra,
@@ -47,6 +48,8 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
   int _current = 0;
   final CarouselController _carouselController = CarouselController();
 
+  bool _showLoader = false;
+
   Obra _obra = Obra(
       nroObra: 0,
       nombreObra: '',
@@ -59,7 +62,10 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
       grupoAlmacen: '',
       obrasDocumentos: [],
       fechaCierreElectrico: '',
-      fechaUltimoMovimiento: '');
+      fechaUltimoMovimiento: '',
+      photos: 0,
+      audios: 0,
+      videos: 0);
 
   List<ObrasDocumento> _obrasDocumentos = [];
   List<ObrasDocumento> _obrasDocumentosFotos = [];
@@ -89,22 +95,52 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
       appBar: AppBar(
         title: const Text('Obra Info'),
       ),
-      body: Column(
+      body: Stack(
         children: [
-          _getInfoObra(),
-          Expanded(
-            child: SingleChildScrollView(
-              child: Column(
-                children: <Widget>[
-                  _showPhotosCarousel(),
-                ],
+          Column(
+            children: [
+              _getInfoObra(),
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: <Widget>[
+                      _showPhotosCarousel(),
+                      _obrasDocumentosAudios.isNotEmpty
+                          ? const Text('AUDIOS',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 28,
+                                  fontWeight: FontWeight.bold))
+                          : Container(),
+                      _obrasDocumentosAudios.isNotEmpty
+                          ? _showAudios()
+                          : Container(),
+                      _obrasDocumentosVideos.isNotEmpty
+                          ? const Padding(
+                              padding: EdgeInsets.only(top: 10),
+                              child: Text('VIDEOS',
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 28,
+                                      fontWeight: FontWeight.bold)),
+                            )
+                          : Container(),
+                      _obrasDocumentosVideos.isNotEmpty
+                          ? _showVideos()
+                          : Container(),
+                    ],
+                  ),
+                ),
               ),
-            ),
+              _showImageButtons(),
+              const SizedBox(
+                height: 5,
+              ),
+            ],
           ),
-          _showImageButtons(),
-          const SizedBox(
-            height: 5,
-          ),
+          _showLoader
+              ? const LoaderComponent(text: 'Por favor espere...')
+              : Container(),
         ],
       ),
     );
@@ -338,6 +374,123 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
     );
   }
 
+//---------------------------------------------------------------
+//-------------------------- _showAudios ------------------------
+//---------------------------------------------------------------
+
+  Widget _showAudios() {
+    return SizedBox(
+      width: double.infinity,
+      height: _obrasDocumentosAudios.length * 60,
+      //color: Colors.yellow,
+      child: ListView(
+        children: _obrasDocumentosAudios.map((e) {
+          return Card(
+            color: const Color(0xFFC7C7C8),
+            shadowColor: Colors.white,
+            elevation: 10,
+            margin: const EdgeInsets.fromLTRB(10, 0, 10, 10),
+            child: Container(
+              margin: const EdgeInsets.all(0),
+              padding: const EdgeInsets.all(5),
+              child: Row(
+                children: [
+                  Expanded(
+                      child: Text(
+                    '${e.nroregistro.toString()}-${e.generadoPor.toString()}',
+                    textAlign: TextAlign.center,
+                  )),
+                  Expanded(
+                    child: CircleAvatar(
+                      backgroundColor: const Color(0xFF781f1e),
+                      child: IconButton(
+                        onPressed: () async {
+                          await launch(e.imageFullPath!);
+                        },
+                        icon: const Icon(Icons.play_arrow),
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: CircleAvatar(
+                      backgroundColor: Colors.white,
+                      child: IconButton(
+                        onPressed: () async {
+                          _confirmDeleteAudio(e);
+                        },
+                        icon: const Icon(Icons.delete_forever_sharp),
+                        color: Colors.red,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        }).toList(),
+      ),
+    );
+  }
+//---------------------------------------------------------------
+//-------------------------- _showVideos ------------------------
+//---------------------------------------------------------------
+
+  Widget _showVideos() {
+    return SizedBox(
+      width: double.infinity,
+      height: _obrasDocumentosVideos.length * 60,
+      //color: Colors.green,
+      child: ListView(
+        children: _obrasDocumentosVideos.map((e) {
+          return Card(
+            color: const Color(0xFFC7C7C8),
+            shadowColor: Colors.white,
+            elevation: 10,
+            margin: const EdgeInsets.fromLTRB(10, 0, 10, 10),
+            child: Container(
+              margin: const EdgeInsets.all(0),
+              padding: const EdgeInsets.all(5),
+              child: Row(
+                children: [
+                  Expanded(
+                      child: Text(
+                    '${e.nroregistro.toString()}-${e.generadoPor.toString()}',
+                    textAlign: TextAlign.center,
+                  )),
+                  Expanded(
+                    child: CircleAvatar(
+                      backgroundColor: const Color(0xFF781f1e),
+                      child: IconButton(
+                        onPressed: () async {
+                          await launch(e.imageFullPath!);
+                        },
+                        icon: const Icon(Icons.play_arrow),
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: CircleAvatar(
+                      backgroundColor: Colors.white,
+                      child: IconButton(
+                        onPressed: () async {
+                          _confirmDeleteVideo(e);
+                        },
+                        icon: const Icon(Icons.delete_forever_sharp),
+                        color: Colors.red,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        }).toList(),
+      ),
+    );
+  }
+
 //-----------------------------------------------------------------------------
 //-------------------------- METODO SHOWIMAGEBUTTONS --------------------------
 //-----------------------------------------------------------------------------
@@ -457,7 +610,7 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
                     ],
                   ),
                   style: ElevatedButton.styleFrom(
-                    primary: Color.fromARGB(255, 5, 43, 80),
+                    primary: const Color.fromARGB(255, 5, 43, 80),
                     minimumSize: const Size(double.infinity, 40),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(5),
@@ -869,7 +1022,7 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
         widget.obra.nroObra.toString(), requestFechaCierreElectrico);
 
     if (response.isSuccess) {
-      _showSnackbar();
+      _showSnackbar("Fecha de Cierre Eléctrico grabada con éxito");
     }
   }
 
@@ -877,9 +1030,9 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
 //-------------------- _showSnackbar --------------------------
 //-------------------------------------------------------------
 
-  void _showSnackbar() {
-    SnackBar snackbar = const SnackBar(
-      content: Text("Fecha de Cierre Eléctrico grabada con éxito"),
+  void _showSnackbar(String text) {
+    SnackBar snackbar = SnackBar(
+      content: Text(text),
       backgroundColor: Colors.lightGreen,
       //duration: Duration(seconds: 3),
     );
@@ -945,10 +1098,11 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
         'obra': _obra,
       };
 
+      _showLoader = true;
+      setState(() {});
+
       Response response = await ApiHelper.post(
           '/api/ObrasDocuments/ObrasDocumentMultimediaAudio', request);
-
-      setState(() {});
 
       if (!response.isSuccess) {
         await showAlertDialog(
@@ -958,11 +1112,15 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
             actions: <AlertDialogAction>[
               const AlertDialogAction(key: null, label: 'Aceptar'),
             ]);
+        _showLoader = false;
+        setState(() {});
+
         return;
       }
-
+      _showSnackbar("Audio guardado con éxito");
+      _getObra();
       setState(() {
-        _getObra();
+        _showLoader = false;
       });
     }
   }
@@ -1019,16 +1177,17 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
         'sector': 'App',
         'latitud': '',
         'longitud': '',
-        'tipodefoto': 20,
+        'tipodefoto': 30,
         'direccionfoto': '',
         'fechaHsFoto': DateTime.now().toString(),
         'obra': _obra,
       };
 
+      _showLoader = true;
+      setState(() {});
+
       Response response = await ApiHelper.post(
           '/api/ObrasDocuments/ObrasDocumentMultimediaVideo', request);
-
-      setState(() {});
 
       if (!response.isSuccess) {
         await showAlertDialog(
@@ -1038,11 +1197,15 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
             actions: <AlertDialogAction>[
               const AlertDialogAction(key: null, label: 'Aceptar'),
             ]);
+        _showLoader = false;
+        setState(() {});
+
         return;
       }
-
+      _showSnackbar("Video guardado con éxito");
+      _getObra();
       setState(() {
-        _getObra();
+        _showLoader = false;
       });
     }
   }
@@ -1086,5 +1249,136 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
     if (_photoChanged) {
       _addPicture();
     }
+  }
+
+//---------------------------------------------------------------------------
+//-------------------------- _confirmDeleteAudio ----------------------------
+//---------------------------------------------------------------------------
+
+  void _confirmDeleteAudio(ObrasDocumento obraDocumento) async {
+    if (widget.user.habilitaFotos != 1) {
+      await showAlertDialog(
+          context: context,
+          title: 'Error',
+          message: 'Su usuario no está habilitado para eliminar Audios.',
+          actions: <AlertDialogAction>[
+            const AlertDialogAction(key: null, label: 'Aceptar'),
+          ]);
+      return;
+    }
+
+    if (widget.user.login != obraDocumento.generadoPor) {
+      await showAlertDialog(
+          context: context,
+          title: 'Error',
+          message: 'Este audio (NROREGISTRO ' +
+              obraDocumento.nroregistro.toString() +
+              ') sólo puede ser eliminado por el Usuario que lo cargó (' +
+              obraDocumento.generadoPor.toString() +
+              '). De ser necesario borrarlo comuníquese con el administrador del Sistema.',
+          actions: <AlertDialogAction>[
+            const AlertDialogAction(key: null, label: 'Aceptar'),
+          ]);
+      return;
+    }
+
+    var response = await showAlertDialog(
+        context: context,
+        title: 'Confirmación',
+        message: '¿Estas seguro de querer borrar este audio?',
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: 'no', label: 'No'),
+          const AlertDialogAction(key: 'yes', label: 'Sí'),
+        ]);
+
+    if (response == 'yes') {
+      await _deleteMultimedia(obraDocumento);
+    }
+  }
+
+//---------------------------------------------------------------------------
+//-------------------------- _confirmDeleteVideo ----------------------------
+//---------------------------------------------------------------------------
+
+  void _confirmDeleteVideo(ObrasDocumento obraDocumento) async {
+    if (widget.user.habilitaFotos != 1) {
+      await showAlertDialog(
+          context: context,
+          title: 'Error',
+          message: 'Su usuario no está habilitado para eliminar Videos.',
+          actions: <AlertDialogAction>[
+            const AlertDialogAction(key: null, label: 'Aceptar'),
+          ]);
+      return;
+    }
+
+    if (widget.user.login != obraDocumento.generadoPor) {
+      await showAlertDialog(
+          context: context,
+          title: 'Error',
+          message: 'Este video (NROREGISTRO ' +
+              obraDocumento.nroregistro.toString() +
+              ') sólo puede ser eliminado por el Usuario que lo cargó (' +
+              obraDocumento.generadoPor.toString() +
+              '). De ser necesario borrarlo comuníquese con el administrador del Sistema.',
+          actions: <AlertDialogAction>[
+            const AlertDialogAction(key: null, label: 'Aceptar'),
+          ]);
+      return;
+    }
+
+    var response = await showAlertDialog(
+        context: context,
+        title: 'Confirmación',
+        message: '¿Estas seguro de querer borrar este video?',
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: 'no', label: 'No'),
+          const AlertDialogAction(key: 'yes', label: 'Sí'),
+        ]);
+
+    if (response == 'yes') {
+      await _deleteMultimedia(obraDocumento);
+    }
+  }
+
+//*****************************************************************************
+//************************** METODO DELETEPHOTO *******************************
+//*****************************************************************************
+
+  Future<void> _deleteMultimedia(ObrasDocumento obraDocumento) async {
+    setState(() {});
+
+    var connectivityResult = await Connectivity().checkConnectivity();
+    if (connectivityResult == ConnectivityResult.none) {
+      setState(() {});
+      await showAlertDialog(
+          context: context,
+          title: 'Error',
+          message: 'Verifica que estes conectado a internet.',
+          actions: <AlertDialogAction>[
+            const AlertDialogAction(key: null, label: 'Aceptar'),
+          ]);
+      return;
+    }
+
+    Response response = await ApiHelper.delete(
+        '/api/ObrasDocuments/', obraDocumento.nroregistro.toString());
+
+    setState(() {});
+
+    if (!response.isSuccess) {
+      await showAlertDialog(
+          context: context,
+          title: 'Error',
+          message: response.message,
+          actions: <AlertDialogAction>[
+            const AlertDialogAction(key: null, label: 'Aceptar'),
+          ]);
+      return;
+    }
+
+    setState(() {
+      _getObra();
+    });
   }
 }

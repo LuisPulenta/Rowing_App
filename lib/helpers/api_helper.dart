@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:rowing_app/models/models.dart';
 import 'constants.dart';
@@ -1993,5 +1994,15 @@ class ApiHelper {
       }
     }
     return Response(isSuccess: true, result: list);
+  }
+
+  //---------------------------------------------------------------------------
+  static Future<void> sendAudioFile(File audioFile) async {
+    var request = http.MultipartRequest('POST',
+        Uri.parse('${Constants.apiUrl}/api/ObrasDocuments/UploadAudio'));
+    request.files
+        .add(await http.MultipartFile.fromPath('audio', audioFile.path));
+
+    await request.send();
   }
 }

@@ -48,7 +48,10 @@ class _ObrasScreenState extends State<ObrasScreen> {
       grupoAlmacen: '',
       obrasDocumentos: [],
       fechaCierreElectrico: '',
-      fechaUltimoMovimiento: '');
+      fechaUltimoMovimiento: '',
+      photos: 0,
+      audios: 0,
+      videos: 0);
 
   Obra _obraSeleccionada = Obra(
       nroObra: 0,
@@ -62,7 +65,10 @@ class _ObrasScreenState extends State<ObrasScreen> {
       grupoAlmacen: '',
       obrasDocumentos: [],
       fechaCierreElectrico: '',
-      fechaUltimoMovimiento: '');
+      fechaUltimoMovimiento: '',
+      photos: 0,
+      audios: 0,
+      videos: 0);
 
   List<ObrasReparo> _obrasReparosTodas = [];
 
@@ -379,16 +385,21 @@ class _ObrasScreenState extends State<ObrasScreen> {
                                       const SizedBox(
                                         width: 20,
                                       ),
-                                      const Text("Fotos y Doc: ",
-                                          style: TextStyle(
-                                            fontSize: 12,
-                                            color: Color(0xFF781f1e),
-                                            fontWeight: FontWeight.bold,
-                                          )),
-                                      Text(e.obrasDocumentos.length.toString(),
-                                          style: const TextStyle(
-                                            fontSize: 12,
-                                          )),
+                                      e.photos > 0
+                                          ? _IconInfo(
+                                              icon: Icons.camera_alt,
+                                              text: e.photos.toString())
+                                          : Container(),
+                                      e.audios > 0
+                                          ? _IconInfo(
+                                              icon: Icons.volume_down_rounded,
+                                              text: e.audios.toString())
+                                          : Container(),
+                                      e.videos > 0
+                                          ? _IconInfo(
+                                              icon: Icons.video_call_rounded,
+                                              text: e.videos.toString())
+                                          : Container(),
                                     ],
                                   ),
                                   SizedBox(
@@ -864,4 +875,53 @@ class _ObrasScreenState extends State<ObrasScreen> {
   bool isNullOrEmpty(dynamic obj) =>
       obj == null ||
       ((obj is String || obj is List || obj is Map) && obj.isEmpty);
+}
+
+//-------------------------------------------------------------------------
+//-------------------------- _IconInfo ------------------------------------
+//-------------------------------------------------------------------------
+class _IconInfo extends StatelessWidget {
+  final IconData icon;
+  final String text;
+
+  const _IconInfo({
+    Key? key,
+    required this.icon,
+    required this.text,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 30,
+      height: 30,
+      color: Colors.transparent,
+      child: Stack(
+        children: [
+          Positioned(
+            bottom: 0,
+            left: 0,
+            child: Icon(
+              icon,
+              color: const Color(0xFF781f1e),
+            ),
+          ),
+          Positioned(
+              top: 0,
+              right: 0,
+              child: SizedBox(
+                width: 15,
+                height: 15,
+                child: CircleAvatar(
+                  backgroundColor: Colors.red,
+                  child: Text(
+                    text,
+                    style: const TextStyle(color: Colors.white, fontSize: 10),
+                  ),
+                ),
+              )),
+        ],
+      ),
+    );
+  }
 }

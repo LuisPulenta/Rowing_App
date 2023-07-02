@@ -39,7 +39,10 @@ class _VeredasScreenState extends State<VeredasScreen> {
       grupoAlmacen: '',
       obrasDocumentos: [],
       fechaCierreElectrico: '',
-      fechaUltimoMovimiento: '');
+      fechaUltimoMovimiento: '',
+      photos: 0,
+      audios: 0,
+      videos: 0);
 
   ObrasReparo obrasReparoSelected = ObrasReparo(
       nroregistro: 0,

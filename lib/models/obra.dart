@@ -13,6 +13,9 @@ class Obra {
   List<ObrasDocumento> obrasDocumentos = [];
   String? fechaCierreElectrico = '';
   String? fechaUltimoMovimiento = '';
+  int photos = 0;
+  int audios = 0;
+  int videos = 0;
 
   Obra(
       {required this.nroObra,
@@ -26,7 +29,10 @@ class Obra {
       required this.grupoAlmacen,
       required this.obrasDocumentos,
       required this.fechaCierreElectrico,
-      required this.fechaUltimoMovimiento});
+      required this.fechaUltimoMovimiento,
+      required this.photos,
+      required this.audios,
+      required this.videos});
 
   Obra.fromJson(Map<String, dynamic> json) {
     nroObra = json['nroObra'];
@@ -46,6 +52,9 @@ class Obra {
     }
     fechaCierreElectrico = json['fechaCierreElectrico'];
     fechaUltimoMovimiento = json['fechaUltimoMovimiento'];
+    photos = json['photos'];
+    audios = json['audios'];
+    videos = json['videos'];
   }
 
   Map<String, dynamic> toJson() {
@@ -62,6 +71,9 @@ class Obra {
     data['obrasDocumentos'] = obrasDocumentos.map((v) => v.toJson()).toList();
     data['fechaCierreElectrico'] = fechaCierreElectrico;
     data['fechaUltimoMovimiento'] = fechaUltimoMovimiento;
+    data['photos'] = photos;
+    data['audios'] = audios;
+    data['videos'] = videos;
     return data;
   }
 }
