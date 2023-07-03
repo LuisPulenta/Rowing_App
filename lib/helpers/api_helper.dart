@@ -1997,12 +1997,58 @@ class ApiHelper {
   }
 
   //---------------------------------------------------------------------------
-  static Future<void> sendAudioFile(File audioFile) async {
-    var request = http.MultipartRequest('POST',
-        Uri.parse('${Constants.apiUrl}/api/ObrasDocuments/UploadAudio'));
-    request.files
-        .add(await http.MultipartFile.fromPath('audio', audioFile.path));
+  static Future<Response> sendAudioFile(File file, String fileName) async {
+    final url =
+        Uri.parse('${Constants.apiUrl}/api/ObrasDocuments/UploadAudioFile');
+    List<int> fileBytes = await file.readAsBytes();
+    var request = http.MultipartRequest('POST', url);
+    request.files.add(
+        http.MultipartFile.fromBytes('file', fileBytes, filename: fileName));
+    var response = await request.send();
 
-    await request.send();
+    if (response.statusCode == 200) {
+      return Response(isSuccess: true);
+    } else {
+      return Response(isSuccess: false);
+    }
+  }
+
+  //---------------------------------------------------------------------------
+  static Future<Response> sendVideoFile(File file, String fileName) async {
+    final url =
+        Uri.parse('${Constants.apiUrl}/api/ObrasDocuments/UploadVideoFile');
+    List<int> fileBytes = await file.readAsBytes();
+    var request = http.MultipartRequest('POST', url);
+    request.files.add(
+        http.MultipartFile.fromBytes('file', fileBytes, filename: fileName));
+    var response = await request.send();
+
+    if (response.statusCode == 200) {
+      return Response(isSuccess: true);
+    } else {
+      return Response(isSuccess: false);
+    }
+  }
+
+//---------------------------------------------------------------------------
+  static Future<Response> getNroRegistrwerwewoMaxNotificaciones() async {
+    var url = Uri.parse(
+        '${Constants.apiUrl}/api/CausantesJuicios/GetNroRegistroMaxNotificaciones');
+    var response = await http.get(
+      url,
+      headers: {
+        'content-type': 'application/json',
+        'accept': 'application/json',
+      },
+    );
+    var body = response.body;
+
+    if (response.statusCode >= 400) {
+      return Response(isSuccess: false, message: body);
+    }
+
+    var decodedJson = jsonDecode(body);
+
+    return Response(isSuccess: true, result: decodedJson);
   }
 }

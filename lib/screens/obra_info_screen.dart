@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'dart:typed_data';
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -19,6 +20,7 @@ import 'package:rowing_app/models/response.dart';
 import 'package:rowing_app/models/user.dart';
 import 'package:rowing_app/screens/screens.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:uuid/uuid.dart';
 
 class ObraInfoScreen extends StatefulWidget {
   final User user;
@@ -1053,15 +1055,7 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
     );
 
     if (result != null) {
-      Uint8List? fileBytes = result.files.first.bytes;
-      String fileName = result.files.first.name;
-
-      //await FirebaseStorage.instance.ref('uploads/$fileName').putData(fileBytes);
-
-      String base64imageFile = '';
-
-      List<int> imageBytesFile = fileBytes!.buffer.asUint8List();
-      base64imageFile = base64Encode(imageBytesFile);
+      File file = File(result.files.single.path!);
 
       var connectivityResult = await Connectivity().checkConnectivity();
       if (connectivityResult == ConnectivityResult.none) {
@@ -1076,12 +1070,13 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
         return;
       }
 
-      // List<int> imageBytes = await _image.readAsBytes();
+      const uuii = Uuid();
+      String fileName = uuii.v4();
 
-      // String base64Image = base64Encode(imageBytes);
+      await ApiHelper.sendAudioFile(file, fileName);
 
       Map<String, dynamic> request = {
-        'imagearray': base64imageFile,
+        'link': '~/images/Multimedia/$fileName.wav',
         'fecha': DateTime.now().toString(),
         'nroobra': _obra.nroObra,
         'observacion': '',
@@ -1138,15 +1133,7 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
     );
 
     if (result != null) {
-      Uint8List? fileBytes = result.files.first.bytes;
-      String fileName = result.files.first.name;
-
-      //await FirebaseStorage.instance.ref('uploads/$fileName').putData(fileBytes);
-
-      String base64imageFile = '';
-
-      List<int> imageBytesFile = fileBytes!.buffer.asUint8List();
-      base64imageFile = base64Encode(imageBytesFile);
+      File file = File(result.files.single.path!);
 
       var connectivityResult = await Connectivity().checkConnectivity();
       if (connectivityResult == ConnectivityResult.none) {
@@ -1161,12 +1148,13 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
         return;
       }
 
-      // List<int> imageBytes = await _image.readAsBytes();
+      const uuii = Uuid();
+      String fileName = uuii.v4();
 
-      // String base64Image = base64Encode(imageBytes);
+      await ApiHelper.sendVideoFile(file, fileName);
 
       Map<String, dynamic> request = {
-        'imagearray': base64imageFile,
+        'link': '~/images/Multimedia/$fileName.mp4',
         'fecha': DateTime.now().toString(),
         'nroobra': _obra.nroObra,
         'observacion': '',
