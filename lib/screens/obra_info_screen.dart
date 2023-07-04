@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
-import 'dart:typed_data';
+
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:camera/camera.dart';
@@ -106,7 +106,9 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
                 child: SingleChildScrollView(
                   child: Column(
                     children: <Widget>[
-                      _showPhotosCarousel(),
+                      _obrasDocumentosFotos.isNotEmpty
+                          ? _showPhotosCarousel()
+                          : Container(),
                       _obrasDocumentosAudios.isNotEmpty
                           ? const Text('AUDIOS',
                               style: TextStyle(
@@ -983,7 +985,9 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
     _current = 0;
 
     setState(() {
-      _carouselController.jumpToPage(0);
+      if (_obrasDocumentosFotos.isNotEmpty) {
+        //_carouselController.jumpToPage(0);
+      }
     });
   }
 
@@ -1055,6 +1059,9 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
     );
 
     if (result != null) {
+      _showLoader = true;
+      setState(() {});
+
       File file = File(result.files.single.path!);
 
       var connectivityResult = await Connectivity().checkConnectivity();
@@ -1093,9 +1100,6 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
         'obra': _obra,
       };
 
-      _showLoader = true;
-      setState(() {});
-
       Response response = await ApiHelper.post(
           '/api/ObrasDocuments/ObrasDocumentMultimediaAudio', request);
 
@@ -1133,6 +1137,9 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
     );
 
     if (result != null) {
+      _showLoader = true;
+      setState(() {});
+
       File file = File(result.files.single.path!);
 
       var connectivityResult = await Connectivity().checkConnectivity();
@@ -1170,9 +1177,6 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
         'fechaHsFoto': DateTime.now().toString(),
         'obra': _obra,
       };
-
-      _showLoader = true;
-      setState(() {});
 
       Response response = await ApiHelper.post(
           '/api/ObrasDocuments/ObrasDocumentMultimediaVideo', request);
