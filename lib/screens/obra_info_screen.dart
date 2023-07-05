@@ -168,19 +168,20 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
               children: [
                 const Text("N° Obra: ",
                     style: TextStyle(
-                      fontSize: 14,
+                      fontSize: 12,
                       color: Color(0xFF781f1e),
                       fontWeight: FontWeight.bold,
                     )),
                 Expanded(
+                  flex: 3,
                   child: Text(_obra.nroObra.toString(),
                       style: const TextStyle(
-                        fontSize: 14,
+                        fontSize: 12,
                       )),
                 ),
                 const Text("Ult.Mov.: ",
                     style: TextStyle(
-                      fontSize: 14,
+                      fontSize: 12,
                       color: Color(0xFF781f1e),
                       fontWeight: FontWeight.bold,
                     )),
@@ -191,9 +192,22 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
                           DateFormat('dd/MM/yyyy').format(DateTime.parse(
                               _obra.fechaUltimoMovimiento.toString())),
                           style: const TextStyle(
-                            fontSize: 14,
+                            fontSize: 12,
                           ))
                       : Container(),
+                ),
+                const Text("Módulo: ",
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: Color(0xFF781f1e),
+                      fontWeight: FontWeight.bold,
+                    )),
+                Expanded(
+                  flex: 2,
+                  child: Text(_obra.modulo.toString(),
+                      style: const TextStyle(
+                        fontSize: 12,
+                      )),
                 ),
               ],
             ),
@@ -204,14 +218,14 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
               children: [
                 const Text("Nombre: ",
                     style: TextStyle(
-                      fontSize: 14,
+                      fontSize: 12,
                       color: Color(0xFF781f1e),
                       fontWeight: FontWeight.bold,
                     )),
                 Expanded(
                   child: Text(_obra.nombreObra,
                       style: const TextStyle(
-                        fontSize: 14,
+                        fontSize: 12,
                       )),
                 ),
               ],
@@ -223,14 +237,14 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
               children: [
                 const Text("OP/N° Fuga: ",
                     style: TextStyle(
-                      fontSize: 14,
+                      fontSize: 12,
                       color: Color(0xFF781f1e),
                       fontWeight: FontWeight.bold,
                     )),
                 Expanded(
                   child: Text(_obra.elempep,
                       style: const TextStyle(
-                        fontSize: 14,
+                        fontSize: 12,
                       )),
                 ),
                 _obra.fechaCierreElectrico == "" ||
@@ -257,7 +271,7 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
                     children: [
                       const Text("Fecha Cierre Eléctrico: ",
                           style: TextStyle(
-                            fontSize: 14,
+                            fontSize: 12,
                             color: Color(0xFF781f1e),
                             fontWeight: FontWeight.bold,
                           )),
@@ -266,7 +280,7 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
                             DateFormat('dd/MM/yyyy').format(DateTime.parse(
                                 _obra.fechaCierreElectrico.toString())),
                             style: const TextStyle(
-                              fontSize: 14,
+                              fontSize: 12,
                             )),
                       ),
                     ],
@@ -527,7 +541,7 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
                 ),
               ),
               const SizedBox(
-                width: 20,
+                width: 5,
               ),
               Expanded(
                 child: ElevatedButton(
@@ -601,28 +615,32 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
                   //     : null,
                 ),
               ),
-              const SizedBox(
-                width: 5,
-              ),
-              Expanded(
-                child: ElevatedButton(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: const [
-                      Icon(Icons.video_call),
-                      Text('Multim.'),
-                    ],
-                  ),
-                  style: ElevatedButton.styleFrom(
-                    primary: const Color.fromARGB(255, 5, 43, 80),
-                    minimumSize: const Size(double.infinity, 40),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(5),
-                    ),
-                  ),
-                  onPressed: _goAddMultimedia,
-                ),
-              ),
+              widget.user.modulo == 'Aysa' || widget.user.modulo == 'Cetaco'
+                  ? const SizedBox(
+                      width: 5,
+                    )
+                  : Container(),
+              widget.user.modulo == 'Aysa' || widget.user.modulo == 'Cetaco'
+                  ? Expanded(
+                      child: ElevatedButton(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: const [
+                            Icon(Icons.video_call),
+                            Text('Multim.'),
+                          ],
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          primary: const Color.fromARGB(255, 5, 43, 80),
+                          minimumSize: const Size(double.infinity, 40),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                        ),
+                        onPressed: _goAddMultimedia,
+                      ),
+                    )
+                  : Container(),
             ],
           ),
         ],
