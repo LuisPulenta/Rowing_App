@@ -1738,6 +1738,33 @@ class ApiHelper {
   }
 
   //---------------------------------------------------------------------------
+  static Future<Response> getTurnosNoche(int id) async {
+    var url = Uri.parse(
+        '${Constants.apiUrl}/api/Causantes/GetPresentismosTurnoNoche/$id');
+    var response = await http.post(
+      url,
+      headers: {
+        'content-type': 'application/json',
+        'accept': 'application/json',
+      },
+    );
+    var body = response.body;
+
+    if (response.statusCode >= 400) {
+      return Response(isSuccess: false, message: body);
+    }
+
+    List<CausantesPresentismoTurnoNoche> list = [];
+    var decodedJson = jsonDecode(body);
+    if (decodedJson != null) {
+      for (var item in decodedJson) {
+        list.add(CausantesPresentismoTurnoNoche.fromJson(item));
+      }
+    }
+    return Response(isSuccess: true, result: list);
+  }
+
+  //---------------------------------------------------------------------------
   static Future<Response> getCausantesEstados() async {
     var url =
         Uri.parse('${Constants.apiUrl}/api/Causantes/GetCausantesEstados');

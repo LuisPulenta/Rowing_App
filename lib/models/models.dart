@@ -5,6 +5,7 @@ export 'package:rowing_app/models/causante.dart';
 export 'package:rowing_app/models/causantes_actividad.dart';
 export 'package:rowing_app/models/causantes_estado.dart';
 export 'package:rowing_app/models/causantes_presentismo.dart';
+export 'package:rowing_app/models/causantes_presentismo_turno_noche.dart';
 export 'package:rowing_app/models/causantes_zona.dart';
 export 'package:rowing_app/models/check_list_foto.dart';
 export 'package:rowing_app/models/cliente.dart';

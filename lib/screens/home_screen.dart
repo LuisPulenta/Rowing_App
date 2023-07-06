@@ -484,38 +484,111 @@ class _HomeScreenState extends State<HomeScreen> {
                 )
               ],
             ),
+
+            // widget.user.habilitaPresentismo == 1
+            //     ? Row(
+            //         children: [
+            //           Expanded(
+            //             child: ListTile(
+            //               leading: const Icon(
+            //                 Icons.group_outlined,
+            //                 color: Colors.white,
+            //               ),
+            //               tileColor: const Color(0xff8c8c94),
+            //               title: Text('Presentismo',
+            //                   style: const TextStyle(
+            //                       fontSize: 15, color: Colors.white)),
+            //               onTap: () async {
+            //                 guardarLocalizacion();
+            //                 String? result = await Navigator.push(
+            //                   context,
+            //                   MaterialPageRoute(
+            //                     builder: (context) => PresentismoScreen(
+            //                       user: widget.user,
+            //                     ),
+            //                   ),
+            //                 );
+            //               },
+            //             ),
+            //           ),
+            //           const SizedBox(
+            //             width: 10,
+            //           )
+            //         ],
+            //       )
+            //     : Container(),
+
             widget.user.habilitaPresentismo == 1
                 ? Row(
                     children: [
                       Expanded(
-                        child: ListTile(
+                        child: ExpansionTile(
+                          collapsedIconColor: Colors.white,
+                          iconColor: Colors.white,
                           leading: const Icon(
                             Icons.group_outlined,
                             color: Colors.white,
                           ),
-                          tileColor: const Color(0xff8c8c94),
-                          title: Text('Presentismo',
-                              style: const TextStyle(
-                                  fontSize: 15, color: Colors.white)),
-                          onTap: () async {
-                            guardarLocalizacion();
-                            String? result = await Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => PresentismoScreen(
-                                  user: widget.user,
+                          title: const Text("Presentismo",
+                              style:
+                                  TextStyle(fontSize: 15, color: Colors.white)),
+                          children: <Widget>[
+                            Padding(
+                              padding: const EdgeInsets.only(left: 15.0),
+                              child: ListTile(
+                                leading: const Icon(
+                                  Icons.light_mode,
+                                  color: Colors.white,
                                 ),
+                                tileColor: const Color(0xff8c8c94),
+                                title: const Text('Presentismo Hoy',
+                                    style: TextStyle(
+                                        fontSize: 15, color: Colors.white)),
+                                onTap: () async {
+                                  guardarLocalizacion();
+                                  await Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => PresentismoScreen(
+                                        user: widget.user,
+                                      ),
+                                    ),
+                                  );
+                                },
                               ),
-                            );
-                          },
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 15.0),
+                              child: ListTile(
+                                leading: const Icon(
+                                  Icons.dark_mode,
+                                  color: Colors.white,
+                                ),
+                                tileColor: const Color(0xff8c8c94),
+                                title: const Text('Presentismo Turno Noche',
+                                    style: TextStyle(
+                                        fontSize: 15, color: Colors.white)),
+                                onTap: () async {
+                                  guardarLocalizacion();
+                                  await Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          PresentismoTurnoNocheScreen(
+                                        user: widget.user,
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                      const SizedBox(
-                        width: 10,
-                      )
                     ],
                   )
                 : Container(),
+
             widget.user.habilitaSSHH == 1
                 ? Row(
                     children: [
