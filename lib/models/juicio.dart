@@ -117,7 +117,7 @@ class Juicio {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = Map<String, dynamic>();
     data['iD_CASO'] = iDCASO;
     data['tipocaso'] = tipocaso;
     data['estado'] = estado;

@@ -694,6 +694,16 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
 //-----------------------------------------------------------------------------
 
   void _reqmat() async {
+    if (widget.user.conceptomova != 1) {
+      await showAlertDialog(
+          context: context,
+          title: 'Error',
+          message: 'Su usuario no está habilitado para agregar Requerimentos.',
+          actions: <AlertDialogAction>[
+            const AlertDialogAction(key: null, label: 'Aceptar'),
+          ]);
+      return;
+    }
     await Navigator.push(
         context,
         MaterialPageRoute(

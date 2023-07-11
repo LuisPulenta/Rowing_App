@@ -10,7 +10,9 @@ import 'package:rowing_app/screens/screens.dart';
 import '../helpers/api_helper.dart';
 
 class SeguimientoUsuarioScreen extends StatefulWidget {
-  const SeguimientoUsuarioScreen({Key? key}) : super(key: key);
+  final User user;
+  const SeguimientoUsuarioScreen({Key? key, required this.user})
+      : super(key: key);
 
   @override
   State<SeguimientoUsuarioScreen> createState() =>
@@ -23,6 +25,7 @@ class _SeguimientoUsuarioScreenState extends State<SeguimientoUsuarioScreen> {
 //---------------------------------------------------------------------
   DateTime _fecha = DateTime.now();
   List<UsuarioGeo> _usuarios = [];
+  List<UsuarioGeo> _usuariosAux = [];
   List<Punto> _puntos = [];
 
   List<LatLng> _puntosPolyline = [];
@@ -471,11 +474,19 @@ class _SeguimientoUsuarioScreenState extends State<SeguimientoUsuarioScreen> {
     }
 
     _usuario = 0;
-    _usuarios = response.result;
+    _usuariosAux = response.result;
 
-    _usuarios.forEach((usuario) {
+    _usuariosAux.forEach((usuario) {
       usuario.usuarioStr = usuario.usuarioStr.toUpperCase();
     });
+
+    if (widget.user.limitarGrupo == 0) {
+      _usuarios = _usuariosAux;
+    } else {
+      _usuariosAux.forEach((usuario) {
+        if (usuario.modulo == widget.user.modulo) _usuarios.add(usuario);
+      });
+    }
 
     _usuarios.sort((a, b) {
       return a.usuarioStr

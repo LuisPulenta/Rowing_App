@@ -27,14 +27,14 @@ class Contraparte {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['idcontraparte'] = this.idcontraparte;
-    data['apellidonombre'] = this.apellidonombre;
-    data['email'] = this.email;
-    data['telefono'] = this.telefono;
-    data['celular'] = this.celular;
-    data['domicilioestudio'] = this.domicilioestudio;
-    data['observaciones'] = this.observaciones;
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['idcontraparte'] = idcontraparte;
+    data['apellidonombre'] = apellidonombre;
+    data['email'] = email;
+    data['telefono'] = telefono;
+    data['celular'] = celular;
+    data['domicilioestudio'] = domicilioestudio;
+    data['observaciones'] = observaciones;
     return data;
   }
 }

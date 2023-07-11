@@ -836,8 +836,9 @@ class _HomeScreenState extends State<HomeScreen> {
                             await Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) =>
-                                    SeguimientoUsuarioScreen(),
+                                builder: (context) => SeguimientoUsuarioScreen(
+                                  user: widget.user,
+                                ),
                               ),
                             );
                           },

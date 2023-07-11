@@ -369,13 +369,23 @@ class _ObrasReparosScreenState extends State<ObrasReparosScreen> {
                                             color: Color(0xFF781f1e),
                                             fontWeight: FontWeight.bold,
                                           )),
-                                      Expanded(
-                                        flex: 2,
-                                        child: Text(e.modulo.toString(),
-                                            style: const TextStyle(
-                                              fontSize: 12,
-                                            )),
-                                      ),
+                                      e.modulo != null
+                                          ? Expanded(
+                                              flex: 5,
+                                              child: Text(e.modulo.toString(),
+                                                  style: const TextStyle(
+                                                    fontSize: 12,
+                                                  )),
+                                            )
+                                          : const Expanded(
+                                              flex: 5,
+                                              child: Text('SIN MODULO',
+                                                  style: TextStyle(
+                                                    color: Colors.red,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 12,
+                                                  )),
+                                            ),
                                     ],
                                   ),
                                   Row(

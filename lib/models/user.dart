@@ -27,6 +27,8 @@ class User {
   int? habilitaJuicios = 0;
   int? habilitaPresentismo = 0;
   int? habilitaSeguimientoUsuarios = 0;
+  int? conceptomova = 0;
+  int? limitarGrupo = 0;
   String? firmaUsuario = '';
   String? firmaUsuarioImageFullPath = '';
 
@@ -59,6 +61,8 @@ class User {
       required this.habilitaJuicios,
       required this.habilitaPresentismo,
       required this.habilitaSeguimientoUsuarios,
+      required this.conceptomova,
+      required this.limitarGrupo,
       required this.firmaUsuario,
       required this.firmaUsuarioImageFullPath});
 
@@ -91,6 +95,8 @@ class User {
     habilitaJuicios = json['habilitaJuicios'];
     habilitaPresentismo = json['habilitaPresentismo'];
     habilitaSeguimientoUsuarios = json['habilitaSeguimientoUsuarios'];
+    conceptomova = json['conceptomova'];
+    limitarGrupo = json['limitarGrupo'];
     firmaUsuario = json['firmaUsuario'];
     firmaUsuarioImageFullPath = json['firmaUsuarioImageFullPath'];
   }
@@ -125,6 +131,8 @@ class User {
     data['habilitaJuicios'] = habilitaJuicios;
     data['habilitaPresentismo'] = habilitaPresentismo;
     data['habilitaSeguimientoUsuarios'] = habilitaSeguimientoUsuarios;
+    data['conceptomova'] = conceptomova;
+    data['limitarGrupo'] = limitarGrupo;
     data['firmaUsuario'] = firmaUsuario;
     data['firmaUsuarioImageFullPath'] = firmaUsuarioImageFullPath;
     return data;
