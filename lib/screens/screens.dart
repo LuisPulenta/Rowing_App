@@ -40,6 +40,7 @@ export 'package:rowing_app/screens/notificaciones_screen.dart';
 export 'package:rowing_app/screens/novedadagregar_screen.dart';
 export 'package:rowing_app/screens/novedades_screen.dart';
 export 'package:rowing_app/screens/obra_info_screen.dart';
+export 'package:rowing_app/screens/obra_info_data_screen.dart';
 export 'package:rowing_app/screens/obra_suministro_agregar_screen.dart';
 export 'package:rowing_app/screens/obra_suministro_materiales_info_screen.dart';
 export 'package:rowing_app/screens/obra_suministro_materiales_screen.dart';

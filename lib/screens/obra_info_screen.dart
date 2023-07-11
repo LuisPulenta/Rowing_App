@@ -95,7 +95,8 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
     return Scaffold(
       backgroundColor: const Color(0xFF484848),
       appBar: AppBar(
-        title: const Text('Obra Info'),
+        title: Text('Obra ${widget.obra.nroObra}'),
+        centerTitle: true,
       ),
       body: Stack(
         children: [
@@ -527,11 +528,11 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: const [
                       Icon(Icons.add_a_photo),
-                      Text('Adicionar Foto'),
+                      Text('Adic. Foto'),
                     ],
                   ),
                   style: ElevatedButton.styleFrom(
-                    primary: const Color(0xFF120E43),
+                    backgroundColor: const Color(0xFF120E43),
                     minimumSize: const Size(double.infinity, 40),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(5),
@@ -549,11 +550,11 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: const [
                       Icon(Icons.delete),
-                      Text('Eliminar Foto'),
+                      Text('Elim. Foto'),
                     ],
                   ),
                   style: ElevatedButton.styleFrom(
-                    primary: const Color(0xFFB4161B),
+                    backgroundColor: const Color(0xFFB4161B),
                     minimumSize: const Size(double.infinity, 40),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(5),
@@ -562,6 +563,32 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
                   onPressed: () => _confirmDeletePhoto(),
                 ),
               ),
+              widget.user.modulo == 'Aysa' || widget.user.modulo == 'Cetaco'
+                  ? const SizedBox(
+                      width: 5,
+                    )
+                  : Container(),
+              widget.user.modulo == 'Aysa' || widget.user.modulo == 'Cetaco'
+                  ? Expanded(
+                      child: ElevatedButton(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: const [
+                            Icon(Icons.video_call),
+                            Text('Multim.'),
+                          ],
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color.fromARGB(255, 5, 43, 80),
+                          minimumSize: const Size(double.infinity, 40),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                        ),
+                        onPressed: _goAddMultimedia,
+                      ),
+                    )
+                  : Container(),
             ],
           ),
           const SizedBox(
@@ -580,7 +607,7 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
                     ],
                   ),
                   style: ElevatedButton.styleFrom(
-                    primary: const Color.fromARGB(255, 180, 38, 236),
+                    backgroundColor: const Color.fromARGB(255, 180, 38, 236),
                     minimumSize: const Size(double.infinity, 40),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(5),
@@ -602,7 +629,7 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
                     ],
                   ),
                   style: ElevatedButton.styleFrom(
-                    primary: const Color.fromARGB(255, 80, 5, 8),
+                    backgroundColor: const Color.fromARGB(255, 80, 5, 8),
                     minimumSize: const Size(double.infinity, 40),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(5),
@@ -626,18 +653,18 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: const [
-                            Icon(Icons.video_call),
-                            Text('Multim.'),
+                            Icon(Icons.info),
+                            Text('Datos'),
                           ],
                         ),
                         style: ElevatedButton.styleFrom(
-                          primary: const Color.fromARGB(255, 5, 43, 80),
+                          backgroundColor: const Color.fromARGB(255, 43, 4, 66),
                           minimumSize: const Size(double.infinity, 40),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(5),
                           ),
                         ),
-                        onPressed: _goAddMultimedia,
+                        onPressed: _goInfoData,
                       ),
                     )
                   : Container(),
@@ -724,6 +751,18 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
                   obra: _obra,
                   positionUser: widget.positionUser,
                 )));
+  }
+
+//-----------------------------------------------------------------------------
+//------------------------------ _goInfoData ----------------------------------
+//-----------------------------------------------------------------------------
+
+  void _goInfoData() async {
+    await Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) =>
+                ObraInfoDataScreen(user: widget.user, obra: _obra)));
   }
 
 //*****************************************************************************
