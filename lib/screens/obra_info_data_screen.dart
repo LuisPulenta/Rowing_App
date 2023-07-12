@@ -23,6 +23,8 @@ class _ObraInfoDataScreenState extends State<ObraInfoDataScreen> {
 //------------------------ Variables -----------------------------------
 //----------------------------------------------------------------------
   bool _showLoader = false;
+  bool _mostrarConexiones = false;
+  bool _mostrarLugares = false;
 
   String _direccion = '';
   String _direccionError = '';
@@ -75,6 +77,8 @@ class _ObraInfoDataScreenState extends State<ObraInfoDataScreen> {
   List<DropdownMenuItem<String>> _diametrosCanio = [];
   List<DropdownMenuItem<String>> _fugas = [];
 
+  List<Catalogo> _catalogos = [];
+
   Obra _obra = Obra(
       nroObra: 0,
       nombreObra: '',
@@ -123,12 +127,20 @@ class _ObraInfoDataScreenState extends State<ObraInfoDataScreen> {
     _obra.posy ??= '';
     _direccionController.text =
         _obra.direccion != null ? _obra.direccion.toString() : '';
+    _obra.textoLocalizacion ??= 'Seleccione un Motivo...';
+    _obra.textoClase ??= 'Seleccione una Conexión...';
+    _obra.textoTipo ??= 'Seleccione un Lugar...';
+    _obra.textoComponente ??= 'Seleccione un Material...';
+    _obra.codigoDiametro ??= 'Seleccione un Diámetro de Caño...';
+    _obra.motivo ??= 'Seleccione un Tipo de Fuga...';
+    _comentariosController.text =
+        _obra.planos != null ? _obra.planos.toString() : '';
 
+    _getDiametrosCanio();
     _getMotivos();
     _getConexiones();
     _getLugares();
     _getMaterialesCanio();
-    _getDiametrosCanio();
     _getFugas();
   }
 
@@ -385,8 +397,31 @@ class _ObraInfoDataScreenState extends State<ObraInfoDataScreen> {
       padding: const EdgeInsets.all(10),
       child: DropdownButtonFormField(
           items: _motivos,
-          value: _motivo,
-          onChanged: (option) {
+          value: _obra.textoLocalizacion,
+          onChanged: (value) {
+            if (value == 'Seleccione un Motivo...') {
+              _mostrarConexiones = false;
+              _mostrarLugares = false;
+              _obra.textoClase = 'Seleccione una Conexión...';
+              _obra.textoTipo = 'Seleccione un Lugar...';
+            }
+
+            if (value == 'Fuga' || value == 'Sospechoso') {
+              _mostrarConexiones = true;
+              _mostrarLugares = false;
+              _obra.textoClase = 'Seleccione una Conexión...';
+              _obra.textoTipo = 'Seleccione un Lugar...';
+            }
+
+            if (value == 'Silencioso' || value == 'No verificable') {
+              _mostrarConexiones = false;
+              _mostrarLugares = false;
+              _obra.textoClase = 'Sin Datos';
+              _obra.textoTipo = 'Sin Datos';
+            }
+
+            _obra.textoLocalizacion = value as String;
+
             setState(() {});
           },
           decoration: InputDecoration(
@@ -409,10 +444,15 @@ class _ObraInfoDataScreenState extends State<ObraInfoDataScreen> {
       padding: const EdgeInsets.all(10),
       child: DropdownButtonFormField(
           items: _conexiones,
-          value: _conexion,
-          onChanged: (option) {
-            setState(() {});
-          },
+          value: _obra.textoClase,
+          onChanged: _mostrarConexiones
+              ? (value) {
+                  _mostrarLugares = value != 'Seleccione una Conexión...';
+                  _obra.textoClase = value as String;
+                  _obra.textoTipo = 'Seleccione un Lugar...';
+                  setState(() {});
+                }
+              : null,
           decoration: InputDecoration(
             hintText: 'Seleccione una Conexión...',
             labelText: 'Conexión',
@@ -432,11 +472,14 @@ class _ObraInfoDataScreenState extends State<ObraInfoDataScreen> {
     return Container(
       padding: const EdgeInsets.all(10),
       child: DropdownButtonFormField(
-          items: _lugares,
-          value: _lugar,
-          onChanged: (option) {
-            setState(() {});
-          },
+          items: _getComboLugares(_obra.textoClase.toString()),
+          value: _obra.textoTipo,
+          onChanged: _mostrarLugares
+              ? (value) {
+                  _obra.textoTipo = value as String;
+                  setState(() {});
+                }
+              : null,
           decoration: InputDecoration(
             hintText: 'Seleccione un Lugar...',
             labelText: 'Lugar',
@@ -462,6 +505,7 @@ class _ObraInfoDataScreenState extends State<ObraInfoDataScreen> {
     _motivoOptions.add(opt3);
     _motivoOptions.add(opt4);
     _getComboMotivos();
+    setState(() {});
   }
 
 //----------------------------------------------------------------------
@@ -539,18 +583,38 @@ class _ObraInfoDataScreenState extends State<ObraInfoDataScreen> {
     Option opt2 = Option(id: 2, description: 'Válvula');
     Option opt3 = Option(id: 3, description: 'Hidrante');
     Option opt4 = Option(id: 4, description: 'Conex. Arranques');
+
+    Option opt11 = Option(id: 11, description: 'Tramo de conexión');
+    Option opt12 = Option(id: 12, description: 'Llave de paso');
+    Option opt13 = Option(id: 13, description: 'Medidor');
+    Option opt14 = Option(id: 14, description: 'Zincha/Torre');
+
+    Option opt21 = Option(id: 21, description: 'Clandestina');
+    Option opt22 = Option(id: 22, description: 'Fuga interna');
+    Option opt23 = Option(id: 23, description: 'Conexión cruzada');
+    Option opt24 = Option(id: 24, description: 'Parques Plazas');
+
+    Option opt30 = Option(id: 30, description: 'Sin Datos');
     _lugarOptions.add(opt1);
     _lugarOptions.add(opt2);
     _lugarOptions.add(opt3);
     _lugarOptions.add(opt4);
-    _getComboLugares();
+    _lugarOptions.add(opt11);
+    _lugarOptions.add(opt12);
+    _lugarOptions.add(opt13);
+    _lugarOptions.add(opt14);
+    _lugarOptions.add(opt21);
+    _lugarOptions.add(opt22);
+    _lugarOptions.add(opt23);
+    _lugarOptions.add(opt24);
+    _lugarOptions.add(opt30);
   }
 
 //----------------------------------------------------------------------
 //------------------------ _getComboLugares ----------------------------
 //----------------------------------------------------------------------
 
-  List<DropdownMenuItem<String>> _getComboLugares() {
+  List<DropdownMenuItem<String>> _getComboLugares(String conexion) {
     _lugares = [];
 
     List<DropdownMenuItem<String>> listLugares = [];
@@ -560,10 +624,38 @@ class _ObraInfoDataScreenState extends State<ObraInfoDataScreen> {
     ));
 
     for (var _listoption in _lugarOptions) {
-      listLugares.add(DropdownMenuItem(
-        child: Text(_listoption.description),
-        value: _listoption.description,
-      ));
+      if (conexion == 'Principal') {
+        if (_listoption.id < 10) {
+          listLugares.add(DropdownMenuItem(
+            child: Text(_listoption.description),
+            value: _listoption.description,
+          ));
+        }
+      }
+
+      if (conexion == 'Servicio') {
+        if (_listoption.id > 10 && _listoption.id < 20) {
+          listLugares.add(DropdownMenuItem(
+            child: Text(_listoption.description),
+            value: _listoption.description,
+          ));
+        }
+      }
+
+      if (conexion == 'Privada') {
+        if (_listoption.id > 20 && _listoption.id < 30) {
+          listLugares.add(DropdownMenuItem(
+            child: Text(_listoption.description),
+            value: _listoption.description,
+          ));
+        }
+      }
+      if (_listoption.id == 30) {
+        listLugares.add(DropdownMenuItem(
+          child: Text(_listoption.description),
+          value: _listoption.description,
+        ));
+      }
     }
 
     _lugares = listLugares;
@@ -580,8 +672,9 @@ class _ObraInfoDataScreenState extends State<ObraInfoDataScreen> {
       padding: const EdgeInsets.all(10),
       child: DropdownButtonFormField(
           items: _materialesCanio,
-          value: _materialCanio,
-          onChanged: (option) {
+          value: _obra.textoComponente,
+          onChanged: (value) {
+            _obra.textoComponente = value as String;
             setState(() {});
           },
           decoration: InputDecoration(
@@ -644,9 +737,10 @@ class _ObraInfoDataScreenState extends State<ObraInfoDataScreen> {
     return Container(
       padding: const EdgeInsets.all(10),
       child: DropdownButtonFormField(
-          items: _diametrosCanio,
-          value: _diametroCanio,
-          onChanged: (option) {
+          items: _getComboDiametroCanios(),
+          value: _obra.codigoDiametro,
+          onChanged: (value) {
+            _obra.codigoDiametro = value as String;
             setState(() {});
           },
           decoration: InputDecoration(
@@ -660,45 +754,68 @@ class _ObraInfoDataScreenState extends State<ObraInfoDataScreen> {
     );
   }
 
-//----------------------------------------------------------------------
-//------------------------ _getDiametrosCanio --------------------------
-//----------------------------------------------------------------------
+//---------------------------------------------------------------------
+//-------------------------- _getDiametrosCanio -----------------------
+//---------------------------------------------------------------------
 
-  void _getDiametrosCanio() {
-    Option opt1 = Option(id: 1, description: 'Hierro Fundido');
-    Option opt2 = Option(id: 2, description: 'Asbesto cemento');
-    Option opt3 = Option(id: 3, description: 'Poliet./PVC');
-    Option opt4 = Option(id: 4, description: 'Plomo');
-    Option opt5 = Option(id: 4, description: 'Sin Datos');
-    _diametroCanioOptions.add(opt1);
-    _diametroCanioOptions.add(opt2);
-    _diametroCanioOptions.add(opt3);
-    _diametroCanioOptions.add(opt4);
-    _diametroCanioOptions.add(opt5);
-    _getComboDiametroCanios();
+  Future<void> _getDiametrosCanio() async {
+    var connectivityResult = await Connectivity().checkConnectivity();
+
+    if (connectivityResult == ConnectivityResult.none) {
+      await showAlertDialog(
+          context: context,
+          title: 'Error',
+          message: 'Verifica que estés conectado a Internet',
+          actions: <AlertDialogAction>[
+            const AlertDialogAction(key: null, label: 'Aceptar'),
+          ]);
+      return;
+    }
+
+    Response response = Response(isSuccess: false);
+
+    response = await ApiHelper.GetCatalogosAysa();
+
+    if (!response.isSuccess) {
+      await showAlertDialog(
+          context: context,
+          title: 'Error',
+          message: response.message,
+          actions: <AlertDialogAction>[
+            const AlertDialogAction(key: null, label: 'Aceptar'),
+          ]);
+      return;
+    }
+
+    _catalogos = response.result;
+    _catalogos.sort((a, b) {
+      return a.catCatalogo
+          .toString()
+          .toLowerCase()
+          .compareTo(b.catCatalogo.toString().toLowerCase());
+    });
+
+    setState(() {});
   }
 
-//----------------------------------------------------------------------
-//------------------------ _getComboDiametroCanios ---------------------
-//----------------------------------------------------------------------
-
+//---------------------------------------------------------------------
+//-------------------------- _getComboDiametroCanios ----------------------------
+//---------------------------------------------------------------------
   List<DropdownMenuItem<String>> _getComboDiametroCanios() {
-    List<DropdownMenuItem<String>> listDiametrosCanios = [];
-    listDiametrosCanios.add(const DropdownMenuItem(
+    List<DropdownMenuItem<String>> listCatalogos = [];
+    listCatalogos.add(const DropdownMenuItem(
       child: Text('Seleccione un Diámetro de Caño...'),
       value: 'Seleccione un Diámetro de Caño...',
     ));
 
-    for (var _listoption in _diametroCanioOptions) {
-      listDiametrosCanios.add(DropdownMenuItem(
-        child: Text(_listoption.description),
-        value: _listoption.description,
+    for (var catalogo in _catalogos) {
+      listCatalogos.add(DropdownMenuItem(
+        child: Text(catalogo.catCatalogo.toString()),
+        value: catalogo.catCodigo,
       ));
     }
 
-    _diametrosCanio = listDiametrosCanios;
-
-    return listDiametrosCanios;
+    return listCatalogos;
   }
 
 //-------------------------------------------------------------------------
@@ -710,8 +827,9 @@ class _ObraInfoDataScreenState extends State<ObraInfoDataScreen> {
       padding: const EdgeInsets.all(10),
       child: DropdownButtonFormField(
           items: _fugas,
-          value: _fuga,
-          onChanged: (option) {
+          value: _obra.motivo,
+          onChanged: (value) {
+            _obra.motivo = value as String;
             setState(() {});
           },
           decoration: InputDecoration(
@@ -845,7 +963,18 @@ class _ObraInfoDataScreenState extends State<ObraInfoDataScreen> {
   bool validateFields() {
     bool isValid = true;
 
-    if (_motivo == 'Elija un Motivo...') {
+    if (_obra.posx == '' || _obra.posy == '' || _obra.direccion == '') {
+      showAlertDialog(
+          context: context,
+          title: 'Error',
+          message: 'Debe cargar la dirección geolocalizada.',
+          actions: <AlertDialogAction>[
+            const AlertDialogAction(key: null, label: 'Aceptar'),
+          ]);
+      isValid = false;
+    }
+
+    if (_obra.textoLocalizacion == 'Seleccione un Motivo...') {
       isValid = false;
       _motivoShowError = true;
       _motivoError = 'Debe elegir un Motivo';
@@ -854,6 +983,65 @@ class _ObraInfoDataScreenState extends State<ObraInfoDataScreen> {
       return isValid;
     } else {
       _motivoShowError = false;
+    }
+
+    if ((_obra.textoLocalizacion == 'Fuga' ||
+            _obra.textoLocalizacion == 'Sospechoso') &&
+        _obra.textoClase == 'Seleccione una Conexión...') {
+      isValid = false;
+      _conexionShowError = true;
+      _conexionError = 'Debe elegir una Conexión';
+
+      setState(() {});
+      return isValid;
+    } else {
+      _conexionShowError = false;
+    }
+
+    if (_obra.textoClase != 'Seleccione una Conexión...' &&
+        _obra.textoClase != 'Sin Datos' &&
+        _obra.textoTipo == 'Seleccione un Lugar...') {
+      isValid = false;
+      _lugarShowError = true;
+      _lugarError = 'Debe elegir un Lugar';
+
+      setState(() {});
+      return isValid;
+    } else {
+      _lugarShowError = false;
+    }
+
+    if (_obra.textoComponente == 'Seleccione un Material...') {
+      isValid = false;
+      _materialCanioShowError = true;
+      _materialCanioError = 'Debe elegir un Material';
+
+      setState(() {});
+      return isValid;
+    } else {
+      _materialCanioShowError = false;
+    }
+
+    if (_obra.codigoDiametro == 'Seleccione un Diámetro de Caño...') {
+      isValid = false;
+      _diametroCanioShowError = true;
+      _diametroCanioError = 'Debe elegir un Diámetro de Caño';
+
+      setState(() {});
+      return isValid;
+    } else {
+      _diametroCanioShowError = false;
+    }
+
+    if (_obra.motivo == 'Seleccione un Tipo de Fuga...') {
+      isValid = false;
+      _fugaShowError = true;
+      _fugaError = 'Debe elegir un Tipo de Fuga';
+
+      setState(() {});
+      return isValid;
+    } else {
+      _fugaShowError = false;
     }
 
     setState(() {});
