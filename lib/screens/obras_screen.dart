@@ -51,7 +51,17 @@ class _ObrasScreenState extends State<ObrasScreen> {
       fechaUltimoMovimiento: '',
       photos: 0,
       audios: 0,
-      videos: 0);
+      videos: 0,
+      posx: '',
+      posy: '',
+      direccion: '',
+      textoLocalizacion: '',
+      textoClase: '',
+      textoTipo: '',
+      textoComponente: '',
+      codigoDiametro: '',
+      motivo: '',
+      planos: '');
 
   Obra _obraSeleccionada = Obra(
       nroObra: 0,
@@ -68,7 +78,17 @@ class _ObrasScreenState extends State<ObrasScreen> {
       fechaUltimoMovimiento: '',
       photos: 0,
       audios: 0,
-      videos: 0);
+      videos: 0,
+      posx: '',
+      posy: '',
+      direccion: '',
+      textoLocalizacion: '',
+      textoClase: '',
+      textoTipo: '',
+      textoComponente: '',
+      codigoDiametro: '',
+      motivo: '',
+      planos: '');
 
   List<ObrasReparo> _obrasReparosTodas = [];
 

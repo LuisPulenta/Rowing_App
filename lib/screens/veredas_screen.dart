@@ -42,7 +42,17 @@ class _VeredasScreenState extends State<VeredasScreen> {
       fechaUltimoMovimiento: '',
       photos: 0,
       audios: 0,
-      videos: 0);
+      videos: 0,
+      posx: '',
+      posy: '',
+      direccion: '',
+      textoLocalizacion: '',
+      textoClase: '',
+      textoTipo: '',
+      textoComponente: '',
+      codigoDiametro: '',
+      motivo: '',
+      planos: '');
 
   ObrasReparo obrasReparoSelected = ObrasReparo(
       nroregistro: 0,

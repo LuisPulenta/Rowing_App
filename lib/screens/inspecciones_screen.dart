@@ -93,7 +93,17 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
       fechaUltimoMovimiento: '',
       photos: 0,
       audios: 0,
-      videos: 0);
+      videos: 0,
+      posx: '',
+      posy: '',
+      direccion: '',
+      textoLocalizacion: '',
+      textoClase: '',
+      textoTipo: '',
+      textoComponente: '',
+      codigoDiametro: '',
+      motivo: '',
+      planos: '');
 
 //*****************************************************************************
 //************************** INIT STATE ***************************************

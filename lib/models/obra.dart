@@ -16,6 +16,16 @@ class Obra {
   int photos = 0;
   int audios = 0;
   int videos = 0;
+  String? posx = '';
+  String? posy = '';
+  String? direccion = '';
+  String? textoLocalizacion = '';
+  String? textoClase = '';
+  String? textoTipo = '';
+  String? textoComponente = '';
+  String? codigoDiametro = '';
+  String? motivo = '';
+  String? planos = '';
 
   Obra(
       {required this.nroObra,
@@ -32,7 +42,17 @@ class Obra {
       required this.fechaUltimoMovimiento,
       required this.photos,
       required this.audios,
-      required this.videos});
+      required this.videos,
+      required this.posx,
+      required this.posy,
+      required this.direccion,
+      required this.textoLocalizacion,
+      required this.textoClase,
+      required this.textoTipo,
+      required this.textoComponente,
+      required this.codigoDiametro,
+      required this.motivo,
+      required this.planos});
 
   Obra.fromJson(Map<String, dynamic> json) {
     nroObra = json['nroObra'];
@@ -55,6 +75,16 @@ class Obra {
     photos = json['photos'];
     audios = json['audios'];
     videos = json['videos'];
+    posx = json['posx'];
+    posy = json['posy'];
+    direccion = json['direccion'];
+    textoLocalizacion = json['textoLocalizacion'];
+    textoClase = json['textoClase'];
+    textoTipo = json['textoTipo'];
+    textoComponente = json['textoComponente'];
+    codigoDiametro = json['codigoDiametro'];
+    motivo = json['motivo'];
+    planos = json['planos'];
   }
 
   Map<String, dynamic> toJson() {
@@ -74,6 +104,16 @@ class Obra {
     data['photos'] = photos;
     data['audios'] = audios;
     data['videos'] = videos;
+    data['posx'] = posx;
+    data['posy'] = posy;
+    data['direccion'] = direccion;
+    data['textoLocalizacion'] = textoLocalizacion;
+    data['textoClase'] = textoClase;
+    data['textoTipo'] = textoTipo;
+    data['textoComponente'] = textoComponente;
+    data['codigoDiametro'] = codigoDiametro;
+    data['motivo'] = motivo;
+    data['planos'] = planos;
     return data;
   }
 }

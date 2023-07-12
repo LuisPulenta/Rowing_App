@@ -67,7 +67,17 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
       fechaUltimoMovimiento: '',
       photos: 0,
       audios: 0,
-      videos: 0);
+      videos: 0,
+      posx: '',
+      posy: '',
+      direccion: '',
+      textoLocalizacion: '',
+      textoClase: '',
+      textoTipo: '',
+      textoComponente: '',
+      codigoDiametro: '',
+      motivo: '',
+      planos: '');
 
   List<ObrasDocumento> _obrasDocumentos = [];
   List<ObrasDocumento> _obrasDocumentosFotos = [];

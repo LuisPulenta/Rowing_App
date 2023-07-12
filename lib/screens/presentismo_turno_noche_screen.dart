@@ -327,7 +327,7 @@ class _PresentismoTurnoNocheScreenState
               _actividadController.text =
                   e.actividad != null ? e.actividad! : '';
 
-              _estadoController.text = e.estado != null ? e.estado! : '';
+              _estadoController.text = e.estado;
 
               _zonaController.text =
                   e.zonatrabajo != null ? e.zonatrabajo! : '';
@@ -522,10 +522,7 @@ class _PresentismoTurnoNocheScreenState
                                                   ),
                                                   SizedBox(
                                                     width: ancho * 0.13,
-                                                    child: Text(
-                                                        e.estado != null
-                                                            ? e.estado!
-                                                            : '',
+                                                    child: Text(e.estado,
                                                         style: const TextStyle(
                                                           fontSize: 10,
                                                         )),
