@@ -64,6 +64,7 @@ class _ResetearPasswordsScreenState extends State<ResetearPasswordsScreen> {
       habilitaSeguimientoUsuarios: 0,
       conceptomova: 0,
       limitarGrupo: 0,
+      rubro: 0,
       firmaUsuario: '',
       firmaUsuarioImageFullPath: '');
 

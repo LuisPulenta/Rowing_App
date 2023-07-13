@@ -62,6 +62,7 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
       habilitaSeguimientoUsuarios: 0,
       conceptomova: 0,
       limitarGrupo: 0,
+      rubro: 0,
       firmaUsuario: '',
       firmaUsuarioImageFullPath: '');
 

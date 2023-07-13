@@ -136,12 +136,8 @@ class _ObraInfoDataScreenState extends State<ObraInfoDataScreen> {
     _comentariosController.text =
         _obra.planos != null ? _obra.planos.toString() : '';
 
-    _getDiametrosCanio();
-    _getMotivos();
-    _getConexiones();
-    _getLugares();
-    _getMaterialesCanio();
-    _getFugas();
+    _loadData();
+    setState(() {});
   }
 
 //----------------------------------------------------------------------
@@ -174,7 +170,17 @@ class _ObraInfoDataScreenState extends State<ObraInfoDataScreen> {
                   color: Color(0xFF781f1e),
                 ),
                 _showMaterialCanio(),
-                _showDiametroCanio(),
+                _catalogos.isEmpty
+                    ? Row(
+                        children: const [
+                          CircularProgressIndicator(),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Text('Cargando Catálogos...'),
+                        ],
+                      )
+                    : _showDiametroCanio(),
                 const Divider(
                   color: Color(0xFF781f1e),
                 ),
@@ -495,7 +501,8 @@ class _ObraInfoDataScreenState extends State<ObraInfoDataScreen> {
 //------------------------ _getMotivos ---------------------------------
 //----------------------------------------------------------------------
 
-  void _getMotivos() {
+  void _getMotivos() async {
+    await _getDiametrosCanio();
     Option opt1 = Option(id: 1, description: 'Fuga');
     Option opt2 = Option(id: 2, description: 'Sospechoso');
     Option opt3 = Option(id: 3, description: 'Silencioso');
@@ -505,6 +512,7 @@ class _ObraInfoDataScreenState extends State<ObraInfoDataScreen> {
     _motivoOptions.add(opt3);
     _motivoOptions.add(opt4);
     _getComboMotivos();
+
     setState(() {});
   }
 
@@ -737,7 +745,7 @@ class _ObraInfoDataScreenState extends State<ObraInfoDataScreen> {
     return Container(
       padding: const EdgeInsets.all(10),
       child: DropdownButtonFormField(
-          items: _getComboDiametroCanios(),
+          items: _diametrosCanio,
           value: _obra.codigoDiametro,
           onChanged: (value) {
             _obra.codigoDiametro = value as String;
@@ -794,6 +802,8 @@ class _ObraInfoDataScreenState extends State<ObraInfoDataScreen> {
           .toLowerCase()
           .compareTo(b.catCatalogo.toString().toLowerCase());
     });
+
+    _diametrosCanio = _getComboDiametroCanios();
 
     setState(() {});
   }
@@ -902,8 +912,9 @@ class _ObraInfoDataScreenState extends State<ObraInfoDataScreen> {
             errorText: _comentariosShowError ? _comentariosError : null,
             border:
                 OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
-        onChanged: (value) {},
-        //enabled: _enabled,
+        onChanged: (value) {
+          _obra.planos = value as String;
+        },
       ),
     );
   }
@@ -948,7 +959,18 @@ class _ObraInfoDataScreenState extends State<ObraInfoDataScreen> {
 //--------------------- _save -------------------------------------
 //-----------------------------------------------------------------
 
-  _save() {
+  _save() async {
+    if (widget.user.rubro != 1) {
+      await showAlertDialog(
+          context: context,
+          title: 'Error',
+          message: 'Su usuario no está habilitado para guardar Datos de Obra.',
+          actions: <AlertDialogAction>[
+            const AlertDialogAction(key: null, label: 'Aceptar'),
+          ]);
+      return;
+    }
+
     if (!validateFields()) {
       setState(() {});
       return;
@@ -1044,6 +1066,13 @@ class _ObraInfoDataScreenState extends State<ObraInfoDataScreen> {
       _fugaShowError = false;
     }
 
+    if (_obra.planos!.isNotEmpty && _obra.planos!.length > 200) {
+      isValid = false;
+      _comentariosShowError = true;
+      _comentariosError =
+          'La cantidad máxima de caracteres es de 200. Ha puesto ${_obra.planos!.length}';
+    }
+
     setState(() {});
 
     return isValid;
@@ -1075,12 +1104,25 @@ class _ObraInfoDataScreenState extends State<ObraInfoDataScreen> {
     }
 
     Map<String, dynamic> request = {
-      'grupo': '',
-      'causante': '',
+      'NroObra': widget.obra.nroObra,
+      'POSX': _obra.posx,
+      'POSY': _obra.posy,
+      'Direccion': _obra.direccion,
+      'TextoLocalizacion': _obra.textoLocalizacion,
+      'TextoClase': _obra.textoClase,
+      'TextoTipo': _obra.textoTipo,
+      'TextoComponente': _obra.textoComponente,
+      'CodigoDiametro': _obra.codigoDiametro,
+      'Motivo': _obra.motivo,
+      'Planos': _obra.planos,
     };
 
     Response response = await ApiHelper.put(
-        '/api/CausantesNovedades/PostNovedades', '1', request);
+        '/api/Obras/PutDatosObra/', widget.obra.nroObra.toString(), request);
+
+    if (response.isSuccess) {
+      _showSnackbar("Datos de Obra grabados con éxito");
+    }
 
     setState(() {
       _showLoader = false;
@@ -1097,5 +1139,32 @@ class _ObraInfoDataScreenState extends State<ObraInfoDataScreen> {
       return;
     }
     Navigator.pop(context, 'yes');
+  }
+
+//-----------------------------------------------------------------
+//--------------------- _loadData --------------------------------
+//-----------------------------------------------------------------
+
+  void _loadData() async {
+    _getMotivos();
+    _getConexiones();
+    _getLugares();
+    _getMaterialesCanio();
+    _getFugas();
+    await _getDiametrosCanio();
+  }
+
+  //-------------------------------------------------------------
+//-------------------- _showSnackbar --------------------------
+//-------------------------------------------------------------
+
+  void _showSnackbar(String text) {
+    SnackBar snackbar = SnackBar(
+      content: Text(text),
+      backgroundColor: Colors.lightGreen,
+      //duration: Duration(seconds: 3),
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackbar);
+    //ScaffoldMessenger.of(context).hideCurrentSnackBar();
   }
 }

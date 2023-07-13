@@ -120,6 +120,7 @@ class _GruasCheckListScreenState extends State<GruasCheckListScreen> {
       habilitaSeguimientoUsuarios: 0,
       conceptomova: 0,
       limitarGrupo: 0,
+      rubro: 0,
       firmaUsuario: '',
       firmaUsuarioImageFullPath: '');
 
