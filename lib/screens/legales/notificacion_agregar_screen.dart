@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
-
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:camera/camera.dart';
 import 'package:connectivity/connectivity.dart';
@@ -45,7 +44,8 @@ class _NotificacionAgregarScreenState extends State<NotificacionAgregarScreen> {
   String _observaciones = '';
   String _observacionesError = '';
   bool _observacionesShowError = false;
-  final TextEditingController _observacionesController = TextEditingController();
+  final TextEditingController _observacionesController =
+      TextEditingController();
 
   String _monto = '';
   final String _montoError = '';
@@ -59,7 +59,8 @@ class _NotificacionAgregarScreenState extends State<NotificacionAgregarScreen> {
   String _condicionPago = '';
   String _condicionPagoError = '';
   bool _condicionPagoShowError = false;
-  final TextEditingController _condicionPagoController = TextEditingController();
+  final TextEditingController _condicionPagoController =
+      TextEditingController();
 
   String _moneda = 'ARG';
 
@@ -76,7 +77,8 @@ class _NotificacionAgregarScreenState extends State<NotificacionAgregarScreen> {
   String _participantes = '';
   String _participantesError = '';
   bool _participantesShowError = false;
-  final TextEditingController _participantesController = TextEditingController();
+  final TextEditingController _participantesController =
+      TextEditingController();
 
   DateTime? _fechaNotificacionOferta;
   DateTime? _fechaVencimientoOferta;

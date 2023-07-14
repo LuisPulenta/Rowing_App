@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:camera/camera.dart';
 import 'package:connectivity/connectivity.dart';
@@ -33,7 +32,8 @@ class _VeredaAgregarScreenState extends State<VeredaAgregarScreen> {
   String _observaciones = '';
   final String _observacionesError = '';
   final bool _observacionesShowError = false;
-  final TextEditingController _observacionesController = TextEditingController();
+  final TextEditingController _observacionesController =
+      TextEditingController();
 
   int _clase = 0;
   String _claseError = '';

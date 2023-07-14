@@ -4,10 +4,9 @@ import 'package:custom_info_window/custom_info_window.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:intl/intl.dart';
+import 'package:rowing_app/helpers/helpers.dart';
 import 'package:rowing_app/models/models.dart';
 import 'package:rowing_app/screens/screens.dart';
-
-import '../helpers/api_helper.dart';
 
 class SeguimientoUsuarioScreen extends StatefulWidget {
   final User user;

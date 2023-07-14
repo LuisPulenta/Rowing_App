@@ -1,23 +1,22 @@
-// ignore_for_file: prefer_collection_literals
-
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:rowing_app/components/loader_component.dart';
 import 'package:rowing_app/helpers/api_helper.dart';
 import 'package:rowing_app/models/models.dart';
+import 'package:rowing_app/screens/screens.dart';
 
-class ReqEppScreen extends StatefulWidget {
+class ReqAppScreen extends StatefulWidget {
   final User user;
-  final Causante causante;
-  const ReqEppScreen({Key? key, required this.user, required this.causante})
+  final Obra obra;
+  const ReqAppScreen({Key? key, required this.user, required this.obra})
       : super(key: key);
 
   @override
-  _ReqEppScreenState createState() => _ReqEppScreenState();
+  _ReqAppScreenState createState() => _ReqAppScreenState();
 }
 
-class _ReqEppScreenState extends State<ReqEppScreen> {
+class _ReqAppScreenState extends State<ReqAppScreen> {
 //*****************************************************************************
 //************************** DEFINICION DE VARIABLES **************************
 //*****************************************************************************
@@ -25,20 +24,27 @@ class _ReqEppScreenState extends State<ReqEppScreen> {
   bool _showLoader = false;
   List<Catalogo> _catalogos = [];
   List<Catalogo> _catalogos2 = [];
-  final List<Option2> _listoptions = [];
-  final List<DropdownMenuItem<String>> _items = [];
+  List<Option2> _listoptions = [];
+  List<DropdownMenuItem<String>> _items = [];
   bool _todas = false;
-  List<Obra> _obras = [];
-  String _obra = 'Seleccione una Obra...';
-  String _obraError = '';
-  bool _obraShowError = false;
   int _nroReg = 0;
+
   String _cantidad = '';
+
   final String _cantidadError = '';
   final bool _cantidadShowError = false;
   final TextEditingController _cantidadController = TextEditingController();
 
   List<TextEditingController> controllers = [];
+
+  final String _optionObra = 'Seleccione un Proyecto Módulo...';
+  final String _obra = '';
+  final String _optionObraError = '';
+  final bool _optionObraShowError = false;
+  final TextEditingController _optionObraController = TextEditingController();
+
+  late Causante _causante;
+  late Subcontratista _subcontratista;
 
 //*****************************************************************************
 //************************** INIT STATE ***************************************
@@ -48,6 +54,40 @@ class _ReqEppScreenState extends State<ReqEppScreen> {
   void initState() {
     super.initState();
     _loadData();
+    _causante = Causante(
+        nroCausante: 0,
+        codigo: '',
+        nombre: '',
+        encargado: '',
+        telefono: '',
+        grupo: '',
+        nroSAP: '',
+        estado: false,
+        razonSocial: '',
+        linkFoto: '',
+        image: null,
+        imageFullPath: '',
+        direccion: '',
+        numero: 0,
+        telefonoContacto1: '',
+        telefonoContacto2: '',
+        telefonoContacto3: '',
+        fecha: '',
+        notasCausantes: '',
+        ciudad: '',
+        provincia: '',
+        codigoSupervisorObras: 0,
+        zonaTrabajo: '',
+        nombreActividad: '',
+        notas: '',
+        presentismo: '',
+        perteneceCuadrilla: '');
+
+    _subcontratista = Subcontratista(
+      subCodigo: '',
+      subSubcontratista: '',
+      modulo: '',
+    );
   }
 
 //*****************************************************************************
@@ -57,9 +97,9 @@ class _ReqEppScreenState extends State<ReqEppScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 231, 218, 218),
+      backgroundColor: const Color(0xFF484848),
       appBar: AppBar(
-        title: const Text('Req. de EPP'),
+        title: const Text('Req. de Materiales'),
         centerTitle: true,
         actions: [
           Row(
@@ -105,29 +145,23 @@ class _ReqEppScreenState extends State<ReqEppScreen> {
         const SizedBox(
           height: 10,
         ),
-        _showObras(),
-        const SizedBox(
-          height: 15,
-        ),
+        _showPersona(),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: const [
             Text(
               "Material         ",
-              style: TextStyle(color: Colors.black),
+              style: TextStyle(color: Colors.white),
             ),
             Text(
               "   ",
-              style: TextStyle(color: Colors.black),
+              style: TextStyle(color: Colors.white),
             ),
             Text(
               "Cantidad                 ",
-              style: TextStyle(color: Colors.black),
+              style: TextStyle(color: Colors.white),
             ),
           ],
-        ),
-        const SizedBox(
-          height: 5,
         ),
         Expanded(
           child: _getListView(),
@@ -138,67 +172,6 @@ class _ReqEppScreenState extends State<ReqEppScreen> {
         ),
       ],
     );
-  }
-
-//-----------------------------------------------------------------
-//--------------------- METODO _showObras --------------------
-//-----------------------------------------------------------------
-
-  Widget _showObras() {
-    return Row(
-      children: [
-        Expanded(
-          child: Container(
-            padding: const EdgeInsets.only(left: 10, right: 10, top: 5),
-            child: _obras.isEmpty
-                ? Row(
-                    children: const [
-                      CircularProgressIndicator(),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Text('Cargando Obras...'),
-                    ],
-                  )
-                : DropdownButtonFormField(
-                    value: _obra,
-                    isExpanded: true,
-                    isDense: true,
-                    decoration: InputDecoration(
-                      fillColor: Colors.white,
-                      filled: true,
-                      hintText: 'Seleccione una Obra...',
-                      labelText: 'Obra',
-                      errorText: _obraShowError ? _obraError : null,
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10)),
-                    ),
-                    items: _getComboObras(),
-                    onChanged: (value) {
-                      _obra = value.toString();
-                    },
-                  ),
-          ),
-        ),
-      ],
-    );
-  }
-
-  List<DropdownMenuItem<String>> _getComboObras() {
-    List<DropdownMenuItem<String>> list = [];
-    list.add(const DropdownMenuItem(
-      child: Text('Seleccione una Obra...'),
-      value: 'Seleccione una Obra...',
-    ));
-
-    for (var obra in _obras) {
-      list.add(DropdownMenuItem(
-        child: Text(obra.nombreObra.toString()),
-        value: obra.nroObra.toString(),
-      ));
-    }
-
-    return list;
   }
 
 //-----------------------------------------------------------------
@@ -464,7 +437,7 @@ class _ReqEppScreenState extends State<ReqEppScreen> {
       catalogo.cantidad = 0;
     }
     _catalogos2 = _catalogos;
-    _getObras();
+    _getlistOptions();
   }
 
 //*****************************************************************************
@@ -494,7 +467,7 @@ class _ReqEppScreenState extends State<ReqEppScreen> {
 
     Response response = Response(isSuccess: false);
 
-    response = await ApiHelper.getCatalogosEPP(widget.user.modulo);
+    response = await ApiHelper.getCatalogosAPP(widget.user.modulo);
 
     setState(() {
       _showLoader = false;
@@ -517,28 +490,50 @@ class _ReqEppScreenState extends State<ReqEppScreen> {
   }
 
 //*****************************************************************************
-//************************** METODO _getObras *********************************
+//************************** METODO _getlistOptions ******************************
 //*****************************************************************************
 
-  Future<void> _getObras() async {
-    var connectivityResult = await Connectivity().checkConnectivity();
+  void _getlistOptions() {
+    _items = [];
+    _listoptions = [];
 
-    if (connectivityResult == ConnectivityResult.none) {
-      await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: 'Verifica que estés conectado a Internet',
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
-      return;
+    Option2 opt1 = Option2(id: 'Cónyuge', description: 'Cónyuge');
+    Option2 opt2 = Option2(id: 'Padre', description: 'Padre');
+    Option2 opt3 = Option2(id: 'Madre', description: 'Madre');
+    Option2 opt4 = Option2(id: 'Hermano/a', description: 'Hermano/a');
+    Option2 opt5 = Option2(id: 'Vecino/a', description: 'Vecino/a');
+    _listoptions.add(opt1);
+    _listoptions.add(opt2);
+    _listoptions.add(opt3);
+    _listoptions.add(opt4);
+    _listoptions.add(opt5);
+
+    _getComboObras();
+  }
+
+//*****************************************************************************
+//************************** METODO GETCOMBOCONTACTOS *************************
+//*****************************************************************************
+
+  List<DropdownMenuItem<String>> _getComboObras() {
+    _items = [];
+
+    List<DropdownMenuItem<String>> list = [];
+    list.add(const DropdownMenuItem(
+      child: Text('Seleccione un Proyecto Módulo...'),
+      value: 'Seleccione un Proyecto Módulo...',
+    ));
+
+    for (var _listoption in _listoptions) {
+      list.add(DropdownMenuItem(
+        child: Text(_listoption.description),
+        value: _listoption.id,
+      ));
     }
-    Response response = Response(isSuccess: false);
-    response = await ApiHelper.getObrasEPP(widget.user.modulo);
-    if (response.isSuccess) {
-      _obras = response.result;
-    }
-    setState(() {});
+
+    _items = list;
+
+    return list;
   }
 
 //*****************************************************************************
@@ -558,12 +553,15 @@ class _ReqEppScreenState extends State<ReqEppScreen> {
   bool validateFields() {
     bool isValid = true;
 
-    if (_obra == 'Seleccione una Obra...') {
+    if (_subcontratista.subCodigo == '' || _causante.codigo == '') {
       isValid = false;
-      _obraShowError = true;
-      _obraError = 'Debes seleccionar una Obra';
-    } else {
-      _obraShowError = false;
+      showAlertDialog(
+          context: context,
+          title: 'Error',
+          message: 'Debes seleccionar un Contratista/Causante',
+          actions: <AlertDialogAction>[
+            const AlertDialogAction(key: null, label: 'Aceptar'),
+          ]);
     }
     setState(() {});
     return isValid;
@@ -606,12 +604,12 @@ class _ReqEppScreenState extends State<ReqEppScreen> {
 
       //-----------------Graba Cabecera--------------
       Map<String, dynamic> request = {
-        'NROOBRA': _obra,
+        'NROOBRA': widget.obra.nroObra,
         'FECHACARGA': DateTime.now().toString(),
-        'CONTRATISTA': "PPR",
+        'CONTRATISTA': _subcontratista.subCodigo,
         'IDUSUARIO': widget.user.idUsuario,
-        'CODGRUPOREC': widget.causante.grupo,
-        'CODCAUSANTEREC': widget.causante.codigo,
+        'CODGRUPOREC': _causante.grupo,
+        'CODCAUSANTEREC': _causante.codigo,
         'CODCONCEPTO': "502",
         'PRIORIDAD': "Baja",
         'FALTAMATERIAL': 0,
@@ -652,7 +650,7 @@ class _ReqEppScreenState extends State<ReqEppScreen> {
           bandera = true;
           Map<String, dynamic> request = {
             'NROREMITOCAB': _nroReg,
-            'NROOBRA': _obra,
+            'NROOBRA': widget.obra.nroObra,
             'catcodigo': catalogo.catCodigo,
             'catCatalogo': catalogo.catCatalogo,
             'codigosap': catalogo.codigoSap,
@@ -695,6 +693,105 @@ class _ReqEppScreenState extends State<ReqEppScreen> {
           ]);
       return;
     } //Termina Bandera
+  }
+
+//*****************************************************************************
+//************************** _showPersona *************************************
+//*****************************************************************************
+
+  Widget _showPersona() {
+    return Container(
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+        child: Row(
+          children: [
+            Expanded(
+              child: Container(
+                height: 60,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(
+                    color: Colors.black,
+                    width: 1,
+                  ),
+                  color: Colors.white,
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Row(
+                            children: [
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              const Text("Contratista: ",
+                                  style:
+                                      TextStyle(fontWeight: FontWeight.bold)),
+                              Expanded(
+                                child: Text(_subcontratista.subSubcontratista),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Row(
+                            children: [
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              const Text("Causante: ",
+                                  style:
+                                      TextStyle(fontWeight: FontWeight.bold)),
+                              Expanded(
+                                child: Text(_causante.nombre),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            const SizedBox(
+              width: 10,
+            ),
+            ElevatedButton(
+              child: const Icon(Icons.search),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFF781f1e),
+                minimumSize: const Size(50, 50),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(5),
+                ),
+              ),
+              onPressed: () async {
+                Persona? persona = await Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => CausantesScreen(
+                      user: widget.user,
+                    ),
+                  ),
+                );
+
+                if (persona != null) {
+                  _subcontratista = persona.subcontratista;
+                  _causante = persona.causante;
+                }
+
+                setState(() {});
+              },
+            ),
+          ],
+        ));
   }
 
 //*****************************************************************************
