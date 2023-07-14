@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:rowing_app/models/response.dart';
 import 'package:rowing_app/screens/screens.dart';
 
-import 'display_picture_screen.dart';
 
 class SacarFotoScreen extends StatefulWidget {
   final CameraDescription camera;

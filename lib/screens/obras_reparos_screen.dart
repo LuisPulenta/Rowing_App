@@ -31,9 +31,9 @@ class _ObrasReparosScreenState extends State<ObrasReparosScreen> {
   List<ObrasReparo> _obras = [];
   List<ObrasReparo> _obrasReparosTodas = [];
 
-  int _clase = 0;
-  String _claseError = '';
-  bool _claseShowError = false;
+  final int _clase = 0;
+  final String _claseError = '';
+  final bool _claseShowError = false;
 
   List<StandardReparo> _clases = [];
 

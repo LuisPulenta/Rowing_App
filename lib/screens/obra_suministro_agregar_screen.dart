@@ -2235,11 +2235,11 @@ class _ObraSuministroAgregarScreenState
     if (_suministros.isEmpty) {
       _nrosuministro = 1;
     } else {
-      _suministros.forEach((suministro) {
+      for (var suministro in _suministros) {
         if (suministro.nrosuministro > _nrosuministro) {
           _nrosuministro = suministro.nrosuministro;
         }
-      });
+      }
       _nrosuministro = _nrosuministro + 1;
     }
 
@@ -2301,12 +2301,12 @@ class _ObraSuministroAgregarScreenState
 
     bool existeDNIenBD = false;
 
-    _suministros.forEach((suministro) {
+    for (var suministro in _suministros) {
       if (suministro.dni == _document && _document != dniAntesEditar) {
         _showSnackbar("El DNI ya existe", Colors.red);
         existeDNIenBD = true;
       }
-    });
+    }
 
     if (!existeDNIenBD && widget.editMode == false) {
       await DBSuministros.insertSuministro(requestObrasNuevoSuministro);

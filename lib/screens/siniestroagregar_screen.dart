@@ -1044,7 +1044,7 @@ class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
       _detalleDanosPropioShowError = false;
     }
 
-    if (_observaciones.length > 0 && _observaciones.length > 249) {
+    if (_observaciones.isNotEmpty && _observaciones.length > 249) {
       isValid = false;
       _observacionesShowError = true;
       _observacionesError =
@@ -1054,7 +1054,7 @@ class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
     //   _observacionesShowError = false;
     // }
 
-    if (_detalleDanosTercero.length > 0 && _detalleDanosTercero.length > 200) {
+    if (_detalleDanosTercero.isNotEmpty && _detalleDanosTercero.length > 200) {
       isValid = false;
       _detalleDanosTerceroShowError = true;
       _detalleDanosTerceroError =
@@ -1064,7 +1064,7 @@ class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
     //   _detalleDanosTerceroShowError = false;
     // }
 
-    if (_detalleDanosPropio.length > 0 && _detalleDanosPropio.length > 200) {
+    if (_detalleDanosPropio.isNotEmpty && _detalleDanosPropio.length > 200) {
       isValid = false;
       _detalleDanosPropioShowError = true;
       _detalleDanosPropioError =

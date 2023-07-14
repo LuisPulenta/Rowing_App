@@ -1,4 +1,3 @@
-import 'package:rowing_app/models/punto.dart';
 
 export 'package:rowing_app/models/catalogo.dart';
 export 'package:rowing_app/models/causante.dart';

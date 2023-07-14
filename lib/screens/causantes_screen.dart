@@ -573,11 +573,11 @@ class _CausantesScreenState extends State<CausantesScreen> {
     Subcontratista subcontratistaSelected =
         Subcontratista(subCodigo: "", subSubcontratista: "", modulo: "");
 
-    _subcontratistas.forEach((subc) {
+    for (var subc in _subcontratistas) {
       if (subc.subCodigo == subcontratista) {
         subcontratistaSelected = subc;
       }
-    });
+    }
 
     _persona =
         Persona(subcontratista: subcontratistaSelected, causante: causante);

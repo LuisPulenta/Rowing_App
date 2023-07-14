@@ -275,12 +275,12 @@ class _NovedadAgregarScreenState extends State<NovedadAgregarScreen> {
       value: 'Elija una novedad...',
     ));
 
-    _tiposnovedades.forEach((novedad) {
+    for (var novedad in _tiposnovedades) {
       list.add(DropdownMenuItem(
         child: Text(novedad.tipodenovedad),
         value: novedad.tipodenovedad,
       ));
-    });
+    }
 
     return list;
   }

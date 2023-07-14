@@ -199,7 +199,6 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
         placemarks[0].locality.toString() +
         " - " +
         placemarks[0].country.toString();
-    ;
 
     _battery.batteryState.then(_updateBatteryState);
     int batnivel = await _battery.batteryLevel;

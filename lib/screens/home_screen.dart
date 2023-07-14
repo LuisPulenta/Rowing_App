@@ -1091,7 +1091,6 @@ class _HomeScreenState extends State<HomeScreen> {
           placemarks[0].locality.toString() +
           " - " +
           placemarks[0].country.toString();
-      ;
     }
   }
 

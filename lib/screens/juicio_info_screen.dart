@@ -266,7 +266,7 @@ class _JuicioInfoScreenState extends State<JuicioInfoScreen> {
                               Expanded(
                                 child: Text(
                                     widget.juicio.importejuicio != null
-                                        ? '${NumberFormat.currency(symbol: '\$').format(widget.juicio.importejuicio)}'
+                                        ? NumberFormat.currency(symbol: '\$').format(widget.juicio.importejuicio)
                                         : '',
                                     style: const TextStyle(
                                       fontSize: 12,
@@ -293,7 +293,7 @@ class _JuicioInfoScreenState extends State<JuicioInfoScreen> {
                               Expanded(
                                 child: Text(
                                     widget.juicio.importeinteres != null
-                                        ? '${NumberFormat.currency(symbol: '\$').format(widget.juicio.importeinteres)}'
+                                        ? NumberFormat.currency(symbol: '\$').format(widget.juicio.importeinteres)
                                             .toString()
                                         : '',
                                     style: const TextStyle(
@@ -350,7 +350,7 @@ class _JuicioInfoScreenState extends State<JuicioInfoScreen> {
 //-----------------------------------------------------------------
 
   Widget _showTelefonos() {
-    return _contrapartes.length > 0
+    return _contrapartes.isNotEmpty
         ? Card(
             color: Colors.white,
             //color: Color(0xFFC7C7C8),

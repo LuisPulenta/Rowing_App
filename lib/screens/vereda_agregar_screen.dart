@@ -31,9 +31,9 @@ class _VeredaAgregarScreenState extends State<VeredaAgregarScreen> {
 //*****************************************************************************
 
   String _observaciones = '';
-  String _observacionesError = '';
-  bool _observacionesShowError = false;
-  TextEditingController _observacionesController = TextEditingController();
+  final String _observacionesError = '';
+  final bool _observacionesShowError = false;
+  final TextEditingController _observacionesController = TextEditingController();
 
   int _clase = 0;
   String _claseError = '';
@@ -59,27 +59,27 @@ class _VeredaAgregarScreenState extends State<VeredaAgregarScreen> {
   String _direccion = '';
   String _direccionError = '';
   bool _direccionShowError = false;
-  TextEditingController _direccionController = TextEditingController();
+  final TextEditingController _direccionController = TextEditingController();
 
   String _numero = '';
   String _numeroError = '';
   bool _numeroShowError = false;
-  TextEditingController _numeroController = TextEditingController();
+  final TextEditingController _numeroController = TextEditingController();
 
   String _cantidadMTL = '';
   String _cantidadMTLError = '';
   bool _cantidadMTLShowError = false;
-  TextEditingController _cantidadMTLController = TextEditingController();
+  final TextEditingController _cantidadMTLController = TextEditingController();
 
   String _ancho = '';
   String _anchoError = '';
   bool _anchoShowError = false;
-  TextEditingController _anchoController = TextEditingController();
+  final TextEditingController _anchoController = TextEditingController();
 
   String _profundidad = '';
   String _profundidadError = '';
   bool _profundidadShowError = false;
-  TextEditingController _profundidadController = TextEditingController();
+  final TextEditingController _profundidadController = TextEditingController();
 
   LatLng _center = const LatLng(0, 0);
   double latitud = 0;
@@ -258,7 +258,7 @@ class _VeredaAgregarScreenState extends State<VeredaAgregarScreen> {
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
       child: Row(
         children: [
-          Container(width: 90, child: const Text('Tipo de Vereda:  ')),
+          const SizedBox(width: 90, child: Text('Tipo de Vereda:  ')),
           Expanded(
             child: Container(
               padding: const EdgeInsets.all(10),

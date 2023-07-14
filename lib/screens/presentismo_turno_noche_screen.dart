@@ -22,27 +22,27 @@ class _PresentismoTurnoNocheScreenState
 //-------------------------- Variables --------------------------------
 //---------------------------------------------------------------------
 
-  bool _permitidoGrabar = true;
+  final bool _permitidoGrabar = true;
 
-  String _zona = '';
+  final String _zona = '';
   final String _zonaError = '';
   final bool _zonaShowError = false;
   final TextEditingController _zonaController = TextEditingController();
 
-  String _actividad = '';
+  final String _actividad = '';
   final String _actividadError = '';
   final bool _actividadShowError = false;
   final TextEditingController _actividadController = TextEditingController();
 
-  String _estado = '';
+  final String _estado = '';
   final String _estadoError = '';
   final bool _estadoShowError = false;
   final TextEditingController _estadoController = TextEditingController();
 
   String _observaciones = '';
-  String _observacionesError = '';
-  bool _observacionesShowError = false;
-  TextEditingController _observacionesController = TextEditingController();
+  final String _observacionesError = '';
+  final bool _observacionesShowError = false;
+  final TextEditingController _observacionesController = TextEditingController();
 
   List<CausantesPresentismoTurnoNoche> _empleados = [];
   List<CausantesEstado> _estados = [];
@@ -51,9 +51,9 @@ class _PresentismoTurnoNocheScreenState
   bool _showLoader = false;
   bool _showLoader2 = false;
 
-  List<CausantesPresentismoTurnoNoche> _presentismosHoy = [];
+  final List<CausantesPresentismoTurnoNoche> _presentismosHoy = [];
 
-  Causante _empleadoSeleccionado = Causante(
+  final Causante _empleadoSeleccionado = Causante(
       nroCausante: 0,
       codigo: '',
       nombre: '',
@@ -599,9 +599,9 @@ class _PresentismoTurnoNocheScreenState
     setState(() {
       _empleados = response.result;
 
-      _empleados.forEach((empleado) {
+      for (var empleado in _empleados) {
         empleado.estado = 'Presente';
-      });
+      }
 
       _empleados.sort((a, b) {
         return a.fecha.toString().compareTo(b.fecha.toString());

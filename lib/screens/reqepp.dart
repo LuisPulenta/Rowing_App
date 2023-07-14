@@ -25,8 +25,8 @@ class _ReqEppScreenState extends State<ReqEppScreen> {
   bool _showLoader = false;
   List<Catalogo> _catalogos = [];
   List<Catalogo> _catalogos2 = [];
-  List<Option2> _listoptions = [];
-  List<DropdownMenuItem<String>> _items = [];
+  final List<Option2> _listoptions = [];
+  final List<DropdownMenuItem<String>> _items = [];
   bool _todas = false;
   List<Obra> _obras = [];
   String _obra = 'Seleccione una Obra...';
@@ -705,11 +705,11 @@ class _ReqEppScreenState extends State<ReqEppScreen> {
       _catalogos2 = _catalogos;
     } else {
       _catalogos2 = [];
-      _catalogos.forEach((catalogo) {
+      for (var catalogo in _catalogos) {
         if (catalogo.cantidad! > 0) {
           _catalogos2.add(catalogo);
         }
-      });
+      }
       _catalogos2.sort((a, b) {
         return a.catCatalogo
             .toString()

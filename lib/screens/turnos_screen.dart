@@ -236,7 +236,7 @@ class _TurnosScreenState extends State<TurnosScreen> {
                                     ),
                                   ],
                                 ),
-                                Divider(
+                                const Divider(
                                   color: Color(0xFF781f1e),
                                 ),
                                 Row(
@@ -292,7 +292,7 @@ class _TurnosScreenState extends State<TurnosScreen> {
                                     ),
                                   ],
                                 ),
-                                Divider(
+                                const Divider(
                                   color: Color(0xFF781f1e),
                                 ),
                                 Row(
@@ -448,13 +448,13 @@ class _TurnosScreenState extends State<TurnosScreen> {
       });
     });
 
-    _turnos.forEach((turno) {
-      _talleres.forEach((taller) {
+    for (var turno in _turnos) {
+      for (var taller in _talleres) {
         if (turno.causante == taller.codigo) {
           turno.taller = taller.nombre;
         }
-      });
-    });
+      }
+    }
   }
 
   //----------------------------------------------------------------------------

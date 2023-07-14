@@ -7,7 +7,6 @@ import 'package:rowing_app/helpers/api_helper.dart';
 import 'package:rowing_app/models/models.dart';
 import 'package:rowing_app/screens/screens.dart';
 import 'package:rowing_app/widgets/widgets.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class SiniestrosScreen extends StatefulWidget {
   final User user;

@@ -57,7 +57,7 @@ class Notificacion {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['idnotificacion'] = idnotificacion;
     data['idjuicio'] = idjuicio;
     data['fechacarga'] = fechacarga;

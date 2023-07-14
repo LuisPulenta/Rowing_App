@@ -21,25 +21,25 @@ class _PresentismoScreenState extends State<PresentismoScreen> {
 
   bool _permitidoGrabar = true;
 
-  String _zona = '';
+  final String _zona = '';
   final String _zonaError = '';
   final bool _zonaShowError = false;
   final TextEditingController _zonaController = TextEditingController();
 
-  String _actividad = '';
+  final String _actividad = '';
   final String _actividadError = '';
   final bool _actividadShowError = false;
   final TextEditingController _actividadController = TextEditingController();
 
-  String _estado = '';
+  final String _estado = '';
   final String _estadoError = '';
   final bool _estadoShowError = false;
   final TextEditingController _estadoController = TextEditingController();
 
   String _observaciones = '';
-  String _observacionesError = '';
-  bool _observacionesShowError = false;
-  TextEditingController _observacionesController = TextEditingController();
+  final String _observacionesError = '';
+  final bool _observacionesShowError = false;
+  final TextEditingController _observacionesController = TextEditingController();
 
   List<Causante> _empleados = [];
   List<CausantesEstado> _estados = [];
@@ -50,7 +50,7 @@ class _PresentismoScreenState extends State<PresentismoScreen> {
 
   List<CausantesPresentismo> _presentismosHoy = [];
 
-  Causante _empleadoSeleccionado = Causante(
+  final Causante _empleadoSeleccionado = Causante(
       nroCausante: 0,
       codigo: '',
       nombre: '',
@@ -444,7 +444,7 @@ class _PresentismoScreenState extends State<PresentismoScreen> {
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            Container(
+                            SizedBox(
                               width: double.infinity,
                               child: Text(
                                 e.perteneceCuadrilla != ''
@@ -454,7 +454,7 @@ class _PresentismoScreenState extends State<PresentismoScreen> {
                                 textAlign: TextAlign.start,
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 20,
                             ),
                             DropdownButtonFormField(
@@ -611,7 +611,7 @@ class _PresentismoScreenState extends State<PresentismoScreen> {
                   },
                   barrierDismissible: false);
             },
-            child: Container(
+            child: SizedBox(
               height: 60,
               child: Card(
                 color: const Color(0xFFC7C7C8),
@@ -769,11 +769,11 @@ class _PresentismoScreenState extends State<PresentismoScreen> {
     setState(() {
       _empleados = response.result;
 
-      _empleados.forEach((empleado) {
+      for (var empleado in _empleados) {
         empleado.presentismo = 'Presente';
         empleado.imageFullPath =
             ''; //Uso imageFullPath para guardar las Observaciones
-      });
+      }
 
       _empleados.sort((b, a) {
         return a.perteneceCuadrilla
@@ -998,7 +998,7 @@ class _PresentismoScreenState extends State<PresentismoScreen> {
     }
 
     _presentismosHoy = response.result;
-    if (_presentismosHoy.length > 0) {
+    if (_presentismosHoy.isNotEmpty) {
       _permitidoGrabar = false;
     }
 

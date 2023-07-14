@@ -727,13 +727,13 @@ class _InspeccionDuplicarScreenState extends State<InspeccionDuplicarScreen> {
     await _getGruposFormularios(
         widget.vistaInspeccion.idCliente, widget.vistaInspeccion.idTipoTrabajo);
 
-    _inspeccionDetalles.forEach((element) {
+    for (var element in _inspeccionDetalles) {
       String descgpoform = '';
-      _gruposFormularios.forEach((element2) {
+      for (var element2 in _gruposFormularios) {
         if (element2.idgrupoformulario == element.idGrupoFormulario) {
           descgpoform = element2.descripcion;
         }
-      });
+      }
 
       detallesFormularioCompleto = DetallesFormularioCompleto(
           idcliente: element.idCliente,
@@ -745,7 +745,7 @@ class _InspeccionDuplicarScreenState extends State<InspeccionDuplicarScreen> {
           cumple: element.cumple,
           foto: element.imageFullPath);
       _detallesFormulariosCompleto.add(detallesFormularioCompleto);
-    });
+    }
 
     FocusScope.of(context).unfocus();
     String? result = await Navigator.push(

@@ -267,10 +267,10 @@ class _GruasCheckListAgregarScreenState
                           Container(
                             color: const Color.fromARGB(255, 33, 172, 236),
                             child: const Padding(
-                              padding: const EdgeInsets.only(left: 8.0),
+                              padding: EdgeInsets.only(left: 8.0),
                               child: Text("Concepto",
                                   textAlign: TextAlign.center,
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                       fontSize: 12,
                                       fontWeight: FontWeight.bold)),
                             ),
@@ -484,10 +484,10 @@ class _GruasCheckListAgregarScreenState
                           Container(
                             color: const Color.fromARGB(255, 33, 172, 236),
                             child: const Padding(
-                              padding: const EdgeInsets.only(left: 8.0),
+                              padding: EdgeInsets.only(left: 8.0),
                               child: Text("Concepto",
                                   textAlign: TextAlign.center,
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                       fontSize: 12,
                                       fontWeight: FontWeight.bold)),
                             ),
@@ -1419,10 +1419,10 @@ class _GruasCheckListAgregarScreenState
                           Container(
                             color: const Color.fromARGB(255, 33, 172, 236),
                             child: const Padding(
-                              padding: const EdgeInsets.only(left: 8.0),
+                              padding: EdgeInsets.only(left: 8.0),
                               child: Text("Concepto",
                                   textAlign: TextAlign.center,
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                       fontSize: 12,
                                       fontWeight: FontWeight.bold)),
                             ),
@@ -1963,10 +1963,10 @@ class _GruasCheckListAgregarScreenState
                           Container(
                             color: const Color.fromARGB(255, 33, 172, 236),
                             child: const Padding(
-                              padding: const EdgeInsets.only(left: 8.0),
+                              padding: EdgeInsets.only(left: 8.0),
                               child: Text("Concepto",
                                   textAlign: TextAlign.center,
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                       fontSize: 12,
                                       fontWeight: FontWeight.bold)),
                             ),

@@ -26,10 +26,10 @@ class _ResetearPasswordsScreenState extends State<ResetearPasswordsScreen> {
   String _codigo = '';
   final String _codigoError = '';
   final bool _codigoShowError = false;
-  bool _enabled = false;
+  final bool _enabled = false;
   bool _showLoader = false;
 
-  bool _isRunning = false;
+  final bool _isRunning = false;
 
   User _user = User(
       idUsuario: 0,

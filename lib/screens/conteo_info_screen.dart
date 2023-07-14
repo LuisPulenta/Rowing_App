@@ -27,7 +27,7 @@ class _ConteoInfoScreenState extends State<ConteoInfoScreen> {
   final bool _cantidadShowError = false;
   final TextEditingController _cantidadController = TextEditingController();
 
-  ConteoDet _conteoDetalleSeleccionado = ConteoDet(
+  final ConteoDet _conteoDetalleSeleccionado = ConteoDet(
       idconteodet: 0,
       idconteocab: 0,
       codigosiag: '',

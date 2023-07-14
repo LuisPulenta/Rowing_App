@@ -16,7 +16,7 @@ class GruasCheckListFotosScreen extends StatefulWidget {
   final User user;
   final VehiculosCheckList vehiculosCheckList;
 
-  GruasCheckListFotosScreen(
+  const GruasCheckListFotosScreen(
       {Key? key, required this.user, required this.vehiculosCheckList})
       : super(key: key);
 

@@ -41,7 +41,7 @@ class _VeredasMapScreenState extends State<VeredasMapScreen> {
   Set<Marker> _markers = {};
   MapType _defaultMapType = MapType.normal;
   String direccion = '';
-  double _sliderValue = 20;
+  final double _sliderValue = 20;
   Position position = const Position(
       longitude: 0,
       latitude: 0,

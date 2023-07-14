@@ -10,9 +10,9 @@ class CausantesEstado {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['nomencladorestado'] = this.nomencladorestado;
-    data['soloAPP'] = this.soloAPP;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['nomencladorestado'] = nomencladorestado;
+    data['soloAPP'] = soloAPP;
     return data;
   }
 }

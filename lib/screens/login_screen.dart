@@ -684,8 +684,8 @@ class _LoginScreenState extends State<LoginScreen> {
     _catalogos = response.result;
 
     DBSuministroscatalogos.deleteall();
-    _catalogos.forEach((catalogo) {
+    for (var catalogo in _catalogos) {
       DBSuministroscatalogos.insertSuministrocatalogos(catalogo);
-    });
+    }
   }
 }

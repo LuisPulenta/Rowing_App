@@ -7,7 +7,6 @@ import 'package:rowing_app/helpers/api_helper.dart';
 import 'package:rowing_app/models/models.dart';
 import 'package:rowing_app/screens/screens.dart';
 import 'package:rowing_app/widgets/widgets.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class NovedadesScreen extends StatefulWidget {
   final User user;
@@ -576,7 +575,6 @@ class _NovedadesScreenState extends State<NovedadesScreen> {
                                                                         novedad);
                                                                   }
                                                                 }
-                                                                ;
                                                                 Navigator.pop(
                                                                     context);
                                                               },
@@ -878,11 +876,11 @@ class _NovedadesScreenState extends State<NovedadesScreen> {
       _enabled = true;
     });
 
-    _novedades.forEach((novedad) {
+    for (var novedad in _novedades) {
       if (novedad.estado != "Pendiente" && novedad.confirmaLeido != 1) {
         _novedadesSinLeer.add(novedad);
       }
-    });
+    }
   }
 
 //-----------------------------------------------------------------
@@ -969,11 +967,11 @@ class _NovedadesScreenState extends State<NovedadesScreen> {
     }
     await _getNovedades();
     _novedadesSinLeer = [];
-    _novedades.forEach((novedad) {
+    for (var novedad in _novedades) {
       if (novedad.estado != "Pendiente" && novedad.confirmaLeido != 1) {
         _novedadesSinLeer.add(novedad);
       }
-    });
+    }
     setState(() {});
   }
 }

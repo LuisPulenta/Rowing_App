@@ -40,17 +40,17 @@ class _NotificacionAgregarScreenState extends State<NotificacionAgregarScreen> {
   String _titulo = '';
   String _tituloError = '';
   bool _tituloShowError = false;
-  TextEditingController _tituloController = TextEditingController();
+  final TextEditingController _tituloController = TextEditingController();
 
   String _observaciones = '';
   String _observacionesError = '';
   bool _observacionesShowError = false;
-  TextEditingController _observacionesController = TextEditingController();
+  final TextEditingController _observacionesController = TextEditingController();
 
   String _monto = '';
-  String _montoError = '';
-  bool _montoShowError = false;
-  TextEditingController _montoController = TextEditingController();
+  final String _montoError = '';
+  final bool _montoShowError = false;
+  final TextEditingController _montoController = TextEditingController();
 
   String _tipoTransaccion = 'Elija un tipo de transacción...';
   String _tipoTransaccionError = '';
@@ -59,24 +59,24 @@ class _NotificacionAgregarScreenState extends State<NotificacionAgregarScreen> {
   String _condicionPago = '';
   String _condicionPagoError = '';
   bool _condicionPagoShowError = false;
-  TextEditingController _condicionPagoController = TextEditingController();
+  final TextEditingController _condicionPagoController = TextEditingController();
 
   String _moneda = 'ARG';
 
   String _nroFactura = '';
   String _nroFacturaError = '';
   bool _nroFacturaShowError = false;
-  TextEditingController _nroFacturaController = TextEditingController();
+  final TextEditingController _nroFacturaController = TextEditingController();
 
   String _lugar = '';
   String _lugarError = '';
   bool _lugarShowError = false;
-  TextEditingController _lugarController = TextEditingController();
+  final TextEditingController _lugarController = TextEditingController();
 
   String _participantes = '';
   String _participantesError = '';
   bool _participantesShowError = false;
-  TextEditingController _participantesController = TextEditingController();
+  final TextEditingController _participantesController = TextEditingController();
 
   DateTime? _fechaNotificacionOferta;
   DateTime? _fechaVencimientoOferta;

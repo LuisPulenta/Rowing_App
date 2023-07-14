@@ -5,7 +5,6 @@ import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:rowing_app/models/models.dart';
-import 'package:rowing_app/models/vista_inspecciones%20_foto.dart';
 
 import '../helpers/api_helper.dart';
 

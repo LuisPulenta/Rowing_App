@@ -28,22 +28,22 @@ class _SeguimientoUsuarioScreenState extends State<SeguimientoUsuarioScreen> {
   List<UsuarioGeo> _usuariosAux = [];
   List<Punto> _puntos = [];
 
-  List<LatLng> _puntosPolyline = [];
+  final List<LatLng> _puntosPolyline = [];
 
   int _usuario = 0;
   int _puntosMenu = 0;
   int _puntosAutomaticos = 0;
-  String _usuarioError = '';
-  bool _usuarioShowError = false;
+  final String _usuarioError = '';
+  final bool _usuarioShowError = false;
   double latcenter = 0.0;
   double longcenter = 0.0;
 
   final CustomInfoWindowController _customInfoWindowController =
       CustomInfoWindowController();
 
-  Set<Marker> _markers = {};
+  final Set<Marker> _markers = {};
 
-  Set<Polyline> _polylines = {};
+  final Set<Polyline> _polylines = {};
 
 //---------------------------------------------------------------------
 //-------------------------- InitState --------------------------------
@@ -476,16 +476,16 @@ class _SeguimientoUsuarioScreenState extends State<SeguimientoUsuarioScreen> {
     _usuario = 0;
     _usuariosAux = response.result;
 
-    _usuariosAux.forEach((usuario) {
+    for (var usuario in _usuariosAux) {
       usuario.usuarioStr = usuario.usuarioStr.toUpperCase();
-    });
+    }
 
     if (widget.user.limitarGrupo == 0) {
       _usuarios = _usuariosAux;
     } else {
-      _usuariosAux.forEach((usuario) {
+      for (var usuario in _usuariosAux) {
         if (usuario.modulo == widget.user.modulo) _usuarios.add(usuario);
-      });
+      }
     }
 
     _usuarios.sort((a, b) {
@@ -547,7 +547,7 @@ class _SeguimientoUsuarioScreenState extends State<SeguimientoUsuarioScreen> {
       latcenter = 0.0;
       longcenter = 0.0;
 
-      _puntos.forEach((punto) {
+      for (var punto in _puntos) {
         punto.origen == 0 ? _puntosAutomaticos++ : _puntosMenu++;
 
         var lat = double.tryParse(punto.latitud.toString()) ?? 0;
@@ -655,7 +655,7 @@ class _SeguimientoUsuarioScreenState extends State<SeguimientoUsuarioScreen> {
                 : BitmapDescriptor.defaultMarkerWithHue(
                     BitmapDescriptor.hueBlue));
         _markers.add(marker);
-      });
+      }
 
       latcenter = (latmin + latmax) / 2;
       longcenter = (longmin + longmax) / 2;

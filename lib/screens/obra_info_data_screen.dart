@@ -27,48 +27,48 @@ class _ObraInfoDataScreenState extends State<ObraInfoDataScreen> {
   bool _mostrarLugares = false;
 
   String _direccion = '';
-  String _direccionError = '';
-  bool _direccionShowError = false;
+  final String _direccionError = '';
+  final bool _direccionShowError = false;
   final TextEditingController _direccionController = TextEditingController();
 
-  String _motivo = 'Seleccione un Motivo...';
+  final String _motivo = 'Seleccione un Motivo...';
   String _motivoError = '';
   bool _motivoShowError = false;
-  List<Option> _motivoOptions = [];
+  final List<Option> _motivoOptions = [];
 
-  String _conexion = 'Seleccione una Conexión...';
+  final String _conexion = 'Seleccione una Conexión...';
   String _conexionError = '';
   bool _conexionShowError = false;
-  List<Option> _conexionOptions = [];
+  final List<Option> _conexionOptions = [];
 
-  String _lugar = 'Seleccione un Lugar...';
+  final String _lugar = 'Seleccione un Lugar...';
   String _lugarError = '';
   bool _lugarShowError = false;
-  List<Option> _lugarOptions = [];
+  final List<Option> _lugarOptions = [];
 
-  String _materialCanio = 'Seleccione un Material...';
+  final String _materialCanio = 'Seleccione un Material...';
   String _materialCanioError = '';
   bool _materialCanioShowError = false;
-  List<Option> _materialCanioOptions = [];
+  final List<Option> _materialCanioOptions = [];
 
-  String _diametroCanio = 'Seleccione un Diámetro de Caño...';
+  final String _diametroCanio = 'Seleccione un Diámetro de Caño...';
   String _diametroCanioError = '';
   bool _diametroCanioShowError = false;
-  List<Option> _diametroCanioOptions = [];
+  final List<Option> _diametroCanioOptions = [];
 
-  String _fuga = 'Seleccione un Tipo de Fuga...';
+  final String _fuga = 'Seleccione un Tipo de Fuga...';
   String _fugaError = '';
   bool _fugaShowError = false;
-  List<Option> _fugaOptions = [];
+  final List<Option> _fugaOptions = [];
 
-  String _comentarios = '';
+  final String _comentarios = '';
   String _comentariosError = '';
   bool _comentariosShowError = false;
   final TextEditingController _comentariosController = TextEditingController();
 
-  int _optionMotivo = 0;
-  String _optionMotivoError = '';
-  bool _optionMotivoShowError = false;
+  final int _optionMotivo = 0;
+  final String _optionMotivoError = '';
+  final bool _optionMotivoShowError = false;
 
   List<DropdownMenuItem<String>> _motivos = [];
   List<DropdownMenuItem<String>> _conexiones = [];
@@ -106,7 +106,7 @@ class _ObraInfoDataScreenState extends State<ObraInfoDataScreen> {
       motivo: '',
       planos: '');
 
-  Position _positionUser = Position(
+  Position _positionUser = const Position(
       longitude: 0,
       latitude: 0,
       timestamp: null,
@@ -330,7 +330,7 @@ class _ObraInfoDataScreenState extends State<ObraInfoDataScreen> {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
                 ),
-                title: Text('Aviso'),
+                title: const Text('Aviso'),
                 content: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: const <Widget>[
@@ -342,7 +342,7 @@ class _ObraInfoDataScreenState extends State<ObraInfoDataScreen> {
                 actions: <Widget>[
                   TextButton(
                       onPressed: () => Navigator.of(context).pop(),
-                      child: Text('Ok')),
+                      child: const Text('Ok')),
                 ],
               );
             });
@@ -358,7 +358,7 @@ class _ObraInfoDataScreenState extends State<ObraInfoDataScreen> {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10),
               ),
-              title: Text('Aviso'),
+              title: const Text('Aviso'),
               content: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: const <Widget>[
@@ -371,7 +371,7 @@ class _ObraInfoDataScreenState extends State<ObraInfoDataScreen> {
               actions: <Widget>[
                 TextButton(
                     onPressed: () => Navigator.of(context).pop(),
-                    child: Text('Ok')),
+                    child: const Text('Ok')),
               ],
             );
           });
@@ -913,7 +913,7 @@ class _ObraInfoDataScreenState extends State<ObraInfoDataScreen> {
             border:
                 OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
         onChanged: (value) {
-          _obra.planos = value as String;
+          _obra.planos = value;
         },
       ),
     );

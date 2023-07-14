@@ -39,10 +39,10 @@ class _ReqAppScreenState extends State<ReqAppScreen> {
 
   List<TextEditingController> controllers = [];
 
-  String _optionObra = 'Seleccione un Proyecto Módulo...';
-  String _obra = '';
-  String _optionObraError = '';
-  bool _optionObraShowError = false;
+  final String _optionObra = 'Seleccione un Proyecto Módulo...';
+  final String _obra = '';
+  final String _optionObraError = '';
+  final bool _optionObraShowError = false;
   final TextEditingController _optionObraController = TextEditingController();
 
   late Causante _causante;
@@ -804,11 +804,11 @@ class _ReqAppScreenState extends State<ReqAppScreen> {
       _catalogos2 = _catalogos;
     } else {
       _catalogos2 = [];
-      _catalogos.forEach((catalogo) {
+      for (var catalogo in _catalogos) {
         if (catalogo.cantidad! > 0) {
           _catalogos2.add(catalogo);
         }
-      });
+      }
       _catalogos2.sort((a, b) {
         return a.catCatalogo
             .toString()

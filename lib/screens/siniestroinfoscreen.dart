@@ -1320,13 +1320,13 @@ class _SiniestroInfoScreenState extends State<SiniestroInfoScreen> {
 
     _fotosSinPdf = [];
 
-    _fotos.forEach((foto) {
+    for (var foto in _fotos) {
       if (!foto.imageFullPath!.contains('SiniestrosPdf')) {
         _fotosSinPdf.add(foto);
 
         setState(() {});
       }
-    });
+    }
 
     _current = 0;
 
@@ -1354,7 +1354,7 @@ class _SiniestroInfoScreenState extends State<SiniestroInfoScreen> {
     fotostercerosegurodorso = 0;
     formulariodenunciapropio = 0;
 
-    _fotos.forEach((foto) {
+    for (var foto in _fotos) {
       if (foto.correspondea == 'Propio-DNI-Frente') {
         fotospropiodnifrente = fotospropiodnifrente + 1;
       }
@@ -1430,7 +1430,7 @@ class _SiniestroInfoScreenState extends State<SiniestroInfoScreen> {
         _idDenuncia = foto.idfotosiniestro;
         _denunciaWeb = foto.imageFullPath!;
       }
-    });
+    }
     setState(() {
       _carouselController.jumpToPage(0);
     });

@@ -26,14 +26,14 @@ class _TurnosAgregarScreenState extends State<TurnosAgregarScreen> {
   String _codigo = '';
   String _codigoError = '';
   bool _codigoShowError = false;
-  TextEditingController _codigoController = TextEditingController();
+  final TextEditingController _codigoController = TextEditingController();
 
   late Vehiculo _vehiculo;
 
   String _observaciones = '';
   String _observacionesError = '';
   bool _observacionesShowError = false;
-  TextEditingController _observacionesController = TextEditingController();
+  final TextEditingController _observacionesController = TextEditingController();
 
   List<Causante> _talleres = [];
 
@@ -292,12 +292,12 @@ class _TurnosAgregarScreenState extends State<TurnosAgregarScreen> {
       value: 'Elija un taller...',
     ));
 
-    _talleres.forEach((taller) {
+    for (var taller in _talleres) {
       list.add(DropdownMenuItem(
         child: Text(taller.nombre.replaceAll("  ", "")),
         value: taller.codigo,
       ));
-    });
+    }
 
     return list;
   }
@@ -405,9 +405,9 @@ class _TurnosAgregarScreenState extends State<TurnosAgregarScreen> {
       firstDate: DateTime(
           DateTime.now().year, DateTime.now().month, DateTime.now().day),
       lastDate: DateTime(
-          DateTime.now().add(Duration(days: 30)).year,
-          DateTime.now().add(Duration(days: 30)).month,
-          DateTime.now().add(Duration(days: 30)).day),
+          DateTime.now().add(const Duration(days: 30)).year,
+          DateTime.now().add(const Duration(days: 30)).month,
+          DateTime.now().add(const Duration(days: 30)).day),
     );
     if (selected != null && selected != selectedDate) {
       setState(() {

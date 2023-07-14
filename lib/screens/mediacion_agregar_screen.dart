@@ -39,17 +39,17 @@ class _MediacionAgregarScreenState extends State<MediacionAgregarScreen> {
   String _mediadores = '';
   String _mediadoresError = '';
   bool _mediadoresShowError = false;
-  TextEditingController _mediadoresController = TextEditingController();
+  final TextEditingController _mediadoresController = TextEditingController();
 
   String _ofrecimiento = '';
   String _ofrecimientoError = '';
   bool _ofrecimientoShowError = false;
-  TextEditingController _ofrecimientoController = TextEditingController();
+  final TextEditingController _ofrecimientoController = TextEditingController();
 
   String _montoContraOferta = '';
-  String _montoContraOfertaError = '';
-  bool _montoContraOfertaShowError = false;
-  TextEditingController _montoContraOfertaController = TextEditingController();
+  final String _montoContraOfertaError = '';
+  final bool _montoContraOfertaShowError = false;
+  final TextEditingController _montoContraOfertaController = TextEditingController();
 
   String _tipoTransaccion = 'Elija un tipo de transacción...';
   String _tipoTransaccionError = '';
@@ -60,16 +60,16 @@ class _MediacionAgregarScreenState extends State<MediacionAgregarScreen> {
   String _condicionPago = '';
   String _condicionPagoError = '';
   bool _condicionPagoShowError = false;
-  TextEditingController _condicionPagoController = TextEditingController();
+  final TextEditingController _condicionPagoController = TextEditingController();
 
   String _aceptacionContraOferta = 'Aceptación Contraoferta...';
-  String _aceptacionContraOfertaError = '';
-  bool _aceptacionContraOfertaShowError = false;
+  final String _aceptacionContraOfertaError = '';
+  final bool _aceptacionContraOfertaShowError = false;
 
   String _resultadoOferta = '';
-  String _resultadoOfertaError = '';
-  bool _resultadoOfertaShowError = false;
-  TextEditingController _resultadoOfertaController = TextEditingController();
+  final String _resultadoOfertaError = '';
+  final bool _resultadoOfertaShowError = false;
+  final TextEditingController _resultadoOfertaController = TextEditingController();
 
   DateTime? _fechaVencimientoOferta = DateTime.now();
 

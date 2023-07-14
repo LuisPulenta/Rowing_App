@@ -25,7 +25,7 @@ class _ObraSuministroMaterialesInfoScreenState
 //************************** DEFINICION DE VARIABLES **************************
 //*****************************************************************************
 
-  bool _showLoader = false;
+  final bool _showLoader = false;
   List<Catalogo> _catalogosBD = [];
   List<Catalogo> _catalogos = [];
 
@@ -65,7 +65,7 @@ class _ObraSuministroMaterialesInfoScreenState
 //--------------------- METODO GETCONTENT -------------------------
 //-----------------------------------------------------------------
   Widget _getContent() {
-    return _catalogosBD.length > 0 || _catalogos.length > 0
+    return _catalogosBD.isNotEmpty || _catalogos.isNotEmpty
         ? Column(
             children: <Widget>[
               const SizedBox(
@@ -145,7 +145,7 @@ class _ObraSuministroMaterialesInfoScreenState
                             _RowCustom(
                                 anchoTitulo: anchoTitulo,
                                 titulo: 'Materiales en Servidor:',
-                                dato: _catalogos.length > 0
+                                dato: _catalogos.isNotEmpty
                                     ? _catalogos.length.toString()
                                     : 'No se pudo conectar al Servidor'),
                           ],
@@ -227,9 +227,9 @@ class _ObraSuministroMaterialesInfoScreenState
                 ),
                 onPressed: () async {
                   DBSuministroscatalogos.deleteall();
-                  _catalogos.forEach((catalogo) {
+                  for (var catalogo in _catalogos) {
                     DBSuministroscatalogos.insertSuministrocatalogos(catalogo);
-                  });
+                  }
                   _catalogosBD = await DBSuministroscatalogos.catalogos();
                   setState(() {});
                 },

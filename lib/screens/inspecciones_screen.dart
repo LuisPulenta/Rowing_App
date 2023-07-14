@@ -536,12 +536,12 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
       value: 0,
     ));
 
-    _clientes.forEach((cliente) {
+    for (var cliente in _clientes) {
       list.add(DropdownMenuItem(
         child: Text(cliente.nombre.toString()),
         value: cliente.nrocliente,
       ));
-    });
+    }
 
     return list;
   }
@@ -696,8 +696,8 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
       _detallesFormulariosAux = response.result;
     }
 
-    _detallesFormulariosAux.forEach((detalleFormularioAux) {
-      _gruposFormularios.forEach((grupoFormulario) {
+    for (var detalleFormularioAux in _detallesFormulariosAux) {
+      for (var grupoFormulario in _gruposFormularios) {
         if (detalleFormularioAux.idgrupoformulario ==
             grupoFormulario.idgrupoformulario) {
           _detallesFormularios.add(detalleFormularioAux);
@@ -712,8 +712,8 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
               foto: '');
           _detallesFormulariosCompleto.add(detallesFormularioCompleto);
         }
-      });
-    });
+      }
+    }
     setState(() {});
   }
 
