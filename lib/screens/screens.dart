@@ -47,7 +47,6 @@ export 'package:rowing_app/screens/obra_suministro_materiales_screen.dart';
 export 'package:rowing_app/screens/obras_nuevos_suministros_screen.dart';
 export 'package:rowing_app/screens/obras_reparos_screen.dart';
 export 'package:rowing_app/screens/obras_screen.dart';
-export 'package:rowing_app/screens/picture_screen.dart';
 export 'package:rowing_app/screens/presentismo_screen.dart';
 export 'package:rowing_app/screens/presentismo_turno_noche_screen.dart';
 export 'package:rowing_app/screens/reclamoagregar_screen.dart';

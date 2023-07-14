@@ -914,18 +914,6 @@ class _NovedadesScreenState extends State<NovedadesScreen> {
     }
   }
 
-//-----------------------------------------------------------------
-//--------------------- METODO _logOut ----------------------------
-//-----------------------------------------------------------------
-  void _logOut() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setBool('isRemembered', false);
-    await prefs.setString('userBody', '');
-    await prefs.setString('date', '');
-    Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => const LoginScreen()));
-  }
-
 //*****************************************************************************
 //************************** GRABAR NOVEDAD ***********************************
 //*****************************************************************************
