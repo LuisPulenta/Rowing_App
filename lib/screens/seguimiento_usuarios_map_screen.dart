@@ -39,7 +39,6 @@ class _SeguimientoUsuariosMapScreenState
   Set<Polyline> _polylines = {};
   MapType _defaultMapType = MapType.normal;
   String direccion = '';
-  double _sliderValue = 20;
   Position position = const Position(
       longitude: 0,
       latitude: 0,
@@ -51,7 +50,6 @@ class _SeguimientoUsuariosMapScreenState
       speedAccuracy: 0);
   CameraPosition _initialPosition =
       const CameraPosition(target: LatLng(31, 64), zoom: 14.0);
-  //static const LatLng _center = const LatLng(-31.4332373, -64.226344);
 
   @override
   void dispose() {
@@ -115,29 +113,6 @@ class _SeguimientoUsuariosMapScreenState
                           }),
                     ]),
                   ),
-                  // Positioned(
-                  //   top: 10,
-                  //   left: 10,
-                  //   child: Container(
-                  //     width: MediaQuery.of(context).size.width * 0.8,
-                  //     child: Slider(
-                  //       min: 0,
-                  //       max: 20,
-                  //       activeColor: Color(0xFF781f1e),
-                  //       inactiveColor: Colors.grey,
-                  //       thumbColor: Color(0xFF781f1e),
-                  //       value: _sliderValue,
-                  //       onChanged: (value) {
-                  //         _sliderValue = value;
-                  //         myLocation = false;
-                  //         _getMarkers();
-                  //         myLocation = true;
-                  //         setState(() {});
-                  //       },
-                  //       divisions: 10,
-                  //     ),
-                  //   ),
-                  // ),
                 ])
               : Container(),
           _showLoader
@@ -155,11 +130,6 @@ class _SeguimientoUsuariosMapScreenState
       ),
     );
   }
-
-//----------------------------------------------------------
-//--------------------- _onCameraMove ----------------------
-//----------------------------------------------------------
-  void _onCameraMove(CameraPosition position) {}
 
 //----------------------------------------------------------
 //--------------------- _changeMapType ---------------------

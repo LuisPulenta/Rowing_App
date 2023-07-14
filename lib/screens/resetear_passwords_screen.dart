@@ -1,9 +1,7 @@
 import 'dart:convert';
-
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:rowing_app/components/loader_component.dart';
 import 'package:http/http.dart' as http;
 import 'package:rowing_app/helpers/api_helper.dart';
@@ -22,9 +20,9 @@ class ResetearPasswordsScreen extends StatefulWidget {
 }
 
 class _ResetearPasswordsScreenState extends State<ResetearPasswordsScreen> {
-//*****************************************************************************
-//************************** DEFINICION DE VARIABLES **************************
-//*****************************************************************************
+//---------------------------------------------------------------
+//----------------------- Variables -----------------------------
+//---------------------------------------------------------------
   String _codigo = '';
   final String _codigoError = '';
   final bool _codigoShowError = false;
@@ -70,9 +68,9 @@ class _ResetearPasswordsScreenState extends State<ResetearPasswordsScreen> {
 
   late User _userVacio;
 
-//*****************************************************************************
-//************************** INITSTATE *****************************************
-//*****************************************************************************
+//---------------------------------------------------------------
+//----------------------- initState -----------------------------
+//---------------------------------------------------------------
 
   @override
   void initState() {
@@ -80,9 +78,9 @@ class _ResetearPasswordsScreenState extends State<ResetearPasswordsScreen> {
     _userVacio = _user;
   }
 
-//*****************************************************************************
-//************************** PANTALLA *****************************************
-//*****************************************************************************
+//---------------------------------------------------------------
+//----------------------- Pantalla ------------------------------
+//---------------------------------------------------------------
 
   @override
   Widget build(BuildContext context) {
@@ -151,7 +149,7 @@ class _ResetearPasswordsScreenState extends State<ResetearPasswordsScreen> {
                     ],
                   ),
                   style: ElevatedButton.styleFrom(
-                    primary: const Color(0xFF120E43),
+                    backgroundColor: const Color(0xFF120E43),
                     minimumSize: const Size(100, 50),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(5),
@@ -184,9 +182,9 @@ class _ResetearPasswordsScreenState extends State<ResetearPasswordsScreen> {
     );
   }
 
-//-----------------------------------------------------------------------------
-//------------------------------ METODO NOCONTENT -----------------------------
-//-----------------------------------------------------------------------------
+//-----------------------------------------------------------------------
+//------------------------------ _noContent -----------------------------
+//-----------------------------------------------------------------------
 
   Widget _noContent() {
     return Container(
@@ -203,9 +201,9 @@ class _ResetearPasswordsScreenState extends State<ResetearPasswordsScreen> {
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- METODO SHOWLOGO ---------------------------
-//-----------------------------------------------------------------
+//-----------------------------------------------------------
+//--------------------- _showLogo ---------------------------
+//-----------------------------------------------------------
 
   Widget _showLogo() {
     return Row(
@@ -233,9 +231,9 @@ class _ResetearPasswordsScreenState extends State<ResetearPasswordsScreen> {
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- METODO SHOWLEGAJO -------------------------
-//-----------------------------------------------------------------
+//-----------------------------------------------------------
+//--------------------- _showLegajo -------------------------
+//-----------------------------------------------------------
 
   Widget _showLegajo() {
     return Container(
@@ -264,9 +262,9 @@ class _ResetearPasswordsScreenState extends State<ResetearPasswordsScreen> {
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- METODO SHOWBUTTON -------------------------
-//-----------------------------------------------------------------
+//-----------------------------------------------------------
+//--------------------- _showButton -------------------------
+//-----------------------------------------------------------
 
   Widget _showButton() {
     return Container(
@@ -286,7 +284,7 @@ class _ResetearPasswordsScreenState extends State<ResetearPasswordsScreen> {
                 ],
               ),
               style: ElevatedButton.styleFrom(
-                primary: const Color(0xFF781f1e),
+                backgroundColor: const Color(0xFF781f1e),
                 minimumSize: const Size(double.infinity, 50),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(5),
@@ -300,9 +298,9 @@ class _ResetearPasswordsScreenState extends State<ResetearPasswordsScreen> {
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- METODO SHOWINFO ---------------------------
-//-----------------------------------------------------------------
+//-----------------------------------------------------------
+//--------------------- _showInfo ---------------------------
+//-----------------------------------------------------------
 
   Widget _showInfo() {
     return Card(
@@ -338,9 +336,9 @@ class _ResetearPasswordsScreenState extends State<ResetearPasswordsScreen> {
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- METODO SEARCH -----------------------------
-//-----------------------------------------------------------------
+//-----------------------------------------------------------
+//--------------------- _search -----------------------------
+//-----------------------------------------------------------
 
   _search() async {
     FocusScope.of(context).unfocus();
@@ -357,9 +355,9 @@ class _ResetearPasswordsScreenState extends State<ResetearPasswordsScreen> {
     await _getUsuario();
   }
 
-//-----------------------------------------------------------------
-//--------------------- METODO _getUsuario ------------------------
-//-----------------------------------------------------------------
+//----------------------------------------------------------
+//--------------------- _getUsuario ------------------------
+//----------------------------------------------------------
 
   Future<void> _getUsuario() async {
     setState(() {
@@ -434,9 +432,9 @@ class _ResetearPasswordsScreenState extends State<ResetearPasswordsScreen> {
     });
   }
 
-//-----------------------------------------------------------------
-//--------------------- METODO _reactivarUsuario ------------------
-//-----------------------------------------------------------------
+//----------------------------------------------------------
+//--------------------- _reactivarUsuario ------------------
+//----------------------------------------------------------
 
   Future<void> _reactivarUsuario() async {
     setState(() {
@@ -463,7 +461,7 @@ class _ResetearPasswordsScreenState extends State<ResetearPasswordsScreen> {
       'IdUsuarioAutoriza': widget.user.idUsuario,
       'FechaCaduca':
           DateTime.now().difference(DateTime(2022, 01, 01)).inDays + 80723 + 70,
-      //Calculo dif entre hoy y el 1 de Enero de 2022 que es el 80723 y le sump el 80723 y 70 días más
+      //Calculo dif entre hoy y el 1 de Enero de 2022 que es el 80723 y le sumo el 80723 y 70 días más
     };
 
     Response response =

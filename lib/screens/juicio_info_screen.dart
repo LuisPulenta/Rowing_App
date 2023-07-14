@@ -445,25 +445,6 @@ class _JuicioInfoScreenState extends State<JuicioInfoScreen> {
                                                   fontSize: 12,
                                                 )),
                                           ),
-                                          // ClipRRect(
-                                          //   borderRadius:
-                                          //       BorderRadius.circular(20),
-                                          //   child: Container(
-                                          //     height: 40,
-                                          //     width: 40,
-                                          //     color: Colors.green,
-                                          //     child: IconButton(
-                                          //       icon: const Icon(
-                                          //         Icons.insert_comment,
-                                          //         color: Colors.white,
-                                          //       ),
-                                          //       onPressed: () => _sendMessage(
-                                          //           _contrapartes[0]
-                                          //               .telefono
-                                          //               .toString()),
-                                          //     ),
-                                          //   ),
-                                          // ),
                                           IconButton(
                                             icon: const Icon(
                                               Icons.phone_forwarded,
@@ -585,15 +566,15 @@ class _JuicioInfoScreenState extends State<JuicioInfoScreen> {
             color: Colors.white,
             height: 50,
             child: const Center(
-                child: const Text('No hay datos de Contraparte',
-                    style: const TextStyle(
+                child: Text('No hay datos de Contraparte',
+                    style: TextStyle(
                         color: Colors.red,
                         fontSize: 16,
                         fontWeight: FontWeight.bold))));
   }
 
 //-----------------------------------------------------------------
-//--------------------- METODO SHOWBUTTONS ------------------------
+//--------------------- _showButtons ------------------------------
 //-----------------------------------------------------------------
 
   Widget _showButtons() {
@@ -615,7 +596,7 @@ class _JuicioInfoScreenState extends State<JuicioInfoScreen> {
                 ],
               ),
               style: ElevatedButton.styleFrom(
-                primary: const Color(0xFF781f1e),
+                backgroundColor: const Color(0xFF781f1e),
                 minimumSize: const Size(double.infinity, 50),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(5),
@@ -650,7 +631,7 @@ class _JuicioInfoScreenState extends State<JuicioInfoScreen> {
                 ],
               ),
               style: ElevatedButton.styleFrom(
-                primary: const Color(0xFF781f1e),
+                backgroundColor: const Color(0xFF781f1e),
                 minimumSize: const Size(double.infinity, 50),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(5),
@@ -768,7 +749,6 @@ class _JuicioInfoScreenState extends State<JuicioInfoScreen> {
                             filled: true,
                             hintText: 'Teléfono...',
                             labelText: 'Teléfono',
-                            //errorText:_passwordShowError ? _passwordError : null,
                             prefixIcon: const Icon(Icons.phone),
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10))),
@@ -804,7 +784,7 @@ class _JuicioInfoScreenState extends State<JuicioInfoScreen> {
                       ],
                     ),
                     style: ElevatedButton.styleFrom(
-                      primary: Colors.green,
+                      backgroundColor: Colors.green,
                       minimumSize: const Size(double.infinity, 50),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(5),
@@ -835,7 +815,7 @@ class _JuicioInfoScreenState extends State<JuicioInfoScreen> {
                       ],
                     ),
                     style: ElevatedButton.styleFrom(
-                      primary: Colors.red,
+                      backgroundColor: Colors.red,
                       minimumSize: const Size(double.infinity, 50),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(5),

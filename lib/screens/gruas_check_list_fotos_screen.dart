@@ -332,7 +332,7 @@ class _GruasCheckListFotosScreenState extends State<GruasCheckListFotosScreen> {
                     ],
                   ),
                   style: ElevatedButton.styleFrom(
-                    primary: const Color(0xFF120E43),
+                    backgroundColor: const Color(0xFF120E43),
                     minimumSize: const Size(double.infinity, 50),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(5),
@@ -354,7 +354,7 @@ class _GruasCheckListFotosScreenState extends State<GruasCheckListFotosScreen> {
                     ],
                   ),
                   style: ElevatedButton.styleFrom(
-                    primary: const Color(0xFFB4161B),
+                    backgroundColor: const Color(0xFFB4161B),
                     minimumSize: const Size(double.infinity, 50),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(5),

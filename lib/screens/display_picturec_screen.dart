@@ -74,7 +74,7 @@ class _DisplayPictureCScreenState extends State<DisplayPictureCScreen> {
               child: ElevatedButton(
                 child: const Text('Usar Foto'),
                 style: ElevatedButton.styleFrom(
-                  primary: const Color(0xFF120E43),
+                  backgroundColor: const Color(0xFF120E43),
                   minimumSize: const Size(double.infinity, 50),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(5),
@@ -92,7 +92,7 @@ class _DisplayPictureCScreenState extends State<DisplayPictureCScreen> {
               child: ElevatedButton(
                 child: const Text('Volver a tomar'),
                 style: ElevatedButton.styleFrom(
-                  primary: const Color(0xFFE03B8B),
+                  backgroundColor: const Color(0xFFE03B8B),
                   minimumSize: const Size(double.infinity, 50),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(5),

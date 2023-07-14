@@ -435,7 +435,7 @@ class _InspeccionCuestionarioDuplicadoScreenState
                                   ],
                                 ),
                                 style: ElevatedButton.styleFrom(
-                                  primary: colorVerde,
+                                  backgroundColor: colorVerde,
                                   minimumSize: const Size(double.infinity, 40),
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(5),
@@ -482,7 +482,7 @@ class _InspeccionCuestionarioDuplicadoScreenState
                                   ],
                                 ),
                                 style: ElevatedButton.styleFrom(
-                                  primary: colorRojo,
+                                  backgroundColor: colorRojo,
                                   minimumSize: const Size(double.infinity, 40),
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(5),
@@ -527,7 +527,7 @@ class _InspeccionCuestionarioDuplicadoScreenState
                                   ],
                                 ),
                                 style: ElevatedButton.styleFrom(
-                                  primary: colorNaranja,
+                                  backgroundColor: colorNaranja,
                                   minimumSize: const Size(double.infinity, 40),
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(5),
@@ -688,7 +688,7 @@ class _InspeccionCuestionarioDuplicadoScreenState
                                       ],
                                     ),
                                     style: ElevatedButton.styleFrom(
-                                      primary: colorVerde,
+                                      backgroundColor: colorVerde,
                                       minimumSize:
                                           const Size(double.infinity, 40),
                                       shape: RoundedRectangleBorder(
@@ -743,7 +743,7 @@ class _InspeccionCuestionarioDuplicadoScreenState
                                       ],
                                     ),
                                     style: ElevatedButton.styleFrom(
-                                      primary: colorRojo,
+                                      backgroundColor: colorRojo,
                                       minimumSize:
                                           const Size(double.infinity, 40),
                                       shape: RoundedRectangleBorder(
@@ -786,7 +786,7 @@ class _InspeccionCuestionarioDuplicadoScreenState
                                       ],
                                     ),
                                     style: ElevatedButton.styleFrom(
-                                      primary: colorNaranja,
+                                      backgroundColor: colorNaranja,
                                       minimumSize:
                                           const Size(double.infinity, 40),
                                       shape: RoundedRectangleBorder(
@@ -852,7 +852,7 @@ class _InspeccionCuestionarioDuplicadoScreenState
                       ],
                     ),
                     style: ElevatedButton.styleFrom(
-                      primary: const Color(0xFF282886),
+                      backgroundColor: const Color(0xFF282886),
                       minimumSize: const Size(double.infinity, 40),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(5),
@@ -878,7 +878,7 @@ class _InspeccionCuestionarioDuplicadoScreenState
                     ],
                   ),
                   style: ElevatedButton.styleFrom(
-                    primary: const Color(0xffdf281e),
+                    backgroundColor: const Color(0xffdf281e),
                     minimumSize: const Size(double.infinity, 40),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(5),

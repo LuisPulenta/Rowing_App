@@ -797,7 +797,7 @@ class _SiniestroInfoScreenState extends State<SiniestroInfoScreen> {
                     ],
                   ),
                   style: ElevatedButton.styleFrom(
-                    primary: const Color(0xFF120E43),
+                    backgroundColor: const Color(0xFF120E43),
                     minimumSize: const Size(double.infinity, 50),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(5),
@@ -819,7 +819,7 @@ class _SiniestroInfoScreenState extends State<SiniestroInfoScreen> {
                     ],
                   ),
                   style: ElevatedButton.styleFrom(
-                    primary: const Color(0xFFB4161B),
+                    backgroundColor: const Color(0xFFB4161B),
                     minimumSize: const Size(double.infinity, 50),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(5),
@@ -849,7 +849,8 @@ class _SiniestroInfoScreenState extends State<SiniestroInfoScreen> {
                         ],
                       ),
                       style: ElevatedButton.styleFrom(
-                        primary: const Color.fromARGB(255, 180, 22, 219),
+                        backgroundColor:
+                            const Color.fromARGB(255, 180, 22, 219),
                         minimumSize: const Size(220, 50),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(5),
@@ -874,7 +875,8 @@ class _SiniestroInfoScreenState extends State<SiniestroInfoScreen> {
                           ],
                         ),
                         style: ElevatedButton.styleFrom(
-                          primary: const Color.fromARGB(255, 200, 14, 241),
+                          backgroundColor:
+                              const Color.fromARGB(255, 200, 14, 241),
                           minimumSize: const Size(double.infinity, 50),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(5),
@@ -900,7 +902,7 @@ class _SiniestroInfoScreenState extends State<SiniestroInfoScreen> {
                           ],
                         ),
                         style: ElevatedButton.styleFrom(
-                          primary: const Color(0xFFB4161B),
+                          backgroundColor: const Color(0xFFB4161B),
                           minimumSize: const Size(double.infinity, 50),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(5),

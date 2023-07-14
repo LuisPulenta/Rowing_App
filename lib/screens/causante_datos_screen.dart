@@ -510,7 +510,7 @@ class _CausanteDatosScreenState extends State<CausanteDatosScreen> {
                           ],
                         ),
                         style: ElevatedButton.styleFrom(
-                          primary: const Color(0xFF781f1e),
+                          backgroundColor: const Color(0xFF781f1e),
                           minimumSize: const Size(double.infinity, 50),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(5),
@@ -571,7 +571,7 @@ class _CausanteDatosScreenState extends State<CausanteDatosScreen> {
                 ],
               ),
               style: ElevatedButton.styleFrom(
-                primary: const Color(0xFF120E43),
+                backgroundColor: const Color(0xFF120E43),
                 minimumSize: const Size(100, 50),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(5),

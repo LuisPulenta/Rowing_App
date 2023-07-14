@@ -25,9 +25,9 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-//*****************************************************************************
-//************************** DEFINICION DE VARIABLES **************************
-//*****************************************************************************
+//---------------------------------------------------------------
+//----------------------- Variables -----------------------------
+//---------------------------------------------------------------
 
   late LocationBloc locationBloc;
 
@@ -53,9 +53,9 @@ class _HomeScreenState extends State<HomeScreen> {
       speed: 0,
       speedAccuracy: 0);
 
-//*****************************************************************************
-//************************** INITSTATE *****************************************
-//*****************************************************************************
+//---------------------------------------------------------------
+//----------------------- initState -----------------------------
+//---------------------------------------------------------------
 
   @override
   void initState() {
@@ -108,9 +108,9 @@ class _HomeScreenState extends State<HomeScreen> {
     handleTimeout(widget.user);
   }
 
-//*****************************************************************************
-//************************** PANTALLA *****************************************
-//*****************************************************************************
+//---------------------------------------------------------------
+//----------------------- Pantalla ------------------------------
+//---------------------------------------------------------------
 
   @override
   Widget build(BuildContext context) {
@@ -484,40 +484,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 )
               ],
             ),
-
-            // widget.user.habilitaPresentismo == 1
-            //     ? Row(
-            //         children: [
-            //           Expanded(
-            //             child: ListTile(
-            //               leading: const Icon(
-            //                 Icons.group_outlined,
-            //                 color: Colors.white,
-            //               ),
-            //               tileColor: const Color(0xff8c8c94),
-            //               title: Text('Presentismo',
-            //                   style: const TextStyle(
-            //                       fontSize: 15, color: Colors.white)),
-            //               onTap: () async {
-            //                 guardarLocalizacion();
-            //                 String? result = await Navigator.push(
-            //                   context,
-            //                   MaterialPageRoute(
-            //                     builder: (context) => PresentismoScreen(
-            //                       user: widget.user,
-            //                     ),
-            //                   ),
-            //                 );
-            //               },
-            //             ),
-            //           ),
-            //           const SizedBox(
-            //             width: 10,
-            //           )
-            //         ],
-            //       )
-            //     : Container(),
-
             widget.user.habilitaPresentismo == 1
                 ? Row(
                     children: [
@@ -588,7 +554,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     ],
                   )
                 : Container(),
-
             widget.user.habilitaSSHH == 1
                 ? Row(
                     children: [
@@ -870,9 +835,9 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-//*****************************************************************************
-//************************** METODO LOGOUT ************************************
-//*****************************************************************************
+//---------------------------------------------------------------
+//----------------------- _logOut -------------------------------
+//---------------------------------------------------------------
 
   void _logOut() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -894,7 +859,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
 //-----------------------------------------------------------------
-//--------------------- METODO GETCAUSANTE ---------------------------
+//--------------------- _getCausante ------------------------------
 //-----------------------------------------------------------------
 
   Future<void> _getCausante() async {
@@ -936,7 +901,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
 //-----------------------------------------------------------------
-//--------------------- METODO GETNOVEDADES -----------------------
+//--------------------- _getNovedades -----------------------------
 //-----------------------------------------------------------------
 
   Future<void> _getNovedades() async {
@@ -982,7 +947,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
 //-----------------------------------------------------------------
-//--------------------- METODO handleTimeout ----------------------
+//--------------------- handleTimeout -----------------------------
 //-----------------------------------------------------------------
 
   handleTimeout(User user) async {
@@ -1020,7 +985,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
 //-----------------------------------------------------------------
-//--------------------- METODO guardarHoraLocalizacion ------------
+//--------------------- guardarHoraLocalizacion -------------------
 //-----------------------------------------------------------------
 
   guardarHoraLocalizacion() async {
@@ -1030,7 +995,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
 //-----------------------------------------------------------------
-//--------------------- METODO guardarLocalizacion ----------------
+//--------------------- guardarLocalizacion -----------------------
 //-----------------------------------------------------------------
 
   guardarLocalizacion() async {
@@ -1048,9 +1013,9 @@ class _HomeScreenState extends State<HomeScreen> {
     return;
   }
 
-//*****************************************************************************
-//************************** METODO GETPOSITION **********************************
-//*****************************************************************************
+//-----------------------------------------------------------------
+//--------------------- _getPosition ------------------------------
+//-----------------------------------------------------------------
 
   Future _getPosition() async {
     LocationPermission permission;
@@ -1130,9 +1095,10 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
-//*****************************************************************************
-//************************** METODO _updateBatteryState ***********************
-//*****************************************************************************
+//-----------------------------------------------------------------
+//--------------------- _getPosition ------------------------------
+//-----------------------------------------------------------------
+
   void _updateBatteryState(BatteryState state) {
     if (_batteryState == state) return;
     setState(() {

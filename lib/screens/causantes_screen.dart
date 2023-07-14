@@ -253,7 +253,7 @@ class _CausantesScreenState extends State<CausantesScreen> {
         ElevatedButton(
             child: const Icon(Icons.search),
             style: ElevatedButton.styleFrom(
-              primary: const Color(0xFF282886),
+              backgroundColor: const Color(0xFF282886),
               minimumSize: const Size(50, 50),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(5),
@@ -359,7 +359,7 @@ class _CausantesScreenState extends State<CausantesScreen> {
                 ],
               ),
               style: ElevatedButton.styleFrom(
-                primary: const Color(0xFF282886),
+                backgroundColor: const Color(0xFF282886),
                 minimumSize: const Size(50, 50),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(5),
@@ -385,7 +385,7 @@ class _CausantesScreenState extends State<CausantesScreen> {
               ],
             ),
             style: ElevatedButton.styleFrom(
-              primary: Colors.red,
+              backgroundColor: Colors.red,
               minimumSize: const Size(50, 50),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(5),

@@ -145,9 +145,9 @@ class _NotificacionAgregarScreenState extends State<NotificacionAgregarScreen> {
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- METODO SHOWOBSERVACIONES ------------------
-//-----------------------------------------------------------------
+//-----------------------------------------------------------
+//--------------------- _showObservaciones ------------------
+//-----------------------------------------------------------
 
   Widget _showObservaciones() {
     return Container(
@@ -440,7 +440,7 @@ class _NotificacionAgregarScreenState extends State<NotificacionAgregarScreen> {
                             ],
                           ),
                           style: ElevatedButton.styleFrom(
-                            primary: const Color(0xFF781f1e),
+                            backgroundColor: const Color(0xFF781f1e),
                             minimumSize: const Size(double.infinity, 60),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(5),
@@ -540,7 +540,7 @@ class _NotificacionAgregarScreenState extends State<NotificacionAgregarScreen> {
                             ],
                           ),
                           style: ElevatedButton.styleFrom(
-                            primary: const Color(0xFF781f1e),
+                            backgroundColor: const Color(0xFF781f1e),
                             minimumSize: const Size(double.infinity, 60),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(5),
@@ -754,7 +754,7 @@ class _NotificacionAgregarScreenState extends State<NotificacionAgregarScreen> {
                 ],
               ),
               style: ElevatedButton.styleFrom(
-                primary: const Color(0xFF781f1e),
+                backgroundColor: const Color(0xFF781f1e),
                 minimumSize: const Size(double.infinity, 50),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(5),
@@ -817,18 +817,6 @@ class _NotificacionAgregarScreenState extends State<NotificacionAgregarScreen> {
     } else {
       _observacionesShowError = false;
     }
-
-    // //--------- Monto ----------
-    // if (_monto == "") {
-    //   isValid = false;
-    //   _montoShowError = true;
-    //   _montoError = 'Debe completar Monto';
-
-    //   setState(() {});
-    //   return isValid;
-    // } else {
-    //   _montoShowError = false;
-    // }
 
 //--------- TipoTransaccion ----------
     if (_tipoTransaccion == 'Elija un tipo de transacción...' && _monto != "") {

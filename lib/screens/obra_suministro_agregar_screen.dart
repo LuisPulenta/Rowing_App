@@ -642,7 +642,7 @@ class _ObraSuministroAgregarScreenState
           ElevatedButton(
               child: const Icon(Icons.qr_code_2),
               style: ElevatedButton.styleFrom(
-                primary: const Color(0xFF781f1e),
+                backgroundColor: const Color(0xFF781f1e),
                 minimumSize: const Size(50, 40),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(5),
@@ -1476,7 +1476,7 @@ class _ObraSuministroAgregarScreenState
                 ],
               ),
               style: ElevatedButton.styleFrom(
-                primary: const Color(0xFF120E43),
+                backgroundColor: const Color(0xFF120E43),
                 minimumSize: const Size(100, 50),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(5),

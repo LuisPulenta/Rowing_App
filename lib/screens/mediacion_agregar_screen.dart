@@ -178,9 +178,9 @@ class _MediacionAgregarScreenState extends State<MediacionAgregarScreen> {
         ));
   }
 
-//-----------------------------------------------------------------
-//--------------------- METODO _showOfrecimiento ------------------
-//-----------------------------------------------------------------
+//----------------------------------------------------------
+//--------------------- _showOfrecimiento ------------------
+//----------------------------------------------------------
 
   Widget _showOfrecimiento() {
     return Container(
@@ -333,7 +333,7 @@ class _MediacionAgregarScreenState extends State<MediacionAgregarScreen> {
                             ],
                           ),
                           style: ElevatedButton.styleFrom(
-                            primary: const Color(0xFF781f1e),
+                            backgroundColor: const Color(0xFF781f1e),
                             minimumSize: const Size(double.infinity, 60),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(5),
@@ -399,7 +399,7 @@ class _MediacionAgregarScreenState extends State<MediacionAgregarScreen> {
   }
 
 //---------------------------------------------------------------------
-//-------------------------- _showMontoContraOferta -------------------------------
+//-------------------------- _showMontoContraOferta -------------------
 //---------------------------------------------------------------------
   Widget _showMontoContraOferta() {
     return Container(
@@ -424,9 +424,9 @@ class _MediacionAgregarScreenState extends State<MediacionAgregarScreen> {
     );
   }
 
-//---------------------------------------------------------------------
-//-------------------------- _showAceptacionContraoferta --------------
-//---------------------------------------------------------------------
+//----------------------------------------------------------
+//--------------- _showAceptacionContraoferta --------------
+//----------------------------------------------------------
   Widget _showAceptacionContraoferta() {
     return Container(
       padding: const EdgeInsets.all(10),
@@ -633,7 +633,7 @@ class _MediacionAgregarScreenState extends State<MediacionAgregarScreen> {
                 ],
               ),
               style: ElevatedButton.styleFrom(
-                primary: const Color(0xFF781f1e),
+                backgroundColor: const Color(0xFF781f1e),
                 minimumSize: const Size(double.infinity, 50),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(5),
