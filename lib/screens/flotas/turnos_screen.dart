@@ -288,7 +288,7 @@ class _TurnosScreenState extends State<TurnosScreen> {
                                         )),
                                     Expanded(
                                       flex: 2,
-                                      child: Text(_HoraMinuto(e.horaTurno!),
+                                      child: Text(_horaMinuto(e.horaTurno!),
                                           style: const TextStyle(
                                             fontSize: 12,
                                           )),
@@ -347,7 +347,7 @@ class _TurnosScreenState extends State<TurnosScreen> {
                                       flex: 2,
                                       child: e.horaTurnoConfirmado != 0
                                           ? Text(
-                                              _HoraMinuto(
+                                              _horaMinuto(
                                                   e.horaTurnoConfirmado!),
                                               style: const TextStyle(
                                                 fontSize: 12,
@@ -464,7 +464,7 @@ class _TurnosScreenState extends State<TurnosScreen> {
 //----------------------------- _HoraMinuto ----------------------------------
 //----------------------------------------------------------------------------
 
-  String _HoraMinuto(int valor) {
+  String _horaMinuto(int valor) {
     String hora = (valor / 3600).floor().toString();
     String minutos =
         ((valor - ((valor / 3600).floor()) * 3600) / 60).round().toString();

@@ -782,7 +782,7 @@ class _ObraInfoDataScreenState extends State<ObraInfoDataScreen> {
 
     Response response = Response(isSuccess: false);
 
-    response = await ApiHelper.GetCatalogosAysa();
+    response = await ApiHelper.getCatalogosAysa();
 
     if (!response.isSuccess) {
       await showAlertDialog(

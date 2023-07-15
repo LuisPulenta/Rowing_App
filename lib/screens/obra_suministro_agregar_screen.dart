@@ -1454,43 +1454,6 @@ class _ObraSuministroAgregarScreenState
   }
 
 //--------------------------------------------------------------
-//-------------------------- _showButtons ----------------------
-//--------------------------------------------------------------
-
-  Widget _showButtons() {
-    return Container(
-      margin: const EdgeInsets.only(left: 10, right: 10),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: <Widget>[
-          Expanded(
-            child: ElevatedButton(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  Icon(Icons.save),
-                  SizedBox(
-                    width: 15,
-                  ),
-                  Text('Guardar'),
-                ],
-              ),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFF120E43),
-                minimumSize: const Size(100, 50),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(5),
-                ),
-              ),
-              onPressed: () {},
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-//--------------------------------------------------------------
 //-------------------------- _takePicture ----------------------
 //--------------------------------------------------------------
 

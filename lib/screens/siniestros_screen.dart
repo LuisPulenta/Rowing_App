@@ -28,7 +28,6 @@ class _SiniestrosScreenState extends State<SiniestrosScreen> {
 
   late Causante _causante;
   List<VehiculosSiniestro> _siniestros = [];
-  List<VehiculosSiniestro> _siniestrosSinLeer = [];
 
   VehiculosSiniestro siniestroSelected = VehiculosSiniestro(
     nrosiniestro: 0,
@@ -804,70 +803,7 @@ class _SiniestrosScreenState extends State<SiniestrosScreen> {
   }
 
 //*****************************************************************************
-//************************** GRABAR Siniestro ***********************************
-//*****************************************************************************
-
-  void _grabarSiniestro(VehiculosSiniestro Siniestro) async {
-    setState(() {
-      _showLoader = true;
-    });
-
-    var connectivityResult = await Connectivity().checkConnectivity();
-
-    if (connectivityResult == ConnectivityResult.none) {
-      setState(() {
-        _showLoader = false;
-      });
-      await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: 'Verifica que estés conectado a Internet',
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
-      return;
-    }
-
-    Map<String, dynamic> request = {
-      //'nroregistro': _ticket.nroregistro,
-      //'iDSiniestro': Siniestro.idSiniestro,
-    };
-
-    // Response response = await ApiHelper.put(
-    //   '/api/CausantesSiniestroes/',
-    //   Siniestro.idSiniestro.toString(),
-    //   request,
-    // );
-
-    // setState(() {
-    //   _showLoader = false;
-    // });
-
-    // if (!response.isSuccess) {
-    //   await showAlertDialog(
-    //       context: context,
-    //       title: 'Error',
-    //       message: response.message,
-    //       actions: <AlertDialogAction>[
-    //         const AlertDialogAction(key: null, label: 'Aceptar'),
-    //       ]);
-    //   return;
-    // }
-    if (widget.user.codigoCausante != widget.user.login) {
-      Navigator.pop(context, 'yes');
-    }
-    await _getSiniestros();
-    _siniestrosSinLeer = [];
-    // _siniestros.forEach((Siniestro) {
-    //   if (Siniestro.estado != "Pendiente" && Siniestro.confirmaLeido != 1) {
-    //     _siniestrosSinLeer.add(Siniestro);
-    //   }
-    // });
-    setState(() {});
-  }
-
-//*****************************************************************************
-//************************** METODO _HoraMinuto *******************************
+//************************** _HoraMinuto *******************************
 //*****************************************************************************
 
   String _HoraMinuto(int valor) {

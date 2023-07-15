@@ -704,29 +704,6 @@ class _VeredaInfoScreenState extends State<VeredaInfoScreen> {
   }
 
 //*****************************************************************************
-//************************** METODO DELETEPHOTO *******************************
-//*****************************************************************************
-
-  Future<void> _deletePhoto() async {
-    setState(() {});
-
-    var connectivityResult = await Connectivity().checkConnectivity();
-    if (connectivityResult == ConnectivityResult.none) {
-      setState(() {});
-      await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: 'Verifica que estes conectado a internet.',
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
-      return;
-    }
-
-    setState(() {});
-  }
-
-//*****************************************************************************
 //************************** _showButtons *************************************
 //*****************************************************************************
 

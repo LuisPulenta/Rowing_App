@@ -600,20 +600,6 @@ class _GruasCheckListFotosScreenState extends State<GruasCheckListFotosScreen> {
   }
 
 //-------------------------------------------------------------
-//-------------------- _showSnackbar --------------------------
-//-------------------------------------------------------------
-
-  void _showSnackbar() {
-    SnackBar snackbar = const SnackBar(
-      content: Text("Fecha de Cierre Eléctrico grabada con éxito"),
-      backgroundColor: Colors.lightGreen,
-      //duration: Duration(seconds: 3),
-    );
-    ScaffoldMessenger.of(context).showSnackBar(snackbar);
-    //ScaffoldMessenger.of(context).hideCurrentSnackBar();
-  }
-
-//-------------------------------------------------------------
 //-------------------- _geFotos -------------------------------
 //-------------------------------------------------------------
 

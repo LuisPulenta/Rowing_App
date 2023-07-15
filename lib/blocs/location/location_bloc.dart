@@ -22,10 +22,10 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
   final LatLng? lastSavedLocation;
   final DateTime? lastSavedDateLocation;
   final Battery _battery = Battery();
-  double LatitudActual;
-  double LongitudActual;
-  double LatitudUltima;
-  double LongitudUltima;
+  double latitudActual;
+  double longitudActual;
+  double latitudUltima;
+  double longitudUltima;
   DateTime ultimaFechaGrabada = DateTime.now();
 
   BatteryState? _batteryState;
@@ -92,17 +92,15 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
     }
 
     parametro = Parametro.fromJson(jsonDecode(response.body));
-
-    var a = 1;
   }
 
   LocationBloc(
       this.lastSavedLocation,
       this.lastSavedDateLocation,
-      this.LatitudActual,
-      this.LongitudActual,
-      this.LatitudUltima,
-      this.LongitudUltima)
+      this.latitudActual,
+      this.longitudActual,
+      this.latitudUltima,
+      this.longitudUltima)
       : super(const LocationState()) {
     on<OnStartFollowingUser>(
       (event, emit) => emit(
@@ -121,14 +119,14 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
         lastKnownLocation: event.newLocation,
       ));
 
-      LatitudActual = event.newLocation.latitude;
-      LongitudActual = event.newLocation.longitude;
+      latitudActual = event.newLocation.latitude;
+      longitudActual = event.newLocation.longitude;
 
       bool diff = DateTime.now().difference(ultimaFechaGrabada) >
           Duration(seconds: parametro.tiempo);
 
       double distancia = _distanciaEntrePuntos(
-          LatitudActual, LongitudActual, LatitudUltima, LongitudUltima);
+          latitudActual, longitudActual, latitudUltima, longitudUltima);
       //+Random().nextInt(50).toDouble();
 
       //print("Distancia: $distancia - Diferencia: ${DateTime.now().difference(ultimaFechaGrabada)}");
@@ -137,15 +135,15 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
           _user.login.isNotEmpty &&
           diff &&
           distancia > parametro.metros) {
-        await handleTimeout(LatitudActual, LongitudActual, distancia);
+        await handleTimeout(latitudActual, longitudActual, distancia);
       }
     });
   }
 
   Future getCurrentPostion() async {
     final position = await Geolocator.getCurrentPosition();
-    LatitudUltima = position.latitude;
-    LongitudUltima = position.longitude;
+    latitudUltima = position.latitude;
+    longitudUltima = position.longitude;
 
     add(
       OnNewUserLocationEvent(
@@ -182,18 +180,18 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
 //--------------------- METODO handleTimeout ----------------------
 //-----------------------------------------------------------------
 
-  handleTimeout(double Latitud, double Longitud, double distancia) async {
+  handleTimeout(double latitud, double longitud, double distancia) async {
     var connectivityResult = Connectivity().checkConnectivity();
     if (connectivityResult == ConnectivityResult.none) {
       return;
     }
 
-    if (Latitud == 0 || Longitud == 0) {
+    if (latitud == 0 || longitud == 0) {
       return;
     }
 
     List<Placemark> placemarks =
-        await placemarkFromCoordinates(Latitud, Longitud);
+        await placemarkFromCoordinates(latitud, longitud);
     String direccion = placemarks[0].street.toString() +
         " - " +
         placemarks[0].locality.toString() +
@@ -203,14 +201,14 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
     _battery.batteryState.then(_updateBatteryState);
     int batnivel = await _battery.batteryLevel;
 
-    // print("LatitudActual: ${Latitud} - LongitudActual: ${Longitud}");
-    // print("LatitudUltima: ${LatitudUltima} - LongitudUltima: ${LongitudUltima}");
+    // print("latitudActual: ${latitud} - longitudActual: ${longitud}");
+    // print("latitudUltima: ${latitudUltima} - longitudUltima: ${longitudUltima}");
 
     Map<String, dynamic> request1 = {
       'IdUsuario': _user.idUsuario,
       'UsuarioStr': _user.fullName,
-      'LATITUD': Latitud,
-      'LONGITUD': Longitud,
+      'latitud': latitud,
+      'longitud': longitud,
       'PIN': "mapinred.ico", //distancia.toString(),
       'PosicionCalle': direccion,
       'Velocidad': 0,
@@ -222,8 +220,8 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
 
     ApiHelper.post('/api/UsuariosGeos', request1);
     ultimaFechaGrabada = DateTime.now();
-    LatitudUltima = Latitud;
-    LongitudUltima = Longitud;
+    latitudUltima = latitud;
+    longitudUltima = longitud;
     // print('Grabado');
 
     return;
@@ -242,19 +240,19 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
 //--------------------------------------------------------
 
   double _distanciaEntrePuntos(
-    double LatitudUltima,
-    double LongitudUltima,
-    double LatitudActual,
-    double LongitudActual,
+    double latitudUltima,
+    double longitudUltima,
+    double latitudActual,
+    double longitudActual,
   ) {
     double R = 6372000.8; // In meters
-    double dLat = _toRadians(LatitudActual - LatitudUltima);
-    double dLon = _toRadians(LongitudActual - LongitudUltima);
-    LatitudUltima = _toRadians(LatitudUltima);
-    LatitudActual = _toRadians(LatitudActual);
+    double dLat = _toRadians(latitudActual - latitudUltima);
+    double dLon = _toRadians(longitudActual - longitudUltima);
+    latitudUltima = _toRadians(latitudUltima);
+    latitudActual = _toRadians(latitudActual);
 
     double a = pow(sin(dLat / 2), 2) +
-        pow(sin(dLon / 2), 2) * cos(LatitudActual) * cos(LatitudUltima);
+        pow(sin(dLon / 2), 2) * cos(latitudActual) * cos(latitudUltima);
     double c = 2 * asin(sqrt(a));
 
     return R * c;

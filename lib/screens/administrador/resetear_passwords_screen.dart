@@ -182,25 +182,6 @@ class _ResetearPasswordsScreenState extends State<ResetearPasswordsScreen> {
     );
   }
 
-//-----------------------------------------------------------------------
-//------------------------------ _noContent -----------------------------
-//-----------------------------------------------------------------------
-
-  Widget _noContent() {
-    return Container(
-      height: 200,
-      width: 300,
-      margin: const EdgeInsets.all(20),
-      child: const Center(
-        child: Text(
-          'Este empleado no tiene novedades en los últimos 30 días.',
-          style: TextStyle(
-              fontSize: 16, fontWeight: FontWeight.normal, color: Colors.white),
-        ),
-      ),
-    );
-  }
-
 //-----------------------------------------------------------
 //--------------------- _showLogo ---------------------------
 //-----------------------------------------------------------

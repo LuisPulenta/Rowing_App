@@ -6,23 +6,20 @@ import 'package:rowing_app/components/loader_component.dart';
 import 'package:rowing_app/helpers/api_helper.dart';
 import 'package:rowing_app/models/models.dart';
 
-class PresentismoTurnoNocheScreen extends StatefulWidget {
+class PresentismoScreen extends StatefulWidget {
   final User user;
-  const PresentismoTurnoNocheScreen({Key? key, required this.user})
-      : super(key: key);
+  const PresentismoScreen({Key? key, required this.user}) : super(key: key);
 
   @override
-  State<PresentismoTurnoNocheScreen> createState() =>
-      _PresentismoTurnoNocheScreenState();
+  State<PresentismoScreen> createState() => _PresentismoScreenState();
 }
 
-class _PresentismoTurnoNocheScreenState
-    extends State<PresentismoTurnoNocheScreen> {
+class _PresentismoScreenState extends State<PresentismoScreen> {
 //---------------------------------------------------------------------
 //-------------------------- Variables --------------------------------
 //---------------------------------------------------------------------
 
-  final bool _permitidoGrabar = true;
+  bool _permitidoGrabar = true;
 
   final String _zona = '';
   final String _zonaError = '';
@@ -42,16 +39,17 @@ class _PresentismoTurnoNocheScreenState
   String _observaciones = '';
   final String _observacionesError = '';
   final bool _observacionesShowError = false;
-  final TextEditingController _observacionesController = TextEditingController();
+  final TextEditingController _observacionesController =
+      TextEditingController();
 
-  List<CausantesPresentismoTurnoNoche> _empleados = [];
+  List<Causante> _empleados = [];
   List<CausantesEstado> _estados = [];
   List<CausantesZona> _zonas = [];
   List<CausantesActividad> _actividades = [];
   bool _showLoader = false;
   bool _showLoader2 = false;
 
-  final List<CausantesPresentismoTurnoNoche> _presentismosHoy = [];
+  List<CausantesPresentismo> _presentismosHoy = [];
 
   final Causante _empleadoSeleccionado = Causante(
       nroCausante: 0,
@@ -85,10 +83,11 @@ class _PresentismoTurnoNocheScreenState
 //---------------------------------------------------------------------
 //-------------------------- InitState --------------------------------
 //---------------------------------------------------------------------
+
   @override
   void initState() {
     super.initState();
-    _getTurnosNoche();
+    _getEmpleados();
   }
 
 //---------------------------------------------------------------------
@@ -100,7 +99,8 @@ class _PresentismoTurnoNocheScreenState
     return Scaffold(
       backgroundColor: const Color(0xFF484848),
       appBar: AppBar(
-        title: const Text('Presentismo Turno Noche'),
+        title: Text(
+            'Presentismo ${DateFormat('dd/MM/yyyy').format(DateTime.parse(DateTime.now().toString()))}'),
         centerTitle: true,
       ),
       body: Center(
@@ -111,9 +111,9 @@ class _PresentismoTurnoNocheScreenState
     );
   }
 
-//-----------------------------------------------------------------------------
-//------------------------------ METODO GETCONTENT --------------------------
-//-----------------------------------------------------------------------------
+//---------------------------------------------------------------------
+//------------------------------ _getContent --------------------------
+//---------------------------------------------------------------------
 
   Widget _getContent() {
     return _permitidoGrabar
@@ -133,6 +133,7 @@ class _PresentismoTurnoNocheScreenState
                         ],
                       ),
               ),
+              _empleados.isEmpty ? Container() : _showButton(),
             ],
           )
         : Center(
@@ -161,43 +162,144 @@ class _PresentismoTurnoNocheScreenState
   }
 
 //-----------------------------------------------------------------
+//--------------------- _showButton -------------------------------
+//-----------------------------------------------------------------
+
+  Widget _showButton() {
+    return Container(
+      margin: const EdgeInsets.only(left: 10, right: 10, bottom: 15),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: <Widget>[
+          _showSaveButton(),
+        ],
+      ),
+    );
+  }
+
+//-----------------------------------------------------------------
 //--------------------- _showSaveButton ---------------------------
 //-----------------------------------------------------------------
 
-  _save(CausantesPresentismoTurnoNoche empleado) async {
+  Widget _showSaveButton() {
+    return Expanded(
+      child: ElevatedButton(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: const [
+              Icon(Icons.save),
+              SizedBox(
+                width: 15,
+              ),
+              Text('Guardar Presentismos'),
+            ],
+          ),
+          style: ElevatedButton.styleFrom(
+            backgroundColor: const Color(0xFF781f1e),
+            minimumSize: const Size(double.infinity, 50),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(5),
+            ),
+          ),
+          onPressed: () async {
+            var response = await showAlertDialog(
+                context: context,
+                title: 'Aviso',
+                message: '¿Está seguro de guardar los Presentismos?',
+                actions: <AlertDialogAction>[
+                  const AlertDialogAction(key: 'si', label: 'SI'),
+                  const AlertDialogAction(key: 'no', label: 'NO'),
+                ]);
+            if (response == 'no') {
+              return;
+            }
+            _save();
+          }),
+    );
+  }
+
+//-------------------------------------------------------
+//--------------------- _save ---------------------------
+//-------------------------------------------------------
+
+  _save() async {
     setState(() {
       _showLoader2 = true;
     });
 
-    Map<String, dynamic> request = {
-      'IDPRESENTISMO': empleado.idpresentismo,
-      'IDSUPERVISOR': empleado.idsupervisor,
-      'FECHA': empleado.fecha,
-      'HORA': empleado.hora,
-      'GRUPOC': empleado.grupoc,
-      'CAUSANTEC': empleado.causantec,
-      'ESTADO': empleado.estado,
-      'ZONATRABAJO': empleado.zonatrabajo,
-      'ACTIVIDAD': empleado.actividad,
-      'CECO': empleado.ceco,
-      'OBSERVACIONES': empleado.observaciones,
-      'PerteneceCuadrilla': empleado.perteneceCuadrilla
-    };
+    DateTime hoy = DateTime.now();
+    int hora = (hoy.hour * 3600 + hoy.minute * 60 + hoy.second);
 
-    Response response = await ApiHelper.put('/api/Causantes/PutPresentismo/',
-        empleado.idpresentismo.toString(), request);
-
-    if (!response.isSuccess) {
-      await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: response.message,
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
-      return;
+    for (Causante empleado in _empleados) {
+      if (empleado.presentismo.toString() == 'Elija un Estado...') {
+        await showAlertDialog(
+            context: context,
+            title: 'Error',
+            message: 'Hay empleados sin Estado seleccionado',
+            actions: <AlertDialogAction>[
+              const AlertDialogAction(key: null, label: 'Aceptar'),
+            ]);
+        return;
+      }
+      if (empleado.zonaTrabajo == 'Elija una Zona...') {
+        await showAlertDialog(
+            context: context,
+            title: 'Error',
+            message: 'Hay empleados sin Zona seleccionada',
+            actions: <AlertDialogAction>[
+              const AlertDialogAction(key: null, label: 'Aceptar'),
+            ]);
+        return;
+      }
+      if (empleado.nombreActividad == 'Elija una Actividad...') {
+        await showAlertDialog(
+            context: context,
+            title: 'Error',
+            message: 'Hay empleados sin Actividad seleccionada',
+            actions: <AlertDialogAction>[
+              const AlertDialogAction(key: null, label: 'Aceptar'),
+            ]);
+        return;
+      }
     }
-    _getTurnosNoche();
+
+    for (Causante empleado in _empleados) {
+      Map<String, dynamic> request = {
+        'IDPRESENTISMO': 0,
+        'IDSUPERVISOR': widget.user.idUsuario,
+        'FECHA': hoy.toString(),
+        'HORA': hora,
+        'GRUPOC': empleado.grupo,
+        'CAUSANTEC': empleado.codigo,
+        'ESTADO': empleado.presentismo,
+        'ZONATRABAJO': empleado.zonaTrabajo,
+        'ACTIVIDAD': empleado.nombreActividad,
+        'CECO': empleado.notas != null
+            ? empleado.notas!.length <= 50
+                ? empleado.notas
+                : empleado.notas!.substring(0, 50)
+            : '',
+        'OBSERVACIONES': empleado.imageFullPath!.length <= 50
+            ? empleado.imageFullPath
+            : empleado.imageFullPath!.substring(
+                0, 50), //Uso imageFullPath para guardar las Observaciones
+        'PerteneceCuadrilla': empleado.perteneceCuadrilla
+      };
+
+      Response response =
+          await ApiHelper.post('/api/Causantes/PostPresentismos', request);
+
+      if (!response.isSuccess) {
+        await showAlertDialog(
+            context: context,
+            title: 'Error',
+            message: response.message,
+            actions: <AlertDialogAction>[
+              const AlertDialogAction(key: null, label: 'Aceptar'),
+            ]);
+        return;
+      }
+    }
     setState(() {
       _showLoader2 = false;
     });
@@ -205,10 +307,11 @@ class _PresentismoTurnoNocheScreenState
     await showAlertDialog(
         context: context,
         title: 'Aviso',
-        message: 'Presentismo guardado con éxito!',
+        message: 'Presentismos guardados con éxito!',
         actions: <AlertDialogAction>[
           const AlertDialogAction(key: null, label: 'Aceptar'),
         ]);
+    Navigator.pop(context);
   }
 
 //--------------------------------------------------------------------------
@@ -296,9 +399,9 @@ class _PresentismoTurnoNocheScreenState
     );
   }
 
-//-----------------------------------------------------------------------------
-//------------------------------ METODO NOCONTENT -----------------------------
-//-----------------------------------------------------------------------------
+//-----------------------------------------------------------------------
+//------------------------------ _noContent -----------------------------
+//-----------------------------------------------------------------------
 
   Widget _noContent() {
     return Container(
@@ -312,32 +415,33 @@ class _PresentismoTurnoNocheScreenState
     );
   }
 
-//-----------------------------------------------------------------------------
-//------------------------------ METODO GETLISTVIEW ---------------------------
-//-----------------------------------------------------------------------------
+//-----------------------------------------------------------------------
+//------------------------------ _getListView ---------------------------
+//-----------------------------------------------------------------------
 
   Widget _getListView() {
     double ancho = MediaQuery.of(context).size.width * 0.9;
     return RefreshIndicator(
-      onRefresh: _getTurnosNoche,
+      onRefresh: _getEmpleados,
       child: ListView(
         children: _empleados.map((e) {
           return InkWell(
             onTap: () {
               _actividadController.text =
-                  e.actividad != null ? e.actividad! : '';
+                  e.nombreActividad != null ? e.nombreActividad! : '';
 
-              _estadoController.text = e.estado;
+              _estadoController.text =
+                  e.presentismo != null ? e.presentismo! : '';
 
               _zonaController.text =
-                  e.zonatrabajo != null ? e.zonatrabajo! : '';
+                  e.zonaTrabajo != null ? e.zonaTrabajo! : '';
 
               showDialog(
                   context: context,
                   builder: (BuildContext context) {
                     return AlertDialog(
                       backgroundColor: Colors.grey[300],
-                      title: Text(e.nombre.toString()),
+                      title: Text(e.nombre),
                       content: SingleChildScrollView(
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
@@ -357,7 +461,7 @@ class _PresentismoTurnoNocheScreenState
                             ),
                             DropdownButtonFormField(
                               autofocus: true,
-                              value: e.estado,
+                              value: e.presentismo,
                               isExpanded: true,
                               isDense: true,
                               decoration: InputDecoration(
@@ -372,7 +476,72 @@ class _PresentismoTurnoNocheScreenState
                               ),
                               items: _getComboEstados(),
                               onChanged: (value) {
-                                e.estado = value.toString();
+                                e.presentismo = value.toString();
+                              },
+                            ),
+                            const SizedBox(
+                              height: 15,
+                            ),
+                            DropdownButtonFormField(
+                              value: e.zonaTrabajo,
+                              isExpanded: true,
+                              isDense: true,
+                              decoration: InputDecoration(
+                                fillColor: Colors.white,
+                                filled: true,
+                                hintText: 'Elija una Zona...',
+                                labelText: 'Zona',
+                                errorText: _zonaShowError ? _zonaError : null,
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10)),
+                              ),
+                              items: _getComboZonas(),
+                              onChanged: (value) {
+                                e.zonaTrabajo = value.toString();
+                              },
+                            ),
+                            const SizedBox(
+                              height: 15,
+                            ),
+                            DropdownButtonFormField(
+                              value: e.nombreActividad,
+                              isExpanded: true,
+                              isDense: true,
+                              decoration: InputDecoration(
+                                fillColor: Colors.white,
+                                filled: true,
+                                hintText: 'Elija una Actividad...',
+                                labelText: 'Actividad',
+                                errorText: _actividadShowError
+                                    ? _actividadError
+                                    : null,
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10)),
+                              ),
+                              items: _getComboActividades(),
+                              onChanged: (value) {
+                                e.nombreActividad = value.toString();
+                              },
+                            ),
+                            const SizedBox(
+                              height: 15,
+                            ),
+                            TextField(
+                              controller: _observacionesController,
+                              maxLines: 3,
+                              decoration: InputDecoration(
+                                  fillColor: Colors.white,
+                                  filled: true,
+                                  hintText: 'Observaciones...',
+                                  labelText: 'Observaciones',
+                                  errorText: _observacionesShowError
+                                      ? _observacionesError
+                                      : null,
+                                  prefixIcon: const Icon(Icons.comment),
+                                  border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10))),
+                              onChanged: (value) {
+                                _observaciones = value;
                               },
                             ),
                           ],
@@ -426,7 +595,10 @@ class _PresentismoTurnoNocheScreenState
                                   ),
                                 ),
                                 onPressed: () {
-                                  _save(e);
+                                  e.imageFullPath =
+                                      _observaciones; //Uso imageFullPath para guardar las Observaciones
+                                  _observaciones = '';
+                                  _observacionesController.text = '';
                                   Navigator.pop(context);
                                   setState(() {});
                                 },
@@ -464,12 +636,8 @@ class _PresentismoTurnoNocheScreenState
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(
-                                        DateFormat('dd/MM/yyyy').format(
-                                                DateTime.parse(
-                                                    e.fecha.toString())) +
-                                            " - " +
-                                            e.perteneceCuadrilla.toString(),
+                                    Text(e.perteneceCuadrilla.toString(),
+                                        textAlign: TextAlign.start,
                                         style: const TextStyle(
                                             fontSize: 10,
                                             color: Colors.purple)),
@@ -485,7 +653,7 @@ class _PresentismoTurnoNocheScreenState
                                                   SizedBox(
                                                     width: ancho * 0.35,
                                                     child: Text(
-                                                        e.nombre.toString(),
+                                                        e.nombre.toUpperCase(),
                                                         style: const TextStyle(
                                                             fontSize: 10,
                                                             color: Color(
@@ -500,8 +668,8 @@ class _PresentismoTurnoNocheScreenState
                                                   SizedBox(
                                                     width: ancho * 0.21,
                                                     child: Text(
-                                                        e.zonatrabajo != null
-                                                            ? e.zonatrabajo!
+                                                        e.zonaTrabajo != null
+                                                            ? e.zonaTrabajo!
                                                             : '',
                                                         style: const TextStyle(
                                                           fontSize: 10,
@@ -513,8 +681,9 @@ class _PresentismoTurnoNocheScreenState
                                                   SizedBox(
                                                     width: ancho * 0.21,
                                                     child: Text(
-                                                        e.actividad != null
-                                                            ? e.actividad!
+                                                        e.nombreActividad !=
+                                                                null
+                                                            ? e.nombreActividad!
                                                             : '',
                                                         style: const TextStyle(
                                                           fontSize: 10,
@@ -522,7 +691,10 @@ class _PresentismoTurnoNocheScreenState
                                                   ),
                                                   SizedBox(
                                                     width: ancho * 0.13,
-                                                    child: Text(e.estado,
+                                                    child: Text(
+                                                        e.presentismo != null
+                                                            ? e.presentismo!
+                                                            : '',
                                                         style: const TextStyle(
                                                           fontSize: 10,
                                                         )),
@@ -556,7 +728,7 @@ class _PresentismoTurnoNocheScreenState
 //-------------------------- _getEmpleados ----------------------------
 //---------------------------------------------------------------------
 
-  Future<void> _getTurnosNoche() async {
+  Future<void> _getEmpleados() async {
     setState(() {
       _showLoader = true;
     });
@@ -579,7 +751,7 @@ class _PresentismoTurnoNocheScreenState
 
     Response response = Response(isSuccess: false);
 
-    response = await ApiHelper.getTurnosNoche(widget.user.idUsuario);
+    response = await ApiHelper.getEmpleados(widget.user.idUsuario);
 
     setState(() {
       _showLoader = false;
@@ -600,11 +772,15 @@ class _PresentismoTurnoNocheScreenState
       _empleados = response.result;
 
       for (var empleado in _empleados) {
-        empleado.estado = 'Presente';
+        empleado.presentismo = 'Presente';
+        empleado.imageFullPath =
+            ''; //Uso imageFullPath para guardar las Observaciones
       }
 
-      _empleados.sort((a, b) {
-        return a.fecha.toString().compareTo(b.fecha.toString());
+      _empleados.sort((b, a) {
+        return a.perteneceCuadrilla
+            .toString()
+            .compareTo(b.perteneceCuadrilla.toString());
       });
 
       _getEstados();
@@ -771,7 +947,64 @@ class _PresentismoTurnoNocheScreenState
       _actividades.sort((a, b) {
         return a.nombreactividad.compareTo(b.nombreactividad);
       });
+
+      _getPresentismosHoy();
     });
+  }
+
+//---------------------------------------------------------------------
+//-------------------------- _getPresentismosHoy ----------------------
+//---------------------------------------------------------------------
+
+  Future<void> _getPresentismosHoy() async {
+    setState(() {
+      _showLoader = true;
+    });
+
+    var connectivityResult = await Connectivity().checkConnectivity();
+
+    if (connectivityResult == ConnectivityResult.none) {
+      setState(() {
+        _showLoader = false;
+      });
+      await showAlertDialog(
+          context: context,
+          title: 'Error',
+          message: 'Verifica que estés conectado a Internet',
+          actions: <AlertDialogAction>[
+            const AlertDialogAction(key: null, label: 'Aceptar'),
+          ]);
+      return;
+    }
+
+    Response response = Response(isSuccess: false);
+
+    DateTime hoy = DateTime.now();
+
+    response = await ApiHelper.getPresentismosHoy(
+        widget.user.idUsuario, hoy.year, hoy.month, hoy.day);
+
+    setState(() {
+      _showLoader = false;
+    });
+
+    if (!response.isSuccess) {
+      await showAlertDialog(
+          context: context,
+          title: 'Error',
+          message: response.message,
+          actions: <AlertDialogAction>[
+            const AlertDialogAction(key: null, label: 'Aceptar'),
+          ]);
+      return;
+    }
+
+    _presentismosHoy = response.result;
+    if (_presentismosHoy.isNotEmpty) {
+      _permitidoGrabar = false;
+    }
+
+    setState(() {});
   }
 
 //---------------------------------------------------------------------

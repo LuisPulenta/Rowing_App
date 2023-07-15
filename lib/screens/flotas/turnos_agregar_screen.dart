@@ -397,6 +397,10 @@ class _TurnosAgregarScreenState extends State<TurnosAgregarScreen> {
     );
   }
 
+//-----------------------------------------------------------------
+//--------------------- _selectDate -------------------------------
+//-----------------------------------------------------------------
+
   void _selectDate(BuildContext context) async {
     final DateTime? selected = await showDatePicker(
       context: context,
@@ -415,6 +419,10 @@ class _TurnosAgregarScreenState extends State<TurnosAgregarScreen> {
     }
   }
 
+//-----------------------------------------------------------------
+//--------------------- _selectTime -------------------------------
+//-----------------------------------------------------------------
+
   void _selectTime(BuildContext context) async {
     final TimeOfDay? selected = await showTimePicker(
       initialTime: TimeOfDay.now(),
@@ -425,21 +433,6 @@ class _TurnosAgregarScreenState extends State<TurnosAgregarScreen> {
         selectedTime = selected;
       });
     }
-  }
-
-//----------------------------------------------------------------------------
-//----------------------------- _HoraMinuto ----------------------------------
-//----------------------------------------------------------------------------
-
-  String _HoraMinuto(int valor) {
-    String hora = (valor / 3600).floor().toString();
-    String minutos =
-        ((valor - ((valor / 3600).floor()) * 3600) / 60).round().toString();
-
-    if (minutos.length == 1) {
-      minutos = "0" + minutos;
-    }
-    return hora.toString() + ':' + minutos.toString();
   }
 
 //-----------------------------------------------------------------

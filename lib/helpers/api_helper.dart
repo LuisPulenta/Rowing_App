@@ -453,7 +453,7 @@ class ApiHelper {
   }
 
 //---------------------------------------------------------------------------
-  static Future<Response> GetCatalogosAysa() async {
+  static Future<Response> getCatalogosAysa() async {
     var url = Uri.parse('${Constants.apiUrl}/api/Catalogos/GetCatalogosAysa');
     var response = await http.get(
       url,
