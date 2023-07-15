@@ -16,6 +16,9 @@ class DisplayPictureCScreen extends StatefulWidget {
 }
 
 class _DisplayPictureCScreenState extends State<DisplayPictureCScreen> {
+//---------------------------------------------------------------------
+//-------------------------- Variables --------------------------------
+//---------------------------------------------------------------------
   String _observaciones = '';
   final String _observacionesError = '';
   final bool _observacionesShowError = false;
@@ -24,6 +27,9 @@ class _DisplayPictureCScreenState extends State<DisplayPictureCScreen> {
   final String _optionIdError = '';
   final bool _optionIdShowError = false;
 
+//---------------------------------------------------------------------
+//-------------------------- Pantalla --------------------------------
+//---------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,6 +68,10 @@ class _DisplayPictureCScreenState extends State<DisplayPictureCScreen> {
       ),
     );
   }
+
+//---------------------------------------------------------------------
+//-------------------------- _showButtons -----------------------------
+//---------------------------------------------------------------------
 
   Widget _showButtons() {
     return Container(
@@ -105,6 +115,10 @@ class _DisplayPictureCScreenState extends State<DisplayPictureCScreen> {
         ));
   }
 
+//---------------------------------------------------------------------
+//-------------------------- _showObservaciones -----------------------
+//---------------------------------------------------------------------
+
   Widget _showObservaciones() {
     return Container(
       padding: const EdgeInsets.all(10),
@@ -126,6 +140,9 @@ class _DisplayPictureCScreenState extends State<DisplayPictureCScreen> {
     );
   }
 
+//------------------------------------------------------------
+//-------------------------- _usePhoto -----------------------
+//------------------------------------------------------------
   void _usePhoto() async {
     if (_observaciones.length > 100) {
       showAlertDialog(

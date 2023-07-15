@@ -22,23 +22,6 @@ class _ConteosScreenState extends State<ConteosScreen> {
   List<Conteo> _conteos = [];
   bool _showLoader = false;
 
-  Conteo _conteoSeleccionado = Conteo(
-      idregistro: 0,
-      idUserCarga: 0,
-      idUserAsignado: 0,
-      fechaCarga: '',
-      grupoD: '',
-      causanteD: '',
-      observacion: '',
-      aprobado: 0,
-      fechaAprobado: '',
-      terminal: '',
-      idMov901: 0,
-      monto901: 0,
-      idMov902: 0,
-      monto902: 0,
-      procesadoGaos: 0);
-
 //---------------------------------------------------------------------
 //-------------------------- InitState --------------------------------
 //---------------------------------------------------------------------
@@ -109,9 +92,9 @@ class _ConteosScreenState extends State<ConteosScreen> {
     );
   }
 
-//-----------------------------------------------------------------------------
-//------------------------------ METODO NOCONTENT -----------------------------
-//-----------------------------------------------------------------------------
+//-----------------------------------------------------------------------
+//------------------------------ _noContent -----------------------------
+//-----------------------------------------------------------------------
 
   Widget _noContent() {
     return Container(
@@ -125,9 +108,9 @@ class _ConteosScreenState extends State<ConteosScreen> {
     );
   }
 
-//-----------------------------------------------------------------------------
-//------------------------------ METODO GETLISTVIEW ---------------------------
-//-----------------------------------------------------------------------------
+//-----------------------------------------------------------------------
+//------------------------------ _getListView ---------------------------
+//-----------------------------------------------------------------------
 
   Widget _getListView() {
     return RefreshIndicator(
@@ -141,7 +124,6 @@ class _ConteosScreenState extends State<ConteosScreen> {
             margin: const EdgeInsets.fromLTRB(10, 0, 10, 10),
             child: InkWell(
               onTap: () {
-                _conteoSeleccionado = e;
                 _goInfoConteo(e);
               },
               child: Container(

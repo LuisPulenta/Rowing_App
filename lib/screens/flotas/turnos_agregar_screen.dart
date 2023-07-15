@@ -14,7 +14,7 @@ class TurnosAgregarScreen extends StatefulWidget {
 }
 
 class _TurnosAgregarScreenState extends State<TurnosAgregarScreen> {
-  //---------------------------------------------------------------------
+//---------------------------------------------------------------------
 //-------------------------- Variables --------------------------------
 //---------------------------------------------------------------------
 
@@ -33,7 +33,8 @@ class _TurnosAgregarScreenState extends State<TurnosAgregarScreen> {
   String _observaciones = '';
   String _observacionesError = '';
   bool _observacionesShowError = false;
-  final TextEditingController _observacionesController = TextEditingController();
+  final TextEditingController _observacionesController =
+      TextEditingController();
 
   List<Causante> _talleres = [];
 
@@ -134,7 +135,7 @@ class _TurnosAgregarScreenState extends State<TurnosAgregarScreen> {
   }
 
 //-----------------------------------------------------------------
-//--------------------- METODO SHOWLEGAJO -------------------------
+//--------------------- _showLegajo -------------------------------
 //-----------------------------------------------------------------
 
   Widget _showLegajo() {
@@ -197,7 +198,7 @@ class _TurnosAgregarScreenState extends State<TurnosAgregarScreen> {
   }
 
 //-----------------------------------------------------------------
-//--------------------- METODO SHOWINFO ---------------------------
+//--------------------- _showInfo ---------------------------------
 //-----------------------------------------------------------------
 
   Widget _showInfo() {
@@ -228,7 +229,7 @@ class _TurnosAgregarScreenState extends State<TurnosAgregarScreen> {
   }
 
 //-----------------------------------------------------------------
-//--------------------- METODO SHOWOBSERVACIONES ------------------
+//--------------------- _showObservaciones ------------------------
 //-----------------------------------------------------------------
 
   Widget _showObservaciones() {
@@ -376,23 +377,21 @@ class _TurnosAgregarScreenState extends State<TurnosAgregarScreen> {
             ],
           ),
         ),
-        Positioned(
+        const Positioned(
           left: 50,
           bottom: 50,
-          child: Container(
-              child: const Text(
+          child: Text(
             ' Fecha Turno: ',
             style: TextStyle(fontSize: 12),
-          )),
+          ),
         ),
-        Positioned(
+        const Positioned(
           left: 244,
           bottom: 50,
-          child: Container(
-              child: const Text(
+          child: Text(
             ' Hora Turno: ',
             style: TextStyle(fontSize: 12),
-          )),
+          ),
         )
       ],
     );

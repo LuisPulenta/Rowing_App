@@ -13,8 +13,16 @@ class TakePicture3Screen extends StatefulWidget {
 }
 
 class _TakePicture3ScreenState extends State<TakePicture3Screen> {
+//-----------------------------------------------------------------------------
+//----------------------------- Variables -------------------------------------
+//-----------------------------------------------------------------------------
+
   late CameraController _controller;
   late Future<void> _initializeControllerFuture;
+
+//-----------------------------------------------------------------------------
+//----------------------------- initState -------------------------------------
+//-----------------------------------------------------------------------------
 
   @override
   void initState() {
@@ -31,6 +39,10 @@ class _TakePicture3ScreenState extends State<TakePicture3Screen> {
     _controller.dispose();
     super.dispose();
   }
+
+//-----------------------------------------------------------------------------
+//----------------------------- Pantalla --------------------------------------
+//-----------------------------------------------------------------------------
 
   @override
   Widget build(BuildContext context) {
