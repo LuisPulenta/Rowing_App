@@ -54,7 +54,7 @@ export 'package:rowing_app/screens/reclamoinfo_screen.dart';
 export 'package:rowing_app/screens/reclamos_screen.dart';
 export 'package:rowing_app/screens/obras/reqapp_screen.dart';
 export 'package:rowing_app/screens/reqepp_screen.dart';
-export 'package:rowing_app/screens/resetear_passwords_screen.dart';
+export 'package:rowing_app/screens/administrador/resetear_passwords_screen.dart';
 export 'package:rowing_app/screens/sacar_foto.dart';
 export 'package:rowing_app/screens/seguimiento_usuarios/seguimiento_usuario_screen.dart';
 export 'package:rowing_app/screens/seguimiento_usuarios/seguimiento_usuarios_map_screen.dart';

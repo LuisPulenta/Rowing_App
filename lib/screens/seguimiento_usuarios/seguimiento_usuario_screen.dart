@@ -311,6 +311,10 @@ class _SeguimientoUsuarioScreenState extends State<SeguimientoUsuarioScreen> {
     );
   }
 
+//-----------------------------------------------------------------
+//--------------------- _elegirFecha ------------------------------
+//-----------------------------------------------------------------
+
   _elegirFecha() async {
     FocusScope.of(context).unfocus();
     final DateTime? selected = await showDatePicker(

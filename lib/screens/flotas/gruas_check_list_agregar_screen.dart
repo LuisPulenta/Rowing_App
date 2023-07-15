@@ -2661,6 +2661,10 @@ class _GruasCheckListAgregarScreenState
     );
   }
 
+//-----------------------------------------------------------------
+//--------------------- _showNombreApellido -----------------------
+//-----------------------------------------------------------------
+
   Widget _showNombreApellido() {
     return Container(
       padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
@@ -2681,6 +2685,10 @@ class _GruasCheckListAgregarScreenState
       ),
     );
   }
+
+//-----------------------------------------------------------------
+//--------------------- _showDocumento ----------------------------
+//-----------------------------------------------------------------
 
   Widget _showDocumento() {
     return Container(
@@ -2704,6 +2712,10 @@ class _GruasCheckListAgregarScreenState
     );
   }
 
+//-----------------------------------------------------------------
+//--------------------- _showJefeDirecto --------------------------
+//-----------------------------------------------------------------
+
   Widget _showJefeDirecto() {
     return Container(
       padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
@@ -2724,6 +2736,10 @@ class _GruasCheckListAgregarScreenState
       ),
     );
   }
+
+//-----------------------------------------------------------------
+//--------------------- _showResponsableVehiculo ------------------
+//-----------------------------------------------------------------
 
   Widget _showResponsableVehiculo() {
     return Container(
@@ -2747,6 +2763,10 @@ class _GruasCheckListAgregarScreenState
       ),
     );
   }
+
+//-----------------------------------------------------------------
+//--------------------- _showObservaciones ------------------------
+//-----------------------------------------------------------------
 
   Widget _showObservaciones() {
     return Container(
@@ -3214,6 +3234,10 @@ class _GruasCheckListAgregarScreenState
     );
   }
 
+//-----------------------------------------------------------------
+//--------------------- _showFechaVTH -----------------------------
+//-----------------------------------------------------------------
+
   Widget _showFechaVTH() {
     return InkWell(
       onTap: _elegirFechaVencVth,
@@ -3231,6 +3255,10 @@ class _GruasCheckListAgregarScreenState
       ),
     );
   }
+
+//-----------------------------------------------------------------
+//--------------------- _showFechaSeguro --------------------------
+//-----------------------------------------------------------------
 
   Widget _showFechaSeguro() {
     return InkWell(
@@ -3250,6 +3278,10 @@ class _GruasCheckListAgregarScreenState
     );
   }
 
+//-----------------------------------------------------------------
+//--------------------- _elegirFechaVencVtv -----------------------
+//-----------------------------------------------------------------
+
   _elegirFechaVencVtv() async {
     FocusScope.of(context).unfocus();
     final DateTime? selected = await showDatePicker(
@@ -3267,6 +3299,10 @@ class _GruasCheckListAgregarScreenState
     }
   }
 
+//-----------------------------------------------------------------
+//--------------------- _elegirFechaVencVth -----------------------
+//-----------------------------------------------------------------
+
   _elegirFechaVencVth() async {
     FocusScope.of(context).unfocus();
     final DateTime? selected = await showDatePicker(
@@ -3283,6 +3319,10 @@ class _GruasCheckListAgregarScreenState
       });
     }
   }
+
+//-----------------------------------------------------------------
+//--------------------- _elegirFechaVencSeguro --------------------
+//-----------------------------------------------------------------
 
   _elegirFechaVencSeguro() async {
     FocusScope.of(context).unfocus();
@@ -3403,6 +3443,10 @@ class _GruasCheckListAgregarScreenState
       ],
     );
   }
+
+//----------------------------------------------------------------------
+//------------------------------ _getComboClientes----------------------
+//----------------------------------------------------------------------
 
   List<DropdownMenuItem<int>> _getComboClientes() {
     List<DropdownMenuItem<int>> list = [];
