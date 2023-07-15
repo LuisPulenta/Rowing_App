@@ -22,6 +22,7 @@ class _ObraInfoDataScreenState extends State<ObraInfoDataScreen> {
 //----------------------------------------------------------------------
 //------------------------ Variables -----------------------------------
 //----------------------------------------------------------------------
+
   bool _showLoader = false;
   bool _mostrarConexiones = false;
   bool _mostrarLugares = false;
@@ -119,6 +120,7 @@ class _ObraInfoDataScreenState extends State<ObraInfoDataScreen> {
 //----------------------------------------------------------------------
 //------------------------  initState ----------------------------------
 //----------------------------------------------------------------------
+
   @override
   void initState() {
     super.initState();
@@ -141,8 +143,9 @@ class _ObraInfoDataScreenState extends State<ObraInfoDataScreen> {
   }
 
 //----------------------------------------------------------------------
-//------------------------ Pantalla -----------------------------------
+//------------------------ Pantalla ------------------------------------
 //----------------------------------------------------------------------
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -210,7 +213,7 @@ class _ObraInfoDataScreenState extends State<ObraInfoDataScreen> {
   }
 
 //-----------------------------------------------------------------
-//--------------------- METODO _showDireccion ---------------------
+//--------------------- _showDireccion ----------------------------
 //-----------------------------------------------------------------
 
   Widget _showDireccion() {
@@ -308,6 +311,7 @@ class _ObraInfoDataScreenState extends State<ObraInfoDataScreen> {
 //-----------------------------------------------------------------
 //--------------------- _address ----------------------------------
 //-----------------------------------------------------------------
+
   void _address() async {
     await _getPosition();
   }
@@ -315,6 +319,7 @@ class _ObraInfoDataScreenState extends State<ObraInfoDataScreen> {
 //-----------------------------------------------------------------
 //--------------------- _getPosition ------------------------------
 //-----------------------------------------------------------------
+
   Future _getPosition() async {
     bool serviceEnabled;
     LocationPermission permission;
@@ -809,8 +814,9 @@ class _ObraInfoDataScreenState extends State<ObraInfoDataScreen> {
   }
 
 //---------------------------------------------------------------------
-//-------------------------- _getComboDiametroCanios ----------------------------
+//-------------------------- _getComboDiametroCanios ------------------
 //---------------------------------------------------------------------
+
   List<DropdownMenuItem<String>> _getComboDiametroCanios() {
     List<DropdownMenuItem<String>> listCatalogos = [];
     listCatalogos.add(const DropdownMenuItem(
@@ -920,7 +926,7 @@ class _ObraInfoDataScreenState extends State<ObraInfoDataScreen> {
   }
 
 //-----------------------------------------------------------------
-//--------------------- METODO SHOWBUTTON -------------------------
+//--------------------- _showButton -------------------------------
 //-----------------------------------------------------------------
 
   Widget _showButton() {

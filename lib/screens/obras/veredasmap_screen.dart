@@ -115,29 +115,6 @@ class _VeredasMapScreenState extends State<VeredasMapScreen> {
                           }),
                     ]),
                   ),
-                  // Positioned(
-                  //   top: 10,
-                  //   left: 10,
-                  //   child: Container(
-                  //     width: MediaQuery.of(context).size.width * 0.8,
-                  //     child: Slider(
-                  //       min: 0,
-                  //       max: 20,
-                  //       activeColor: Color(0xFF781f1e),
-                  //       inactiveColor: Colors.grey,
-                  //       thumbColor: Color(0xFF781f1e),
-                  //       value: _sliderValue,
-                  //       onChanged: (value) {
-                  //         _sliderValue = value;
-                  //         myLocation = false;
-                  //         _getMarkers();
-                  //         myLocation = true;
-                  //         setState(() {});
-                  //       },
-                  //       divisions: 10,
-                  //     ),
-                  //   ),
-                  // ),
                 ])
               : Container(),
           Positioned(

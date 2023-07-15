@@ -16,6 +16,10 @@ class DisplayPictureScreen extends StatefulWidget {
 }
 
 class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
+//---------------------------------------------------------------
+//----------------------- Variables -----------------------------
+//---------------------------------------------------------------
+
   String _observaciones = '';
   final String _observacionesError = '';
   final bool _observacionesShowError = false;
@@ -31,6 +35,10 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
     'Vereda conforme',
     'Finalización del Trabajo'
   ];
+
+//---------------------------------------------------------------
+//----------------------- Pantalla ------------------------------
+//---------------------------------------------------------------
 
   @override
   Widget build(BuildContext context) {
@@ -72,6 +80,10 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
     );
   }
 
+//---------------------------------------------------------------
+//----------------------- _showOptions --------------------------
+//---------------------------------------------------------------
+
   Widget _showOptions() {
     return Container(
       padding: const EdgeInsets.all(10),
@@ -93,6 +105,10 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
           )),
     );
   }
+
+//---------------------------------------------------------------
+//----------------------- _showButtons --------------------------
+//---------------------------------------------------------------
 
   Widget _showButtons() {
     return Container(
@@ -136,6 +152,10 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
         ));
   }
 
+//---------------------------------------------------------------
+//----------------------- _showObservaciones --------------------
+//---------------------------------------------------------------
+
   Widget _showObservaciones() {
     return Container(
       padding: const EdgeInsets.all(10),
@@ -156,6 +176,10 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
       ),
     );
   }
+
+//---------------------------------------------------------------
+//----------------------- _usePhoto -----------------------------
+//---------------------------------------------------------------
 
   void _usePhoto() async {
     if (_optionId == -1) {

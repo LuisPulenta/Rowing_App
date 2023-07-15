@@ -603,10 +603,6 @@ class _ObrasScreenState extends State<ObrasScreen> {
             //   snippet: obraReparo.direccion.toString(),
             // ),
             onTap: () {
-              // CameraPosition(
-              //     target: LatLng(element.latitud!.toDouble(),
-              //         element.longitud!.toDouble()),
-              //     zoom: 16.0);
               _customInfoWindowController.addInfoWindow!(
                   Container(
                     padding: const EdgeInsets.all(5),
