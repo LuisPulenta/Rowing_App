@@ -15,9 +15,9 @@ class DisplayPicture4Screen extends StatefulWidget {
 }
 
 class _DisplayPicture4ScreenState extends State<DisplayPicture4Screen> {
-//*****************************************************************************
-//************************** DEFINICION DE VARIABLES **************************
-//*****************************************************************************
+//---------------------------------------------------------------
+//----------------------- Variables -----------------------------
+//---------------------------------------------------------------
 
   String _observaciones = '';
   final String _observacionesError = '';
@@ -52,9 +52,9 @@ class _DisplayPicture4ScreenState extends State<DisplayPicture4Screen> {
     'Tercero-Siniestro-Trasero',
   ];
 
-//*****************************************************************************
-//************************** PANTALLA *****************************************
-//*****************************************************************************
+//---------------------------------------------------------------
+//----------------------- Pantalla ------------------------------
+//---------------------------------------------------------------
 
   @override
   Widget build(BuildContext context) {
@@ -99,6 +99,7 @@ class _DisplayPicture4ScreenState extends State<DisplayPicture4Screen> {
 //---------------------------------------------------------------------
 //----------------------- _showOptions --------------------------------
 //---------------------------------------------------------------------
+
   Widget _showOptions() {
     return Container(
       padding: const EdgeInsets.all(10),
@@ -124,6 +125,7 @@ class _DisplayPicture4ScreenState extends State<DisplayPicture4Screen> {
 //---------------------------------------------------------------------
 //----------------------- _showButtons --------------------------------
 //---------------------------------------------------------------------
+
   Widget _showButtons() {
     return Container(
         margin: const EdgeInsets.all(10),
@@ -235,7 +237,6 @@ class _DisplayPicture4ScreenState extends State<DisplayPicture4Screen> {
         value: element,
       ));
     }
-
     return list;
   }
 }

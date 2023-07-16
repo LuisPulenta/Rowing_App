@@ -19,9 +19,9 @@ class SiniestroAgregarScreen extends StatefulWidget {
 }
 
 class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
-//*****************************************************************************
-//************************** DEFINICION DE VARIABLES **************************
-//*****************************************************************************
+//---------------------------------------------------------------
+//----------------------- Variables -----------------------------
+//---------------------------------------------------------------
 
   bool _showLoader = false;
   bool bandera = false;
@@ -41,8 +41,6 @@ class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
   bool _intervinoPolicia = false;
   bool _intervinoAmbulancia = false;
   bool _notifico = false;
-
-  //DateTime? fechaNovedad = null;
 
   String _observaciones = '';
   String _observacionesError = '';
@@ -125,18 +123,18 @@ class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
   bool _notificadoaShowError = false;
   final TextEditingController _notificadoaController = TextEditingController();
 
-//*****************************************************************************
-//************************** INIT STATE ***************************************
-//*****************************************************************************
+//---------------------------------------------------------------
+//----------------------- initState -----------------------------
+//---------------------------------------------------------------
 
   @override
   void initState() {
     super.initState();
   }
 
-//*****************************************************************************
-//************************** PANTALLA *****************************************
-//*****************************************************************************
+//---------------------------------------------------------------
+//----------------------- Pantalla ------------------------------
+//---------------------------------------------------------------
 
   @override
   Widget build(BuildContext context) {
@@ -213,7 +211,7 @@ class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
   }
 
 //-----------------------------------------------------------------
-//--------------------- METODO _showNumcha ------------------------
+//--------------------- _showNumcha -------------------------------
 //-----------------------------------------------------------------
 
   Widget _showNumcha() {
@@ -238,7 +236,7 @@ class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
   }
 
 //-----------------------------------------------------------------
-//--------------------- METODO _showNumchaTercero -----------------
+//--------------------- _showNumchaTercero ------------------------
 //-----------------------------------------------------------------
 
   Widget _showNumchaTercero() {
@@ -263,7 +261,7 @@ class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
   }
 
 //-----------------------------------------------------------------
-//--------------------- METODO _showCalle -------------------------
+//--------------------- _showCalle --------------------------------
 //-----------------------------------------------------------------
 
   Widget _showCalle() {
@@ -288,7 +286,7 @@ class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
   }
 
 //-----------------------------------------------------------------
-//--------------------- METODO _showNumero ------------------------
+//--------------------- _showNumero -------------------------------
 //-----------------------------------------------------------------
 
   Widget _showNumero() {
@@ -314,7 +312,7 @@ class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
   }
 
 //-----------------------------------------------------------------
-//--------------------- METODO _showCiudad ------------------------
+//--------------------- _showCiudad -------------------------------
 //-----------------------------------------------------------------
 
   Widget _showCiudad() {
@@ -339,7 +337,7 @@ class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
   }
 
 //-----------------------------------------------------------------
-//--------------------- METODO _showProvincia ---------------------
+//--------------------- _showProvincia ----------------------------
 //-----------------------------------------------------------------
 
   Widget _showProvincia() {
@@ -364,7 +362,7 @@ class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
   }
 
 //-----------------------------------------------------------------
-//--------------------- METODO _showTercero -----------------------
+//--------------------- _showTercero ------------------------------
 //-----------------------------------------------------------------
 
   Widget _showTercero() {
@@ -389,7 +387,7 @@ class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
   }
 
 //-----------------------------------------------------------------
-//--------------------- METODO _showTelefonoTercero ---------------
+//--------------------- _showTelefonoTercero ----------------------
 //-----------------------------------------------------------------
 
   Widget _showTelefonoTercero() {
@@ -415,7 +413,7 @@ class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
   }
 
 //-----------------------------------------------------------------
-//--------------------- METODO _showEmailTercero ------------------
+//--------------------- _showEmailTercero -------------------------
 //-----------------------------------------------------------------
 
   Widget _showEmailTercero() {
@@ -441,7 +439,7 @@ class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
   }
 
 //-----------------------------------------------------------------
-//--------------------- METODO _showCompaniaSeguro ----------------
+//--------------------- _showCompaniaSeguro -----------------------
 //-----------------------------------------------------------------
 
   Widget _showCompaniaSeguro() {
@@ -466,7 +464,7 @@ class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
   }
 
 //-----------------------------------------------------------------
-//--------------------- METODO _showNroPoliza ---------------------
+//--------------------- _showNroPoliza ----------------------------
 //-----------------------------------------------------------------
 
   Widget _showNroPoliza() {
@@ -491,7 +489,7 @@ class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
   }
 
 //-----------------------------------------------------------------
-//--------------------- METODO _showLesionados --------------------
+//--------------------- _showLesionados ---------------------------
 //-----------------------------------------------------------------
 
   Widget _showLesionados() {
@@ -547,7 +545,7 @@ class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
   }
 
 //-----------------------------------------------------------------
-//--------------------- METODO _showPolicia -----------------------
+//--------------------- _showPolicia ------------------------------
 //-----------------------------------------------------------------
 
   Widget _showPolicia() {
@@ -580,7 +578,7 @@ class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
   }
 
 //-----------------------------------------------------------------
-//--------------------- METODO _showAmbulancia -----------------------
+//--------------------- _showAmbulancia ---------------------------
 //-----------------------------------------------------------------
 
   Widget _showAmbulancia() {
@@ -613,7 +611,7 @@ class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
   }
 
 //-----------------------------------------------------------------
-//--------------------- METODO SHOWOBSERVACIONES ------------------
+//--------------------- _showObservaciones ------------------------
 //-----------------------------------------------------------------
 
   Widget _showObservaciones() {
@@ -637,7 +635,7 @@ class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
   }
 
 //-----------------------------------------------------------------
-//--------------------- METODO _showDetallesDanosTercero -----------
+//--------------------- _showDetallesDanosTercero -----------------
 //-----------------------------------------------------------------
 
   Widget _showDetallesDanosTercero() {
@@ -663,7 +661,7 @@ class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
   }
 
   //---------------------------------------------------------------
-//--------------------- METODO _showDetalleDanosPropio ------------
+//--------------------- _showDetallesDanosPropio ------------------
 //-----------------------------------------------------------------
 
   Widget _showDetallesDanosPropio() {
@@ -688,7 +686,7 @@ class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
   }
 
 //-----------------------------------------------------------------
-//--------------------- METODO _showNotificado --------------------
+//--------------------- _showNotificado ---------------------------
 //-----------------------------------------------------------------
 
   Widget _showNotificado() {
@@ -721,7 +719,7 @@ class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
   }
 
 //-----------------------------------------------------------------
-//--------------------- METODO _showNotificadoa -------------------
+//--------------------- _showNotificadoa --------------------------
 //-----------------------------------------------------------------
 
   Widget _showNotificadoa() {
@@ -746,7 +744,7 @@ class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
   }
 
 //-----------------------------------------------------------------
-//--------------------- METODO SHOWFECHA --------------------------
+//--------------------- _showFecha --------------------------------
 //-----------------------------------------------------------------
 
   Widget _showFecha() {
@@ -842,6 +840,10 @@ class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
     );
   }
 
+//-----------------------------------------------------------------
+//--------------------- _selectDate -------------------------------
+//-----------------------------------------------------------------
+
   void _selectDate(BuildContext context) async {
     final DateTime? selected = await showDatePicker(
       context: context,
@@ -856,6 +858,10 @@ class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
     }
   }
 
+//-----------------------------------------------------------------
+//--------------------- _selectTime -------------------------------
+//-----------------------------------------------------------------
+
   void _selectTime(BuildContext context) async {
     final TimeOfDay? selected = await showTimePicker(
       initialTime: TimeOfDay.now(),
@@ -869,7 +875,7 @@ class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
   }
 
 //-----------------------------------------------------------------
-//--------------------- METODO SHOWBUTTON -------------------------
+//--------------------- _showButton -------------------------------
 //-----------------------------------------------------------------
 
   Widget _showButton() {
@@ -905,9 +911,9 @@ class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
     );
   }
 
-//*****************************************************************************
-//************************** METODO SAVE **************************************
-//*****************************************************************************
+//-----------------------------------------------------------------
+//--------------------- _save -------------------------------------
+//-----------------------------------------------------------------
 
   _save() {
     if (!validateFields()) {
@@ -917,9 +923,9 @@ class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
     _addRecord();
   }
 
-//*****************************************************************************
-//************************** METODO VALIDATEFIELDS ****************************
-//*****************************************************************************
+//-----------------------------------------------------------------
+//--------------------- validateFields ----------------------------
+//-----------------------------------------------------------------
 
   bool validateFields() {
     bool isValid = true;
@@ -1050,9 +1056,6 @@ class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
       _observacionesError =
           'La cantidad máxima de caracteres es de 249. Ha puesto ${_observaciones.length}';
     }
-    // else {
-    //   _observacionesShowError = false;
-    // }
 
     if (_detalleDanosTercero.isNotEmpty && _detalleDanosTercero.length > 200) {
       isValid = false;
@@ -1060,9 +1063,6 @@ class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
       _detalleDanosTerceroError =
           'La cantidad máxima de caracteres es de 200. Ha puesto ${_detalleDanosTercero.length}';
     }
-    // else {
-    //   _detalleDanosTerceroShowError = false;
-    // }
 
     if (_detalleDanosPropio.isNotEmpty && _detalleDanosPropio.length > 200) {
       isValid = false;
@@ -1070,9 +1070,6 @@ class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
       _detalleDanosPropioError =
           'La cantidad máxima de caracteres es de 200. Ha puesto ${_detalleDanosPropio.length}';
     }
-    // else {
-    //   _detalleDanosPropioShowError = false;
-    // }
 
     if (_notifico) {
       if (_notificadoa.isEmpty) {
@@ -1091,9 +1088,9 @@ class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
     return isValid;
   }
 
-//*****************************************************************************
-//************************** METODO ADDRECORD *********************************
-//*****************************************************************************
+//-----------------------------------------------------------------
+//--------------------- _addRecord --------------------------------
+//-----------------------------------------------------------------
 
   void _addRecord() async {
     setState(() {
@@ -1121,16 +1118,16 @@ class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
       'fechacarga': selectedDate.toString(),
       'grupo': widget.causante.grupo,
       'causante': widget.causante.codigo,
-      'apellidonombretercero': PLMayusc(_tercero),
+      'apellidonombretercero': pLMayusc(_tercero),
       'nropolizatercero': _nropoliza,
       'telefonocontactotercero': _telefonotercero,
       'emailtercero': _emailtercero,
       'notificadoempresa': _notifico ? "SI" : "NO",
       'notificadoa': _notificadoa,
-      'direccionsiniestro': PLMayusc(_calle),
+      'direccionsiniestro': pLMayusc(_calle),
       'altura': _numero,
-      'ciudad': PLMayusc(_ciudad),
-      'provincia': PLMayusc(_provincia),
+      'ciudad': pLMayusc(_ciudad),
+      'provincia': pLMayusc(_provincia),
       'horasiniestro': selectedTime.hour * 3600 + selectedTime.minute * 60,
       'lesionados': _huboLesionados ? "SI" : "NO",
       'cantidadlesionados': _huboLesionados ? _numlesionados : 0,
@@ -1138,7 +1135,7 @@ class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
       'intervinoambulancia': _intervinoAmbulancia ? "SI" : "NO",
       'relatosiniestro': _observaciones,
       'numcha': _numcha.toUpperCase(),
-      'companiasegurotercero': PLMayusc(_companiaseguro),
+      'companiasegurotercero': pLMayusc(_companiaseguro),
       'idUsuarioCarga': widget.user.idUsuario,
       'detalledanostercero': _detalleDanosTercero,
       'detalledanospropio': _detalleDanosPropio,
@@ -1166,11 +1163,11 @@ class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
     Navigator.pop(context, 'yes');
   }
 
-//*****************************************************************************
-//************************** METODO ADDRPLMayusc ******************************
-//*****************************************************************************
+//-----------------------------------------------------------------
+//--------------------- pLMayusc ----------------------------------
+//-----------------------------------------------------------------
 
-  String PLMayusc(String string) {
+  String pLMayusc(String string) {
     String name = '';
     bool isSpace = false;
     String letter = '';
