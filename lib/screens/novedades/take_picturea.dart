@@ -14,8 +14,16 @@ class TakePictureaScreen extends StatefulWidget {
 }
 
 class _TakePictureaScreenState extends State<TakePictureaScreen> {
+//-----------------------------------------------------------------
+//--------------------- Variables ---------------------------------
+//-----------------------------------------------------------------
+
   late CameraController _controller;
   late Future<void> _initializeControllerFuture;
+
+//-----------------------------------------------------------------
+//--------------------- initState ---------------------------------
+//-----------------------------------------------------------------
 
   @override
   void initState() {
@@ -26,6 +34,10 @@ class _TakePictureaScreenState extends State<TakePictureaScreen> {
     );
     _initializeControllerFuture = _controller.initialize();
   }
+
+//-----------------------------------------------------------------
+//--------------------- Pantalla ---------------------------------
+//-----------------------------------------------------------------
 
   @override
   void dispose() {

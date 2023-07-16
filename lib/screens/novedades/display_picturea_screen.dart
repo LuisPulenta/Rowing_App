@@ -14,6 +14,10 @@ class DisplayPictureaScreen extends StatefulWidget {
 }
 
 class _DisplayPictureaScreenState extends State<DisplayPictureaScreen> {
+//---------------------------------------------------------------
+//----------------------- Pantalla ------------------------------
+//---------------------------------------------------------------
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

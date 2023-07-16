@@ -26,9 +26,9 @@ class NovedadAgregarScreen extends StatefulWidget {
 }
 
 class _NovedadAgregarScreenState extends State<NovedadAgregarScreen> {
-//*****************************************************************************
-//************************** DEFINICION DE VARIABLES **************************
-//*****************************************************************************
+//---------------------------------------------------------------
+//----------------------- Variables -----------------------------
+//---------------------------------------------------------------
 
   bool _showLoader = false;
   bool bandera = false;
@@ -54,9 +54,9 @@ class _NovedadAgregarScreenState extends State<NovedadAgregarScreen> {
   String _tiponovedadError = '';
   bool _tiponovedadShowError = false;
 
-//*****************************************************************************
-//************************** INIT STATE ***************************************
-//*****************************************************************************
+//---------------------------------------------------------------
+//----------------------- initState -----------------------------
+//---------------------------------------------------------------
 
   @override
   void initState() {
@@ -64,9 +64,9 @@ class _NovedadAgregarScreenState extends State<NovedadAgregarScreen> {
     _loadData();
   }
 
-//*****************************************************************************
-//************************** PANTALLA *****************************************
-//*****************************************************************************
+//---------------------------------------------------------------
+//----------------------- Pantalla ------------------------------
+//---------------------------------------------------------------
 
   @override
   Widget build(BuildContext context) {
@@ -112,7 +112,7 @@ class _NovedadAgregarScreenState extends State<NovedadAgregarScreen> {
   }
 
 //-----------------------------------------------------------------
-//--------------------- METODO SHOWPHOTOS -------------------------
+//--------------------- _showPhotos -------------------------------
 //-----------------------------------------------------------------
 
   Widget _showPhotos() {
@@ -237,7 +237,7 @@ class _NovedadAgregarScreenState extends State<NovedadAgregarScreen> {
   }
 
 //-----------------------------------------------------------------
-//--------------------- METODO SHOWHOWNOVEDADES -------------------
+//--------------------- _showNovedades ----------------------------
 //-----------------------------------------------------------------
 
   Widget _showNovedades() {
@@ -265,7 +265,7 @@ class _NovedadAgregarScreenState extends State<NovedadAgregarScreen> {
   }
 
 //-----------------------------------------------------------------
-//--------------------- METODO GETCOMBONOVEDAEDS ------------------
+//--------------------- _getComboNovedades ------------------------
 //-----------------------------------------------------------------
 
   List<DropdownMenuItem<String>> _getComboNovedades() {
@@ -286,7 +286,7 @@ class _NovedadAgregarScreenState extends State<NovedadAgregarScreen> {
   }
 
 //-----------------------------------------------------------------
-//--------------------- METODO SHOWFECHAS -------------------------
+//--------------------- _showFechas -------------------------------
 //-----------------------------------------------------------------
 
   Widget _showFechas() {
@@ -483,7 +483,7 @@ class _NovedadAgregarScreenState extends State<NovedadAgregarScreen> {
   }
 
 //-----------------------------------------------------------------
-//--------------------- METODO SHOWOBSERVACIONES ------------------
+//--------------------- _showObservaciones ------------------------
 //-----------------------------------------------------------------
 
   Widget _showObservaciones() {
@@ -507,7 +507,7 @@ class _NovedadAgregarScreenState extends State<NovedadAgregarScreen> {
   }
 
 //-----------------------------------------------------------------
-//--------------------- METODO SHOWBUTTON -------------------------
+//--------------------- _showButton -------------------------------
 //-----------------------------------------------------------------
 
   Widget _showButton() {
@@ -543,9 +543,9 @@ class _NovedadAgregarScreenState extends State<NovedadAgregarScreen> {
     );
   }
 
-//*****************************************************************************
-//************************** METODO SAVE **************************************
-//*****************************************************************************
+//-----------------------------------------------------------------
+//--------------------- _save -------------------------------------
+//-----------------------------------------------------------------
 
   _save() {
     if (!validateFields()) {
@@ -555,9 +555,9 @@ class _NovedadAgregarScreenState extends State<NovedadAgregarScreen> {
     _addRecord();
   }
 
-//*****************************************************************************
-//************************** METODO VALIDATEFIELDS ****************************
-//*****************************************************************************
+//-----------------------------------------------------------------
+//--------------------- validateFields ----------------------------
+//-----------------------------------------------------------------
 
   bool validateFields() {
     bool isValid = true;
@@ -572,34 +572,6 @@ class _NovedadAgregarScreenState extends State<NovedadAgregarScreen> {
     } else {
       _tiponovedadShowError = false;
     }
-
-    // if (fechaNovedad == null) {
-    //   isValid = false;
-    //   showDialog(
-    //       context: context,
-    //       builder: (context) {
-    //         return AlertDialog(
-    //           shape: RoundedRectangleBorder(
-    //             borderRadius: BorderRadius.circular(10),
-    //           ),
-    //           title: Text('Aviso!'),
-    //           content:
-    //               Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
-    //             Text('Debe ingresar una Fecha Novedad.'),
-    //             SizedBox(
-    //               height: 10,
-    //             ),
-    //           ]),
-    //           actions: <Widget>[
-    //             TextButton(
-    //                 onPressed: () => Navigator.of(context).pop(),
-    //                 child: Text('Ok')),
-    //           ],
-    //         );
-    //       });
-    //   setState(() {});
-    //   return isValid;
-    // }
 
     if (fechaInicio == null) {
       isValid = false;
@@ -695,9 +667,9 @@ class _NovedadAgregarScreenState extends State<NovedadAgregarScreen> {
     return isValid;
   }
 
-//*****************************************************************************
-//************************** METODO ADDRECORD *********************************
-//*****************************************************************************
+//-----------------------------------------------------------------
+//--------------------- _addRecord --------------------------------
+//-----------------------------------------------------------------
 
   void _addRecord() async {
     setState(() {
@@ -779,17 +751,17 @@ class _NovedadAgregarScreenState extends State<NovedadAgregarScreen> {
     Navigator.pop(context, 'yes');
   }
 
-//*****************************************************************************
-//************************** METODO LOADDATA **********************************
-//*****************************************************************************
+//-----------------------------------------------------------------
+//--------------------- _loadData ---------------------------------
+//-----------------------------------------------------------------
 
   void _loadData() async {
     await _getTiposNovedades();
   }
 
-//*****************************************************************************
-//************************** METODO GETTIPOSNOVEDADES *************************
-//*****************************************************************************
+//-----------------------------------------------------------------
+//--------------------- _getTiposNovedades ------------------------
+//-----------------------------------------------------------------
 
   Future<void> _getTiposNovedades() async {
     var connectivityResult = await Connectivity().checkConnectivity();
@@ -817,29 +789,12 @@ class _NovedadAgregarScreenState extends State<NovedadAgregarScreen> {
         _tiposnovedades = response.result;
       }
     } while (bandera == false);
-    // await showAlertDialog(
-    //     context: context,
-    //     title: 'Intentos',
-    //     message: intentos.toString(),
-    //     actions: <AlertDialogAction>[
-    //       AlertDialogAction(key: null, label: 'Aceptar'),
-    //     ]);
     setState(() {});
   }
 
-  // _fechaNovedad() async {
-  //   FocusScope.of(context).unfocus();
-  //   final DateTime? selected = await showDatePicker(
-  //     context: context,
-  //     initialDate: DateTime.now(),
-  //     firstDate: DateTime(DateTime.now().year - 1),
-  //     lastDate: DateTime(DateTime.now().year + 1),
-  //   );
-  //   if (selected != null && selected != fechaNovedad)
-  //     setState(() {
-  //       fechaNovedad = selected;
-  //     });
-  // }
+//-----------------------------------------------------------------
+//--------------------- _fechaInicio ------------------------------
+//-----------------------------------------------------------------
 
   _fechaInicio() async {
     FocusScope.of(context).unfocus();
@@ -856,6 +811,10 @@ class _NovedadAgregarScreenState extends State<NovedadAgregarScreen> {
     }
   }
 
+//-----------------------------------------------------------------
+//--------------------- _fechaFin ---------------------------------
+//-----------------------------------------------------------------
+
   _fechaFin() async {
     FocusScope.of(context).unfocus();
     final DateTime? selected = await showDatePicker(
@@ -871,9 +830,9 @@ class _NovedadAgregarScreenState extends State<NovedadAgregarScreen> {
     }
   }
 
-//*****************************************************************************
-//************************** METODO TAKEPICTURE1 ******************************
-//*****************************************************************************
+//-----------------------------------------------------------------
+//--------------------- _takePicture1 -----------------------------
+//-----------------------------------------------------------------
 
   void _takePicture1() async {
     WidgetsFlutterBinding.ensureInitialized();
@@ -911,9 +870,9 @@ class _NovedadAgregarScreenState extends State<NovedadAgregarScreen> {
     }
   }
 
-//*****************************************************************************
-//************************** METODO TAKEPICTURE2 ******************************
-//*****************************************************************************
+//-----------------------------------------------------------------
+//--------------------- _takePicture2 -----------------------------
+//-----------------------------------------------------------------
 
   void _takePicture2() async {
     WidgetsFlutterBinding.ensureInitialized();
@@ -951,9 +910,9 @@ class _NovedadAgregarScreenState extends State<NovedadAgregarScreen> {
     }
   }
 
-//*****************************************************************************
-//************************** METODO SELECTPICTURE1 ****************************
-//*****************************************************************************
+//-----------------------------------------------------------------
+//--------------------- _selectPicture1 ---------------------------
+//-----------------------------------------------------------------
 
   void _selectPicture1() async {
     final ImagePicker _picker = ImagePicker();
@@ -966,9 +925,9 @@ class _NovedadAgregarScreenState extends State<NovedadAgregarScreen> {
     }
   }
 
-//*****************************************************************************
-//************************** METODO SELECTPICTURE2 ****************************
-//*****************************************************************************
+//-----------------------------------------------------------------
+//--------------------- _selectPicture2 ---------------------------
+//-----------------------------------------------------------------
 
   void _selectPicture2() async {
     final ImagePicker _picker = ImagePicker();
