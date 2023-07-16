@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:rowing_app/models/models.dart';
 
-import '../helpers/api_helper.dart';
+import '../../helpers/api_helper.dart';
 
 class InspeccionesFotosScreen extends StatefulWidget {
   final User user;
@@ -19,9 +19,10 @@ class InspeccionesFotosScreen extends StatefulWidget {
 }
 
 class _InspeccionesFotosScreenState extends State<InspeccionesFotosScreen> {
-//*****************************************************************************
-//************************** DEFINICION DE VARIABLES **************************
-//*****************************************************************************
+//-----------------------------------------------------------------
+//--------------------- Variables ---------------------------------
+//-----------------------------------------------------------------
+
   int _current = 0;
   double _sliderValue = 3;
   final CarouselController _carouselController = CarouselController();
@@ -29,9 +30,10 @@ class _InspeccionesFotosScreenState extends State<InspeccionesFotosScreen> {
   List<VistaInspeccionesFoto> _fotos = [];
 
   bool _mostrar = false;
-//*****************************************************************************
-//************************** INIT STATE ***************************************
-//*****************************************************************************
+
+//-----------------------------------------------------------------
+//--------------------- initState ---------------------------------
+//-----------------------------------------------------------------
 
   @override
   void initState() {
@@ -39,9 +41,9 @@ class _InspeccionesFotosScreenState extends State<InspeccionesFotosScreen> {
     _getFotosInspecciones();
   }
 
-//*****************************************************************************
-//************************** PANTALLA *****************************************
-//*****************************************************************************
+//-----------------------------------------------------------------
+//--------------------- Pantalla ----------------------------------
+//-----------------------------------------------------------------
 
   @override
   Widget build(BuildContext context) {
@@ -87,9 +89,9 @@ class _InspeccionesFotosScreenState extends State<InspeccionesFotosScreen> {
     );
   }
 
-//-----------------------------------------------------------------------------
-//-------------------------- METODO SHOWPHOTOSCAROUSEL ------------------------
-//-----------------------------------------------------------------------------
+//-----------------------------------------------------------------------
+//-------------------------- _showPhotosCarousel ------------------------
+//-----------------------------------------------------------------------
 
   Widget _showPhotosCarousel() {
     return Container(
@@ -319,15 +321,6 @@ class _InspeccionesFotosScreenState extends State<InspeccionesFotosScreen> {
                   child: const Text('→'),
                 ),
               ),
-              // ...Iterable<int>.generate(_fotos.length).map(
-              //   (int pageIndex) => Flexible(
-              //     child: ElevatedButton(
-              //       onPressed: () =>
-              //           _carouselController.animateToPage(pageIndex),
-              //       child: Text("$pageIndex"),
-              //     ),
-              //   ),
-              // ),
             ],
           ),
         ],
@@ -335,9 +328,9 @@ class _InspeccionesFotosScreenState extends State<InspeccionesFotosScreen> {
     );
   }
 
-//*****************************************************************************
-//************************** METODO _getFotosInspecciones *********************
-//*****************************************************************************
+//-----------------------------------------------------------------------
+//-------------------------- _getFotosInspecciones ----------------------
+//-----------------------------------------------------------------------
 
   Future<void> _getFotosInspecciones() async {
     setState(() {});
@@ -378,9 +371,10 @@ class _InspeccionesFotosScreenState extends State<InspeccionesFotosScreen> {
       _carouselController.jumpToPage(0);
     });
   }
-//-----------------------------------------------------------------------------
-//------------------------------ METODO SHOWAFILTRO ---------------------------
-//-----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------
+//------------------------------ _showFiltro ---------------------------
+//----------------------------------------------------------------------
 
   Widget _showFiltro() {
     return Container(

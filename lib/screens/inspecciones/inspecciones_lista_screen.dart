@@ -21,16 +21,28 @@ class InspeccionesListaScreen extends StatefulWidget {
 }
 
 class _InspeccionesListaScreenState extends State<InspeccionesListaScreen> {
+//--------------------------------------------------------------------
+//------------------------------ Variables ---------------------------
+//--------------------------------------------------------------------
+
   List<VistaInspeccion> _inspecciones = [];
   bool _showLoader = false;
   bool _isFiltered = false;
   String _search = '';
+
+//--------------------------------------------------------------------
+//------------------------------ initState ---------------------------
+//--------------------------------------------------------------------
 
   @override
   void initState() {
     super.initState();
     _getInspecciones();
   }
+
+//--------------------------------------------------------------------
+//------------------------------ Pantalla ----------------------------
+//--------------------------------------------------------------------
 
   @override
   Widget build(BuildContext context) {
@@ -64,6 +76,10 @@ class _InspeccionesListaScreenState extends State<InspeccionesListaScreen> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
+
+//--------------------------------------------------------------------
+//--------------------------- _getInspecciones -----------------------
+//--------------------------------------------------------------------
 
   Future<void> _getInspecciones() async {
     setState(() {
@@ -117,12 +133,20 @@ class _InspeccionesListaScreenState extends State<InspeccionesListaScreen> {
     });
   }
 
+//--------------------------------------------------------------------
+//--------------------------- _removeFilter --------------------------
+//--------------------------------------------------------------------
+
   void _removeFilter() {
     setState(() {
       _isFiltered = false;
     });
     _getInspecciones();
   }
+
+//--------------------------------------------------------------------
+//--------------------------- _showFilter ----------------------------
+//--------------------------------------------------------------------
 
   void _showFilter() {
     showDialog(
@@ -165,6 +189,10 @@ class _InspeccionesListaScreenState extends State<InspeccionesListaScreen> {
         });
   }
 
+//--------------------------------------------------------------------
+//--------------------------- _filter --------------------------------
+//--------------------------------------------------------------------
+
   _filter() {
     if (_search.isEmpty) {
       return;
@@ -191,6 +219,10 @@ class _InspeccionesListaScreenState extends State<InspeccionesListaScreen> {
     Navigator.of(context).pop();
   }
 
+//--------------------------------------------------------------------
+//--------------------------- _getContent ----------------------------
+//--------------------------------------------------------------------
+
   Widget _getContent() {
     return Column(
       children: <Widget>[
@@ -201,6 +233,10 @@ class _InspeccionesListaScreenState extends State<InspeccionesListaScreen> {
       ],
     );
   }
+
+//--------------------------------------------------------------------
+//--------------------------- _noContent -----------------------------
+//--------------------------------------------------------------------
 
   Widget _noContent() {
     return Container(
@@ -215,6 +251,10 @@ class _InspeccionesListaScreenState extends State<InspeccionesListaScreen> {
       ),
     );
   }
+
+//--------------------------------------------------------------------
+//--------------------------- _getListView ---------------------------
+//--------------------------------------------------------------------
 
   Widget _getListView() {
     return RefreshIndicator(
@@ -452,6 +492,10 @@ class _InspeccionesListaScreenState extends State<InspeccionesListaScreen> {
     );
   }
 
+//--------------------------------------------------------------------
+//--------------------------- _goInfoInspeccion ----------------------
+//--------------------------------------------------------------------
+
   void _goInfoInspeccion(VistaInspeccion e) async {
     String? result = await Navigator.push(
         context,
@@ -464,6 +508,10 @@ class _InspeccionesListaScreenState extends State<InspeccionesListaScreen> {
       _getInspecciones();
     }
   }
+
+//--------------------------------------------------------------------
+//--------------------------- _showInspeccionesCount -----------------
+//--------------------------------------------------------------------
 
   Widget _showInspeccionesCount() {
     return Container(
@@ -487,6 +535,10 @@ class _InspeccionesListaScreenState extends State<InspeccionesListaScreen> {
       ),
     );
   }
+
+//------------------------------------------------------------
+//--------------------------- _addInspeccion -----------------
+//------------------------------------------------------------
 
   void _addInspeccion() async {
     String? result = await Navigator.push(
