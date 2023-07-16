@@ -11,8 +11,8 @@ import 'package:rowing_app/models/causante.dart';
 import 'package:rowing_app/models/response.dart';
 import 'package:rowing_app/models/tipo_novedad.dart';
 import 'package:rowing_app/models/user.dart';
-import 'package:rowing_app/screens/take_picturea.dart';
-import 'package:rowing_app/screens/take_pictureb.dart';
+import 'package:rowing_app/screens/novedades/take_picturea.dart';
+import 'package:rowing_app/screens/novedades/take_pictureb.dart';
 
 class NovedadAgregarScreen extends StatefulWidget {
   final User user;

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:rowing_app/screens/display_pictureb_screen.dart';
-import '../models/response.dart';
 import 'package:camera/camera.dart';
+import 'package:rowing_app/models/models.dart';
+import 'package:rowing_app/screens/novedades/display_pictureb_screen.dart';
 
 class TakePicturebScreen extends StatefulWidget {
   final CameraDescription camera;

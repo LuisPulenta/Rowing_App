@@ -17,6 +17,10 @@ class DisplayPicture2Screen extends StatefulWidget {
 }
 
 class _DisplayPicture2ScreenState extends State<DisplayPicture2Screen> {
+//------------------------------------------------------------
+//-------------------- Variables -----------------------------
+//------------------------------------------------------------
+
   String _observaciones = '';
   final String _observacionesError = '';
   final bool _observacionesShowError = false;
@@ -33,6 +37,10 @@ class _DisplayPicture2ScreenState extends State<DisplayPicture2Screen> {
     'Lindero 1',
     'Lindero 2'
   ];
+
+//------------------------------------------------------------
+//-------------------- Pantalla  -----------------------------
+//------------------------------------------------------------
 
   @override
   Widget build(BuildContext context) {
@@ -74,6 +82,10 @@ class _DisplayPicture2ScreenState extends State<DisplayPicture2Screen> {
     );
   }
 
+//------------------------------------------------------------
+//-------------------- _showOptions  -------------------------
+//------------------------------------------------------------
+
   Widget _showOptions() {
     return Container(
       padding: const EdgeInsets.all(10),
@@ -95,6 +107,10 @@ class _DisplayPicture2ScreenState extends State<DisplayPicture2Screen> {
           )),
     );
   }
+
+//------------------------------------------------------------
+//-------------------- _showButtons  -------------------------
+//------------------------------------------------------------
 
   Widget _showButtons() {
     return Container(
@@ -138,6 +154,10 @@ class _DisplayPicture2ScreenState extends State<DisplayPicture2Screen> {
         ));
   }
 
+//------------------------------------------------------------
+//-------------------- _showObservaciones  -------------------
+//------------------------------------------------------------
+
   Widget _showObservaciones() {
     return Container(
       padding: const EdgeInsets.all(10),
@@ -158,6 +178,10 @@ class _DisplayPicture2ScreenState extends State<DisplayPicture2Screen> {
       ),
     );
   }
+
+//------------------------------------------------------------
+//-------------------- _usePhoto  ----------------------------
+//------------------------------------------------------------
 
   void _usePhoto() async {
     if (_optionId == -1) {
@@ -255,6 +279,10 @@ class _DisplayPicture2ScreenState extends State<DisplayPicture2Screen> {
     Response response = Response(isSuccess: true, result: _photo);
     Navigator.pop(context, response);
   }
+
+//------------------------------------------------------------
+//-------------------- _getOptions  --------------------------
+//------------------------------------------------------------
 
   List<DropdownMenuItem<int>> _getOptions() {
     List<DropdownMenuItem<int>> list = [];

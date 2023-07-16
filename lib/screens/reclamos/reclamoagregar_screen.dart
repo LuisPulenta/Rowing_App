@@ -16,6 +16,10 @@ class ReclamoAgregarScreen extends StatefulWidget {
 }
 
 class _ReclamoAgregarScreenState extends State<ReclamoAgregarScreen> {
+//---------------------------------------------------------------
+//----------------------- Variables -----------------------------
+//---------------------------------------------------------------
+
   bool _showLoader = false;
 
   int _obraId = 0;
@@ -48,11 +52,19 @@ class _ReclamoAgregarScreenState extends State<ReclamoAgregarScreen> {
   bool _descripcionShowError = false;
   final TextEditingController _descripcionController = TextEditingController();
 
+//---------------------------------------------------------------
+//----------------------- initState -----------------------------
+//---------------------------------------------------------------
+
   @override
   void initState() {
     super.initState();
     _loadData();
   }
+
+//---------------------------------------------------------------
+//----------------------- Pantalla ------------------------------
+//---------------------------------------------------------------
 
   @override
   Widget build(BuildContext context) {
@@ -93,6 +105,10 @@ class _ReclamoAgregarScreenState extends State<ReclamoAgregarScreen> {
     );
   }
 
+//---------------------------------------------------------------
+//----------------------- _showObra -----------------------------
+//---------------------------------------------------------------
+
   Widget _showObra() {
     return Container(
       padding: const EdgeInsets.all(10),
@@ -116,6 +132,10 @@ class _ReclamoAgregarScreenState extends State<ReclamoAgregarScreen> {
     );
   }
 
+//---------------------------------------------------------------
+//----------------------- _getComboObras ------------------------
+//---------------------------------------------------------------
+
   List<DropdownMenuItem<int>> _getComboObras() {
     List<DropdownMenuItem<int>> list = [];
     list.add(const DropdownMenuItem(
@@ -132,6 +152,10 @@ class _ReclamoAgregarScreenState extends State<ReclamoAgregarScreen> {
 
     return list;
   }
+
+//---------------------------------------------------------------
+//----------------------- _showZona -----------------------------
+//---------------------------------------------------------------
 
   Widget _showZona() {
     return Container(
@@ -152,6 +176,10 @@ class _ReclamoAgregarScreenState extends State<ReclamoAgregarScreen> {
     );
   }
 
+//---------------------------------------------------------------
+//----------------------- _showDireccion ------------------------
+//---------------------------------------------------------------
+
   Widget _showDireccion() {
     return Container(
       padding: const EdgeInsets.all(10),
@@ -170,6 +198,10 @@ class _ReclamoAgregarScreenState extends State<ReclamoAgregarScreen> {
       ),
     );
   }
+
+//---------------------------------------------------------------
+//----------------------- _showNumero ---------------------------
+//---------------------------------------------------------------
 
   Widget _showNumero() {
     return Container(
@@ -190,6 +222,10 @@ class _ReclamoAgregarScreenState extends State<ReclamoAgregarScreen> {
     );
   }
 
+//---------------------------------------------------------------
+//----------------------- _showASReclamo ------------------------
+//---------------------------------------------------------------
+
   Widget _showASReclamo() {
     return Container(
       padding: const EdgeInsets.all(10),
@@ -209,6 +245,10 @@ class _ReclamoAgregarScreenState extends State<ReclamoAgregarScreen> {
     );
   }
 
+//---------------------------------------------------------------
+//----------------------- _showDescripcion ----------------------
+//---------------------------------------------------------------
+
   Widget _showDescripcion() {
     return Container(
       padding: const EdgeInsets.all(10),
@@ -227,6 +267,10 @@ class _ReclamoAgregarScreenState extends State<ReclamoAgregarScreen> {
       ),
     );
   }
+
+//---------------------------------------------------------------
+//----------------------- _showButton ---------------------------
+//---------------------------------------------------------------
 
   Widget _showButton() {
     return Container(
@@ -261,6 +305,10 @@ class _ReclamoAgregarScreenState extends State<ReclamoAgregarScreen> {
     );
   }
 
+//---------------------------------------------------------------
+//----------------------- _save ---------------------------------
+//---------------------------------------------------------------
+
   _save() {
     if (!validateFields()) {
       return;
@@ -268,9 +316,17 @@ class _ReclamoAgregarScreenState extends State<ReclamoAgregarScreen> {
     _addRecord();
   }
 
+//---------------------------------------------------------------
+//----------------------- _loadData -----------------------------
+//---------------------------------------------------------------
+
   void _loadData() async {
     await _getObras();
   }
+
+//---------------------------------------------------------------
+//----------------------- _getObras -----------------------------
+//---------------------------------------------------------------
 
   Future<void> _getObras() async {
     setState(() {
@@ -316,6 +372,10 @@ class _ReclamoAgregarScreenState extends State<ReclamoAgregarScreen> {
       _obras = response.result;
     });
   }
+
+//---------------------------------------------------------------
+//----------------------- validateFields ------------------------
+//---------------------------------------------------------------
 
   bool validateFields() {
     bool isValid = true;
@@ -372,6 +432,10 @@ class _ReclamoAgregarScreenState extends State<ReclamoAgregarScreen> {
 
     return isValid;
   }
+
+//---------------------------------------------------------------
+//----------------------- _addRecord ----------------------------
+//---------------------------------------------------------------
 
   void _addRecord() async {
     setState(() {

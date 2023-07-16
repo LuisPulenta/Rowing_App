@@ -8,8 +8,7 @@ import 'package:rowing_app/helpers/api_helper.dart';
 import 'package:rowing_app/models/reclamo.dart';
 import 'package:rowing_app/models/response.dart';
 import 'package:rowing_app/models/user.dart';
-import 'package:rowing_app/screens/reclamoagregar_screen.dart';
-import 'package:rowing_app/screens/reclamoinfo_screen.dart';
+import 'package:rowing_app/screens/screens.dart';
 
 class ReclamosScreen extends StatefulWidget {
   final User user;
@@ -20,16 +19,28 @@ class ReclamosScreen extends StatefulWidget {
 }
 
 class _ReclamosScreenState extends State<ReclamosScreen> {
+//-----------------------------------------------------------------
+//--------------------- Variables ---------------------------------
+//-----------------------------------------------------------------
+
   List<Reclamo> _reclamos = [];
   bool _showLoader = false;
   bool _isFiltered = false;
   String _search = '';
+
+//-----------------------------------------------------------------
+//--------------------- initState ---------------------------------
+//-----------------------------------------------------------------
 
   @override
   void initState() {
     super.initState();
     _getReclamos();
   }
+
+//-----------------------------------------------------------------
+//--------------------- Pantallas ---------------------------------
+//-----------------------------------------------------------------
 
   @override
   Widget build(BuildContext context) {
@@ -62,6 +73,10 @@ class _ReclamosScreenState extends State<ReclamosScreen> {
       ),
     );
   }
+
+//-----------------------------------------------------------------
+//--------------------- _getReclamos ------------------------------
+//-----------------------------------------------------------------
 
   Future<void> _getReclamos() async {
     setState(() {
@@ -114,12 +129,20 @@ class _ReclamosScreenState extends State<ReclamosScreen> {
     });
   }
 
+//-----------------------------------------------------------------
+//--------------------- _removeFilter -----------------------------
+//-----------------------------------------------------------------
+
   void _removeFilter() {
     setState(() {
       _isFiltered = false;
     });
     _getReclamos();
   }
+
+//-----------------------------------------------------------------
+//--------------------- _showFilter -------------------------------
+//-----------------------------------------------------------------
 
   void _showFilter() {
     showDialog(
@@ -162,6 +185,10 @@ class _ReclamosScreenState extends State<ReclamosScreen> {
         });
   }
 
+//-----------------------------------------------------------------
+//--------------------- _filter -----------------------------------
+//-----------------------------------------------------------------
+
   _filter() {
     if (_search.isEmpty) {
       return;
@@ -188,6 +215,10 @@ class _ReclamosScreenState extends State<ReclamosScreen> {
     Navigator.of(context).pop();
   }
 
+//-----------------------------------------------------------------
+//--------------------- _getContent -------------------------------
+//-----------------------------------------------------------------
+
   Widget _getContent() {
     return Column(
       children: <Widget>[
@@ -198,6 +229,10 @@ class _ReclamosScreenState extends State<ReclamosScreen> {
       ],
     );
   }
+
+//-----------------------------------------------------------------
+//--------------------- _noContent --------------------------------
+//-----------------------------------------------------------------
 
   Widget _noContent() {
     return Container(
@@ -212,6 +247,10 @@ class _ReclamosScreenState extends State<ReclamosScreen> {
       ),
     );
   }
+
+//-----------------------------------------------------------------
+//--------------------- _getListView ------------------------------
+//-----------------------------------------------------------------
 
   Widget _getListView() {
     return RefreshIndicator(
@@ -356,6 +395,10 @@ class _ReclamosScreenState extends State<ReclamosScreen> {
     );
   }
 
+//-----------------------------------------------------------------
+//--------------------- _goInfoReclamo ----------------------------
+//-----------------------------------------------------------------
+
   void _goInfoReclamo(Reclamo reclamo) async {
     String? result = await Navigator.push(
         context,
@@ -369,6 +412,10 @@ class _ReclamosScreenState extends State<ReclamosScreen> {
       setState(() {});
     }
   }
+
+//-----------------------------------------------------------------
+//--------------------- _showReclamosCount ------------------------
+//-----------------------------------------------------------------
 
   Widget _showReclamosCount() {
     return Container(
@@ -392,6 +439,10 @@ class _ReclamosScreenState extends State<ReclamosScreen> {
       ),
     );
   }
+
+//-----------------------------------------------------------------
+//--------------------- _addReclamo -------------------------------
+//-----------------------------------------------------------------
 
   void _addReclamo() async {
     String? result = await Navigator.push(

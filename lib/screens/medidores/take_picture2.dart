@@ -1,7 +1,7 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:rowing_app/models/response.dart';
-import 'package:rowing_app/screens/display_picture2_screen.dart';
+import 'package:rowing_app/screens/medidores/display_picture2_screen.dart';
 
 class TakePicture2Screen extends StatefulWidget {
   final CameraDescription camera;
@@ -13,8 +13,16 @@ class TakePicture2Screen extends StatefulWidget {
 }
 
 class _TakePicture2ScreenState extends State<TakePicture2Screen> {
+//------------------------------------------------------------
+//-------------------- Variables -----------------------------
+//------------------------------------------------------------
+
   late CameraController _controller;
   late Future<void> _initializeControllerFuture;
+
+//------------------------------------------------------------
+//-------------------- initState -----------------------------
+//------------------------------------------------------------
 
   @override
   void initState() {
@@ -31,6 +39,9 @@ class _TakePicture2ScreenState extends State<TakePicture2Screen> {
     _controller.dispose();
     super.dispose();
   }
+//------------------------------------------------------------
+//-------------------- Pantalla ------------------------------
+//------------------------------------------------------------
 
   @override
   Widget build(BuildContext context) {
