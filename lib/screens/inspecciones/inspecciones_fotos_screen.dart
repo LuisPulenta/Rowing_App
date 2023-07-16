@@ -4,9 +4,8 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:rowing_app/helpers/helpers.dart';
 import 'package:rowing_app/models/models.dart';
-
-import '../../helpers/api_helper.dart';
 
 class InspeccionesFotosScreen extends StatefulWidget {
   final User user;
