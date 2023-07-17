@@ -17,16 +17,28 @@ class EntregasScreen extends StatefulWidget {
 }
 
 class _EntregasScreenState extends State<EntregasScreen> {
+//---------------------------------------------------------------
+//----------------------- Variables -----------------------------
+//---------------------------------------------------------------
+
   List<Entrega> _entregas = [];
   bool _showLoader = false;
   bool _isFiltered = false;
   String _search = '';
+
+//---------------------------------------------------------------
+//----------------------- initState -----------------------------
+//---------------------------------------------------------------
 
   @override
   void initState() {
     super.initState();
     _getEntregas();
   }
+
+//---------------------------------------------------------------
+//----------------------- Pantalla ------------------------------
+//---------------------------------------------------------------
 
   @override
   Widget build(BuildContext context) {
@@ -50,6 +62,10 @@ class _EntregasScreenState extends State<EntregasScreen> {
       ),
     );
   }
+
+//---------------------------------------------------------------
+//----------------------- _getEntregas --------------------------
+//---------------------------------------------------------------
 
   Future<void> _getEntregas() async {
     setState(() {
@@ -102,6 +118,10 @@ class _EntregasScreenState extends State<EntregasScreen> {
     });
   }
 
+//---------------------------------------------------------------
+//----------------------- _getContent ---------------------------
+//---------------------------------------------------------------
+
   Widget _getContent() {
     return Column(
       children: <Widget>[
@@ -112,6 +132,10 @@ class _EntregasScreenState extends State<EntregasScreen> {
       ],
     );
   }
+
+//---------------------------------------------------------------
+//----------------------- _noContent ----------------------------
+//---------------------------------------------------------------
 
   Widget _noContent() {
     return Container(
@@ -127,6 +151,10 @@ class _EntregasScreenState extends State<EntregasScreen> {
       ),
     );
   }
+
+//---------------------------------------------------------------
+//----------------------- _getListView --------------------------
+//---------------------------------------------------------------
 
   Widget _getListView() {
     return RefreshIndicator(
@@ -225,6 +253,10 @@ class _EntregasScreenState extends State<EntregasScreen> {
     );
   }
 
+//---------------------------------------------------------------
+//----------------------- _showFilter ---------------------------
+//---------------------------------------------------------------
+
   void _showFilter() {
     showDialog(
         context: context,
@@ -266,12 +298,20 @@ class _EntregasScreenState extends State<EntregasScreen> {
         });
   }
 
+//---------------------------------------------------------------
+//----------------------- _removeFilter -------------------------
+//---------------------------------------------------------------
+
   void _removeFilter() {
     setState(() {
       _isFiltered = false;
     });
     _getEntregas();
   }
+
+//---------------------------------------------------------
+//----------------------- _filter -------------------------
+//---------------------------------------------------------
 
   _filter() {
     if (_search.isEmpty) {
@@ -292,6 +332,10 @@ class _EntregasScreenState extends State<EntregasScreen> {
 
     Navigator.of(context).pop();
   }
+
+//---------------------------------------------------------
+//----------------------- _showEntregasCount --------------
+//---------------------------------------------------------
 
   Widget _showEntregasCount() {
     return Column(

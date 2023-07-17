@@ -4,9 +4,8 @@ import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:camera/camera.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
+import 'package:rowing_app/helpers/helpers.dart';
 import 'package:rowing_app/models/models.dart';
-
-import '../helpers/api_helper.dart';
 
 class DisplayPictureDScreen extends StatefulWidget {
   final XFile image;
@@ -21,9 +20,9 @@ class DisplayPictureDScreen extends StatefulWidget {
 }
 
 class _DisplayPictureDScreenState extends State<DisplayPictureDScreen> {
-//*****************************************************************************
-//************************** PANTALLA *****************************************
-//*****************************************************************************
+//---------------------------------------------------------------
+//----------------------- Pantalla -----------------------------
+//---------------------------------------------------------------
 
   @override
   Widget build(BuildContext context) {
@@ -83,9 +82,9 @@ class _DisplayPictureDScreenState extends State<DisplayPictureDScreen> {
     );
   }
 
-//*****************************************************************************
-//************************** _saveRecord ***********************************
-//*****************************************************************************
+//---------------------------------------------------------------
+//----------------------- _saveRecord ---------------------------
+//---------------------------------------------------------------
 
   _saveRecord() async {
     String base64image = '';
