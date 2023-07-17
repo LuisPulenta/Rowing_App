@@ -13,6 +13,10 @@ class MostrarFotoScreen extends StatefulWidget {
 }
 
 class _MostrarFotoScreenState extends State<MostrarFotoScreen> {
+//-------------------------------------------------------------
+//-------------------------- Pantalla -------------------------
+//-------------------------------------------------------------
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

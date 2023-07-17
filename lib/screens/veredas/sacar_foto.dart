@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:rowing_app/models/response.dart';
 import 'package:rowing_app/screens/screens.dart';
 
-
 class SacarFotoScreen extends StatefulWidget {
   final CameraDescription camera;
 
@@ -14,8 +13,16 @@ class SacarFotoScreen extends StatefulWidget {
 }
 
 class _SacarFotoScreenState extends State<SacarFotoScreen> {
+//-------------------------------------------------------------
+//-------------------------- Variables ------------------------
+//-------------------------------------------------------------
+
   late CameraController _controller;
   late Future<void> _initializeControllerFuture;
+
+//-------------------------------------------------------------
+//-------------------------- initState ------------------------
+//-------------------------------------------------------------
 
   @override
   void initState() {
@@ -32,6 +39,10 @@ class _SacarFotoScreenState extends State<SacarFotoScreen> {
     _controller.dispose();
     super.dispose();
   }
+
+//-------------------------------------------------------------
+//-------------------------- Pantalla -------------------------
+//-------------------------------------------------------------
 
   @override
   Widget build(BuildContext context) {
