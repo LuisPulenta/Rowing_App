@@ -399,7 +399,6 @@ class _InspeccionCuestionarioDuplicadoScreenState
                           ),
                           width: 60,
                           height: 60,
-                          //****************** */
                           child: Center(
                               child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,

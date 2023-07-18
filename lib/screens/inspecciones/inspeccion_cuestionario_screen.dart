@@ -423,7 +423,6 @@ class _InspeccionCuestionarioScreenState
                           ),
                           width: 60,
                           height: 60,
-                          //****************** */
                           child: Center(
                               child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -661,7 +660,6 @@ class _InspeccionCuestionarioScreenState
                               ),
                               width: 60,
                               height: 60,
-                              //****************** */
                               child: Center(
                                   child: Column(
                                 mainAxisAlignment:
