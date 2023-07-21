@@ -158,8 +158,8 @@ class _UsuarioFirmaScreenState extends State<UsuarioFirmaScreen> {
       'ImageArrayFirmaUsuario': base64ImageUsuarioFirma,
     };
 
-    Response response = await ApiHelper.put(
-        '/api/Account/', widget.user.idUsuario.toString(), requestUsuarioFirma);
+    Response response = await ApiHelper.put('/api/Account2/',
+        widget.user.idUsuario.toString(), requestUsuarioFirma);
 
     if (response.isSuccess) {
       _showSnackbar();
