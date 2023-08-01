@@ -127,6 +127,17 @@ class _VeredasScreenState extends State<VeredasScreen> {
         ),
         backgroundColor: const Color(0xFF781f1e),
         onPressed: () async {
+          if (widget.obra.finalizada == 1) {
+            await showAlertDialog(
+                context: context,
+                title: 'Error',
+                message: 'Obra Terminada. No se puede agregar veredas.',
+                actions: <AlertDialogAction>[
+                  const AlertDialogAction(key: null, label: 'Aceptar'),
+                ]);
+            return;
+          }
+
           if (widget.user.habilitaFotos != 1) {
             await showAlertDialog(
                 context: context,

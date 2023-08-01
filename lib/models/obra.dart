@@ -56,7 +56,7 @@ class Obra {
 
   Obra.fromJson(Map<String, dynamic> json) {
     nroObra = json['nroObra'];
-    nombreObra = json['nombreObra'];
+    nombreObra = json['nombreObra'] ?? '';
     elempep = json['elempep'];
     observaciones = json['observaciones'];
     finalizada = json['finalizada'];

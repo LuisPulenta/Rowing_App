@@ -701,6 +701,17 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
       return;
     }
 
+    if (widget.obra.finalizada == 1) {
+      await showAlertDialog(
+          context: context,
+          title: 'Error',
+          message: 'Obra Terminada. No se puede agregar fotos.',
+          actions: <AlertDialogAction>[
+            const AlertDialogAction(key: null, label: 'Aceptar'),
+          ]);
+      return;
+    }
+
     var response = await showAlertDialog(
         context: context,
         title: 'Confirmación',
@@ -731,6 +742,17 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
 //--------------------------------------------------------
 
   void _reqmat() async {
+    if (widget.obra.finalizada == 1) {
+      await showAlertDialog(
+          context: context,
+          title: 'Error',
+          message: 'Obra Terminada. No se puede agregar requerimientos.',
+          actions: <AlertDialogAction>[
+            const AlertDialogAction(key: null, label: 'Aceptar'),
+          ]);
+      return;
+    }
+
     if (widget.user.conceptomova != 1) {
       await showAlertDialog(
           context: context,
@@ -909,6 +931,17 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
 
   void _confirmDeletePhoto() async {
     if (_obrasDocumentosFotos.isEmpty) {
+      return;
+    }
+
+    if (widget.obra.finalizada == 1) {
+      await showAlertDialog(
+          context: context,
+          title: 'Error',
+          message: 'Obra Terminada. No se puede eliminar fotos.',
+          actions: <AlertDialogAction>[
+            const AlertDialogAction(key: null, label: 'Aceptar'),
+          ]);
       return;
     }
 
@@ -1284,6 +1317,16 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
 //---------------------------------------------------------------------
 
   void _goAddMultimedia() async {
+    if (widget.obra.finalizada == 1) {
+      await showAlertDialog(
+          context: context,
+          title: 'Error',
+          message: 'Obra Terminada. No se puede agregar multimedia.',
+          actions: <AlertDialogAction>[
+            const AlertDialogAction(key: null, label: 'Aceptar'),
+          ]);
+      return;
+    }
     if (widget.user.habilitaFotos != 1) {
       await showAlertDialog(
           context: context,

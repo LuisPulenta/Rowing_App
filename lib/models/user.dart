@@ -27,6 +27,7 @@ class User {
   int? habilitaJuicios = 0;
   int? habilitaPresentismo = 0;
   int? habilitaSeguimientoUsuarios = 0;
+  int? habilitaVerObrasCerradas = 0;
   int? conceptomova = 0;
   int? limitarGrupo = 0;
   int? rubro = 0;
@@ -62,6 +63,7 @@ class User {
       required this.habilitaJuicios,
       required this.habilitaPresentismo,
       required this.habilitaSeguimientoUsuarios,
+      required this.habilitaVerObrasCerradas,
       required this.conceptomova,
       required this.limitarGrupo,
       required this.rubro,
@@ -97,6 +99,7 @@ class User {
     habilitaJuicios = json['habilitaJuicios'];
     habilitaPresentismo = json['habilitaPresentismo'];
     habilitaSeguimientoUsuarios = json['habilitaSeguimientoUsuarios'];
+    habilitaVerObrasCerradas = json['habilitaVerObrasCerradas'];
     conceptomova = json['conceptomova'];
     limitarGrupo = json['limitarGrupo'];
     rubro = json['rubro'];
@@ -134,6 +137,7 @@ class User {
     data['habilitaJuicios'] = habilitaJuicios;
     data['habilitaPresentismo'] = habilitaPresentismo;
     data['habilitaSeguimientoUsuarios'] = habilitaSeguimientoUsuarios;
+    data['habilitaVerObrasCerradas'] = habilitaVerObrasCerradas;
     data['conceptomova'] = conceptomova;
     data['limitarGrupo'] = limitarGrupo;
     data['rubro'] = rubro;

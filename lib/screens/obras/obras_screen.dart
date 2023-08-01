@@ -32,6 +32,7 @@ class _ObrasScreenState extends State<ObrasScreen> {
 //----------------------- Variables -----------------------------
 //---------------------------------------------------------------
 
+  bool _todasLasObras = false;
   List<Obra> _obras = [];
   bool _showLoader = false;
   bool _isFiltered = false;
@@ -129,6 +130,25 @@ class _ObrasScreenState extends State<ObrasScreen> {
               : IconButton(
                   onPressed: _showFilter, icon: const Icon(Icons.filter_alt)),
           IconButton(onPressed: _showMap, icon: const Icon(Icons.map)),
+          widget.user.habilitaVerObrasCerradas == 1
+              ? Row(
+                  children: [
+                    const Text(
+                      "Todas:",
+                      style: TextStyle(color: Colors.white, fontSize: 14),
+                    ),
+                    Switch(
+                        value: _todasLasObras,
+                        activeColor: Colors.green,
+                        inactiveThumbColor: Colors.grey,
+                        onChanged: (value) async {
+                          _todasLasObras = value;
+                          _getObras();
+                          setState(() {});
+                        }),
+                  ],
+                )
+              : Container(),
         ],
       ),
       body: Center(
@@ -294,7 +314,9 @@ class _ObrasScreenState extends State<ObrasScreen> {
       child: ListView(
         children: _obras.map((e) {
           return Card(
-            color: const Color(0xFFC7C7C8),
+            color: e.finalizada == 0
+                ? const Color(0xFFC7C7C8)
+                : Color.fromARGB(255, 240, 202, 151),
             shadowColor: Colors.white,
             elevation: 10,
             margin: const EdgeInsets.fromLTRB(10, 0, 10, 10),
@@ -317,6 +339,12 @@ class _ObrasScreenState extends State<ObrasScreen> {
                             Expanded(
                               child: Column(
                                 children: [
+                                  e.finalizada == 1
+                                      ? const Text('FINALIZADA',
+                                          style: TextStyle(
+                                              color: Colors.red,
+                                              fontWeight: FontWeight.bold))
+                                      : Container(),
                                   Row(
                                     children: [
                                       const Text("N° Obra: ",
@@ -501,7 +529,11 @@ class _ObrasScreenState extends State<ObrasScreen> {
     //   response = await ApiHelper.getObras(widget.user.modulo);
     // }
 
-    response = await ApiHelper.getObras(widget.user.modulo);
+    if (!_todasLasObras) {
+      response = await ApiHelper.getObras(widget.user.modulo);
+    } else {
+      response = await ApiHelper.getObrasTodas(widget.user.modulo);
+    }
 
     setState(() {
       _showLoader = false;

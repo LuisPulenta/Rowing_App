@@ -64,6 +64,7 @@ class _ObrasNuevosSuministrosScreenState
       habilitaJuicios: 0,
       habilitaPresentismo: 0,
       habilitaSeguimientoUsuarios: 0,
+      habilitaVerObrasCerradas: 0,
       conceptomova: 0,
       limitarGrupo: 0,
       rubro: 0,

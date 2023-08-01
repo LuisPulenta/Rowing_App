@@ -966,6 +966,16 @@ class _ObraInfoDataScreenState extends State<ObraInfoDataScreen> {
 //-----------------------------------------------------------------
 
   _save() async {
+    if (widget.obra.finalizada == 1) {
+      await showAlertDialog(
+          context: context,
+          title: 'Error',
+          message: 'Obra Terminada. No se pueden guardar datos.',
+          actions: <AlertDialogAction>[
+            const AlertDialogAction(key: null, label: 'Aceptar'),
+          ]);
+      return;
+    }
     if (widget.user.rubro != 1) {
       await showAlertDialog(
           context: context,
