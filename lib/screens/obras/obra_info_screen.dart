@@ -262,8 +262,12 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
                         _obra.fechaCierreElectrico == null
                     ? MaterialButton(
                         color: const Color(0xFF781f1e),
-                        child: const Text('Fec. Cierre Eléc.',
-                            style: TextStyle(color: Colors.white)),
+                        child: (widget.user.modulo == 'Aysa' ||
+                                widget.user.modulo == 'Cetaco')
+                            ? const Text('Fec. Cierre Hidr.',
+                                style: TextStyle(color: Colors.white))
+                            : const Text('Fec. Cierre Eléc.',
+                                style: TextStyle(color: Colors.white)),
                         onPressed: () {
                           _selectDate(context);
                         })
@@ -280,12 +284,20 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
                     _obra.fechaCierreElectrico != null
                 ? Row(
                     children: [
-                      const Text("Fecha Cierre Eléctrico: ",
-                          style: TextStyle(
-                            fontSize: 12,
-                            color: Color(0xFF781f1e),
-                            fontWeight: FontWeight.bold,
-                          )),
+                      (widget.user.modulo == 'Aysa' ||
+                              widget.user.modulo == 'Cetaco')
+                          ? const Text("Fecha Cierre Hidráulico: ",
+                              style: TextStyle(
+                                fontSize: 12,
+                                color: Color(0xFF781f1e),
+                                fontWeight: FontWeight.bold,
+                              ))
+                          : const Text("Fecha Cierre Eléctrico: ",
+                              style: TextStyle(
+                                fontSize: 12,
+                                color: Color(0xFF781f1e),
+                                fontWeight: FontWeight.bold,
+                              )),
                       Expanded(
                         child: Text(
                             DateFormat('dd/MM/yyyy').format(DateTime.parse(

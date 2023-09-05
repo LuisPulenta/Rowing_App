@@ -144,6 +144,11 @@ class _HomeScreenState extends State<HomeScreen> {
               "assets/logo.png",
               height: 200,
             ),
+
+            // Image.asset(
+            //   "assets/${widget.user.modulo.toLowerCase()}.png",
+            //   height: 200,
+            // ),
             Text(
               'Bienvenido/a ${widget.user.fullName}',
               style: const TextStyle(
@@ -188,7 +193,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   const Image(
                     image: AssetImage('assets/logo.png'),
-                    width: 200,
+                    // image: AssetImage(
+                    //     'assets/${widget.user.modulo.toLowerCase()}.png'),
+                    width: 180,
                   ),
                   const SizedBox(
                     height: 40,

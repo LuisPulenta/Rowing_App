@@ -512,10 +512,18 @@ class _ObraInfoDataScreenState extends State<ObraInfoDataScreen> {
     Option opt2 = Option(id: 2, description: 'Sospechoso');
     Option opt3 = Option(id: 3, description: 'Silencioso');
     Option opt4 = Option(id: 4, description: 'No verificable');
+    Option opt5 = Option(id: 4, description: 'Sin fugas');
+    Option opt6 = Option(id: 4, description: 'Sospechoso-Medidor');
+    Option opt7 = Option(id: 4, description: 'Zona peligrosa');
+    Option opt8 = Option(id: 4, description: 'Zona privada');
     _motivoOptions.add(opt1);
     _motivoOptions.add(opt2);
     _motivoOptions.add(opt3);
     _motivoOptions.add(opt4);
+    _motivoOptions.add(opt5);
+    _motivoOptions.add(opt6);
+    _motivoOptions.add(opt7);
+    _motivoOptions.add(opt8);
     _getComboMotivos();
 
     setState(() {});
