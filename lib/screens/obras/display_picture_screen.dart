@@ -33,7 +33,9 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
     'Previa al trabajo',
     'Durante el trabajo',
     'Vereda conforme',
-    'Finalización del Trabajo'
+    'Finalización del Trabajo',
+    'Proceso de geofonía',
+    'Proceso de reparación'
   ];
 
 //---------------------------------------------------------------
@@ -285,18 +287,34 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
       value: -1,
     ));
     int nro = 0;
+    int _nro = 0;
     for (var element in _options) {
       //CORREGIR EL NUMERO PARA VEREDA CONFORME
-      if (nro == 3) {
-        nro = 10;
+      if (nro == 0) {
+        _nro = 0;
       }
-      if (nro == 11) {
-        nro = 3;
+      if (nro == 1) {
+        _nro = 1;
+      }
+      if (nro == 2) {
+        _nro = 2;
+      }
+      if (nro == 3) {
+        _nro = 10;
+      }
+      if (nro == 4) {
+        _nro = 3;
+      }
+      if (nro == 5) {
+        _nro = 5;
+      }
+      if (nro == 6) {
+        _nro = 6;
       }
 
       list.add(DropdownMenuItem(
         child: Text(element),
-        value: nro,
+        value: _nro,
       ));
       nro++;
     }

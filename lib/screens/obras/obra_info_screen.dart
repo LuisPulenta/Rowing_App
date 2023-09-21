@@ -380,7 +380,11 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
                                         ? 'Vereda conforme'
                                         : i.tipoDeFoto == 4
                                             ? 'Finalización del Trabajo'
-                                            : '',
+                                            : i.tipoDeFoto == 5
+                                                ? 'Proceso de geofonía'
+                                                : i.tipoDeFoto == 6
+                                                    ? 'Proceso de reparación'
+                                                    : '',
                         style: const TextStyle(
                             color: Colors.white, fontWeight: FontWeight.bold),
                       ),
@@ -1097,6 +1101,8 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
         _obrasDocumentosFotos.add(obraDocumento);
       }
     }
+
+    var a = 1;
 
     _obrasDocumentosFotos.sort((a, b) {
       return a.tipoDeFoto
