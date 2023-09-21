@@ -14056,8 +14056,8 @@ androidx.activity.result.contract.ActivityResultContracts$PickMultipleVisualMedi
     public synthetic bridge androidx.activity.result.contract.ActivityResultContract$SynchronousResult getSynchronousResult(android.content.Context,java.lang.Object)
 kotlin.jvm.internal.Ref$BooleanRef
 android.support.v4.media.MediaBrowserCompat$MediaBrowserImplApi26
-com.google.android.gms.common.api.internal.OptionalPendingResultImpl
 com.google.android.gms.common.api.internal.zat
+com.google.android.gms.common.api.internal.OptionalPendingResultImpl
 io.flutter.embedding.android.FlutterSplashView:
     public void <init>(android.content.Context,android.util.AttributeSet)
 androidx.constraintlayout.widget.Guideline:
@@ -26242,6 +26242,7 @@ android.support.v4.media.MediaBrowserCompat$SubscriptionCallback$StubApi26
 com.google.android.material.badge.BadgeDrawable$1
 kotlinx.coroutines.test.TimedRunnableObsolete
 com.google.android.gms.maps.model.JointType
+androidx.legacy.coreutils.R$string
 com.google.android.material.R$dimen:
     private void <init>()
     public static final int abc_action_bar_content_inset_material
@@ -26601,7 +26602,6 @@ com.google.android.material.R$dimen:
     public static final int tooltip_vertical_padding
     public static final int tooltip_y_offset_non_touch
     public static final int tooltip_y_offset_touch
-androidx.legacy.coreutils.R$string
 androidx.core.view.WindowInsetsControllerCompat:
     private void <init>(android.view.WindowInsetsController)
     public static androidx.core.view.WindowInsetsControllerCompat toWindowInsetsControllerCompat(android.view.WindowInsetsController)
@@ -28285,8 +28285,8 @@ androidx.lifecycle.DefaultLifecycleObserver:
     public abstract void onStop(androidx.lifecycle.LifecycleOwner)
     public abstract void onDestroy(androidx.lifecycle.LifecycleOwner)
 androidx.lifecycle.ViewModelProvider$NewInstanceFactory:
-    public synthetic androidx.lifecycle.ViewModel create(java.lang.Class,androidx.lifecycle.viewmodel.CreationExtras)
     public synthetic androidx.lifecycle.ViewModel create(java.lang.Class)
+    public synthetic androidx.lifecycle.ViewModel create(java.lang.Class,androidx.lifecycle.viewmodel.CreationExtras)
     public static final androidx.lifecycle.ViewModelProvider$NewInstanceFactory$Companion Companion
 androidx.constraintlayout.widget.ConstraintLayout$LayoutParams:
     float dimensionRatioValue
@@ -28643,13 +28643,13 @@ com.google.android.material.resources.TextAppearance:
 androidx.appcompat.view.StandaloneActionMode:
     private boolean mFocusable
 io.flutter.view.TextureRegistry$SurfaceTextureEntry$-CC
-androidx.core.view.MenuProvider$-CC
+androidx.lifecycle.DefaultLifecycleObserver$-CC
 io.flutter.plugin.common.BinaryMessenger$-CC:
     public static io.flutter.plugin.common.BinaryMessenger$TaskQueue $default$makeBackgroundTaskQueue(io.flutter.plugin.common.BinaryMessenger,io.flutter.plugin.common.BinaryMessenger$TaskQueueOptions)
     public static void $default$setMessageHandler(io.flutter.plugin.common.BinaryMessenger,java.lang.String,io.flutter.plugin.common.BinaryMessenger$BinaryMessageHandler,io.flutter.plugin.common.BinaryMessenger$TaskQueue)
-androidx.lifecycle.DefaultLifecycleObserver$-CC
+androidx.lifecycle.LifecycleRegistryOwner$-CC
+androidx.lifecycle.HasDefaultViewModelProviderFactory$-CC
 io.flutter.plugin.platform.PlatformView$-CC:
     public static void $default$onInputConnectionLocked(io.flutter.plugin.platform.PlatformView)
     public static void $default$onInputConnectionUnlocked(io.flutter.plugin.platform.PlatformView)
-androidx.lifecycle.LifecycleRegistryOwner$-CC
-androidx.lifecycle.HasDefaultViewModelProviderFactory$-CC
+androidx.core.view.MenuProvider$-CC
