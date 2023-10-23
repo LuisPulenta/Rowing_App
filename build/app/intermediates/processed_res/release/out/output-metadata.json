@@ -10,8 +10,8 @@
     {
       "type": "SINGLE",
       "filters": [],
-      "versionCode": 51,
-      "versionName": "1.0.51",
+      "versionCode": 52,
+      "versionName": "1.0.52",
       "outputFile": "resources-release.ap_"
     }
   ]

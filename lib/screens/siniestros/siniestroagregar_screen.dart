@@ -1141,6 +1141,7 @@ class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
       'detalledanospropio': _detalleDanosPropio,
       'numchatercero': _numchatercero,
       'fechacargaapp': DateTime.now().toString(),
+      'modulo': widget.user.modulo,
     };
 
     Response response = await ApiHelper.postNoToken(
