@@ -32,6 +32,9 @@ class _ObrasScreenState extends State<ObrasScreen> {
 //----------------------- Variables -----------------------------
 //---------------------------------------------------------------
 
+  List<ObraEstado> _estados = [];
+  List<ObraSubestado> _subestados = [];
+
   bool _todasLasObras = false;
   List<Obra> _obras = [];
   bool _showLoader = false;
@@ -45,6 +48,7 @@ class _ObrasScreenState extends State<ObrasScreen> {
       finalizada: 0,
       supervisore: '',
       codigoEstado: '',
+      codigoSubEstado: '',
       modulo: '',
       grupoAlmacen: '',
       obrasDocumentos: [],
@@ -72,6 +76,7 @@ class _ObrasScreenState extends State<ObrasScreen> {
       finalizada: 0,
       supervisore: '',
       codigoEstado: '',
+      codigoSubEstado: '',
       modulo: '',
       grupoAlmacen: '',
       obrasDocumentos: [],
@@ -535,10 +540,6 @@ class _ObrasScreenState extends State<ObrasScreen> {
       response = await ApiHelper.getObrasTodas(widget.user.modulo);
     }
 
-    setState(() {
-      _showLoader = false;
-    });
-
     if (!response.isSuccess) {
       await showAlertDialog(
           context: context,
@@ -573,10 +574,11 @@ class _ObrasScreenState extends State<ObrasScreen> {
           context,
           MaterialPageRoute(
               builder: (context) => ObraInfoScreen(
-                    user: widget.user,
-                    obra: obra,
-                    positionUser: widget.positionUser,
-                  )));
+                  user: widget.user,
+                  obra: obra,
+                  positionUser: widget.positionUser,
+                  estados: _estados,
+                  subestados: _subestados)));
       if (result == 'yes' || result != 'yes') {
         _getObras();
         setState(() {});
@@ -819,6 +821,94 @@ class _ObrasScreenState extends State<ObrasScreen> {
     return R * c;
   }
 
+//----------------------------------------------------------------
+//-------------------------- _getEstados -------------------------
+//----------------------------------------------------------------
+
+  Future<void> _getEstados() async {
+    var connectivityResult = await Connectivity().checkConnectivity();
+
+    if (connectivityResult == ConnectivityResult.none) {
+      setState(() {
+        _showLoader = false;
+      });
+      await showAlertDialog(
+          context: context,
+          title: 'Error',
+          message: 'Verifica que estés conectado a Internet',
+          actions: <AlertDialogAction>[
+            const AlertDialogAction(key: null, label: 'Aceptar'),
+          ]);
+      return;
+    }
+
+    Response response = Response(isSuccess: false);
+
+    response = await ApiHelper.getEstados();
+
+    if (!response.isSuccess) {
+      await showAlertDialog(
+          context: context,
+          title: 'Error',
+          message: response.message,
+          actions: <AlertDialogAction>[
+            const AlertDialogAction(key: null, label: 'Aceptar'),
+          ]);
+      return;
+    }
+
+    setState(() {
+      _estados = response.result;
+    });
+
+    _getSubestados();
+  }
+
+//----------------------------------------------------------------
+//-------------------------- _getSubestados -------------------------
+//----------------------------------------------------------------
+
+  Future<void> _getSubestados() async {
+    var connectivityResult = await Connectivity().checkConnectivity();
+
+    if (connectivityResult == ConnectivityResult.none) {
+      setState(() {
+        _showLoader = false;
+      });
+      await showAlertDialog(
+          context: context,
+          title: 'Error',
+          message: 'Verifica que estés conectado a Internet',
+          actions: <AlertDialogAction>[
+            const AlertDialogAction(key: null, label: 'Aceptar'),
+          ]);
+      return;
+    }
+
+    Response response = Response(isSuccess: false);
+
+    response = await ApiHelper.getSubestados();
+
+    setState(() {
+      _showLoader = false;
+    });
+
+    if (!response.isSuccess) {
+      await showAlertDialog(
+          context: context,
+          title: 'Error',
+          message: response.message,
+          actions: <AlertDialogAction>[
+            const AlertDialogAction(key: null, label: 'Aceptar'),
+          ]);
+      return;
+    }
+
+    setState(() {
+      _subestados = response.result;
+    });
+  }
+
 //---------------------------------------------
 //----------------- _toRadians ----------------
 //---------------------------------------------
@@ -872,6 +962,8 @@ class _ObrasScreenState extends State<ObrasScreen> {
                   user: widget.user,
                   obra: _obraSeleccionada,
                   positionUser: widget.positionUser,
+                  estados: _estados,
+                  subestados: _subestados,
                 )));
     if (result == 'Yes' || result != 'Yes') {
       _getObras();
@@ -916,6 +1008,8 @@ class _ObrasScreenState extends State<ObrasScreen> {
     _obrasReparosTodas = response2.result;
 
     setState(() {});
+
+    _getEstados();
   }
 
 //-------------------------------------------------------------------------

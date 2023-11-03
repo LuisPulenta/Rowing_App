@@ -2105,4 +2105,56 @@ class ApiHelper {
 
     return Response(isSuccess: true, result: decodedJson);
   }
+
+  //---------------------------------------------------------------------------
+  static Future<Response> getEstados() async {
+    var url = Uri.parse('${Constants.apiUrl}/api/Obras/GetObrasEstados');
+    var response = await http.get(
+      url,
+      headers: {
+        'content-type': 'application/json',
+        'accept': 'application/json',
+      },
+    );
+    var body = response.body;
+
+    if (response.statusCode >= 400) {
+      return Response(isSuccess: false, message: body);
+    }
+
+    List<ObraEstado> list = [];
+    var decodedJson = jsonDecode(body);
+    if (decodedJson != null) {
+      for (var item in decodedJson) {
+        list.add(ObraEstado.fromJson(item));
+      }
+    }
+    return Response(isSuccess: true, result: list);
+  }
+
+  //---------------------------------------------------------------------------
+  static Future<Response> getSubestados() async {
+    var url = Uri.parse('${Constants.apiUrl}/api/Obras/GetObrasSubEstados');
+    var response = await http.get(
+      url,
+      headers: {
+        'content-type': 'application/json',
+        'accept': 'application/json',
+      },
+    );
+    var body = response.body;
+
+    if (response.statusCode >= 400) {
+      return Response(isSuccess: false, message: body);
+    }
+
+    List<ObraSubestado> list = [];
+    var decodedJson = jsonDecode(body);
+    if (decodedJson != null) {
+      for (var item in decodedJson) {
+        list.add(ObraSubestado.fromJson(item));
+      }
+    }
+    return Response(isSuccess: true, result: list);
+  }
 }

@@ -87,6 +87,7 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
       finalizada: 0,
       supervisore: '',
       codigoEstado: '',
+      codigoSubEstado: '',
       modulo: '',
       grupoAlmacen: '',
       obrasDocumentos: [],

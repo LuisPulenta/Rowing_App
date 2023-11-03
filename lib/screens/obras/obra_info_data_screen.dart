@@ -88,6 +88,7 @@ class _ObraInfoDataScreenState extends State<ObraInfoDataScreen> {
       finalizada: 0,
       supervisore: '',
       codigoEstado: '',
+      codigoSubEstado: '',
       modulo: '',
       grupoAlmacen: '',
       obrasDocumentos: [],

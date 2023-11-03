@@ -8,6 +8,7 @@ class Obra {
   int finalizada = 0;
   String? supervisore = '';
   String? codigoEstado = '';
+  String? codigoSubEstado = '';
   String? modulo = '';
   String? grupoAlmacen = '';
   List<ObrasDocumento> obrasDocumentos = [];
@@ -35,6 +36,7 @@ class Obra {
       required this.finalizada,
       required this.supervisore,
       required this.codigoEstado,
+      required this.codigoSubEstado,
       required this.modulo,
       required this.grupoAlmacen,
       required this.obrasDocumentos,
@@ -62,6 +64,7 @@ class Obra {
     finalizada = json['finalizada'];
     supervisore = json['supervisore'];
     codigoEstado = json['codigoEstado'];
+    codigoSubEstado = json['codigoSubEstado'];
     modulo = json['modulo'];
     grupoAlmacen = json['grupoAlmacen'];
     if (json['obrasDocumentos'] != null) {
@@ -96,6 +99,7 @@ class Obra {
     data['finalizada'] = finalizada;
     data['supervisore'] = supervisore;
     data['codigoEstado'] = codigoEstado;
+    data['codigoSubEstado'] = codigoSubEstado;
     data['modulo'] = modulo;
     data['grupoAlmacen'] = grupoAlmacen;
     data['obrasDocumentos'] = obrasDocumentos.map((v) => v.toJson()).toList();

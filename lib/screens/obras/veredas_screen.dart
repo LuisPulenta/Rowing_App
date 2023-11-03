@@ -35,6 +35,7 @@ class _VeredasScreenState extends State<VeredasScreen> {
       finalizada: 0,
       supervisore: '',
       codigoEstado: '',
+      codigoSubEstado: '',
       modulo: '',
       grupoAlmacen: '',
       obrasDocumentos: [],

@@ -1,4 +1,3 @@
-
 export 'package:rowing_app/models/catalogo.dart';
 export 'package:rowing_app/models/causante.dart';
 export 'package:rowing_app/models/causantes_actividad.dart';
@@ -24,6 +23,8 @@ export 'package:rowing_app/models/novedad.dart';
 export 'package:rowing_app/models/obra_nuevo_suministro_det.dart';
 export 'package:rowing_app/models/obra_poste_caja_detalle.dart';
 export 'package:rowing_app/models/obra.dart';
+export 'package:rowing_app/models/obra_estado.dart';
+export 'package:rowing_app/models/obra_subestado.dart';
 export 'package:rowing_app/models/obras_documento.dart';
 export 'package:rowing_app/models/obras_nuevo_suministro.dart';
 export 'package:rowing_app/models/obras_reparo.dart';

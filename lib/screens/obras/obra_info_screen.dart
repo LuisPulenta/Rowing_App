@@ -12,11 +12,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:rowing_app/components/loader_component.dart';
 import 'package:rowing_app/helpers/api_helper.dart';
-import 'package:rowing_app/models/obra.dart';
-import 'package:rowing_app/models/obras_documento.dart';
-import 'package:rowing_app/models/photo.dart';
-import 'package:rowing_app/models/response.dart';
-import 'package:rowing_app/models/user.dart';
+import 'package:rowing_app/models/models.dart';
 import 'package:rowing_app/screens/screens.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:uuid/uuid.dart';
@@ -25,12 +21,16 @@ class ObraInfoScreen extends StatefulWidget {
   final User user;
   final Obra obra;
   final Position positionUser;
+  final List<ObraEstado> estados;
+  final List<ObraSubestado> subestados;
 
   const ObraInfoScreen(
       {Key? key,
       required this.user,
       required this.obra,
-      required this.positionUser})
+      required this.positionUser,
+      required this.estados,
+      required this.subestados})
       : super(key: key);
 
   @override
@@ -41,6 +41,25 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
 //---------------------------------------------------------------
 //----------------------- Variables -----------------------------
 //---------------------------------------------------------------
+
+  bool _hayErrorEstado = true;
+  String _subestadoexistente = '';
+
+  String _optionEstado = 'Elija un Estado...';
+  String _estado = '';
+  String _optionEstadoError = '';
+  bool _optionEstadoShowError = false;
+  final TextEditingController _optionEstadoController = TextEditingController();
+
+  String _optionSubestado = 'Elija un Subestado...';
+  String _subestado = '';
+  String _optionSubestadoError = '';
+  bool _optionSubestadoShowError = false;
+  final TextEditingController _optionSubestadoController =
+      TextEditingController();
+
+  late List<DropdownMenuItem<String>> _estados;
+  late List<DropdownMenuItem<String>> _subestados;
 
   bool _photoChanged = false;
   late XFile _image;
@@ -59,6 +78,7 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
       finalizada: 0,
       supervisore: '',
       codigoEstado: '',
+      codigoSubEstado: '',
       modulo: '',
       grupoAlmacen: '',
       obrasDocumentos: [],
@@ -93,6 +113,13 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
   void initState() {
     super.initState();
     _obra = widget.obra;
+    _optionEstado =
+        _obra.codigoEstado != null ? _obra.codigoEstado! : 'Elija un Estado...';
+    _optionSubestado = _obra.codigoSubEstado != null
+        ? _obra.codigoSubEstado!
+        : 'Elija un Subestado...';
+
+    _loadData();
     _getObra();
   }
 
@@ -214,7 +241,7 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
                       fontWeight: FontWeight.bold,
                     )),
                 Expanded(
-                  flex: 2,
+                  flex: 4,
                   child: Text(_obra.modulo.toString(),
                       style: const TextStyle(
                         fontSize: 12,
@@ -309,6 +336,17 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
                     ],
                   )
                 : Container(),
+            _showEstado(),
+            _showSubestado(),
+            _hayErrorEstado
+                ? Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: Text(
+                        'La obra tiene cargado el Subestado ${_subestadoexistente} que no corresponde al estado ${_optionEstado} que tiene cargado.',
+                        style:
+                            const TextStyle(color: Colors.red, fontSize: 14)),
+                  )
+                : Container()
           ],
         ),
       ),
@@ -1052,7 +1090,7 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
     _obrasDocumentosAudios = [];
     _obrasDocumentosVideos = [];
 
-    setState(() {});
+    //setState(() {});
 
     var connectivityResult = await Connectivity().checkConnectivity();
     if (connectivityResult == ConnectivityResult.none) {
@@ -1510,5 +1548,142 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
     setState(() {
       _getObra();
     });
+  }
+
+//---------------------------------------------------------------
+//----------------------- _showEstado -------------------------
+//---------------------------------------------------------------
+
+  Widget _showEstado() {
+    return Padding(
+      padding: const EdgeInsets.all(10),
+      child: DropdownButtonFormField(
+          items: _estados,
+          value: _optionEstado,
+          onChanged: (option) {
+            setState(() {
+              _optionEstado = option as String;
+              _estado = option.toString();
+              _subestado = 'Elija un Subestado...';
+              _optionSubestado = 'Elija un Subestado...';
+            });
+          },
+          decoration: InputDecoration(
+            hintText: 'Elija un Estado...',
+            labelText: '',
+            fillColor: Colors.white,
+            filled: true,
+            errorText: _optionEstadoShowError ? _optionEstadoError : null,
+            border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+          )),
+    );
+  }
+
+//-----------------------------------------------------------------
+//--------------------- _getComboEstados --------------------------
+//-----------------------------------------------------------------
+
+  List<DropdownMenuItem<String>> _getComboEstados() {
+    List<DropdownMenuItem<String>> list = [];
+    list.add(const DropdownMenuItem(
+      child: Text('Elija un Estado...'),
+      value: 'Elija un Estado...',
+    ));
+
+    for (var estado in widget.estados) {
+      list.add(DropdownMenuItem(
+        child: Text(estado.descripcion!.replaceAll("  ", "")),
+        value: estado.codigo,
+      ));
+    }
+
+    return list;
+  }
+
+//---------------------------------------------------------------
+//----------------------- _showSubestado ------------------------
+//---------------------------------------------------------------
+
+  Widget _showSubestado() {
+    return Padding(
+      padding: const EdgeInsets.all(10),
+      child: DropdownButtonFormField(
+          items: _getComboSubestados(),
+          value: _optionSubestado,
+          onChanged: (option) {
+            setState(() {
+              _optionSubestado = option as String;
+              _subestado = option.toString();
+            });
+          },
+          decoration: InputDecoration(
+            hintText: 'Elija un Subestado...',
+            labelText: '',
+            fillColor: Colors.white,
+            filled: true,
+            errorText: _optionSubestadoShowError ? _optionSubestadoError : null,
+            border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+          )),
+    );
+  }
+
+//-----------------------------------------------------------------
+//--------------------- _getComboSubestados -----------------------
+//-----------------------------------------------------------------
+
+  List<DropdownMenuItem<String>> _getComboSubestados() {
+    List<DropdownMenuItem<String>> list = [];
+    list.add(const DropdownMenuItem(
+      child: Text('Elija un Subestado...'),
+      value: 'Elija un Subestado...',
+    ));
+
+    for (var subestado in widget.subestados) {
+      if (subestado.codigoestado == _optionEstado) {
+        list.add(DropdownMenuItem(
+          child: Text(subestado.descripcion!.replaceAll("  ", "")),
+          value: subestado.codigosubestado,
+        ));
+      }
+    }
+
+    return list;
+  }
+
+  List<DropdownMenuItem<String>> _getComboSubestadosIni() {
+    List<DropdownMenuItem<String>> list = [];
+    list.add(const DropdownMenuItem(
+      child: Text('Elija un Subestado...'),
+      value: 'Elija un Subestado...',
+    ));
+
+    for (var subestado in widget.subestados) {
+      if (subestado.codigoestado == _optionEstado) {
+        list.add(DropdownMenuItem(
+          child: Text(subestado.descripcion!.replaceAll("  ", "")),
+          value: subestado.codigosubestado,
+        ));
+      }
+    }
+    _subestadoexistente = _optionSubestado;
+    _optionSubestado = 'Elija un Subestado...';
+
+    for (var subest in list) {
+      if (subest.value == _subestadoexistente) {
+        _optionSubestado = _subestadoexistente;
+        _hayErrorEstado = false;
+      }
+    }
+
+    return list;
+  }
+
+  //--------------------------------------------------------
+//--------------------- _loadData ------------------------
+//--------------------------------------------------------
+
+  void _loadData() {
+    _estados = _getComboEstados();
+    _subestados = _getComboSubestadosIni();
   }
 }
