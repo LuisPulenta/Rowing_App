@@ -336,13 +336,51 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
                     ],
                   )
                 : Container(),
-            _showEstado(),
-            _showSubestado(),
+            const SizedBox(
+              height: 15,
+            ),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: Column(
+                    children: [
+                      _showEstado(),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      _showSubestado(),
+                    ],
+                  ),
+                ),
+                const SizedBox(
+                  width: 15,
+                ),
+                SizedBox(
+                  width: 40,
+                  height: 40,
+                  child: MaterialButton(
+                      padding: const EdgeInsets.all(0),
+                      color: const Color(0xFF781f1e),
+                      child: const Icon(
+                        Icons.save,
+                        color: Colors.white,
+                      ),
+                      onPressed: () {
+                        _saveEstado();
+                      }),
+                )
+              ],
+            ),
+            const SizedBox(
+              height: 10,
+            ),
             _hayErrorEstado
                 ? Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 10),
                     child: Text(
-                        'La obra tiene cargado el Subestado ${_subestadoexistente} que no corresponde al estado ${_optionEstado} que tiene cargado.',
+                        'La obra tiene cargado el Código de Subestado ${_subestadoexistente} que no corresponde al Estado que tiene cargado.',
                         style:
                             const TextStyle(color: Colors.red, fontSize: 14)),
                   )
@@ -1176,6 +1214,48 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
     }
   }
 
+//-----------------------------------------------------
+//-------------------- _saveEstado --------------------
+//-----------------------------------------------------
+
+  void _saveEstado() async {
+    if (_optionEstado == 'Elija un Estado...') {
+      await showAlertDialog(
+          context: context,
+          title: 'Error',
+          message: 'Debe elegir un Estado',
+          actions: <AlertDialogAction>[
+            const AlertDialogAction(key: null, label: 'Aceptar'),
+          ]);
+      return;
+    }
+
+    if (_optionSubestado == 'Elija un Subestado...') {
+      await showAlertDialog(
+          context: context,
+          title: 'Error',
+          message: 'Debe elegir un SubEstado',
+          actions: <AlertDialogAction>[
+            const AlertDialogAction(key: null, label: 'Aceptar'),
+          ]);
+      return;
+    }
+
+    Map<String, dynamic> requestEstadoSubestado = {
+      // 'nrosuministro': 0,
+      'NroObra': widget.obra.nroObra,
+      'CodigoEstado': _optionEstado,
+      'CodigoSubEstado': _optionSubestado,
+    };
+
+    Response response = await ApiHelper.put('/api/Obras/PutEstadoSubestado/',
+        widget.obra.nroObra.toString(), requestEstadoSubestado);
+
+    if (response.isSuccess) {
+      _showSnackbar("Estado y SubEstado grabados con éxito");
+    }
+  }
+
 //-------------------------------------------------
 //-------------------- _grabar --------------------
 //-------------------------------------------------
@@ -1555,27 +1635,52 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
 //---------------------------------------------------------------
 
   Widget _showEstado() {
-    return Padding(
-      padding: const EdgeInsets.all(10),
-      child: DropdownButtonFormField(
-          items: _estados,
-          value: _optionEstado,
-          onChanged: (option) {
-            setState(() {
-              _optionEstado = option as String;
-              _estado = option.toString();
-              _subestado = 'Elija un Subestado...';
-              _optionSubestado = 'Elija un Subestado...';
-            });
-          },
-          decoration: InputDecoration(
-            hintText: 'Elija un Estado...',
-            labelText: '',
-            fillColor: Colors.white,
-            filled: true,
-            errorText: _optionEstadoShowError ? _optionEstadoError : null,
-            border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
-          )),
+    return Row(
+      children: [
+        const SizedBox(
+          width: 75,
+          child: Text('Estado: ',
+              style: TextStyle(
+                fontSize: 12,
+                color: Color(0xFF781f1e),
+                fontWeight: FontWeight.bold,
+              )),
+        ),
+        Expanded(
+          child: Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(10),
+              border: Border.all(
+                color: const Color(0xFF781f1e),
+                width: 1,
+              ),
+            ),
+            alignment: Alignment.center,
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            height: 30,
+            child: DropdownButtonFormField(
+                items: _estados,
+                value: _optionEstado,
+                onChanged: (option) {
+                  setState(() {
+                    _optionEstado = option as String;
+                    _estado = option.toString();
+                    _subestado = 'Elija un Subestado...';
+                    _optionSubestado = 'Elija un Subestado...';
+                  });
+                },
+                decoration: const InputDecoration.collapsed(
+                  hintText: 'Elija un Estado...',
+                  //labelText: '',
+                  fillColor: Colors.white,
+                  filled: true,
+                  //errorText: _optionEstadoShowError ? _optionEstadoError : null,
+                  //border:OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                )),
+          ),
+        ),
+      ],
     );
   }
 
@@ -1605,25 +1710,50 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
 //---------------------------------------------------------------
 
   Widget _showSubestado() {
-    return Padding(
-      padding: const EdgeInsets.all(10),
-      child: DropdownButtonFormField(
-          items: _getComboSubestados(),
-          value: _optionSubestado,
-          onChanged: (option) {
-            setState(() {
-              _optionSubestado = option as String;
-              _subestado = option.toString();
-            });
-          },
-          decoration: InputDecoration(
-            hintText: 'Elija un Subestado...',
-            labelText: '',
-            fillColor: Colors.white,
-            filled: true,
-            errorText: _optionSubestadoShowError ? _optionSubestadoError : null,
-            border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
-          )),
+    return Row(
+      children: [
+        const SizedBox(
+          width: 75,
+          child: Text('SubEstado: ',
+              style: TextStyle(
+                fontSize: 12,
+                color: Color(0xFF781f1e),
+                fontWeight: FontWeight.bold,
+              )),
+        ),
+        Expanded(
+          child: Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(10),
+              border: Border.all(
+                color: const Color(0xFF781f1e),
+                width: 1,
+              ),
+            ),
+            alignment: Alignment.center,
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            height: 30,
+            child: DropdownButtonFormField(
+                items: _getComboSubestados(),
+                value: _optionSubestado,
+                onChanged: (option) {
+                  setState(() {
+                    _optionSubestado = option as String;
+                    _subestado = option.toString();
+                  });
+                },
+                decoration: const InputDecoration.collapsed(
+                  hintText: 'Elija un Subestado...',
+                  //labelText: '',
+                  fillColor: Colors.white,
+                  filled: true,
+                  //errorText:_optionSubestadoShowError ? _optionSubestadoError : null,
+                  //border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                )),
+          ),
+        ),
+      ],
     );
   }
 

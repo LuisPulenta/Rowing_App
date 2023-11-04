@@ -391,7 +391,7 @@ class _ObrasScreenState extends State<ObrasScreen> {
                                             fontWeight: FontWeight.bold,
                                           )),
                                       Expanded(
-                                        flex: 3,
+                                        flex: 4,
                                         child: Text(e.modulo.toString(),
                                             style: const TextStyle(
                                               fontSize: 12,
