@@ -35,6 +35,10 @@ class _ElementosencalleeditState extends State<Elementosencalleedit> {
 //---------------------------------------------------------------------
 
   int _nroReg = 0;
+  int _nroObra = 0;
+  String _nombreObra = '';
+
+  List<ElemEnCalleDet> _elemEnCalleDet = [];
 
   String _cantidad = '';
   final String _cantidadError = '';
@@ -45,6 +49,8 @@ class _ElementosencalleeditState extends State<Elementosencalleedit> {
   List<Catalogo> _catalogos = [];
 
   late XFile _image;
+
+  late Obra obra2;
 
   bool _photoChanged = false;
 
@@ -220,7 +226,7 @@ class _ElementosencalleeditState extends State<Elementosencalleedit> {
                           const Text("Obra: ",
                               style: TextStyle(fontWeight: FontWeight.bold)),
                           Expanded(
-                            child: Text(obra.nombreObra),
+                            child: Text(_nombreObra),
                           ),
                         ],
                       ),
@@ -242,7 +248,7 @@ class _ElementosencalleeditState extends State<Elementosencalleedit> {
                 ),
               ),
               onPressed: () async {
-                Obra? obra2 = await Navigator.push(
+                obra2 = await Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (context) => ObrasScreen(
@@ -254,6 +260,8 @@ class _ElementosencalleeditState extends State<Elementosencalleedit> {
                 );
                 if (obra2 != null) {
                   obra = obra2;
+                  _nombreObra = obra.nombreObra;
+                  _nroObra = obra.nroObra;
                 }
                 setState(() {});
               },
@@ -470,11 +478,13 @@ class _ElementosencalleeditState extends State<Elementosencalleedit> {
                 Container(
                   child: !_photoChanged
                       ? Center(
-                          child: Image(
-                              image: const AssetImage('assets/noimage.png'),
-                              width: ancho * 0.3,
-                              height: 120,
-                              fit: BoxFit.contain),
+                          child: FadeInImage(
+                            width: 160,
+                            height: 120,
+                            placeholder: const AssetImage('assets/loading.gif'),
+                            image:
+                                NetworkImage(widget.elemEnCalle.imageFullPath),
+                          ),
                         )
                       : Center(
                           child: Image.file(
@@ -896,17 +906,6 @@ class _ElementosencalleeditState extends State<Elementosencalleedit> {
   }
 
 //-----------------------------------------------------------------
-//--------------------- _loadData ---------------------------------
-//-----------------------------------------------------------------
-
-  void _loadData() async {
-    await _getCatalogos();
-    for (Catalogo catalogo in _catalogos) {
-      catalogo.cantidad = 0;
-    }
-  }
-
-//-----------------------------------------------------------------
 //--------------------- _save -------------------------------------
 //-----------------------------------------------------------------
 
@@ -1086,5 +1085,90 @@ class _ElementosencalleeditState extends State<Elementosencalleedit> {
           ]);
       return;
     } //Termina Bandera
+  }
+
+  //-----------------------------------------------------------------
+//--------------------- _loadData ---------------------------------
+//-----------------------------------------------------------------
+
+  void _loadData() async {
+    await _getCatalogos();
+
+    _nroObra = widget.elemEnCalle.nroobra;
+    _nombreObra = widget.elemEnCalle.nombreObra;
+    _direccion = widget.elemEnCalle.domicilio;
+    _direccionController.text = _direccion;
+    latitud = double.tryParse(widget.elemEnCalle.grxx)!;
+    longitud = double.tryParse(widget.elemEnCalle.gryy)!;
+    _observaciones = widget.elemEnCalle.observacion;
+    _observacionesController.text = _observaciones;
+
+    await _loadDetalles();
+
+    for (Catalogo catalogo in _catalogos) {
+      catalogo.cantidad = 0;
+    }
+
+    for (Catalogo catalogo in _catalogos) {
+      for (ElemEnCalleDet elem in _elemEnCalleDet) {
+        if (elem.catsiag == catalogo.catCodigo) {
+          catalogo.cantidad = elem.cantdejada;
+        }
+      }
+    }
+  }
+
+  var a = 1;
+
+//-----------------------------------------------------------------
+//--------------------- _loadDetalles -----------------------------
+//-----------------------------------------------------------------
+
+  Future<void> _loadDetalles() async {
+    setState(() {
+      _showLoader = true;
+    });
+
+    var connectivityResult = await Connectivity().checkConnectivity();
+
+    if (connectivityResult == ConnectivityResult.none) {
+      setState(() {
+        _showLoader = false;
+      });
+      await showAlertDialog(
+          context: context,
+          title: 'Error',
+          message: 'Verifica que estés conectado a Internet',
+          actions: <AlertDialogAction>[
+            const AlertDialogAction(key: null, label: 'Aceptar'),
+          ]);
+      return;
+    }
+
+    Response response = Response(isSuccess: false);
+
+    response = await ApiHelper.getElemEnCalleDet(
+        widget.elemEnCalle.idelementocab.toString());
+
+    if (!response.isSuccess) {
+      await showAlertDialog(
+          context: context,
+          title: 'Error',
+          message: response.message,
+          actions: <AlertDialogAction>[
+            const AlertDialogAction(key: null, label: 'Aceptar'),
+          ]);
+      return;
+    }
+    setState(() {
+      _elemEnCalleDet = response.result;
+      _elemEnCalleDet.sort((a, b) {
+        return a.idelementocab
+            .toString()
+            .toLowerCase()
+            .compareTo(b.idelementocab.toString().toLowerCase());
+      });
+      _showLoader = false;
+    });
   }
 }

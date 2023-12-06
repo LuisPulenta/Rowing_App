@@ -48,6 +48,7 @@ class _ElementosencallelistadoState extends State<Elementosencallelistado> {
       domicilio: '',
       observacion: '',
       linkfoto: '',
+      imageFullPath: '',
       estado: '',
       cantItems: 0);
 
@@ -596,9 +597,9 @@ class _ElementosencallelistadoState extends State<Elementosencallelistado> {
 //-------------------------------------------------------------------
 
   void _goElemEnCalle2(ElemEnCalle elementoEnCalle) async {
-    for (ElemEnCalle elementoEnCalle in _elemEnCalle) {
-      if (elementoEnCalle.nroobra == elementoEnCalle.nroobra) {
-        _elemEnCalleSeleccionada = elementoEnCalle;
+    for (ElemEnCalle elem in _elemEnCalle) {
+      if (elem.nroobra == elementoEnCalle.nroobra) {
+        _elemEnCalleSeleccionada = elem;
       }
     }
 

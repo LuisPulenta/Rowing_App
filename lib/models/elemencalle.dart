@@ -11,6 +11,7 @@ class ElemEnCalle {
   String domicilio = '';
   String observacion = '';
   String linkfoto = '';
+  String imageFullPath = '';
   String estado = '';
   int cantItems = 0;
 
@@ -27,6 +28,7 @@ class ElemEnCalle {
       required this.domicilio,
       required this.observacion,
       required this.linkfoto,
+      required this.imageFullPath,
       required this.estado,
       required this.cantItems});
 
@@ -43,6 +45,7 @@ class ElemEnCalle {
     domicilio = json['domicilio'];
     observacion = json['observacion'];
     linkfoto = json['linkfoto'];
+    imageFullPath = json['imageFullPath'];
     estado = json['estado'];
     cantItems = json['cantItems'];
   }
@@ -61,6 +64,7 @@ class ElemEnCalle {
     data['domicilio'] = domicilio;
     data['observacion'] = observacion;
     data['linkfoto'] = linkfoto;
+    data['imageFullPath'] = imageFullPath;
     data['estado'] = estado;
     data['cantItems'] = cantItems;
     return data;
@@ -80,6 +84,7 @@ class ElemEnCalle {
       'domicilio': domicilio,
       'observacion': observacion,
       'linkfoto': linkfoto,
+      'imageFullPath': imageFullPath,
       'estado': estado,
       'cantItems': cantItems,
     };

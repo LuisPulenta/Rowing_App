@@ -1049,7 +1049,7 @@ class _ElementosencalleState extends State<Elementosencalle> {
           };
 
           Response response = await ApiHelper.post(
-              '/api/ElementosEnCalleDet/PostObrasNuevoSuministrosDet', request);
+              '/api/ElementosEnCalleDet/PostElementosEnCalleDet', request);
 
           if (!response.isSuccess) {
             await showAlertDialog(
