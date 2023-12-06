@@ -8,7 +8,7 @@ class DBSuministroscatalogos {
         join(await getDatabasesPath(), 'Suministroscatalogos.db'),
         onCreate: (db, version) {
       return db.execute(
-        "CREATE TABLE Suministroscatalogos(catcodigo TEXT, codigosap TEXT, catCatalogo TEXT,verEnReclamosApp INTEGER, verRequerimientosAPP INTEGER, verRequerimientosEPP INTEGER, verEnSuministros INTEGER, modulo TEXT, cantidad DOUBLE)",
+        "CREATE TABLE Suministroscatalogos(catcodigo TEXT, codigosap TEXT, catCatalogo TEXT,verEnReclamosApp INTEGER, verRequerimientosAPP INTEGER, verRequerimientosEPP INTEGER, verEnSuministros INTEGER, verEnCalle INTEGER, modulo TEXT, cantidad DOUBLE)",
       );
     }, version: 1);
   }
@@ -39,6 +39,7 @@ class DBSuministroscatalogos {
               verRequerimientosEPP: suministroscatalogosMap[i]
                   ['verRequerimientosEPP'],
               verEnSuministros: suministroscatalogosMap[i]['verEnSuministros'],
+              verEnCalle: suministroscatalogosMap[i]['verEnCalle'],
               modulo: suministroscatalogosMap[i]['modulo'],
               cantidad: suministroscatalogosMap[i]['cantidad'],
             ));

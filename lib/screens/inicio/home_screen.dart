@@ -366,6 +366,88 @@ class _HomeScreenState extends State<HomeScreen> {
                     ],
                   )
                 : Container(),
+
+//****************************************************************************************************
+//****************************************************************************************************
+//****************************************************************************************************
+
+            widget.user.habilitaElementosCalle == 1
+                ? Row(
+                    children: [
+                      Expanded(
+                        child: ExpansionTile(
+                          collapsedIconColor: Colors.white,
+                          iconColor: Colors.white,
+                          leading: const Icon(
+                            Icons.fence,
+                            color: Colors.white,
+                          ),
+                          title: const Text("Elem. en Calle",
+                              style:
+                                  TextStyle(fontSize: 15, color: Colors.white)),
+                          children: <Widget>[
+                            Padding(
+                              padding: const EdgeInsets.only(left: 15.0),
+                              child: ListTile(
+                                leading: const Icon(
+                                  Icons.report,
+                                  color: Colors.white,
+                                ),
+                                tileColor: const Color(0xff8c8c94),
+                                title: const Text('Reportes en Obra',
+                                    style: TextStyle(
+                                        fontSize: 15, color: Colors.white)),
+                                onTap: () async {
+                                  guardarLocalizacion();
+                                  await Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          Elementosencallelistado(
+                                        user: widget.user,
+                                        positionUser: _positionUser,
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 15.0),
+                              child: ListTile(
+                                leading: const Icon(
+                                  Icons.summarize,
+                                  color: Colors.white,
+                                ),
+                                tileColor: const Color(0xff8c8c94),
+                                title: const Text('Reporte General por Item',
+                                    style: TextStyle(
+                                        fontSize: 15, color: Colors.white)),
+                                onTap: () async {
+                                  guardarLocalizacion();
+                                  await Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          Elementosencallereporte(
+                                        user: widget.user,
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  )
+                : Container(),
+
+//****************************************************************************************************
+//****************************************************************************************************
+//****************************************************************************************************
+
             widget.user.habilitaSSHH == 1
                 ? Row(
                     children: [

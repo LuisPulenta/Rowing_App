@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
+import 'package:rowing_app/models/elemencalle.dart';
 import 'package:rowing_app/models/models.dart';
 import 'constants.dart';
 
@@ -1457,6 +1458,33 @@ class ApiHelper {
   }
 
   //---------------------------------------------------------------------------
+  static Future<Response> GetCatalogosEnCalle(String proyectomodulo) async {
+    var url = Uri.parse(
+        '${Constants.apiUrl}/api/Catalogos/GetCatalogosEnCalle/$proyectomodulo');
+    var response = await http.post(
+      url,
+      headers: {
+        'content-type': 'application/json',
+        'accept': 'application/json',
+      },
+    );
+    var body = response.body;
+
+    if (response.statusCode >= 400) {
+      return Response(isSuccess: false, message: body);
+    }
+
+    List<Catalogo> list = [];
+    var decodedJson = jsonDecode(body);
+    if (decodedJson != null) {
+      for (var item in decodedJson) {
+        list.add(Catalogo.fromJson(item));
+      }
+    }
+    return Response(isSuccess: true, result: list);
+  }
+
+  //---------------------------------------------------------------------------
   static Future<Response> getClientes2() async {
     var url = Uri.parse('${Constants.apiUrl}/api/Clientes/GetClientes');
     var response = await http.get(
@@ -2153,6 +2181,33 @@ class ApiHelper {
     if (decodedJson != null) {
       for (var item in decodedJson) {
         list.add(ObraSubestado.fromJson(item));
+      }
+    }
+    return Response(isSuccess: true, result: list);
+  }
+
+  //---------------------------------------------------------------------------
+  static Future<Response> getElemEnCalle() async {
+    var url = Uri.parse(
+        '${Constants.apiUrl}/api/ElementosEnCalleCab/GetElementosEnCalleCab');
+    var response = await http.get(
+      url,
+      headers: {
+        'content-type': 'application/json',
+        'accept': 'application/json',
+      },
+    );
+    var body = response.body;
+
+    if (response.statusCode >= 400) {
+      return Response(isSuccess: false, message: body);
+    }
+
+    List<ElemEnCalle> list = [];
+    var decodedJson = jsonDecode(body);
+    if (decodedJson != null) {
+      for (var item in decodedJson) {
+        list.add(ElemEnCalle.fromJson(item));
       }
     }
     return Response(isSuccess: true, result: list);

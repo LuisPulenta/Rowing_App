@@ -6,6 +6,7 @@ class Catalogo {
   int? verRequerimientosAPP = 0;
   int? verRequerimientosEPP = 0;
   int? verEnSuministros = 0;
+  int? verEnCalle = 0;
   String? modulo = '';
   double? cantidad = 0.0;
 
@@ -17,6 +18,7 @@ class Catalogo {
       required this.verRequerimientosAPP,
       required this.verRequerimientosEPP,
       required this.verEnSuministros,
+      required this.verEnCalle,
       required this.modulo,
       required this.cantidad});
 
@@ -28,6 +30,7 @@ class Catalogo {
     verRequerimientosAPP = json['verRequerimientosAPP'];
     verRequerimientosEPP = json['verRequerimientosEPP'];
     verEnSuministros = json['verEnSuministros'];
+    verEnCalle = json['verEnCalle'];
     modulo = json['modulo'];
     cantidad = json['cantidad'];
   }
@@ -41,6 +44,7 @@ class Catalogo {
     data['verRequerimientosAPP'] = verRequerimientosAPP;
     data['verRequerimientosEPP'] = verRequerimientosEPP;
     data['verEnSuministros'] = verEnSuministros;
+    data['verEnCalle'] = verEnCalle;
     data['modulo'] = modulo;
     data['cantidad'] = cantidad;
     return data;
@@ -55,6 +59,7 @@ class Catalogo {
       'verRequerimientosAPP': verRequerimientosAPP,
       'verRequerimientosEPP': verRequerimientosEPP,
       'verEnSuministros': verEnSuministros,
+      'verEnCalle': verEnCalle,
       'modulo': modulo,
       'cantidad': cantidad,
     };

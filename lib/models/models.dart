@@ -57,3 +57,4 @@ export 'package:rowing_app/models/web_sesion.dart';
 export 'package:rowing_app/models/wremitoscab.dart';
 export 'package:rowing_app/models/route_destination.dart';
 export 'package:rowing_app/models/places_models.dart';
+export 'package:rowing_app/models/elemencalle.dart';
