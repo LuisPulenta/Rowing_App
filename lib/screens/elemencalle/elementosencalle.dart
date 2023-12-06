@@ -178,7 +178,7 @@ class _ElementosencalleState extends State<Elementosencalle> {
             ),
           ),
           _showLoader
-              ? LoaderComponent(text: 'Por favor espere...')
+              ? const LoaderComponent(text: 'Por favor espere...')
               : Container(),
         ],
       ),

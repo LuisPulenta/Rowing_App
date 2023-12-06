@@ -1,5 +1,4 @@
 class ElemEnCalle {
-  int id = 0;
   int idelementocab = 0;
   int nroobra = 0;
   String nombreObra = '';
@@ -13,20 +12,10 @@ class ElemEnCalle {
   String observacion = '';
   String linkfoto = '';
   String estado = '';
-  int? iduserrecupera = 0;
-  String? nombreRecupera = '';
-  String? apellidoRecupera = '';
-  String? fecharecupero = '';
-  String catsiag = '';
-  String catsap = '';
-  String elemento = '';
-  double? cantdejada = 0;
-  double? cantrecuperada = 0;
-  double? cantPend = 0;
+  int cantItems = 0;
 
   ElemEnCalle(
-      {required this.id,
-      required this.idelementocab,
+      {required this.idelementocab,
       required this.nroobra,
       required this.nombreObra,
       required this.idusercarga,
@@ -39,19 +28,9 @@ class ElemEnCalle {
       required this.observacion,
       required this.linkfoto,
       required this.estado,
-      required this.iduserrecupera,
-      required this.nombreRecupera,
-      required this.apellidoRecupera,
-      required this.fecharecupero,
-      required this.catsiag,
-      required this.catsap,
-      required this.elemento,
-      required this.cantdejada,
-      required this.cantrecuperada,
-      required this.cantPend});
+      required this.cantItems});
 
   ElemEnCalle.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
     idelementocab = json['idelementocab'];
     nroobra = json['nroobra'];
     nombreObra = json['nombreObra'];
@@ -65,21 +44,11 @@ class ElemEnCalle {
     observacion = json['observacion'];
     linkfoto = json['linkfoto'];
     estado = json['estado'];
-    iduserrecupera = json['iduserrecupera'];
-    nombreRecupera = json['nombreRecupera'];
-    apellidoRecupera = json['apellidoRecupera'];
-    fecharecupero = json['fecharecupero'];
-    catsiag = json['catsiag'];
-    catsap = json['catsap'];
-    elemento = json['elemento'];
-    cantdejada = json['cantdejada'];
-    cantrecuperada = json['cantrecuperada'];
-    cantPend = json['cantPend'];
+    cantItems = json['cantItems'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['id'] = id;
     data['idelementocab'] = idelementocab;
     data['nroobra'] = nroobra;
     data['nombreObra'] = nombreObra;
@@ -93,23 +62,12 @@ class ElemEnCalle {
     data['observacion'] = observacion;
     data['linkfoto'] = linkfoto;
     data['estado'] = estado;
-    data['iduserrecupera'] = iduserrecupera;
-    data['nombreRecupera'] = nombreRecupera;
-    data['apellidoRecupera'] = apellidoRecupera;
-    data['fecharecupero'] = fecharecupero;
-    data['catsiag'] = catsiag;
-    data['catsap'] = catsap;
-    data['elemento'] = elemento;
-    data['cantdejada'] = cantdejada;
-    data['cantrecuperada'] = cantrecuperada;
-    data['cantPend'] = cantPend;
-
+    data['cantItems'] = cantItems;
     return data;
   }
 
   Map<String, dynamic> toMap() {
     return {
-      'id': id,
       'idelementocab': idelementocab,
       'nroobra': nroobra,
       'nombreObra': nombreObra,
@@ -123,16 +81,7 @@ class ElemEnCalle {
       'observacion': observacion,
       'linkfoto': linkfoto,
       'estado': estado,
-      'iduserrecupera': iduserrecupera,
-      'nombreRecupera': nombreRecupera,
-      'apellidoRecupera': apellidoRecupera,
-      'fecharecupero': fecharecupero,
-      'catsiag': catsiag,
-      'catsap': catsap,
-      'elemento': elemento,
-      'cantdejada': cantdejada,
-      'cantrecuperada': cantrecuperada,
-      'cantPend': cantPend,
+      'cantItems': cantItems,
     };
   }
 }

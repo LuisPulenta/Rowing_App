@@ -1,11 +1,13 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:connectivity/connectivity.dart';
+import 'package:custom_info_window/custom_info_window.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:intl/intl.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:rowing_app/components/loader_component.dart';
 import 'package:rowing_app/models/models.dart';
 import 'package:rowing_app/screens/screens.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../helpers/api_helper.dart';
 
@@ -28,6 +30,26 @@ class _ElementosencallelistadoState extends State<Elementosencallelistado> {
 
   bool _showLoader = false;
   List<ElemEnCalle> _elemEnCalle = [];
+  final Set<Marker> _markers = {};
+
+  final CustomInfoWindowController _customInfoWindowController =
+      CustomInfoWindowController();
+
+  ElemEnCalle _elemEnCalleSeleccionada = ElemEnCalle(
+      idelementocab: 0,
+      nroobra: 0,
+      nombreObra: '',
+      idusercarga: 0,
+      nombreCarga: '',
+      apellidoCarga: '',
+      fechaCarga: '',
+      grxx: '',
+      gryy: '',
+      domicilio: '',
+      observacion: '',
+      linkfoto: '',
+      estado: '',
+      cantItems: 0);
 
 //---------------------------------------------------------------------
 //-------------------------- initState --------------------------------
@@ -48,6 +70,9 @@ class _ElementosencallelistadoState extends State<Elementosencallelistado> {
       appBar: AppBar(
         title: const Text('Elementos en Calle'),
         centerTitle: true,
+        actions: <Widget>[
+          IconButton(onPressed: _showMap, icon: const Icon(Icons.map)),
+        ],
       ),
       body: Center(
         child: _showLoader
@@ -139,7 +164,7 @@ class _ElementosencallelistadoState extends State<Elementosencallelistado> {
             margin: const EdgeInsets.fromLTRB(10, 0, 10, 10),
             child: InkWell(
               onTap: () {
-                //_goInfoObra(e);
+                _goElemEnCalle(e);
               },
               child: Container(
                 margin: const EdgeInsets.all(0),
@@ -204,6 +229,28 @@ class _ElementosencallelistadoState extends State<Elementosencallelistado> {
                                           )),
                                       Expanded(
                                         child: Text(e.domicilio,
+                                            style: const TextStyle(
+                                              fontSize: 12,
+                                            )),
+                                      ),
+                                      const SizedBox(
+                                        width: 20,
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(
+                                    height: 5,
+                                  ),
+                                  Row(
+                                    children: [
+                                      const Text("Items: ",
+                                          style: TextStyle(
+                                            fontSize: 12,
+                                            color: Color(0xFF781f1e),
+                                            fontWeight: FontWeight.bold,
+                                          )),
+                                      Expanded(
+                                        child: Text(e.cantItems.toString(),
                                             style: const TextStyle(
                                               fontSize: 12,
                                             )),
@@ -291,12 +338,281 @@ class _ElementosencallelistadoState extends State<Elementosencallelistado> {
     setState(() {
       _elemEnCalle = response.result;
       _elemEnCalle.sort((a, b) {
-        return a.id
+        return a.idelementocab
             .toString()
             .toLowerCase()
-            .compareTo(b.id.toString().toLowerCase());
+            .compareTo(b.idelementocab.toString().toLowerCase());
       });
       _showLoader = false;
     });
+  }
+
+//---------------------------------------------------------------
+//----------------------- _goElemEnCalle ------------------------
+//---------------------------------------------------------------
+
+  void _goElemEnCalle(ElemEnCalle elemEnCalle) async {
+    String? result = await Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => Elementosencalleedit(
+                  user: widget.user,
+                  positionUser: widget.positionUser,
+                  elemEnCalle: elemEnCalle,
+                )));
+    if (result == 'yes' || result != 'yes') {
+      _getElemEnCalle();
+      setState(() {});
+    }
+  }
+
+//---------------------------------------------------------------
+//----------------------- _showMap ------------------------------
+//---------------------------------------------------------------
+
+  void _showMap() {
+    if (_elemEnCalle.isEmpty) {
+      return;
+    }
+
+    _markers.clear();
+
+    double latmin = 180.0;
+    double latmax = -180.0;
+    double longmin = 180.0;
+    double longmax = -180.0;
+    double latcenter = 0.0;
+    double longcenter = 0.0;
+
+    for (ElemEnCalle elemEnCalle in _elemEnCalle) {
+      var lat = double.tryParse(elemEnCalle.grxx.toString()) ?? 0;
+      var long = double.tryParse(elemEnCalle.gryy.toString()) ?? 0;
+
+      if (lat.toString().length > 3 && long.toString().length > 3) {
+        if (lat < latmin) {
+          latmin = lat;
+        }
+        if (lat > latmax) {
+          latmax = lat;
+        }
+        if (long < longmin) {
+          longmin = long;
+        }
+        if (long > longmax) {
+          longmax = long;
+        }
+
+        Marker marker = Marker(
+            markerId: MarkerId(elemEnCalle.nroobra.toString()),
+            position: LatLng(lat, long),
+            // infoWindow: InfoWindow(
+            //   title:
+            //       '${obraReparo.direccion.toString()} ${obraReparo.altura.toString()}',
+            //   snippet: obraReparo.direccion.toString(),
+            // ),
+            onTap: () {
+              _customInfoWindowController.addInfoWindow!(
+                  Container(
+                    padding: const EdgeInsets.all(5),
+                    width: 300,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Icon(Icons.info),
+                        const SizedBox(
+                          width: 8.0,
+                        ),
+                        Expanded(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Expanded(
+                                  child: Text(
+                                'Obra Nº: ${elemEnCalle.nroobra.toString()}',
+                                style: const TextStyle(
+                                    fontSize: 12, fontWeight: FontWeight.bold),
+                              )),
+                              Expanded(
+                                  flex: 2,
+                                  child: Text(
+                                    'Nombre Obra: ${elemEnCalle.nombreObra.toString()}',
+                                    maxLines: 3,
+                                    style: const TextStyle(
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.bold),
+                                  )),
+                              Expanded(
+                                  flex: 2,
+                                  child: Text(
+                                    'Domicilio: ${elemEnCalle.domicilio.toString()}',
+                                    maxLines: 3,
+                                    style: const TextStyle(
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.bold),
+                                  )),
+                              Expanded(
+                                  child: Text(
+                                'Items.: ${elemEnCalle.cantItems.toString()}',
+                                style: const TextStyle(
+                                    fontSize: 12, fontWeight: FontWeight.bold),
+                              )),
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: ElevatedButton(
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: const [
+                                          Icon(Icons.map,
+                                              color: Color(0xff282886)),
+                                          SizedBox(
+                                            width: 5,
+                                          ),
+                                          Text(
+                                            'Navegar',
+                                            style: TextStyle(
+                                                color: Color(0xff282886)),
+                                          ),
+                                        ],
+                                      ),
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor:
+                                            const Color(0xFFb3b3b4),
+                                        minimumSize:
+                                            const Size(double.infinity, 30),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(5),
+                                        ),
+                                      ),
+                                      onPressed: () => _navegar(elemEnCalle),
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    width: 5,
+                                  ),
+                                  Expanded(
+                                    child: ElevatedButton(
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: const [
+                                          Text(
+                                            'Abrir',
+                                            style: TextStyle(
+                                                color: Color(0xff282886)),
+                                          ),
+                                          SizedBox(
+                                            width: 5,
+                                          ),
+                                          Icon(Icons.arrow_forward_ios,
+                                              color: Color(0xff282886)),
+                                        ],
+                                      ),
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor:
+                                            const Color(0xFFb3b3b4),
+                                        minimumSize:
+                                            const Size(double.infinity, 30),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(5),
+                                        ),
+                                      ),
+                                      onPressed: () =>
+                                          _goElemEnCalle2(elemEnCalle),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  LatLng(lat, long));
+            },
+            icon:
+                BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed));
+
+        _markers.add(marker);
+      }
+    }
+    latcenter = (latmin + latmax) / 2;
+    longcenter = (longmin + longmax) / 2;
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ElemenEnCalleMapScreen(
+          user: widget.user,
+          positionUser: widget.positionUser,
+          //posicion: LatLng(latcenter, longcenter),
+          posicion: LatLng(
+              widget.positionUser.latitude, widget.positionUser.longitude),
+          markers: _markers,
+          customInfoWindowController: _customInfoWindowController,
+        ),
+      ),
+    );
+  }
+
+//-------------------------------------------------------------------------
+//-------------------------- _navegar -------------------------------------
+//-------------------------------------------------------------------------
+
+  _navegar(ElemEnCalle elemEnCalle) async {
+    var connectivityResult = await Connectivity().checkConnectivity();
+
+    if (connectivityResult != ConnectivityResult.none) {
+      var latt = double.tryParse(elemEnCalle.grxx.toString());
+      var long = double.tryParse(elemEnCalle.gryy.toString());
+      var uri = Uri.parse("google.navigation:q=$latt,$long&mode=d");
+      if (await canLaunch(uri.toString())) {
+        await launch(uri.toString());
+      } else {
+        throw 'Could not launch ${uri.toString()}';
+      }
+    } else {
+      await showAlertDialog(
+          context: context,
+          title: 'Aviso!',
+          message: "Necesita estar conectado a Internet para acceder al mapa",
+          actions: <AlertDialogAction>[
+            const AlertDialogAction(key: null, label: 'Aceptar'),
+          ]);
+    }
+  }
+
+//-------------------------------------------------------------------
+//-------------------------- _goElemEnCalle -------------------------
+//-------------------------------------------------------------------
+
+  void _goElemEnCalle2(ElemEnCalle elementoEnCalle) async {
+    for (ElemEnCalle elementoEnCalle in _elemEnCalle) {
+      if (elementoEnCalle.nroobra == elementoEnCalle.nroobra) {
+        _elemEnCalleSeleccionada = elementoEnCalle;
+      }
+    }
+
+    String? result = await Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => Elementosencalleedit(
+                  user: widget.user,
+                  elemEnCalle: _elemEnCalleSeleccionada,
+                  positionUser: widget.positionUser,
+                )));
+    if (result == 'Yes' || result != 'Yes') {
+      _getElemEnCalle();
+      setState(() {});
+    }
   }
 }
