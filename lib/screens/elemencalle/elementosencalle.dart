@@ -1002,6 +1002,7 @@ class _ElementosencalleState extends State<Elementosencalle> {
 
       //-----------------Graba Cabecera--------------
       Map<String, dynamic> request = {
+        'ID': 0,
         'NROOBRA': obra.nroObra,
         'IDUSERCARGA': widget.user.idUsuario,
         'FECHA': DateTime.now().toString(),

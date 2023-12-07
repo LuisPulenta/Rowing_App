@@ -4,6 +4,7 @@ import 'package:custom_info_window/custom_info_window.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:intl/intl.dart';
 import 'package:rowing_app/components/loader_component.dart';
 import 'package:rowing_app/models/models.dart';
 import 'package:rowing_app/screens/screens.dart';
@@ -27,6 +28,8 @@ class _ElementosencallelistadoState extends State<Elementosencallelistado> {
 //---------------------------------------------------------------------
 //-------------------------- Variables --------------------------------
 //---------------------------------------------------------------------
+
+  List<ElemEnCalleDet> _elemEnCalleDet = [];
 
   bool _showLoader = false;
   List<ElemEnCalle> _elemEnCalle = [];
@@ -163,114 +166,196 @@ class _ElementosencallelistadoState extends State<Elementosencallelistado> {
             shadowColor: Colors.white,
             elevation: 10,
             margin: const EdgeInsets.fromLTRB(10, 0, 10, 10),
-            child: InkWell(
-              onTap: () {
-                _goElemEnCalle(e);
-              },
-              child: Container(
-                margin: const EdgeInsets.all(0),
-                padding: const EdgeInsets.all(5),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Container(
-                        margin: const EdgeInsets.symmetric(horizontal: 10),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Expanded(
-                              child: Column(
-                                children: [
-                                  Row(
-                                    children: [
-                                      const Text("N° Obra: ",
-                                          style: TextStyle(
+            child: Container(
+              margin: const EdgeInsets.all(0),
+              padding: const EdgeInsets.all(5),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Container(
+                      margin: const EdgeInsets.symmetric(horizontal: 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Expanded(
+                            child: Column(
+                              children: [
+                                Row(
+                                  children: [
+                                    const Text("N° Obra: ",
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                          color: Color(0xFF781f1e),
+                                          fontWeight: FontWeight.bold,
+                                        )),
+                                    Expanded(
+                                      flex: 3,
+                                      child: Text(e.nroobra.toString(),
+                                          style: const TextStyle(
                                             fontSize: 12,
-                                            color: Color(0xFF781f1e),
-                                            fontWeight: FontWeight.bold,
                                           )),
-                                      Expanded(
-                                        flex: 3,
-                                        child: Text(e.nroobra.toString(),
-                                            style: const TextStyle(
-                                              fontSize: 12,
-                                            )),
-                                      ),
-                                    ],
-                                  ),
-                                  const SizedBox(
-                                    height: 5,
-                                  ),
-                                  Row(
-                                    children: [
-                                      const Text("Nombre: ",
-                                          style: TextStyle(
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                                Row(
+                                  children: [
+                                    const Text("Nombre: ",
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                          color: Color(0xFF781f1e),
+                                          fontWeight: FontWeight.bold,
+                                        )),
+                                    Expanded(
+                                      child: Text(e.nombreObra,
+                                          style: const TextStyle(
                                             fontSize: 12,
-                                            color: Color(0xFF781f1e),
-                                            fontWeight: FontWeight.bold,
                                           )),
-                                      Expanded(
-                                        child: Text(e.nombreObra,
-                                            style: const TextStyle(
-                                              fontSize: 12,
-                                            )),
-                                      ),
-                                    ],
-                                  ),
-                                  const SizedBox(
-                                    height: 5,
-                                  ),
-                                  Row(
-                                    children: [
-                                      const Text("Domicilio: ",
-                                          style: TextStyle(
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                                Row(
+                                  children: [
+                                    const Text("Domicilio: ",
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                          color: Color(0xFF781f1e),
+                                          fontWeight: FontWeight.bold,
+                                        )),
+                                    Expanded(
+                                      child: Text(e.domicilio,
+                                          style: const TextStyle(
                                             fontSize: 12,
-                                            color: Color(0xFF781f1e),
-                                            fontWeight: FontWeight.bold,
                                           )),
-                                      Expanded(
-                                        child: Text(e.domicilio,
-                                            style: const TextStyle(
-                                              fontSize: 12,
-                                            )),
-                                      ),
-                                      const SizedBox(
-                                        width: 20,
-                                      ),
-                                    ],
-                                  ),
-                                  const SizedBox(
-                                    height: 5,
-                                  ),
-                                  Row(
-                                    children: [
-                                      const Text("Items: ",
-                                          style: TextStyle(
+                                    ),
+                                    const SizedBox(
+                                      width: 20,
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                                Row(
+                                  children: [
+                                    const Text("Items: ",
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                          color: Color(0xFF781f1e),
+                                          fontWeight: FontWeight.bold,
+                                        )),
+                                    Expanded(
+                                      child: Text(e.cantItems.toString(),
+                                          style: const TextStyle(
                                             fontSize: 12,
-                                            color: Color(0xFF781f1e),
-                                            fontWeight: FontWeight.bold,
                                           )),
-                                      Expanded(
-                                        child: Text(e.cantItems.toString(),
-                                            style: const TextStyle(
-                                              fontSize: 12,
-                                            )),
-                                      ),
-                                      const SizedBox(
-                                        width: 20,
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
+                                    ),
+                                    const SizedBox(
+                                      width: 20,
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                                Row(
+                                  children: [
+                                    const Text("Usuario: ",
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                          color: Color(0xFF781f1e),
+                                          fontWeight: FontWeight.bold,
+                                        )),
+                                    Expanded(
+                                      child: Text(
+                                          e.nombreCarga + " " + e.apellidoCarga,
+                                          style: const TextStyle(
+                                            fontSize: 12,
+                                          )),
+                                    ),
+                                    const SizedBox(
+                                      width: 20,
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                                Row(
+                                  children: [
+                                    const Text("Fecha: ",
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                          color: Color(0xFF781f1e),
+                                          fontWeight: FontWeight.bold,
+                                        )),
+                                    Expanded(
+                                      child: Text(
+                                          DateFormat('dd/MM/yyyy').format(
+                                              DateTime.parse(e.fechaCarga)),
+                                          style: const TextStyle(
+                                            fontSize: 12,
+                                          )),
+                                    ),
+                                    const SizedBox(
+                                      width: 20,
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                              ],
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ),
-                    const Icon(Icons.arrow_forward_ios),
-                  ],
-                ),
+                  ),
+                  Column(
+                    children: [
+                      (widget.user.idUsuario == e.idusercarga)
+                          ? IconButton(
+                              icon: const CircleAvatar(
+                                backgroundColor: Color(0xFF781f1e),
+                                child: Icon(Icons.edit,
+                                    size: 24, color: Colors.white),
+                              ),
+                              onPressed: () async {
+                                _goElemEnCalle(e);
+                              },
+                            )
+                          : Container(),
+                      (widget.user.idUsuario == e.idusercarga)
+                          ? IconButton(
+                              icon: const CircleAvatar(
+                                backgroundColor: Colors.white,
+                                child: Icon(Icons.delete,
+                                    size: 24, color: Colors.red),
+                              ),
+                              onPressed: () async {
+                                _goDeleteElemEnCalle(e);
+                              },
+                            )
+                          : Container(),
+                      IconButton(
+                        icon: const CircleAvatar(
+                          backgroundColor: Colors.green,
+                          child: Icon(Icons.assignment_return,
+                              size: 24, color: Colors.white),
+                        ),
+                        onPressed: () async {
+                          _goRecElemEnCalle(e);
+                        },
+                      )
+                    ],
+                  ),
+                ],
               ),
             ),
           );
@@ -365,6 +450,115 @@ class _ElementosencallelistadoState extends State<Elementosencallelistado> {
       _getElemEnCalle();
       setState(() {});
     }
+  }
+
+//---------------------------------------------------------------
+//----------------------- _goRecElemEnCalle ------------------------
+//---------------------------------------------------------------
+
+  void _goRecElemEnCalle(ElemEnCalle elemEnCalle) async {
+    String? result = await Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => Elementosencallerec(
+                  user: widget.user,
+                  positionUser: widget.positionUser,
+                  elemEnCalle: elemEnCalle,
+                )));
+    if (result == 'yes' || result != 'yes') {
+      _getElemEnCalle();
+      setState(() {});
+    }
+  }
+
+//---------------------------------------------------------------
+//----------------------- _goDeleteElemEnCalle ------------------
+//---------------------------------------------------------------
+
+  void _goDeleteElemEnCalle(ElemEnCalle elemEnCalle) async {
+    var response = await showAlertDialog(
+        context: context,
+        title: 'Aviso',
+        message: '¿Está seguro de borrar este registro?',
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: 'si', label: 'SI'),
+          const AlertDialogAction(key: 'no', label: 'NO'),
+        ]);
+    if (response == 'no') {
+      return;
+    }
+    _deleteElemEnCalle(elemEnCalle);
+  }
+
+//---------------------------------------------------------------
+//----------------------- _goDeleteElemEnCalle ------------------
+//---------------------------------------------------------------
+
+  void _deleteElemEnCalle(ElemEnCalle elemEnCalle) async {
+    await _loadDetalles(elemEnCalle);
+
+//-----------------Borra Detalle--------------
+    for (ElemEnCalleDet _elem in _elemEnCalleDet) {
+      Response response = await ApiHelper.delete(
+          '/api/ElementosEnCalleDet/', _elem.id.toString());
+    }
+
+    Response response2 = await ApiHelper.delete(
+        '/api/ElementosEnCalleCab/', elemEnCalle.idelementocab.toString());
+
+    _getElemEnCalle();
+    setState(() {});
+  }
+
+//-----------------------------------------------------------------
+//--------------------- _loadDetalles -----------------------------
+//-----------------------------------------------------------------
+
+  Future<void> _loadDetalles(ElemEnCalle elemEnCalle) async {
+    setState(() {
+      _showLoader = true;
+    });
+
+    var connectivityResult = await Connectivity().checkConnectivity();
+
+    if (connectivityResult == ConnectivityResult.none) {
+      setState(() {
+        _showLoader = false;
+      });
+      await showAlertDialog(
+          context: context,
+          title: 'Error',
+          message: 'Verifica que estés conectado a Internet',
+          actions: <AlertDialogAction>[
+            const AlertDialogAction(key: null, label: 'Aceptar'),
+          ]);
+      return;
+    }
+
+    Response response = Response(isSuccess: false);
+
+    response =
+        await ApiHelper.getElemEnCalleDet(elemEnCalle.idelementocab.toString());
+
+    if (!response.isSuccess) {
+      await showAlertDialog(
+          context: context,
+          title: 'Error',
+          message: response.message,
+          actions: <AlertDialogAction>[
+            const AlertDialogAction(key: null, label: 'Aceptar'),
+          ]);
+      return;
+    }
+    setState(() {
+      _elemEnCalleDet = response.result;
+      _elemEnCalleDet.sort((a, b) {
+        return a.idelementocab
+            .toString()
+            .toLowerCase()
+            .compareTo(b.idelementocab.toString().toLowerCase());
+      });
+    });
   }
 
 //---------------------------------------------------------------
@@ -606,7 +800,7 @@ class _ElementosencallelistadoState extends State<Elementosencallelistado> {
     String? result = await Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => Elementosencalleedit(
+            builder: (context) => Elementosencallerec(
                   user: widget.user,
                   elemEnCalle: _elemEnCalleSeleccionada,
                   positionUser: widget.positionUser,

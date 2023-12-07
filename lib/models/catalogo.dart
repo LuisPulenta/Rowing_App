@@ -9,6 +9,7 @@ class Catalogo {
   int? verEnCalle = 0;
   String? modulo = '';
   double? cantidad = 0.0;
+  double? cantidad2 = 0.0;
 
   Catalogo(
       {required this.catCodigo,
@@ -20,7 +21,8 @@ class Catalogo {
       required this.verEnSuministros,
       required this.verEnCalle,
       required this.modulo,
-      required this.cantidad});
+      required this.cantidad,
+      required this.cantidad2});
 
   Catalogo.fromJson(Map<String, dynamic> json) {
     catCodigo = json['catCodigo'];
@@ -33,6 +35,7 @@ class Catalogo {
     verEnCalle = json['verEnCalle'];
     modulo = json['modulo'];
     cantidad = json['cantidad'];
+    cantidad2 = json['cantidad2'];
   }
 
   Map<String, dynamic> toJson() {
@@ -47,6 +50,7 @@ class Catalogo {
     data['verEnCalle'] = verEnCalle;
     data['modulo'] = modulo;
     data['cantidad'] = cantidad;
+    data['cantidad2'] = cantidad2;
     return data;
   }
 
@@ -62,6 +66,7 @@ class Catalogo {
       'verEnCalle': verEnCalle,
       'modulo': modulo,
       'cantidad': cantidad,
+      'cantidad2': cantidad2,
     };
   }
 }

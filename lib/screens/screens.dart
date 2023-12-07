@@ -81,6 +81,7 @@ export 'package:rowing_app/screens/suministros/usuario_firma_screen.dart';
 export 'package:rowing_app/screens/veredas/vereda_info_screen.dart';
 export 'package:rowing_app/screens/elemencalle/elementosencalle.dart';
 export 'package:rowing_app/screens/elemencalle/elementosencalleedit.dart';
+export 'package:rowing_app/screens/elemencalle/elementosencallerec.dart';
 export 'package:rowing_app/screens/elemencalle/elementosencallelistado.dart';
 export 'package:rowing_app/screens/elemencalle/elementosencallereporte.dart';
 export 'package:rowing_app/screens/elemencalle/elemenencallemap_screen.dart';

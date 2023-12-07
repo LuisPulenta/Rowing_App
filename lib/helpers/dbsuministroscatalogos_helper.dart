@@ -8,9 +8,9 @@ class DBSuministroscatalogos {
         join(await getDatabasesPath(), 'Suministroscatalogos.db'),
         onCreate: (db, version) {
       return db.execute(
-        "CREATE TABLE Suministroscatalogos(catcodigo TEXT, codigosap TEXT, catCatalogo TEXT,verEnReclamosApp INTEGER, verRequerimientosAPP INTEGER, verRequerimientosEPP INTEGER, verEnSuministros INTEGER, verEnCalle INTEGER, modulo TEXT, cantidad DOUBLE)",
+        "CREATE TABLE Suministroscatalogos(catcodigo TEXT, codigosap TEXT, catCatalogo TEXT,verEnReclamosApp INTEGER, verRequerimientosAPP INTEGER, verRequerimientosEPP INTEGER, verEnSuministros INTEGER, verEnCalle INTEGER, modulo TEXT, cantidad DOUBLE, cantidad2 DOUBLE)",
       );
-    }, version: 1);
+    }, version: 2);
   }
 
   static Future<int> insertSuministrocatalogos(Catalogo catalogo) async {
@@ -42,6 +42,7 @@ class DBSuministroscatalogos {
               verEnCalle: suministroscatalogosMap[i]['verEnCalle'],
               modulo: suministroscatalogosMap[i]['modulo'],
               cantidad: suministroscatalogosMap[i]['cantidad'],
+              cantidad2: suministroscatalogosMap[i]['cantidad2'],
             ));
   }
 }

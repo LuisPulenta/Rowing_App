@@ -913,7 +913,7 @@ class _ElementosencalleeditState extends State<Elementosencalleedit> {
     if (!validateFields()) {
       return;
     }
-    _addRecord();
+    _saveRecord();
   }
 
 //-----------------------------------------------------------------
@@ -924,7 +924,7 @@ class _ElementosencalleeditState extends State<Elementosencalleedit> {
     bool isValid = true;
 
     // ignore: unnecessary_null_comparison
-    if (obra.nroObra == 0) {
+    if (_nroObra == 0) {
       isValid = false;
       showAlertDialog(
           context: context,
@@ -962,10 +962,10 @@ class _ElementosencalleeditState extends State<Elementosencalleedit> {
   }
 
 //-----------------------------------------------------------------
-//--------------------- _addRecord --------------------------------
+//--------------------- _saveRecord -------------------------------
 //-----------------------------------------------------------------
 
-  _addRecord() async {
+  _saveRecord() async {
 //-----------------Controlo que haya catálogos con cantidades--------------
     bool bandera = false;
     for (Catalogo catalogo in _catalogos) {
@@ -1006,7 +1006,8 @@ class _ElementosencalleeditState extends State<Elementosencalleedit> {
 
       //-----------------Graba Cabecera--------------
       Map<String, dynamic> request = {
-        'NROOBRA': obra.nroObra,
+        'ID': widget.elemEnCalle.idelementocab,
+        'NROOBRA': _nroObra,
         'IDUSERCARGA': widget.user.idUsuario,
         'FECHA': DateTime.now().toString(),
         'GRXX': latitud,
@@ -1019,8 +1020,10 @@ class _ElementosencalleeditState extends State<Elementosencalleedit> {
         'ImageArray': base64Image,
       };
 
-      Response response = await ApiHelper.post(
-          '/api/ElementosEnCalleCab/PostElementosEnCalleCab', request);
+      Response response = await ApiHelper.put(
+          '/api/ElementosEnCalleCab/PutElementosEnCalleCab/',
+          widget.elemEnCalle.idelementocab.toString(),
+          request);
 
       setState(() {
         _showLoader = false;
@@ -1036,8 +1039,10 @@ class _ElementosencalleeditState extends State<Elementosencalleedit> {
             ]);
       }
 
-      if (response.isSuccess) {
-        _nroReg = int.parse(response.result.toString());
+//-----------------Borra Detalle--------------
+      for (ElemEnCalleDet _elem in _elemEnCalleDet) {
+        Response response = await ApiHelper.delete(
+            '/api/ElementosEnCalleDet/', _elem.id.toString());
       }
 
 //-----------------Graba Detalle--------------
@@ -1045,7 +1050,7 @@ class _ElementosencalleeditState extends State<Elementosencalleedit> {
         if (catalogo.cantidad != 0) {
           bandera = true;
           Map<String, dynamic> request = {
-            'IDELEMENTOCAB': _nroReg,
+            'IDELEMENTOCAB': widget.elemEnCalle.idelementocab,
             'CATSIAG': catalogo.catCodigo,
             'CATSAP': catalogo.codigoSap,
             'CANTDEJADA': catalogo.cantidad,
@@ -1053,7 +1058,7 @@ class _ElementosencalleeditState extends State<Elementosencalleedit> {
           };
 
           Response response = await ApiHelper.post(
-              '/api/ElementosEnCalleDet/PostObrasNuevoSuministrosDet', request);
+              '/api/ElementosEnCalleDet/PostElementosEnCalleDet', request);
 
           if (!response.isSuccess) {
             await showAlertDialog(
@@ -1117,8 +1122,6 @@ class _ElementosencalleeditState extends State<Elementosencalleedit> {
       }
     }
   }
-
-  var a = 1;
 
 //-----------------------------------------------------------------
 //--------------------- _loadDetalles -----------------------------
