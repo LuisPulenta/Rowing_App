@@ -28285,8 +28285,8 @@ androidx.lifecycle.DefaultLifecycleObserver:
     public abstract void onStop(androidx.lifecycle.LifecycleOwner)
     public abstract void onDestroy(androidx.lifecycle.LifecycleOwner)
 androidx.lifecycle.ViewModelProvider$NewInstanceFactory:
-    public synthetic androidx.lifecycle.ViewModel create(java.lang.Class)
     public synthetic androidx.lifecycle.ViewModel create(java.lang.Class,androidx.lifecycle.viewmodel.CreationExtras)
+    public synthetic androidx.lifecycle.ViewModel create(java.lang.Class)
     public static final androidx.lifecycle.ViewModelProvider$NewInstanceFactory$Companion Companion
 androidx.constraintlayout.widget.ConstraintLayout$LayoutParams:
     float dimensionRatioValue
@@ -28642,14 +28642,14 @@ com.google.android.material.resources.TextAppearance:
     public final boolean textAllCaps
 androidx.appcompat.view.StandaloneActionMode:
     private boolean mFocusable
-androidx.lifecycle.LifecycleRegistryOwner$-CC
-io.flutter.plugin.common.BinaryMessenger$-CC:
-    public static io.flutter.plugin.common.BinaryMessenger$TaskQueue $default$makeBackgroundTaskQueue(io.flutter.plugin.common.BinaryMessenger,io.flutter.plugin.common.BinaryMessenger$TaskQueueOptions)
-    public static void $default$setMessageHandler(io.flutter.plugin.common.BinaryMessenger,java.lang.String,io.flutter.plugin.common.BinaryMessenger$BinaryMessageHandler,io.flutter.plugin.common.BinaryMessenger$TaskQueue)
-io.flutter.view.TextureRegistry$SurfaceTextureEntry$-CC
-androidx.lifecycle.DefaultLifecycleObserver$-CC
-androidx.core.view.MenuProvider$-CC
 io.flutter.plugin.platform.PlatformView$-CC:
     public static void $default$onInputConnectionLocked(io.flutter.plugin.platform.PlatformView)
     public static void $default$onInputConnectionUnlocked(io.flutter.plugin.platform.PlatformView)
+androidx.lifecycle.LifecycleRegistryOwner$-CC
+io.flutter.view.TextureRegistry$SurfaceTextureEntry$-CC
+io.flutter.plugin.common.BinaryMessenger$-CC:
+    public static io.flutter.plugin.common.BinaryMessenger$TaskQueue $default$makeBackgroundTaskQueue(io.flutter.plugin.common.BinaryMessenger,io.flutter.plugin.common.BinaryMessenger$TaskQueueOptions)
+    public static void $default$setMessageHandler(io.flutter.plugin.common.BinaryMessenger,java.lang.String,io.flutter.plugin.common.BinaryMessenger$BinaryMessageHandler,io.flutter.plugin.common.BinaryMessenger$TaskQueue)
+androidx.lifecycle.DefaultLifecycleObserver$-CC
 androidx.lifecycle.HasDefaultViewModelProviderFactory$-CC
+androidx.core.view.MenuProvider$-CC
