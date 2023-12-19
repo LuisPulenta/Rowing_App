@@ -142,51 +142,46 @@ class _ElementosencalleeditState extends State<Elementosencalleedit> {
       ),
       body: Stack(
         children: [
-          SingleChildScrollView(
-            child: Column(
-              children: <Widget>[
-                _showObra(),
-                _showAddress(),
-                _showObservaciones(),
-                _showPhoto(ancho),
-                const SizedBox(
-                  height: 3,
-                ),
-                const Divider(
-                  color: Colors.black,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: const [
-                    Text(
-                      "Material         ",
-                      style: TextStyle(color: Colors.black),
-                    ),
-                    Text(
-                      "   ",
-                      style: TextStyle(color: Colors.black),
-                    ),
-                    Text(
-                      "Cantidad                 ",
-                      style: TextStyle(color: Colors.black),
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 3,
-                ),
-                Container(
-                  height: 300,
-                  child: Expanded(
-                    child: _getListView(),
+          Column(
+            children: <Widget>[
+              _showObra(),
+              _showAddress(),
+              _showObservaciones(),
+              _showPhoto(ancho),
+              const SizedBox(
+                height: 3,
+              ),
+              const Divider(
+                color: Colors.black,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: const [
+                  Text(
+                    "Material         ",
+                    style: TextStyle(color: Colors.black),
                   ),
-                ),
-                _showButtons(),
-                const SizedBox(
-                  height: 10,
-                ),
-              ],
-            ),
+                  Text(
+                    "   ",
+                    style: TextStyle(color: Colors.black),
+                  ),
+                  Text(
+                    "Cantidad                 ",
+                    style: TextStyle(color: Colors.black),
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 3,
+              ),
+              Expanded(
+                child: _getListView(),
+              ),
+              _showButtons(),
+              const SizedBox(
+                height: 10,
+              ),
+            ],
           ),
           _showLoader
               ? const LoaderComponent(text: 'Por favor espere...')
