@@ -477,7 +477,6 @@ class _ObraSuministroMaterialesScreenState
       });
     }
 
-    var a = 1;
     setState(() {});
   }
 

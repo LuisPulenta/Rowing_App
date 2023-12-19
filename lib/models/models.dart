@@ -23,6 +23,7 @@ export 'package:rowing_app/models/novedad.dart';
 export 'package:rowing_app/models/obra_nuevo_suministro_det.dart';
 export 'package:rowing_app/models/obra_poste_caja_detalle.dart';
 export 'package:rowing_app/models/obra.dart';
+export 'package:rowing_app/models/obra_asignada.dart';
 export 'package:rowing_app/models/obra_estado.dart';
 export 'package:rowing_app/models/obra_subestado.dart';
 export 'package:rowing_app/models/obras_documento.dart';

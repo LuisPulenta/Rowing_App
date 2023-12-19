@@ -1178,8 +1178,6 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
       }
     }
 
-    var a = 1;
-
     _obrasDocumentosFotos.sort((a, b) {
       return a.tipoDeFoto
           .toString()

@@ -220,34 +220,82 @@ class _HomeScreenState extends State<HomeScreen> {
               color: Colors.white,
               height: 1,
             ),
+
+            //****************************************************************************************************
+            //****************************************************************************************************
+            //****************************************************************************************************
+
             Row(
               children: [
                 Expanded(
-                  child: ListTile(
+                  child: ExpansionTile(
+                    collapsedIconColor: Colors.white,
+                    iconColor: Colors.white,
                     leading: const Icon(
                       Icons.construction,
                       color: Colors.white,
                     ),
-                    tileColor: const Color(0xff8c8c94),
-                    title: const Text('Obras',
+                    title: const Text("Obras",
                         style: TextStyle(fontSize: 15, color: Colors.white)),
-                    onTap: () async {
-                      guardarLocalizacion();
-                      await Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => ObrasScreen(
-                            user: widget.user,
-                            positionUser: _positionUser,
-                            opcion: 1,
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.only(left: 15.0),
+                        child: ListTile(
+                          leading: const Icon(
+                            Icons.handyman,
+                            color: Colors.white,
                           ),
+                          tileColor: const Color(0xff8c8c94),
+                          title: const Text('Obras en curso',
+                              style:
+                                  TextStyle(fontSize: 15, color: Colors.white)),
+                          onTap: () async {
+                            guardarLocalizacion();
+                            await Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ObrasScreen(
+                                  user: widget.user,
+                                  positionUser: _positionUser,
+                                  opcion: 1,
+                                ),
+                              ),
+                            );
+                          },
                         ),
-                      );
-                    },
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 15.0),
+                        child: ListTile(
+                          leading: const Icon(
+                            Icons.engineering,
+                            color: Colors.white,
+                          ),
+                          tileColor: const Color(0xff8c8c94),
+                          title: const Text('Mis Obras Asignadas',
+                              style:
+                                  TextStyle(fontSize: 15, color: Colors.white)),
+                          onTap: () async {
+                            guardarLocalizacion();
+                            await Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ObrasAsignadasScreen(
+                                  user: widget.user,
+                                  positionUser: _positionUser,
+                                  opcion: 1,
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ],
             ),
+
             widget.user.habilitaMedidores == 1
                 ? Row(
                     children: [

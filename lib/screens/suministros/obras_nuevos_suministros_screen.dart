@@ -363,8 +363,6 @@ class _ObrasNuevosSuministrosScreenState
 
     _showLoader = false;
 
-    var a = 1;
-
     setState(() {});
   }
 

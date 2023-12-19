@@ -61,6 +61,34 @@ class ApiHelper {
   }
 
 //---------------------------------------------------------------------------
+  static Future<Response> getObrasAsignadas(
+      String proyectomodulo, String causante) async {
+    var url = Uri.parse(
+        '${Constants.apiUrl}/api/Obras/GetObrasAsignacion/$proyectomodulo/$causante');
+    var response = await http.post(
+      url,
+      headers: {
+        'content-type': 'application/json',
+        'accept': 'application/json',
+      },
+    );
+    var body = response.body;
+
+    if (response.statusCode >= 400) {
+      return Response(isSuccess: false, message: body);
+    }
+
+    List<ObraAsignada> list = [];
+    var decodedJson = jsonDecode(body);
+    if (decodedJson != null) {
+      for (var item in decodedJson) {
+        list.add(ObraAsignada.fromJson(item));
+      }
+    }
+    return Response(isSuccess: true, result: list);
+  }
+
+//---------------------------------------------------------------------------
   static Future<Response> getObrasReclamos(String proyectomodulo) async {
     var url = Uri.parse(
         '${Constants.apiUrl}/api/Account/GetObrasReclamos/$proyectomodulo');
