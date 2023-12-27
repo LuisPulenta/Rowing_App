@@ -409,6 +409,7 @@ class _ObrasAsignadasScreenState extends State<ObrasAsignadasScreen> {
         MaterialPageRoute(
             builder: (context) => ObraAsignadaInfoScreen(
                   user: widget.user,
+                  positionUser: widget.positionUser,
                   obra: obra,
                 )));
     if (result == 'yes' || result != 'yes') {

@@ -1,15 +1,23 @@
+import 'package:adaptive_dialog/adaptive_dialog.dart';
+import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:intl/intl.dart';
 import 'package:rowing_app/components/loader_component.dart';
 import 'package:rowing_app/helpers/api_helper.dart';
 import 'package:rowing_app/models/models.dart';
+import 'package:rowing_app/screens/screens.dart';
 
 class ObraAsignadaInfoScreen extends StatefulWidget {
   final User user;
   final ObraAsignada obra;
+  final Position positionUser;
 
   const ObraAsignadaInfoScreen(
-      {Key? key, required this.user, required this.obra})
+      {Key? key,
+      required this.user,
+      required this.obra,
+      required this.positionUser})
       : super(key: key);
 
   @override
@@ -20,6 +28,37 @@ class _ObraAsignadaInfoScreenState extends State<ObraAsignadaInfoScreen> {
 //---------------------------------------------------------------
 //----------------------- Variables -----------------------------
 //---------------------------------------------------------------
+
+  Obra _obra2 = Obra(
+      nroObra: 0,
+      nombreObra: '',
+      elempep: '',
+      observaciones: '',
+      finalizada: 0,
+      supervisore: '',
+      codigoEstado: '',
+      codigoSubEstado: '',
+      modulo: '',
+      grupoAlmacen: '',
+      obrasDocumentos: [],
+      fechaCierreElectrico: '',
+      fechaUltimoMovimiento: '',
+      photos: 0,
+      audios: 0,
+      videos: 0,
+      posx: '',
+      posy: '',
+      direccion: '',
+      textoLocalizacion: '',
+      textoClase: '',
+      textoTipo: '',
+      textoComponente: '',
+      codigoDiametro: '',
+      motivo: '',
+      planos: '');
+
+  List<ObraEstado> _estados = [];
+  List<ObraSubestado> _subestados = [];
 
   String _fechaCierreSelected = '';
 
@@ -60,6 +99,7 @@ class _ObraAsignadaInfoScreenState extends State<ObraAsignadaInfoScreen> {
     _observaciones =
         widget.obra.observacion != null ? widget.obra.observacion! : '';
     _observacionesController.text = _observaciones;
+    _getEstados();
   }
 
 //---------------------------------------------------------------
@@ -233,6 +273,7 @@ class _ObraAsignadaInfoScreenState extends State<ObraAsignadaInfoScreen> {
               height: 5,
             ),
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 _fechaCierreSelected == "" || _fechaCierreSelected == null
                     ? MaterialButton(
@@ -243,7 +284,14 @@ class _ObraAsignadaInfoScreenState extends State<ObraAsignadaInfoScreen> {
                           _selectDate(context);
                           setState(() {});
                         })
-                    : Container()
+                    : Container(),
+                MaterialButton(
+                    color: const Color(0xFF781f1e),
+                    child: const Text('Datos de la Obra',
+                        style: TextStyle(color: Colors.white)),
+                    onPressed: () {
+                      _goInfoObra(widget.obra.nroobra);
+                    })
               ],
             ),
             SizedBox(
@@ -347,5 +395,115 @@ class _ObraAsignadaInfoScreenState extends State<ObraAsignadaInfoScreen> {
     );
     ScaffoldMessenger.of(context).showSnackBar(snackbar);
     //ScaffoldMessenger.of(context).hideCurrentSnackBar();
+  }
+
+//----------------------------------------------------------------
+//-------------------------- _getEstados -------------------------
+//----------------------------------------------------------------
+
+  Future<void> _getEstados() async {
+    var connectivityResult = await Connectivity().checkConnectivity();
+
+    if (connectivityResult == ConnectivityResult.none) {
+      setState(() {
+        _showLoader = false;
+      });
+      await showAlertDialog(
+          context: context,
+          title: 'Error',
+          message: 'Verifica que estés conectado a Internet',
+          actions: <AlertDialogAction>[
+            const AlertDialogAction(key: null, label: 'Aceptar'),
+          ]);
+      return;
+    }
+
+    Response response = Response(isSuccess: false);
+
+    response = await ApiHelper.getEstados();
+
+    if (!response.isSuccess) {
+      await showAlertDialog(
+          context: context,
+          title: 'Error',
+          message: response.message,
+          actions: <AlertDialogAction>[
+            const AlertDialogAction(key: null, label: 'Aceptar'),
+          ]);
+      return;
+    }
+
+    setState(() {
+      _estados = response.result;
+    });
+
+    _getSubestados();
+  }
+
+//----------------------------------------------------------------
+//-------------------------- _getSubestados -------------------------
+//----------------------------------------------------------------
+
+  Future<void> _getSubestados() async {
+    var connectivityResult = await Connectivity().checkConnectivity();
+
+    if (connectivityResult == ConnectivityResult.none) {
+      setState(() {
+        _showLoader = false;
+      });
+      await showAlertDialog(
+          context: context,
+          title: 'Error',
+          message: 'Verifica que estés conectado a Internet',
+          actions: <AlertDialogAction>[
+            const AlertDialogAction(key: null, label: 'Aceptar'),
+          ]);
+      return;
+    }
+
+    Response response = Response(isSuccess: false);
+
+    response = await ApiHelper.getSubestados();
+
+    setState(() {
+      _showLoader = false;
+    });
+
+    if (!response.isSuccess) {
+      await showAlertDialog(
+          context: context,
+          title: 'Error',
+          message: response.message,
+          actions: <AlertDialogAction>[
+            const AlertDialogAction(key: null, label: 'Aceptar'),
+          ]);
+      return;
+    }
+
+    setState(() {
+      _subestados = response.result;
+    });
+  }
+
+//---------------------------------------------------------------
+//----------------------- _goInfoObra ---------------------------
+//---------------------------------------------------------------
+
+  void _goInfoObra(int obraId) async {
+    Response response = await ApiHelper.getObra(obraId.toString());
+
+    _obra2 = response.result;
+
+    String? result = await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ObraInfoScreen(
+            user: widget.user,
+            obra: _obra2,
+            positionUser: widget.positionUser,
+            estados: _estados,
+            subestados: _subestados),
+      ),
+    );
   }
 }

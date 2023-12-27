@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
-import 'package:rowing_app/models/elemencalle.dart';
 import 'package:rowing_app/models/models.dart';
 import 'constants.dart';
 
