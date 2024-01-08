@@ -144,63 +144,58 @@ class _ElementosencallerecState extends State<Elementosencallerec> {
       ),
       body: Stack(
         children: [
-          SingleChildScrollView(
-            child: Column(
-              children: <Widget>[
-                Card(
-                    color: Colors.white,
-                    shadowColor: Colors.white,
-                    elevation: 10,
-                    margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                        children: [
-                          _showObra(),
-                          _showAddress(),
-                          _showObservaciones(),
-                          _showPhoto(ancho),
-                        ],
-                      ),
-                    )),
-                const SizedBox(
-                  height: 3,
-                ),
-                const Divider(
-                  color: Colors.black,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: const [
-                    Text(
-                      "Material               ",
-                      style: TextStyle(color: Colors.black),
+          Column(
+            children: <Widget>[
+              Card(
+                  color: Colors.white,
+                  shadowColor: Colors.white,
+                  elevation: 10,
+                  margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      children: [
+                        _showObra(),
+                        _showAddress(),
+                        _showObservaciones(),
+                        _showPhoto(ancho),
+                      ],
                     ),
-                    Text(
-                      "Cant. Dejada",
-                      style: TextStyle(color: Colors.black),
-                    ),
-                    Text(
-                      "Recup.                  ",
-                      style: TextStyle(color: Colors.black),
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 3,
-                ),
-                Container(
-                  height: 300,
-                  child: Expanded(
-                    child: _getListView(),
+                  )),
+              const SizedBox(
+                height: 3,
+              ),
+              const Divider(
+                color: Colors.black,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: const [
+                  Text(
+                    "Material               ",
+                    style: TextStyle(color: Colors.black),
                   ),
-                ),
-                _showButtons(),
-                const SizedBox(
-                  height: 10,
-                ),
-              ],
-            ),
+                  Text(
+                    "Cant. Dejada",
+                    style: TextStyle(color: Colors.black),
+                  ),
+                  Text(
+                    "Recup.                  ",
+                    style: TextStyle(color: Colors.black),
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 3,
+              ),
+              Expanded(
+                child: _getListView(),
+              ),
+              _showButtons(),
+              const SizedBox(
+                height: 10,
+              ),
+            ],
           ),
           _showLoader
               ? const LoaderComponent(text: 'Por favor espere...')
