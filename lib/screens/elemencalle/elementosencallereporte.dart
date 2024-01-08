@@ -86,8 +86,7 @@ class _ElementosencallereporteState extends State<Elementosencallereporte> {
                     const SizedBox(
                       height: 3,
                     ),
-                    Container(
-                        height: 300, child: Expanded(child: _getListView())),
+                    Expanded(child: _getListView()),
                   ],
                 ),
         )
