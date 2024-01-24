@@ -63,11 +63,17 @@ class _InspeccionCuestionarioScreenState
   int respSI = 0;
   int respNO = 0;
   int respNA = 0;
+  int respTXT = 0;
 
   int _idCab = 0;
 
   bool _showLoader = false;
   bool _todas = true;
+
+  String _texto = '';
+  final String _textoError = '';
+  final bool _textoShowError = false;
+  final TextEditingController _textoController = TextEditingController();
 
 //-----------------------------------------------------------------
 //---------------------- initState --------------------------------
@@ -89,6 +95,8 @@ class _InspeccionCuestionarioScreenState
           'cumple': element.cumple.toString(),
           'photoChanged': false,
           'image': '',
+          'soloTexto': element.soloTexto,
+          'obsApp': element.obsApp,
         },
       );
       if (element.cumple == 'SI') {
@@ -100,6 +108,9 @@ class _InspeccionCuestionarioScreenState
       }
       if (element.cumple == 'N/A') {
         respNA++;
+      }
+      if (element.obsApp != '') {
+        respTXT++;
       }
     });
   }
@@ -247,7 +258,8 @@ class _InspeccionCuestionarioScreenState
                       (widget.detallesFormulariosCompleto.length -
                               respSI -
                               respNO -
-                              respNA)
+                              respNA -
+                              respTXT)
                           .toString(),
                       style: const TextStyle(
                         fontSize: 14,
@@ -265,15 +277,15 @@ class _InspeccionCuestionarioScreenState
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
-                children: const [
-                  Text("",
+                children: [
+                  const Text("Resp. TXT: ",
                       style: TextStyle(
                         fontSize: 14,
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
                       )),
-                  Text("",
-                      style: TextStyle(
+                  Text(respTXT.toString(),
+                      style: const TextStyle(
                         fontSize: 14,
                         color: Colors.blue,
                         fontWeight: FontWeight.normal,
@@ -387,13 +399,10 @@ class _InspeccionCuestionarioScreenState
                 margin:
                     const EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
                 child: Container(
-                  color: (element['cumple'] != "SI" &&
-                          element['cumple'] != "NO" &&
-                          element['cumple'] != "N/A")
-                      ? Colors.white
-                      : colorCeleste,
+                  color: colorElement(element),
                   child: Column(
                     children: [
+                      //-------------------------------------------------------------------------
                       ListTile(
                         contentPadding: const EdgeInsets.symmetric(
                             horizontal: 5.0, vertical: 5.0),
@@ -406,229 +415,434 @@ class _InspeccionCuestionarioScreenState
                           element['descripcion'],
                           style: const TextStyle(fontSize: 12),
                         ),
-                        trailing: Container(
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(10),
-                            border: Border.all(
-                              color: element['cumple'] == "SI"
-                                  ? colorVerde
-                                  : element['cumple'] == "NO"
-                                      ? colorRojo
-                                      : element['cumple'] == "N/A"
-                                          ? colorNaranja
-                                          : colorCeleste,
-                              width: 4,
-                            ),
-                          ),
-                          width: 60,
-                          height: 60,
-                          child: Center(
-                              child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Text(
-                                '${element['ponderacionpuntos']} pts',
-                              ),
-                              element['cumple'] != "null"
-                                  ? Text(
-                                      element['cumple'],
-                                    )
-                                  : const Text(''),
-                            ],
-                          )),
-                        ),
-                      ),
-                      Container(
-                        margin: const EdgeInsets.only(left: 10, right: 10),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: <Widget>[
-                            Expanded(
-                              child: ElevatedButton(
-                                child: Row(
+                        trailing: element['soloTexto'] == 0
+                            ? Container(
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(10),
+                                  border: Border.all(
+                                    color: element['cumple'] == "SI"
+                                        ? colorVerde
+                                        : element['cumple'] == "NO"
+                                            ? colorRojo
+                                            : element['cumple'] == "N/A"
+                                                ? colorNaranja
+                                                : colorCeleste,
+                                    width: 4,
+                                  ),
+                                ),
+                                width: 60,
+                                height: 60,
+                                child: Center(
+                                    child: Column(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceAround,
-                                  children: const [
-                                    Icon(Icons.toggle_on),
-                                    SizedBox(
-                                      width: 5,
+                                  children: [
+                                    Text(
+                                      '${element['ponderacionpuntos']} pts',
                                     ),
-                                    Text('SI'),
+                                    element['cumple'] != "null"
+                                        ? Text(
+                                            element['cumple'],
+                                          )
+                                        : const Text(''),
                                   ],
-                                ),
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: colorVerde,
-                                  minimumSize: const Size(double.infinity, 40),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(5),
-                                  ),
-                                ),
-                                onPressed: () {
-                                  if (element['cumple'] == "NO") {
-                                    respNO--;
-                                    respSI++;
-                                    puntos = puntos -
-                                        int.parse(element['ponderacionpuntos']);
-                                  }
-                                  if (element['cumple'] == "N/A") {
-                                    respNA--;
-                                    respSI++;
-                                  }
-                                  if (element['cumple'] != "SI" &&
-                                      element['cumple'] != "NO" &&
-                                      element['cumple'] != "N/A") {
-                                    respSI++;
-                                  }
+                                )),
+                              )
+                            : Container(
+                                width: 2,
+                                height: 60,
+                              ),
+                      ),
 
-                                  _elements.forEach((e) {
-                                    if (e == element) {
-                                      e['cumple'] = "SI";
-                                    }
-                                  });
+                      //-------------------------------------------------------------------------
 
-                                  setState(() {});
-                                },
-                              ),
-                            ),
-                            const SizedBox(
-                              width: 20,
-                            ),
-                            Expanded(
-                              child: ElevatedButton(
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: const [
-                                    Icon(Icons.toggle_off),
-                                    Text('NO'),
-                                  ],
-                                ),
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: colorRojo,
-                                  minimumSize: const Size(double.infinity, 40),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(5),
+                      element['soloTexto'] == 0
+                          ? Container(
+                              margin:
+                                  const EdgeInsets.only(left: 10, right: 10),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: <Widget>[
+                                  Expanded(
+                                    child: ElevatedButton(
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceAround,
+                                        children: const [
+                                          Icon(Icons.toggle_on),
+                                          SizedBox(
+                                            width: 5,
+                                          ),
+                                          Text('SI'),
+                                        ],
+                                      ),
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: colorVerde,
+                                        minimumSize:
+                                            const Size(double.infinity, 40),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(5),
+                                        ),
+                                      ),
+                                      onPressed: () {
+                                        if (element['cumple'] == "NO") {
+                                          respNO--;
+                                          respSI++;
+                                          puntos = puntos -
+                                              int.parse(
+                                                  element['ponderacionpuntos']);
+                                        }
+                                        if (element['cumple'] == "N/A") {
+                                          respNA--;
+                                          respSI++;
+                                        }
+                                        if (element['cumple'] != "SI" &&
+                                            element['cumple'] != "NO" &&
+                                            element['cumple'] != "N/A") {
+                                          respSI++;
+                                        }
+
+                                        _elements.forEach((e) {
+                                          if (e == element) {
+                                            e['cumple'] = "SI";
+                                          }
+                                        });
+
+                                        setState(() {});
+                                      },
+                                    ),
                                   ),
-                                ),
-                                onPressed: () {
-                                  if (element['cumple'] == "SI") {
-                                    respSI--;
-                                    respNO++;
-                                    puntos = puntos +
-                                        int.parse(element['ponderacionpuntos']);
-                                  }
-                                  if (element['cumple'] == "N/A") {
-                                    respNA--;
-                                    respNO++;
-                                    puntos = puntos +
-                                        int.parse(element['ponderacionpuntos']);
-                                  }
-                                  if (element['cumple'] != "SI" &&
-                                      element['cumple'] != "NO" &&
-                                      element['cumple'] != "N/A") {
-                                    respNO++;
-                                    puntos = puntos +
-                                        int.parse(element['ponderacionpuntos']);
-                                  }
-                                  element['cumple'] = "NO";
-                                  setState(() {});
-                                },
-                              ),
-                            ),
-                            const SizedBox(
-                              width: 20,
-                            ),
-                            Expanded(
-                              child: ElevatedButton(
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: const [
-                                    Icon(Icons.cancel),
-                                    Text('N/A'),
-                                  ],
-                                ),
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: colorNaranja,
-                                  minimumSize: const Size(double.infinity, 40),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(5),
+                                  const SizedBox(
+                                    width: 20,
                                   ),
-                                ),
-                                onPressed: () {
-                                  if (element['cumple'] == "SI") {
-                                    respSI--;
-                                    respNA++;
-                                  }
-                                  if (element['cumple'] == "NO") {
-                                    respNO--;
-                                    respNA++;
-                                    puntos = puntos -
-                                        int.parse(element['ponderacionpuntos']);
-                                  }
-                                  if (element['cumple'] != "SI" &&
-                                      element['cumple'] != "NO" &&
-                                      element['cumple'] != "N/A") {
-                                    respNA++;
-                                  }
-                                  element['cumple'] = "N/A";
-                                  setState(() {});
-                                },
-                              ),
-                            ),
-                            const SizedBox(
-                              width: 20,
-                            ),
-                            InkWell(
-                              onTap: () => _takePicture(element),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(30),
-                                child: Container(
-                                  color: const Color(0xFF282886),
-                                  width: 40,
-                                  height: 40,
-                                  child: const Icon(
-                                    Icons.photo_camera,
-                                    size: 30,
-                                    color: Color(0xFFf6faf8),
+                                  Expanded(
+                                    child: ElevatedButton(
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        children: const [
+                                          Icon(Icons.toggle_off),
+                                          Text('NO'),
+                                        ],
+                                      ),
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: colorRojo,
+                                        minimumSize:
+                                            const Size(double.infinity, 40),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(5),
+                                        ),
+                                      ),
+                                      onPressed: () {
+                                        if (element['cumple'] == "SI") {
+                                          respSI--;
+                                          respNO++;
+                                          puntos = puntos +
+                                              int.parse(
+                                                  element['ponderacionpuntos']);
+                                        }
+                                        if (element['cumple'] == "N/A") {
+                                          respNA--;
+                                          respNO++;
+                                          puntos = puntos +
+                                              int.parse(
+                                                  element['ponderacionpuntos']);
+                                        }
+                                        if (element['cumple'] != "SI" &&
+                                            element['cumple'] != "NO" &&
+                                            element['cumple'] != "N/A") {
+                                          respNO++;
+                                          puntos = puntos +
+                                              int.parse(
+                                                  element['ponderacionpuntos']);
+                                        }
+                                        element['cumple'] = "NO";
+                                        setState(() {});
+                                      },
+                                    ),
                                   ),
-                                ),
+                                  const SizedBox(
+                                    width: 20,
+                                  ),
+                                  Expanded(
+                                    child: ElevatedButton(
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        children: const [
+                                          Icon(Icons.cancel),
+                                          Text('N/A'),
+                                        ],
+                                      ),
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: colorNaranja,
+                                        minimumSize:
+                                            const Size(double.infinity, 40),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(5),
+                                        ),
+                                      ),
+                                      onPressed: () {
+                                        if (element['cumple'] == "SI") {
+                                          respSI--;
+                                          respNA++;
+                                        }
+                                        if (element['cumple'] == "NO") {
+                                          respNO--;
+                                          respNA++;
+                                          puntos = puntos -
+                                              int.parse(
+                                                  element['ponderacionpuntos']);
+                                        }
+                                        if (element['cumple'] != "SI" &&
+                                            element['cumple'] != "NO" &&
+                                            element['cumple'] != "N/A") {
+                                          respNA++;
+                                        }
+                                        element['cumple'] = "N/A";
+                                        setState(() {});
+                                      },
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    width: 20,
+                                  ),
+                                  InkWell(
+                                    onTap: () => _takePicture(element),
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(30),
+                                      child: Container(
+                                        color: const Color(0xFF282886),
+                                        width: 40,
+                                        height: 40,
+                                        child: const Icon(
+                                          Icons.photo_camera,
+                                          size: 30,
+                                          color: Color(0xFFf6faf8),
+                                        ),
+                                      ),
+                                    ),
+                                  )
+                                ],
                               ),
                             )
-                          ],
-                        ),
-                      ),
+                          : Row(
+                              children: [
+                                Expanded(
+                                  flex: 4,
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 10),
+                                    child: Text(element['obsApp'] ?? '',
+                                        style: const TextStyle(
+                                          fontSize: 12,
+                                        )),
+                                  ),
+                                ),
+                                const SizedBox(
+                                  width: 10,
+                                ),
+                                IconButton(
+                                    onPressed: () {
+                                      _textoController.text =
+                                          element['obsApp'] != null
+                                              ? ''
+                                              : element['obsApp'].toString();
+                                      showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) {
+                                            return AlertDialog(
+                                              backgroundColor: Colors.grey[300],
+                                              title: const Text(
+                                                  "Ingrese al menos 3 caracteres"),
+                                              content: TextField(
+                                                autofocus: true,
+                                                controller: _textoController,
+                                                decoration: InputDecoration(
+                                                    fillColor: Colors.white,
+                                                    filled: true,
+                                                    hintText: '',
+                                                    labelText: '',
+                                                    errorText: _textoShowError
+                                                        ? _textoError
+                                                        : null,
+                                                    prefixIcon:
+                                                        const Icon(Icons.abc),
+                                                    border: OutlineInputBorder(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(10))),
+                                                onChanged: (value) {
+                                                  _texto = value;
+                                                },
+                                              ),
+                                              actions: [
+                                                Row(
+                                                  children: [
+                                                    Expanded(
+                                                      child: ElevatedButton(
+                                                        child: Row(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .spaceAround,
+                                                          children: const [
+                                                            Icon(Icons.cancel),
+                                                            Text('Cancelar'),
+                                                          ],
+                                                        ),
+                                                        style: ElevatedButton
+                                                            .styleFrom(
+                                                          backgroundColor:
+                                                              const Color(
+                                                                  0xFFB4161B),
+                                                          minimumSize:
+                                                              const Size(
+                                                                  double
+                                                                      .infinity,
+                                                                  50),
+                                                          shape:
+                                                              RoundedRectangleBorder(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5),
+                                                          ),
+                                                        ),
+                                                        onPressed: () {
+                                                          Navigator.pop(
+                                                              context);
+                                                        },
+                                                      ),
+                                                    ),
+                                                    const SizedBox(
+                                                      width: 10,
+                                                    ),
+                                                    Expanded(
+                                                      child: ElevatedButton(
+                                                        child: Row(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .spaceAround,
+                                                          children: const [
+                                                            Icon(Icons.save),
+                                                            Text('Aceptar'),
+                                                          ],
+                                                        ),
+                                                        style: ElevatedButton
+                                                            .styleFrom(
+                                                          backgroundColor:
+                                                              const Color(
+                                                                  0xFF120E43),
+                                                          minimumSize:
+                                                              const Size(
+                                                                  double
+                                                                      .infinity,
+                                                                  50),
+                                                          shape:
+                                                              RoundedRectangleBorder(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5),
+                                                          ),
+                                                        ),
+                                                        onPressed: () {
+                                                          if (_texto.length <
+                                                              3) {
+                                                            showAlertDialog(
+                                                                context:
+                                                                    context,
+                                                                title: 'Error',
+                                                                message:
+                                                                    'Debe ingresar al menos 3 caracteres',
+                                                                actions: <
+                                                                    AlertDialogAction>[
+                                                                  const AlertDialogAction(
+                                                                      key: null,
+                                                                      label:
+                                                                          'Aceptar'),
+                                                                ]);
+                                                            return;
+                                                          } else {
+                                                            for (var e
+                                                                in _elements) {
+                                                              if (e['descripcion'] ==
+                                                                  element[
+                                                                      'descripcion']) {
+                                                                if (e['obsApp'] ==
+                                                                    "") {
+                                                                  respTXT++;
+                                                                }
+
+                                                                e['obsApp'] =
+                                                                    _texto;
+                                                              }
+                                                            }
+
+                                                            Navigator.pop(
+                                                                context);
+                                                            setState(() {});
+                                                          }
+                                                        },
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ],
+                                              shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          10)),
+                                            );
+                                          },
+                                          barrierDismissible: false);
+                                    },
+                                    icon: const Icon(Icons.loop,
+                                        color: Colors.blue)),
+                              ],
+                            ),
                       const SizedBox(
                         height: 5,
                       ),
-                      Container(
-                        child: !element['photoChanged']
-                            ? Container()
-                            : Image.file(
-                                File(element['image'].path),
-                                width: 100,
-                                height: 100,
-                                fit: BoxFit.contain,
-                              ),
-                      ),
+                      element['soloTexto'] == 0
+                          ? Container(
+                              child: !element['photoChanged']
+                                  ? Container()
+                                  : Image.file(
+                                      File(element['image'].path),
+                                      width: 100,
+                                      height: 100,
+                                      fit: BoxFit.contain,
+                                    ),
+                            )
+                          : Container(
+                              width: 2,
+                              height: 5,
+                            ),
                     ],
                   ),
                 ),
               )
             : (element['cumple'] != "SI" &&
                     element['cumple'] != "NO" &&
-                    element['cumple'] != "N/A")
+                    element['cumple'] != "N/A" &&
+                    element['obsApp'] == "")
                 ? Card(
                     elevation: 8.0,
                     margin: const EdgeInsets.symmetric(
                         horizontal: 10.0, vertical: 6.0),
                     child: Container(
-                      color: (element['cumple'] != "SI" &&
-                              element['cumple'] != "NO" &&
-                              element['cumple'] != "N/A")
+                      color: ((element['cumple'] != "SI" &&
+                                  element['cumple'] != "NO" &&
+                                  element['cumple'] != "N/A") ||
+                              element['obsApp'] != "")
                           ? Colors.white
-                          : Colors.blue[400],
+                          : colorCeleste,
                       child: Column(
                         children: [
                           ListTile(
@@ -643,207 +857,409 @@ class _InspeccionCuestionarioScreenState
                               element['descripcion'],
                               style: const TextStyle(fontSize: 12),
                             ),
-                            trailing: Container(
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(10),
-                                border: Border.all(
-                                  color: element['cumple'] == "SI"
-                                      ? colorVerde
-                                      : element['cumple'] == "NO"
-                                          ? colorRojo
-                                          : element['cumple'] == "N/A"
-                                              ? colorNaranja
-                                              : colorCeleste,
-                                  width: 4,
-                                ),
-                              ),
-                              width: 60,
-                              height: 60,
-                              child: Center(
-                                  child: Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: [
-                                  Text(
-                                    '${element['ponderacionpuntos']} pts',
-                                  ),
-                                  element['cumple'] != "null"
-                                      ? Text(
-                                          element['cumple'],
-                                        )
-                                      : const Text(''),
-                                ],
-                              )),
-                            ),
-                          ),
-                          Container(
-                            margin: const EdgeInsets.only(left: 10, right: 10),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: <Widget>[
-                                Expanded(
-                                  child: ElevatedButton(
-                                    child: Row(
+                            trailing: element['soloTexto'] == 0
+                                ? Container(
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(10),
+                                      border: Border.all(
+                                        color: element['cumple'] == "SI"
+                                            ? colorVerde
+                                            : element['cumple'] == "NO"
+                                                ? colorRojo
+                                                : element['cumple'] == "N/A"
+                                                    ? colorNaranja
+                                                    : colorCeleste,
+                                        width: 4,
+                                      ),
+                                    ),
+                                    width: 60,
+                                    height: 60,
+                                    child: Center(
+                                        child: Column(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceAround,
-                                      children: const [
-                                        Icon(Icons.toggle_on),
-                                        SizedBox(
-                                          width: 5,
+                                      children: [
+                                        Text(
+                                          '${element['ponderacionpuntos']} pts',
                                         ),
-                                        Text('SI'),
+                                        element['cumple'] != "null"
+                                            ? Text(
+                                                element['cumple'],
+                                              )
+                                            : const Text(''),
                                       ],
-                                    ),
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor: colorVerde,
-                                      minimumSize:
-                                          const Size(double.infinity, 40),
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(5),
-                                      ),
-                                    ),
-                                    onPressed: () {
-                                      if (element['cumple'] == "NO") {
-                                        respNO--;
-                                        respSI++;
-                                        puntos = puntos +
-                                            int.parse(
-                                                element['ponderacionpuntos']);
-                                      }
-                                      if (element['cumple'] == "N/A") {
-                                        respNA--;
-                                        respSI++;
-                                        puntos = puntos +
-                                            int.parse(
-                                                element['ponderacionpuntos']);
-                                      }
-                                      if (element['cumple'] != "SI" &&
-                                          element['cumple'] != "NO" &&
-                                          element['cumple'] != "N/A") {
-                                        respSI++;
-                                        puntos = puntos +
-                                            int.parse(
-                                                element['ponderacionpuntos']);
-                                      }
+                                    )),
+                                  )
+                                : Container(
+                                    width: 60,
+                                    height: 60,
+                                  ),
+                          ),
+                          element['soloTexto'] == 0
+                              ? Container(
+                                  margin: const EdgeInsets.only(
+                                      left: 10, right: 10),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
+                                    children: <Widget>[
+                                      Expanded(
+                                        child: ElevatedButton(
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceAround,
+                                            children: const [
+                                              Icon(Icons.toggle_on),
+                                              SizedBox(
+                                                width: 5,
+                                              ),
+                                              Text('SI'),
+                                            ],
+                                          ),
+                                          style: ElevatedButton.styleFrom(
+                                            backgroundColor: colorVerde,
+                                            minimumSize:
+                                                const Size(double.infinity, 40),
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(5),
+                                            ),
+                                          ),
+                                          onPressed: () {
+                                            if (element['obsApp'] != "") {
+                                              respTXT++;
+                                            }
 
-                                      _elements.forEach((e) {
-                                        if (e == element) {
-                                          e['cumple'] = "SI";
-                                        }
-                                      });
+                                            if (element['cumple'] == "NO") {
+                                              respNO--;
+                                              respSI++;
+                                              puntos = puntos +
+                                                  int.parse(element[
+                                                      'ponderacionpuntos']);
+                                            }
+                                            if (element['cumple'] == "N/A") {
+                                              respNA--;
+                                              respSI++;
+                                              puntos = puntos +
+                                                  int.parse(element[
+                                                      'ponderacionpuntos']);
+                                            }
+                                            if (element['cumple'] != "SI" &&
+                                                element['cumple'] != "NO" &&
+                                                element['cumple'] != "N/A") {
+                                              respSI++;
+                                              puntos = puntos +
+                                                  int.parse(element[
+                                                      'ponderacionpuntos']);
+                                            }
 
-                                      setState(() {});
-                                    },
+                                            _elements.forEach((e) {
+                                              if (e == element) {
+                                                e['cumple'] = "SI";
+                                              }
+                                            });
+
+                                            setState(() {});
+                                          },
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        width: 20,
+                                      ),
+                                      Expanded(
+                                        child: ElevatedButton(
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceEvenly,
+                                            children: const [
+                                              Icon(Icons.toggle_off),
+                                              Text('NO'),
+                                            ],
+                                          ),
+                                          style: ElevatedButton.styleFrom(
+                                            backgroundColor: colorRojo,
+                                            minimumSize:
+                                                const Size(double.infinity, 40),
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(5),
+                                            ),
+                                          ),
+                                          onPressed: () {
+                                            if (element['cumple'] == "SI") {
+                                              respSI--;
+                                              respNO++;
+                                              puntos = puntos -
+                                                  int.parse(element[
+                                                      'ponderacionpuntos']);
+                                            }
+                                            if (element['cumple'] == "N/A") {
+                                              respNA--;
+                                              respNO++;
+                                            }
+                                            if (element['cumple'] != "SI" &&
+                                                element['cumple'] != "NO" &&
+                                                element['cumple'] != "N/A") {
+                                              respNO++;
+                                            }
+                                            element['cumple'] = "NO";
+                                            setState(() {});
+                                          },
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        width: 20,
+                                      ),
+                                      Expanded(
+                                        child: ElevatedButton(
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceEvenly,
+                                            children: const [
+                                              Icon(Icons.cancel),
+                                              Text('N/A'),
+                                            ],
+                                          ),
+                                          style: ElevatedButton.styleFrom(
+                                            backgroundColor: colorNaranja,
+                                            minimumSize:
+                                                const Size(double.infinity, 40),
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(5),
+                                            ),
+                                          ),
+                                          onPressed: () {
+                                            if (element['cumple'] == "SI") {
+                                              respSI--;
+                                              respNA++;
+                                              puntos = puntos -
+                                                  int.parse(element[
+                                                      'ponderacionpuntos']);
+                                            }
+                                            if (element['cumple'] == "NO") {
+                                              respNO--;
+                                              respNA++;
+                                            }
+                                            if (element['cumple'] != "SI" &&
+                                                element['cumple'] != "NO" &&
+                                                element['cumple'] != "N/A") {
+                                              respNA++;
+                                            }
+                                            element['cumple'] = "N/A";
+                                            setState(() {});
+                                          },
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        width: 20,
+                                      ),
+                                      InkWell(
+                                        onTap: () => _takePicture(element),
+                                        child: ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(30),
+                                          child: Container(
+                                            color: const Color(0xFF282886),
+                                            width: 40,
+                                            height: 40,
+                                            child: const Icon(
+                                              Icons.photo_camera,
+                                              size: 30,
+                                              color: Color(0xFFf6faf8),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                ),
-                                const SizedBox(
-                                  width: 20,
-                                ),
-                                Expanded(
-                                  child: ElevatedButton(
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                      children: const [
-                                        Icon(Icons.toggle_off),
-                                        Text('NO'),
-                                      ],
-                                    ),
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor: colorRojo,
-                                      minimumSize:
-                                          const Size(double.infinity, 40),
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(5),
+                                )
+                              : Row(
+                                  children: [
+                                    Expanded(
+                                      flex: 4,
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 10),
+                                        child: Text(element['obsApp'] ?? '',
+                                            style: const TextStyle(
+                                              fontSize: 12,
+                                            )),
                                       ),
                                     ),
-                                    onPressed: () {
-                                      if (element['cumple'] == "SI") {
-                                        respSI--;
-                                        respNO++;
-                                        puntos = puntos -
-                                            int.parse(
-                                                element['ponderacionpuntos']);
-                                      }
-                                      if (element['cumple'] == "N/A") {
-                                        respNA--;
-                                        respNO++;
-                                      }
-                                      if (element['cumple'] != "SI" &&
-                                          element['cumple'] != "NO" &&
-                                          element['cumple'] != "N/A") {
-                                        respNO++;
-                                      }
-                                      element['cumple'] = "NO";
-                                      setState(() {});
-                                    },
-                                  ),
-                                ),
-                                const SizedBox(
-                                  width: 20,
-                                ),
-                                Expanded(
-                                  child: ElevatedButton(
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                      children: const [
-                                        Icon(Icons.cancel),
-                                        Text('N/A'),
-                                      ],
+                                    const SizedBox(
+                                      width: 10,
                                     ),
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor: colorNaranja,
-                                      minimumSize:
-                                          const Size(double.infinity, 40),
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(5),
-                                      ),
-                                    ),
-                                    onPressed: () {
-                                      if (element['cumple'] == "SI") {
-                                        respSI--;
-                                        respNA++;
-                                        puntos = puntos -
-                                            int.parse(
-                                                element['ponderacionpuntos']);
-                                      }
-                                      if (element['cumple'] == "NO") {
-                                        respNO--;
-                                        respNA++;
-                                      }
-                                      if (element['cumple'] != "SI" &&
-                                          element['cumple'] != "NO" &&
-                                          element['cumple'] != "N/A") {
-                                        respNA++;
-                                      }
-                                      element['cumple'] = "N/A";
-                                      setState(() {});
-                                    },
-                                  ),
+                                    IconButton(
+                                        onPressed: () {
+                                          _textoController.text =
+                                              element['obsApp'] != null
+                                                  ? ''
+                                                  : element['obsApp']
+                                                      .toString();
+                                          showDialog(
+                                              context: context,
+                                              builder: (BuildContext context) {
+                                                return AlertDialog(
+                                                  backgroundColor:
+                                                      Colors.grey[300],
+                                                  title: const Text(
+                                                      "Ingrese al menos 3 caracteres"),
+                                                  content: TextField(
+                                                    autofocus: true,
+                                                    controller:
+                                                        _textoController,
+                                                    decoration: InputDecoration(
+                                                        fillColor: Colors.white,
+                                                        filled: true,
+                                                        hintText: '',
+                                                        labelText: '',
+                                                        errorText:
+                                                            _textoShowError
+                                                                ? _textoError
+                                                                : null,
+                                                        prefixIcon: const Icon(
+                                                            Icons.abc),
+                                                        border: OutlineInputBorder(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        10))),
+                                                    onChanged: (value) {
+                                                      _texto = value;
+                                                    },
+                                                  ),
+                                                  actions: [
+                                                    Row(
+                                                      children: [
+                                                        Expanded(
+                                                          child: ElevatedButton(
+                                                            child: Row(
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .spaceAround,
+                                                              children: const [
+                                                                Icon(Icons
+                                                                    .cancel),
+                                                                Text(
+                                                                    'Cancelar'),
+                                                              ],
+                                                            ),
+                                                            style:
+                                                                ElevatedButton
+                                                                    .styleFrom(
+                                                              backgroundColor:
+                                                                  const Color(
+                                                                      0xFFB4161B),
+                                                              minimumSize:
+                                                                  const Size(
+                                                                      double
+                                                                          .infinity,
+                                                                      50),
+                                                              shape:
+                                                                  RoundedRectangleBorder(
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            5),
+                                                              ),
+                                                            ),
+                                                            onPressed: () {
+                                                              Navigator.pop(
+                                                                  context);
+                                                            },
+                                                          ),
+                                                        ),
+                                                        const SizedBox(
+                                                          width: 10,
+                                                        ),
+                                                        Expanded(
+                                                          child: ElevatedButton(
+                                                            child: Row(
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .spaceAround,
+                                                              children: const [
+                                                                Icon(
+                                                                    Icons.save),
+                                                                Text('Aceptar'),
+                                                              ],
+                                                            ),
+                                                            style:
+                                                                ElevatedButton
+                                                                    .styleFrom(
+                                                              backgroundColor:
+                                                                  const Color(
+                                                                      0xFF120E43),
+                                                              minimumSize:
+                                                                  const Size(
+                                                                      double
+                                                                          .infinity,
+                                                                      50),
+                                                              shape:
+                                                                  RoundedRectangleBorder(
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            5),
+                                                              ),
+                                                            ),
+                                                            onPressed: () {
+                                                              if (_texto
+                                                                      .length <
+                                                                  3) {
+                                                                showAlertDialog(
+                                                                    context:
+                                                                        context,
+                                                                    title:
+                                                                        'Error',
+                                                                    message:
+                                                                        'Debe ingresar al menos 3 caracteres',
+                                                                    actions: <
+                                                                        AlertDialogAction>[
+                                                                      const AlertDialogAction(
+                                                                          key:
+                                                                              null,
+                                                                          label:
+                                                                              'Aceptar'),
+                                                                    ]);
+                                                                return;
+                                                              } else {
+                                                                for (var e
+                                                                    in _elements) {
+                                                                  if (e['descripcion'] ==
+                                                                      element[
+                                                                          'descripcion']) {
+                                                                    e['obsApp'] =
+                                                                        _texto;
+                                                                  }
+                                                                }
+
+                                                                Navigator.pop(
+                                                                    context);
+                                                                setState(() {});
+                                                              }
+                                                            },
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ],
+                                                  shape: RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              10)),
+                                                );
+                                              },
+                                              barrierDismissible: false);
+                                        },
+                                        icon: const Icon(Icons.loop,
+                                            color: Colors.blue)),
+                                  ],
                                 ),
-                                const SizedBox(
-                                  width: 20,
-                                ),
-                                InkWell(
-                                  onTap: () => _takePicture(element),
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(30),
-                                    child: Container(
-                                      color: const Color(0xFF282886),
-                                      width: 40,
-                                      height: 40,
-                                      child: const Icon(
-                                        Icons.photo_camera,
-                                        size: 30,
-                                        color: Color(0xFFf6faf8),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
+                          const SizedBox(
+                            height: 5,
                           ),
                         ],
                       ),
@@ -940,7 +1356,11 @@ class _InspeccionCuestionarioScreenState
       return;
     }
 
-    if (widget.detallesFormulariosCompleto.length - respSI - respNO - respNA !=
+    if (widget.detallesFormulariosCompleto.length -
+            respSI -
+            respNO -
+            respNA -
+            respTXT !=
         0) {
       showDialog(
           context: context,
@@ -953,7 +1373,7 @@ class _InspeccionCuestionarioScreenState
               content:
                   Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
                 Text(
-                    'Todavía no puede guardar el Cuestionario. Quedan ${widget.detallesFormulariosCompleto.length - respSI - respNO - respNA} preguntas sin responder.'),
+                    'Todavía no puede guardar el Cuestionario. Quedan ${widget.detallesFormulariosCompleto.length - respSI - respNO - respNA - respTXT} preguntas sin responder.'),
                 const SizedBox(
                   height: 10,
                 ),
@@ -1059,6 +1479,8 @@ class _InspeccionCuestionarioScreenState
         'ponderacionPuntos': element['ponderacionpuntos'],
         'cumple': element['cumple'],
         'imagearray': base64image,
+        'obsApp': element['obsApp'] != "" ? element['obsApp'] : "N/A",
+        'soloTexto': element['soloTexto'],
       };
 
       await ApiHelper.post('/api/Inspecciones/PostInspeccionDetalle', request2);
@@ -1113,5 +1535,19 @@ class _InspeccionCuestionarioScreenState
         });
       }
     }
+  }
+
+  Color colorElement(var element) {
+    if (element['obsApp'] != "") {
+      return colorCeleste;
+    }
+
+    if ((element['cumple'] != "SI" &&
+        element['cumple'] != "NO" &&
+        element['cumple'] != "N/A")) {
+      return Colors.white;
+    }
+
+    return colorCeleste;
   }
 }

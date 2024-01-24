@@ -5,6 +5,7 @@ class DetallesFormulario {
   String descripcion = '';
   int ponderacionpuntos = 0;
   String? cumple = '';
+  int soloTexto = 0;
 
   DetallesFormulario(
       {required this.idcliente,
@@ -12,7 +13,8 @@ class DetallesFormulario {
       required this.detallef,
       required this.descripcion,
       required this.ponderacionpuntos,
-      required this.cumple});
+      required this.cumple,
+      required this.soloTexto});
 
   DetallesFormulario.fromJson(Map<String, dynamic> json) {
     idcliente = json['idcliente'];
@@ -21,6 +23,7 @@ class DetallesFormulario {
     descripcion = json['descripcion'];
     ponderacionpuntos = json['ponderacionpuntos'];
     cumple = json['cumple'];
+    soloTexto = json['soloTexto'];
   }
 
   Map<String, dynamic> toJson() {
@@ -31,6 +34,7 @@ class DetallesFormulario {
     data['descripcion'] = descripcion;
     data['ponderacionpuntos'] = ponderacionpuntos;
     data['cumple'] = cumple;
+    data['soloTexto'] = soloTexto;
     return data;
   }
 }

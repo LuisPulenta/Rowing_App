@@ -7,6 +7,8 @@ class DetallesFormularioCompleto {
   int ponderacionpuntos = 0;
   String? cumple = '';
   String? foto = '';
+  int soloTexto = 0;
+  String? obsApp = '';
 
   DetallesFormularioCompleto(
       {required this.idcliente,
@@ -16,7 +18,9 @@ class DetallesFormularioCompleto {
       required this.descripcion,
       required this.ponderacionpuntos,
       required this.cumple,
-      required this.foto});
+      required this.foto,
+      required this.soloTexto,
+      required this.obsApp});
 
   DetallesFormularioCompleto.fromJson(Map<String, dynamic> json) {
     idcliente = json['idcliente'];
@@ -27,6 +31,8 @@ class DetallesFormularioCompleto {
     ponderacionpuntos = json['ponderacionpuntos'];
     cumple = json['cumple'];
     foto = json['foto'];
+    soloTexto = json['soloTexto'];
+    obsApp = json['obsApp'];
   }
 
   Map<String, dynamic> toJson() {
@@ -39,6 +45,8 @@ class DetallesFormularioCompleto {
     data['ponderacionpuntos'] = ponderacionpuntos;
     data['cumple'] = cumple;
     data['foto'] = foto;
+    data['soloTexto'] = soloTexto;
+    data['obsApp'] = obsApp;
     return data;
   }
 
@@ -52,5 +60,7 @@ class DetallesFormularioCompleto {
         ponderacionpuntos: json["ponderacionpuntos"],
         cumple: json["cumple"],
         foto: json["foto"],
+        soloTexto: json["soloTexto"],
+        obsApp: json["obsApp"],
       );
 }

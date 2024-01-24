@@ -57,7 +57,9 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
           descripcion: '',
           ponderacionpuntos: 0,
           cumple: '',
-          foto: '');
+          foto: '',
+          soloTexto: 0,
+          obsApp: '');
 
   Position _positionUser = const Position(
       longitude: 0,
@@ -714,11 +716,14 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
               descripcion: detalleFormularioAux.descripcion,
               ponderacionpuntos: detalleFormularioAux.ponderacionpuntos,
               cumple: detalleFormularioAux.cumple,
-              foto: '');
+              foto: '',
+              soloTexto: detalleFormularioAux.soloTexto,
+              obsApp: '');
           _detallesFormulariosCompleto.add(detallesFormularioCompleto);
         }
       }
     }
+    var a = 1;
     setState(() {});
   }
 

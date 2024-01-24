@@ -57,7 +57,9 @@ class _InspeccionDuplicarScreenState extends State<InspeccionDuplicarScreen> {
           descripcion: '',
           ponderacionpuntos: 0,
           cumple: '',
-          foto: '');
+          foto: '',
+          soloTexto: 0,
+          obsApp: '');
 
   String _nombreSR = '';
   final String _nombreSRError = '';
@@ -752,7 +754,9 @@ class _InspeccionDuplicarScreenState extends State<InspeccionDuplicarScreen> {
           descripcion: element.descripcion,
           ponderacionpuntos: element.ponderacionPuntos,
           cumple: element.cumple,
-          foto: element.imageFullPath);
+          foto: element.imageFullPath,
+          soloTexto: element.soloTexto!,
+          obsApp: element.obsAPP);
       _detallesFormulariosCompleto.add(detallesFormularioCompleto);
     }
 
