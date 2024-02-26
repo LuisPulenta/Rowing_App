@@ -121,6 +121,7 @@ class _GruasCheckListScreenState extends State<GruasCheckListScreen> {
       habilitaSeguimientoUsuarios: 0,
       habilitaVerObrasCerradas: 0,
       habilitaElementosCalle: 0,
+      conceptomov: 0,
       conceptomova: 0,
       limitarGrupo: 0,
       rubro: 0,

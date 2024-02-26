@@ -29,6 +29,7 @@ class User {
   int? habilitaSeguimientoUsuarios = 0;
   int? habilitaVerObrasCerradas = 0;
   int? habilitaElementosCalle = 0;
+  int? conceptomov = 0;
   int? conceptomova = 0;
   int? limitarGrupo = 0;
   int? rubro = 0;
@@ -66,6 +67,7 @@ class User {
       required this.habilitaSeguimientoUsuarios,
       required this.habilitaVerObrasCerradas,
       required this.habilitaElementosCalle,
+      required this.conceptomov,
       required this.conceptomova,
       required this.limitarGrupo,
       required this.rubro,
@@ -103,6 +105,7 @@ class User {
     habilitaSeguimientoUsuarios = json['habilitaSeguimientoUsuarios'];
     habilitaVerObrasCerradas = json['habilitaVerObrasCerradas'];
     habilitaElementosCalle = json['habilitaElementosCalle'];
+    conceptomov = json['conceptomov'];
     conceptomova = json['conceptomova'];
     limitarGrupo = json['limitarGrupo'];
     rubro = json['rubro'];
@@ -142,6 +145,7 @@ class User {
     data['habilitaSeguimientoUsuarios'] = habilitaSeguimientoUsuarios;
     data['habilitaVerObrasCerradas'] = habilitaVerObrasCerradas;
     data['habilitaElementosCalle'] = habilitaElementosCalle;
+    data['conceptomov'] = conceptomov;
     data['conceptomova'] = conceptomova;
     data['limitarGrupo'] = limitarGrupo;
     data['rubro'] = rubro;
