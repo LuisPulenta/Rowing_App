@@ -87,3 +87,4 @@ export 'package:rowing_app/screens/elemencalle/elementosencallerec.dart';
 export 'package:rowing_app/screens/elemencalle/elementosencallelistado.dart';
 export 'package:rowing_app/screens/elemencalle/elementosencallereporte.dart';
 export 'package:rowing_app/screens/elemencalle/elemenencallemap_screen.dart';
+export 'package:rowing_app/screens/movimientos/movimientos_screen.dart';

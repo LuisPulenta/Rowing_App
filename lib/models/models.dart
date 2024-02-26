@@ -61,3 +61,4 @@ export 'package:rowing_app/models/places_models.dart';
 export 'package:rowing_app/models/elemencalle.dart';
 export 'package:rowing_app/models/elemencalledet.dart';
 export 'package:rowing_app/models/elemencalletotales.dart';
+export 'package:rowing_app/models/movimiento.dart';

@@ -889,6 +889,37 @@ class _HomeScreenState extends State<HomeScreen> {
                     ],
                   )
                 : Container(),
+
+            widget.user.conceptomov == 1
+                ? Row(
+                    children: [
+                      Expanded(
+                        child: ListTile(
+                          leading: const Icon(
+                            Icons.description,
+                            color: Colors.white,
+                          ),
+                          tileColor: const Color(0xff8c8c94),
+                          title: const Text('Movimientos',
+                              style:
+                                  TextStyle(fontSize: 15, color: Colors.white)),
+                          onTap: () async {
+                            guardarLocalizacion();
+                            await Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => MovimientosScreen(
+                                  user: widget.user,
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    ],
+                  )
+                : Container(),
+
             const Divider(
               color: Colors.white,
               height: 1,
