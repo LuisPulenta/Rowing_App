@@ -11,6 +11,7 @@ class Movimiento {
   int? nroLote = 0;
   int? usrAlta = 0;
   String? linkRemito = '';
+  String? imageFullPath = '';
 
   Movimiento(
       {required this.nroMovimiento,
@@ -24,7 +25,8 @@ class Movimiento {
       required this.docSAP,
       required this.nroLote,
       required this.usrAlta,
-      required this.linkRemito});
+      required this.linkRemito,
+      required this.imageFullPath});
 
   Movimiento.fromJson(Map<String, dynamic> json) {
     nroMovimiento = json['nroMovimiento'];
@@ -39,6 +41,7 @@ class Movimiento {
     nroLote = json['nroLote'];
     usrAlta = json['usrAlta'];
     linkRemito = json['linkRemito'];
+    imageFullPath = json['imageFullPath'];
   }
 
   Map<String, dynamic> toJson() {
@@ -55,6 +58,7 @@ class Movimiento {
     data['nroLote'] = nroLote;
     data['usrAlta'] = usrAlta;
     data['linkRemito'] = linkRemito;
+    data['imageFullPath'] = imageFullPath;
     return data;
   }
 
@@ -72,6 +76,7 @@ class Movimiento {
       'nroLote': nroLote,
       'usrAlta': usrAlta,
       'linkRemito': linkRemito,
+      'imageFullPath': imageFullPath,
     };
   }
 }

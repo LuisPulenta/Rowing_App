@@ -88,3 +88,6 @@ export 'package:rowing_app/screens/elemencalle/elementosencallelistado.dart';
 export 'package:rowing_app/screens/elemencalle/elementosencallereporte.dart';
 export 'package:rowing_app/screens/elemencalle/elemenencallemap_screen.dart';
 export 'package:rowing_app/screens/movimientos/movimientos_screen.dart';
+export 'package:rowing_app/screens/movimientos/movimiento_info_screen.dart';
+export 'package:rowing_app/screens/movimientos/take_picture_mov_screen.dart';
+export 'package:rowing_app/screens/movimientos/display_picture_mov_screen.dart';

@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:rowing_app/components/loader_component.dart';
 import 'package:rowing_app/helpers/helpers.dart';
 import 'package:rowing_app/models/models.dart';
+import 'package:rowing_app/screens/screens.dart';
 
 class MovimientosScreen extends StatefulWidget {
   final User user;
@@ -33,7 +34,8 @@ class _MovimientosScreenState extends State<MovimientosScreen> {
       docSAP: '',
       nroLote: 0,
       usrAlta: 0,
-      linkRemito: '');
+      linkRemito: '',
+      imageFullPath: '');
 
 //---------------------------------------------------------------
 //----------------------- initState -----------------------------
@@ -140,7 +142,7 @@ class _MovimientosScreenState extends State<MovimientosScreen> {
             child: InkWell(
               onTap: () {
                 movimientoSelected = e;
-                //_goInfoObra(e);
+                _goInfoMovimiento(e);
               },
               child: Container(
                 margin: const EdgeInsets.all(0),
@@ -388,5 +390,23 @@ class _MovimientosScreenState extends State<MovimientosScreen> {
             .compareTo(b.nroMovimiento.toString().toLowerCase());
       });
     });
+  }
+
+//---------------------------------------------------------------
+//----------------------- _goInfoMovimiento ---------------------
+//---------------------------------------------------------------
+
+  void _goInfoMovimiento(Movimiento movimiento) async {
+    String? result = await Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => MovimientoInfoScreen(
+                  user: widget.user,
+                  movimiento: movimiento,
+                )));
+    if (result == 'yes' || result != 'yes') {
+      _getMovimientos();
+      setState(() {});
+    }
   }
 }
