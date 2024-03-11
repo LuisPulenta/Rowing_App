@@ -2,8 +2,8 @@
 2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
 3    package="com.luisnu.rowing_app"
 4    android:exported="true"
-5    android:versionCode="61"
-6    android:versionName="1.0.61" >
+5    android:versionCode="62"
+6    android:versionName="1.0.62" >
 7
 8    <uses-sdk
 9        android:minSdkVersion="21"

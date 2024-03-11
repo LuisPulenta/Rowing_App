@@ -166,12 +166,22 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   )
                 : parametro.appBloqueada == 1
-                    ? const Center(
-                        child: Text('App bloqueada temporalmente',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold)),
+                    ? Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: const [
+                            Text('App bloqueada temporalmente.',
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold)),
+                            Text('Por favor reintente en unos minutos.',
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold)),
+                          ],
+                        ),
                       )
                     : Container(),
           ),
