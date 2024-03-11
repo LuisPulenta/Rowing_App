@@ -69,8 +69,13 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
       firmaUsuario: '',
       firmaUsuarioImageFullPath: '');
 
-  Parametro parametro =
-      Parametro(id: 0, bloqueaactas: 0, ipServ: '', metros: 0, tiempo: 0);
+  Parametro parametro = Parametro(
+      id: 0,
+      bloqueaactas: 0,
+      ipServ: '',
+      metros: 0,
+      tiempo: 0,
+      appBloqueada: 0);
 
   Future<void> _init() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();

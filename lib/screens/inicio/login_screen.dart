@@ -73,6 +73,14 @@ class _LoginScreenState extends State<LoginScreen> {
       speed: 0,
       speedAccuracy: 0);
 
+  Parametro parametro = Parametro(
+      id: 0,
+      bloqueaactas: 0,
+      ipServ: '',
+      metros: 0,
+      tiempo: 0,
+      appBloqueada: 2);
+
 //---------------------------------------------------------------
 //----------------------- initState -----------------------------
 //---------------------------------------------------------------
@@ -81,7 +89,7 @@ class _LoginScreenState extends State<LoginScreen> {
   void initState() {
     super.initState();
     initPlatformState();
-    _getPosition();
+    _getParametro();
     setState(() {});
   }
 
@@ -128,34 +136,44 @@ class _LoginScreenState extends State<LoginScreen> {
               )),
           Transform.translate(
             offset: const Offset(0, -60),
-            child: Center(
-              child: SingleChildScrollView(
-                child: Card(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20)),
-                  elevation: 15,
-                  margin: const EdgeInsets.only(
-                      left: 20, right: 20, top: 260, bottom: 20),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 35, vertical: 20),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        _showEmail(),
-                        _showPassword(),
-                        const SizedBox(
-                          height: 10,
+            child: parametro.appBloqueada == 0
+                ? Center(
+                    child: SingleChildScrollView(
+                      child: Card(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20)),
+                        elevation: 15,
+                        margin: const EdgeInsets.only(
+                            left: 20, right: 20, top: 260, bottom: 20),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 35, vertical: 20),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              _showEmail(),
+                              _showPassword(),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              _showRememberme(),
+                              _showButtons(),
+                            ],
+                          ),
                         ),
-                        _showRememberme(),
-                        _showButtons(),
-                      ],
+                      ),
                     ),
-                  ),
-                ),
-              ),
-            ),
+                  )
+                : parametro.appBloqueada == 1
+                    ? const Center(
+                        child: Text('App bloqueada temporalmente',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold)),
+                      )
+                    : Container(),
           ),
           Center(
             child: Column(
@@ -649,6 +667,8 @@ class _LoginScreenState extends State<LoginScreen> {
       _positionUser = await Geolocator.getCurrentPosition(
           desiredAccuracy: LocationAccuracy.high);
     }
+
+    await _getParametro();
   }
 
 //-----------------------------------------------------------------
@@ -690,5 +710,27 @@ class _LoginScreenState extends State<LoginScreen> {
     for (var catalogo in _catalogos) {
       DBSuministroscatalogos.insertSuministrocatalogos(catalogo);
     }
+  }
+
+  Future<void> _getParametro() async {
+    _showLoader = true;
+    var url = Uri.parse('${Constants.apiUrl}/Api/UsuariosGeos/GetParametro');
+    var response = await http.post(
+      url,
+      headers: {
+        'content-type': 'application/json',
+        'accept': 'application/json',
+      },
+    );
+
+    if (response.statusCode >= 400) {
+      return;
+    }
+
+    parametro = Parametro.fromJson(jsonDecode(response.body));
+    _showLoader = false;
+    setState(() {});
+
+    _getPosition();
   }
 }
