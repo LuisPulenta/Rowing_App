@@ -145,7 +145,7 @@ class _ConteosScreenState extends State<ConteosScreen> {
                                       const SizedBox(
                                         width: 80,
                                         child: Text(
-                                          "N° Conteo: ",
+                                          "Grupo: ",
                                           style: TextStyle(
                                             fontSize: 12,
                                             color: Color(0xFF781f1e),
@@ -154,8 +154,21 @@ class _ConteosScreenState extends State<ConteosScreen> {
                                         ),
                                       ),
                                       Expanded(
-                                        flex: 2,
-                                        child: Text(e.idregistro.toString(),
+                                        child: Text(e.grupoD,
+                                            style: const TextStyle(
+                                              fontSize: 12,
+                                            )),
+                                      ),
+                                      const Text(
+                                        "Almacén: ",
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                          color: Color(0xFF781f1e),
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: Text(e.causanteD,
                                             style: const TextStyle(
                                               fontSize: 12,
                                             )),
@@ -167,12 +180,26 @@ class _ConteosScreenState extends State<ConteosScreen> {
                                       const SizedBox(
                                         width: 80,
                                         child: Text(
-                                          "Fecha: ",
+                                          "N° Conteo: ",
                                           style: TextStyle(
                                             fontSize: 12,
                                             color: Color(0xFF781f1e),
                                             fontWeight: FontWeight.bold,
                                           ),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: Text(e.idregistro.toString(),
+                                            style: const TextStyle(
+                                              fontSize: 12,
+                                            )),
+                                      ),
+                                      const Text(
+                                        "Fecha: ",
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                          color: Color(0xFF781f1e),
+                                          fontWeight: FontWeight.bold,
                                         ),
                                       ),
                                       Expanded(
