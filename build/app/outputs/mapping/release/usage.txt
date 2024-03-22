@@ -13609,8 +13609,6 @@ io.flutter.embedding.engine.systemchannels.LocalizationChannel:
     private static final java.lang.String TAG
 io.flutter.embedding.engine.systemchannels.AccessibilityChannel:
     private static final java.lang.String TAG
-androidx.lifecycle.LifecycleRegistryOwner:
-    public synthetic bridge androidx.lifecycle.Lifecycle getLifecycle()
 kotlin.reflect.KParameter$Kind
 androidx.appcompat.app.ToolbarActionBar$ActionMenuPresenterCallback
 androidx.constraintlayout.solver.state.State
@@ -18548,9 +18546,9 @@ androidx.customview.widget.ExploreByTouchHelper:
     public static final int HOST_ID
     private static final java.lang.String DEFAULT_CLASS_NAME
 com.google.android.material.datepicker.CompositeDateValidator
-io.flutter.embedding.engine.systemchannels.PlatformViewsChannel:
-    private static final java.lang.String TAG
 io.flutter.embedding.engine.systemchannels.PlatformChannel:
+    private static final java.lang.String TAG
+io.flutter.embedding.engine.systemchannels.PlatformViewsChannel:
     private static final java.lang.String TAG
 androidx.core.animation.AnimatorKt$addListener$4
 com.google.android.gms.common.server.response.zam
@@ -28287,8 +28285,8 @@ androidx.lifecycle.DefaultLifecycleObserver:
     public abstract void onStop(androidx.lifecycle.LifecycleOwner)
     public abstract void onDestroy(androidx.lifecycle.LifecycleOwner)
 androidx.lifecycle.ViewModelProvider$NewInstanceFactory:
-    public synthetic androidx.lifecycle.ViewModel create(java.lang.Class,androidx.lifecycle.viewmodel.CreationExtras)
     public synthetic androidx.lifecycle.ViewModel create(java.lang.Class)
+    public synthetic androidx.lifecycle.ViewModel create(java.lang.Class,androidx.lifecycle.viewmodel.CreationExtras)
     public static final androidx.lifecycle.ViewModelProvider$NewInstanceFactory$Companion Companion
 androidx.constraintlayout.widget.ConstraintLayout$LayoutParams:
     float dimensionRatioValue
@@ -28644,13 +28642,14 @@ com.google.android.material.resources.TextAppearance:
     public final boolean textAllCaps
 androidx.appcompat.view.StandaloneActionMode:
     private boolean mFocusable
-androidx.lifecycle.HasDefaultViewModelProviderFactory$-CC
 io.flutter.plugin.platform.PlatformView$-CC:
     public static void $default$onInputConnectionLocked(io.flutter.plugin.platform.PlatformView)
     public static void $default$onInputConnectionUnlocked(io.flutter.plugin.platform.PlatformView)
 androidx.core.view.MenuProvider$-CC
 io.flutter.view.TextureRegistry$SurfaceTextureEntry$-CC
+androidx.lifecycle.DefaultLifecycleObserver$-CC
+androidx.lifecycle.LifecycleRegistryOwner$-CC
+androidx.lifecycle.HasDefaultViewModelProviderFactory$-CC
 io.flutter.plugin.common.BinaryMessenger$-CC:
     public static io.flutter.plugin.common.BinaryMessenger$TaskQueue $default$makeBackgroundTaskQueue(io.flutter.plugin.common.BinaryMessenger,io.flutter.plugin.common.BinaryMessenger$TaskQueueOptions)
     public static void $default$setMessageHandler(io.flutter.plugin.common.BinaryMessenger,java.lang.String,io.flutter.plugin.common.BinaryMessenger$BinaryMessageHandler,io.flutter.plugin.common.BinaryMessenger$TaskQueue)
-androidx.lifecycle.DefaultLifecycleObserver$-CC

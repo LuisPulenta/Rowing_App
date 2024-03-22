@@ -143,7 +143,7 @@ class _ConteosScreenState extends State<ConteosScreen> {
                                   Row(
                                     children: [
                                       const SizedBox(
-                                        width: 80,
+                                        width: 42,
                                         child: Text(
                                           "Grupo: ",
                                           style: TextStyle(
@@ -153,7 +153,8 @@ class _ConteosScreenState extends State<ConteosScreen> {
                                           ),
                                         ),
                                       ),
-                                      Expanded(
+                                      SizedBox(
+                                        width: 42,
                                         child: Text(e.grupoD,
                                             style: const TextStyle(
                                               fontSize: 12,
@@ -168,12 +169,16 @@ class _ConteosScreenState extends State<ConteosScreen> {
                                         ),
                                       ),
                                       Expanded(
-                                        child: Text(e.causanteD,
-                                            style: const TextStyle(
-                                              fontSize: 12,
-                                            )),
+                                        child:
+                                            Text(e.causanteD + "-" + e.nombre,
+                                                style: const TextStyle(
+                                                  fontSize: 12,
+                                                )),
                                       ),
                                     ],
+                                  ),
+                                  const SizedBox(
+                                    height: 5,
                                   ),
                                   Row(
                                     children: [

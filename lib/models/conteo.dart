@@ -14,6 +14,7 @@ class Conteo {
   int idMov902 = 0;
   double monto902 = 0;
   int procesadoGaos = 0;
+  String nombre = '';
 
   Conteo(
       {required this.idregistro,
@@ -30,7 +31,8 @@ class Conteo {
       required this.monto901,
       required this.idMov902,
       required this.monto902,
-      required this.procesadoGaos});
+      required this.procesadoGaos,
+      required this.nombre});
 
   Conteo.fromJson(Map<String, dynamic> json) {
     idregistro = json['idregistro'];
@@ -48,6 +50,7 @@ class Conteo {
     idMov902 = json['idMov902'];
     monto902 = json['monto902'];
     procesadoGaos = json['procesadoGaos'];
+    nombre = json['nombre'];
   }
 
   Map<String, dynamic> toJson() {
@@ -67,6 +70,7 @@ class Conteo {
     data['idMov902'] = idMov902;
     data['monto902'] = monto902;
     data['procesadoGaos'] = procesadoGaos;
+    data['nombre'] = nombre;
     return data;
   }
 }

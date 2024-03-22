@@ -1,5 +1,6 @@
 export 'package:rowing_app/screens/administrador/admin_screen.dart';
 export 'package:rowing_app/screens/administrador/resetear_passwords_screen.dart';
+export 'package:rowing_app/screens/administrador/desactivar_usuario_screen.dart';
 export 'package:rowing_app/screens/seguridad/causante_datos_screen.dart';
 export 'package:rowing_app/screens/obras/causantes_screen.dart';
 export 'package:rowing_app/screens/inspecciones/display_picture3_screen.dart';

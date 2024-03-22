@@ -54,6 +54,38 @@ class _AdminScreenState extends State<AdminScreen> {
               );
             },
           ),
+          const SizedBox(
+            height: 10,
+          ),
+          ElevatedButton(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: const [
+                Icon(Icons.password),
+                SizedBox(
+                  width: 35,
+                ),
+                Text('Desactivar Usuario'),
+              ],
+            ),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Color.fromARGB(255, 196, 9, 37),
+              minimumSize: const Size(100, 50),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(5),
+              ),
+            ),
+            onPressed: () async {
+              await Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => DesactivarUsuarioScreen(
+                    user: widget.user,
+                  ),
+                ),
+              );
+            },
+          ),
         ]),
       ),
     );
