@@ -8542,7 +8542,6 @@ com.google.android.material.appbar.AppBarLayout$LayoutParams$ScrollFlags
 kotlin.reflect.ParameterizedTypeImpl
 com.amolg.flutterbarcodescanner.camera.CameraSource$AutoFocusCallback
 kotlinx.coroutines.flow.FlowKt__BuildersKt$asFlow$$inlined$unsafeFlow$10
-kotlin.sequences.EmptySequence
 kotlin.text.StringsKt__StringNumberConversionsJVMKt:
     private static final java.lang.String toString(byte,int)
     private static final java.lang.String toString(short,int)
@@ -8572,6 +8571,7 @@ kotlin.text.StringsKt__StringNumberConversionsJVMKt:
     public static final java.math.BigDecimal toBigDecimalOrNull(java.lang.String,java.math.MathContext)
     private static final java.lang.Object screenFloatValue$StringsKt__StringNumberConversionsJVMKt(java.lang.String,kotlin.jvm.functions.Function1)
     public void <init>()
+kotlin.sequences.EmptySequence
 com.google.android.material.ripple.RippleDrawableCompat:
     public com.google.android.material.shape.ShapeAppearanceModel getShapeAppearanceModel()
 androidx.core.text.BidiFormatter$Builder:
@@ -18546,9 +18546,9 @@ androidx.customview.widget.ExploreByTouchHelper:
     public static final int HOST_ID
     private static final java.lang.String DEFAULT_CLASS_NAME
 com.google.android.material.datepicker.CompositeDateValidator
-io.flutter.embedding.engine.systemchannels.PlatformChannel:
-    private static final java.lang.String TAG
 io.flutter.embedding.engine.systemchannels.PlatformViewsChannel:
+    private static final java.lang.String TAG
+io.flutter.embedding.engine.systemchannels.PlatformChannel:
     private static final java.lang.String TAG
 androidx.core.animation.AnimatorKt$addListener$4
 com.google.android.gms.common.server.response.zam
@@ -28646,9 +28646,9 @@ io.flutter.plugin.platform.PlatformView$-CC:
     public static void $default$onInputConnectionLocked(io.flutter.plugin.platform.PlatformView)
     public static void $default$onInputConnectionUnlocked(io.flutter.plugin.platform.PlatformView)
 androidx.core.view.MenuProvider$-CC
-io.flutter.view.TextureRegistry$SurfaceTextureEntry$-CC
 androidx.lifecycle.DefaultLifecycleObserver$-CC
 androidx.lifecycle.LifecycleRegistryOwner$-CC
+io.flutter.view.TextureRegistry$SurfaceTextureEntry$-CC
 androidx.lifecycle.HasDefaultViewModelProviderFactory$-CC
 io.flutter.plugin.common.BinaryMessenger$-CC:
     public static io.flutter.plugin.common.BinaryMessenger$TaskQueue $default$makeBackgroundTaskQueue(io.flutter.plugin.common.BinaryMessenger,io.flutter.plugin.common.BinaryMessenger$TaskQueueOptions)

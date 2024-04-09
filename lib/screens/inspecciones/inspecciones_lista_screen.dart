@@ -299,7 +299,7 @@ class _InspeccionesListaScreenState extends State<InspeccionesListaScreen> {
                               children: [
                                 Row(
                                   children: const [
-                                    Text("Fecha: ",
+                                    Text("Fecha-Id: ",
                                         style: TextStyle(
                                           fontSize: 12,
                                           color: Color(0xFF781f1e),
@@ -387,7 +387,9 @@ class _InspeccionesListaScreenState extends State<InspeccionesListaScreen> {
                                       children: [
                                         Text(
                                             DateFormat('dd/MM/yyyy').format(
-                                                DateTime.parse(e.fecha)),
+                                                    DateTime.parse(e.fecha)) +
+                                                ' - ' +
+                                                e.idInspeccion.toString(),
                                             style: const TextStyle(
                                               fontSize: 12,
                                             ))

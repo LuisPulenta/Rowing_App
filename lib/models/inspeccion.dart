@@ -6,7 +6,7 @@ class Inspeccion {
   String latitud = '';
   String longitud = '';
   int idObra = 0;
-  String supervisor = '';
+  String? supervisor = '';
   String vehiculo = '';
   int nroLegajo = 0;
   String grupoC = '';
