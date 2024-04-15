@@ -112,6 +112,8 @@ class _GruasCheckListAgregarScreenState
       TextEditingController();
   final TextEditingController _documentoController = TextEditingController();
 
+  late Vehiculo _vehiculoAux;
+  late Vehiculo _vehiculoVacio;
   late Vehiculo _vehiculo;
   late Causante _causante;
   late Causante _causanteVacio;
@@ -142,7 +144,30 @@ class _GruasCheckListAgregarScreenState
         habilitado: 0,
         fechaVencObleaGAS: 0,
         modulo: '',
-        campomemo: '');
+        campomemo: '',
+        habilitaChecklist: 0);
+
+    _vehiculoVacio = Vehiculo(
+        codveh: 0,
+        numcha: '',
+        nrotar: '',
+        codProducto: '',
+        aniofa: 0,
+        descripcion: '',
+        nmotor: '',
+        chasis: '',
+        fechaVencITV: 0,
+        nroPolizaSeguro: '',
+        centroCosto: '',
+        propiedadDe: '',
+        telepase: '',
+        kmhsactual: 0,
+        usaHoras: 0,
+        habilitado: 0,
+        fechaVencObleaGAS: 0,
+        modulo: '',
+        campomemo: '',
+        habilitaChecklist: 0);
 
     _causante = Causante(
         nroCausante: 0,
@@ -3579,7 +3604,7 @@ class _GruasCheckListAgregarScreenState
       await showAlertDialog(
           context: context,
           title: 'Error',
-          message: "Patente no válida",
+          message: "Patente no existe en la BD",
           actions: <AlertDialogAction>[
             const AlertDialogAction(key: null, label: 'Aceptar'),
           ]);
@@ -3591,12 +3616,44 @@ class _GruasCheckListAgregarScreenState
     }
     setState(() {
       _showLoader = false;
-      _vehiculo = response.result;
-      if (_vehiculo.numcha != '000000  ') {
+      _vehiculoAux = response.result;
+      if (_vehiculoAux.numcha != '000000  ') {
         _nombreApellido = "";
         _documento = "";
       }
     });
+
+    if (_vehiculoAux.habilitado == 0) {
+      await showAlertDialog(
+          context: context,
+          title: 'Error',
+          message: "Vehículo no habilitado",
+          actions: <AlertDialogAction>[
+            const AlertDialogAction(key: null, label: 'Aceptar'),
+          ]);
+      setState(() {
+        _vehiculoAux = _vehiculoVacio;
+        _vehiculo = _vehiculoVacio;
+        _showLoader = false;
+      });
+      return;
+    }
+    if (_vehiculoAux.habilitaChecklist == 0) {
+      await showAlertDialog(
+          context: context,
+          title: 'Error',
+          message: "Vehículo no habilitado para CheckList",
+          actions: <AlertDialogAction>[
+            const AlertDialogAction(key: null, label: 'Aceptar'),
+          ]);
+      setState(() {
+        _vehiculoAux = _vehiculoVacio;
+        _vehiculo = _vehiculoVacio;
+        _showLoader = false;
+      });
+      return;
+    }
+    _vehiculo = _vehiculoAux;
   }
 
 //-----------------------------------------------------------------

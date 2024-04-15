@@ -67,7 +67,8 @@ class _TurnosAgregarScreenState extends State<TurnosAgregarScreen> {
         habilitado: 0,
         fechaVencObleaGAS: 0,
         modulo: '',
-        campomemo: '');
+        campomemo: '',
+        habilitaChecklist: 0);
     _loadData();
   }
 

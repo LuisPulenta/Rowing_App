@@ -18,6 +18,7 @@ class Vehiculo {
   int? fechaVencObleaGAS = 0;
   String? modulo = '';
   String? campomemo = '';
+  int? habilitaChecklist = 0;
 
   Vehiculo(
       {required this.codveh,
@@ -38,7 +39,8 @@ class Vehiculo {
       required this.habilitado,
       required this.fechaVencObleaGAS,
       required this.modulo,
-      required this.campomemo});
+      required this.campomemo,
+      required this.habilitaChecklist});
 
   Vehiculo.fromJson(Map<String, dynamic> json) {
     codveh = json['codveh'];
@@ -60,6 +62,7 @@ class Vehiculo {
     fechaVencObleaGAS = json['fechaVencObleaGAS'];
     modulo = json['modulo'];
     campomemo = json['campomemo'];
+    habilitaChecklist = json['habilitaChecklist'];
   }
 
   Map<String, dynamic> toJson() {
@@ -83,6 +86,7 @@ class Vehiculo {
     data['fechaVencObleaGAS'] = fechaVencObleaGAS;
     data['modulo'] = modulo;
     data['campomemo'] = campomemo;
+    data['habilitaChecklist'] = habilitaChecklist;
     return data;
   }
 }

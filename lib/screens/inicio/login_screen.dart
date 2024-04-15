@@ -32,6 +32,8 @@ class _LoginScreenState extends State<LoginScreen> {
   String _email = '';
   String _password = '';
 
+  String imei = '';
+
   //String _email = 'KEYPRESS';
   //String _password = 'KEYROOT';
 

@@ -74,7 +74,8 @@ class _FlotaScreenState extends State<FlotaScreen>
         habilitado: 0,
         fechaVencObleaGAS: 0,
         modulo: '',
-        campomemo: '');
+        campomemo: '',
+        habilitaChecklist: 0);
 
     _tabController = TabController(length: 2, vsync: this);
   }
