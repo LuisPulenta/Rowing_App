@@ -3,6 +3,7 @@ export 'package:rowing_app/screens/administrador/desactivar_usuario_screen.dart'
 export 'package:rowing_app/screens/administrador/resetear_passwords_screen.dart';
 export 'package:rowing_app/screens/certificacion/certificaciones_screen.dart';
 export 'package:rowing_app/screens/certificacion/certificacion_nueva_screen.dart';
+export 'package:rowing_app/screens/certificacion/certificacion_detalle_screen.dart';
 export 'package:rowing_app/screens/elemencalle/elemenencallemap_screen.dart';
 export 'package:rowing_app/screens/elemencalle/elementosencalle.dart';
 export 'package:rowing_app/screens/elemencalle/elementosencalleedit.dart';

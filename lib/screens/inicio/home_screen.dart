@@ -162,6 +162,13 @@ class _HomeScreenState extends State<HomeScreen> {
                   fontWeight: FontWeight.bold,
                   color: Colors.white),
             ),
+            const SizedBox(
+              height: 20,
+            ),
+            Text(
+              'Módulo: ${widget.user.modulo}',
+              style: const TextStyle(fontSize: 16, color: Colors.white),
+            ),
           ],
         ));
   }

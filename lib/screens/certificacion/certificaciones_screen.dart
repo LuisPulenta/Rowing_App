@@ -460,7 +460,7 @@ class _CertificacionesScreenState extends State<CertificacionesScreen> {
                                 size: 24, color: Colors.white),
                           ),
                           onPressed: () async {
-                            // _goRecElemEnCalle(e);
+                            _goInfoCertificacion(e);
                           },
                         )
                       ],
@@ -476,21 +476,22 @@ class _CertificacionesScreenState extends State<CertificacionesScreen> {
   }
 
 //-----------------------------------------------------------------
-//--------------------- _goInfoReclamo ----------------------------
+//--------------------- _goInfoCertificacion ----------------------
 //-----------------------------------------------------------------
 
-  void _goInfoCertificacion(CabeceraCertificacion reclamo) async {
-    // String? result = await Navigator.push(
-    //     context,
-    //     MaterialPageRoute(
-    //         builder: (context) => ReclamoInfoScreen(
-    //               user: widget.user,
-    //               reclamo: reclamo,
-    //             )));
-    // if (result == 'yes') {
-    //   _getCertificaciones();
-    //   setState(() {});
-    // }
+  void _goInfoCertificacion(CabeceraCertificacion e) async {
+    await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => CertificacionDetalleScreen(
+          user: widget.user,
+          positionUser: widget.positionUser,
+          imei: widget.imei,
+          editMode: true,
+          cabeceraCertificacion: e,
+        ),
+      ),
+    );
   }
 
 //-----------------------------------------------------------------
