@@ -43,6 +43,9 @@ class _ObrasScreenState extends State<ObrasScreen> {
   Obra obraSelected = Obra(
       nroObra: 0,
       nombreObra: '',
+      nroOE: '',
+      defProy: '',
+      central: '',
       elempep: '',
       observaciones: '',
       finalizada: 0,
@@ -71,6 +74,9 @@ class _ObrasScreenState extends State<ObrasScreen> {
   Obra _obraSeleccionada = Obra(
       nroObra: 0,
       nombreObra: '',
+      nroOE: '',
+      defProy: '',
+      central: '',
       elempep: '',
       observaciones: '',
       finalizada: 0,

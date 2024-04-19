@@ -76,6 +76,9 @@ class _ElementosencalleState extends State<Elementosencalle> {
   Obra obra = Obra(
       nroObra: 0,
       nombreObra: '',
+      nroOE: '',
+      defProy: '',
+      central: '',
       elempep: '',
       observaciones: '',
       finalizada: 0,

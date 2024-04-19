@@ -9,6 +9,7 @@ import 'package:rowing_app/blocs/blocs.dart';
 import 'package:rowing_app/helpers/api_helper.dart';
 import 'package:rowing_app/helpers/constants.dart';
 import 'package:rowing_app/models/models.dart';
+
 import 'package:rowing_app/screens/screens.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:battery_plus/battery_plus.dart';
@@ -16,8 +17,13 @@ import 'package:battery_plus/battery_plus.dart';
 class HomeScreen extends StatefulWidget {
   final User user;
   final int nroConexion;
+  final String imei;
 
-  const HomeScreen({Key? key, required this.user, required this.nroConexion})
+  const HomeScreen(
+      {Key? key,
+      required this.user,
+      required this.nroConexion,
+      required this.imei})
       : super(key: key);
 
   @override
@@ -384,6 +390,39 @@ class _HomeScreenState extends State<HomeScreen> {
                     ],
                   )
                 : Container(),
+
+            widget.user.habilitaCertificacion == 1
+                ? Row(
+                    children: [
+                      Expanded(
+                        child: ListTile(
+                          leading: const Icon(
+                            Icons.approval,
+                            color: Colors.white,
+                          ),
+                          tileColor: const Color(0xff8c8c94),
+                          title: const Text('Certificaciones',
+                              style:
+                                  TextStyle(fontSize: 15, color: Colors.white)),
+                          onTap: () async {
+                            guardarLocalizacion();
+                            await Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => CertificacionesScreen(
+                                  user: widget.user,
+                                  positionUser: _positionUser,
+                                  imei: widget.imei,
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    ],
+                  )
+                : Container(),
+
             widget.user.habilitaNuevoSuministro == 1
                 ? Row(
                     children: [

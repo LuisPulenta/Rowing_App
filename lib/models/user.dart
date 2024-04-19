@@ -29,12 +29,14 @@ class User {
   int? habilitaSeguimientoUsuarios = 0;
   int? habilitaVerObrasCerradas = 0;
   int? habilitaElementosCalle = 0;
+  int? habilitaCertificacion = 0;
   int? conceptomov = 0;
   int? conceptomova = 0;
   int? limitarGrupo = 0;
   int? rubro = 0;
   String? firmaUsuario = '';
   String? firmaUsuarioImageFullPath = '';
+  String? appIMEI = '';
 
   User(
       {required this.idUsuario,
@@ -67,12 +69,14 @@ class User {
       required this.habilitaSeguimientoUsuarios,
       required this.habilitaVerObrasCerradas,
       required this.habilitaElementosCalle,
+      required this.habilitaCertificacion,
       required this.conceptomov,
       required this.conceptomova,
       required this.limitarGrupo,
       required this.rubro,
       required this.firmaUsuario,
-      required this.firmaUsuarioImageFullPath});
+      required this.firmaUsuarioImageFullPath,
+      required this.appIMEI});
 
   User.fromJson(Map<String, dynamic> json) {
     idUsuario = json['idUsuario'];
@@ -105,12 +109,14 @@ class User {
     habilitaSeguimientoUsuarios = json['habilitaSeguimientoUsuarios'];
     habilitaVerObrasCerradas = json['habilitaVerObrasCerradas'];
     habilitaElementosCalle = json['habilitaElementosCalle'];
+    habilitaCertificacion = json['habilitaCertificacion'];
     conceptomov = json['conceptomov'];
     conceptomova = json['conceptomova'];
     limitarGrupo = json['limitarGrupo'];
     rubro = json['rubro'];
     firmaUsuario = json['firmaUsuario'];
     firmaUsuarioImageFullPath = json['firmaUsuarioImageFullPath'];
+    appIMEI = json['appIMEI'];
   }
 
   Map<String, dynamic> toJson() {
@@ -145,12 +151,14 @@ class User {
     data['habilitaSeguimientoUsuarios'] = habilitaSeguimientoUsuarios;
     data['habilitaVerObrasCerradas'] = habilitaVerObrasCerradas;
     data['habilitaElementosCalle'] = habilitaElementosCalle;
+    data['habilitaCertificacion'] = habilitaCertificacion;
     data['conceptomov'] = conceptomov;
     data['conceptomova'] = conceptomova;
     data['limitarGrupo'] = limitarGrupo;
     data['rubro'] = rubro;
     data['firmaUsuario'] = firmaUsuario;
     data['firmaUsuarioImageFullPath'] = firmaUsuarioImageFullPath;
+    data['appIMEI'] = appIMEI;
     return data;
   }
 }

@@ -66,6 +66,7 @@ class _MyAppState extends State<MyApp> {
                   ? HomeScreen(
                       user: _user,
                       nroConexion: _nroConexion,
+                      imei: '',
                     )
                   : Home2Screen(
                       user: _user,

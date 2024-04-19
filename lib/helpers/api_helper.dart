@@ -233,6 +233,34 @@ class ApiHelper {
   }
 
 //---------------------------------------------------------------------------
+  static Future<Response> post2(
+      String controller, Map<String, dynamic> request) async {
+    var url = Uri.parse('${Constants.apiUrl}$controller');
+    var response = await http.post(
+      url,
+      headers: {
+        'content-type': 'application/json',
+        'accept': 'application/json',
+      },
+      body: jsonEncode(request),
+    );
+
+    if (response.statusCode >= 400) {
+      return Response(isSuccess: false, message: response.body);
+    }
+
+    var body = response.body;
+    List<CodigoProduccion> list = [];
+    var decodedJson = jsonDecode(body);
+    if (decodedJson != null) {
+      for (var item in decodedJson) {
+        list.add(CodigoProduccion.fromJson(item));
+      }
+    }
+    return Response(isSuccess: true, result: list);
+  }
+
+//---------------------------------------------------------------------------
   static Future<Response> delete(String controller, String id) async {
     var url = Uri.parse('${Constants.apiUrl}$controller$id');
     var response = await http.delete(
@@ -2340,5 +2368,134 @@ class ApiHelper {
 
     var decodedJson = jsonDecode(body);
     return Response(isSuccess: true, result: Movimiento.fromJson(decodedJson));
+  }
+
+  //---------------------------------------------------------------------------
+  static Future<Response> getCertificaciones(String modulo, int userId) async {
+    var url = Uri.parse(
+        '${Constants.apiUrl}/api/CabeceraCertificacion/GetCabeceraCertificacion/$modulo/$userId');
+    var response = await http.post(
+      url,
+      headers: {
+        'content-type': 'application/json',
+        'accept': 'application/json',
+      },
+    );
+    var body = response.body;
+
+    if (response.statusCode >= 400) {
+      return Response(isSuccess: false, message: body);
+    }
+
+    List<CabeceraCertificacion> list = [];
+    var decodedJson = jsonDecode(body);
+    if (decodedJson != null) {
+      for (var item in decodedJson) {
+        list.add(CabeceraCertificacion.fromJson(item));
+      }
+    }
+    return Response(isSuccess: true, result: list);
+  }
+
+  //---------------------------------------------------------------------------
+  static Future<Response> getNroRegistroMaxCertificaciones() async {
+    var url = Uri.parse(
+        '${Constants.apiUrl}/api/CabeceraCertificacion/GetNroRegistroMaxCertificaciones');
+    var response = await http.get(
+      url,
+      headers: {
+        'content-type': 'application/json',
+        'accept': 'application/json',
+      },
+    );
+    var body = response.body;
+
+    if (response.statusCode >= 400) {
+      return Response(isSuccess: false, message: body);
+    }
+
+    var decodedJson = jsonDecode(body);
+
+    return Response(isSuccess: true, result: decodedJson);
+  }
+
+  //---------------------------------------------------------------------------
+  static Future<Response> getObjetos(String modulo) async {
+    var url = Uri.parse(
+        '${Constants.apiUrl}/api/CabeceraCertificacionObjetos/GetObjetos/$modulo');
+    var response = await http.post(
+      url,
+      headers: {
+        'content-type': 'application/json',
+        'accept': 'application/json',
+      },
+    );
+    var body = response.body;
+
+    if (response.statusCode >= 400) {
+      return Response(isSuccess: false, message: body);
+    }
+
+    List<Objeto> list = [];
+    var decodedJson = jsonDecode(body);
+    if (decodedJson != null) {
+      for (var item in decodedJson) {
+        list.add(Objeto.fromJson(item));
+      }
+    }
+    return Response(isSuccess: true, result: list);
+  }
+
+  //---------------------------------------------------------------------------
+  static Future<Response> getCodigosProduccion() async {
+    var url = Uri.parse('${Constants.apiUrl}/api/CodigosProduccion/GetCodigos');
+    var response = await http.post(
+      url,
+      headers: {
+        'content-type': 'application/json',
+        'accept': 'application/json',
+      },
+    );
+    var body = response.body;
+
+    if (response.statusCode >= 400) {
+      return Response(isSuccess: false, message: body);
+    }
+
+    List<CodigoProduccion> list = [];
+    var decodedJson = jsonDecode(body);
+    if (decodedJson != null) {
+      for (var item in decodedJson) {
+        list.add(CodigoProduccion.fromJson(item));
+      }
+    }
+    return Response(isSuccess: true, result: list);
+  }
+
+  //---------------------------------------------------------------------------
+  static Future<Response> getCausantesObra(String grupo) async {
+    var url = Uri.parse(
+        '${Constants.apiUrl}/api/CausantesObras/GetCausantesObra/$grupo');
+    var response = await http.post(
+      url,
+      headers: {
+        'content-type': 'application/json',
+        'accept': 'application/json',
+      },
+    );
+    var body = response.body;
+
+    if (response.statusCode >= 400) {
+      return Response(isSuccess: false, message: body);
+    }
+
+    List<CausanteObra> list = [];
+    var decodedJson = jsonDecode(body);
+    if (decodedJson != null) {
+      for (var item in decodedJson) {
+        list.add(CausanteObra.fromJson(item));
+      }
+    }
+    return Response(isSuccess: true, result: list);
   }
 }

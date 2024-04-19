@@ -95,6 +95,11 @@ class _LoginScreenState extends State<LoginScreen> {
     setState(() {});
   }
 
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
 //---------------------------------------------------------------
 //----------------------- Pantalla ------------------------------
 //---------------------------------------------------------------
@@ -401,6 +406,37 @@ class _LoginScreenState extends State<LoginScreen> {
       return;
     }
 
+//--------------- Control del IMEI ---------------------------
+    if (user.appIMEI != null) {
+      if (user.appIMEI != imei) {
+        await showDialog(
+            context: context,
+            builder: (context) {
+              return AlertDialog(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                title: const Text('Aviso'),
+                content:
+                    Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
+                  Text(
+                      'Este celular tiene el IMEI $imei, el cual no coincide con el IMEI que tiene registrado su Usuario.'),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                ]),
+                actions: <Widget>[
+                  TextButton(
+                      onPressed: () => Navigator.of(context).pop(),
+                      child: const Text('Ok')),
+                ],
+              );
+            });
+
+        return;
+      }
+    }
+
     if (_rememberme) {
       _storeUser(body);
     }
@@ -443,17 +479,14 @@ class _LoginScreenState extends State<LoginScreen> {
 
     _getCatalogos(user.modulo);
 
-    setState(() {
-      _showLoader = false;
-    });
-
     if (user.codigoCausante != user.login) {
-      Navigator.pushReplacement(
+      Navigator.push(
           context,
           MaterialPageRoute(
               builder: (context) => HomeScreen(
                     user: user,
                     nroConexion: webSesion.nroConexion,
+                    imei: imei,
                   )));
     } else {
       Navigator.pushReplacement(
@@ -579,6 +612,7 @@ class _LoginScreenState extends State<LoginScreen> {
     try {
       platformVersion = await DeviceInformation.platformVersion;
       imeiNo = await DeviceInformation.deviceIMEINumber;
+      imei = imeiNo;
       modelName = await DeviceInformation.deviceModel;
       manufacturer = await DeviceInformation.deviceManufacturer;
       apiLevel = await DeviceInformation.apiLevel;
@@ -595,17 +629,17 @@ class _LoginScreenState extends State<LoginScreen> {
     // setState to update our non-existent appearance.
     if (!mounted) return;
 
-    setState(() {
-      _platformVersion = "Running on :$platformVersion";
-      _imeiNo = imeiNo;
-      _modelName = modelName;
-      _manufacturerName = manufacturer;
-      _apiLevel = apiLevel;
-      _deviceName = deviceName;
-      _productName = productName;
-      _cpuType = cpuType;
-      _hardware = hardware;
-    });
+    _platformVersion = "Running on :$platformVersion";
+    _imeiNo = imeiNo;
+    _modelName = modelName;
+    _manufacturerName = manufacturer;
+    _apiLevel = apiLevel;
+    _deviceName = deviceName;
+    _productName = productName;
+    _cpuType = cpuType;
+    _hardware = hardware;
+
+    setState(() {});
   }
 
 //-----------------------------------------------------------------
@@ -723,6 +757,10 @@ class _LoginScreenState extends State<LoginScreen> {
       DBSuministroscatalogos.insertSuministrocatalogos(catalogo);
     }
   }
+
+//-----------------------------------------------------------------
+//--------------------- _getParametro -----------------------------
+//-----------------------------------------------------------------
 
   Future<void> _getParametro() async {
     _showLoader = true;

@@ -3,6 +3,9 @@ import 'package:rowing_app/models/obras_documento.dart';
 class Obra {
   int nroObra = 0;
   String nombreObra = '';
+  String nroOE = '';
+  String defProy = '';
+  String central = '';
   String elempep = '';
   String? observaciones = '';
   int finalizada = 0;
@@ -31,6 +34,9 @@ class Obra {
   Obra(
       {required this.nroObra,
       required this.nombreObra,
+      required this.nroOE,
+      required this.defProy,
+      required this.central,
       required this.elempep,
       required this.observaciones,
       required this.finalizada,
@@ -59,6 +65,9 @@ class Obra {
   Obra.fromJson(Map<String, dynamic> json) {
     nroObra = json['nroObra'];
     nombreObra = json['nombreObra'] ?? '';
+    nroOE = json['nroOE'] ?? '';
+    defProy = json['defProy'] ?? '';
+    central = json['central'] ?? '';
     elempep = json['elempep'];
     observaciones = json['observaciones'];
     finalizada = json['finalizada'];
@@ -94,6 +103,9 @@ class Obra {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['nroObra'] = nroObra;
     data['nombreObra'] = nombreObra;
+    data['nroOE'] = nroOE;
+    data['defProy'] = defProy;
+    data['central'] = central;
     data['elempep'] = elempep;
     data['observaciones'] = observaciones;
     data['finalizada'] = finalizada;

@@ -32,6 +32,9 @@ class _ObraAsignadaInfoScreenState extends State<ObraAsignadaInfoScreen> {
   Obra _obra2 = Obra(
       nroObra: 0,
       nombreObra: '',
+      nroOE: '',
+      defProy: '',
+      central: '',
       elempep: '',
       observaciones: '',
       finalizada: 0,

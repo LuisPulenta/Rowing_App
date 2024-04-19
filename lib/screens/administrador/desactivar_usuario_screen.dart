@@ -62,12 +62,14 @@ class _DesactivarUsuarioScreenState extends State<DesactivarUsuarioScreen> {
       habilitaSeguimientoUsuarios: 0,
       habilitaVerObrasCerradas: 0,
       habilitaElementosCalle: 0,
+      habilitaCertificacion: 0,
       conceptomov: 0,
       conceptomova: 0,
       limitarGrupo: 0,
       rubro: 0,
       firmaUsuario: '',
-      firmaUsuarioImageFullPath: '');
+      firmaUsuarioImageFullPath: '',
+      appIMEI: '');
 
   late User _userVacio;
 

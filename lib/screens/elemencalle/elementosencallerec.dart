@@ -89,6 +89,9 @@ class _ElementosencallerecState extends State<Elementosencallerec> {
   Obra obra = Obra(
       nroObra: 0,
       nombreObra: '',
+      nroOE: '',
+      defProy: '',
+      central: '',
       elempep: '',
       observaciones: '',
       finalizada: 0,

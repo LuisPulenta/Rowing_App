@@ -1,5 +1,7 @@
+export 'package:rowing_app/models/cabeceracertificacion.dart';
 export 'package:rowing_app/models/catalogo.dart';
 export 'package:rowing_app/models/causante.dart';
+export 'package:rowing_app/models/causanteobra.dart';
 export 'package:rowing_app/models/causantes_actividad.dart';
 export 'package:rowing_app/models/causantes_estado.dart';
 export 'package:rowing_app/models/causantes_presentismo.dart';
@@ -62,3 +64,6 @@ export 'package:rowing_app/models/elemencalle.dart';
 export 'package:rowing_app/models/elemencalledet.dart';
 export 'package:rowing_app/models/elemencalletotales.dart';
 export 'package:rowing_app/models/movimiento.dart';
+export 'package:rowing_app/models/objeto.dart';
+export 'package:rowing_app/models/mes.dart';
+export 'package:rowing_app/models/codigoproduccion.dart';
