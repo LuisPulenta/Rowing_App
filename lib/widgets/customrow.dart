@@ -16,6 +16,7 @@ class CustomRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double ancho = MediaQuery.of(context).size.width;
     return Padding(
       padding: const EdgeInsets.only(right: 20),
       child: Row(
@@ -35,15 +36,18 @@ class CustomRow extends StatelessWidget {
           const SizedBox(
             width: 15,
           ),
-          Text(
-            nombredato,
-            style: const TextStyle(
-                fontWeight: FontWeight.bold, color: Color(0xFF781f1e)),
+          Container(
+            width: ancho * 0.3,
+            child: Text(
+              nombredato,
+              style: const TextStyle(
+                  fontWeight: FontWeight.bold, color: Color(0xFF781f1e)),
+            ),
           ),
           Expanded(
             child: Text(
               dato != null ? dato.toString() : '',
-              textAlign: TextAlign.end,
+              textAlign: TextAlign.start,
               style: const TextStyle(color: Colors.black),
             ),
           ),
