@@ -20,9 +20,13 @@ class _ReqEppScreenState extends State<ReqEppScreen> {
 //----------------------- Variables -----------------------------
 //---------------------------------------------------------------
 
+  bool _isFiltered = false;
+  String _search = '';
+
   bool _showLoader = false;
   List<Catalogo> _catalogos = [];
   List<Catalogo> _catalogos2 = [];
+  List<Catalogo> filteredList = [];
   final List<Option2> _listoptions = [];
   final List<DropdownMenuItem<String>> _items = [];
   bool _todas = false;
@@ -62,6 +66,13 @@ class _ReqEppScreenState extends State<ReqEppScreen> {
         actions: [
           Row(
             children: [
+              _isFiltered
+                  ? IconButton(
+                      onPressed: _removeFilter,
+                      icon: const Icon(Icons.filter_none))
+                  : IconButton(
+                      onPressed: _showFilter,
+                      icon: const Icon(Icons.filter_alt)),
               const Text(
                 "C/N°:",
                 style: TextStyle(color: Colors.white, fontSize: 14),
@@ -94,6 +105,33 @@ class _ReqEppScreenState extends State<ReqEppScreen> {
     );
   }
 
+//-----------------------------------------------------------------------
+//------------------------------ _showCatalogosCount --------------------
+//-----------------------------------------------------------------------
+
+  Widget _showCatalogosCount() {
+    return Container(
+      padding: const EdgeInsets.all(10),
+      height: 40,
+      child: Row(
+        children: [
+          const Text("Cantidad de Catálogos: ",
+              style: TextStyle(
+                fontSize: 14,
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+              )),
+          Text(_catalogos2.length.toString(),
+              style: const TextStyle(
+                fontSize: 14,
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+              )),
+        ],
+      ),
+    );
+  }
+
 //-----------------------------------------------------------------
 //--------------------- _getContent -------------------------------
 //-----------------------------------------------------------------
@@ -105,6 +143,7 @@ class _ReqEppScreenState extends State<ReqEppScreen> {
           height: 10,
         ),
         _showObras(),
+        _showCatalogosCount(),
         const SizedBox(
           height: 15,
         ),
@@ -724,5 +763,86 @@ class _ReqEppScreenState extends State<ReqEppScreen> {
       });
       setState(() {});
     }
+  }
+
+//-----------------------------------------------------------------------
+//------------------------------ _removeFilter --------------------------
+//-----------------------------------------------------------------------
+
+  void _removeFilter() async {
+    _catalogos2 = _catalogos;
+
+    setState(() {
+      _isFiltered = false;
+    });
+  }
+
+//---------------------------------------------------------------------
+//------------------------------ _showFilter --------------------------
+//---------------------------------------------------------------------
+
+  void _showFilter() {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+            title: const Text('Filtrar Catálogos'),
+            content: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
+              const Text(
+                'Escriba texto o números a buscar en CatSAP o Descripción del Material: ',
+                style: TextStyle(fontSize: 12),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              TextField(
+                autofocus: true,
+                decoration: InputDecoration(
+                    hintText: 'Criterio de búsqueda...',
+                    labelText: 'Buscar',
+                    suffixIcon: const Icon(Icons.search),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10))),
+                onChanged: (value) {
+                  _search = value;
+                },
+              ),
+            ]),
+            actions: <Widget>[
+              TextButton(
+                  onPressed: () => Navigator.of(context).pop(),
+                  child: const Text('Cancelar')),
+              TextButton(
+                  onPressed: () => _filter(), child: const Text('Filtrar')),
+            ],
+          );
+        });
+  }
+
+//-----------------------------------------------------------------
+//------------------------------ _filter --------------------------
+//-----------------------------------------------------------------
+
+  _filter() {
+    if (_search.isEmpty) {
+      return;
+    }
+    filteredList = [];
+    for (var catalogo in _catalogos2) {
+      if (catalogo.codigoSap!.toLowerCase().contains(_search.toLowerCase()) ||
+          catalogo.catCatalogo!.toLowerCase().contains(_search.toLowerCase())) {
+        filteredList.add(catalogo);
+      }
+    }
+
+    setState(() {
+      _catalogos2 = filteredList;
+      _isFiltered = true;
+    });
+
+    Navigator.of(context).pop();
   }
 }
