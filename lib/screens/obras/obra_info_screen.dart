@@ -99,7 +99,8 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
       textoComponente: '',
       codigoDiametro: '',
       motivo: '',
-      planos: '');
+      planos: '',
+      grupoCausante: '');
 
   List<ObrasDocumento> _obrasDocumentos = [];
   List<ObrasDocumento> _obrasDocumentosFotos = [];

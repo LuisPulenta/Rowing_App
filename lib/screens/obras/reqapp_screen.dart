@@ -665,6 +665,8 @@ class _ReqAppScreenState extends State<ReqAppScreen> {
         'COBRADO602': 0,
         'NROOP': 0,
         'VALORIZACION': 0,
+        'CODGRUPOC': widget.obra.grupoAlmacen ?? '',
+        'CODCAUSANTEC': widget.obra.grupoCausante ?? ''
       };
 
       Response response =

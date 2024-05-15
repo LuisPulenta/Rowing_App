@@ -30,6 +30,7 @@ class Obra {
   String? codigoDiametro = '';
   String? motivo = '';
   String? planos = '';
+  String? grupoCausante = '';
 
   Obra(
       {required this.nroObra,
@@ -60,7 +61,8 @@ class Obra {
       required this.textoComponente,
       required this.codigoDiametro,
       required this.motivo,
-      required this.planos});
+      required this.planos,
+      required this.grupoCausante});
 
   Obra.fromJson(Map<String, dynamic> json) {
     nroObra = json['nroObra'];
@@ -97,6 +99,7 @@ class Obra {
     codigoDiametro = json['codigoDiametro'];
     motivo = json['motivo'];
     planos = json['planos'];
+    grupoCausante = json['grupoCausante'];
   }
 
   Map<String, dynamic> toJson() {
@@ -130,6 +133,7 @@ class Obra {
     data['codigoDiametro'] = codigoDiametro;
     data['motivo'] = motivo;
     data['planos'] = planos;
+    data['grupoCausante'] = grupoCausante;
     return data;
   }
 }

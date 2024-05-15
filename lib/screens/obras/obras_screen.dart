@@ -69,7 +69,8 @@ class _ObrasScreenState extends State<ObrasScreen> {
       textoComponente: '',
       codigoDiametro: '',
       motivo: '',
-      planos: '');
+      planos: '',
+      grupoCausante: '');
 
   Obra _obraSeleccionada = Obra(
       nroObra: 0,
@@ -100,7 +101,8 @@ class _ObrasScreenState extends State<ObrasScreen> {
       textoComponente: '',
       codigoDiametro: '',
       motivo: '',
-      planos: '');
+      planos: '',
+      grupoCausante: '');
 
   List<ObrasReparo> _obrasReparosTodas = [];
 

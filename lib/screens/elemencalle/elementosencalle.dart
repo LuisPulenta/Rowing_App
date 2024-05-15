@@ -102,7 +102,8 @@ class _ElementosencalleState extends State<Elementosencalle> {
       textoComponente: '',
       codigoDiametro: '',
       motivo: '',
-      planos: '');
+      planos: '',
+      grupoCausante: '');
 
 //---------------------------------------------------------------------
 //-------------------------- initState --------------------------------

@@ -110,7 +110,8 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
       textoComponente: '',
       codigoDiametro: '',
       motivo: '',
-      planos: '');
+      planos: '',
+      grupoCausante: '');
 
 //----------------------------------------------------------------
 //------------------ initState -----------------------------------

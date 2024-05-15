@@ -113,7 +113,8 @@ class _ElementosencalleeditState extends State<Elementosencalleedit> {
       textoComponente: '',
       codigoDiametro: '',
       motivo: '',
-      planos: '');
+      planos: '',
+      grupoCausante: '');
 
 //---------------------------------------------------------------------
 //-------------------------- initState --------------------------------

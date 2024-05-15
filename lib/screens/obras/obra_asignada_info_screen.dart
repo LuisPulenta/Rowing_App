@@ -58,7 +58,8 @@ class _ObraAsignadaInfoScreenState extends State<ObraAsignadaInfoScreen> {
       textoComponente: '',
       codigoDiametro: '',
       motivo: '',
-      planos: '');
+      planos: '',
+      grupoCausante: '');
 
   List<ObraEstado> _estados = [];
   List<ObraSubestado> _subestados = [];

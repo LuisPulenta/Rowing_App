@@ -56,7 +56,8 @@ class _VeredasScreenState extends State<VeredasScreen> {
       textoComponente: '',
       codigoDiametro: '',
       motivo: '',
-      planos: '');
+      planos: '',
+      grupoCausante: '');
 
   ObrasReparo obrasReparoSelected = ObrasReparo(
       nroregistro: 0,

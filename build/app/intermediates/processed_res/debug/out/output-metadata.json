@@ -10,8 +10,8 @@
     {
       "type": "SINGLE",
       "filters": [],
-      "versionCode": 66,
-      "versionName": "1.0.66",
+      "versionCode": 67,
+      "versionName": "1.0.67",
       "outputFile": "resources-debug.ap_"
     }
   ]

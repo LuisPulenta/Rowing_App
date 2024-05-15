@@ -109,7 +109,8 @@ class _ObraInfoDataScreenState extends State<ObraInfoDataScreen> {
       textoComponente: '',
       codigoDiametro: '',
       motivo: '',
-      planos: '');
+      planos: '',
+      grupoCausante: '');
 
   Position _positionUser = const Position(
       longitude: 0,

@@ -115,7 +115,8 @@ class _ElementosencallerecState extends State<Elementosencallerec> {
       textoComponente: '',
       codigoDiametro: '',
       motivo: '',
-      planos: '');
+      planos: '',
+      grupoCausante: '');
 
 //---------------------------------------------------------------------
 //-------------------------- initState --------------------------------

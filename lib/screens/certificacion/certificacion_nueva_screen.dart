@@ -65,7 +65,8 @@ class _CertificacionNuevaScreenState extends State<CertificacionNuevaScreen> {
       textoComponente: '',
       codigoDiametro: '',
       motivo: '',
-      planos: '');
+      planos: '',
+      grupoCausante: '');
 
   String _montoC = '';
   String _montoCError = '';
