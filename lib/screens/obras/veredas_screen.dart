@@ -236,9 +236,9 @@ class _VeredasScreenState extends State<VeredasScreen> {
           elevation: 10,
           margin: const EdgeInsets.fromLTRB(10, 0, 10, 10),
           child: InkWell(
-            onTap: () {
+            onTap: () async {
               obrasReparoSelected = e;
-              _goObraReparo(e);
+              await _goObraReparo(e);
             },
             child: Container(
               margin: const EdgeInsets.all(0),
@@ -498,12 +498,20 @@ class _VeredasScreenState extends State<VeredasScreen> {
                     _obra.fechaCierreElectrico != null
                 ? Row(
                     children: [
-                      const Text("Fecha Cierre Eléctrico: ",
-                          style: TextStyle(
-                            fontSize: 14,
-                            color: Color(0xFF781f1e),
-                            fontWeight: FontWeight.bold,
-                          )),
+                      (widget.user.modulo == 'Aysa' ||
+                              widget.user.modulo == 'Cetaco')
+                          ? const Text('Fec. Cierre Hidr.',
+                              style: TextStyle(
+                                color: Color(0xFF781f1e),
+                                fontWeight: FontWeight.bold,
+                                fontSize: 14,
+                              ))
+                          : const Text('Fec. Cierre Eléc.',
+                              style: TextStyle(
+                                color: Color(0xFF781f1e),
+                                fontWeight: FontWeight.bold,
+                                fontSize: 14,
+                              )),
                       Expanded(
                         child: Text(
                             DateFormat('dd/MM/yyyy').format(DateTime.parse(
@@ -525,7 +533,7 @@ class _VeredasScreenState extends State<VeredasScreen> {
 //-------------------------- _goObraReparo ------------------------------
 //-----------------------------------------------------------------------
 
-  void _goObraReparo(ObrasReparo obraReparo) async {
+  Future<void> _goObraReparo(ObrasReparo obraReparo) async {
     if (obraReparo.fechacumplimento == null ||
         obraReparo.fechacumplimento == "null") {
       final DateTime? selected = await showDatePicker(
@@ -537,18 +545,22 @@ class _VeredasScreenState extends State<VeredasScreen> {
       obraReparo.fechacumplimento = selected.toString();
       setState(() {});
     } else {
-      Map<String, dynamic> request = {
-        'nroregistro': obraReparo.nroregistro,
-        'fechacumplimento': obraReparo.fechacumplimento,
-      };
-
-      await ApiHelper.put(
-          '/api/ObrasReparos/', obraReparo.nroregistro.toString(), request);
-
-      setState(() {
-        _getVeredas();
-      });
+      obraReparo.fechacumplimento = null;
     }
+
+    Map<String, dynamic> request = {
+      'NROREGISTRO': obraReparo.nroregistro,
+      'FECHACUMPLIMENTO': obraReparo.fechacumplimento,
+      'ObservacionesFotoInicio': obraReparo.observacionesFotoInicio ?? "",
+      'ObservacionesFotoFin': obraReparo.observacionesFotoFin ?? "",
+    };
+
+    await ApiHelper.put(
+        '/api/ObrasReparos/', obraReparo.nroregistro.toString(), request);
+
+    setState(() {
+      _getVeredas();
+    });
   }
 
 //-----------------------------------------------------------------------

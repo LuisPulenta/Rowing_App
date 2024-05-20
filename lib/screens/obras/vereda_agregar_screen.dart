@@ -964,7 +964,7 @@ class _VeredaAgregarScreenState extends State<VeredaAgregarScreen> {
       'codtipostdrparo': _clase,
       'ancho2': 0,
       'largo2': 0,
-      'modulo': widget.obra.modulo
+      'modulo': widget.obra.modulo,
     };
 
     Response response = await ApiHelper.postNoToken(

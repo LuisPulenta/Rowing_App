@@ -277,7 +277,7 @@ class _ObrasReparosScreenState extends State<ObrasReparosScreen> {
       height: 40,
       child: Row(
         children: [
-          const Text("Cantidad de Veredas: ",
+          const Text("Cantidad de Veredas sin Fecha Cumplida: ",
               style: TextStyle(
                 fontSize: 14,
                 color: Colors.white,
@@ -304,8 +304,8 @@ class _ObrasReparosScreenState extends State<ObrasReparosScreen> {
       child: Center(
         child: Text(
           _isFiltered
-              ? 'No hay Obras con ese criterio de búsqueda'
-              : 'No hay Obras registradas',
+              ? 'No hay Veredas con ese criterio de búsqueda'
+              : 'No hay Veredas registradas',
           style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
         ),
       ),
@@ -519,21 +519,23 @@ class _ObrasReparosScreenState extends State<ObrasReparosScreen> {
                                   ),
                                   Row(
                                     children: [
-                                      const Text("Fecha Cierre Eléctrico: ",
+                                      const Text("Fec. Cierre Eléctr.: ",
                                           style: TextStyle(
                                             fontSize: 12,
                                             color: Color(0xFF0e4888),
                                             fontWeight: FontWeight.bold,
                                           )),
                                       Expanded(
-                                        child: Text(
-                                            DateFormat('dd/MM/yyyy').format(
-                                                DateTime.parse(e
-                                                    .fechaCierreElectrico
-                                                    .toString())),
-                                            style: const TextStyle(
-                                              fontSize: 12,
-                                            )),
+                                        child: e.fechaCierreElectrico != null
+                                            ? Text(
+                                                DateFormat('dd/MM/yyyy').format(
+                                                    DateTime.parse(e
+                                                        .fechaCierreElectrico
+                                                        .toString())),
+                                                style: const TextStyle(
+                                                  fontSize: 12,
+                                                ))
+                                            : Container(),
                                       ),
                                     ],
                                   )

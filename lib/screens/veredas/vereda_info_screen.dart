@@ -88,7 +88,7 @@ class _VeredaInfoScreenState extends State<VeredaInfoScreen> {
   Widget build(BuildContext context) {
     double ancho = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: const Color(0xFF484848),
+      backgroundColor: const Color(0xFFC7C7C8),
       appBar: AppBar(
         title: const Text('Vereda Info'),
         centerTitle: true,
@@ -445,14 +445,16 @@ class _VeredaInfoScreenState extends State<VeredaInfoScreen> {
                                     fontWeight: FontWeight.bold,
                                   )),
                               Expanded(
-                                child: Text(
-                                    DateFormat('dd/MM/yyyy').format(
-                                        DateTime.parse(widget
-                                            .obra.fechaCierreElectrico
-                                            .toString())),
-                                    style: const TextStyle(
-                                      fontSize: 12,
-                                    )),
+                                child: widget.obra.fechaCierreElectrico != null
+                                    ? Text(
+                                        DateFormat('dd/MM/yyyy').format(
+                                            DateTime.parse(widget
+                                                .obra.fechaCierreElectrico
+                                                .toString())),
+                                        style: const TextStyle(
+                                          fontSize: 12,
+                                        ))
+                                    : Container(),
                               ),
                             ],
                           )
@@ -822,7 +824,7 @@ class _VeredaInfoScreenState extends State<VeredaInfoScreen> {
 
     Map<String, dynamic> request = {
       'NROREGISTRO': widget.obra.nroregistro,
-      'FECHACUMPLIMENTO ': DateTime.now().toString(),
+      'FECHACUMPLIMENTO': DateTime.now().toString(),
       'FotoInicioArray': base64imageInicio,
       'FotoFinArray': base64imageFin,
       'ObservacionesFotoInicio': _observacionesFotoInicio,
