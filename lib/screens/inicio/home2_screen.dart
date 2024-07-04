@@ -112,8 +112,15 @@ class _Home2ScreenState extends State<Home2Screen> {
               "assets/logo.png",
               height: 200,
             ),
+            const Text(
+              'Bienvenido/a',
+              style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white),
+            ),
             Text(
-              'Bienvenido/a ${widget.user.apellido}',
+              widget.user.apellido!.replaceAll("  ", ""),
               style: const TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
@@ -264,6 +271,32 @@ class _Home2ScreenState extends State<Home2Screen> {
                         ),
                       )
                     : Container(),
+                const SizedBox(
+                  width: 10,
+                )
+              ],
+            ),
+            Row(
+              children: [
+                Expanded(
+                  child: ListTile(
+                    leading: const Icon(
+                      Icons.newspaper,
+                      color: Colors.white,
+                    ),
+                    tileColor: const Color(0xff8c8c94),
+                    title: const Text('Recibos',
+                        style: TextStyle(fontSize: 15, color: Colors.white)),
+                    onTap: () async {
+                      await Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const ReciboScreen(),
+                        ),
+                      );
+                    },
+                  ),
+                ),
                 const SizedBox(
                   width: 10,
                 )

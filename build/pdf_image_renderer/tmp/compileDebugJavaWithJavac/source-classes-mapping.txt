@@ -1,0 +1,2 @@
+io/cloudacy/pdf_image_renderer/BuildConfig.java
+ io.cloudacy.pdf_image_renderer.BuildConfig

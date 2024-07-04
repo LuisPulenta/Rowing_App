@@ -1,4 +1,4 @@
-#Mon May 20 16:51:03 ART 2024
+#Thu Jul 04 09:31:26 ART 2024
 path.4=classes_1.dex
 path.3=classes_0.dex
 path.2=classes2.dex
@@ -19,6 +19,7 @@ base.8=D\:\\Flutter\\rowing_app\\build\\app\\intermediates\\dex\\debug\\mergeLib
 base.7=D\:\\Flutter\\rowing_app\\build\\app\\intermediates\\dex\\debug\\mergeLibDexDebug\\classes_12.dex
 base.6=D\:\\Flutter\\rowing_app\\build\\app\\intermediates\\dex\\debug\\mergeLibDexDebug\\classes_11.dex
 base.5=D\:\\Flutter\\rowing_app\\build\\app\\intermediates\\dex\\debug\\mergeLibDexDebug\\classes_10.dex
+renamed.20=classes21.dex
 renamed.18=classes19.dex
 renamed.17=classes18.dex
 renamed.9=classes10.dex
@@ -38,6 +39,7 @@ base.15=D\:\\Flutter\\rowing_app\\build\\app\\intermediates\\dex\\debug\\mergeLi
 base.14=D\:\\Flutter\\rowing_app\\build\\app\\intermediates\\dex\\debug\\mergeLibDexDebug\\classes_4.dex
 base.19=D\:\\Flutter\\rowing_app\\build\\app\\intermediates\\dex\\debug\\mergeLibDexDebug\\classes_9.dex
 base.18=D\:\\Flutter\\rowing_app\\build\\app\\intermediates\\dex\\debug\\mergeLibDexDebug\\classes_8.dex
+base.20=D\:\\Flutter\\rowing_app\\build\\app\\intermediates\\dex\\debug\\mergeLibDexDebug\\classes_17.dex
 renamed.3=classes4.dex
 path.12=classes_2.dex
 renamed.2=classes3.dex
@@ -57,5 +59,6 @@ path.15=classes_5.dex
 renamed.19=classes20.dex
 base.13=D\:\\Flutter\\rowing_app\\build\\app\\intermediates\\dex\\debug\\mergeLibDexDebug\\classes_3.dex
 base.12=D\:\\Flutter\\rowing_app\\build\\app\\intermediates\\dex\\debug\\mergeLibDexDebug\\classes_2.dex
+path.20=classes_17.dex
 base.11=D\:\\Flutter\\rowing_app\\build\\app\\intermediates\\dex\\debug\\mergeLibDexDebug\\classes_16.dex
 base.10=D\:\\Flutter\\rowing_app\\build\\app\\intermediates\\dex\\debug\\mergeLibDexDebug\\classes_15.dex

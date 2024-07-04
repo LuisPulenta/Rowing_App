@@ -572,6 +572,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "pdf_image_renderer",
+      "rootUri": "file:///C:/Users/Luis/AppData/Local/Pub/Cache/hosted/pub.dev/pdf_image_renderer-0.7.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "pedantic",
       "rootUri": "file:///C:/Users/Luis/AppData/Local/Pub/Cache/hosted/pub.dev/pedantic-1.11.1",
       "packageUri": "lib/",
@@ -890,7 +896,7 @@
       "languageVersion": "2.12"
     }
   ],
-  "generated": "2024-05-15T16:07:01.068267Z",
+  "generated": "2024-07-04T12:21:20.187258Z",
   "generator": "pub",
   "generatorVersion": "2.19.6"
 }

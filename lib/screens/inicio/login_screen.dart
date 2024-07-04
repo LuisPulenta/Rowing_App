@@ -34,11 +34,14 @@ class _LoginScreenState extends State<LoginScreen> {
 
   String imei = '';
 
-  String _email = 'KEYPRESS';
-  String _password = 'KEYROOT';
+  // String _email = 'KEYPRESS';
+  // String _password = 'KEYROOT';
 
-  //String _email = 'GPRIETO';
-  //String _password = 'CELESTE';
+  String _email = '517676';
+  String _password = '94461399';
+
+  // String _email = 'GPRIETO';
+  // String _password = 'CELESTE';
 
   //String _email = 'aysac';
   //String _password = 'wallys';
@@ -489,7 +492,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     imei: imei,
                   )));
     } else {
-      Navigator.pushReplacement(
+      Navigator.push(
           context,
           MaterialPageRoute(
               builder: (context) => Home2Screen(
