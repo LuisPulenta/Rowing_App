@@ -1,4 +1,4 @@
-import 'dart:typed_data';
+import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
@@ -9,7 +9,6 @@ import 'package:rowing_app/screens/screens.dart';
 import 'package:syncfusion_flutter_pdf/pdf.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:flutter/services.dart';
-// import 'package:flutter_downloader/flutter_downloader.dart';
 
 class PdfViewScreen extends StatefulWidget {
   final String url;
@@ -145,7 +144,9 @@ class _PdfViewScreenState extends State<PdfViewScreen> {
                   final PdfPage page = document.pages[0];
 
                   page.graphics.drawImage(
-                      PdfBitmap(await _readImageData('firma.png')),
+                      //PdfBitmap(await _readImageData('firma.png')),
+                      PdfBitmap((await networkImageToBase64(widget.firma))
+                          as List<int>),
                       const Rect.fromLTWH(390, 685, 80, 50));
 
                   List<int> bytes = document.save();
@@ -302,4 +303,12 @@ Future<File> getFileFromUrl(String url, {name}) async {
   } catch (e) {
     throw Exception("Error opening url file");
   }
+}
+
+Future<Uint8List?> networkImageToBase64(String imageUrl) async {
+  Uint8List bytes =
+      (await NetworkAssetBundle(Uri.parse(imageUrl)).load(imageUrl))
+          .buffer
+          .asUint8List();
+  return bytes;
 }

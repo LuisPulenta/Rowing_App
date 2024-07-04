@@ -68,7 +68,6 @@ dependencies:
   uuid: ^3.0.7
   flutter_pdfview: ^1.0.1
   syncfusion_flutter_pdf: ^19.4.48-beta
-  # flutter_downloader: ^1.7.4
   
 
 flutter_icons:
