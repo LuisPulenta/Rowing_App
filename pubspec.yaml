@@ -66,7 +66,9 @@ dependencies:
   equatable: ^2.0.3
   flutter_bloc: ^8.0.0
   uuid: ^3.0.7
-  pdf_image_renderer: ^0.7.0
+  flutter_pdfview: ^1.0.1
+  syncfusion_flutter_pdf: ^19.4.48-beta
+  # flutter_downloader: ^1.7.4
   
 
 flutter_icons:

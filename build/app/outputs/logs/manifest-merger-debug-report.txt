@@ -5,6 +5,7 @@ INJECTED from D:\Flutter\rowing_app\android\app\src\main\AndroidManifest.xml:1:1
 INJECTED from D:\Flutter\rowing_app\android\app\src\main\AndroidManifest.xml:1:1-56:12
 INJECTED from D:\Flutter\rowing_app\android\app\src\main\AndroidManifest.xml:1:1-56:12
 MERGED from D:\Flutter\rowing_app\android\app\src\main\AndroidManifest.xml:1:1-56:12
+MERGED from [:flutter_pdfview] D:\Flutter\rowing_app\build\flutter_pdfview\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-7:12
 MERGED from [:geolocator_android] D:\Flutter\rowing_app\build\geolocator_android\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-17:12
 MERGED from [:file_picker] D:\Flutter\rowing_app\build\file_picker\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-17:12
 MERGED from [:google_maps_flutter_android] D:\Flutter\rowing_app\build\google_maps_flutter_android\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-7:12
@@ -22,7 +23,6 @@ MERGED from [:connectivity] D:\Flutter\rowing_app\build\connectivity\intermediat
 MERGED from [:battery_plus] D:\Flutter\rowing_app\build\battery_plus\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-7:12
 MERGED from [:geocoding_android] D:\Flutter\rowing_app\build\geocoding_android\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-7:12
 MERGED from [:device_information] D:\Flutter\rowing_app\build\device_information\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-7:12
-MERGED from [:pdf_image_renderer] D:\Flutter\rowing_app\build\pdf_image_renderer\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-7:12
 MERGED from [com.google.android.gms:play-services-maps:18.1.0] C:\Users\Luis\.gradle\caches\transforms-2\files-2.1\068f55a0d48570d1e28e24d1f6879d5a\jetified-play-services-maps-18.1.0\AndroidManifest.xml:17:1-44:12
 MERGED from [com.google.android.material:material:1.3.0] C:\Users\Luis\.gradle\caches\transforms-2\files-2.1\d465b5bd3ec000602b156d6128eda120\material-1.3.0\AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.constraintlayout:constraintlayout:2.0.1] C:\Users\Luis\.gradle\caches\transforms-2\files-2.1\03117f7ba41de6a04a9f48ae55b48967\constraintlayout-2.0.1\AndroidManifest.xml:2:1-11:12
@@ -48,6 +48,7 @@ MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.5.1] C:\Users\Luis\.gradle
 MERGED from [androidx.lifecycle:lifecycle-viewmodel-savedstate:2.5.1] C:\Users\Luis\.gradle\caches\transforms-2\files-2.1\1347e8ec1a82d01dcd8b1786664cd739\jetified-lifecycle-viewmodel-savedstate-2.5.1\AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.window:window-java:1.0.0-beta04] C:\Users\Luis\.gradle\caches\transforms-2\files-2.1\ad201fac15a88598107ec645f351f5b4\jetified-window-java-1.0.0-beta04\AndroidManifest.xml:17:1-23:12
 MERGED from [androidx.window:window:1.0.0-beta04] C:\Users\Luis\.gradle\caches\transforms-2\files-2.1\03c633e46d75bfb21f082f0417f55161\jetified-window-1.0.0-beta04\AndroidManifest.xml:17:1-33:12
+MERGED from [com.github.mhiew:android-pdf-viewer:3.2.0-beta.3] C:\Users\Luis\.gradle\caches\transforms-2\files-2.1\29b088095ab8c09dd56c95c282cb8eaf\jetified-android-pdf-viewer-3.2.0-beta.3\AndroidManifest.xml:2:1-9:12
 MERGED from [androidx.appcompat:appcompat-resources:1.2.0] C:\Users\Luis\.gradle\caches\transforms-2\files-2.1\1463556a47b0b11e0e32553482070255\jetified-appcompat-resources-1.2.0\AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.drawerlayout:drawerlayout:1.0.0] C:\Users\Luis\.gradle\caches\transforms-2\files-2.1\09c1773ed3597f8bec6064dc26d157be\drawerlayout-1.0.0\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.media:media:1.0.0] C:\Users\Luis\.gradle\caches\transforms-2\files-2.1\5e86ac6112f317c2f69cf5fc4d8a9536\media-1.0.0\AndroidManifest.xml:17:1-22:12
@@ -78,6 +79,7 @@ MERGED from [androidx.lifecycle:lifecycle-livedata:2.0.0] C:\Users\Luis\.gradle\
 MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.5.1] C:\Users\Luis\.gradle\caches\transforms-2\files-2.1\87881b92744f9d141ae876f989518f79\lifecycle-livedata-core-2.5.1\AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.arch.core:core-runtime:2.1.0] C:\Users\Luis\.gradle\caches\transforms-2\files-2.1\16e110bf603f94cf61f970a18f3907e3\core-runtime-2.1.0\AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.annotation:annotation-experimental:1.3.0] C:\Users\Luis\.gradle\caches\transforms-2\files-2.1\1cf488caa4c695cd9b77af7e050f0be6\jetified-annotation-experimental-1.3.0\AndroidManifest.xml:17:1-22:12
+MERGED from [com.github.mhiew:pdfium-android:1.9.2] C:\Users\Luis\.gradle\caches\transforms-2\files-2.1\f1dce701ea16a7119348e3dec430ce4c\jetified-pdfium-android-1.9.2\AndroidManifest.xml:2:1-9:12
 INJECTED from D:\Flutter\rowing_app\android\app\src\debug\AndroidManifest.xml:1:1-10:12
 INJECTED from D:\Flutter\rowing_app\android\app\src\debug\AndroidManifest.xml:1:1-10:12
 INJECTED from D:\Flutter\rowing_app\android\app\src\debug\AndroidManifest.xml:1:1-10:12
@@ -231,6 +233,8 @@ uses-sdk
 INJECTED from D:\Flutter\rowing_app\android\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from D:\Flutter\rowing_app\android\app\src\main\AndroidManifest.xml
 INJECTED from D:\Flutter\rowing_app\android\app\src\main\AndroidManifest.xml
+MERGED from [:flutter_pdfview] D:\Flutter\rowing_app\build\flutter_pdfview\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:flutter_pdfview] D:\Flutter\rowing_app\build\flutter_pdfview\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:geolocator_android] D:\Flutter\rowing_app\build\geolocator_android\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:geolocator_android] D:\Flutter\rowing_app\build\geolocator_android\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:file_picker] D:\Flutter\rowing_app\build\file_picker\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
@@ -265,8 +269,6 @@ MERGED from [:geocoding_android] D:\Flutter\rowing_app\build\geocoding_android\i
 MERGED from [:geocoding_android] D:\Flutter\rowing_app\build\geocoding_android\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:device_information] D:\Flutter\rowing_app\build\device_information\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:device_information] D:\Flutter\rowing_app\build\device_information\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
-MERGED from [:pdf_image_renderer] D:\Flutter\rowing_app\build\pdf_image_renderer\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
-MERGED from [:pdf_image_renderer] D:\Flutter\rowing_app\build\pdf_image_renderer\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [com.google.android.gms:play-services-maps:18.1.0] C:\Users\Luis\.gradle\caches\transforms-2\files-2.1\068f55a0d48570d1e28e24d1f6879d5a\jetified-play-services-maps-18.1.0\AndroidManifest.xml:20:5-44
 MERGED from [com.google.android.gms:play-services-maps:18.1.0] C:\Users\Luis\.gradle\caches\transforms-2\files-2.1\068f55a0d48570d1e28e24d1f6879d5a\jetified-play-services-maps-18.1.0\AndroidManifest.xml:20:5-44
 MERGED from [com.google.android.material:material:1.3.0] C:\Users\Luis\.gradle\caches\transforms-2\files-2.1\d465b5bd3ec000602b156d6128eda120\material-1.3.0\AndroidManifest.xml:20:5-44
@@ -317,6 +319,8 @@ MERGED from [androidx.window:window-java:1.0.0-beta04] C:\Users\Luis\.gradle\cac
 MERGED from [androidx.window:window-java:1.0.0-beta04] C:\Users\Luis\.gradle\caches\transforms-2\files-2.1\ad201fac15a88598107ec645f351f5b4\jetified-window-java-1.0.0-beta04\AndroidManifest.xml:19:5-21:41
 MERGED from [androidx.window:window:1.0.0-beta04] C:\Users\Luis\.gradle\caches\transforms-2\files-2.1\03c633e46d75bfb21f082f0417f55161\jetified-window-1.0.0-beta04\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.window:window:1.0.0-beta04] C:\Users\Luis\.gradle\caches\transforms-2\files-2.1\03c633e46d75bfb21f082f0417f55161\jetified-window-1.0.0-beta04\AndroidManifest.xml:20:5-22:41
+MERGED from [com.github.mhiew:android-pdf-viewer:3.2.0-beta.3] C:\Users\Luis\.gradle\caches\transforms-2\files-2.1\29b088095ab8c09dd56c95c282cb8eaf\jetified-android-pdf-viewer-3.2.0-beta.3\AndroidManifest.xml:5:5-7:41
+MERGED from [com.github.mhiew:android-pdf-viewer:3.2.0-beta.3] C:\Users\Luis\.gradle\caches\transforms-2\files-2.1\29b088095ab8c09dd56c95c282cb8eaf\jetified-android-pdf-viewer-3.2.0-beta.3\AndroidManifest.xml:5:5-7:41
 MERGED from [androidx.appcompat:appcompat-resources:1.2.0] C:\Users\Luis\.gradle\caches\transforms-2\files-2.1\1463556a47b0b11e0e32553482070255\jetified-appcompat-resources-1.2.0\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.appcompat:appcompat-resources:1.2.0] C:\Users\Luis\.gradle\caches\transforms-2\files-2.1\1463556a47b0b11e0e32553482070255\jetified-appcompat-resources-1.2.0\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.drawerlayout:drawerlayout:1.0.0] C:\Users\Luis\.gradle\caches\transforms-2\files-2.1\09c1773ed3597f8bec6064dc26d157be\drawerlayout-1.0.0\AndroidManifest.xml:20:5-44
@@ -377,6 +381,8 @@ MERGED from [androidx.arch.core:core-runtime:2.1.0] C:\Users\Luis\.gradle\caches
 MERGED from [androidx.arch.core:core-runtime:2.1.0] C:\Users\Luis\.gradle\caches\transforms-2\files-2.1\16e110bf603f94cf61f970a18f3907e3\core-runtime-2.1.0\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.annotation:annotation-experimental:1.3.0] C:\Users\Luis\.gradle\caches\transforms-2\files-2.1\1cf488caa4c695cd9b77af7e050f0be6\jetified-annotation-experimental-1.3.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.annotation:annotation-experimental:1.3.0] C:\Users\Luis\.gradle\caches\transforms-2\files-2.1\1cf488caa4c695cd9b77af7e050f0be6\jetified-annotation-experimental-1.3.0\AndroidManifest.xml:20:5-44
+MERGED from [com.github.mhiew:pdfium-android:1.9.2] C:\Users\Luis\.gradle\caches\transforms-2\files-2.1\f1dce701ea16a7119348e3dec430ce4c\jetified-pdfium-android-1.9.2\AndroidManifest.xml:5:5-7:41
+MERGED from [com.github.mhiew:pdfium-android:1.9.2] C:\Users\Luis\.gradle\caches\transforms-2\files-2.1\f1dce701ea16a7119348e3dec430ce4c\jetified-pdfium-android-1.9.2\AndroidManifest.xml:5:5-7:41
 INJECTED from D:\Flutter\rowing_app\android\app\src\debug\AndroidManifest.xml
 INJECTED from D:\Flutter\rowing_app\android\app\src\debug\AndroidManifest.xml
 	android:targetSdkVersion

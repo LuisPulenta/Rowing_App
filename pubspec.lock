@@ -411,6 +411,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.3.3"
+  flutter_pdfview:
+    dependency: "direct main"
+    description:
+      name: flutter_pdfview
+      sha256: a9055bf920c7095bf08c2781db431ba23577aa5da5a056a7152dc89a18fbec6f
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.3.2"
   flutter_plugin_android_lifecycle:
     dependency: transitive
     description:
@@ -749,14 +757,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.7"
-  pdf_image_renderer:
-    dependency: "direct main"
-    description:
-      name: pdf_image_renderer
-      sha256: b5420b7f3e0671deedd68fdd9fe6a63c696fa90170de8d4c57c061aa83f08131
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.7.0"
   pedantic:
     dependency: transitive
     description:
@@ -994,6 +994,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "19.4.56"
+  syncfusion_flutter_pdf:
+    dependency: "direct main"
+    description:
+      name: syncfusion_flutter_pdf
+      sha256: d58343684dc28ca7a37882802552bb5b8d4177ad41a62b9ef8441709d9a818e6
+      url: "https://pub.dev"
+    source: hosted
+    version: "19.4.56-beta"
   syncfusion_flutter_signaturepad:
     dependency: "direct main"
     description:
