@@ -85,7 +85,10 @@ class _ReqAppScreenState extends State<ReqAppScreen> {
         nombreActividad: '',
         notas: '',
         presentismo: '',
-        perteneceCuadrilla: '');
+        perteneceCuadrilla: '',
+        firma: null,
+        firmaDigitalAPP: '',
+        firmaFullPath: '');
 
     _subcontratista = Subcontratista(
       subCodigo: '',

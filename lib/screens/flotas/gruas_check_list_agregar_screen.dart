@@ -196,7 +196,10 @@ class _GruasCheckListAgregarScreenState
         nombreActividad: '',
         notas: '',
         presentismo: '',
-        perteneceCuadrilla: '');
+        perteneceCuadrilla: '',
+        firma: null,
+        firmaDigitalAPP: '',
+        firmaFullPath: '');
 
     _causanteVacio = _causante;
 

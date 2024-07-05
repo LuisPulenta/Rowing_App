@@ -60,7 +60,10 @@ class _CausantesScreenState extends State<CausantesScreen> {
       nombreActividad: '',
       notas: '',
       presentismo: '',
-      perteneceCuadrilla: '');
+      perteneceCuadrilla: '',
+      firma: null,
+      firmaDigitalAPP: '',
+      firmaFullPath: '');
 
 //---------------------------------------------------------------
 //----------------------- initState -----------------------------

@@ -98,3 +98,5 @@ export 'package:rowing_app/screens/veredas/vereda_info_screen.dart';
 export 'package:rowing_app/screens/recibos/recibo_screen.dart';
 export 'package:rowing_app/screens/recibos/pdf_view_screen.dart';
 export 'package:rowing_app/screens/recibos/pdf_screen.dart';
+export 'package:rowing_app/screens/recibos/firma_causante_screen.dart';
+export 'package:rowing_app/screens/recibos/causante_firma_screen.dart';

@@ -78,7 +78,10 @@ class _PresentismoScreenState extends State<PresentismoScreen> {
       nombreActividad: '',
       notas: '',
       presentismo: '',
-      perteneceCuadrilla: '');
+      perteneceCuadrilla: '',
+      firma: null,
+      firmaDigitalAPP: '',
+      firmaFullPath: '');
 
 //---------------------------------------------------------------------
 //-------------------------- InitState --------------------------------

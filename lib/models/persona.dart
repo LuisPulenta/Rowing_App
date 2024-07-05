@@ -33,7 +33,10 @@ class Persona {
       nombreActividad: '',
       notas: '',
       presentismo: '',
-      perteneceCuadrilla: '');
+      perteneceCuadrilla: '',
+      firma: null,
+      firmaDigitalAPP: '',
+      firmaFullPath: '');
 
   Persona({
     required this.subcontratista,

@@ -120,7 +120,10 @@ class _InspeccionDuplicarScreenState extends State<InspeccionDuplicarScreen> {
         nombreActividad: '',
         notas: '',
         presentismo: '',
-        perteneceCuadrilla: '');
+        perteneceCuadrilla: '',
+        firma: null,
+        firmaDigitalAPP: '',
+        firmaFullPath: '');
     _getPosition();
     _getInspeccion();
   }

@@ -147,7 +147,10 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
         nombreActividad: '',
         notas: '',
         presentismo: '',
-        perteneceCuadrilla: '');
+        perteneceCuadrilla: '',
+        firma: null,
+        firmaDigitalAPP: '',
+        firmaFullPath: '');
     _getPosition();
     _loadData();
   }

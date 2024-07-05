@@ -94,7 +94,10 @@ class _SiniestrosScreenState extends State<SiniestrosScreen> {
         nombreActividad: '',
         notas: '',
         presentismo: '',
-        perteneceCuadrilla: '');
+        perteneceCuadrilla: '',
+        firma: null,
+        firmaDigitalAPP: '',
+        firmaFullPath: '');
 
     if (widget.user.habilitaSSHH != 1) {
       _codigo = widget.user.codigoCausante;

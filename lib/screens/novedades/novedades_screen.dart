@@ -65,7 +65,10 @@ class _NovedadesScreenState extends State<NovedadesScreen> {
         nombreActividad: '',
         notas: '',
         presentismo: '',
-        perteneceCuadrilla: '');
+        perteneceCuadrilla: '',
+        firma: null,
+        firmaDigitalAPP: '',
+        firmaFullPath: '');
 
     if (widget.user.habilitaRRHH != 1) {
       _codigo = widget.user.codigoCausante;

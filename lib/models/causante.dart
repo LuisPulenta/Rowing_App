@@ -28,6 +28,9 @@ class Causante {
   String? notas = '';
   String? presentismo = '';
   String? perteneceCuadrilla = '';
+  XFile? firma;
+  String? firmaDigitalAPP = '';
+  String? firmaFullPath = '';
 
   Causante({
     required this.nroCausante,
@@ -57,6 +60,9 @@ class Causante {
     required this.notas,
     required this.presentismo,
     required this.perteneceCuadrilla,
+    required this.firma,
+    required this.firmaDigitalAPP,
+    required this.firmaFullPath,
   });
 
   Causante.fromJson(Map<String, dynamic> json) {
@@ -87,6 +93,9 @@ class Causante {
     notas = json['notas'];
     presentismo = json['presentismo'];
     perteneceCuadrilla = json['perteneceCuadrilla'];
+    firma = json['firma'];
+    firmaDigitalAPP = json['firmaDigitalAPP'];
+    firmaFullPath = json['firmaFullPath'];
   }
 
   Map<String, dynamic> toJson() {
@@ -118,6 +127,9 @@ class Causante {
     data['notas'] = notas;
     data['presentismo'] = presentismo;
     data['perteneceCuadrilla'] = perteneceCuadrilla;
+    data['firma'] = firma;
+    data['firmaDigitalAPP'] = firmaDigitalAPP;
+    data['firmaFullPath'] = firmaFullPath;
     return data;
   }
 }

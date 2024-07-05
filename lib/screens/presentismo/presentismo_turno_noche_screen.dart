@@ -81,7 +81,10 @@ class _PresentismoTurnoNocheScreenState
       nombreActividad: '',
       notas: '',
       presentismo: '',
-      perteneceCuadrilla: '');
+      perteneceCuadrilla: '',
+      firma: null,
+      firmaDigitalAPP: '',
+      firmaFullPath: '');
 
 //---------------------------------------------------------------------
 //-------------------------- InitState --------------------------------
