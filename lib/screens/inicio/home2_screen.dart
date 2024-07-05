@@ -306,14 +306,14 @@ class _Home2ScreenState extends State<Home2Screen> {
                               style:
                                   TextStyle(fontSize: 15, color: Colors.white)),
                           onTap: () async {
-                            // await Navigator.push(
-                            //   context,
-                            //   MaterialPageRoute(
-                            //     builder: (context) => ObrasScreen(
-                            //       user: widget.user,
-                            //     ),
-                            //   ),
-                            // );
+                            await Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ReciboScreen(
+                                  user: widget.user,
+                                ),
+                              ),
+                            );
                           },
                         ),
                       ),

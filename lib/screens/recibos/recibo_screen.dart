@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:rowing_app/models/models.dart';
 import 'package:rowing_app/screens/screens.dart';
 
-class ReciboScreen extends StatelessWidget {
-  const ReciboScreen({Key? key}) : super(key: key);
+class ReciboScreen extends StatefulWidget {
+  final User user;
+  const ReciboScreen({Key? key, required this.user}) : super(key: key);
 
+  @override
+  State<ReciboScreen> createState() => _ReciboScreenState();
+}
+
+class _ReciboScreenState extends State<ReciboScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,10 +25,12 @@ class ReciboScreen extends StatelessWidget {
               height: 10,
             ),
             const Text("Firma:"),
-            Image.network(
-              'http://190.111.249.225/RowingAppApi/images/Recibos/firma.jpg',
-              width: 200,
-            ),
+            (widget.user.firmaUsuarioImageFullPath != null)
+                ? Image.network(
+                    widget.user.firmaUsuarioImageFullPath!,
+                    width: 200,
+                  )
+                : Container(),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 120.0),
               child: ElevatedButton(
@@ -43,11 +52,10 @@ class ReciboScreen extends StatelessWidget {
                   String? result = await Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const PdfViewScreen(
+                      builder: (context) => PdfViewScreen(
                           url:
                               'http://190.111.249.225/RowingAppApi/images/Recibos/Recibo.pdf',
-                          firma:
-                              'http://190.111.249.225/RowingAppApi/images/Recibos/firma.jpg'),
+                          firma: widget.user.firmaUsuarioImageFullPath!),
                     ),
                   );
                 },
