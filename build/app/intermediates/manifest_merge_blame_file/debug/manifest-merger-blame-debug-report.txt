@@ -7,7 +7,7 @@
 7
 8    <uses-sdk
 9        android:minSdkVersion="21"
-10        android:targetSdkVersion="33" />
+10        android:targetSdkVersion="34" />
 11    <!--
 12         Flutter needs it to communicate with the running application
 13         to allow setting breakpoints, to provide hot reload, etc.

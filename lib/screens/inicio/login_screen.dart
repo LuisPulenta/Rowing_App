@@ -410,7 +410,7 @@ class _LoginScreenState extends State<LoginScreen> {
     }
 
 //--------------- Control del IMEI ---------------------------
-    if (user.appIMEI != null) {
+    if (user.appIMEI != null && user.appIMEI!.isNotEmpty) {
       if (user.appIMEI != imei) {
         await showDialog(
             context: context,

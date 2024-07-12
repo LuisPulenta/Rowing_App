@@ -147,7 +147,8 @@ class _PdfViewScreenState extends State<PdfViewScreen> {
                       //PdfBitmap(await _readImageData('firma.png')),
                       PdfBitmap((await networkImageToBase64(widget.firma))
                           as List<int>),
-                      const Rect.fromLTWH(390, 685, 80, 50));
+                      const Rect.fromLTWH(300, 460, 56, 35));
+                  //const Rect.fromLTWH(390, 685, 80, 50));
 
                   List<int> bytes = document.save();
                   document.dispose();
