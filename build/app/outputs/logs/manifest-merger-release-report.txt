@@ -4,6 +4,7 @@ ADDED from D:\Flutter\rowing_app\android\app\src\main\AndroidManifest.xml:1:1-56
 INJECTED from D:\Flutter\rowing_app\android\app\src\main\AndroidManifest.xml:1:1-56:12
 INJECTED from D:\Flutter\rowing_app\android\app\src\main\AndroidManifest.xml:1:1-56:12
 INJECTED from D:\Flutter\rowing_app\android\app\src\main\AndroidManifest.xml:1:1-56:12
+MERGED from [:flutter_pdfview] D:\Flutter\rowing_app\build\flutter_pdfview\intermediates\library_manifest\release\AndroidManifest.xml:2:1-7:12
 MERGED from [:geolocator_android] D:\Flutter\rowing_app\build\geolocator_android\intermediates\library_manifest\release\AndroidManifest.xml:2:1-17:12
 MERGED from [:file_picker] D:\Flutter\rowing_app\build\file_picker\intermediates\library_manifest\release\AndroidManifest.xml:2:1-17:12
 MERGED from [:google_maps_flutter_android] D:\Flutter\rowing_app\build\google_maps_flutter_android\intermediates\library_manifest\release\AndroidManifest.xml:2:1-7:12
@@ -46,6 +47,7 @@ MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.5.1] C:\Users\Luis\.gradle
 MERGED from [androidx.lifecycle:lifecycle-viewmodel-savedstate:2.5.1] C:\Users\Luis\.gradle\caches\transforms-2\files-2.1\1347e8ec1a82d01dcd8b1786664cd739\jetified-lifecycle-viewmodel-savedstate-2.5.1\AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.window:window-java:1.0.0-beta04] C:\Users\Luis\.gradle\caches\transforms-2\files-2.1\ad201fac15a88598107ec645f351f5b4\jetified-window-java-1.0.0-beta04\AndroidManifest.xml:17:1-23:12
 MERGED from [androidx.window:window:1.0.0-beta04] C:\Users\Luis\.gradle\caches\transforms-2\files-2.1\03c633e46d75bfb21f082f0417f55161\jetified-window-1.0.0-beta04\AndroidManifest.xml:17:1-33:12
+MERGED from [com.github.mhiew:android-pdf-viewer:3.2.0-beta.3] C:\Users\Luis\.gradle\caches\transforms-2\files-2.1\29b088095ab8c09dd56c95c282cb8eaf\jetified-android-pdf-viewer-3.2.0-beta.3\AndroidManifest.xml:2:1-9:12
 MERGED from [androidx.appcompat:appcompat-resources:1.2.0] C:\Users\Luis\.gradle\caches\transforms-2\files-2.1\1463556a47b0b11e0e32553482070255\jetified-appcompat-resources-1.2.0\AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.drawerlayout:drawerlayout:1.0.0] C:\Users\Luis\.gradle\caches\transforms-2\files-2.1\09c1773ed3597f8bec6064dc26d157be\drawerlayout-1.0.0\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.media:media:1.0.0] C:\Users\Luis\.gradle\caches\transforms-2\files-2.1\5e86ac6112f317c2f69cf5fc4d8a9536\media-1.0.0\AndroidManifest.xml:17:1-22:12
@@ -62,8 +64,8 @@ MERGED from [androidx.asynclayoutinflater:asynclayoutinflater:1.0.0] C:\Users\Lu
 MERGED from [androidx.core:core-ktx:1.9.0] C:\Users\Luis\.gradle\caches\transforms-2\files-2.1\264c4b56eb030aa1b234778a69b440d0\jetified-core-ktx-1.9.0\AndroidManifest.xml:2:1-7:12
 MERGED from [androidx.core:core:1.9.0] C:\Users\Luis\.gradle\caches\transforms-2\files-2.1\2f9250fe16fd137113577b8384df889a\core-1.9.0\AndroidManifest.xml:17:1-30:12
 MERGED from [androidx.exifinterface:exifinterface:1.3.6] C:\Users\Luis\.gradle\caches\transforms-2\files-2.1\9a3ff009b6486ec632a13ddcefe414cd\exifinterface-1.3.6\AndroidManifest.xml:17:1-24:12
-MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\Luis\.gradle\caches\transforms-2\files-2.1\884708a9396f81808c0ac10f4b98ea32\versionedparcelable-1.1.1\AndroidManifest.xml:17:1-27:12
 MERGED from [androidx.tracing:tracing:1.0.0] C:\Users\Luis\.gradle\caches\transforms-2\files-2.1\6c6575c923e75933616af1a602db32e0\jetified-tracing-1.0.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\Luis\.gradle\caches\transforms-2\files-2.1\884708a9396f81808c0ac10f4b98ea32\versionedparcelable-1.1.1\AndroidManifest.xml:17:1-27:12
 MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] C:\Users\Luis\.gradle\caches\transforms-2\files-2.1\69ba5a98805d81d755806668ff70d04f\cursoradapter-1.0.0\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.cardview:cardview:1.0.0] C:\Users\Luis\.gradle\caches\transforms-2\files-2.1\6bb69121fbfc7f55675d79a165028fc2\cardview-1.0.0\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.lifecycle:lifecycle-runtime:2.5.1] C:\Users\Luis\.gradle\caches\transforms-2\files-2.1\41b22dd8d8dde3e75988a2b2f33a162b\lifecycle-runtime-2.5.1\AndroidManifest.xml:17:1-24:12
@@ -76,6 +78,7 @@ MERGED from [androidx.lifecycle:lifecycle-livedata:2.0.0] C:\Users\Luis\.gradle\
 MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.5.1] C:\Users\Luis\.gradle\caches\transforms-2\files-2.1\87881b92744f9d141ae876f989518f79\lifecycle-livedata-core-2.5.1\AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.arch.core:core-runtime:2.1.0] C:\Users\Luis\.gradle\caches\transforms-2\files-2.1\16e110bf603f94cf61f970a18f3907e3\core-runtime-2.1.0\AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.annotation:annotation-experimental:1.3.0] C:\Users\Luis\.gradle\caches\transforms-2\files-2.1\1cf488caa4c695cd9b77af7e050f0be6\jetified-annotation-experimental-1.3.0\AndroidManifest.xml:17:1-22:12
+MERGED from [com.github.mhiew:pdfium-android:1.9.2] C:\Users\Luis\.gradle\caches\transforms-2\files-2.1\f1dce701ea16a7119348e3dec430ce4c\jetified-pdfium-android-1.9.2\AndroidManifest.xml:2:1-9:12
 INJECTED from D:\Flutter\rowing_app\android\app\src\main\AndroidManifest.xml:1:1-56:12
 INJECTED from D:\Flutter\rowing_app\android\app\src\main\AndroidManifest.xml:1:1-56:12
 INJECTED from D:\Flutter\rowing_app\android\app\src\main\AndroidManifest.xml:1:1-56:12
@@ -221,6 +224,8 @@ uses-sdk
 INJECTED from D:\Flutter\rowing_app\android\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from D:\Flutter\rowing_app\android\app\src\main\AndroidManifest.xml
 INJECTED from D:\Flutter\rowing_app\android\app\src\main\AndroidManifest.xml
+MERGED from [:flutter_pdfview] D:\Flutter\rowing_app\build\flutter_pdfview\intermediates\library_manifest\release\AndroidManifest.xml:5:5-44
+MERGED from [:flutter_pdfview] D:\Flutter\rowing_app\build\flutter_pdfview\intermediates\library_manifest\release\AndroidManifest.xml:5:5-44
 MERGED from [:geolocator_android] D:\Flutter\rowing_app\build\geolocator_android\intermediates\library_manifest\release\AndroidManifest.xml:5:5-44
 MERGED from [:geolocator_android] D:\Flutter\rowing_app\build\geolocator_android\intermediates\library_manifest\release\AndroidManifest.xml:5:5-44
 MERGED from [:file_picker] D:\Flutter\rowing_app\build\file_picker\intermediates\library_manifest\release\AndroidManifest.xml:5:5-44
@@ -305,6 +310,8 @@ MERGED from [androidx.window:window-java:1.0.0-beta04] C:\Users\Luis\.gradle\cac
 MERGED from [androidx.window:window-java:1.0.0-beta04] C:\Users\Luis\.gradle\caches\transforms-2\files-2.1\ad201fac15a88598107ec645f351f5b4\jetified-window-java-1.0.0-beta04\AndroidManifest.xml:19:5-21:41
 MERGED from [androidx.window:window:1.0.0-beta04] C:\Users\Luis\.gradle\caches\transforms-2\files-2.1\03c633e46d75bfb21f082f0417f55161\jetified-window-1.0.0-beta04\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.window:window:1.0.0-beta04] C:\Users\Luis\.gradle\caches\transforms-2\files-2.1\03c633e46d75bfb21f082f0417f55161\jetified-window-1.0.0-beta04\AndroidManifest.xml:20:5-22:41
+MERGED from [com.github.mhiew:android-pdf-viewer:3.2.0-beta.3] C:\Users\Luis\.gradle\caches\transforms-2\files-2.1\29b088095ab8c09dd56c95c282cb8eaf\jetified-android-pdf-viewer-3.2.0-beta.3\AndroidManifest.xml:5:5-7:41
+MERGED from [com.github.mhiew:android-pdf-viewer:3.2.0-beta.3] C:\Users\Luis\.gradle\caches\transforms-2\files-2.1\29b088095ab8c09dd56c95c282cb8eaf\jetified-android-pdf-viewer-3.2.0-beta.3\AndroidManifest.xml:5:5-7:41
 MERGED from [androidx.appcompat:appcompat-resources:1.2.0] C:\Users\Luis\.gradle\caches\transforms-2\files-2.1\1463556a47b0b11e0e32553482070255\jetified-appcompat-resources-1.2.0\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.appcompat:appcompat-resources:1.2.0] C:\Users\Luis\.gradle\caches\transforms-2\files-2.1\1463556a47b0b11e0e32553482070255\jetified-appcompat-resources-1.2.0\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.drawerlayout:drawerlayout:1.0.0] C:\Users\Luis\.gradle\caches\transforms-2\files-2.1\09c1773ed3597f8bec6064dc26d157be\drawerlayout-1.0.0\AndroidManifest.xml:20:5-44
@@ -337,10 +344,10 @@ MERGED from [androidx.core:core:1.9.0] C:\Users\Luis\.gradle\caches\transforms-2
 MERGED from [androidx.core:core:1.9.0] C:\Users\Luis\.gradle\caches\transforms-2\files-2.1\2f9250fe16fd137113577b8384df889a\core-1.9.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.exifinterface:exifinterface:1.3.6] C:\Users\Luis\.gradle\caches\transforms-2\files-2.1\9a3ff009b6486ec632a13ddcefe414cd\exifinterface-1.3.6\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.exifinterface:exifinterface:1.3.6] C:\Users\Luis\.gradle\caches\transforms-2\files-2.1\9a3ff009b6486ec632a13ddcefe414cd\exifinterface-1.3.6\AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\Luis\.gradle\caches\transforms-2\files-2.1\884708a9396f81808c0ac10f4b98ea32\versionedparcelable-1.1.1\AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\Luis\.gradle\caches\transforms-2\files-2.1\884708a9396f81808c0ac10f4b98ea32\versionedparcelable-1.1.1\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.tracing:tracing:1.0.0] C:\Users\Luis\.gradle\caches\transforms-2\files-2.1\6c6575c923e75933616af1a602db32e0\jetified-tracing-1.0.0\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.tracing:tracing:1.0.0] C:\Users\Luis\.gradle\caches\transforms-2\files-2.1\6c6575c923e75933616af1a602db32e0\jetified-tracing-1.0.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\Luis\.gradle\caches\transforms-2\files-2.1\884708a9396f81808c0ac10f4b98ea32\versionedparcelable-1.1.1\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\Luis\.gradle\caches\transforms-2\files-2.1\884708a9396f81808c0ac10f4b98ea32\versionedparcelable-1.1.1\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] C:\Users\Luis\.gradle\caches\transforms-2\files-2.1\69ba5a98805d81d755806668ff70d04f\cursoradapter-1.0.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] C:\Users\Luis\.gradle\caches\transforms-2\files-2.1\69ba5a98805d81d755806668ff70d04f\cursoradapter-1.0.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.cardview:cardview:1.0.0] C:\Users\Luis\.gradle\caches\transforms-2\files-2.1\6bb69121fbfc7f55675d79a165028fc2\cardview-1.0.0\AndroidManifest.xml:20:5-44
@@ -365,6 +372,8 @@ MERGED from [androidx.arch.core:core-runtime:2.1.0] C:\Users\Luis\.gradle\caches
 MERGED from [androidx.arch.core:core-runtime:2.1.0] C:\Users\Luis\.gradle\caches\transforms-2\files-2.1\16e110bf603f94cf61f970a18f3907e3\core-runtime-2.1.0\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.annotation:annotation-experimental:1.3.0] C:\Users\Luis\.gradle\caches\transforms-2\files-2.1\1cf488caa4c695cd9b77af7e050f0be6\jetified-annotation-experimental-1.3.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.annotation:annotation-experimental:1.3.0] C:\Users\Luis\.gradle\caches\transforms-2\files-2.1\1cf488caa4c695cd9b77af7e050f0be6\jetified-annotation-experimental-1.3.0\AndroidManifest.xml:20:5-44
+MERGED from [com.github.mhiew:pdfium-android:1.9.2] C:\Users\Luis\.gradle\caches\transforms-2\files-2.1\f1dce701ea16a7119348e3dec430ce4c\jetified-pdfium-android-1.9.2\AndroidManifest.xml:5:5-7:41
+MERGED from [com.github.mhiew:pdfium-android:1.9.2] C:\Users\Luis\.gradle\caches\transforms-2\files-2.1\f1dce701ea16a7119348e3dec430ce4c\jetified-pdfium-android-1.9.2\AndroidManifest.xml:5:5-7:41
 INJECTED from D:\Flutter\rowing_app\android\app\src\main\AndroidManifest.xml
 INJECTED from D:\Flutter\rowing_app\android\app\src\main\AndroidManifest.xml
 	android:targetSdkVersion

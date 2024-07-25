@@ -21,6 +21,7 @@ export 'package:rowing_app/screens/flotas/turnos_screen.dart';
 export 'package:rowing_app/screens/inicio/gps_access_screen.dart';
 export 'package:rowing_app/screens/inicio/home_screen.dart';
 export 'package:rowing_app/screens/inicio/home2_screen.dart';
+export 'package:rowing_app/screens/inicio/home3_screen.dart';
 export 'package:rowing_app/screens/inicio/loading_screen.dart';
 export 'package:rowing_app/screens/inicio/login_screen.dart';
 export 'package:rowing_app/screens/inicio/wait_screen.dart';

@@ -29,22 +29,22 @@ class _LoginScreenState extends State<LoginScreen> {
 //----------------------- Variables -----------------------------
 //---------------------------------------------------------------
 
-  //String _email = '';
-  //String _password = '';
+  String _email = '';
+  String _password = '';
 
   String imei = '';
 
-  //String _email = 'KEYPRESS';
-  //String _password = 'KEYROOT';
-
-  String _email = '517676';
-  String _password = '94461399';
+  // String _email = 'KEYPRESS';
+  // String _password = 'KEYROOT';
 
   // String _email = 'GPRIETO';
   // String _password = 'CELESTE';
 
-  //String _email = 'aysac';
-  //String _password = 'wallys';
+  // String _email = '517676';
+  // String _password = '94461399';
+
+  // String _email = 'gonza@yopmail.com';
+  // String _password = '123456';
 
   String _emailError = '';
   bool _emailShowError = false;
@@ -340,6 +340,7 @@ class _LoginScreenState extends State<LoginScreen> {
       _passwordShow = false;
     });
 
+    //---------- Valida campos -------------
     if (!validateFields()) {
       return;
     }
@@ -348,6 +349,7 @@ class _LoginScreenState extends State<LoginScreen> {
       _showLoader = true;
     });
 
+    //---------- Valida si hay Internet -------------
     var connectivityResult = await Connectivity().checkConnectivity();
     if (connectivityResult == ConnectivityResult.none) {
       setState(() {
@@ -362,6 +364,180 @@ class _LoginScreenState extends State<LoginScreen> {
           ]);
       return;
     }
+
+    //---------- Login si el Usuario ES un Email -------------
+    if (_email.contains('@')) {
+      setState(() {
+        _showLoader = true;
+      });
+
+      Map<String, dynamic> request = {
+        'userName': _email,
+        'password': _password,
+      };
+
+      Map<String, dynamic> request2 = {
+        'Email': _email,
+      };
+
+      var url = Uri.parse('${Constants.apiUrl}/api/Account/CreateToken');
+      var response = await http.post(
+        url,
+        headers: {
+          'content-type': 'application/json',
+          'accept': 'application/json',
+        },
+        body: jsonEncode(request),
+      );
+
+      if (response.statusCode >= 400) {
+        setState(() {
+          _showLoader = false;
+          _passwordShowError = true;
+          _passwordError = 'Email o contraseña incorrectos';
+        });
+        return;
+      }
+
+      var body = response.body;
+
+      var decodedJson = jsonDecode(body);
+      var token = Token.fromJson(decodedJson);
+
+      url = Uri.parse('${Constants.apiUrl}/Api/Account/GetUserByEmail2');
+      var response2 = await http.post(
+        url,
+        headers: {
+          'content-type': 'application/json',
+          'accept': 'application/json',
+          'authorization': 'bearer ${token.token}',
+        },
+        body: jsonEncode(request2),
+      );
+
+      setState(() {
+        _showLoader = false;
+      });
+
+      var body2 = response2.body;
+
+      var decodedJson2 = jsonDecode(body2);
+      var user2 = User2.fromJson(decodedJson2);
+
+      Map<String, dynamic> request3 = {
+        'Email': user2.codigo,
+        'password': user2.document,
+      };
+
+      var url3 = Uri.parse('${Constants.apiUrl}/Api/Account/GetUserByEmail');
+      var response3 = await http.post(
+        url3,
+        headers: {
+          'content-type': 'application/json',
+          'accept': 'application/json',
+        },
+        body: jsonEncode(request3),
+      );
+
+      if (response.statusCode >= 400) {
+        setState(() {
+          _passwordShowError = true;
+          _passwordError = 'Email o contraseña incorrectos';
+          _showLoader = false;
+        });
+        return;
+      }
+
+      var body3 = response3.body;
+      var decodedJson3 = jsonDecode(body3);
+      var user3 = User.fromJson(decodedJson3);
+
+      if (user3.habilitaAPP != 1) {
+        setState(() {
+          _showLoader = false;
+          _passwordShowError = true;
+          _passwordError = 'Usuario no habilitado';
+        });
+        return;
+      }
+
+//--------------- Control del IMEI ---------------------------
+      if (user3.appIMEI != null && user3.appIMEI!.isNotEmpty) {
+        if (user3.appIMEI != imei) {
+          await showDialog(
+              context: context,
+              builder: (context) {
+                return AlertDialog(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  title: const Text('Aviso'),
+                  content:
+                      Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
+                    Text(
+                        'Este celular tiene el IMEI $imei, el cual no coincide con el IMEI que tiene registrado su Usuario.'),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                  ]),
+                  actions: <Widget>[
+                    TextButton(
+                        onPressed: () => Navigator.of(context).pop(),
+                        child: const Text('Ok')),
+                  ],
+                );
+              });
+
+          return;
+        }
+      }
+
+      if (_rememberme) {
+        _storeUser(body);
+      }
+
+      // Agregar registro a  websesion
+
+      Random r = Random();
+      int resultado = r.nextInt((99999999 - 10000000) + 1) + 10000000;
+      double hora = (DateTime.now().hour * 3600 +
+              DateTime.now().minute * 60 +
+              DateTime.now().second +
+              DateTime.now().millisecond * 0.001) *
+          100;
+
+      WebSesion webSesion = WebSesion(
+          nroConexion: resultado,
+          usuario: user3.idUsuario.toString(),
+          iP: _imeiNo,
+          loginDate: DateTime.now().toString(),
+          loginTime: hora.round(),
+          modulo: 'App-${user3.codigoCausante}',
+          logoutDate: "",
+          logoutTime: 0,
+          conectAverage: 0,
+          id_ws: 0,
+          versionsistema: Constants.version);
+
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      await prefs.setInt('nroConexion', resultado);
+
+      // Si hay internet subir al servidor websesion
+
+      connectivityResult = await Connectivity().checkConnectivity();
+
+      if (connectivityResult != ConnectivityResult.none) {
+        await _postWebSesion(webSesion);
+      }
+
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) =>
+                  Home3Screen(token: token, user2: user2, user: user3)));
+    }
+
+    //---------- Login si el Usuario NO ES un email -------------
 
     Map<String, dynamic> request = {
       'Email': _email,

@@ -515,6 +515,7 @@ com.google.android.gms.maps.model.Marker:
     public boolean isVisible()
 androidx.core.view.ScrollingView
 androidx.core.graphics.BlendModeUtils$1
+com.github.barteksc.pdfviewer.util.FileUtils
 androidx.media.MediaBrowserServiceCompat$2
 androidx.legacy.coreui.R$drawable
 androidx.constraintlayout.motion.widget.SplineSet$PivotXset
@@ -1182,6 +1183,7 @@ androidx.appcompat.R$drawable:
     public static final int notify_panel_notification_icon_bg
     public static final int tooltip_frame_dark
     public static final int tooltip_frame_light
+com.github.barteksc.pdfviewer.R$attr
 android.support.v4.media.MediaBrowserCompatApi23$ItemCallback
 kotlinx.coroutines.SupervisorKt
 androidx.legacy.v4.R$integer
@@ -1676,6 +1678,7 @@ com.google.android.gms.internal.vision.zzad
 androidx.annotation.UiThread
 androidx.annotation.OptIn
 kotlin.text.MatcherMatchResult$groups$1$iterator$1
+com.github.barteksc.pdfviewer.source.InputStreamSource
 kotlinx.coroutines.flow.StartedEagerly
 androidx.appcompat.app.TwilightManager:
     static void setInstance(androidx.appcompat.app.TwilightManager)
@@ -2000,6 +2003,7 @@ kotlinx.coroutines.selects.SelectBuilder$DefaultImpls
 androidx.print.PrintHelper$PrintUriAdapter$1$1
 androidx.slidingpanelayout.R
 kotlinx.coroutines.flow.FlowKt__ZipKt$nullArrayFactory$1
+com.github.barteksc.pdfviewer.util.ArrayUtils
 com.google.android.gms.maps.GoogleMap$OnInfoWindowLongClickListener
 kotlin.sequences.SequencesKt___SequencesKt$flatMap$1
 androidx.viewpager.R$drawable
@@ -2385,6 +2389,8 @@ com.google.android.gms.vision.barcode.Barcode:
 androidx.core.app.JobIntentService$CommandProcessor
 androidx.transition.Styleable$TransitionTarget
 androidx.legacy.coreui.R$integer
+com.github.barteksc.pdfviewer.RenderingHandler:
+    static final int MSG_RENDER_TASK
 kotlinx.coroutines.flow.FlowKt__ShareKt$launchSharing$1
 com.google.android.material.transition.FadeThroughProvider$1
 androidx.core.view.inputmethod.InputContentInfoCompat$InputContentInfoCompatImpl
@@ -4839,6 +4845,7 @@ com.google.android.gms.maps.model.StampStyle:
 dev.fluttercommunity.plus.battery.R$styleable
 com.google.android.gms.common.moduleinstall.internal.zaj
 androidx.media.MediaBrowserServiceCompat$4
+com.github.barteksc.pdfviewer.source.AssetSource
 androidx.core.net.UriKt
 com.google.android.gms.common.internal.zzaj
 com.google.android.gms.internal.location.zzck
@@ -5178,6 +5185,7 @@ androidx.appcompat.widget.ActionMenuPresenter:
 androidx.viewpager2.widget.AnimateLayoutChangeDetector
 io.material.plugins.dynamic_color.R$dimen
 android.support.v4.media.session.MediaControllerCompatApi23$TransportControls
+io.endigo.plugins.pdfviewflutter.BuildConfig
 androidx.lifecycle.viewmodel.CreationExtras:
     public abstract java.lang.Object get(androidx.lifecycle.viewmodel.CreationExtras$Key)
 androidx.constraintlayout.solver.Metrics:
@@ -5765,6 +5773,7 @@ android.support.v4.media.MediaBrowserCompatApi21$ConnectionCallbackProxy
 io.flutter.plugins.pathprovider.R$attr
 com.google.android.gms.location.ActivityTransitionResult
 androidx.constraintlayout.motion.widget.KeyCycleOscillator$TranslationXset
+com.github.barteksc.pdfviewer.R$layout
 kotlinx.coroutines.channels.LazyBroadcastCoroutine
 androidx.slidingpanelayout.R$integer
 androidx.core.util.LongSparseArrayKt$valueIterator$1
@@ -5775,8 +5784,8 @@ com.google.android.gms.common.SupportErrorDialogFragment:
 androidx.activity.result.contract.ActivityResultContracts$PickContact
 com.google.android.gms.internal.location.zzf
 kotlin.collections.SlidingWindowKt
-com.google.android.gms.internal.common.zzaf
 kotlinx.coroutines.channels.AbstractSendChannel$onSend$1
+com.google.android.gms.internal.common.zzaf
 com.google.android.gms.internal.maps.zzy:
     public final float zzd()
     public final float zze()
@@ -6047,6 +6056,7 @@ androidx.core.view.ViewCompat$FocusDirection
 com.google.android.gms.common.moduleinstall.internal.zaab
 androidx.appcompat.view.menu.CascadingMenuPopup$HorizPosition
 com.amolg.flutterbarcodescanner.R$xml
+com.github.barteksc.pdfviewer.R$string
 kotlinx.coroutines.flow.EmptyFlow
 androidx.annotation.StyleableRes
 androidx.media.AudioAttributesCompat:
@@ -6736,6 +6746,7 @@ kotlin.collections.AbstractMap
 com.google.android.gms.common.internal.HideFirstParty
 kotlin.time.DurationUnitKt__DurationUnitKt
 androidx.core.database.CursorWindowCompat$Api28Impl
+io.endigo.plugins.pdfviewflutter.R$style
 com.google.android.gms.internal.common.zzh
 kotlin.collections.CollectionsKt__CollectionsKt:
     public static final java.util.Collection asCollection(java.lang.Object[])
@@ -6863,6 +6874,18 @@ kotlin.sequences.SequencesKt___SequencesKt$minus$1
 com.google.android.gms.common.images.zaa
 androidx.media.MediaBrowserServiceCompatApi26
 androidx.constraintlayout.utils.widget.ImageFilterButton$2
+com.github.barteksc.pdfviewer.PDFView$Configurator:
+    public varargs com.github.barteksc.pdfviewer.PDFView$Configurator pages(int[])
+    public com.github.barteksc.pdfviewer.PDFView$Configurator onDraw(com.github.barteksc.pdfviewer.listener.OnDrawListener)
+    public com.github.barteksc.pdfviewer.PDFView$Configurator onDrawAll(com.github.barteksc.pdfviewer.listener.OnDrawListener)
+    public com.github.barteksc.pdfviewer.PDFView$Configurator onLoad(com.github.barteksc.pdfviewer.listener.OnLoadCompleteListener)
+    public com.github.barteksc.pdfviewer.PDFView$Configurator onPageScroll(com.github.barteksc.pdfviewer.listener.OnPageScrollListener)
+    public com.github.barteksc.pdfviewer.PDFView$Configurator onTap(com.github.barteksc.pdfviewer.listener.OnTapListener)
+    public com.github.barteksc.pdfviewer.PDFView$Configurator onLongPress(com.github.barteksc.pdfviewer.listener.OnLongPressListener)
+    public com.github.barteksc.pdfviewer.PDFView$Configurator scrollHandle(com.github.barteksc.pdfviewer.scroll.ScrollHandle)
+    public com.github.barteksc.pdfviewer.PDFView$Configurator spacing(int)
+    public com.github.barteksc.pdfviewer.PDFView$Configurator fitEachPage(boolean)
+    public com.github.barteksc.pdfviewer.PDFView$Configurator disableLongpress()
 android.support.v4.media.session.MediaSessionCompatApi22
 androidx.appcompat.app.ToolbarActionBar$2
 androidx.transition.Explode
@@ -7045,6 +7068,7 @@ com.google.android.material.timepicker.ClockHandView:
     public void setAnimateOnTouchUp(boolean)
     public void setOnActionUpListener(com.google.android.material.timepicker.ClockHandView$OnActionUpListener)
     private static final int ANIMATION_DURATION
+com.github.barteksc.pdfviewer.source.FileSource
 androidx.viewpager.widget.ViewPager$SimpleOnPageChangeListener
 androidx.print.PrintHelper$PrintUriAdapter
 androidx.transition.TranslationAnimationCreator$TransitionPositionListener
@@ -7219,6 +7243,8 @@ androidx.viewpager2.widget.ScrollEventAdapter
 kotlin.sequences.MergingSequence
 com.google.android.gms.internal.vision.zzes
 kotlin.internal.ContractsDsl
+com.github.barteksc.pdfviewer.util.Constants:
+    public void <init>()
 androidx.constraintlayout.motion.utils.StopLogic
 androidx.lifecycle.viewmodel.R$id:
     private void <init>()
@@ -7874,9 +7900,18 @@ androidx.asynclayoutinflater.R$style
 com.luisnu.rowing_app.R$interpolator
 androidx.appcompat.widget.AppCompatRadioButton:
     public void <init>(android.content.Context)
+io.endigo.plugins.pdfviewflutter.R$id
 kotlinx.coroutines.flow.FlowKt__LimitKt$takeWhile$lambda-6$$inlined$collectWhile$1
 com.google.android.gms.vision.text.TextRecognizer$Builder
 androidx.vectordrawable.R
+com.github.barteksc.pdfviewer.util.MathUtils:
+    private void <init>()
+    public static int limit(int,int,int)
+    public static int max(int,int)
+    public static int min(int,int)
+    private static final int BIG_ENOUGH_INT
+    private static final double BIG_ENOUGH_FLOOR
+    private static final double BIG_ENOUGH_CEIL
 androidx.viewpager2.widget.MarginPageTransformer
 kotlinx.coroutines.selects.SeqNumber
 androidx.core.content.UnusedAppRestrictionsBackportServiceConnection$1
@@ -8450,6 +8485,7 @@ com.google.android.gms.internal.clearcut.zzcg$zza:
 androidx.core.text.CharSequenceKt
 kotlinx.coroutines.flow.FlowKt__DistinctKt$defaultAreEquivalent$1
 kotlinx.coroutines.debug.internal.DebugProbesImpl$startWeakRefCleanerThread$1
+com.github.barteksc.pdfviewer.scroll.DefaultScrollHandle$1
 androidx.core.util.PatternsCompat
 androidx.constraintlayout.solver.widgets.ChainHead:
     public androidx.constraintlayout.solver.widgets.ConstraintWidget getFirst()
@@ -8516,6 +8552,8 @@ kotlin.sequences.SequencesKt___SequencesKt$minus$3$iterator$1
 kotlinx.coroutines.flow.FlowKt__ErrorsKt$catch$$inlined$unsafeFlow$1$1
 kotlinx.coroutines.channels.Channel$DefaultImpls
 androidx.core.app.ActivityOptionsCompat$Api21Impl
+com.shockwave.pdfium.PdfDocument:
+    public boolean hasPage(int)
 kotlinx.coroutines.internal.ThreadSafeHeap:
     public final void clear()
     public final kotlinx.coroutines.internal.ThreadSafeHeapNode removeFirstIf(kotlin.jvm.functions.Function1)
@@ -9164,6 +9202,8 @@ androidx.lifecycle.ViewModelProvider$Factory$Companion:
 com.google.android.gms.vision.text.zzb
 io.flutter.plugins.urllauncher.R$drawable
 com.google.android.material.progressindicator.DrawableWithAnimatedVisibilityChange
+com.shockwave.pdfium.PdfPasswordException:
+    public void <init>(java.lang.String)
 androidx.transition.Slide$1
 com.google.android.gms.common.images.Size:
     public static com.google.android.gms.common.images.Size parseSize(java.lang.String)
@@ -10171,6 +10211,10 @@ androidx.core.view.ViewCompat$Api26Impl:
 com.google.android.gms.internal.vision.zzcw
 com.google.android.material.progressindicator.DrawingDelegate
 com.google.android.gms.tasks.zzb
+com.github.barteksc.pdfviewer.util.Util:
+    public void <init>()
+    public static byte[] toByteArray(java.io.InputStream)
+    private static final int DEFAULT_BUFFER_SIZE
 androidx.annotation.GuardedBy
 kotlin.jvm.KotlinReflectionNotSupportedError:
     public void <init>(java.lang.String)
@@ -10180,6 +10224,8 @@ kotlin.ranges.ULongProgressionIterator
 kotlinx.coroutines.CoroutineDispatcher:
     public void dispatchYield(kotlin.coroutines.CoroutineContext,java.lang.Runnable)
     public final kotlinx.coroutines.CoroutineDispatcher plus(kotlinx.coroutines.CoroutineDispatcher)
+com.github.barteksc.pdfviewer.util.Constants$Cache:
+    public void <init>()
 androidx.core.content.res.CamUtils:
     private void <init>()
 kotlinx.coroutines.flow.FlowKt__LimitKt$drop$$inlined$unsafeFlow$1
@@ -13149,6 +13195,7 @@ kotlin.ranges.RangesKt___RangesKt:
     public void <init>()
 android.support.v4.media.session.MediaSessionCompat$Callback$CallbackHandler
 kotlin.io.path.PathsKt
+io.endigo.plugins.pdfviewflutter.R$color
 androidx.core.view.WindowInsetsCompat$BuilderImpl29:
     void setDisplayCutout(androidx.core.view.DisplayCutoutCompat)
 com.google.android.material.navigation.NavigationView$SavedState
@@ -13609,6 +13656,8 @@ io.flutter.embedding.engine.systemchannels.LocalizationChannel:
     private static final java.lang.String TAG
 io.flutter.embedding.engine.systemchannels.AccessibilityChannel:
     private static final java.lang.String TAG
+androidx.lifecycle.LifecycleRegistryOwner:
+    public synthetic bridge androidx.lifecycle.Lifecycle getLifecycle()
 kotlin.reflect.KParameter$Kind
 androidx.appcompat.app.ToolbarActionBar$ActionMenuPresenterCallback
 androidx.constraintlayout.solver.state.State
@@ -13704,6 +13753,8 @@ io.flutter.view.AccessibilityBridge$SemanticsNode:
     private void log(java.lang.String,boolean)
 com.mr.flutter.plugin.filepicker.R$color
 com.google.android.gms.internal.clearcut.zzgq
+com.github.barteksc.pdfviewer.util.Constants$Pinch:
+    public void <init>()
 androidx.lifecycle.runtime.R
 androidx.core.os.ExecutorCompat:
     private void <init>()
@@ -13900,6 +13951,7 @@ com.google.android.gms.common.data.DataHolder:
     public final void zac(java.lang.String,int,int,android.database.CharArrayBuffer)
 kotlin.jvm.internal.ShortCompanionObject
 androidx.core.content.pm.PackageInfoCompat
+com.github.barteksc.pdfviewer.R$color
 androidx.swiperefreshlayout.widget.SwipeRefreshLayout$2
 com.google.android.gms.maps.internal.zzbb
 com.google.android.gms.internal.vision.zzcy
@@ -14042,6 +14094,7 @@ com.google.android.gms.common.api.internal.BaseImplementation$ApiMethodImpl:
     public final com.google.android.gms.common.api.Api$AnyClientKey getClientKey()
     public final com.google.android.gms.common.api.Api getApi()
     public synthetic bridge void setResult(java.lang.Object)
+io.endigo.plugins.pdfviewflutter.R$drawable
 kotlin.text.jdk8.RegexExtensionsJDK8Kt
 androidx.swiperefreshlayout.R$dimen
 io.flutter.plugins.pathprovider.R$dimen
@@ -16126,6 +16179,7 @@ com.google.android.material.behavior.HideBottomViewOnScrollBehavior:
 com.google.android.gms.internal.location.zzce:
     public void <init>(android.app.Activity)
 androidx.lifecycle.Transformations$2
+com.github.barteksc.pdfviewer.R$style
 kotlinx.coroutines.flow.FlowKt__BuildersKt$asFlow$$inlined$unsafeFlow$7
 androidx.core.app.RemoteInput$Api28Impl
 kotlin.HashCodeKt
@@ -16370,8 +16424,8 @@ com.google.android.gms.internal.vision.zzfi$zzi:
     private final void zza(com.google.android.gms.internal.vision.zzfi$zzf)
     static synthetic void zza(com.google.android.gms.internal.vision.zzfi$zzi,com.google.android.gms.internal.vision.zzfi$zzf)
 androidx.core.provider.RequestExecutor$HandlerExecutor
-kotlinx.coroutines.flow.FlowKt__ZipKt$combine$6$1
 com.google.android.gms.common.api.internal.zabz
+kotlinx.coroutines.flow.FlowKt__ZipKt$combine$6$1
 androidx.appcompat.view.menu.MenuAdapter:
     public boolean getForceShowIcon()
 kotlin.collections.DoubleIterator
@@ -16447,6 +16501,7 @@ kotlinx.coroutines.selects.SelectBuilderImpl
 kotlinx.coroutines.channels.TickerChannelsKt$fixedDelayTicker$1
 androidx.lifecycle.HasDefaultViewModelProviderFactory:
     public abstract androidx.lifecycle.ViewModelProvider$Factory getDefaultViewModelProviderFactory()
+io.endigo.plugins.pdfviewflutter.R
 androidx.transition.Scene:
     public static androidx.transition.Scene getSceneForLayout(android.view.ViewGroup,int,android.content.Context)
     public void <init>(android.view.ViewGroup)
@@ -16556,6 +16611,11 @@ androidx.media.MediaBrowserServiceCompat$MediaBrowserServiceImplApi21$3
 kotlinx.coroutines.TimeoutKt$withTimeoutOrNull$1
 android.support.v4.media.session.MediaControllerCompatApi24$TransportControls
 androidx.recyclerview.widget.BatchingListUpdateCallback
+com.shockwave.pdfium.BuildConfig:
+    public static final boolean DEBUG
+    public static final java.lang.String LIBRARY_PACKAGE_NAME
+    public static final java.lang.String BUILD_TYPE
+    public static final java.lang.String VERSION_NAME
 androidx.core.os.HandlerCompat
 com.google.android.gms.location.LastLocationRequest$Builder:
     public void <init>(com.google.android.gms.location.LastLocationRequest)
@@ -16606,6 +16666,7 @@ com.google.android.gms.internal.vision.zzjw:
 kotlin.contracts.ContractBuilder
 com.google.android.gms.common.internal.PendingResultUtil
 androidx.annotation.ReturnThis
+io.endigo.plugins.pdfviewflutter.R$attr
 kotlinx.coroutines.channels.ChannelsKt__DeprecatedKt$lastOrNull$1
 androidx.customview.R$style
 com.google.android.gms.maps.zzau
@@ -16616,6 +16677,10 @@ androidx.constraintlayout.solver.widgets.analyzer.RunGroup:
     public static final int END
     public static final int BASELINE
 androidx.appcompat.app.ActionBarDrawerToggle
+com.shockwave.pdfium.PdfDocument$Bookmark:
+    public boolean hasChildren()
+    public java.lang.String getTitle()
+    public long getPageIdx()
 kotlinx.coroutines.YieldKt
 androidx.cardview.R$styleable
 com.google.android.gms.internal.clearcut.zzar
@@ -16630,6 +16695,7 @@ androidx.collection.ContainerHelpers:
 io.flutter.plugins.camera.CameraPlugin:
     public static void registerWith(io.flutter.plugin.common.PluginRegistry$Registrar)
     private static final java.lang.String TAG
+io.endigo.plugins.pdfviewflutter.R$layout
 com.google.android.gms.maps.GoogleMap$OnMyLocationButtonClickListener
 com.google.android.gms.common.internal.service.zac
 com.google.android.material.internal.NavigationMenuPresenter$SubheaderViewHolder
@@ -16669,6 +16735,8 @@ kotlin.jvm.internal.TypeReference
 androidx.lifecycle.SavedStateHandle$SavingStateLiveData
 com.google.android.gms.auth.api.signin.zae
 kotlin.sequences.SequencesKt__SequencesKt$flatten$3
+com.shockwave.pdfium.util.SizeF:
+    public com.shockwave.pdfium.util.Size toSize()
 androidx.annotation.LayoutRes
 androidx.core.util.SparseBooleanArrayKt$valueIterator$1
 kotlin.reflect.KCallable:
@@ -17576,6 +17644,7 @@ kotlin.properties.NotNullVar
 kotlinx.coroutines.Deferred$DefaultImpls
 com.google.android.gms.common.images.zah
 kotlin.collections.CollectionsKt___CollectionsKt$withIndex$1
+com.github.barteksc.pdfviewer.R$drawable
 com.google.android.gms.internal.clearcut.zzt$zza$zzc
 androidx.drawerlayout.R$dimen
 com.google.android.material.appbar.CollapsingToolbarLayout
@@ -17925,6 +17994,7 @@ kotlinx.coroutines.internal.AtomicKt:
 com.google.android.material.internal.NavigationSubMenu
 com.google.android.gms.common.util.JsonUtils
 android.support.v4.media.session.PlaybackStateCompat$ShuffleMode
+com.github.barteksc.pdfviewer.R$styleable
 io.flutter.plugins.sharedpreferences.R$layout
 kotlinx.coroutines.flow.FlowKt__LimitKt$drop$2$1
 kotlin.jvm.functions.Function18:
@@ -17933,6 +18003,7 @@ kotlinx.coroutines.flow.CancellableFlowImpl$collect$2
 androidx.core.view.accessibility.AccessibilityRecordCompat$Api16Impl:
     private void <init>()
 androidx.versionedparcelable.VersionedParcel$ParcelException
+io.endigo.plugins.pdfviewflutter.R$integer
 com.google.android.material.transition.platform.FadeProvider
 io.flutter.plugins.camera.features.exposurelock.ExposureLockFeature:
     public synthetic bridge void setValue(java.lang.Object)
@@ -18089,6 +18160,27 @@ androidx.core.view.WindowInsetsCompat$TypeImpl30:
     private void <init>()
 io.flutter.plugins.pathprovider.R$drawable
 com.google.android.gms.common.moduleinstall.internal.zaa
+com.github.barteksc.pdfviewer.PDFView:
+    static synthetic com.github.barteksc.pdfviewer.DragPinchManager access$100(com.github.barteksc.pdfviewer.PDFView)
+    public void stopFling()
+    public boolean isRecycled()
+    public void fitToWidth(int)
+    public com.shockwave.pdfium.util.SizeF getPageSize(int)
+    public float toRealScale(float)
+    public void resetZoom()
+    public int getPageAtPositionOffset(float)
+    public void useBestQuality(boolean)
+    public void enableRenderDuringScale(boolean)
+    public boolean isAntialiasing()
+    public boolean isPageSnap()
+    public java.util.List getLinks(int)
+    public com.github.barteksc.pdfviewer.PDFView$Configurator fromAsset(java.lang.String)
+    public com.github.barteksc.pdfviewer.PDFView$Configurator fromFile(java.io.File)
+    public com.github.barteksc.pdfviewer.PDFView$Configurator fromStream(java.io.InputStream)
+    public com.github.barteksc.pdfviewer.PDFView$Configurator fromSource(com.github.barteksc.pdfviewer.source.DocumentSource)
+    public static final float DEFAULT_MAX_SCALE
+    public static final float DEFAULT_MID_SCALE
+    public static final float DEFAULT_MIN_SCALE
 androidx.loader.R$dimen
 androidx.core.provider.SelfDestructiveThread$3
 kotlin.ranges.ClosedFloatingPointRange
@@ -18551,6 +18643,8 @@ io.flutter.embedding.engine.systemchannels.PlatformViewsChannel:
 io.flutter.embedding.engine.systemchannels.PlatformChannel:
     private static final java.lang.String TAG
 androidx.core.animation.AnimatorKt$addListener$4
+com.github.barteksc.pdfviewer.DragPinchManager:
+    void disableLongpress()
 com.google.android.gms.common.server.response.zam
 androidx.core.graphics.drawable.WrappedDrawableApi21:
     private static final java.lang.String TAG
@@ -18967,6 +19061,7 @@ io.flutter.plugins.imagepicker.ImagePickerCache:
     static final java.lang.String SHARED_PREFERENCES_NAME
 kotlin.internal.jdk7.JDK7PlatformImplementations:
     public java.util.List getSuppressed(java.lang.Throwable)
+com.github.barteksc.pdfviewer.scroll.DefaultScrollHandle
 com.google.android.gms.internal.location.zzn:
     public final com.google.android.gms.common.internal.ICancelToken zze(com.google.android.gms.location.CurrentLocationRequest,com.google.android.gms.internal.location.zzq)
     public final com.google.android.gms.location.LocationAvailability zzf(java.lang.String)
@@ -19216,6 +19311,7 @@ com.google.android.gms.location.ActivityRecognitionResult
 com.google.android.gms.internal.vision.zzba
 androidx.core.app.RemoteInput$Api26Impl:
     private void <init>()
+com.github.barteksc.pdfviewer.R
 androidx.slidingpanelayout.widget.SlidingPaneLayout$SavedState
 androidx.core.view.ViewKt$doOnPreDraw$1
 androidx.recyclerview.widget.LinearLayoutManager:
@@ -19442,6 +19538,7 @@ com.google.android.gms.internal.vision.zzao
 kotlinx.coroutines.internal.MissingMainCoroutineDispatcherFactory
 androidx.lifecycle.viewmodel.InitializerViewModelFactoryKt
 com.google.android.gms.location.SleepSegmentEvent
+com.github.barteksc.pdfviewer.R$dimen
 kotlinx.coroutines.flow.FlowKt__ReduceKt$firstOrNull$1
 com.google.android.gms.common.api.internal.zabf
 kotlin.internal.LowPriorityInOverloadResolution
@@ -19939,6 +20036,7 @@ androidx.core.view.ViewGroupKt$iterator$1
 androidx.constraintlayout.solver.widgets.analyzer.BaselineDimensionDependency:
     public void update(androidx.constraintlayout.solver.widgets.analyzer.DependencyNode)
 androidx.vectordrawable.animated.R$id
+com.github.barteksc.pdfviewer.exception.FileNotFoundException
 com.google.android.gms.vision.text.zza
 androidx.dynamicanimation.animation.FloatValueHolder
 com.google.android.gms.common.moduleinstall.internal.zas
@@ -20060,6 +20158,7 @@ androidx.core.graphics.TypefaceCompatUtil:
     private void <init>()
     private static final java.lang.String TAG
     private static final java.lang.String CACHE_FILE_PREFIX
+com.github.barteksc.pdfviewer.BuildConfig
 com.mr.flutter.plugin.filepicker.FilePickerDelegate:
     private static final java.lang.String TAG
 androidx.core.location.GnssStatusWrapper
@@ -20176,6 +20275,12 @@ androidx.recyclerview.widget.AdapterHelper:
 androidx.core.view.ViewGroupKt
 org.intellij.lang.annotations.Flow
 androidx.core.app.FrameMetricsAggregator$MetricType
+com.github.barteksc.pdfviewer.model.LinkTapEvent:
+    public float getOriginalX()
+    public float getOriginalY()
+    public float getDocumentX()
+    public float getDocumentY()
+    public android.graphics.RectF getMappedLinkRect()
 kotlinx.coroutines.channels.AbstractChannelKt:
     public static synthetic void getEMPTY$annotations()
     public static synthetic void getOFFER_SUCCESS$annotations()
@@ -20415,6 +20520,7 @@ com.amolg.flutterbarcodescanner.camera.CameraSource:
     private static final int DUMMY_TEXTURE_NAME
     private static final float ASPECT_RATIO_TOLERANCE
 com.google.android.gms.internal.location.zzbf
+io.endigo.plugins.pdfviewflutter.R$styleable
 kotlinx.coroutines.selects.SelectBuilderImpl$AtomicSelectOp
 com.google.android.material.internal.NavigationMenuPresenter$NavigationMenuSeparatorItem
 androidx.core.os.ProcessCompat$Api17Impl
@@ -20621,6 +20727,7 @@ kotlin.random.RandomKt:
 kotlinx.coroutines.flow.internal.FusibleFlow
 io.flutter.embedding.android.FlutterFragmentActivity$CachedEngineIntentBuilder
 kotlin.sequences.TakeWhileSequence
+io.endigo.plugins.pdfviewflutter.R$dimen
 kotlinx.coroutines.flow.FlowKt__ReduceKt$first$1
 androidx.fragment.app.FragmentManagerImpl$FragmentLifecycleCallbacksHolder:
     void <init>(androidx.fragment.app.FragmentManager$FragmentLifecycleCallbacks,boolean)
@@ -20867,6 +20974,25 @@ androidx.core.view.ViewParentCompat:
     private static int[] sTempNestedScrollConsumed
 kotlin.contracts.ContractBuilder$DefaultImpls
 com.google.android.material.slider.BaseOnChangeListener
+com.shockwave.pdfium.PdfiumCore:
+    private native long[] nativeLoadPages(long,int,int)
+    private native void nativeClosePages(long[])
+    private native int nativeGetPageWidthPixel(long,int)
+    private native int nativeGetPageHeightPixel(long,int)
+    private native int nativeGetPageWidthPoint(long)
+    private native int nativeGetPageHeightPoint(long)
+    private native void nativeRenderPage(long,android.view.Surface,int,int,int,int,int,boolean)
+    public com.shockwave.pdfium.PdfDocument newDocument(android.os.ParcelFileDescriptor)
+    public com.shockwave.pdfium.PdfDocument newDocument(byte[])
+    public long[] openPage(com.shockwave.pdfium.PdfDocument,int,int)
+    public int getPageWidth(com.shockwave.pdfium.PdfDocument,int)
+    public int getPageHeight(com.shockwave.pdfium.PdfDocument,int)
+    public int getPageWidthPoint(com.shockwave.pdfium.PdfDocument,int)
+    public int getPageHeightPoint(com.shockwave.pdfium.PdfDocument,int)
+    public void renderPage(com.shockwave.pdfium.PdfDocument,android.view.Surface,int,int,int,int,int)
+    public void renderPage(com.shockwave.pdfium.PdfDocument,android.view.Surface,int,int,int,int,int,boolean)
+    public void renderPageBitmap(com.shockwave.pdfium.PdfDocument,android.graphics.Bitmap,int,int,int,int,int)
+    private static final java.lang.String FD_FIELD_NAME
 androidx.constraintlayout.solver.widgets.analyzer.BasicMeasure$MeasureType
 androidx.core.app.ActivityCompat$Api28Impl
 com.mr.flutter.plugin.filepicker.FileUtils:
@@ -20939,6 +21065,7 @@ androidx.appcompat.widget.ActionBarOverlayLayout$LayoutParams:
     public void <init>(android.view.ViewGroup$MarginLayoutParams)
 android.support.v4.media.MediaBrowserCompat$SubscriptionCallback
 kotlinx.coroutines.flow.FlowKt__ZipKt$combineTransform$$inlined$combineTransformUnsafe$FlowKt__ZipKt$2$1
+io.endigo.plugins.pdfviewflutter.R$string
 kotlinx.coroutines.channels.ProduceKt$awaitClose$1
 androidx.appcompat.view.menu.MenuView$ItemView:
     public abstract void setTitle(java.lang.CharSequence)
@@ -23109,6 +23236,7 @@ com.google.android.gms.common.internal.safeparcel.SafeParcelable$Param
 kotlin.time.TimeSource
 com.google.android.gms.internal.clearcut.zzge$zzr
 kotlin.collections.ArraysKt___ArraysKt$asIterable$$inlined$Iterable$5
+com.github.barteksc.pdfviewer.R$integer
 androidx.annotation.DrawableRes
 androidx.viewpager2.adapter.FragmentStateAdapter$FragmentMaxLifecycleEnforcer$2
 androidx.core.app.NotificationCompat$BubbleMetadata$Api29Impl:
@@ -23276,6 +23404,7 @@ com.google.android.material.circularreveal.CircularRevealHelper:
     public static final int BITMAP_SHADER
     public static final int CLIP_PATH
     public static final int REVEAL_ANIMATOR
+com.github.barteksc.pdfviewer.R$id
 io.flutter.view.FlutterView$FirstFrameListener
 com.google.android.gms.internal.vision.zzev
 androidx.loader.content.ModernAsyncTask$WorkerRunnable
@@ -24694,6 +24823,15 @@ androidx.viewpager2.R$style
 com.google.android.gms.common.api.internal.zzd:
     public final boolean isCreated()
     public final boolean isStarted()
+com.shockwave.pdfium.PdfDocument$Meta:
+    public java.lang.String getTitle()
+    public java.lang.String getAuthor()
+    public java.lang.String getSubject()
+    public java.lang.String getKeywords()
+    public java.lang.String getCreator()
+    public java.lang.String getProducer()
+    public java.lang.String getCreationDate()
+    public java.lang.String getModDate()
 com.google.android.gms.internal.vision.zzds
 androidx.versionedparcelable.VersionedParcelStream
 com.google.android.material.transition.platform.MaterialContainerTransform$TransitionDirection
@@ -27514,6 +27652,8 @@ androidx.loader.app.LoaderManagerImpl$LoaderObserver:
 androidx.core.view.WindowInsetsControllerCompat$Impl30:
     final androidx.core.view.WindowInsetsControllerCompat mCompatController
     private final androidx.collection.SimpleArrayMap mListeners
+com.github.barteksc.pdfviewer.PagesLoader$Holder:
+    final synthetic com.github.barteksc.pdfviewer.PagesLoader this$0
 androidx.constraintlayout.motion.utils.Easing:
     public void <init>()
     public java.lang.String toString()
@@ -27760,6 +27900,8 @@ androidx.core.view.accessibility.AccessibilityNodeInfoCompat$AccessibilityAction
     public static final androidx.core.view.accessibility.AccessibilityNodeInfoCompat$AccessibilityActionCompat ACTION_SHOW_TEXT_SUGGESTIONS
 com.google.android.gms.internal.vision.zzii$zza:
     private final int zzc
+com.github.barteksc.pdfviewer.PagesLoader$RenderRange:
+    final synthetic com.github.barteksc.pdfviewer.PagesLoader this$0
 com.google.android.gms.internal.vision.zzix:
     private final boolean zze
 com.google.android.gms.internal.vision.zzhd
@@ -28079,6 +28221,8 @@ com.google.android.gms.internal.clearcut.zzbt:
     private static final java.lang.Class zzgn
 androidx.transition.ViewUtils:
     static final android.util.Property CLIP_BOUNDS
+com.github.barteksc.pdfviewer.CacheManager$PagePartComparator:
+    final synthetic com.github.barteksc.pdfviewer.CacheManager this$0
 com.google.android.gms.internal.clearcut.zzcw:
     private static final com.google.android.gms.internal.clearcut.zzcx zzlr
 androidx.core.app.ComponentActivity:
@@ -28135,6 +28279,10 @@ androidx.constraintlayout.solver.widgets.analyzer.RunGroup:
     androidx.constraintlayout.solver.widgets.analyzer.WidgetRun lastRun
     int groupIndex
     int direction
+com.shockwave.pdfium.PdfDocument$Bookmark:
+    java.lang.String title
+    long pageIdx
+    long mNativePtr
 androidx.cardview.widget.CardViewApi17Impl$1:
     final synthetic androidx.cardview.widget.CardViewApi17Impl this$0
 com.google.android.gms.common.internal.ClientSettings:
@@ -28156,6 +28304,8 @@ com.google.android.gms.internal.clearcut.zzbn$zzd:
     private final int zzgb
 com.google.android.material.datepicker.MaterialCalendarGridView$1:
     final synthetic com.google.android.material.datepicker.MaterialCalendarGridView this$0
+com.github.barteksc.pdfviewer.RenderingHandler$RenderingTask:
+    final synthetic com.github.barteksc.pdfviewer.RenderingHandler this$0
 com.google.android.gms.internal.flags.zza:
     private final java.lang.String zzb
 com.google.android.gms.dynamite.zzi
@@ -28185,6 +28335,8 @@ io.flutter.embedding.engine.FlutterEngineConnectionRegistry$DefaultFlutterAssets
     final io.flutter.embedding.engine.loader.FlutterLoader flutterLoader
 com.google.android.gms.internal.vision.zzha:
     private static final com.google.android.gms.internal.vision.zzjh zzo
+com.github.barteksc.pdfviewer.PagesLoader$GridSize:
+    final synthetic com.github.barteksc.pdfviewer.PagesLoader this$0
 androidx.core.os.TraceCompat:
     private static long sTraceTagApp
     private static java.lang.reflect.Method sIsTagEnabledMethod
@@ -28217,6 +28369,8 @@ io.flutter.embedding.engine.mutatorsstack.FlutterMutatorView$1:
 com.google.android.gms.internal.location.zzcc
 com.google.android.gms.internal.vision.zzmq:
     private static final synthetic int[] zzc
+com.github.barteksc.pdfviewer.PDFView:
+    private com.github.barteksc.pdfviewer.PDFView$ScrollDir scrollDir
 androidx.fragment.app.FragmentTransitionImpl$3:
     final synthetic androidx.fragment.app.FragmentTransitionImpl this$0
 androidx.appcompat.widget.ActionMenuPresenter$OverflowMenuButton$1:
@@ -28285,8 +28439,8 @@ androidx.lifecycle.DefaultLifecycleObserver:
     public abstract void onStop(androidx.lifecycle.LifecycleOwner)
     public abstract void onDestroy(androidx.lifecycle.LifecycleOwner)
 androidx.lifecycle.ViewModelProvider$NewInstanceFactory:
-    public synthetic androidx.lifecycle.ViewModel create(java.lang.Class)
     public synthetic androidx.lifecycle.ViewModel create(java.lang.Class,androidx.lifecycle.viewmodel.CreationExtras)
+    public synthetic androidx.lifecycle.ViewModel create(java.lang.Class)
     public static final androidx.lifecycle.ViewModelProvider$NewInstanceFactory$Companion Companion
 androidx.constraintlayout.widget.ConstraintLayout$LayoutParams:
     float dimensionRatioValue
@@ -28323,6 +28477,12 @@ com.google.android.gms.internal.vision.zzja:
     private static final com.google.android.gms.internal.vision.zzja zza
 androidx.core.provider.RequestExecutor$ReplyRunnable$1:
     final synthetic androidx.core.provider.RequestExecutor$ReplyRunnable this$0
+com.github.barteksc.pdfviewer.model.LinkTapEvent:
+    private float originalX
+    private float originalY
+    private float documentX
+    private float documentY
+    private android.graphics.RectF mappedLinkRect
 kotlinx.coroutines.channels.AbstractChannelKt:
     public static final kotlinx.coroutines.internal.Symbol ENQUEUE_FAILED
     public static final kotlinx.coroutines.internal.Symbol HANDLER_INVOKED
@@ -28517,6 +28677,15 @@ com.google.android.gms.maps.GoogleMapOptions:
 androidx.recyclerview.widget.RecyclerView:
     final java.lang.Runnable mUpdateChildViewsRunnable
     static final boolean POST_UPDATES_ON_ANIMATION
+com.shockwave.pdfium.PdfDocument$Meta:
+    java.lang.String title
+    java.lang.String author
+    java.lang.String subject
+    java.lang.String keywords
+    java.lang.String creator
+    java.lang.String producer
+    java.lang.String creationDate
+    java.lang.String modDate
 com.google.android.gms.maps.model.MapStyleOptions:
     private static final java.lang.String zza
 androidx.core.view.inputmethod.EditorInfoCompat:
@@ -28642,14 +28811,10 @@ com.google.android.material.resources.TextAppearance:
     public final boolean textAllCaps
 androidx.appcompat.view.StandaloneActionMode:
     private boolean mFocusable
-io.flutter.view.TextureRegistry$SurfaceTextureEntry$-CC
+androidx.lifecycle.HasDefaultViewModelProviderFactory$-CC
+androidx.lifecycle.DefaultLifecycleObserver$-CC
 io.flutter.plugin.common.BinaryMessenger$-CC:
     public static io.flutter.plugin.common.BinaryMessenger$TaskQueue $default$makeBackgroundTaskQueue(io.flutter.plugin.common.BinaryMessenger,io.flutter.plugin.common.BinaryMessenger$TaskQueueOptions)
     public static void $default$setMessageHandler(io.flutter.plugin.common.BinaryMessenger,java.lang.String,io.flutter.plugin.common.BinaryMessenger$BinaryMessageHandler,io.flutter.plugin.common.BinaryMessenger$TaskQueue)
-androidx.lifecycle.HasDefaultViewModelProviderFactory$-CC
-io.flutter.plugin.platform.PlatformView$-CC:
-    public static void $default$onInputConnectionLocked(io.flutter.plugin.platform.PlatformView)
-    public static void $default$onInputConnectionUnlocked(io.flutter.plugin.platform.PlatformView)
-androidx.lifecycle.LifecycleRegistryOwner$-CC
-androidx.lifecycle.DefaultLifecycleObserver$-CC
 androidx.core.view.MenuProvider$-CC
+io.flutter.view.TextureRegistry$SurfaceTextureEntry$-CC

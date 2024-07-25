@@ -1,13 +1,13 @@
 1<?xml version="1.0" encoding="utf-8"?>
 2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
 3    package="com.luisnu.rowing_app"
-4    android:versionCode="68"
-5    android:versionName="1.0.68" >
+4    android:versionCode="69"
+5    android:versionName="1.0.69" >
 6
 7    <uses-sdk
 8        android:minSdkVersion="21"
 8-->D:\Flutter\rowing_app\android\app\src\main\AndroidManifest.xml
-9        android:targetSdkVersion="33" />
+9        android:targetSdkVersion="34" />
 9-->D:\Flutter\rowing_app\android\app\src\main\AndroidManifest.xml
 10
 11    <uses-permission android:name="android.permission.INTERNET" />

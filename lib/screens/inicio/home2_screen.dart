@@ -281,71 +281,71 @@ class _Home2ScreenState extends State<Home2Screen> {
                 )
               ],
             ),
-            Row(
-              children: [
-                Expanded(
-                  child: ExpansionTile(
-                    collapsedIconColor: Colors.white,
-                    iconColor: Colors.white,
-                    leading: const Icon(
-                      Icons.list_alt,
-                      color: Colors.white,
-                    ),
-                    title: const Text("Recibos",
-                        style: TextStyle(fontSize: 15, color: Colors.white)),
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.only(left: 15.0),
-                        child: ListTile(
-                          leading: const Icon(
-                            Icons.fact_check,
-                            color: Colors.white,
-                          ),
-                          tileColor: const Color(0xff8c8c94),
-                          title: const Text('Mis Recibos',
-                              style:
-                                  TextStyle(fontSize: 15, color: Colors.white)),
-                          onTap: () async {
-                            await Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => ReciboScreen(
-                                  user: widget.user,
-                                ),
-                              ),
-                            );
-                          },
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 15.0),
-                        child: ListTile(
-                          leading: const Icon(
-                            Icons.draw_outlined,
-                            color: Colors.white,
-                          ),
-                          tileColor: const Color(0xff8c8c94),
-                          title: const Text('Mi Firma',
-                              style:
-                                  TextStyle(fontSize: 15, color: Colors.white)),
-                          onTap: () async {
-                            await Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => CausanteFirmaScreen(
-                                  user: widget.user,
-                                ),
-                              ),
-                            );
-                            await _getUsuario();
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
+            // Row(
+            //   children: [
+            //     Expanded(
+            //       child: ExpansionTile(
+            //         collapsedIconColor: Colors.white,
+            //         iconColor: Colors.white,
+            //         leading: const Icon(
+            //           Icons.list_alt,
+            //           color: Colors.white,
+            //         ),
+            //         title: const Text("Recibos",
+            //             style: TextStyle(fontSize: 15, color: Colors.white)),
+            //         children: <Widget>[
+            //           Padding(
+            //             padding: const EdgeInsets.only(left: 15.0),
+            //             child: ListTile(
+            //               leading: const Icon(
+            //                 Icons.fact_check,
+            //                 color: Colors.white,
+            //               ),
+            //               tileColor: const Color(0xff8c8c94),
+            //               title: const Text('Mis Recibos',
+            //                   style:
+            //                       TextStyle(fontSize: 15, color: Colors.white)),
+            //               onTap: () async {
+            //                 await Navigator.push(
+            //                   context,
+            //                   MaterialPageRoute(
+            //                     builder: (context) => ReciboScreen(
+            //                       user: widget.user,
+            //                     ),
+            //                   ),
+            //                 );
+            //               },
+            //             ),
+            //           ),
+            //           Padding(
+            //             padding: const EdgeInsets.only(left: 15.0),
+            //             child: ListTile(
+            //               leading: const Icon(
+            //                 Icons.draw_outlined,
+            //                 color: Colors.white,
+            //               ),
+            //               tileColor: const Color(0xff8c8c94),
+            //               title: const Text('Mi Firma',
+            //                   style:
+            //                       TextStyle(fontSize: 15, color: Colors.white)),
+            //               onTap: () async {
+            //                 await Navigator.push(
+            //                   context,
+            //                   MaterialPageRoute(
+            //                     builder: (context) => CausanteFirmaScreen(
+            //                       user: widget.user,
+            //                     ),
+            //                   ),
+            //                 );
+            //                 await _getUsuario();
+            //               },
+            //             ),
+            //           ),
+            //         ],
+            //       ),
+            //     ),
+            //   ],
+            // ),
             const Divider(
               color: Colors.white,
               height: 1,
