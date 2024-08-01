@@ -13,9 +13,14 @@ class Home3Screen extends StatefulWidget {
   final Token token;
   final User2 user2;
   final User user;
+  final String password;
 
   const Home3Screen(
-      {Key? key, required this.token, required this.user2, required this.user})
+      {Key? key,
+      required this.token,
+      required this.user2,
+      required this.user,
+      required this.password})
       : super(key: key);
 
   @override
@@ -133,6 +138,48 @@ class _Home3ScreenState extends State<Home3Screen> {
                   fontWeight: FontWeight.bold,
                   color: Colors.white),
             ),
+            (widget.password == '123456')
+                ? Column(
+                    children: [
+                      const SizedBox(
+                        height: 120,
+                      ),
+                      const Text('Debe cambiar la contraseña',
+                          style: TextStyle(
+                              color: Colors.red,
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold)),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 40),
+                        child: ElevatedButton(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: const [
+                              Icon(Icons.password),
+                              SizedBox(
+                                width: 20,
+                              ),
+                              Text('Cambiar Contraseña'),
+                            ],
+                          ),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color(0xFF781f1e),
+                            minimumSize: const Size(double.infinity, 50),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                          ),
+                          onPressed: () {
+                            _changePassword();
+                          },
+                        ),
+                      ),
+                    ],
+                  )
+                : Container(),
           ],
         ));
   }
@@ -202,151 +249,174 @@ class _Home3ScreenState extends State<Home3Screen> {
               color: Colors.white,
               height: 1,
             ),
-            Row(
-              children: [
-                Expanded(
-                  child: ListTile(
-                    leading: const Icon(
-                      Icons.warning,
-                      color: Colors.white,
-                    ),
-                    tileColor: const Color(0xff8c8c94),
-                    title: Text(
-                        widget.user.habilitaSSHH == 1
-                            ? 'Siniestros'
-                            : 'Mis Siniestros',
-                        style:
-                            const TextStyle(fontSize: 15, color: Colors.white)),
-                    onTap: () async {
-                      String? result = await Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => SiniestrosScreen(
-                            user: widget.user,
-                          ),
-                        ),
-                      );
-                      if (result != 'zzz') {
-                        if (widget.user.habilitaRRHH != 1) {
-                          _getCausante();
-                        }
-                      }
-                    },
-                  ),
-                ),
-              ],
-            ),
-            Row(
-              children: [
-                Expanded(
-                  child: ListTile(
-                    leading: const Icon(
-                      Icons.newspaper,
-                      color: Colors.white,
-                    ),
-                    tileColor: const Color(0xff8c8c94),
-                    title: Text(
-                        widget.user.habilitaRRHH == 1
-                            ? 'Novedades RRHH'
-                            : 'Mis Novedades RRHH',
-                        style:
-                            const TextStyle(fontSize: 15, color: Colors.white)),
-                    onTap: () async {
-                      String? result = await Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => NovedadesScreen(
-                            user: widget.user,
-                          ),
-                        ),
-                      );
-                      if (result != 'zzz') {
-                        if (widget.user.habilitaRRHH != 1) {
-                          _getCausante();
-                        }
-                      }
-                    },
-                  ),
-                ),
-                _novedades.isNotEmpty
-                    ? SizedBox(
-                        height: 30,
-                        width: 30,
-                        child: CircleAvatar(
-                          child: Text(_novedades.length.toString()),
-                          backgroundColor: Colors.red,
-                        ),
-                      )
-                    : Container(),
-                const SizedBox(
-                  width: 10,
-                )
-              ],
-            ),
-            Row(
-              children: [
-                Expanded(
-                  child: ExpansionTile(
-                    collapsedIconColor: Colors.white,
-                    iconColor: Colors.white,
-                    leading: const Icon(
-                      Icons.list_alt,
-                      color: Colors.white,
-                    ),
-                    title: const Text("Recibos",
-                        style: TextStyle(fontSize: 15, color: Colors.white)),
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.only(left: 15.0),
+            (widget.password != '123456')
+                ? Row(
+                    children: [
+                      Expanded(
                         child: ListTile(
                           leading: const Icon(
-                            Icons.fact_check,
+                            Icons.warning,
                             color: Colors.white,
                           ),
                           tileColor: const Color(0xff8c8c94),
-                          title: const Text('Mis Recibos',
-                              style:
-                                  TextStyle(fontSize: 15, color: Colors.white)),
+                          title: Text(
+                              widget.user.habilitaSSHH == 1
+                                  ? 'Siniestros'
+                                  : 'Mis Siniestros',
+                              style: const TextStyle(
+                                  fontSize: 15, color: Colors.white)),
                           onTap: () async {
-                            await Navigator.push(
+                            String? result = await Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => ReciboScreen(
+                                builder: (context) => SiniestrosScreen(
                                   user: widget.user,
                                 ),
                               ),
                             );
-                          },
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 15.0),
-                        child: ListTile(
-                          leading: const Icon(
-                            Icons.draw_outlined,
-                            color: Colors.white,
-                          ),
-                          tileColor: const Color(0xff8c8c94),
-                          title: const Text('Mi Firma',
-                              style:
-                                  TextStyle(fontSize: 15, color: Colors.white)),
-                          onTap: () async {
-                            await Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => CausanteFirmaScreen(
-                                  user: widget.user,
-                                ),
-                              ),
-                            );
-                            await _getUsuario();
+                            if (result != 'zzz') {
+                              if (widget.user.habilitaRRHH != 1) {
+                                _getCausante();
+                              }
+                            }
                           },
                         ),
                       ),
                     ],
-                  ),
-                ),
-              ],
+                  )
+                : Container(),
+            (widget.password != '123456')
+                ? Row(
+                    children: [
+                      Expanded(
+                        child: ListTile(
+                          leading: const Icon(
+                            Icons.newspaper,
+                            color: Colors.white,
+                          ),
+                          tileColor: const Color(0xff8c8c94),
+                          title: Text(
+                              widget.user.habilitaRRHH == 1
+                                  ? 'Novedades RRHH'
+                                  : 'Mis Novedades RRHH',
+                              style: const TextStyle(
+                                  fontSize: 15, color: Colors.white)),
+                          onTap: () async {
+                            String? result = await Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => NovedadesScreen(
+                                  user: widget.user,
+                                ),
+                              ),
+                            );
+                            if (result != 'zzz') {
+                              if (widget.user.habilitaRRHH != 1) {
+                                _getCausante();
+                              }
+                            }
+                          },
+                        ),
+                      ),
+                      _novedades.isNotEmpty
+                          ? SizedBox(
+                              height: 30,
+                              width: 30,
+                              child: CircleAvatar(
+                                child: Text(_novedades.length.toString()),
+                                backgroundColor: Colors.red,
+                              ),
+                            )
+                          : Container(),
+                      const SizedBox(
+                        width: 10,
+                      )
+                    ],
+                  )
+                : Container(),
+            (widget.password != '123456')
+                ? Row(
+                    children: [
+                      Expanded(
+                        child: ExpansionTile(
+                          collapsedIconColor: Colors.white,
+                          iconColor: Colors.white,
+                          leading: const Icon(
+                            Icons.list_alt,
+                            color: Colors.white,
+                          ),
+                          title: const Text("Recibos",
+                              style:
+                                  TextStyle(fontSize: 15, color: Colors.white)),
+                          children: <Widget>[
+                            Padding(
+                              padding: const EdgeInsets.only(left: 15.0),
+                              child: ListTile(
+                                leading: const Icon(
+                                  Icons.fact_check,
+                                  color: Colors.white,
+                                ),
+                                tileColor: const Color(0xff8c8c94),
+                                title: const Text('Mis Recibos',
+                                    style: TextStyle(
+                                        fontSize: 15, color: Colors.white)),
+                                onTap: () async {
+                                  await Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => ReciboScreen(
+                                        user: widget.user,
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 15.0),
+                              child: ListTile(
+                                leading: const Icon(
+                                  Icons.draw_outlined,
+                                  color: Colors.white,
+                                ),
+                                tileColor: const Color(0xff8c8c94),
+                                title: const Text('Mi Firma',
+                                    style: TextStyle(
+                                        fontSize: 15, color: Colors.white)),
+                                onTap: () async {
+                                  await Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => CausanteFirmaScreen(
+                                        user: widget.user,
+                                      ),
+                                    ),
+                                  );
+                                  await _getUsuario();
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  )
+                : Container(),
+            const Divider(
+              color: Colors.white,
+              height: 1,
+            ),
+            ListTile(
+              leading: const Icon(
+                Icons.password,
+                color: Colors.white,
+              ),
+              tileColor: const Color(0xff8c8c94),
+              title: const Text('Cambiar contraseña',
+                  style: TextStyle(fontSize: 15, color: Colors.white)),
+              onTap: () {
+                _changePassword();
+              },
             ),
             const Divider(
               color: Colors.white,
@@ -522,5 +592,20 @@ class _Home3ScreenState extends State<Home3Screen> {
     widget.user.firmaUsuarioImageFullPath = user.firmaUsuarioImageFullPath;
 
     setState(() {});
+  }
+
+//-------------------------- _changePassword ----------------------------
+  _changePassword() async {
+    String? result = await Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => ChangePasswordScreen(
+                  token: widget.token,
+                  user2: widget.user2,
+                )));
+    // if (result == 'yes') {
+    //   _getUser();
+    //   setState(() {});
+    // }
   }
 }

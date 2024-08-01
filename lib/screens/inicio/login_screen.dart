@@ -29,8 +29,8 @@ class _LoginScreenState extends State<LoginScreen> {
 //----------------------- Variables -----------------------------
 //---------------------------------------------------------------
 
-  String _email = '';
-  String _password = '';
+  // String _email = '';
+  // String _password = '';
 
   String imei = '';
 
@@ -43,8 +43,8 @@ class _LoginScreenState extends State<LoginScreen> {
   // String _email = '517676';
   // String _password = '94461399';
 
-  // String _email = 'gonza@yopmail.com';
-  // String _password = '123456';
+  String _email = 'gprieto@rowing.com.ar';
+  String _password = '123456';
 
   String _emailError = '';
   bool _emailShowError = false;
@@ -533,8 +533,11 @@ class _LoginScreenState extends State<LoginScreen> {
       Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) =>
-                  Home3Screen(token: token, user2: user2, user: user3)));
+              builder: (context) => Home3Screen(
+                  token: token,
+                  user2: user2,
+                  user: user3,
+                  password: _password)));
     }
 
     //---------- Login si el Usuario NO ES un email -------------
