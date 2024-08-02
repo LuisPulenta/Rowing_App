@@ -43,8 +43,11 @@ class _LoginScreenState extends State<LoginScreen> {
   // String _email = '517676';
   // String _password = '94461399';
 
-  String _email = 'gaos@keypress.com.ar';
-  String _password = 'keyroot';
+  // String _email = 'gaos@keypress.com.ar';
+  // String _password = 'keyroot';
+
+  String _email = 'gprieto@rowing.com.ar';
+  String _password = '111111';
 
   String _emailError = '';
   bool _emailShowError = false;
@@ -95,7 +98,6 @@ class _LoginScreenState extends State<LoginScreen> {
     super.initState();
     initPlatformState();
     _getParametro();
-    setState(() {});
   }
 
   @override
@@ -338,16 +340,16 @@ class _LoginScreenState extends State<LoginScreen> {
 
     setState(() {
       _passwordShow = false;
+      _showLoader = true;
     });
 
     //---------- Valida campos -------------
     if (!validateFields()) {
+      setState(() {
+        _showLoader = false;
+      });
       return;
     }
-
-    setState(() {
-      _showLoader = true;
-    });
 
     //---------- Valida si hay Internet -------------
     var connectivityResult = await Connectivity().checkConnectivity();
@@ -355,31 +357,40 @@ class _LoginScreenState extends State<LoginScreen> {
       setState(() {
         _showLoader = false;
       });
-      await showAlertDialog(
+
+      await showDialog(
           context: context,
-          title: 'Error',
-          message: 'Verifica que estes conectado a internet.',
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+          builder: (context) {
+            return AlertDialog(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              title: const Text('Error'),
+              content: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: const <Widget>[
+                    Text('Verifica que estes conectado a internet.'),
+                    SizedBox(
+                      height: 10,
+                    ),
+                  ]),
+              actions: <Widget>[
+                TextButton(
+                    onPressed: () => Navigator.of(context).pop(),
+                    child: const Text('Aceptar')),
+              ],
+            );
+          });
       return;
     }
 
     //---------- Login si el Usuario ES un Email -------------
     if (_email.contains('@')) {
-      setState(() {
-        _showLoader = true;
-      });
-
+      //---------- CreateToken -------------
       Map<String, dynamic> request = {
         'userName': _email,
         'password': _password,
       };
-
-      Map<String, dynamic> request2 = {
-        'Email': _email,
-      };
-
       var url = Uri.parse('${Constants.apiUrl}/api/Account/CreateToken');
       var response = await http.post(
         url,
@@ -399,11 +410,14 @@ class _LoginScreenState extends State<LoginScreen> {
         return;
       }
 
+      //---------- user2 -------------
       var body = response.body;
-
       var decodedJson = jsonDecode(body);
       var token = Token.fromJson(decodedJson);
 
+      Map<String, dynamic> request2 = {
+        'Email': _email,
+      };
       url = Uri.parse('${Constants.apiUrl}/Api/Account/GetUserByEmail2');
       var response2 = await http.post(
         url,
@@ -415,12 +429,7 @@ class _LoginScreenState extends State<LoginScreen> {
         body: jsonEncode(request2),
       );
 
-      setState(() {
-        _showLoader = false;
-      });
-
       var body2 = response2.body;
-
       var decodedJson2 = jsonDecode(body2);
       var user2 = User2.fromJson(decodedJson2);
 
@@ -436,6 +445,7 @@ class _LoginScreenState extends State<LoginScreen> {
         body: jsonEncode(user2.email),
       );
 
+      //---------- user3 -------------
       var user3 = User(
           idUsuario: 0,
           codigoCausante: '000000',
@@ -518,6 +528,9 @@ class _LoginScreenState extends State<LoginScreen> {
 //--------------- Control del IMEI ---------------------------
       if (user3.appIMEI != null && user3.appIMEI!.isNotEmpty) {
         if (user3.appIMEI != imei) {
+          setState(() {
+            _showLoader = false;
+          });
           await showDialog(
               context: context,
               builder: (context) {
@@ -541,57 +554,20 @@ class _LoginScreenState extends State<LoginScreen> {
                   ],
                 );
               });
-
           return;
         }
       }
-
-      if (_rememberme) {
-        _storeUser(body);
-      }
-
-      // Agregar registro a  websesion
-
-      Random r = Random();
-      int resultado = r.nextInt((99999999 - 10000000) + 1) + 10000000;
-      double hora = (DateTime.now().hour * 3600 +
-              DateTime.now().minute * 60 +
-              DateTime.now().second +
-              DateTime.now().millisecond * 0.001) *
-          100;
-
-      WebSesion webSesion = WebSesion(
-          nroConexion: resultado,
-          usuario: user3.idUsuario.toString(),
-          iP: _imeiNo,
-          loginDate: DateTime.now().toString(),
-          loginTime: hora.round(),
-          modulo: 'App-${user3.codigoCausante}',
-          logoutDate: "",
-          logoutTime: 0,
-          conectAverage: 0,
-          id_ws: 0,
-          versionsistema: Constants.version);
-
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      await prefs.setInt('nroConexion', resultado);
-
-      // Si hay internet subir al servidor websesion
-
-      connectivityResult = await Connectivity().checkConnectivity();
-
-      if (connectivityResult != ConnectivityResult.none) {
-        await _postWebSesion(webSesion);
-      }
-
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => Home3Screen(
-                  token: token,
-                  user2: user2,
-                  user: user3,
-                  password: _password)));
+      setState(() {
+        _showLoader = false;
+      });
+      await Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => Home3Screen(
+              token: token, user2: user2, user: user3, password: _password),
+        ),
+      );
+      return;
     }
 
     //---------- Login si el Usuario NO ES un email -------------
@@ -645,6 +621,9 @@ class _LoginScreenState extends State<LoginScreen> {
 //--------------- Control del IMEI ---------------------------
     if (user.appIMEI != null && user.appIMEI!.isNotEmpty) {
       if (user.appIMEI != imei) {
+        setState(() {
+          _showLoader = false;
+        });
         await showDialog(
             context: context,
             builder: (context) {
@@ -668,7 +647,6 @@ class _LoginScreenState extends State<LoginScreen> {
                 ],
               );
             });
-
         return;
       }
     }
@@ -716,22 +694,34 @@ class _LoginScreenState extends State<LoginScreen> {
     _getCatalogos(user.modulo);
 
     if (user.codigoCausante != user.login) {
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => HomeScreen(
-                    user: user,
-                    nroConexion: webSesion.nroConexion,
-                    imei: imei,
-                  )));
+      setState(() {
+        _showLoader = false;
+      });
+      await Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => HomeScreen(
+            user: user,
+            nroConexion: webSesion.nroConexion,
+            imei: imei,
+          ),
+        ),
+      );
+      return;
     } else {
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => Home2Screen(
-                    user: user,
-                    nroConexion: webSesion.nroConexion,
-                  )));
+      setState(() {
+        _showLoader = false;
+      });
+      await Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => Home2Screen(
+            user: user,
+            nroConexion: webSesion.nroConexion,
+          ),
+        ),
+      );
+      return;
     }
   }
 
@@ -950,7 +940,9 @@ class _LoginScreenState extends State<LoginScreen> {
           desiredAccuracy: LocationAccuracy.high);
     }
 
-    await _getParametro();
+    setState(() {
+      _showLoader = false;
+    });
   }
 
 //-----------------------------------------------------------------
@@ -1014,8 +1006,6 @@ class _LoginScreenState extends State<LoginScreen> {
     }
 
     parametro = Parametro.fromJson(jsonDecode(response.body));
-    _showLoader = false;
-    setState(() {});
 
     _getPosition();
   }

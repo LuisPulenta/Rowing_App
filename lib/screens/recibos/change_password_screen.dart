@@ -261,6 +261,8 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
 
 //------------------------- _changePassword ---------------------------
   void _changePassword() async {
+    FocusScope.of(context).unfocus(); //Oculta el teclado
+
     setState(() {
       _showLoader = true;
     });
