@@ -22,6 +22,9 @@ class User2 {
   bool? lockoutEnd;
   bool? lockoutEnabled;
   int? accessFailedCount;
+  int? nroCausante;
+  String? lastLogin;
+  String? changePassword;
 
   User2(
       {this.document,
@@ -46,7 +49,10 @@ class User2 {
       this.twoFactorEnabled,
       this.lockoutEnd,
       this.lockoutEnabled,
-      this.accessFailedCount});
+      this.accessFailedCount,
+      this.nroCausante,
+      this.lastLogin,
+      this.changePassword});
 
   User2.fromJson(Map<String, dynamic> json) {
     document = json['document'];
@@ -72,6 +78,9 @@ class User2 {
     lockoutEnd = json['lockoutEnd'];
     lockoutEnabled = json['lockoutEnabled'];
     accessFailedCount = json['accessFailedCount'];
+    nroCausante = json['nroCausante'];
+    lastLogin = json['lastLogin'];
+    changePassword = json['changePassword'];
   }
 
   Map<String, dynamic> toJson() {
@@ -99,6 +108,9 @@ class User2 {
     data['lockoutEnd'] = lockoutEnd;
     data['lockoutEnabled'] = lockoutEnabled;
     data['accessFailedCount'] = accessFailedCount;
+    data['nroCausante'] = nroCausante;
+    data['lastLogin'] = lastLogin;
+    data['changePassword'] = changePassword;
     return data;
   }
 }

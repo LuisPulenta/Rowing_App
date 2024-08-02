@@ -435,8 +435,9 @@ class _Home3ScreenState extends State<Home3Screen> {
                               context,
                               MaterialPageRoute(
                                 builder: (context) => UsuariosScreen(
-                                    //user: widget.user,
-                                    ),
+                                  token: widget.token,
+                                  user2: widget.user2,
+                                ),
                               ),
                             );
                             // if (result != 'zzz') {

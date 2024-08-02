@@ -43,8 +43,8 @@ class _LoginScreenState extends State<LoginScreen> {
   // String _email = '517676';
   // String _password = '94461399';
 
-  String _email = 'gprieto@rowing.com.ar';
-  String _password = '123456';
+  String _email = 'gaos@keypress.com.ar';
+  String _password = 'keyroot';
 
   String _emailError = '';
   bool _emailShowError = false;
