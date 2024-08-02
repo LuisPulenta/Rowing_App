@@ -132,7 +132,7 @@ class _Home3ScreenState extends State<Home3Screen> {
                   color: Colors.white),
             ),
             Text(
-              widget.user.apellido!.replaceAll("  ", ""),
+              widget.user2.firstName!.replaceAll("  ", ""),
               style: const TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
@@ -235,7 +235,7 @@ class _Home3ScreenState extends State<Home3Screen> {
                       ),
                       Expanded(
                         child: Text(
-                          widget.user.apellido.toString(),
+                          widget.user2.firstName.toString(),
                           style: (const TextStyle(color: Colors.white)),
                           overflow: TextOverflow.ellipsis,
                         ),
@@ -249,7 +249,13 @@ class _Home3ScreenState extends State<Home3Screen> {
               color: Colors.white,
               height: 1,
             ),
-            (widget.password != '123456')
+
+            //----------------------------------------------------------------
+            //------------------------ Menú Usuarios -------------------------
+            //----------------------------------------------------------------
+
+            //------------------------ Siniestros -------------------------
+            (widget.password != '123456' && widget.user2.userType == 1)
                 ? Row(
                     children: [
                       Expanded(
@@ -285,7 +291,9 @@ class _Home3ScreenState extends State<Home3Screen> {
                     ],
                   )
                 : Container(),
-            (widget.password != '123456')
+
+            //------------------------ Novedades -------------------------
+            (widget.password != '123456' && widget.user2.userType == 1)
                 ? Row(
                     children: [
                       Expanded(
@@ -334,7 +342,9 @@ class _Home3ScreenState extends State<Home3Screen> {
                     ],
                   )
                 : Container(),
-            (widget.password != '123456')
+
+            //------------------------ Recibos -------------------------
+            (widget.password != '123456' && widget.user2.userType == 1)
                 ? Row(
                     children: [
                       Expanded(
@@ -402,6 +412,45 @@ class _Home3ScreenState extends State<Home3Screen> {
                     ],
                   )
                 : Container(),
+
+            //----------------------------------------------------------------
+            //------------------------ Menú Admin ----------------------------
+            //----------------------------------------------------------------
+
+            (widget.user2.userType == 0)
+                ? Row(
+                    children: [
+                      Expanded(
+                        child: ListTile(
+                          leading: const Icon(
+                            Icons.supervised_user_circle_rounded,
+                            color: Colors.white,
+                          ),
+                          tileColor: const Color(0xff8c8c94),
+                          title: const Text('Usuarios',
+                              style:
+                                  TextStyle(fontSize: 15, color: Colors.white)),
+                          onTap: () async {
+                            String? result = await Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => UsuariosScreen(
+                                    //user: widget.user,
+                                    ),
+                              ),
+                            );
+                            // if (result != 'zzz') {
+                            //   if (widget.user.habilitaRRHH != 1) {
+                            //     _getCausante();
+                            //   }
+                            // }
+                          },
+                        ),
+                      ),
+                    ],
+                  )
+                : Container(),
+
             const Divider(
               color: Colors.white,
               height: 1,
@@ -603,9 +652,8 @@ class _Home3ScreenState extends State<Home3Screen> {
                   token: widget.token,
                   user2: widget.user2,
                 )));
-    // if (result == 'yes') {
-    //   _getUser();
-    //   setState(() {});
-    // }
+    if (result == 'yes') {
+      _logOut();
+    }
   }
 }

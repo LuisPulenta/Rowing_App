@@ -424,41 +424,95 @@ class _LoginScreenState extends State<LoginScreen> {
       var decodedJson2 = jsonDecode(body2);
       var user2 = User2.fromJson(decodedJson2);
 
-      Map<String, dynamic> request3 = {
-        'Email': user2.codigo,
-        'password': user2.document,
-      };
-
-      var url3 = Uri.parse('${Constants.apiUrl}/Api/Account/GetUserByEmail');
-      var response3 = await http.post(
-        url3,
+      //-------------- Actualiza fecha LastLogin ---------------------
+      url = Uri.parse('${Constants.apiUrl}/Api/Account/UpdateLoginDate');
+      await http.put(
+        url,
         headers: {
           'content-type': 'application/json',
           'accept': 'application/json',
+          'authorization': 'bearer ${token.token}',
         },
-        body: jsonEncode(request3),
+        body: jsonEncode(user2.email),
       );
 
-      if (response.statusCode >= 400) {
-        setState(() {
-          _passwordShowError = true;
-          _passwordError = 'Email o contraseña incorrectos';
-          _showLoader = false;
-        });
-        return;
-      }
+      var user3 = User(
+          idUsuario: 0,
+          codigoCausante: '000000',
+          login: '',
+          contrasena: '',
+          nombre: '',
+          apellido: '',
+          autorWOM: 0,
+          estado: 0,
+          habilitaAPP: 0,
+          habilitaFotos: 0,
+          habilitaReclamos: 0,
+          habilitaSSHH: 0,
+          habilitaRRHH: 0,
+          modulo: '',
+          habilitaMedidores: 0,
+          habilitaFlotas: '',
+          reHabilitaUsuarios: 0,
+          codigogrupo: '',
+          codigocausante: '',
+          fullName: '',
+          fechaCaduca: 0,
+          intentosInvDiario: 0,
+          opeAutorizo: 0,
+          habilitaNuevoSuministro: 0,
+          habilitaVeredas: 0,
+          habilitaJuicios: 0,
+          habilitaPresentismo: 0,
+          habilitaSeguimientoUsuarios: 0,
+          habilitaVerObrasCerradas: 0,
+          habilitaElementosCalle: 0,
+          habilitaCertificacion: 0,
+          conceptomov: 0,
+          conceptomova: 0,
+          limitarGrupo: 0,
+          rubro: 0,
+          firmaUsuario: '',
+          firmaUsuarioImageFullPath: '',
+          appIMEI: '');
 
-      var body3 = response3.body;
-      var decodedJson3 = jsonDecode(body3);
-      var user3 = User.fromJson(decodedJson3);
+      if (user2.userType == 1) {
+        Map<String, dynamic> request3 = {
+          'Email': user2.codigo,
+          'password': user2.document,
+        };
 
-      if (user3.habilitaAPP != 1) {
-        setState(() {
-          _showLoader = false;
-          _passwordShowError = true;
-          _passwordError = 'Usuario no habilitado';
-        });
-        return;
+        var url3 = Uri.parse('${Constants.apiUrl}/Api/Account/GetUserByEmail');
+        var response3 = await http.post(
+          url3,
+          headers: {
+            'content-type': 'application/json',
+            'accept': 'application/json',
+          },
+          body: jsonEncode(request3),
+        );
+
+        if (response.statusCode >= 400) {
+          setState(() {
+            _passwordShowError = true;
+            _passwordError = 'Email o contraseña incorrectos';
+            _showLoader = false;
+          });
+          return;
+        }
+
+        var body3 = response3.body;
+        var decodedJson3 = jsonDecode(body3);
+        user3 = User.fromJson(decodedJson3);
+
+        if (user3.habilitaAPP != 1) {
+          setState(() {
+            _showLoader = false;
+            _passwordShowError = true;
+            _passwordError = 'Usuario no habilitado';
+          });
+          return;
+        }
       }
 
 //--------------- Control del IMEI ---------------------------
