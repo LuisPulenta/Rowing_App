@@ -1,18 +1,18 @@
 [
     {
         "merged": "D:\\Flutter\\rowing_app\\build\\shared_preferences_android\\intermediates\\res\\merged\\debug\\drawable\\notification_bg.xml",
-        "source": "C:\\Users\\Luis\\.gradle\\caches\\transforms-2\\files-2.1\\122df2e57d294d1a53db26bbc3b813c1\\core-1.6.0\\res\\drawable\\notification_bg.xml"
+        "source": "C:\\Users\\luisn\\.gradle\\caches\\transforms-3\\15d9b6e391d82486261a36acb56abe8d\\transformed\\core-1.6.0\\res\\drawable\\notification_bg.xml"
     },
     {
         "merged": "D:\\Flutter\\rowing_app\\build\\shared_preferences_android\\intermediates\\res\\merged\\debug\\drawable\\notification_bg_low.xml",
-        "source": "C:\\Users\\Luis\\.gradle\\caches\\transforms-2\\files-2.1\\122df2e57d294d1a53db26bbc3b813c1\\core-1.6.0\\res\\drawable\\notification_bg_low.xml"
+        "source": "C:\\Users\\luisn\\.gradle\\caches\\transforms-3\\15d9b6e391d82486261a36acb56abe8d\\transformed\\core-1.6.0\\res\\drawable\\notification_bg_low.xml"
     },
     {
         "merged": "D:\\Flutter\\rowing_app\\build\\shared_preferences_android\\intermediates\\res\\merged\\debug\\drawable\\notification_icon_background.xml",
-        "source": "C:\\Users\\Luis\\.gradle\\caches\\transforms-2\\files-2.1\\122df2e57d294d1a53db26bbc3b813c1\\core-1.6.0\\res\\drawable\\notification_icon_background.xml"
+        "source": "C:\\Users\\luisn\\.gradle\\caches\\transforms-3\\15d9b6e391d82486261a36acb56abe8d\\transformed\\core-1.6.0\\res\\drawable\\notification_icon_background.xml"
     },
     {
         "merged": "D:\\Flutter\\rowing_app\\build\\shared_preferences_android\\intermediates\\res\\merged\\debug\\drawable\\notification_tile_bg.xml",
-        "source": "C:\\Users\\Luis\\.gradle\\caches\\transforms-2\\files-2.1\\122df2e57d294d1a53db26bbc3b813c1\\core-1.6.0\\res\\drawable\\notification_tile_bg.xml"
+        "source": "C:\\Users\\luisn\\.gradle\\caches\\transforms-3\\15d9b6e391d82486261a36acb56abe8d\\transformed\\core-1.6.0\\res\\drawable\\notification_tile_bg.xml"
     }
 ]

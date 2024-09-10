@@ -1,70 +1,70 @@
 [
     {
-        "merged": "D:\\Flutter\\rowing_app\\build\\app\\intermediates\\res\\merged\\debug\\mipmap-mdpi_ic_launcher.png.flat",
-        "source": "D:\\Flutter\\rowing_app\\android\\app\\src\\main\\res\\mipmap-mdpi\\ic_launcher.png"
+        "merged": "com.luisnu.rowing_app-merged_res-32:/mipmap-xhdpi_ic_launcher.png.flat",
+        "source": "com.luisnu.rowing_app-main-26:/mipmap-xhdpi/ic_launcher.png"
     },
     {
-        "merged": "D:\\Flutter\\rowing_app\\build\\app\\intermediates\\res\\merged\\debug\\mipmap-hdpi_ic_launcher.png.flat",
-        "source": "D:\\Flutter\\rowing_app\\android\\app\\src\\main\\res\\mipmap-hdpi\\ic_launcher.png"
+        "merged": "com.luisnu.rowing_app-merged_res-32:/drawable-v21_background.png.flat",
+        "source": "com.luisnu.rowing_app-main-26:/drawable-v21/background.png"
     },
     {
-        "merged": "D:\\Flutter\\rowing_app\\build\\app\\intermediates\\res\\merged\\debug\\mipmap-xhdpi_launcher_icon.png.flat",
-        "source": "D:\\Flutter\\rowing_app\\android\\app\\src\\main\\res\\mipmap-xhdpi\\launcher_icon.png"
+        "merged": "com.luisnu.rowing_app-merged_res-32:/drawable-mdpi_splash.png.flat",
+        "source": "com.luisnu.rowing_app-main-26:/drawable-mdpi/splash.png"
     },
     {
-        "merged": "D:\\Flutter\\rowing_app\\build\\app\\intermediates\\res\\merged\\debug\\mipmap-xhdpi_ic_launcher.png.flat",
-        "source": "D:\\Flutter\\rowing_app\\android\\app\\src\\main\\res\\mipmap-xhdpi\\ic_launcher.png"
+        "merged": "com.luisnu.rowing_app-merged_res-32:/mipmap-xxhdpi_launcher_icon.png.flat",
+        "source": "com.luisnu.rowing_app-main-26:/mipmap-xxhdpi/launcher_icon.png"
     },
     {
-        "merged": "D:\\Flutter\\rowing_app\\build\\app\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi_launcher_icon.png.flat",
-        "source": "D:\\Flutter\\rowing_app\\android\\app\\src\\main\\res\\mipmap-xxhdpi\\launcher_icon.png"
+        "merged": "com.luisnu.rowing_app-merged_res-32:/mipmap-hdpi_launcher_icon.png.flat",
+        "source": "com.luisnu.rowing_app-main-26:/mipmap-hdpi/launcher_icon.png"
     },
     {
-        "merged": "D:\\Flutter\\rowing_app\\build\\app\\intermediates\\res\\merged\\debug\\mipmap-hdpi_launcher_icon.png.flat",
-        "source": "D:\\Flutter\\rowing_app\\android\\app\\src\\main\\res\\mipmap-hdpi\\launcher_icon.png"
+        "merged": "com.luisnu.rowing_app-merged_res-32:/drawable-xhdpi_splash.png.flat",
+        "source": "com.luisnu.rowing_app-main-26:/drawable-xhdpi/splash.png"
     },
     {
-        "merged": "D:\\Flutter\\rowing_app\\build\\app\\intermediates\\res\\merged\\debug\\mipmap-xxxhdpi_ic_launcher.png.flat",
-        "source": "D:\\Flutter\\rowing_app\\android\\app\\src\\main\\res\\mipmap-xxxhdpi\\ic_launcher.png"
+        "merged": "com.luisnu.rowing_app-merged_res-32:/mipmap-xhdpi_launcher_icon.png.flat",
+        "source": "com.luisnu.rowing_app-main-26:/mipmap-xhdpi/launcher_icon.png"
     },
     {
-        "merged": "D:\\Flutter\\rowing_app\\build\\app\\intermediates\\res\\merged\\debug\\mipmap-xxxhdpi_launcher_icon.png.flat",
-        "source": "D:\\Flutter\\rowing_app\\android\\app\\src\\main\\res\\mipmap-xxxhdpi\\launcher_icon.png"
+        "merged": "com.luisnu.rowing_app-merged_res-32:/mipmap-xxxhdpi_ic_launcher.png.flat",
+        "source": "com.luisnu.rowing_app-main-26:/mipmap-xxxhdpi/ic_launcher.png"
     },
     {
-        "merged": "D:\\Flutter\\rowing_app\\build\\app\\intermediates\\res\\merged\\debug\\drawable-xhdpi_splash.png.flat",
-        "source": "D:\\Flutter\\rowing_app\\android\\app\\src\\main\\res\\drawable-xhdpi\\splash.png"
+        "merged": "com.luisnu.rowing_app-merged_res-32:/mipmap-xxhdpi_ic_launcher.png.flat",
+        "source": "com.luisnu.rowing_app-main-26:/mipmap-xxhdpi/ic_launcher.png"
     },
     {
-        "merged": "D:\\Flutter\\rowing_app\\build\\app\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi_splash.png.flat",
-        "source": "D:\\Flutter\\rowing_app\\android\\app\\src\\main\\res\\drawable-xxxhdpi\\splash.png"
+        "merged": "com.luisnu.rowing_app-merged_res-32:/mipmap-xxxhdpi_launcher_icon.png.flat",
+        "source": "com.luisnu.rowing_app-main-26:/mipmap-xxxhdpi/launcher_icon.png"
     },
     {
-        "merged": "D:\\Flutter\\rowing_app\\build\\app\\intermediates\\res\\merged\\debug\\drawable-v21_launch_background.xml.flat",
-        "source": "D:\\Flutter\\rowing_app\\android\\app\\src\\main\\res\\drawable-v21\\launch_background.xml"
+        "merged": "com.luisnu.rowing_app-merged_res-32:/mipmap-mdpi_ic_launcher.png.flat",
+        "source": "com.luisnu.rowing_app-main-26:/mipmap-mdpi/ic_launcher.png"
     },
     {
-        "merged": "D:\\Flutter\\rowing_app\\build\\app\\intermediates\\res\\merged\\debug\\drawable-v21_background.png.flat",
-        "source": "D:\\Flutter\\rowing_app\\android\\app\\src\\main\\res\\drawable-v21\\background.png"
+        "merged": "com.luisnu.rowing_app-merged_res-32:/drawable-hdpi_splash.png.flat",
+        "source": "com.luisnu.rowing_app-main-26:/drawable-hdpi/splash.png"
     },
     {
-        "merged": "D:\\Flutter\\rowing_app\\build\\app\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi_ic_launcher.png.flat",
-        "source": "D:\\Flutter\\rowing_app\\android\\app\\src\\main\\res\\mipmap-xxhdpi\\ic_launcher.png"
+        "merged": "com.luisnu.rowing_app-merged_res-32:/drawable-xxxhdpi_splash.png.flat",
+        "source": "com.luisnu.rowing_app-main-26:/drawable-xxxhdpi/splash.png"
     },
     {
-        "merged": "D:\\Flutter\\rowing_app\\build\\app\\intermediates\\res\\merged\\debug\\drawable-hdpi_splash.png.flat",
-        "source": "D:\\Flutter\\rowing_app\\android\\app\\src\\main\\res\\drawable-hdpi\\splash.png"
+        "merged": "com.luisnu.rowing_app-merged_res-32:/drawable-xxhdpi_splash.png.flat",
+        "source": "com.luisnu.rowing_app-main-26:/drawable-xxhdpi/splash.png"
     },
     {
-        "merged": "D:\\Flutter\\rowing_app\\build\\app\\intermediates\\res\\merged\\debug\\mipmap-mdpi_launcher_icon.png.flat",
-        "source": "D:\\Flutter\\rowing_app\\android\\app\\src\\main\\res\\mipmap-mdpi\\launcher_icon.png"
+        "merged": "com.luisnu.rowing_app-merged_res-32:/mipmap-hdpi_ic_launcher.png.flat",
+        "source": "com.luisnu.rowing_app-main-26:/mipmap-hdpi/ic_launcher.png"
     },
     {
-        "merged": "D:\\Flutter\\rowing_app\\build\\app\\intermediates\\res\\merged\\debug\\drawable-xxhdpi_splash.png.flat",
-        "source": "D:\\Flutter\\rowing_app\\android\\app\\src\\main\\res\\drawable-xxhdpi\\splash.png"
+        "merged": "com.luisnu.rowing_app-merged_res-32:/drawable-v21_launch_background.xml.flat",
+        "source": "com.luisnu.rowing_app-main-26:/drawable-v21/launch_background.xml"
     },
     {
-        "merged": "D:\\Flutter\\rowing_app\\build\\app\\intermediates\\res\\merged\\debug\\drawable-mdpi_splash.png.flat",
-        "source": "D:\\Flutter\\rowing_app\\android\\app\\src\\main\\res\\drawable-mdpi\\splash.png"
+        "merged": "com.luisnu.rowing_app-merged_res-32:/mipmap-mdpi_launcher_icon.png.flat",
+        "source": "com.luisnu.rowing_app-main-26:/mipmap-mdpi/launcher_icon.png"
     }
 ]

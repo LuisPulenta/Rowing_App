@@ -1,18 +1,20 @@
 {
-  "version": 2,
+  "version": 3,
   "artifactType": {
     "type": "APK",
     "kind": "Directory"
   },
   "applicationId": "com.luisnu.rowing_app",
-  "variantName": "processDebugResources",
+  "variantName": "debug",
   "elements": [
     {
       "type": "SINGLE",
       "filters": [],
+      "attributes": [],
       "versionCode": 70,
       "versionName": "1.0.70",
       "outputFile": "app-debug.apk"
     }
-  ]
+  ],
+  "elementType": "File"
 }
