@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "D:\\Flutter\\rowing_app\\build\\app\\intermediates\\incremental\\mergeReleaseResources\\merged.dir\\values-w820dp-v13\\values-w820dp-v13.xml",
+            "outputFile": "com.luisnu.rowing_app-mergeReleaseResources-30:/values-w820dp-v13/values-w820dp-v13.xml",
             "map": [
                 {
                     "source": "D:\\Flutter\\rowing_app\\build\\flutter_barcode_scanner\\intermediates\\packaged_res\\release\\values-w820dp-v13\\values-w820dp-v13.xml",

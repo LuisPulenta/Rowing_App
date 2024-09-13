@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "io.endigo.plugins.pdfviewflutter.flutter_pdfview-merged_res-12:/menu/example_menu2.xml",
+        "source": "io.endigo.plugins.pdfviewflutter.flutter_pdfview-core-1.7.0-5:/menu/example_menu2.xml"
+    },
+    {
+        "merged": "io.endigo.plugins.pdfviewflutter.flutter_pdfview-merged_res-12:/menu/example_menu.xml",
+        "source": "io.endigo.plugins.pdfviewflutter.flutter_pdfview-core-1.7.0-5:/menu/example_menu.xml"
+    }
+]

@@ -1,0 +1,12 @@
+co.creativemind.device_information-jetified-annotation-experimental-1.1.0-0 C:\Users\luisn\.gradle\caches\transforms-3\21d2a332cac1b039cfd7337048ae1658\transformed\jetified-annotation-experimental-1.1.0\res
+co.creativemind.device_information-core-1.6.0-1 C:\Users\luisn\.gradle\caches\transforms-3\57bdd321bdde57ce1fdcf07bdba1de89\transformed\core-1.6.0\res
+co.creativemind.device_information-jetified-window-1.0.0-beta04-2 C:\Users\luisn\.gradle\caches\transforms-3\60ce2f2ffb62c69d0c673ac38088dfd6\transformed\jetified-window-1.0.0-beta04\res
+co.creativemind.device_information-jetified-window-java-1.0.0-beta04-3 C:\Users\luisn\.gradle\caches\transforms-3\8ed68306783030c7ca2d79ae532f6c50\transformed\jetified-window-java-1.0.0-beta04\res
+co.creativemind.device_information-main-4 C:\Users\luisn\AppData\Local\Pub\Cache\hosted\pub.dev\device_information-0.0.4\android\src\main\res
+co.creativemind.device_information-release-5 C:\Users\luisn\AppData\Local\Pub\Cache\hosted\pub.dev\device_information-0.0.4\android\src\release\res
+co.creativemind.device_information-pngs-6 D:\Flutter\rowing_app\build\device_information\generated\res\pngs\release
+co.creativemind.device_information-resValues-7 D:\Flutter\rowing_app\build\device_information\generated\res\resValues\release
+co.creativemind.device_information-rs-8 D:\Flutter\rowing_app\build\device_information\generated\res\rs\release
+co.creativemind.device_information-mergeReleaseResources-9 D:\Flutter\rowing_app\build\device_information\intermediates\incremental\release\mergeReleaseResources\merged.dir
+co.creativemind.device_information-mergeReleaseResources-10 D:\Flutter\rowing_app\build\device_information\intermediates\incremental\release\mergeReleaseResources\stripped.dir
+co.creativemind.device_information-merged_res-11 D:\Flutter\rowing_app\build\device_information\intermediates\merged_res\release

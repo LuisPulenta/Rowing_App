@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "io.endigo.plugins.pdfviewflutter.flutter_pdfview-merged_res-12:/layout-v21/notification_action_tombstone.xml",
+        "source": "io.endigo.plugins.pdfviewflutter.flutter_pdfview-core-1.7.0-5:/layout-v21/notification_action_tombstone.xml"
+    },
+    {
+        "merged": "io.endigo.plugins.pdfviewflutter.flutter_pdfview-merged_res-12:/layout-v21/notification_action.xml",
+        "source": "io.endigo.plugins.pdfviewflutter.flutter_pdfview-core-1.7.0-5:/layout-v21/notification_action.xml"
+    },
+    {
+        "merged": "io.endigo.plugins.pdfviewflutter.flutter_pdfview-merged_res-12:/layout-v21/notification_template_custom_big.xml",
+        "source": "io.endigo.plugins.pdfviewflutter.flutter_pdfview-core-1.7.0-5:/layout-v21/notification_template_custom_big.xml"
+    },
+    {
+        "merged": "io.endigo.plugins.pdfviewflutter.flutter_pdfview-merged_res-12:/layout-v21/notification_template_icon_group.xml",
+        "source": "io.endigo.plugins.pdfviewflutter.flutter_pdfview-core-1.7.0-5:/layout-v21/notification_template_icon_group.xml"
+    }
+]

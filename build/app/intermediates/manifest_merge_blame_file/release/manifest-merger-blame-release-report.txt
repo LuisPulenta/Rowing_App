@@ -32,71 +32,71 @@
 21-->D:\Flutter\rowing_app\android\app\src\main\AndroidManifest.xml:54:12-55
 22
 23        <intent>
-23-->[:file_picker] D:\Flutter\rowing_app\build\file_picker\intermediates\library_manifest\release\AndroidManifest.xml:10:9-14:18
+23-->[:file_picker] D:\Flutter\rowing_app\build\file_picker\intermediates\merged_manifest\release\AndroidManifest.xml:12:9-16:18
 24            <action android:name="android.intent.action.GET_CONTENT" />
-24-->[:file_picker] D:\Flutter\rowing_app\build\file_picker\intermediates\library_manifest\release\AndroidManifest.xml:11:13-72
-24-->[:file_picker] D:\Flutter\rowing_app\build\file_picker\intermediates\library_manifest\release\AndroidManifest.xml:11:21-69
+24-->[:file_picker] D:\Flutter\rowing_app\build\file_picker\intermediates\merged_manifest\release\AndroidManifest.xml:13:13-72
+24-->[:file_picker] D:\Flutter\rowing_app\build\file_picker\intermediates\merged_manifest\release\AndroidManifest.xml:13:21-69
 25
 26            <data android:mimeType="*/*" />
-26-->[:file_picker] D:\Flutter\rowing_app\build\file_picker\intermediates\library_manifest\release\AndroidManifest.xml:13:13-44
-26-->[:file_picker] D:\Flutter\rowing_app\build\file_picker\intermediates\library_manifest\release\AndroidManifest.xml:13:19-41
+26-->[:file_picker] D:\Flutter\rowing_app\build\file_picker\intermediates\merged_manifest\release\AndroidManifest.xml:15:13-44
+26-->[:file_picker] D:\Flutter\rowing_app\build\file_picker\intermediates\merged_manifest\release\AndroidManifest.xml:15:19-41
 27        </intent>
 28    </queries>
 29
 30    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-30-->[:geolocator_android] D:\Flutter\rowing_app\build\geolocator_android\intermediates\library_manifest\release\AndroidManifest.xml:7:5-77
-30-->[:geolocator_android] D:\Flutter\rowing_app\build\geolocator_android\intermediates\library_manifest\release\AndroidManifest.xml:7:22-74
+30-->[:geolocator_android] D:\Flutter\rowing_app\build\geolocator_android\intermediates\merged_manifest\release\AndroidManifest.xml:9:5-77
+30-->[:geolocator_android] D:\Flutter\rowing_app\build\geolocator_android\intermediates\merged_manifest\release\AndroidManifest.xml:9:22-74
 31    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-31-->[:file_picker] D:\Flutter\rowing_app\build\file_picker\intermediates\library_manifest\release\AndroidManifest.xml:7:5-80
-31-->[:file_picker] D:\Flutter\rowing_app\build\file_picker\intermediates\library_manifest\release\AndroidManifest.xml:7:22-77
+31-->[:file_picker] D:\Flutter\rowing_app\build\file_picker\intermediates\merged_manifest\release\AndroidManifest.xml:9:5-80
+31-->[:file_picker] D:\Flutter\rowing_app\build\file_picker\intermediates\merged_manifest\release\AndroidManifest.xml:9:22-77
 32    <uses-permission android:name="android.permission.CAMERA" />
-32-->[:flutter_barcode_scanner] D:\Flutter\rowing_app\build\flutter_barcode_scanner\intermediates\library_manifest\release\AndroidManifest.xml:9:5-65
-32-->[:flutter_barcode_scanner] D:\Flutter\rowing_app\build\flutter_barcode_scanner\intermediates\library_manifest\release\AndroidManifest.xml:9:22-62
+32-->[:flutter_barcode_scanner] D:\Flutter\rowing_app\build\flutter_barcode_scanner\intermediates\merged_manifest\release\AndroidManifest.xml:9:5-65
+32-->[:flutter_barcode_scanner] D:\Flutter\rowing_app\build\flutter_barcode_scanner\intermediates\merged_manifest\release\AndroidManifest.xml:9:22-62
 33
 34    <uses-feature android:name="android.hardware.camera" />
-34-->[:flutter_barcode_scanner] D:\Flutter\rowing_app\build\flutter_barcode_scanner\intermediates\library_manifest\release\AndroidManifest.xml:11:5-60
-34-->[:flutter_barcode_scanner] D:\Flutter\rowing_app\build\flutter_barcode_scanner\intermediates\library_manifest\release\AndroidManifest.xml:11:19-57
+34-->[:flutter_barcode_scanner] D:\Flutter\rowing_app\build\flutter_barcode_scanner\intermediates\merged_manifest\release\AndroidManifest.xml:11:5-60
+34-->[:flutter_barcode_scanner] D:\Flutter\rowing_app\build\flutter_barcode_scanner\intermediates\merged_manifest\release\AndroidManifest.xml:11:19-57
 35
 36    <uses-permission android:name="android.permission.FLASHLIGHT" />
-36-->[:flutter_barcode_scanner] D:\Flutter\rowing_app\build\flutter_barcode_scanner\intermediates\library_manifest\release\AndroidManifest.xml:13:5-69
-36-->[:flutter_barcode_scanner] D:\Flutter\rowing_app\build\flutter_barcode_scanner\intermediates\library_manifest\release\AndroidManifest.xml:13:22-66
+36-->[:flutter_barcode_scanner] D:\Flutter\rowing_app\build\flutter_barcode_scanner\intermediates\merged_manifest\release\AndroidManifest.xml:13:5-69
+36-->[:flutter_barcode_scanner] D:\Flutter\rowing_app\build\flutter_barcode_scanner\intermediates\merged_manifest\release\AndroidManifest.xml:13:22-66
 37    <uses-permission android:name="android.permission.RECORD_AUDIO" />
-37-->[:camera_android] D:\Flutter\rowing_app\build\camera_android\intermediates\library_manifest\release\AndroidManifest.xml:10:5-71
-37-->[:camera_android] D:\Flutter\rowing_app\build\camera_android\intermediates\library_manifest\release\AndroidManifest.xml:10:22-68
+37-->[:camera_android] D:\Flutter\rowing_app\build\camera_android\intermediates\merged_manifest\release\AndroidManifest.xml:10:5-71
+37-->[:camera_android] D:\Flutter\rowing_app\build\camera_android\intermediates\merged_manifest\release\AndroidManifest.xml:10:22-68
 38    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-38-->[:connectivity] D:\Flutter\rowing_app\build\connectivity\intermediates\library_manifest\release\AndroidManifest.xml:7:5-79
-38-->[:connectivity] D:\Flutter\rowing_app\build\connectivity\intermediates\library_manifest\release\AndroidManifest.xml:7:22-76
+38-->[:connectivity] D:\Flutter\rowing_app\build\connectivity\intermediates\merged_manifest\release\AndroidManifest.xml:9:5-79
+38-->[:connectivity] D:\Flutter\rowing_app\build\connectivity\intermediates\merged_manifest\release\AndroidManifest.xml:9:22-76
 39
 40    <uses-feature
-40-->[com.google.android.gms:play-services-maps:18.1.0] C:\Users\Luis\.gradle\caches\transforms-2\files-2.1\068f55a0d48570d1e28e24d1f6879d5a\jetified-play-services-maps-18.1.0\AndroidManifest.xml:26:5-28:35
+40-->[com.google.android.gms:play-services-maps:18.1.0] C:\Users\luisn\.gradle\caches\transforms-3\684f889faff794fd151d165d83fc6165\transformed\jetified-play-services-maps-18.1.0\AndroidManifest.xml:26:5-28:35
 41        android:glEsVersion="0x00020000"
-41-->[com.google.android.gms:play-services-maps:18.1.0] C:\Users\Luis\.gradle\caches\transforms-2\files-2.1\068f55a0d48570d1e28e24d1f6879d5a\jetified-play-services-maps-18.1.0\AndroidManifest.xml:27:9-41
+41-->[com.google.android.gms:play-services-maps:18.1.0] C:\Users\luisn\.gradle\caches\transforms-3\684f889faff794fd151d165d83fc6165\transformed\jetified-play-services-maps-18.1.0\AndroidManifest.xml:27:9-41
 42        android:required="true" />
-42-->[com.google.android.gms:play-services-maps:18.1.0] C:\Users\Luis\.gradle\caches\transforms-2\files-2.1\068f55a0d48570d1e28e24d1f6879d5a\jetified-play-services-maps-18.1.0\AndroidManifest.xml:28:9-32
+42-->[com.google.android.gms:play-services-maps:18.1.0] C:\Users\luisn\.gradle\caches\transforms-3\684f889faff794fd151d165d83fc6165\transformed\jetified-play-services-maps-18.1.0\AndroidManifest.xml:28:9-32
 43
 44    <permission
-44-->[androidx.core:core:1.9.0] C:\Users\Luis\.gradle\caches\transforms-2\files-2.1\2f9250fe16fd137113577b8384df889a\core-1.9.0\AndroidManifest.xml:22:5-24:47
+44-->[androidx.core:core:1.9.0] C:\Users\luisn\.gradle\caches\transforms-3\4468f1769266acd80d3aada7fff18baa\transformed\core-1.9.0\AndroidManifest.xml:22:5-24:47
 45        android:name="com.luisnu.rowing_app.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
-45-->[androidx.core:core:1.9.0] C:\Users\Luis\.gradle\caches\transforms-2\files-2.1\2f9250fe16fd137113577b8384df889a\core-1.9.0\AndroidManifest.xml:23:9-81
+45-->[androidx.core:core:1.9.0] C:\Users\luisn\.gradle\caches\transforms-3\4468f1769266acd80d3aada7fff18baa\transformed\core-1.9.0\AndroidManifest.xml:23:9-81
 46        android:protectionLevel="signature" />
-46-->[androidx.core:core:1.9.0] C:\Users\Luis\.gradle\caches\transforms-2\files-2.1\2f9250fe16fd137113577b8384df889a\core-1.9.0\AndroidManifest.xml:24:9-44
+46-->[androidx.core:core:1.9.0] C:\Users\luisn\.gradle\caches\transforms-3\4468f1769266acd80d3aada7fff18baa\transformed\core-1.9.0\AndroidManifest.xml:24:9-44
 47
 48    <uses-permission android:name="com.luisnu.rowing_app.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
-48-->[androidx.core:core:1.9.0] C:\Users\Luis\.gradle\caches\transforms-2\files-2.1\2f9250fe16fd137113577b8384df889a\core-1.9.0\AndroidManifest.xml:26:5-97
-48-->[androidx.core:core:1.9.0] C:\Users\Luis\.gradle\caches\transforms-2\files-2.1\2f9250fe16fd137113577b8384df889a\core-1.9.0\AndroidManifest.xml:26:22-94
+48-->[androidx.core:core:1.9.0] C:\Users\luisn\.gradle\caches\transforms-3\4468f1769266acd80d3aada7fff18baa\transformed\core-1.9.0\AndroidManifest.xml:26:5-97
+48-->[androidx.core:core:1.9.0] C:\Users\luisn\.gradle\caches\transforms-3\4468f1769266acd80d3aada7fff18baa\transformed\core-1.9.0\AndroidManifest.xml:26:22-94
 49
 50    <application
 50-->D:\Flutter\rowing_app\android\app\src\main\AndroidManifest.xml:3:4-45:19
 51        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
-51-->[androidx.core:core:1.9.0] C:\Users\Luis\.gradle\caches\transforms-2\files-2.1\2f9250fe16fd137113577b8384df889a\core-1.9.0\AndroidManifest.xml:28:18-86
+51-->[androidx.core:core:1.9.0] C:\Users\luisn\.gradle\caches\transforms-3\4468f1769266acd80d3aada7fff18baa\transformed\core-1.9.0\AndroidManifest.xml:28:18-86
 52        android:icon="@mipmap/launcher_icon"
 52-->D:\Flutter\rowing_app\android\app\src\main\AndroidManifest.xml:5:9-45
 53        android:label="Rowing App"
 53-->D:\Flutter\rowing_app\android\app\src\main\AndroidManifest.xml:4:9-35
 54        android:largeHeap="true"
-54-->[:flutter_barcode_scanner] D:\Flutter\rowing_app\build\flutter_barcode_scanner\intermediates\library_manifest\release\AndroidManifest.xml:16:9-33
+54-->[:flutter_barcode_scanner] D:\Flutter\rowing_app\build\flutter_barcode_scanner\intermediates\merged_manifest\release\AndroidManifest.xml:16:9-33
 55        android:theme="@style/Theme.AppCompat.NoActionBar" >
-55-->[:flutter_barcode_scanner] D:\Flutter\rowing_app\build\flutter_barcode_scanner\intermediates\library_manifest\release\AndroidManifest.xml:17:9-59
+55-->[:flutter_barcode_scanner] D:\Flutter\rowing_app\build\flutter_barcode_scanner\intermediates\merged_manifest\release\AndroidManifest.xml:17:9-59
 56        <meta-data
 56-->D:\Flutter\rowing_app\android\app\src\main\AndroidManifest.xml:7:9-8:74
 57            android:name="com.google.android.maps.v2.API_KEY"
@@ -170,81 +170,81 @@
 101-->D:\Flutter\rowing_app\android\app\src\main\AndroidManifest.xml:44:13-30
 102
 103        <service
-103-->[:geolocator_android] D:\Flutter\rowing_app\build\geolocator_android\intermediates\library_manifest\release\AndroidManifest.xml:10:9-14:56
+103-->[:geolocator_android] D:\Flutter\rowing_app\build\geolocator_android\intermediates\merged_manifest\release\AndroidManifest.xml:12:9-16:56
 104            android:name="com.baseflow.geolocator.GeolocatorLocationService"
-104-->[:geolocator_android] D:\Flutter\rowing_app\build\geolocator_android\intermediates\library_manifest\release\AndroidManifest.xml:11:13-77
+104-->[:geolocator_android] D:\Flutter\rowing_app\build\geolocator_android\intermediates\merged_manifest\release\AndroidManifest.xml:13:13-77
 105            android:enabled="true"
-105-->[:geolocator_android] D:\Flutter\rowing_app\build\geolocator_android\intermediates\library_manifest\release\AndroidManifest.xml:12:13-35
+105-->[:geolocator_android] D:\Flutter\rowing_app\build\geolocator_android\intermediates\merged_manifest\release\AndroidManifest.xml:14:13-35
 106            android:exported="false"
-106-->[:geolocator_android] D:\Flutter\rowing_app\build\geolocator_android\intermediates\library_manifest\release\AndroidManifest.xml:13:13-37
+106-->[:geolocator_android] D:\Flutter\rowing_app\build\geolocator_android\intermediates\merged_manifest\release\AndroidManifest.xml:15:13-37
 107            android:foregroundServiceType="location" />
-107-->[:geolocator_android] D:\Flutter\rowing_app\build\geolocator_android\intermediates\library_manifest\release\AndroidManifest.xml:14:13-53
+107-->[:geolocator_android] D:\Flutter\rowing_app\build\geolocator_android\intermediates\merged_manifest\release\AndroidManifest.xml:16:13-53
 108
 109        <activity android:name="com.amolg.flutterbarcodescanner.BarcodeCaptureActivity" />
-109-->[:flutter_barcode_scanner] D:\Flutter\rowing_app\build\flutter_barcode_scanner\intermediates\library_manifest\release\AndroidManifest.xml:18:9-91
-109-->[:flutter_barcode_scanner] D:\Flutter\rowing_app\build\flutter_barcode_scanner\intermediates\library_manifest\release\AndroidManifest.xml:18:19-88
+109-->[:flutter_barcode_scanner] D:\Flutter\rowing_app\build\flutter_barcode_scanner\intermediates\merged_manifest\release\AndroidManifest.xml:18:9-91
+109-->[:flutter_barcode_scanner] D:\Flutter\rowing_app\build\flutter_barcode_scanner\intermediates\merged_manifest\release\AndroidManifest.xml:18:19-88
 110
 111        <provider
-111-->[:image_picker_android] D:\Flutter\rowing_app\build\image_picker_android\intermediates\library_manifest\release\AndroidManifest.xml:8:9-16:20
+111-->[:image_picker_android] D:\Flutter\rowing_app\build\image_picker_android\intermediates\merged_manifest\release\AndroidManifest.xml:10:9-18:20
 112            android:name="io.flutter.plugins.imagepicker.ImagePickerFileProvider"
-112-->[:image_picker_android] D:\Flutter\rowing_app\build\image_picker_android\intermediates\library_manifest\release\AndroidManifest.xml:9:13-82
+112-->[:image_picker_android] D:\Flutter\rowing_app\build\image_picker_android\intermediates\merged_manifest\release\AndroidManifest.xml:11:13-82
 113            android:authorities="com.luisnu.rowing_app.flutter.image_provider"
-113-->[:image_picker_android] D:\Flutter\rowing_app\build\image_picker_android\intermediates\library_manifest\release\AndroidManifest.xml:10:13-74
+113-->[:image_picker_android] D:\Flutter\rowing_app\build\image_picker_android\intermediates\merged_manifest\release\AndroidManifest.xml:12:13-74
 114            android:exported="false"
-114-->[:image_picker_android] D:\Flutter\rowing_app\build\image_picker_android\intermediates\library_manifest\release\AndroidManifest.xml:11:13-37
+114-->[:image_picker_android] D:\Flutter\rowing_app\build\image_picker_android\intermediates\merged_manifest\release\AndroidManifest.xml:13:13-37
 115            android:grantUriPermissions="true" >
-115-->[:image_picker_android] D:\Flutter\rowing_app\build\image_picker_android\intermediates\library_manifest\release\AndroidManifest.xml:12:13-47
+115-->[:image_picker_android] D:\Flutter\rowing_app\build\image_picker_android\intermediates\merged_manifest\release\AndroidManifest.xml:14:13-47
 116            <meta-data
-116-->[:image_picker_android] D:\Flutter\rowing_app\build\image_picker_android\intermediates\library_manifest\release\AndroidManifest.xml:13:13-15:75
+116-->[:image_picker_android] D:\Flutter\rowing_app\build\image_picker_android\intermediates\merged_manifest\release\AndroidManifest.xml:15:13-17:75
 117                android:name="android.support.FILE_PROVIDER_PATHS"
-117-->[:image_picker_android] D:\Flutter\rowing_app\build\image_picker_android\intermediates\library_manifest\release\AndroidManifest.xml:14:17-67
+117-->[:image_picker_android] D:\Flutter\rowing_app\build\image_picker_android\intermediates\merged_manifest\release\AndroidManifest.xml:16:17-67
 118                android:resource="@xml/flutter_image_picker_file_paths" />
-118-->[:image_picker_android] D:\Flutter\rowing_app\build\image_picker_android\intermediates\library_manifest\release\AndroidManifest.xml:15:17-72
+118-->[:image_picker_android] D:\Flutter\rowing_app\build\image_picker_android\intermediates\merged_manifest\release\AndroidManifest.xml:17:17-72
 119        </provider>
 120
 121        <activity
-121-->[:url_launcher_android] D:\Flutter\rowing_app\build\url_launcher_android\intermediates\library_manifest\release\AndroidManifest.xml:8:9-11:74
+121-->[:url_launcher_android] D:\Flutter\rowing_app\build\url_launcher_android\intermediates\merged_manifest\release\AndroidManifest.xml:10:9-13:74
 122            android:name="io.flutter.plugins.urllauncher.WebViewActivity"
-122-->[:url_launcher_android] D:\Flutter\rowing_app\build\url_launcher_android\intermediates\library_manifest\release\AndroidManifest.xml:9:13-74
+122-->[:url_launcher_android] D:\Flutter\rowing_app\build\url_launcher_android\intermediates\merged_manifest\release\AndroidManifest.xml:11:13-74
 123            android:exported="false"
-123-->[:url_launcher_android] D:\Flutter\rowing_app\build\url_launcher_android\intermediates\library_manifest\release\AndroidManifest.xml:10:13-37
+123-->[:url_launcher_android] D:\Flutter\rowing_app\build\url_launcher_android\intermediates\merged_manifest\release\AndroidManifest.xml:12:13-37
 124            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" /> <!-- Needs to be explicitly declared on P+ -->
-124-->[:url_launcher_android] D:\Flutter\rowing_app\build\url_launcher_android\intermediates\library_manifest\release\AndroidManifest.xml:11:13-71
+124-->[:url_launcher_android] D:\Flutter\rowing_app\build\url_launcher_android\intermediates\merged_manifest\release\AndroidManifest.xml:13:13-71
 125        <uses-library
-125-->[com.google.android.gms:play-services-maps:18.1.0] C:\Users\Luis\.gradle\caches\transforms-2\files-2.1\068f55a0d48570d1e28e24d1f6879d5a\jetified-play-services-maps-18.1.0\AndroidManifest.xml:39:9-41:40
+125-->[com.google.android.gms:play-services-maps:18.1.0] C:\Users\luisn\.gradle\caches\transforms-3\684f889faff794fd151d165d83fc6165\transformed\jetified-play-services-maps-18.1.0\AndroidManifest.xml:39:9-41:40
 126            android:name="org.apache.http.legacy"
-126-->[com.google.android.gms:play-services-maps:18.1.0] C:\Users\Luis\.gradle\caches\transforms-2\files-2.1\068f55a0d48570d1e28e24d1f6879d5a\jetified-play-services-maps-18.1.0\AndroidManifest.xml:40:13-50
+126-->[com.google.android.gms:play-services-maps:18.1.0] C:\Users\luisn\.gradle\caches\transforms-3\684f889faff794fd151d165d83fc6165\transformed\jetified-play-services-maps-18.1.0\AndroidManifest.xml:40:13-50
 127            android:required="false" />
-127-->[com.google.android.gms:play-services-maps:18.1.0] C:\Users\Luis\.gradle\caches\transforms-2\files-2.1\068f55a0d48570d1e28e24d1f6879d5a\jetified-play-services-maps-18.1.0\AndroidManifest.xml:41:13-37
+127-->[com.google.android.gms:play-services-maps:18.1.0] C:\Users\luisn\.gradle\caches\transforms-3\684f889faff794fd151d165d83fc6165\transformed\jetified-play-services-maps-18.1.0\AndroidManifest.xml:41:13-37
 128
 129        <activity
-129-->[com.google.android.gms:play-services-base:18.1.0] C:\Users\Luis\.gradle\caches\transforms-2\files-2.1\7de7698b3b379bf98b32af45f2d0763d\jetified-play-services-base-18.1.0\AndroidManifest.xml:20:9-22:45
+129-->[com.google.android.gms:play-services-base:18.1.0] C:\Users\luisn\.gradle\caches\transforms-3\d99f791b74b6dec0dd0db314a595dba2\transformed\jetified-play-services-base-18.1.0\AndroidManifest.xml:20:9-22:45
 130            android:name="com.google.android.gms.common.api.GoogleApiActivity"
-130-->[com.google.android.gms:play-services-base:18.1.0] C:\Users\Luis\.gradle\caches\transforms-2\files-2.1\7de7698b3b379bf98b32af45f2d0763d\jetified-play-services-base-18.1.0\AndroidManifest.xml:20:19-85
+130-->[com.google.android.gms:play-services-base:18.1.0] C:\Users\luisn\.gradle\caches\transforms-3\d99f791b74b6dec0dd0db314a595dba2\transformed\jetified-play-services-base-18.1.0\AndroidManifest.xml:20:19-85
 131            android:exported="false"
-131-->[com.google.android.gms:play-services-base:18.1.0] C:\Users\Luis\.gradle\caches\transforms-2\files-2.1\7de7698b3b379bf98b32af45f2d0763d\jetified-play-services-base-18.1.0\AndroidManifest.xml:22:19-43
+131-->[com.google.android.gms:play-services-base:18.1.0] C:\Users\luisn\.gradle\caches\transforms-3\d99f791b74b6dec0dd0db314a595dba2\transformed\jetified-play-services-base-18.1.0\AndroidManifest.xml:22:19-43
 132            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-132-->[com.google.android.gms:play-services-base:18.1.0] C:\Users\Luis\.gradle\caches\transforms-2\files-2.1\7de7698b3b379bf98b32af45f2d0763d\jetified-play-services-base-18.1.0\AndroidManifest.xml:21:19-78
+132-->[com.google.android.gms:play-services-base:18.1.0] C:\Users\luisn\.gradle\caches\transforms-3\d99f791b74b6dec0dd0db314a595dba2\transformed\jetified-play-services-base-18.1.0\AndroidManifest.xml:21:19-78
 133
 134        <meta-data
-134-->[com.google.android.gms:play-services-basement:18.1.0] C:\Users\Luis\.gradle\caches\transforms-2\files-2.1\0cdd8aceb5059ba1c457f63b9183d1a3\jetified-play-services-basement-18.1.0\AndroidManifest.xml:21:9-23:69
+134-->[com.google.android.gms:play-services-basement:18.1.0] C:\Users\luisn\.gradle\caches\transforms-3\d3c89d8de8d4f3d3579b8a78b88e5083\transformed\jetified-play-services-basement-18.1.0\AndroidManifest.xml:21:9-23:69
 135            android:name="com.google.android.gms.version"
-135-->[com.google.android.gms:play-services-basement:18.1.0] C:\Users\Luis\.gradle\caches\transforms-2\files-2.1\0cdd8aceb5059ba1c457f63b9183d1a3\jetified-play-services-basement-18.1.0\AndroidManifest.xml:22:13-58
+135-->[com.google.android.gms:play-services-basement:18.1.0] C:\Users\luisn\.gradle\caches\transforms-3\d3c89d8de8d4f3d3579b8a78b88e5083\transformed\jetified-play-services-basement-18.1.0\AndroidManifest.xml:22:13-58
 136            android:value="@integer/google_play_services_version" />
-136-->[com.google.android.gms:play-services-basement:18.1.0] C:\Users\Luis\.gradle\caches\transforms-2\files-2.1\0cdd8aceb5059ba1c457f63b9183d1a3\jetified-play-services-basement-18.1.0\AndroidManifest.xml:23:13-66
+136-->[com.google.android.gms:play-services-basement:18.1.0] C:\Users\luisn\.gradle\caches\transforms-3\d3c89d8de8d4f3d3579b8a78b88e5083\transformed\jetified-play-services-basement-18.1.0\AndroidManifest.xml:23:13-66
 137
 138        <uses-library
-138-->[androidx.window:window:1.0.0-beta04] C:\Users\Luis\.gradle\caches\transforms-2\files-2.1\03c633e46d75bfb21f082f0417f55161\jetified-window-1.0.0-beta04\AndroidManifest.xml:25:9-27:40
+138-->[androidx.window:window:1.0.0-beta04] C:\Users\luisn\.gradle\caches\transforms-3\60ce2f2ffb62c69d0c673ac38088dfd6\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:25:9-27:40
 139            android:name="androidx.window.extensions"
-139-->[androidx.window:window:1.0.0-beta04] C:\Users\Luis\.gradle\caches\transforms-2\files-2.1\03c633e46d75bfb21f082f0417f55161\jetified-window-1.0.0-beta04\AndroidManifest.xml:26:13-54
+139-->[androidx.window:window:1.0.0-beta04] C:\Users\luisn\.gradle\caches\transforms-3\60ce2f2ffb62c69d0c673ac38088dfd6\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:26:13-54
 140            android:required="false" />
-140-->[androidx.window:window:1.0.0-beta04] C:\Users\Luis\.gradle\caches\transforms-2\files-2.1\03c633e46d75bfb21f082f0417f55161\jetified-window-1.0.0-beta04\AndroidManifest.xml:27:13-37
+140-->[androidx.window:window:1.0.0-beta04] C:\Users\luisn\.gradle\caches\transforms-3\60ce2f2ffb62c69d0c673ac38088dfd6\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:27:13-37
 141        <uses-library
-141-->[androidx.window:window:1.0.0-beta04] C:\Users\Luis\.gradle\caches\transforms-2\files-2.1\03c633e46d75bfb21f082f0417f55161\jetified-window-1.0.0-beta04\AndroidManifest.xml:28:9-30:40
+141-->[androidx.window:window:1.0.0-beta04] C:\Users\luisn\.gradle\caches\transforms-3\60ce2f2ffb62c69d0c673ac38088dfd6\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:28:9-30:40
 142            android:name="androidx.window.sidecar"
-142-->[androidx.window:window:1.0.0-beta04] C:\Users\Luis\.gradle\caches\transforms-2\files-2.1\03c633e46d75bfb21f082f0417f55161\jetified-window-1.0.0-beta04\AndroidManifest.xml:29:13-51
+142-->[androidx.window:window:1.0.0-beta04] C:\Users\luisn\.gradle\caches\transforms-3\60ce2f2ffb62c69d0c673ac38088dfd6\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:29:13-51
 143            android:required="false" />
-143-->[androidx.window:window:1.0.0-beta04] C:\Users\Luis\.gradle\caches\transforms-2\files-2.1\03c633e46d75bfb21f082f0417f55161\jetified-window-1.0.0-beta04\AndroidManifest.xml:30:13-37
+143-->[androidx.window:window:1.0.0-beta04] C:\Users\luisn\.gradle\caches\transforms-3\60ce2f2ffb62c69d0c673ac38088dfd6\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:30:13-37
 144    </application>
 145
 146</manifest>
