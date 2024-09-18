@@ -3,9 +3,7 @@ import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:rowing_app/components/loader_component.dart';
 import 'package:rowing_app/helpers/api_helper.dart';
-import 'package:rowing_app/models/causante.dart';
-import 'package:rowing_app/models/response.dart';
-import 'package:rowing_app/models/user.dart';
+import 'package:rowing_app/models/models.dart';
 
 class SiniestroAgregarScreen extends StatefulWidget {
   final User user;
@@ -26,6 +24,13 @@ class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
   bool _showLoader = false;
   bool bandera = false;
   int intentos = 0;
+
+  List<DropdownMenuItem<String>> _itemsTipoSiniestro = [];
+  String _tipoSiniestro = 'Seleccione Tipo de Siniestro...';
+  String _optionTipoSiniestro = 'Seleccione Tipo de Siniestro...';
+  final String _optionTipoSiniestroError = '';
+  final bool _optionTipoSiniestroShowError = false;
+  List<Option2> _listoptionsTipoSiniestro = [];
 
   DateTime selectedDate = DateTime.now();
   TimeOfDay selectedTime = TimeOfDay.now();
@@ -130,6 +135,7 @@ class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
   @override
   void initState() {
     super.initState();
+    _getlistOptionsTipoSiniestro();
   }
 
 //---------------------------------------------------------------
@@ -157,6 +163,40 @@ class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
                   height: 5,
                 ),
                 _showNumcha(),
+                Padding(
+                  padding: const EdgeInsets.only(left: 10),
+                  child: Row(
+                    children: [
+                      const SizedBox(
+                          width: 70, child: Text('Tipo de Siniestro: ')),
+                      Expanded(
+                        child: Container(
+                          padding: const EdgeInsets.all(10),
+                          child: DropdownButtonFormField(
+                              items: _itemsTipoSiniestro,
+                              value: _optionTipoSiniestro,
+                              onChanged: (option2) {
+                                setState(() {
+                                  _optionTipoSiniestro = option2.toString();
+                                  _tipoSiniestro = option2.toString();
+                                });
+                              },
+                              decoration: InputDecoration(
+                                hintText: 'Seleccione Tipo de Siniestro...',
+                                labelText: '',
+                                fillColor: Colors.white,
+                                filled: true,
+                                errorText: _optionTipoSiniestroShowError
+                                    ? _optionTipoSiniestroError
+                                    : null,
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10)),
+                              )),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
                 const Divider(
                   height: 5,
                   thickness: 2,
@@ -1190,5 +1230,66 @@ class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
       name = name + letter;
     }
     return name;
+  }
+
+//--------------------------------------------------------------
+//-------------------- _getlistOptionsTipoSiniestro ------------
+//--------------------------------------------------------------
+
+  void _getlistOptionsTipoSiniestro() {
+    _itemsTipoSiniestro = [];
+    _listoptionsTipoSiniestro = [];
+
+    Option2 opt1 = Option2(id: 'Sin Datos', description: 'Sin Datos');
+    Option2 opt2 = Option2(id: 'Robo Vehículo', description: 'Robo Vehículo');
+    Option2 opt3 = Option2(id: 'Robo Cubiertas', description: 'Robo Cubiertas');
+    Option2 opt4 = Option2(id: 'Rotura Cristal', description: 'Rotura Cristal');
+    Option2 opt5 = Option2(
+        id: 'Rotura Cristal + Robo', description: 'Rotura Cristal + Robo');
+    Option2 opt6 =
+        Option2(id: 'Siniestro Automotor', description: 'Siniestro Automotor');
+    Option2 opt7 = Option2(id: 'Siniestro RC', description: 'Siniestro RC');
+    _listoptionsTipoSiniestro.add(opt1);
+    _listoptionsTipoSiniestro.add(opt2);
+    _listoptionsTipoSiniestro.add(opt3);
+    _listoptionsTipoSiniestro.add(opt4);
+    _listoptionsTipoSiniestro.add(opt5);
+    _listoptionsTipoSiniestro.add(opt6);
+    _listoptionsTipoSiniestro.add(opt7);
+
+    _loadFieldValues();
+  }
+
+//--------------------------------------------------------------
+//-------------------------- _loadFieldValues -------------------
+//--------------------------------------------------------------
+
+  void _loadFieldValues() {
+    _getComboTipoSiniestro();
+  }
+
+//--------------------------------------------------------------
+//-------------------------- _getComboTipoSiniestro ------------
+//--------------------------------------------------------------
+
+  List<DropdownMenuItem<String>> _getComboTipoSiniestro() {
+    _itemsTipoSiniestro = [];
+
+    List<DropdownMenuItem<String>> list = [];
+    list.add(const DropdownMenuItem(
+      child: Text('Seleccione Tipo de Siniestro...'),
+      value: 'Seleccione Tipo de Siniestro...',
+    ));
+
+    for (var _listoption in _listoptionsTipoSiniestro) {
+      list.add(DropdownMenuItem(
+        child: Text(_listoption.description),
+        value: _listoption.id,
+      ));
+    }
+
+    _itemsTipoSiniestro = list;
+
+    return list;
   }
 }
