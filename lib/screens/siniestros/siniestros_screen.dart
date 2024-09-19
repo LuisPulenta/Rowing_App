@@ -58,6 +58,7 @@ class _SiniestrosScreenState extends State<SiniestrosScreen> {
     detalledanostercero: '',
     numchatercero: '',
     fechacargaapp: '',
+    tipoDeSiniestro: '',
   );
 
 //---------------------------------------------------------------
@@ -272,7 +273,7 @@ class _SiniestrosScreenState extends State<SiniestrosScreen> {
                               Row(
                                 children: [
                                   const SizedBox(
-                                    width: 80,
+                                    width: 100,
                                     child: Text("Fecha: ",
                                         style: TextStyle(
                                           fontSize: 12,
@@ -313,7 +314,7 @@ class _SiniestrosScreenState extends State<SiniestrosScreen> {
                               Row(
                                 children: [
                                   const SizedBox(
-                                    width: 80,
+                                    width: 100,
                                     child: Text("Patente: ",
                                         style: TextStyle(
                                           fontSize: 12,
@@ -335,7 +336,7 @@ class _SiniestrosScreenState extends State<SiniestrosScreen> {
                               Row(
                                 children: [
                                   const SizedBox(
-                                    width: 80,
+                                    width: 100,
                                     child: Text("Tercero: ",
                                         style: TextStyle(
                                           fontSize: 12,
@@ -357,7 +358,7 @@ class _SiniestrosScreenState extends State<SiniestrosScreen> {
                               Row(
                                 children: [
                                   const SizedBox(
-                                    width: 80,
+                                    width: 100,
                                     child: Text("Dirección: ",
                                         style: TextStyle(
                                           fontSize: 12,
@@ -380,7 +381,7 @@ class _SiniestrosScreenState extends State<SiniestrosScreen> {
                               Row(
                                 children: [
                                   const SizedBox(
-                                    width: 80,
+                                    width: 100,
                                     child: Text("Ciudad: ",
                                         style: TextStyle(
                                           fontSize: 12,
@@ -402,7 +403,7 @@ class _SiniestrosScreenState extends State<SiniestrosScreen> {
                               Row(
                                 children: [
                                   const SizedBox(
-                                    width: 80,
+                                    width: 100,
                                     child: Text("Provincia: ",
                                         style: TextStyle(
                                           fontSize: 12,
@@ -424,7 +425,7 @@ class _SiniestrosScreenState extends State<SiniestrosScreen> {
                               Row(
                                 children: [
                                   const SizedBox(
-                                    width: 80,
+                                    width: 100,
                                     child: Text("Notificó: ",
                                         style: TextStyle(
                                           fontSize: 12,
@@ -446,7 +447,7 @@ class _SiniestrosScreenState extends State<SiniestrosScreen> {
                               Row(
                                 children: [
                                   const SizedBox(
-                                    width: 80,
+                                    width: 100,
                                     child: Text("Notificado a: ",
                                         style: TextStyle(
                                           fontSize: 12,
@@ -460,6 +461,39 @@ class _SiniestrosScreenState extends State<SiniestrosScreen> {
                                           fontSize: 12,
                                         )),
                                   ),
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 1,
+                              ),
+                              Row(
+                                children: [
+                                  const SizedBox(
+                                    width: 100,
+                                    child: Text(
+                                      "Tipo Siniestro: ",
+                                      style: TextStyle(
+                                        fontSize: 12,
+                                        color: Color(0xFF0e4888),
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ),
+                                  e.tipoDeSiniestro != null
+                                      ? Expanded(
+                                          child: Text(e.tipoDeSiniestro!,
+                                              style: const TextStyle(
+                                                fontSize: 12,
+                                              )),
+                                        )
+                                      : const Expanded(
+                                          child: Text(
+                                            "",
+                                            style: TextStyle(
+                                              fontSize: 12,
+                                            ),
+                                          ),
+                                        ),
                                 ],
                               ),
                               const SizedBox(

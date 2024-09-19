@@ -26,35 +26,38 @@ class VehiculosSiniestro {
   String detalledanospropio = '';
   String numchatercero = '';
   String fechacargaapp = '';
+  String? tipoDeSiniestro = '';
 
-  VehiculosSiniestro(
-      {required this.nrosiniestro,
-      required this.fechacarga,
-      required this.grupo,
-      required this.causante,
-      required this.apellidonombretercero,
-      required this.nropolizatercero,
-      required this.telefonocontactotercero,
-      required this.emailtercero,
-      required this.notificadoempresa,
-      required this.notificadoa,
-      required this.direccionsiniestro,
-      required this.altura,
-      required this.ciudad,
-      required this.provincia,
-      required this.horasiniestro,
-      required this.lesionados,
-      required this.cantidadlesionados,
-      required this.intervinopolicia,
-      required this.intervinoambulancia,
-      required this.relatosiniestro,
-      required this.numcha,
-      required this.companiasegurotercero,
-      required this.idusuariocarga,
-      required this.detalledanostercero,
-      required this.detalledanospropio,
-      required this.numchatercero,
-      required this.fechacargaapp});
+  VehiculosSiniestro({
+    required this.nrosiniestro,
+    required this.fechacarga,
+    required this.grupo,
+    required this.causante,
+    required this.apellidonombretercero,
+    required this.nropolizatercero,
+    required this.telefonocontactotercero,
+    required this.emailtercero,
+    required this.notificadoempresa,
+    required this.notificadoa,
+    required this.direccionsiniestro,
+    required this.altura,
+    required this.ciudad,
+    required this.provincia,
+    required this.horasiniestro,
+    required this.lesionados,
+    required this.cantidadlesionados,
+    required this.intervinopolicia,
+    required this.intervinoambulancia,
+    required this.relatosiniestro,
+    required this.numcha,
+    required this.companiasegurotercero,
+    required this.idusuariocarga,
+    required this.detalledanostercero,
+    required this.detalledanospropio,
+    required this.numchatercero,
+    required this.fechacargaapp,
+    required this.tipoDeSiniestro,
+  });
 
   VehiculosSiniestro.fromJson(Map<String, dynamic> json) {
     nrosiniestro = json['nrosiniestro'];
@@ -84,6 +87,7 @@ class VehiculosSiniestro {
     detalledanospropio = json['detalledanospropio'];
     numchatercero = json['numchatercero'];
     fechacargaapp = json['fechacargaapp'];
+    tipoDeSiniestro = json['tipoDeSiniestro'];
   }
 
   Map<String, dynamic> toJson() {
@@ -115,6 +119,7 @@ class VehiculosSiniestro {
     data['detalledanospropio'] = detalledanospropio;
     data['numchatercero'] = numchatercero;
     data['fechacargaapp'] = fechacargaapp;
+    data['tipoDeSiniestro'] = tipoDeSiniestro;
 
     return data;
   }
