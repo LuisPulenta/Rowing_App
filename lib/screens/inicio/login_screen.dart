@@ -30,8 +30,8 @@ class _LoginScreenState extends State<LoginScreen> {
 //----------------------- Variables -----------------------------
 //---------------------------------------------------------------
 
-  // String _email = '';
-  // String _password = '';
+  String _email = '';
+  String _password = '';
 
   String imei = '';
 
@@ -41,8 +41,8 @@ class _LoginScreenState extends State<LoginScreen> {
   // String _email = 'GPRIETO';
   // String _password = 'CELESTE';
 
-  String _email = 'RODRIGUEZE';
-  String _password = 'ROD951';
+  // String _email = 'RODRIGUEZE';
+  // String _password = 'ROD951';
 
   // String _email = '517676';
   // String _password = '94461399';
