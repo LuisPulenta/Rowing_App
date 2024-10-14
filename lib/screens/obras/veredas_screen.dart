@@ -3,7 +3,7 @@ import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:intl/intl.dart';
-import 'package:rowing_app/helpers/api_helper.dart';
+import 'package:rowing_app/helpers/helpers.dart';
 import 'package:rowing_app/models/models.dart';
 import 'package:rowing_app/screens/screens.dart';
 

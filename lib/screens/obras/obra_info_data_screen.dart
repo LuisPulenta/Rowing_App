@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:rowing_app/components/loader_component.dart';
-import 'package:rowing_app/helpers/api_helper.dart';
+import 'package:rowing_app/helpers/helpers.dart';
 import 'package:rowing_app/models/models.dart';
 
 class ObraInfoDataScreen extends StatefulWidget {
@@ -788,14 +788,8 @@ class _ObraInfoDataScreenState extends State<ObraInfoDataScreen> {
     var connectivityResult = await Connectivity().checkConnectivity();
 
     if (connectivityResult == ConnectivityResult.none) {
-      await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: 'Verifica que estés conectado a Internet',
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
-      return;
+      showMyDialog(
+          'Error', "Verifica que estés conectado a Internet", 'Aceptar');
     }
 
     Response response = Response(isSuccess: false);
@@ -1122,14 +1116,8 @@ class _ObraInfoDataScreenState extends State<ObraInfoDataScreen> {
       setState(() {
         _showLoader = false;
       });
-      await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: 'Verifica que estés conectado a Internet',
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
-      return;
+      showMyDialog(
+          'Error', "Verifica que estés conectado a Internet", 'Aceptar');
     }
 
     Map<String, dynamic> request = {

@@ -3,7 +3,7 @@ import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:rowing_app/components/loader_component.dart';
-import 'package:rowing_app/helpers/api_helper.dart';
+import 'package:rowing_app/helpers/helpers.dart';
 import 'package:rowing_app/models/entrega.dart';
 import 'package:rowing_app/models/response.dart';
 
@@ -78,14 +78,8 @@ class _EntregasScreenState extends State<EntregasScreen> {
       setState(() {
         _showLoader = false;
       });
-      await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: 'Verifica que estés conectado a Internet',
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
-      return;
+      showMyDialog(
+          'Error', "Verifica que estés conectado a Internet", 'Aceptar');
     }
 
     Response response = Response(isSuccess: false);

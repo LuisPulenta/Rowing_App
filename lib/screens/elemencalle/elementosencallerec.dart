@@ -494,14 +494,8 @@ class _ElementosencallerecState extends State<Elementosencallerec> {
       setState(() {
         _showLoader = false;
       });
-      await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: 'Verifica que estés conectado a Internet',
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
-      return;
+      showMyDialog(
+          'Error', "Verifica que estés conectado a Internet", 'Aceptar');
     }
 
     Response response = Response(isSuccess: false);
@@ -766,7 +760,7 @@ class _ElementosencallerecState extends State<Elementosencallerec> {
               _showRecButton(),
             ],
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           Row(
@@ -798,7 +792,7 @@ class _ElementosencallerecState extends State<Elementosencallerec> {
           ],
         ),
         style: ElevatedButton.styleFrom(
-          backgroundColor: Color.fromARGB(255, 42, 120, 30),
+          backgroundColor: const Color.fromARGB(255, 42, 120, 30),
           minimumSize: const Size(double.infinity, 50),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(5),
@@ -870,14 +864,8 @@ class _ElementosencallerecState extends State<Elementosencallerec> {
       setState(() {
         _showLoader = false;
       });
-      await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: 'Verifica que estés conectado a Internet',
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
-      return;
+      showMyDialog(
+          'Error', "Verifica que estés conectado a Internet", 'Aceptar');
     }
 
     //-----------------Graba Cabecera--------------
@@ -1026,14 +1014,8 @@ class _ElementosencallerecState extends State<Elementosencallerec> {
       setState(() {
         _showLoader = false;
       });
-      await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: 'Verifica que estés conectado a Internet',
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
-      return;
+      showMyDialog(
+          'Error', "Verifica que estés conectado a Internet", 'Aceptar');
     }
 
     Response response = Response(isSuccess: false);

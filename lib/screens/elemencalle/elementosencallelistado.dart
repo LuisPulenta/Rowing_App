@@ -6,6 +6,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:rowing_app/components/loader_component.dart';
+import 'package:rowing_app/helpers/helpers.dart';
 import 'package:rowing_app/models/models.dart';
 import 'package:rowing_app/screens/screens.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -396,14 +397,8 @@ class _ElementosencallelistadoState extends State<Elementosencallelistado> {
       setState(() {
         _showLoader = false;
       });
-      await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: 'Verifica que estés conectado a Internet',
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
-      return;
+      showMyDialog(
+          'Error', "Verifica que estés conectado a Internet", 'Aceptar');
     }
 
     Response response = Response(isSuccess: false);
@@ -525,14 +520,8 @@ class _ElementosencallelistadoState extends State<Elementosencallelistado> {
       setState(() {
         _showLoader = false;
       });
-      await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: 'Verifica que estés conectado a Internet',
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
-      return;
+      showMyDialog(
+          'Error', "Verifica que estés conectado a Internet", 'Aceptar');
     }
 
     Response response = Response(isSuccess: false);

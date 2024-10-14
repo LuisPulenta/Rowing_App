@@ -6,10 +6,11 @@ import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:rowing_app/components/loader_component.dart';
-import 'package:rowing_app/helpers/api_helper.dart';
+import 'package:rowing_app/helpers/helpers.dart';
 import 'package:rowing_app/models/models.dart';
 import 'package:grouped_list/grouped_list.dart';
 import 'package:rowing_app/screens/screens.dart';
+import 'package:rowing_app/helpers/helpers.dart';
 
 class InspeccionCuestionarioScreen extends StatefulWidget {
   final User user;
@@ -1399,14 +1400,8 @@ class _InspeccionCuestionarioScreenState
       setState(() {
         _showLoader = false;
       });
-      await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: 'Verifica que estés conectado a Internet',
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
-      return;
+      showMyDialog(
+          'Error', "Verifica que estés conectado a Internet", 'Aceptar');
     }
 
     Map<String, dynamic> request = {

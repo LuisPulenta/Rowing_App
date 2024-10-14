@@ -11,7 +11,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:rowing_app/components/loader_component.dart';
-import 'package:rowing_app/helpers/api_helper.dart';
+import 'package:rowing_app/helpers/helpers.dart';
 import 'package:rowing_app/models/models.dart';
 import 'package:rowing_app/screens/screens.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -384,7 +384,7 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
                 ? Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 10),
                     child: Text(
-                        'La obra tiene cargado el Código de Subestado ${_subestadoexistente} que no corresponde al Estado que tiene cargado.',
+                        'La obra tiene cargado el Código de Subestado $_subestadoexistente que no corresponde al Estado que tiene cargado.',
                         style:
                             const TextStyle(color: Colors.red, fontSize: 14)),
                   )

@@ -2,7 +2,7 @@ import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:rowing_app/helpers/api_helper.dart';
+import 'package:rowing_app/helpers/helpers.dart';
 import 'package:rowing_app/models/models.dart';
 import 'package:rowing_app/screens/screens.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -266,7 +266,8 @@ class _JuicioInfoScreenState extends State<JuicioInfoScreen> {
                               Expanded(
                                 child: Text(
                                     widget.juicio.importejuicio != null
-                                        ? NumberFormat.currency(symbol: '\$').format(widget.juicio.importejuicio)
+                                        ? NumberFormat.currency(symbol: '\$')
+                                            .format(widget.juicio.importejuicio)
                                         : '',
                                     style: const TextStyle(
                                       fontSize: 12,
@@ -293,7 +294,9 @@ class _JuicioInfoScreenState extends State<JuicioInfoScreen> {
                               Expanded(
                                 child: Text(
                                     widget.juicio.importeinteres != null
-                                        ? NumberFormat.currency(symbol: '\$').format(widget.juicio.importeinteres)
+                                        ? NumberFormat.currency(symbol: '\$')
+                                            .format(
+                                                widget.juicio.importeinteres)
                                             .toString()
                                         : '',
                                     style: const TextStyle(
@@ -672,14 +675,8 @@ class _JuicioInfoScreenState extends State<JuicioInfoScreen> {
       setState(() {
         _showLoader = false;
       });
-      await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: 'Verifica que estés conectado a Internet',
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
-      return;
+      showMyDialog(
+          'Error', "Verifica que estés conectado a Internet", 'Aceptar');
     }
 
     Response response = Response(isSuccess: false);

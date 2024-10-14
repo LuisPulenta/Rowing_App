@@ -13,6 +13,7 @@ class ObraAsignada {
   String? fechaCierre = '';
   String? nombreObra = '';
   String? modulo = '';
+  String? elempep = '';
 
   ObraAsignada(
       {required this.nroregistro,
@@ -26,7 +27,8 @@ class ObraAsignada {
       required this.idusr,
       required this.fechaCierre,
       required this.nombreObra,
-      required this.modulo});
+      required this.modulo,
+      required this.elempep});
 
   ObraAsignada.fromJson(Map<String, dynamic> json) {
     nroregistro = json['nroregistro'];
@@ -41,6 +43,7 @@ class ObraAsignada {
     fechaCierre = json['fechaCierre'];
     nombreObra = json['nombreObra'];
     modulo = json['modulo'];
+    elempep = json['elempep'];
   }
 
   Map<String, dynamic> toJson() {
@@ -57,6 +60,7 @@ class ObraAsignada {
     data['fechaCierre'] = fechaCierre;
     data['nombreObra'] = nombreObra;
     data['modulo'] = modulo;
+    data['elempep'] = elempep;
     return data;
   }
 }

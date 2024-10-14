@@ -3,7 +3,8 @@ import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:rowing_app/components/loader_component.dart';
-import 'package:rowing_app/helpers/api_helper.dart';
+import 'package:rowing_app/helpers/helpers.dart';
+import 'package:rowing_app/helpers/helpers.dart';
 import 'package:rowing_app/models/models.dart';
 import 'package:rowing_app/widgets/widgets.dart';
 
@@ -312,13 +313,12 @@ class _GruasCheckListAgregarScreenState
                           ),
                           Container(
                             color: const Color.fromARGB(255, 33, 172, 236),
-                            child: Padding(
-                              padding: const EdgeInsets.only(left: 8.0),
-                              child: Container(
-                                  child: const Text("NO",
-                                      style: TextStyle(
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.bold))),
+                            child: const Padding(
+                              padding: EdgeInsets.only(left: 8.0),
+                              child: Text("NO",
+                                  style: TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.bold)),
                             ),
                           ),
                           Container(
@@ -529,13 +529,12 @@ class _GruasCheckListAgregarScreenState
                           ),
                           Container(
                             color: const Color.fromARGB(255, 33, 172, 236),
-                            child: Padding(
-                              padding: const EdgeInsets.only(left: 8.0),
-                              child: Container(
-                                  child: const Text("Regular",
-                                      style: TextStyle(
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.bold))),
+                            child: const Padding(
+                              padding: EdgeInsets.only(left: 8.0),
+                              child: Text("Regular",
+                                  style: TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.bold)),
                             ),
                           ),
                           Container(
@@ -1464,13 +1463,12 @@ class _GruasCheckListAgregarScreenState
                           ),
                           Container(
                             color: const Color.fromARGB(255, 33, 172, 236),
-                            child: Padding(
-                              padding: const EdgeInsets.only(left: 8.0),
-                              child: Container(
-                                  child: const Text("Regular",
-                                      style: TextStyle(
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.bold))),
+                            child: const Padding(
+                              padding: EdgeInsets.only(left: 8.0),
+                              child: Text("Regular",
+                                  style: TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.bold)),
                             ),
                           ),
                           Container(
@@ -2008,13 +2006,12 @@ class _GruasCheckListAgregarScreenState
                           ),
                           Container(
                             color: const Color.fromARGB(255, 33, 172, 236),
-                            child: Padding(
-                              padding: const EdgeInsets.only(left: 8.0),
-                              child: Container(
-                                  child: const Text("Regular",
-                                      style: TextStyle(
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.bold))),
+                            child: const Padding(
+                              padding: EdgeInsets.only(left: 8.0),
+                              child: Text("Regular",
+                                  style: TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.bold)),
                             ),
                           ),
                           Container(
@@ -3088,14 +3085,8 @@ class _GruasCheckListAgregarScreenState
       setState(() {
         _showLoader = false;
       });
-      await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: 'Verifica que estés conectado a Internet',
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
-      return;
+      showMyDialog(
+          'Error', "Verifica que estés conectado a Internet", 'Aceptar');
     }
 
     Map<String, dynamic> request = {
@@ -3384,14 +3375,8 @@ class _GruasCheckListAgregarScreenState
       setState(() {
         _showLoader = false;
       });
-      await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: 'Verifica que estés conectado a Internet',
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
-      return;
+      showMyDialog(
+          'Error', "Verifica que estés conectado a Internet", 'Aceptar');
     }
 
     Response response = Response(isSuccess: false);

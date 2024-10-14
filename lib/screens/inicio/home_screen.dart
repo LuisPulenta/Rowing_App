@@ -6,7 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:rowing_app/blocs/blocs.dart';
-import 'package:rowing_app/helpers/api_helper.dart';
+import 'package:rowing_app/helpers/helpers.dart';
 import 'package:rowing_app/helpers/constants.dart';
 import 'package:rowing_app/models/models.dart';
 
@@ -158,8 +158,15 @@ class _HomeScreenState extends State<HomeScreen> {
             //   "assets/${widget.user.modulo.toLowerCase()}.png",
             //   height: 200,
             // ),
+            const Text(
+              'Bienvenido/a',
+              style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white),
+            ),
             Text(
-              'Bienvenido/a ${widget.user.fullName}',
+              widget.user.fullName,
               style: const TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,

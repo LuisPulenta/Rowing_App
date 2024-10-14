@@ -9,6 +9,7 @@ import 'package:rowing_app/screens/screens.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
+final navigatorKey = GlobalKey<NavigatorState>();
 void main() {
   runApp(MultiBlocProvider(providers: [
     BlocProvider(create: (context) => GpsBloc()),
@@ -58,6 +59,7 @@ class _MyAppState extends State<MyApp> {
         colorScheme:
             ColorScheme.fromSwatch().copyWith(secondary: Colors.cyan[300]),
       ),
+      navigatorKey: navigatorKey,
       home: _isLoading
           ? const WaitScreen()
           : _showLoginPage

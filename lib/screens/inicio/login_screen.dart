@@ -6,10 +6,11 @@ import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
-import 'package:rowing_app/helpers/api_helper.dart';
+import 'package:rowing_app/helpers/helpers.dart';
 import 'package:rowing_app/helpers/constants.dart';
 import 'package:rowing_app/components/loader_component.dart';
 import 'package:rowing_app/helpers/dbsuministroscatalogos_helper.dart';
+import 'package:rowing_app/helpers/helpers.dart';
 import 'package:rowing_app/models/models.dart';
 import 'package:device_information/device_information.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -40,14 +41,17 @@ class _LoginScreenState extends State<LoginScreen> {
   // String _email = 'GPRIETO';
   // String _password = 'CELESTE';
 
+  String _email = 'RODRIGUEZE';
+  String _password = 'ROD951';
+
   // String _email = '517676';
   // String _password = '94461399';
 
   // String _email = 'gaos@keypress.com.ar';
   // String _password = 'keyroot';
 
-  String _email = 'gprieto@rowing.com.ar';
-  String _password = '111111';
+  // String _email = 'gprieto@rowing.com.ar';
+  // String _password = '111111';
 
   String _emailError = '';
   bool _emailShowError = false;
@@ -953,14 +957,8 @@ class _LoginScreenState extends State<LoginScreen> {
     var connectivityResult = await Connectivity().checkConnectivity();
 
     if (connectivityResult == ConnectivityResult.none) {
-      await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: 'Verifica que estés conectado a Internet',
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
-      return;
+      showMyDialog(
+          'Error', "Verifica que estés conectado a Internet", 'Aceptar');
     }
 
     Response response = Response(isSuccess: false);

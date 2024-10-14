@@ -3,7 +3,7 @@ import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:rowing_app/components/loader_component.dart';
-import 'package:rowing_app/helpers/api_helper.dart';
+import 'package:rowing_app/helpers/helpers.dart';
 import 'package:rowing_app/models/models.dart';
 import 'package:rowing_app/screens/screens.dart';
 
@@ -43,7 +43,8 @@ class _ObrasAsignadasScreenState extends State<ObrasAsignadasScreen> {
       idusr: 0,
       fechaCierre: '',
       nombreObra: '',
-      modulo: '');
+      modulo: '',
+      elempep: '');
 
   ObraAsignada _obraSeleccionada = ObraAsignada(
       nroregistro: 0,
@@ -57,7 +58,8 @@ class _ObrasAsignadasScreenState extends State<ObrasAsignadasScreen> {
       idusr: 0,
       fechaCierre: '',
       nombreObra: '',
-      modulo: '');
+      modulo: '',
+      elempep: '');
 
 //---------------------------------------------------------------
 //----------------------- initState -----------------------------
@@ -114,6 +116,10 @@ class _ObrasAsignadasScreenState extends State<ObrasAsignadasScreen> {
           obra.nroobra
               .toString()
               .toLowerCase()
+              .contains(_search.toLowerCase()) ||
+          obra.elempep
+              .toString()
+              .toLowerCase()
               .contains(_search.toLowerCase())) {
         filteredList.add(obra);
       }
@@ -153,7 +159,7 @@ class _ObrasAsignadasScreenState extends State<ObrasAsignadasScreen> {
             title: const Text('Filtrar Obras'),
             content: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
               const Text(
-                'Escriba texto o números a buscar en Nombre o N° de Obra: ',
+                'Escriba texto o números a buscar en Nombre, N° de Obra o Sigest/Odt: ',
                 style: TextStyle(fontSize: 12),
               ),
               const SizedBox(
@@ -328,6 +334,27 @@ class _ObrasAsignadasScreenState extends State<ObrasAsignadasScreen> {
                                   const SizedBox(
                                     height: 5,
                                   ),
+                                  Row(
+                                    children: [
+                                      const Text("Sigest/Odt: ",
+                                          style: TextStyle(
+                                            fontSize: 12,
+                                            color: Color(0xFF781f1e),
+                                            fontWeight: FontWeight.bold,
+                                          )),
+                                      Expanded(
+                                        child: (e.elempep != null)
+                                            ? Text(e.elempep!,
+                                                style: const TextStyle(
+                                                  fontSize: 12,
+                                                ))
+                                            : Container(),
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(
+                                    height: 5,
+                                  ),
                                 ],
                               ),
                             ),
@@ -361,14 +388,8 @@ class _ObrasAsignadasScreenState extends State<ObrasAsignadasScreen> {
       setState(() {
         _showLoader = false;
       });
-      await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: 'Verifica que estés conectado a Internet',
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
-      return;
+      showMyDialog(
+          'Error', "Verifica que estés conectado a Internet", 'Aceptar');
     }
 
     Response response = Response(isSuccess: false);

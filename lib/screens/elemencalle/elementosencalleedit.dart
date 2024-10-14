@@ -614,14 +614,8 @@ class _ElementosencalleeditState extends State<Elementosencalleedit> {
       setState(() {
         _showLoader = false;
       });
-      await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: 'Verifica que estés conectado a Internet',
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
-      return;
+      showMyDialog(
+          'Error', "Verifica que estés conectado a Internet", 'Aceptar');
     }
 
     Response response = Response(isSuccess: false);
@@ -1071,22 +1065,14 @@ class _ElementosencalleeditState extends State<Elementosencalleedit> {
         }
       }
 
-      await showAlertDialog(
-          context: context,
-          title: 'Aviso',
-          message: 'Elementos en Calle guardado con éxito!',
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+      showMyDialog(
+          'Aviso', "Elementos en Calle guardado con éxito!", 'Aceptar');
+
       Navigator.pop(context);
     } else {
-      await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: 'No hay materiales que tengan cantidades',
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+      showMyDialog(
+          'Error', "No hay materiales que tengan cantidades", 'Aceptar');
+
       return;
     } //Termina Bandera
   }
@@ -1137,14 +1123,8 @@ class _ElementosencalleeditState extends State<Elementosencalleedit> {
       setState(() {
         _showLoader = false;
       });
-      await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: 'Verifica que estés conectado a Internet',
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
-      return;
+      showMyDialog(
+          'Error', "Verifica que estés conectado a Internet", 'Aceptar');
     }
 
     Response response = Response(isSuccess: false);

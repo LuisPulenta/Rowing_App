@@ -506,7 +506,9 @@ class _Home3ScreenState extends State<Home3Screen> {
     var connectivityResult = await Connectivity().checkConnectivity();
 
     if (connectivityResult != ConnectivityResult.none) {
-      await ApiHelper.putWebSesion(_nroConexion!);
+      if (_nroConexion != null) {
+        await ApiHelper.putWebSesion(_nroConexion!);
+      }
     }
 
     Navigator.pushReplacement(

@@ -8,7 +8,7 @@ import 'package:connectivity/connectivity.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:rowing_app/helpers/api_helper.dart';
+import 'package:rowing_app/helpers/helpers.dart';
 import 'package:rowing_app/models/models.dart';
 import 'package:rowing_app/screens/screens.dart';
 
@@ -49,7 +49,8 @@ class _MediacionAgregarScreenState extends State<MediacionAgregarScreen> {
   String _montoContraOferta = '';
   final String _montoContraOfertaError = '';
   final bool _montoContraOfertaShowError = false;
-  final TextEditingController _montoContraOfertaController = TextEditingController();
+  final TextEditingController _montoContraOfertaController =
+      TextEditingController();
 
   String _tipoTransaccion = 'Elija un tipo de transacción...';
   String _tipoTransaccionError = '';
@@ -60,7 +61,8 @@ class _MediacionAgregarScreenState extends State<MediacionAgregarScreen> {
   String _condicionPago = '';
   String _condicionPagoError = '';
   bool _condicionPagoShowError = false;
-  final TextEditingController _condicionPagoController = TextEditingController();
+  final TextEditingController _condicionPagoController =
+      TextEditingController();
 
   String _aceptacionContraOferta = 'Aceptación Contraoferta...';
   final String _aceptacionContraOfertaError = '';
@@ -69,7 +71,8 @@ class _MediacionAgregarScreenState extends State<MediacionAgregarScreen> {
   String _resultadoOferta = '';
   final String _resultadoOfertaError = '';
   final bool _resultadoOfertaShowError = false;
-  final TextEditingController _resultadoOfertaController = TextEditingController();
+  final TextEditingController _resultadoOfertaController =
+      TextEditingController();
 
   DateTime? _fechaVencimientoOferta = DateTime.now();
 
@@ -748,14 +751,8 @@ class _MediacionAgregarScreenState extends State<MediacionAgregarScreen> {
       setState(() {
         _showLoader = false;
       });
-      await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: 'Verifica que estés conectado a Internet',
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
-      return;
+      showMyDialog(
+          'Error', "Verifica que estés conectado a Internet", 'Aceptar');
     }
 
     String base64image = '';

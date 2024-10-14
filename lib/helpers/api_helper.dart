@@ -2306,7 +2306,7 @@ class ApiHelper {
   //---------------------------------------------------------------------------
   static Future<Response> getElemEnCalleDet(String id) async {
     var url = Uri.parse(
-        '${Constants.apiUrl}/api/ElementosEnCalleDet/GetElementosEnCalleDet/${id}');
+        '${Constants.apiUrl}/api/ElementosEnCalleDet/GetElementosEnCalleDet/$id');
     var response = await http.get(
       url,
       headers: {

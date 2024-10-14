@@ -7,10 +7,11 @@ import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:rowing_app/components/loader_component.dart';
-import 'package:rowing_app/helpers/api_helper.dart';
+import 'package:rowing_app/helpers/helpers.dart';
 import 'package:rowing_app/models/models.dart';
 import 'package:grouped_list/grouped_list.dart';
 import 'package:rowing_app/screens/screens.dart';
+import 'package:rowing_app/helpers/helpers.dart';
 
 class InspeccionCuestionarioDuplicadoScreen extends StatefulWidget {
   final User user;
@@ -81,7 +82,7 @@ class _InspeccionCuestionarioDuplicadoScreenState
   void initState() {
     super.initState();
 
-    widget.detallesFormulariosCompleto.forEach((element) {
+    for (var element in widget.detallesFormulariosCompleto) {
       _elements.add(
         {
           'idcliente': element.idcliente,
@@ -113,7 +114,7 @@ class _InspeccionCuestionarioDuplicadoScreenState
       if (element.obsApp != 'N/A') {
         respTXT++;
       }
-    });
+    }
   }
 
 //---------------------------------------------------------------
@@ -428,7 +429,7 @@ class _InspeccionCuestionarioDuplicadoScreenState
                                   ],
                                 )),
                               )
-                            : Container(
+                            : const SizedBox(
                                 width: 2,
                                 height: 60,
                               ),
@@ -819,7 +820,7 @@ class _InspeccionCuestionarioDuplicadoScreenState
                                       fit: BoxFit.contain,
                                     ),
                             )
-                          : Container(
+                          : const SizedBox(
                               width: 2,
                               height: 5,
                             ),
@@ -886,7 +887,7 @@ class _InspeccionCuestionarioDuplicadoScreenState
                                       ],
                                     )),
                                   )
-                                : Container(
+                                : const SizedBox(
                                     width: 60,
                                     height: 60,
                                   ),
@@ -1355,14 +1356,8 @@ class _InspeccionCuestionarioDuplicadoScreenState
       setState(() {
         _showLoader = false;
       });
-      await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: 'Verifica que estés conectado a Internet',
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
-      return;
+      showMyDialog(
+          'Error', "Verifica que estés conectado a Internet", 'Aceptar');
     }
 
     Map<String, dynamic> request = {

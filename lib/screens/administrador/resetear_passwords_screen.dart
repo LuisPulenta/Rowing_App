@@ -4,7 +4,7 @@ import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:rowing_app/components/loader_component.dart';
 import 'package:http/http.dart' as http;
-import 'package:rowing_app/helpers/api_helper.dart';
+import 'package:rowing_app/helpers/helpers.dart';
 import 'package:rowing_app/helpers/constants.dart';
 import 'package:rowing_app/models/models.dart';
 import 'package:rowing_app/widgets/widgets.dart';
