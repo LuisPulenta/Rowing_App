@@ -2580,4 +2580,23 @@ class ApiHelper {
 
     return Response(isSuccess: true);
   }
+
+  //---------------------------------------------------------------------------
+  static Future<Response> deleteBalances() async {
+    var url = Uri.parse('${Constants.apiUrl}/api/InfVentasTemp/DeleteVentas');
+    var response = await http.delete(
+      url,
+      headers: {
+        'content-type': 'application/json',
+        'accept': 'application/json',
+      },
+    );
+    var body = response.body;
+
+    if (response.statusCode >= 400) {
+      return Response(isSuccess: false, message: body);
+    }
+
+    return Response(isSuccess: true);
+  }
 }

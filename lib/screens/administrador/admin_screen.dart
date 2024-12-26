@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rowing_app/helpers/helpers.dart';
 import 'package:rowing_app/models/models.dart';
 import 'package:rowing_app/screens/screens.dart';
 
@@ -84,6 +85,31 @@ class _AdminScreenState extends State<AdminScreen> {
                   ),
                 ),
               );
+            },
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          ElevatedButton(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: const [
+                Icon(Icons.delete_forever_outlined),
+                SizedBox(
+                  width: 35,
+                ),
+                Text('Borrar Balances'),
+              ],
+            ),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Color.fromARGB(255, 196, 9, 37),
+              minimumSize: const Size(100, 50),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(5),
+              ),
+            ),
+            onPressed: () async {
+              await ApiHelper.deleteBalances();
             },
           ),
         ]),
