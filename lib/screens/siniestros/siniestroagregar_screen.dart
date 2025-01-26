@@ -846,8 +846,8 @@ class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
     final DateTime? selected = await showDatePicker(
       context: context,
       initialDate: selectedDate,
-      firstDate: DateTime(DateTime.now().year),
-      lastDate: DateTime(DateTime.now().year + 2),
+      firstDate: DateTime.now().add(const Duration(days: -60)),
+      lastDate: DateTime.now(),
     );
     if (selected != null && selected != selectedDate) {
       setState(() {
