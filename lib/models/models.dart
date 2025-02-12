@@ -69,3 +69,4 @@ export 'package:rowing_app/models/movimiento.dart';
 export 'package:rowing_app/models/objeto.dart';
 export 'package:rowing_app/models/mes.dart';
 export 'package:rowing_app/models/codigoproduccion.dart';
+export 'package:rowing_app/models/grupo.dart';

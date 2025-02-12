@@ -112,6 +112,70 @@ class _AdminScreenState extends State<AdminScreen> {
               await ApiHelper.deleteBalances();
             },
           ),
+          const SizedBox(
+            height: 10,
+          ),
+          ElevatedButton(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: const [
+                Icon(Icons.person),
+                SizedBox(
+                  width: 35,
+                ),
+                Text('Reactivar Legajo'),
+              ],
+            ),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: const Color(0xFF120E43),
+              minimumSize: const Size(100, 50),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(5),
+              ),
+            ),
+            onPressed: () async {
+              await Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ReactivarLegajoScreen(
+                    user: widget.user,
+                  ),
+                ),
+              );
+            },
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          ElevatedButton(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: const [
+                Icon(Icons.numbers),
+                SizedBox(
+                  width: 35,
+                ),
+                Text('Actualización de Stocks Máximos'),
+              ],
+            ),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: const Color(0xFF120E43),
+              minimumSize: const Size(100, 50),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(5),
+              ),
+            ),
+            onPressed: () async {
+              await Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ResetearPasswordsScreen(
+                    user: widget.user,
+                  ),
+                ),
+              );
+            },
+          ),
         ]),
       ),
     );
