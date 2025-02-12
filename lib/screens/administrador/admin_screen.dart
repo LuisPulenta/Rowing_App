@@ -155,7 +155,7 @@ class _AdminScreenState extends State<AdminScreen> {
                 SizedBox(
                   width: 35,
                 ),
-                Text('Actualización de Stocks Máximos'),
+                Text('Stocks Máximos'),
               ],
             ),
             style: ElevatedButton.styleFrom(
@@ -169,7 +169,7 @@ class _AdminScreenState extends State<AdminScreen> {
               await Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => ResetearPasswordsScreen(
+                  builder: (context) => StocksMaximosScreen(
                     user: widget.user,
                   ),
                 ),
