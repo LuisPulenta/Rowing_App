@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:rowing_app/models/models.dart';
 import 'package:rowing_app/screens/screens.dart';
 
 class ReciboScreen extends StatefulWidget {
   final User user;
-  const ReciboScreen({Key? key, required this.user}) : super(key: key);
+  final Recibo recibo;
+  final Position positionUser;
+  const ReciboScreen(
+      {Key? key,
+      required this.user,
+      required this.recibo,
+      required this.positionUser})
+      : super(key: key);
 
   @override
   State<ReciboScreen> createState() => _ReciboScreenState();
@@ -15,7 +23,7 @@ class _ReciboScreenState extends State<ReciboScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('ReciboScreen'),
+        title: const Text('Recibo'),
         centerTitle: true,
       ),
       body: Center(
@@ -53,9 +61,12 @@ class _ReciboScreenState extends State<ReciboScreen> {
                     context,
                     MaterialPageRoute(
                       builder: (context) => PdfViewScreen(
-                          url:
-                              'http://190.111.249.225/RowingAppApi/images/Recibos/Recibo.pdf',
-                          firma: widget.user.firmaUsuarioImageFullPath!),
+                        url:
+                            'http://190.111.249.225/RowingAppApi/images/Recibos/${widget.recibo.link}',
+                        firma: widget.user.firmaUsuarioImageFullPath!,
+                        recibo: widget.recibo,
+                        positionUser: widget.positionUser,
+                      ),
                     ),
                   );
                 },

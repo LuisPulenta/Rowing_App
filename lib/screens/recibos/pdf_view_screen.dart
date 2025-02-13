@@ -1,10 +1,10 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
+import 'package:geolocator/geolocator.dart';
 import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
+import 'package:rowing_app/models/models.dart';
 import 'package:rowing_app/screens/screens.dart';
 import 'package:syncfusion_flutter_pdf/pdf.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -13,7 +13,15 @@ import 'package:flutter/services.dart';
 class PdfViewScreen extends StatefulWidget {
   final String url;
   final String firma;
-  const PdfViewScreen({Key? key, required this.url, required this.firma})
+  final Position positionUser;
+  final Recibo recibo;
+
+  const PdfViewScreen(
+      {Key? key,
+      required this.url,
+      required this.firma,
+      required this.positionUser,
+      required this.recibo})
       : super(key: key);
 
   @override
@@ -65,7 +73,7 @@ class _PdfViewScreenState extends State<PdfViewScreen> {
     if (loaded) {
       return Scaffold(
         appBar: AppBar(
-          title: const Text('Recibo'),
+          title: const Text('Ver Recibo'),
           centerTitle: true,
         ),
         body: PDFView(
@@ -163,7 +171,8 @@ class _PdfViewScreenState extends State<PdfViewScreen> {
         //Replace with your loading UI
         return Scaffold(
           appBar: AppBar(
-            title: const Text("Demo"),
+            title: const Text("Ver Recibo"),
+            centerTitle: true,
           ),
           body: const Text(
             "Loading..",
@@ -174,10 +183,11 @@ class _PdfViewScreenState extends State<PdfViewScreen> {
         //Replace Error UI
         return Scaffold(
           appBar: AppBar(
-            title: const Text("Demo"),
+            title: const Text("Ver Recibo"),
+            centerTitle: true,
           ),
           body: const Text(
-            "PDF Not Available",
+            "PDF no disponible",
             style: TextStyle(fontSize: 20),
           ),
         );
@@ -269,11 +279,15 @@ class _PdfViewScreenState extends State<PdfViewScreen> {
 
     if (file.path.isNotEmpty) {
       Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => PdfScreen(
-                    ruta: ruta,
-                  )));
+        context,
+        MaterialPageRoute(
+          builder: (context) => PdfScreen(
+            ruta: ruta,
+            recibo: widget.recibo,
+            positionUser: widget.positionUser,
+          ),
+        ),
+      );
     }
   }
 

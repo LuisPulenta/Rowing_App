@@ -295,7 +295,7 @@ class _ReactivarLegajoScreenState extends State<ReactivarLegajoScreen> {
     return Container(
       padding: const EdgeInsets.all(10),
       child: TextField(
-        keyboardType: TextInputType.number,
+        //keyboardType: TextInputType.number,
         decoration: InputDecoration(
           iconColor: const Color(0xFF781f1e),
           prefixIconColor: const Color(0xFF781f1e),

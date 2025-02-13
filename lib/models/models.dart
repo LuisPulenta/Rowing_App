@@ -71,3 +71,4 @@ export 'package:rowing_app/models/mes.dart';
 export 'package:rowing_app/models/codigoproduccion.dart';
 export 'package:rowing_app/models/grupo.dart';
 export 'package:rowing_app/models/stock_maximo.dart';
+export 'package:rowing_app/models/recibo.dart';
