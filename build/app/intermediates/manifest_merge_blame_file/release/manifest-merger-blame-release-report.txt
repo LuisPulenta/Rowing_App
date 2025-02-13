@@ -1,8 +1,8 @@
 1<?xml version="1.0" encoding="utf-8"?>
 2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
 3    package="com.luisnu.rowing_app"
-4    android:versionCode="75"
-5    android:versionName="1.0.75" >
+4    android:versionCode="76"
+5    android:versionName="1.0.76" >
 6
 7    <uses-sdk
 8        android:minSdkVersion="21"

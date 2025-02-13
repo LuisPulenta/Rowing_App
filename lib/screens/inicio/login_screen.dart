@@ -7,10 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:rowing_app/helpers/helpers.dart';
-import 'package:rowing_app/helpers/constants.dart';
 import 'package:rowing_app/components/loader_component.dart';
-import 'package:rowing_app/helpers/dbsuministroscatalogos_helper.dart';
-import 'package:rowing_app/helpers/helpers.dart';
 import 'package:rowing_app/models/models.dart';
 import 'package:device_information/device_information.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -30,16 +27,16 @@ class _LoginScreenState extends State<LoginScreen> {
 //----------------------- Variables -----------------------------
 //---------------------------------------------------------------
 
-  // String _email = '';
-  // String _password = '';
+  String _email = '';
+  String _password = '';
 
   String imei = '';
 
   // String _email = 'KEYPRESS';
   // String _password = 'KEYROOT';
 
-  String _email = 'GPRIETO';
-  String _password = 'CELESTE';
+  // String _email = 'GPRIETO';
+  // String _password = 'CELESTE';
 
   // String _email = 'RODRIGUEZE';
   // String _password = 'ROD951';

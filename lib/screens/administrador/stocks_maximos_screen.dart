@@ -35,6 +35,9 @@ class _StocksMaximosScreenState extends State<StocksMaximosScreen> {
   final bool _cantidadShowError = false;
   final TextEditingController _cantidadController = TextEditingController();
   String _cantidad = '';
+  bool _isFiltered = false;
+  String _buscar = '';
+  bool _todas = false;
 
   String _codigo = '';
   final String _codigoError = '';
@@ -98,6 +101,19 @@ class _StocksMaximosScreenState extends State<StocksMaximosScreen> {
       appBar: AppBar(
         title: const Text("Stocks Máximos"),
         centerTitle: true,
+        actions: [
+          Row(
+            children: [
+              _isFiltered
+                  ? IconButton(
+                      onPressed: _removeFilter,
+                      icon: const Icon(Icons.filter_none))
+                  : IconButton(
+                      onPressed: _showFilter,
+                      icon: const Icon(Icons.filter_alt)),
+            ],
+          ),
+        ],
       ),
       body: Stack(
         children: [
@@ -169,8 +185,6 @@ class _StocksMaximosScreenState extends State<StocksMaximosScreen> {
   }
 
 //--------------------- _getListView ------------------------------
-//-----------------------------------------------------------------
-
   Widget _getListView() {
     return ListView(
       children: _catalogos2.map((e) {
@@ -335,10 +349,15 @@ class _StocksMaximosScreenState extends State<StocksMaximosScreen> {
                                                                 in _catalogos) {
                                                               if (catalogo
                                                                       .codigosiag ==
-                                                                  e.catCatalogo) {
+                                                                  e.codigosiag) {
                                                                 catalogo.maximo =
                                                                     double.parse(
                                                                         _cantidad);
+                                                                _actualizarStockMaximo(
+                                                                    e.codigosiag
+                                                                        .toString(),
+                                                                    double.parse(
+                                                                        _cantidad));
                                                               }
                                                             }
 
@@ -478,6 +497,52 @@ class _StocksMaximosScreenState extends State<StocksMaximosScreen> {
     await _getGrupos();
   }
 
+//--------------------- _actualizarStockMaximo -----------------------------
+  Future<void> _actualizarStockMaximo(String catSiag, double cantidad) async {
+    setState(() {
+      _showLoader = true;
+    });
+
+    var connectivityResult = await Connectivity().checkConnectivity();
+
+    if (connectivityResult == ConnectivityResult.none) {
+      setState(() {
+        _showLoader = false;
+      });
+      showMyDialog(
+          'Error', "Verifica que estés conectado a Internet", 'Aceptar');
+    }
+
+    Response response = Response(isSuccess: false);
+
+    Map<String, dynamic> request = {
+      'Grupo': _grupo,
+      'Causante': _codigo,
+      'Catalogo': catSiag,
+      'Cantidad': cantidad,
+    };
+
+    response = await ApiHelper.put('/api/StockMaximosSubcons/UpdateMaximo/',
+        '$_grupo/$_codigo/$catSiag', request);
+
+    setState(() {
+      _showLoader = false;
+    });
+
+    if (!response.isSuccess) {
+      await showAlertDialog(
+          context: context,
+          title: 'Error',
+          message: response.message,
+          actions: <AlertDialogAction>[
+            const AlertDialogAction(key: null, label: 'Aceptar'),
+          ]);
+      return;
+    }
+
+    setState(() {});
+  }
+
 //--------------------- _getCatalogos -----------------------------
   Future<void> _getCatalogos() async {
     setState(() {
@@ -562,10 +627,7 @@ class _StocksMaximosScreenState extends State<StocksMaximosScreen> {
     setState(() {});
   }
 
-//-----------------------------------------------------------
 //--------------------- _showLegajo -------------------------
-//-----------------------------------------------------------
-
   Widget _showLegajo() {
     return Container(
       padding: const EdgeInsets.all(10),
@@ -596,10 +658,7 @@ class _StocksMaximosScreenState extends State<StocksMaximosScreen> {
     );
   }
 
-//-----------------------------------------------------------
 //--------------------- _showButton -------------------------
-//-----------------------------------------------------------
-
   Widget _showButton() {
     return Container(
       margin: const EdgeInsets.only(left: 5, right: 5),
@@ -632,9 +691,7 @@ class _StocksMaximosScreenState extends State<StocksMaximosScreen> {
     );
   }
 
-//-----------------------------------------------------------
 //--------------------- _showInfo ---------------------------
-//-----------------------------------------------------------
 
   Widget _showInfo() {
     return Padding(
@@ -655,9 +712,7 @@ class _StocksMaximosScreenState extends State<StocksMaximosScreen> {
     );
   }
 
-//-----------------------------------------------------------
 //--------------------- _search -----------------------------
-//-----------------------------------------------------------
 
   _search() async {
     FocusScope.of(context).unfocus();
@@ -669,10 +724,7 @@ class _StocksMaximosScreenState extends State<StocksMaximosScreen> {
     await _getCausante();
   }
 
-//----------------------------------------------------------
 //--------------------- _getCausante -----------------------
-//----------------------------------------------------------
-
   Future<void> _getCausante() async {
     setState(() {
       _showLoader = true;
@@ -707,6 +759,8 @@ class _StocksMaximosScreenState extends State<StocksMaximosScreen> {
     );
 
     if (response.statusCode >= 400) {
+      _catalogos = [];
+      _catalogos2 = [];
       setState(() {
         _showLoader = false;
         _causante = _causanteVacio;
@@ -738,5 +792,80 @@ class _StocksMaximosScreenState extends State<StocksMaximosScreen> {
     setState(() {
       _showLoader = false;
     });
+  }
+
+//------------------------------ _removeFilter --------------------------
+  void _removeFilter() async {
+    _catalogos2 = _catalogos;
+
+    setState(() {
+      _isFiltered = false;
+    });
+  }
+
+//------------------------------ _showFilter --------------------------
+  void _showFilter() {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+            title: const Text('Filtrar Catálogos'),
+            content: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
+              const Text(
+                'Escriba texto o números a buscar en CatSAP o Descripción del Material: ',
+                style: TextStyle(fontSize: 12),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              TextField(
+                autofocus: true,
+                decoration: InputDecoration(
+                    hintText: 'Criterio de búsqueda...',
+                    labelText: 'Buscar',
+                    suffixIcon: const Icon(Icons.search),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10))),
+                onChanged: (value) {
+                  _buscar = value;
+                },
+              ),
+            ]),
+            actions: <Widget>[
+              TextButton(
+                  onPressed: () => Navigator.of(context).pop(),
+                  child: const Text('Cancelar')),
+              TextButton(
+                  onPressed: () => _filter(), child: const Text('Filtrar')),
+            ],
+          );
+        });
+  }
+
+//-----------------------------------------------------------------
+//------------------------------ _filter --------------------------
+//-----------------------------------------------------------------
+
+  _filter() {
+    if (_buscar.isEmpty) {
+      return;
+    }
+    filteredList = [];
+    for (var catalogo in _catalogos2) {
+      if (catalogo.codigosap!.toLowerCase().contains(_buscar.toLowerCase()) ||
+          catalogo.catCatalogo!.toLowerCase().contains(_buscar.toLowerCase())) {
+        filteredList.add(catalogo);
+      }
+    }
+
+    setState(() {
+      _catalogos2 = filteredList;
+      _isFiltered = true;
+    });
+
+    Navigator.of(context).pop();
   }
 }
