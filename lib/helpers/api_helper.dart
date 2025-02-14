@@ -212,6 +212,27 @@ class ApiHelper {
     return Response(isSuccess: true);
   }
 
+  //---------------------------------------------------------------------------
+  static Future<Response> put3(String controller, String id,
+      Map<String, dynamic> request, Token token) async {
+    var url = Uri.parse('${Constants.apiUrl}$controller$id');
+    var response = await http.put(
+      url,
+      headers: {
+        'content-type': 'application/json',
+        'accept': 'application/json',
+        'authorization': 'bearer ${token.token}',
+      },
+      body: jsonEncode(request),
+    );
+
+    if (response.statusCode >= 400) {
+      return Response(isSuccess: false, message: response.body);
+    }
+
+    return Response(isSuccess: true);
+  }
+
 //---------------------------------------------------------------------------
   static Future<Response> post(
       String controller, Map<String, dynamic> request) async {
@@ -284,7 +305,7 @@ class ApiHelper {
       return Response(isSuccess: false, message: response.body);
     }
 
-    return Response(isSuccess: true);
+    return Response(isSuccess: true, result: response.body);
   }
 
 //---------------------------------------------------------------------------

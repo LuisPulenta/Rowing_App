@@ -4,6 +4,7 @@ import 'package:geolocator/geolocator.dart';
 import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
+import 'package:rowing_app/components/loader_component.dart';
 import 'package:rowing_app/models/models.dart';
 import 'package:rowing_app/screens/screens.dart';
 import 'package:syncfusion_flutter_pdf/pdf.dart';
@@ -15,23 +16,24 @@ class PdfViewScreen extends StatefulWidget {
   final String firma;
   final Position positionUser;
   final Recibo recibo;
+  final Token token;
 
-  const PdfViewScreen(
-      {Key? key,
-      required this.url,
-      required this.firma,
-      required this.positionUser,
-      required this.recibo})
-      : super(key: key);
+  const PdfViewScreen({
+    Key? key,
+    required this.url,
+    required this.firma,
+    required this.positionUser,
+    required this.recibo,
+    required this.token,
+  }) : super(key: key);
 
   @override
   State<PdfViewScreen> createState() => _PdfViewScreenState();
 }
 
 class _PdfViewScreenState extends State<PdfViewScreen> {
-//---------------------------------------------------------------
-//----------------------- Variables -----------------------------
-//---------------------------------------------------------------
+//---------------------- Variables ---------------------------------
+  bool _showLoader = false;
   String urlPDFPath = "";
   bool exists = true;
   int _totalPages = 0;
@@ -76,33 +78,42 @@ class _PdfViewScreenState extends State<PdfViewScreen> {
           title: const Text('Ver Recibo'),
           centerTitle: true,
         ),
-        body: PDFView(
-          filePath: urlPDFPath,
-          autoSpacing: true,
-          enableSwipe: true,
-          pageSnap: true,
-          swipeHorizontal: true,
-          nightMode: false,
-          onError: (e) {
-            //Show some error message or UI
-          },
-          onRender: (_pages) {
-            setState(() {
-              _totalPages = _pages!;
-              pdfReady = true;
-            });
-          },
-          onViewCreated: (PDFViewController vc) {
-            setState(() {
-              _pdfViewController = vc;
-            });
-          },
-          onPageChanged: (int? page, int? total) {
-            setState(() {
-              _currentPage = page!;
-            });
-          },
-          onPageError: (page, e) {},
+        body: Stack(
+          children: [
+            PDFView(
+              filePath: urlPDFPath,
+              autoSpacing: true,
+              enableSwipe: true,
+              pageSnap: true,
+              swipeHorizontal: true,
+              nightMode: false,
+              onError: (e) {
+                //Show some error message or UI
+              },
+              onRender: (_pages) {
+                setState(() {
+                  _totalPages = _pages!;
+                  pdfReady = true;
+                });
+              },
+              onViewCreated: (PDFViewController vc) {
+                setState(() {
+                  _pdfViewController = vc;
+                });
+              },
+              onPageChanged: (int? page, int? total) {
+                setState(() {
+                  _currentPage = page!;
+                });
+              },
+              onPageError: (page, e) {},
+            ),
+            _showLoader
+                ? const LoaderComponent(
+                    text: 'Por favor espere...',
+                  )
+                : Container(),
+          ],
         ),
         floatingActionButton: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -138,31 +149,36 @@ class _PdfViewScreenState extends State<PdfViewScreen> {
               },
             ),
             const Spacer(),
-            FloatingActionButton(
-                backgroundColor: Color(0xFF781f1e),
-                child: const Icon(
-                  Icons.draw,
-                  color: Colors.white,
-                  size: 40,
-                ),
-                onPressed: () async {
-                  final PdfDocument document = PdfDocument(
-                      inputBytes: File(urlPDFPath).readAsBytesSync());
+            if (widget.recibo.firmado == 0)
+              FloatingActionButton(
+                  backgroundColor: Color(0xFF781f1e),
+                  child: const Icon(
+                    Icons.draw,
+                    color: Colors.white,
+                    size: 40,
+                  ),
+                  onPressed: () async {
+                    _showLoader = true;
+                    setState(() {});
+                    final PdfDocument document = PdfDocument(
+                        inputBytes: File(urlPDFPath).readAsBytesSync());
 
-                  final PdfPage page = document.pages[0];
+                    final PdfPage page = document.pages[0];
 
-                  page.graphics.drawImage(
-                      //PdfBitmap(await _readImageData('firma.png')),
-                      PdfBitmap((await networkImageToBase64(widget.firma))
-                          as List<int>),
-                      const Rect.fromLTWH(300, 460, 56, 35));
-                  //const Rect.fromLTWH(390, 685, 80, 50));
+                    page.graphics.drawImage(
+                        //PdfBitmap(await _readImageData('firma.png')),
+                        PdfBitmap((await networkImageToBase64(widget.firma))
+                            as List<int>),
+                        const Rect.fromLTWH(300, 460, 56, 35));
+                    //const Rect.fromLTWH(390, 685, 80, 50));
 
-                  List<int> bytes = document.save();
-                  document.dispose();
+                    List<int> bytes = document.save();
+                    document.dispose();
 
-                  await _saveAndLaunchFile(bytes, 'ReciboConFirma.pdf');
-                }),
+                    await _saveAndLaunchFile(bytes, 'ReciboConFirma.pdf');
+                    _showLoader = false;
+                    setState(() {});
+                  }),
           ],
         ),
       );
@@ -282,10 +298,10 @@ class _PdfViewScreenState extends State<PdfViewScreen> {
         context,
         MaterialPageRoute(
           builder: (context) => PdfScreen(
-            ruta: ruta,
-            recibo: widget.recibo,
-            positionUser: widget.positionUser,
-          ),
+              ruta: ruta,
+              recibo: widget.recibo,
+              positionUser: widget.positionUser,
+              token: widget.token),
         ),
       );
     }

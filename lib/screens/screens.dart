@@ -98,7 +98,6 @@ export 'package:rowing_app/screens/veredas/mostrar_foto_screen.dart';
 export 'package:rowing_app/screens/veredas/obras_reparos_screen.dart';
 export 'package:rowing_app/screens/veredas/sacar_foto.dart';
 export 'package:rowing_app/screens/veredas/vereda_info_screen.dart';
-export 'package:rowing_app/screens/recibos/recibo_screen.dart';
 export 'package:rowing_app/screens/recibos/recibos_screen.dart';
 export 'package:rowing_app/screens/recibos/pdf_view_screen.dart';
 export 'package:rowing_app/screens/recibos/pdf_screen.dart';

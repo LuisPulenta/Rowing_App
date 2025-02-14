@@ -13,9 +13,13 @@ import 'package:rowing_app/screens/screens.dart';
 class RecibosScreen extends StatefulWidget {
   final User user;
   final Position positionUser;
+  final Token token;
 
   const RecibosScreen(
-      {Key? key, required this.user, required this.positionUser})
+      {Key? key,
+      required this.user,
+      required this.positionUser,
+      required this.token})
       : super(key: key);
 
   @override
@@ -115,7 +119,7 @@ class _RecibosScreenState extends State<RecibosScreen> {
         children: _recibos.map((e) {
           return Card(
             color: e.firmado == 1
-                ? Color.fromARGB(255, 216, 179, 227)
+                ? Color.fromARGB(255, 255, 255, 255)
                 : Color(0xFFC7C7C8),
             shadowColor: Colors.white,
             elevation: 10,
@@ -234,6 +238,9 @@ class _RecibosScreenState extends State<RecibosScreen> {
                                           ],
                                         )
                                       : Container(),
+                                  const SizedBox(
+                                    height: 5,
+                                  ),
                                   e.fechaIniExcel != null
                                       ? Row(
                                           children: [
@@ -256,6 +263,9 @@ class _RecibosScreenState extends State<RecibosScreen> {
                                           ],
                                         )
                                       : Container(),
+                                  const SizedBox(
+                                    height: 5,
+                                  ),
                                   e.fechaFinExcel != null
                                       ? Row(
                                           children: [
@@ -278,7 +288,6 @@ class _RecibosScreenState extends State<RecibosScreen> {
                                           ],
                                         )
                                       : Container(),
-                                  Text(e.link ?? ''),
                                 ],
                               ),
                             ),
@@ -320,7 +329,8 @@ class _RecibosScreenState extends State<RecibosScreen> {
       'Codigo': widget.user.codigoCausante
     };
 
-    response = await ApiHelper.post('/api/CausanteRecibos/GetRecibos', request);
+    response = await ApiHelper.post3(
+        '/api/CausanteRecibos/GetRecibos', request, widget.token);
 
     setState(() {
       _showLoader = false;
@@ -361,6 +371,7 @@ class _RecibosScreenState extends State<RecibosScreen> {
           firma: widget.user.firmaUsuarioImageFullPath!,
           positionUser: widget.positionUser,
           recibo: recibo,
+          token: widget.token,
         ),
       ),
     );

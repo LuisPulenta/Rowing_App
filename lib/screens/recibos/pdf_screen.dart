@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:rowing_app/components/loader_component.dart';
@@ -11,12 +14,14 @@ class PdfScreen extends StatefulWidget {
   final String ruta;
   final Position positionUser;
   final Recibo recibo;
+  final Token token;
 
   const PdfScreen(
       {Key? key,
       required this.ruta,
       required this.positionUser,
-      required this.recibo})
+      required this.recibo,
+      required this.token})
       : super(key: key);
 
   @override
@@ -100,14 +105,25 @@ class _PdfScreenState extends State<PdfScreen> {
 
     Response response = Response(isSuccess: false);
 
+    Uint8List? fileByte;
+
+    try {
+      String myPath = widget.ruta;
+      await _readFileByte(myPath).then((bytesData) {
+        fileByte = bytesData;
+      });
+    } catch (e) {}
+
     Map<String, dynamic> request = {
       'IdRecibo': widget.recibo.idrecibo,
       'Latitud': widget.positionUser.latitude,
       'Longitud': widget.positionUser.longitude,
+      'FileName': widget.recibo.link,
+      'ImageArray': fileByte,
     };
 
-    response = await ApiHelper.put('/api/CausanteRecibos/FirmarRecibo/',
-        '${widget.recibo.idrecibo}', request);
+    response = await ApiHelper.put3('/api/CausanteRecibos/FirmarRecibo/',
+        '${widget.recibo.idrecibo}', request, widget.token);
 
     setState(() {
       _showLoader = false;
@@ -125,7 +141,19 @@ class _PdfScreenState extends State<PdfScreen> {
     }
 
     setState(() {});
+
     Navigator.pop(context, 'yes');
     Navigator.pop(context, 'yes');
+  }
+
+  //---------------------------------------------------------------------------
+  Future<Uint8List?> _readFileByte(String filePath) async {
+    Uri myUri = Uri.parse(filePath);
+    File file = new File.fromUri(myUri);
+    Uint8List? bytes;
+    await file.readAsBytes().then((value) {
+      bytes = Uint8List.fromList(value);
+    }).catchError((onError) {});
+    return bytes;
   }
 }

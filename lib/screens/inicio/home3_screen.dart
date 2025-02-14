@@ -389,6 +389,7 @@ class _Home3ScreenState extends State<Home3Screen> {
                                       builder: (context) => RecibosScreen(
                                         user: widget.user,
                                         positionUser: _positionUser,
+                                        token: widget.token,
                                       ),
                                     ),
                                   );
