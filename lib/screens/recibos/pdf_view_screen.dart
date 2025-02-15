@@ -1,3 +1,4 @@
+import 'package:device_information/device_information.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:geolocator/geolocator.dart';
@@ -43,6 +44,17 @@ class _PdfViewScreenState extends State<PdfViewScreen> {
   bool loaded = false;
   String newPath = "";
   String ruta = '';
+  String imei = '';
+
+  String _platformVersion = 'Unknown',
+      _imeiNo = "",
+      _modelName = "",
+      _manufacturerName = "",
+      _deviceName = "",
+      _productName = "",
+      _cpuType = "",
+      _hardware = "";
+  var _apiLevel;
 
 //---------------------------------------------------------------
 //----------------------- initState -----------------------------
@@ -63,7 +75,88 @@ class _PdfViewScreenState extends State<PdfViewScreen> {
         })
       },
     );
+    initPlatformState();
     super.initState();
+  }
+
+  //--------------------- initPlatformState -------------------------
+//-----------------------------------------------------------------
+
+  Future<void> initPlatformState() async {
+    late String platformVersion,
+        imeiNo = '',
+        modelName = '',
+        manufacturer = '',
+        deviceName = '',
+        productName = '',
+        cpuType = '',
+        hardware = '';
+    var apiLevel;
+    // Platform messages may fail,
+    // so we use a try/catch PlatformException.
+
+    var status = await Permission.phone.status;
+
+    if (status.isDenied) {
+      await showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              title: const Text('Aviso'),
+              content: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: const <Widget>[
+                    Text(
+                        'La App necesita que habilite el Permiso de acceso al teléfono para utilizar el IMEI del celular con que se loguea.'),
+                    SizedBox(
+                      height: 10,
+                    ),
+                  ]),
+              actions: <Widget>[
+                TextButton(
+                    onPressed: () => Navigator.of(context).pop(),
+                    child: const Text('Ok')),
+              ],
+            );
+          });
+      openAppSettings();
+      //exit(0);
+    }
+
+    try {
+      platformVersion = await DeviceInformation.platformVersion;
+      imeiNo = await DeviceInformation.deviceIMEINumber;
+      imei = imeiNo;
+      modelName = await DeviceInformation.deviceModel;
+      manufacturer = await DeviceInformation.deviceManufacturer;
+      apiLevel = await DeviceInformation.apiLevel;
+      deviceName = await DeviceInformation.deviceName;
+      productName = await DeviceInformation.productName;
+      cpuType = await DeviceInformation.cpuName;
+      hardware = await DeviceInformation.hardware;
+    } on PlatformException catch (e) {
+      platformVersion = '${e.message}';
+    }
+
+    // If the widget was removed from the tree while the asynchronous platform
+    // message was in flight, we want to discard the reply rather than calling
+    // setState to update our non-existent appearance.
+    if (!mounted) return;
+
+    _platformVersion = "Running on :$platformVersion";
+    _imeiNo = imeiNo;
+    _modelName = modelName;
+    _manufacturerName = manufacturer;
+    _apiLevel = apiLevel;
+    _deviceName = deviceName;
+    _productName = productName;
+    _cpuType = cpuType;
+    _hardware = hardware;
+
+    setState(() {});
   }
 
 //---------------------------------------------------------------
@@ -301,6 +394,7 @@ class _PdfViewScreenState extends State<PdfViewScreen> {
               ruta: ruta,
               recibo: widget.recibo,
               positionUser: widget.positionUser,
+              imei: imei,
               token: widget.token),
         ),
       );

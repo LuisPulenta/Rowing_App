@@ -15,14 +15,16 @@ class PdfScreen extends StatefulWidget {
   final Position positionUser;
   final Recibo recibo;
   final Token token;
+  final String imei;
 
-  const PdfScreen(
-      {Key? key,
-      required this.ruta,
-      required this.positionUser,
-      required this.recibo,
-      required this.token})
-      : super(key: key);
+  const PdfScreen({
+    Key? key,
+    required this.ruta,
+    required this.positionUser,
+    required this.recibo,
+    required this.token,
+    required this.imei,
+  }) : super(key: key);
 
   @override
   State<PdfScreen> createState() => _PdfScreenState();
@@ -120,6 +122,7 @@ class _PdfScreenState extends State<PdfScreen> {
       'Longitud': widget.positionUser.longitude,
       'FileName': widget.recibo.link,
       'ImageArray': fileByte,
+      'Imei': widget.imei,
     };
 
     response = await ApiHelper.put3('/api/CausanteRecibos/FirmarRecibo/',
