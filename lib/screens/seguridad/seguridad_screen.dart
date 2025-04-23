@@ -174,11 +174,12 @@ class _SeguridadScreenState extends State<SeguridadScreen> {
           width: 70,
           height: 70,
         ),
-        Image.asset(
-          "assets/logo.png",
-          height: 70,
-          width: 200,
-        ),
+        getImage(user: widget.user, height: 70, width: 200),
+        // Image.asset(
+        //   "assets/logo.png",
+        //   height: 70,
+        //   width: 200,
+        // ),
         Image.asset(
           "assets/seg2.png",
           width: 70,

@@ -1,2 +1,0 @@
-dev/fluttercommunity/plus/battery/BuildConfig.java
- dev.fluttercommunity.plus.battery.BuildConfig

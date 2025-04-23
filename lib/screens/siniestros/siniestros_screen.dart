@@ -573,11 +573,12 @@ class _SiniestrosScreenState extends State<SiniestrosScreen> {
           width: 70,
           height: 70,
         ),
-        Image.asset(
-          "assets/logo.png",
-          height: 70,
-          width: 200,
-        ),
+        getImage(user: widget.user, height: 70, width: 200),
+        // Image.asset(
+        //   "assets/logo.png",
+        //   height: 70,
+        //   width: 200,
+        // ),
         Transform.rotate(
           angle: 0,
           child: Image.asset(

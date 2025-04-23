@@ -1,2 +1,0 @@
-be/tramckrijte/workmanager/BuildConfig.java
- be.tramckrijte.workmanager.BuildConfig

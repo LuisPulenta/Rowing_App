@@ -1,2 +1,0 @@
-io/material/plugins/dynamic_color/BuildConfig.java
- io.material.plugins.dynamic_color.BuildConfig

@@ -7,7 +7,6 @@ import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:rowing_app/blocs/blocs.dart';
 import 'package:rowing_app/helpers/helpers.dart';
-import 'package:rowing_app/helpers/constants.dart';
 import 'package:rowing_app/models/models.dart';
 
 import 'package:rowing_app/screens/screens.dart';
@@ -149,10 +148,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         child: Column(
           children: [
-            Image.asset(
-              "assets/logo.png",
-              height: 200,
-            ),
+            getImage(user: widget.user, height: 200),
 
             // Image.asset(
             //   "assets/${widget.user.modulo.toLowerCase()}.png",
@@ -214,12 +210,13 @@ class _HomeScreenState extends State<HomeScreen> {
                   const SizedBox(
                     height: 20,
                   ),
-                  const Image(
-                    image: AssetImage('assets/logo.png'),
-                    // image: AssetImage(
-                    //     'assets/${widget.user.modulo.toLowerCase()}.png'),
-                    width: 180,
-                  ),
+                  getImage(user: widget.user, width: 180, height: 50),
+                  // const Image(
+                  //   image: AssetImage('assets/logo.png'),
+                  //   // image: AssetImage(
+                  //   //     'assets/${widget.user.modulo.toLowerCase()}.png'),
+                  //   width: 180,
+                  // ),
                   const SizedBox(
                     height: 40,
                   ),
