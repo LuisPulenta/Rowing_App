@@ -1,16 +1,18 @@
+import 'dart:io';
+
 import 'package:device_information/device_information.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:geolocator/geolocator.dart';
-import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
-import 'package:rowing_app/components/loader_component.dart';
-import 'package:rowing_app/models/models.dart';
-import 'package:rowing_app/screens/screens.dart';
-import 'package:syncfusion_flutter_pdf/pdf.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:flutter/services.dart';
+import 'package:syncfusion_flutter_pdf/pdf.dart';
+
+import '../../components/loader_component.dart';
+import '../../models/models.dart';
+import '../screens.dart';
 
 class PdfViewScreen extends StatefulWidget {
   final String url;
@@ -35,25 +37,25 @@ class PdfViewScreen extends StatefulWidget {
 class _PdfViewScreenState extends State<PdfViewScreen> {
 //---------------------- Variables ---------------------------------
   bool _showLoader = false;
-  String urlPDFPath = "";
+  String urlPDFPath = '';
   bool exists = true;
   int _totalPages = 0;
   int _currentPage = 0;
   bool pdfReady = false;
   late PDFViewController _pdfViewController;
   bool loaded = false;
-  String newPath = "";
+  String newPath = '';
   String ruta = '';
   String imei = '';
 
   String _platformVersion = 'Unknown',
-      _imeiNo = "",
-      _modelName = "",
-      _manufacturerName = "",
-      _deviceName = "",
-      _productName = "",
-      _cpuType = "",
-      _hardware = "";
+      _imeiNo = '',
+      _modelName = '',
+      _manufacturerName = '',
+      _deviceName = '',
+      _productName = '',
+      _cpuType = '',
+      _hardware = '';
   var _apiLevel;
 
 //---------------------------------------------------------------
@@ -146,7 +148,7 @@ class _PdfViewScreenState extends State<PdfViewScreen> {
     // setState to update our non-existent appearance.
     if (!mounted) return;
 
-    _platformVersion = "Running on :$platformVersion";
+    _platformVersion = 'Running on :$platformVersion';
     _imeiNo = imeiNo;
     _modelName = modelName;
     _manufacturerName = manufacturer;
@@ -181,7 +183,24 @@ class _PdfViewScreenState extends State<PdfViewScreen> {
               swipeHorizontal: true,
               nightMode: false,
               onError: (e) {
-                //Show some error message or UI
+                showDialog(
+                  barrierDismissible: false,
+                  context: context,
+                  builder: (context) => AlertDialog(
+                    title: const Text('Error'),
+                    content: const Text(
+                        'Hubo un error al obtener tu Recibo. Por favor reintenta mas tarde.'),
+                    actions: [
+                      TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                          Navigator.of(context).pop();
+                        },
+                        child: const Text('Aceptar'),
+                      ),
+                    ],
+                  ),
+                );
               },
               onRender: (_pages) {
                 setState(() {
@@ -225,7 +244,7 @@ class _PdfViewScreenState extends State<PdfViewScreen> {
               },
             ),
             Text(
-              "${_currentPage + 1}/$_totalPages",
+              '${_currentPage + 1}/$_totalPages',
               style: const TextStyle(color: Colors.black, fontSize: 20),
             ),
             IconButton(
@@ -244,7 +263,7 @@ class _PdfViewScreenState extends State<PdfViewScreen> {
             const Spacer(),
             if (widget.recibo.firmado == 0)
               FloatingActionButton(
-                  backgroundColor: Color(0xFF781f1e),
+                  backgroundColor: const Color(0xFF781f1e),
                   child: const Icon(
                     Icons.draw,
                     color: Colors.white,
@@ -280,11 +299,11 @@ class _PdfViewScreenState extends State<PdfViewScreen> {
         //Replace with your loading UI
         return Scaffold(
           appBar: AppBar(
-            title: const Text("Ver Recibo"),
+            title: const Text('Ver Recibo'),
             centerTitle: true,
           ),
           body: const Text(
-            "Loading..",
+            'Loading..',
             style: TextStyle(fontSize: 20),
           ),
         );
@@ -292,11 +311,11 @@ class _PdfViewScreenState extends State<PdfViewScreen> {
         //Replace Error UI
         return Scaffold(
           appBar: AppBar(
-            title: const Text("Ver Recibo"),
+            title: const Text('Ver Recibo'),
             centerTitle: true,
           ),
           body: const Text(
-            "PDF no disponible",
+            'PDF no disponible',
             style: TextStyle(fontSize: 20),
           ),
         );
@@ -346,18 +365,18 @@ class _PdfViewScreenState extends State<PdfViewScreen> {
     if (Platform.isAndroid) {
       if (permission) {
         var directory = await getExternalStorageDirectory();
-        newPath = "";
+        newPath = '';
         String convertedDirectoryPath = (directory?.path).toString();
-        List<String> paths = convertedDirectoryPath.split("/");
+        List<String> paths = convertedDirectoryPath.split('/');
         for (int x = 1; x < convertedDirectoryPath.length; x++) {
           String folder = paths[x];
-          if (folder != "Android") {
-            newPath += "/" + folder;
+          if (folder != 'Android') {
+            newPath += '/' + folder;
           } else {
             break;
           }
         }
-        newPath = newPath + "/rowingApp/Pdf";
+        newPath = newPath + '/rowingApp/Pdf';
 
         directory = Directory(newPath);
         if (!await directory.exists()) {
@@ -421,12 +440,12 @@ Future<File> getFileFromUrl(String url, {name}) async {
     var data = await http.get(Uri.parse(url));
     var bytes = data.bodyBytes;
     var dir = await getApplicationDocumentsDirectory();
-    File file = File("${dir.path}/" + fileName + ".pdf");
+    File file = File('${dir.path}/' + fileName + '.pdf');
     print(dir.path);
     File urlFile = await file.writeAsBytes(bytes);
     return urlFile;
   } catch (e) {
-    throw Exception("Error opening url file");
+    throw Exception('Error opening url file');
   }
 }
 

@@ -1,14 +1,22 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
-import 'package:rowing_app/components/loader_component.dart';
-import 'package:rowing_app/helpers/helpers.dart';
-import 'package:rowing_app/models/models.dart';
-import 'package:rowing_app/screens/screens.dart';
+import 'package:path/path.dart' as path;
+import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:share_plus/share_plus.dart';
+
+import '../../components/loader_component.dart';
+import '../../helpers/helpers.dart';
+import '../../models/models.dart';
+import '../screens.dart';
 
 class RecibosScreen extends StatefulWidget {
   final User user;
@@ -75,7 +83,7 @@ class _RecibosScreenState extends State<RecibosScreen> {
       height: 40,
       child: Row(
         children: [
-          const Text("Cantidad de Recibos: ",
+          const Text('Cantidad de Recibos: ',
               style: TextStyle(
                 fontSize: 14,
                 color: Colors.white,
@@ -119,8 +127,8 @@ class _RecibosScreenState extends State<RecibosScreen> {
         children: _recibos.map((e) {
           return Card(
             color: e.firmado == 1
-                ? Color.fromARGB(255, 255, 255, 255)
-                : Color(0xFFC7C7C8),
+                ? const Color.fromARGB(255, 255, 255, 255)
+                : const Color(0xFFC7C7C8),
             shadowColor: Colors.white,
             elevation: 10,
             margin: const EdgeInsets.fromLTRB(10, 0, 10, 10),
@@ -144,7 +152,7 @@ class _RecibosScreenState extends State<RecibosScreen> {
                                 children: [
                                   Row(
                                     children: [
-                                      const Text("N° Recibo: ",
+                                      const Text('N° Recibo: ',
                                           style: TextStyle(
                                             fontSize: 12,
                                             color: Color(0xFF781f1e),
@@ -157,7 +165,7 @@ class _RecibosScreenState extends State<RecibosScreen> {
                                               fontSize: 12,
                                             )),
                                       ),
-                                      const Text("Año: ",
+                                      const Text('Año: ',
                                           style: TextStyle(
                                             fontSize: 12,
                                             color: Color(0xFF781f1e),
@@ -170,7 +178,7 @@ class _RecibosScreenState extends State<RecibosScreen> {
                                               fontSize: 12,
                                             )),
                                       ),
-                                      const Text("Mes: ",
+                                      const Text('Mes: ',
                                           style: TextStyle(
                                             fontSize: 12,
                                             color: Color(0xFF781f1e),
@@ -185,7 +193,7 @@ class _RecibosScreenState extends State<RecibosScreen> {
                                       ),
                                       if (e.firmado == 1)
                                         const Text(
-                                          "FIRMADO!!",
+                                          'FIRMADO!!',
                                           style: TextStyle(
                                             fontSize: 12,
                                             color: Colors.red,
@@ -199,7 +207,7 @@ class _RecibosScreenState extends State<RecibosScreen> {
                                   ),
                                   Row(
                                     children: [
-                                      const Text("Nª Secuencia: ",
+                                      const Text('Nª Secuencia: ',
                                           style: TextStyle(
                                             fontSize: 12,
                                             color: Color(0xFF781f1e),
@@ -219,7 +227,7 @@ class _RecibosScreenState extends State<RecibosScreen> {
                                   e.fechaPagoExcel != null
                                       ? Row(
                                           children: [
-                                            const Text("Fecha Pago: ",
+                                            const Text('Fecha Pago: ',
                                                 style: TextStyle(
                                                   fontSize: 12,
                                                   color: Color(0xFF781f1e),
@@ -244,7 +252,7 @@ class _RecibosScreenState extends State<RecibosScreen> {
                                   e.fechaIniExcel != null
                                       ? Row(
                                           children: [
-                                            const Text("Fecha Inic.: ",
+                                            const Text('Fecha Inic.: ',
                                                 style: TextStyle(
                                                   fontSize: 12,
                                                   color: Color(0xFF781f1e),
@@ -269,7 +277,7 @@ class _RecibosScreenState extends State<RecibosScreen> {
                                   e.fechaFinExcel != null
                                       ? Row(
                                           children: [
-                                            const Text("Fecha Fin: ",
+                                            const Text('Fecha Fin: ',
                                                 style: TextStyle(
                                                   fontSize: 12,
                                                   color: Color(0xFF781f1e),
@@ -295,7 +303,34 @@ class _RecibosScreenState extends State<RecibosScreen> {
                         ),
                       ),
                     ),
-                    const Icon(Icons.arrow_forward_ios),
+                    Column(
+                      children: [
+                        const Icon(Icons.arrow_forward_ios),
+                        if (e.firmado == 1)
+                          const SizedBox(
+                            height: 10,
+                          ),
+                        if (e.firmado == 1)
+                          Container(
+                            width: 40,
+                            height: 40,
+                            decoration: BoxDecoration(
+                              color: const Color(0xFF781f1e),
+                              borderRadius: BorderRadius.circular(40),
+                            ),
+                            child: IconButton(
+                                onPressed: () {
+                                  downloadPDF(context, e.link!,
+                                      'Recibo ${e.anio}-${e.mes}-${e.nroSecuencia}');
+                                },
+                                icon: const Icon(
+                                  FontAwesomeIcons.share,
+                                  color: Colors.white,
+                                  size: 20,
+                                )),
+                          ),
+                      ],
+                    ),
                   ],
                 ),
               ),
@@ -319,7 +354,7 @@ class _RecibosScreenState extends State<RecibosScreen> {
         _showLoader = false;
       });
       showMyDialog(
-          'Error', "Verifica que estés conectado a Internet", 'Aceptar');
+          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
     }
 
     Response response = Response(isSuccess: false);
@@ -390,6 +425,89 @@ class _RecibosScreenState extends State<RecibosScreen> {
     if (result == 'yes' || result != 'yes') {
       _getRecibos();
       setState(() {});
+    }
+  }
+
+  //--------------------------------------------------------------------------
+  Future<void> downloadPDF(
+      BuildContext context, String pdfUrl, String fileName) async {
+    try {
+      // 1. Solicitar permisos (solo en Android)
+
+      final status = await Permission.storage.request();
+      if (!status.isGranted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            backgroundColor: Colors.red,
+            content: Text('Permiso de almacenamiento denegado.'),
+          ),
+        );
+        return;
+      }
+
+      // 2. Descargar el archivo
+      final response = await http.get(Uri.parse(
+          'http://190.111.249.225/RowingAppApi/images/Recibos/$pdfUrl'));
+
+      if (response.statusCode != 200) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            backgroundColor: Colors.red,
+            content: Text('Error al descargar el archivo del servidor'),
+          ),
+        );
+        return;
+      }
+
+      final bytes = response.bodyBytes;
+
+      // 3. Obtener carpeta de descarga
+      final directory = await getExternalStorageDirectory();
+
+      final downloadsDir = Directory(path.join(directory!.path, 'Download'));
+
+      if (!downloadsDir.existsSync()) {
+        downloadsDir.createSync(recursive: true);
+      }
+
+      final filePath = path.join(downloadsDir.path, '$fileName.pdf');
+      final file = File(filePath);
+
+      if (await downloadsDir.exists()) {
+        final archivos = downloadsDir.listSync();
+        for (var archivo in archivos) {
+          try {
+            if (archivo is File) {
+              await archivo.delete();
+            }
+          } catch (e) {}
+        }
+      }
+
+      // 5. Escribir el archivo (una sola vez)
+      await file.writeAsBytes(bytes, flush: true);
+
+      // 6. Éxito
+      // ScaffoldMessenger.of(context).showSnackBar(
+      //   SnackBar(
+      //     backgroundColor: Colors.green,
+      //     duration: const Duration(seconds: 2),
+      //     content: Text('Archivo guardado en: ${file.path}'),
+      //   ),
+      // );
+
+      //OpenFile.open(filePath);
+
+      await Share.shareFiles([filePath], text: fileName);
+    } catch (e) {
+      // Error general
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          backgroundColor: Colors.red,
+          duration: const Duration(seconds: 2),
+          content: Text('Error al descargar el archivo: $e'),
+        ),
+      );
     }
   }
 }

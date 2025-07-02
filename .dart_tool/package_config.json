@@ -338,6 +338,12 @@
       "languageVersion": "2.17"
     },
     {
+      "name": "font_awesome_flutter",
+      "rootUri": "file:///C:/Users/luisn/AppData/Local/Pub/Cache/hosted/pub.dev/font_awesome_flutter-10.4.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "geocoding",
       "rootUri": "file:///C:/Users/luisn/AppData/Local/Pub/Cache/hosted/pub.dev/geocoding-2.1.0",
       "packageUri": "lib/",
@@ -524,6 +530,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "mime",
+      "rootUri": "file:///C:/Users/luisn/AppData/Local/Pub/Cache/hosted/pub.dev/mime-1.0.4",
+      "packageUri": "lib/",
+      "languageVersion": "2.18"
+    },
+    {
       "name": "nested",
       "rootUri": "file:///C:/Users/luisn/AppData/Local/Pub/Cache/hosted/pub.dev/nested-1.0.0",
       "packageUri": "lib/",
@@ -532,6 +544,12 @@
     {
       "name": "octo_image",
       "rootUri": "file:///C:/Users/luisn/AppData/Local/Pub/Cache/hosted/pub.dev/octo_image-1.0.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "open_file",
+      "rootUri": "file:///C:/Users/luisn/AppData/Local/Pub/Cache/hosted/pub.dev/open_file-3.2.1",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -658,6 +676,42 @@
     {
       "name": "rxdart",
       "rootUri": "file:///C:/Users/luisn/AppData/Local/Pub/Cache/hosted/pub.dev/rxdart-0.27.7",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "share_plus",
+      "rootUri": "file:///C:/Users/luisn/AppData/Local/Pub/Cache/hosted/pub.dev/share_plus-4.5.3",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "share_plus_linux",
+      "rootUri": "file:///C:/Users/luisn/AppData/Local/Pub/Cache/hosted/pub.dev/share_plus_linux-3.0.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "share_plus_macos",
+      "rootUri": "file:///C:/Users/luisn/AppData/Local/Pub/Cache/hosted/pub.dev/share_plus_macos-3.0.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "share_plus_platform_interface",
+      "rootUri": "file:///C:/Users/luisn/AppData/Local/Pub/Cache/hosted/pub.dev/share_plus_platform_interface-3.4.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.18"
+    },
+    {
+      "name": "share_plus_web",
+      "rootUri": "file:///C:/Users/luisn/AppData/Local/Pub/Cache/hosted/pub.dev/share_plus_web-3.1.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "share_plus_windows",
+      "rootUri": "file:///C:/Users/luisn/AppData/Local/Pub/Cache/hosted/pub.dev/share_plus_windows-3.0.1",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -902,7 +956,7 @@
       "languageVersion": "2.12"
     }
   ],
-  "generated": "2025-04-23T16:19:22.369224Z",
+  "generated": "2025-07-02T15:37:21.008447Z",
   "generator": "pub",
   "generatorVersion": "2.19.6"
 }

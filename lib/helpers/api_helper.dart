@@ -1,7 +1,9 @@
 import 'dart:convert';
 import 'dart:io';
+
 import 'package:http/http.dart' as http;
-import 'package:rowing_app/models/models.dart';
+
+import '../models/models.dart';
 import 'constants.dart';
 
 class ApiHelper {
