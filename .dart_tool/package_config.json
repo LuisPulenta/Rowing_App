@@ -548,12 +548,6 @@
       "languageVersion": "2.12"
     },
     {
-      "name": "open_file",
-      "rootUri": "file:///C:/Users/luisn/AppData/Local/Pub/Cache/hosted/pub.dev/open_file-3.2.1",
-      "packageUri": "lib/",
-      "languageVersion": "2.12"
-    },
-    {
       "name": "path",
       "rootUri": "file:///C:/Users/luisn/AppData/Local/Pub/Cache/hosted/pub.dev/path-1.8.2",
       "packageUri": "lib/",
@@ -956,7 +950,7 @@
       "languageVersion": "2.12"
     }
   ],
-  "generated": "2025-07-02T15:37:21.008447Z",
+  "generated": "2025-07-02T16:46:45.247762Z",
   "generator": "pub",
   "generatorVersion": "2.19.6"
 }
