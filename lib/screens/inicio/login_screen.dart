@@ -1,19 +1,21 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:math';
+
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:connectivity/connectivity.dart';
+import 'package:device_information/device_information.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:http/http.dart' as http;
-import 'package:rowing_app/helpers/helpers.dart';
-import 'package:rowing_app/components/loader_component.dart';
-import 'package:rowing_app/models/models.dart';
-import 'package:device_information/device_information.dart';
-import 'package:permission_handler/permission_handler.dart';
-import 'package:rowing_app/screens/screens.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:http/http.dart' as http;
+import 'package:permission_handler/permission_handler.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../components/loader_component.dart';
+import '../../helpers/helpers.dart';
+import '../../models/models.dart';
+import '../screens.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -27,8 +29,8 @@ class _LoginScreenState extends State<LoginScreen> {
 //----------------------- Variables -----------------------------
 //---------------------------------------------------------------
 
-  // String _email = '';
-  // String _password = '';
+  String _email = '';
+  String _password = '';
 
   String imei = '';
 
@@ -47,8 +49,8 @@ class _LoginScreenState extends State<LoginScreen> {
   // String _email = 'gaos@keypress.com.ar';
   // String _password = 'keyroot';
 
-  String _email = 'areyes@rowing.com.ar';
-  String _password = 'RW+483482';
+  // String _email = 'areyes@rowing.com.ar';
+  // String _password = 'RW+483482';
 
   String _emailError = '';
   bool _emailShowError = false;
@@ -59,13 +61,13 @@ class _LoginScreenState extends State<LoginScreen> {
   List<Catalogo> _catalogos = [];
 
   String _platformVersion = 'Unknown',
-      _imeiNo = "",
-      _modelName = "",
-      _manufacturerName = "",
-      _deviceName = "",
-      _productName = "",
-      _cpuType = "",
-      _hardware = "";
+      _imeiNo = '',
+      _modelName = '',
+      _manufacturerName = '',
+      _deviceName = '',
+      _productName = '',
+      _cpuType = '',
+      _hardware = '';
   var _apiLevel;
 
   bool _rememberme = true;
@@ -132,7 +134,7 @@ class _LoginScreenState extends State<LoginScreen> {
               child: Column(
                 children: [
                   Image.asset(
-                    "assets/logo.png",
+                    'assets/logo.png',
                     height: 200,
                   ),
                   Row(
@@ -673,7 +675,7 @@ class _LoginScreenState extends State<LoginScreen> {
         loginDate: DateTime.now().toString(),
         loginTime: hora.round(),
         modulo: 'App-${user.codigoCausante}',
-        logoutDate: "",
+        logoutDate: '',
         logoutTime: 0,
         conectAverage: 0,
         id_ws: 0,
@@ -856,7 +858,7 @@ class _LoginScreenState extends State<LoginScreen> {
     // setState to update our non-existent appearance.
     if (!mounted) return;
 
-    _platformVersion = "Running on :$platformVersion";
+    _platformVersion = 'Running on :$platformVersion';
     _imeiNo = imeiNo;
     _modelName = modelName;
     _manufacturerName = manufacturer;
@@ -955,7 +957,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
     if (connectivityResult == ConnectivityResult.none) {
       showMyDialog(
-          'Error', "Verifica que estés conectado a Internet", 'Aceptar');
+          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
     }
 
     Response response = Response(isSuccess: false);
