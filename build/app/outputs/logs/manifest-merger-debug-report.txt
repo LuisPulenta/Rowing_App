@@ -1,10 +1,10 @@
 -- Merging decision tree log ---
 manifest
-ADDED from D:\Flutter\rowing_app\android\app\src\main\AndroidManifest.xml:1:1-59:12
-INJECTED from D:\Flutter\rowing_app\android\app\src\main\AndroidManifest.xml:1:1-59:12
-INJECTED from D:\Flutter\rowing_app\android\app\src\main\AndroidManifest.xml:1:1-59:12
-INJECTED from D:\Flutter\rowing_app\android\app\src\main\AndroidManifest.xml:1:1-59:12
-MERGED from D:\Flutter\rowing_app\android\app\src\main\AndroidManifest.xml:1:1-59:12
+ADDED from D:\Flutter\rowing_app\android\app\src\main\AndroidManifest.xml:1:1-58:12
+INJECTED from D:\Flutter\rowing_app\android\app\src\main\AndroidManifest.xml:1:1-58:12
+INJECTED from D:\Flutter\rowing_app\android\app\src\main\AndroidManifest.xml:1:1-58:12
+INJECTED from D:\Flutter\rowing_app\android\app\src\main\AndroidManifest.xml:1:1-58:12
+MERGED from D:\Flutter\rowing_app\android\app\src\main\AndroidManifest.xml:1:1-58:12
 MERGED from [:flutter_pdfview] D:\Flutter\rowing_app\build\flutter_pdfview\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-9:12
 MERGED from [:geolocator_android] D:\Flutter\rowing_app\build\geolocator_android\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-19:12
 MERGED from [:file_picker] D:\Flutter\rowing_app\build\file_picker\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-19:12
@@ -90,13 +90,13 @@ INJECTED from D:\Flutter\rowing_app\android\app\src\debug\AndroidManifest.xml:1:
 		INJECTED from D:\Flutter\rowing_app\android\app\src\debug\AndroidManifest.xml
 	android:versionName
 		INJECTED from D:\Flutter\rowing_app\android\app\src\main\AndroidManifest.xml
-		ADDED from D:\Flutter\rowing_app\android\app\src\main\AndroidManifest.xml:1:1-59:12
+		ADDED from D:\Flutter\rowing_app\android\app\src\main\AndroidManifest.xml:1:1-58:12
 		INJECTED from D:\Flutter\rowing_app\android\app\src\debug\AndroidManifest.xml
 	android:exported
 		ADDED from D:\Flutter\rowing_app\android\app\src\debug\AndroidManifest.xml:3:5-28
 	android:versionCode
 		INJECTED from D:\Flutter\rowing_app\android\app\src\main\AndroidManifest.xml
-		ADDED from D:\Flutter\rowing_app\android\app\src\main\AndroidManifest.xml:1:1-59:12
+		ADDED from D:\Flutter\rowing_app\android\app\src\main\AndroidManifest.xml:1:1-58:12
 		INJECTED from D:\Flutter\rowing_app\android\app\src\debug\AndroidManifest.xml
 	xmlns:android
 		ADDED from D:\Flutter\rowing_app\android\app\src\main\AndroidManifest.xml:1:11-69
@@ -221,31 +221,27 @@ MERGED from D:\Flutter\rowing_app\android\app\src\main\AndroidManifest.xml:51:5-
 	android:name
 		ADDED from D:\Flutter\rowing_app\android\app\src\main\AndroidManifest.xml:51:22-72
 uses-permission#android.permission.READ_EXTERNAL_STORAGE
-ADDED from D:\Flutter\rowing_app\android\app\src\main\AndroidManifest.xml:52:8-82
+ADDED from D:\Flutter\rowing_app\android\app\src\main\AndroidManifest.xml:52:5-79
 MERGED from [:file_picker] D:\Flutter\rowing_app\build\file_picker\intermediates\merged_manifest\debug\AndroidManifest.xml:9:5-80
 MERGED from [:file_picker] D:\Flutter\rowing_app\build\file_picker\intermediates\merged_manifest\debug\AndroidManifest.xml:9:5-80
 	android:name
-		ADDED from D:\Flutter\rowing_app\android\app\src\main\AndroidManifest.xml:52:25-80
+		ADDED from D:\Flutter\rowing_app\android\app\src\main\AndroidManifest.xml:52:22-77
 uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
-ADDED from D:\Flutter\rowing_app\android\app\src\main\AndroidManifest.xml:53:6-81
+ADDED from D:\Flutter\rowing_app\android\app\src\main\AndroidManifest.xml:53:5-80
 	android:name
-		ADDED from D:\Flutter\rowing_app\android\app\src\main\AndroidManifest.xml:53:23-79
-uses-permission#android.permission.MANAGE_EXTERNAL_STORAGE
-ADDED from D:\Flutter\rowing_app\android\app\src\main\AndroidManifest.xml:54:6-82
-	android:name
-		ADDED from D:\Flutter\rowing_app\android\app\src\main\AndroidManifest.xml:54:23-80
+		ADDED from D:\Flutter\rowing_app\android\app\src\main\AndroidManifest.xml:53:22-78
 queries
-ADDED from D:\Flutter\rowing_app\android\app\src\main\AndroidManifest.xml:56:5-58:12
+ADDED from D:\Flutter\rowing_app\android\app\src\main\AndroidManifest.xml:55:5-57:12
 MERGED from [:file_picker] D:\Flutter\rowing_app\build\file_picker\intermediates\merged_manifest\debug\AndroidManifest.xml:11:5-17:15
 MERGED from [:file_picker] D:\Flutter\rowing_app\build\file_picker\intermediates\merged_manifest\debug\AndroidManifest.xml:11:5-17:15
 MERGED from [com.google.android.gms:play-services-maps:18.1.0] C:\Users\luisn\.gradle\caches\transforms-3\684f889faff794fd151d165d83fc6165\transformed\jetified-play-services-maps-18.1.0\AndroidManifest.xml:30:5-34:15
 MERGED from [com.google.android.gms:play-services-maps:18.1.0] C:\Users\luisn\.gradle\caches\transforms-3\684f889faff794fd151d165d83fc6165\transformed\jetified-play-services-maps-18.1.0\AndroidManifest.xml:30:5-34:15
 package#com.google.android.apps.maps
-ADDED from D:\Flutter\rowing_app\android\app\src\main\AndroidManifest.xml:57:3-58
+ADDED from D:\Flutter\rowing_app\android\app\src\main\AndroidManifest.xml:56:3-58
 MERGED from [com.google.android.gms:play-services-maps:18.1.0] C:\Users\luisn\.gradle\caches\transforms-3\684f889faff794fd151d165d83fc6165\transformed\jetified-play-services-maps-18.1.0\AndroidManifest.xml:33:9-64
 MERGED from [com.google.android.gms:play-services-maps:18.1.0] C:\Users\luisn\.gradle\caches\transforms-3\684f889faff794fd151d165d83fc6165\transformed\jetified-play-services-maps-18.1.0\AndroidManifest.xml:33:9-64
 	android:name
-		ADDED from D:\Flutter\rowing_app\android\app\src\main\AndroidManifest.xml:57:12-55
+		ADDED from D:\Flutter\rowing_app\android\app\src\main\AndroidManifest.xml:56:12-55
 uses-sdk
 INJECTED from D:\Flutter\rowing_app\android\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from D:\Flutter\rowing_app\android\app\src\main\AndroidManifest.xml

@@ -12,6 +12,7 @@ import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../components/loader_component.dart';
 import '../../helpers/helpers.dart';
@@ -320,8 +321,10 @@ class _RecibosScreenState extends State<RecibosScreen> {
                             ),
                             child: IconButton(
                                 onPressed: () {
-                                  downloadPDF(context, e.link!,
-                                      'Recibo ${e.anio}-${e.mes}-${e.nroSecuencia}');
+                                  // downloadPDF(context, e.link!,
+                                  //     'Recibo ${e.anio}-${e.mes}-${e.nroSecuencia}');
+
+                                  _launchURL(e.link!);
                                 },
                                 icon: const Icon(
                                   FontAwesomeIcons.share,
@@ -508,6 +511,13 @@ class _RecibosScreenState extends State<RecibosScreen> {
           content: Text('Error al descargar el archivo: $e'),
         ),
       );
+    }
+  }
+
+  void _launchURL(String link) async {
+    if (!await launch(
+        'http://190.111.249.225/RowingAppApi/images/Recibos/$link')) {
+      throw 'No se puede ver el documento PDF';
     }
   }
 }

@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.luisnu.rowing_app"
     android:exported="true"
-    android:versionCode="86"
-    android:versionName="1.0.86" >
+    android:versionCode="87"
+    android:versionName="1.0.87" >
 
     <uses-sdk
         android:minSdkVersion="21"
@@ -17,7 +17,6 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
 
     <queries>
         <package android:name="com.google.android.apps.maps" />
