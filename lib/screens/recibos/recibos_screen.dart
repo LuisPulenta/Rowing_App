@@ -4,7 +4,6 @@ import 'dart:io';
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
@@ -12,7 +11,7 @@ import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../components/loader_component.dart';
 import '../../helpers/helpers.dart';
@@ -39,6 +38,7 @@ class _RecibosScreenState extends State<RecibosScreen> {
   //----------------------- Variables -----------------------------
   List<Recibo> _recibos = [];
   bool _showLoader = false;
+  String _email = '';
 
 //----------------------- initState -----------------------------
   @override
@@ -320,14 +320,39 @@ class _RecibosScreenState extends State<RecibosScreen> {
                               borderRadius: BorderRadius.circular(40),
                             ),
                             child: IconButton(
-                                onPressed: () {
-                                  // downloadPDF(context, e.link!,
-                                  //     'Recibo ${e.anio}-${e.mes}-${e.nroSecuencia}');
-
-                                  _launchURL(e.link!);
+                                onPressed: () async {
+                                  Response response =
+                                      Response(isSuccess: false);
+                                  Map<String, dynamic> request = {
+                                    'to': _email,
+                                    'subject':
+                                        'Recibo Mes: ${e.mes}-${e.anio} Secuencia: ${e.nroSecuencia}',
+                                    'body':
+                                        'Se adjunta recibo del Mes ${e.mes}-${e.anio} Secuencia: ${e.nroSecuencia}',
+                                    'fileUrl':
+                                        'http://190.111.249.225/RowingAppApi/images/Recibos/${e.link}',
+                                    'fileName':
+                                        'Recibo Mes ${e.mes}-${e.anio} Secuencia ${e.nroSecuencia}.pdf'
+                                  };
+                                  response = await ApiHelper.sendMail(
+                                      request, widget.token);
+                                  if (!response.isSuccess) {
+                                    await showAlertDialog(
+                                        context: context,
+                                        title: 'Error',
+                                        message: response.message,
+                                        actions: <AlertDialogAction>[
+                                          const AlertDialogAction(
+                                              key: null, label: 'Aceptar'),
+                                        ]);
+                                    return;
+                                  }
+                                  _showSnackbar(
+                                      'Se le ha enviado el Recibo por mail',
+                                      Colors.lightGreen);
                                 },
                                 icon: const Icon(
-                                  FontAwesomeIcons.share,
+                                  Icons.mail,
                                   color: Colors.white,
                                   size: 20,
                                 )),
@@ -346,6 +371,10 @@ class _RecibosScreenState extends State<RecibosScreen> {
 
 //----------------------- _getRecibos -----------------------------
   Future<void> _getRecibos() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    _email = prefs.getString('email') ?? '';
+
     setState(() {
       _showLoader = true;
     });
@@ -410,6 +439,7 @@ class _RecibosScreenState extends State<RecibosScreen> {
           positionUser: widget.positionUser,
           recibo: recibo,
           token: widget.token,
+          user: widget.user,
         ),
       ),
     );
@@ -514,10 +544,14 @@ class _RecibosScreenState extends State<RecibosScreen> {
     }
   }
 
-  void _launchURL(String link) async {
-    if (!await launch(
-        'http://190.111.249.225/RowingAppApi/images/Recibos/$link')) {
-      throw 'No se puede ver el documento PDF';
-    }
+//-------------------- _showSnackbar --------------------------
+  void _showSnackbar(String message, Color color) {
+    SnackBar snackbar = SnackBar(
+      content: Text(message),
+      backgroundColor: color,
+      duration: const Duration(seconds: 1),
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackbar);
+    //ScaffoldMessenger.of(context).hideCurrentSnackBar();
   }
 }

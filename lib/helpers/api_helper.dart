@@ -2675,4 +2675,31 @@ class ApiHelper {
     }
     return Response(isSuccess: true, result: list);
   }
+
+  //--------------------------------------------------------------
+  static Future<Response> sendMail(
+      Map<String, dynamic> request, Token token) async {
+    if (!_validateToken(token)) {
+      return Response(
+          isSuccess: false,
+          message:
+              'Sus credenciales se han vencido, por favor cierre sesión y vuelva a ingresar al sistema.');
+    }
+    var url =
+        Uri.parse('${Constants.apiUrl}/api/CausanteRecibos/SendMailWithPdf');
+    var response = await http.post(
+      url,
+      headers: {
+        'content-type': 'application/json',
+        'accept': 'application/json',
+        'authorization': 'bearer ${token.token}',
+      },
+      body: jsonEncode(request),
+    );
+
+    if (response.statusCode >= 400) {
+      return Response(isSuccess: false, message: response.body);
+    }
+    return Response(isSuccess: true, result: true);
+  }
 }

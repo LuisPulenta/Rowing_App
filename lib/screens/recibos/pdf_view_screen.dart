@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:device_information/device_information.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -8,9 +9,11 @@ import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:syncfusion_flutter_pdf/pdf.dart';
 
 import '../../components/loader_component.dart';
+import '../../helpers/api_helper.dart';
 import '../../models/models.dart';
 import '../screens.dart';
 
@@ -20,6 +23,7 @@ class PdfViewScreen extends StatefulWidget {
   final Position positionUser;
   final Recibo recibo;
   final Token token;
+  final User user;
 
   const PdfViewScreen({
     Key? key,
@@ -28,6 +32,7 @@ class PdfViewScreen extends StatefulWidget {
     required this.positionUser,
     required this.recibo,
     required this.token,
+    required this.user,
   }) : super(key: key);
 
   @override
@@ -47,6 +52,7 @@ class _PdfViewScreenState extends State<PdfViewScreen> {
   String newPath = '';
   String ruta = '';
   String imei = '';
+  String _email = '';
 
   String _platformVersion = 'Unknown',
       _imeiNo = '',
@@ -78,6 +84,7 @@ class _PdfViewScreenState extends State<PdfViewScreen> {
       },
     );
     initPlatformState();
+
     super.initState();
   }
 
@@ -157,6 +164,10 @@ class _PdfViewScreenState extends State<PdfViewScreen> {
     _productName = productName;
     _cpuType = cpuType;
     _hardware = hardware;
+
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    _email = prefs.getString('email') ?? '';
 
     setState(() {});
   }
@@ -291,6 +302,42 @@ class _PdfViewScreenState extends State<PdfViewScreen> {
                     _showLoader = false;
                     setState(() {});
                   }),
+            if (widget.recibo.firmado != 0)
+              FloatingActionButton(
+                  backgroundColor: const Color(0xFF781f1e),
+                  child: const Icon(
+                    Icons.mail,
+                    color: Colors.white,
+                    size: 40,
+                  ),
+                  onPressed: () async {
+                    Response response = Response(isSuccess: false);
+                    Map<String, dynamic> request = {
+                      'to': _email,
+                      'subject':
+                          'Recibo Mes: ${widget.recibo.mes}-${widget.recibo.anio} Secuencia: ${widget.recibo.nroSecuencia}',
+                      'body':
+                          'Se adjunta recibo del Mes ${widget.recibo.mes}-${widget.recibo.anio} Secuencia: ${widget.recibo.nroSecuencia}',
+                      'fileUrl': widget.url,
+                      'fileName':
+                          'Recibo Mes ${widget.recibo.mes}-${widget.recibo.anio} Secuencia ${widget.recibo.nroSecuencia}.pdf'
+                    };
+                    response = await ApiHelper.sendMail(request, widget.token);
+                    if (!response.isSuccess) {
+                      await showAlertDialog(
+                          context: context,
+                          title: 'Error',
+                          message: response.message,
+                          actions: <AlertDialogAction>[
+                            const AlertDialogAction(
+                                key: null, label: 'Aceptar'),
+                          ]);
+                      return;
+                    }
+                    _showSnackbar('Se le ha enviado el Recibo por mail',
+                        Colors.lightGreen);
+                    Navigator.pop(context, 'yes');
+                  }),
           ],
         ),
       );
@@ -420,13 +467,21 @@ class _PdfViewScreenState extends State<PdfViewScreen> {
     }
   }
 
-//--------------------------------------------------------
 //--------------------- _readImageData -------------------
-//--------------------------------------------------------
-
   Future<Uint8List> _readImageData(String name) async {
     final data = await rootBundle.load('assets/$name');
     return data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
+  }
+
+//-------------------- _showSnackbar --------------------------
+  void _showSnackbar(String message, Color color) {
+    SnackBar snackbar = SnackBar(
+      content: Text(message),
+      backgroundColor: color,
+      //duration: Duration(seconds: 3),
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackbar);
+    //ScaffoldMessenger.of(context).hideCurrentSnackBar();
   }
 }
 

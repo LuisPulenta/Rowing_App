@@ -31,11 +31,11 @@ class _LoginScreenState extends State<LoginScreen> {
 
   String imei = '';
 
-  // String _email = '';
-  // String _password = '';
+  String _email = '';
+  String _password = '';
 
-  String _email = 'gprieto@rowing.com.ar';
-  String _password = '1950Arnaldo';
+  // String _email = 'gprieto@rowing.com.ar';
+  // String _password = '1950Arnaldo';
 
   // String _email = 'KEYPRESS';
   // String _password = 'KEYROOT';
@@ -415,6 +415,9 @@ class _LoginScreenState extends State<LoginScreen> {
         });
         return;
       }
+
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      await prefs.setString('email', _email);
 
       //---------- user2 -------------
       var body = response.body;
