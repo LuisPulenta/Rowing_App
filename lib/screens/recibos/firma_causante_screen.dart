@@ -1,10 +1,12 @@
 // ignore_for_file: unnecessary_const
 
 import 'dart:ui' as ui;
-import 'package:rowing_app/models/models.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:syncfusion_flutter_signaturepad/signaturepad.dart';
+
+import '../../models/models.dart';
 
 class FirmaCausanteScreen extends StatefulWidget {
   final User user;
@@ -43,15 +45,12 @@ class _FirmaCausanteScreenState extends State<FirmaCausanteScreen> {
     Navigator.pop(context, response);
   }
 
-//---------------------------------------------------------------
 //----------------------- Pantalla ------------------------------
-//---------------------------------------------------------------
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text("Firma"),
+          title: const Text('Firma'),
           centerTitle: true,
         ),
         body: Container(
