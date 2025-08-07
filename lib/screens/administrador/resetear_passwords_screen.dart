@@ -1,12 +1,14 @@
 import 'dart:convert';
+
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
-import 'package:rowing_app/components/loader_component.dart';
 import 'package:http/http.dart' as http;
-import 'package:rowing_app/helpers/helpers.dart';
-import 'package:rowing_app/models/models.dart';
-import 'package:rowing_app/widgets/widgets.dart';
+
+import '../../components/loader_component.dart';
+import '../../helpers/helpers.dart';
+import '../../models/models.dart';
+import '../../widgets/widgets.dart';
 
 class ResetearPasswordsScreen extends StatefulWidget {
   final User user;
@@ -91,7 +93,7 @@ class _ResetearPasswordsScreenState extends State<ResetearPasswordsScreen> {
     return Scaffold(
       backgroundColor: const Color(0xFF484848),
       appBar: AppBar(
-        title: const Text("Reactivar Usuario"),
+        title: const Text('Reactivar Usuario'),
         centerTitle: true,
       ),
       body: Stack(
@@ -159,7 +161,7 @@ class _ResetearPasswordsScreenState extends State<ResetearPasswordsScreen> {
                       borderRadius: BorderRadius.circular(5),
                     ),
                   ),
-                  onPressed: _user.login == "" || _user.estado == 1
+                  onPressed: _user.login == '' || _user.estado == 1
                       ? null
                       : _reactivarUsuario,
                 ),
@@ -195,19 +197,19 @@ class _ResetearPasswordsScreenState extends State<ResetearPasswordsScreen> {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: <Widget>[
         Image.asset(
-          "assets/reset.png",
+          'assets/reset.png',
           width: 70,
           height: 70,
         ),
         Image.asset(
-          "assets/logo.png",
+          'assets/logo.png',
           height: 70,
           width: 200,
         ),
         Transform.rotate(
           angle: 0,
           child: Image.asset(
-            "assets/resetpassword.png",
+            'assets/resetpassword.png',
             width: 70,
             height: 70,
           ),
@@ -449,8 +451,7 @@ class _ResetearPasswordsScreenState extends State<ResetearPasswordsScreen> {
       //Calculo dif entre hoy y el 1 de Enero de 2022 que es el 80723 y le sumo el 80723 y 70 días más
     };
 
-    Response response =
-        await ApiHelper.put('/api/Account/', _codigo.toString(), request);
+    Response response = await ApiHelper.post('/api/Account/$_codigo', request);
 
     setState(() {
       _showLoader = false;
