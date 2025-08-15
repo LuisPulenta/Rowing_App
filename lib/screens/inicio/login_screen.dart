@@ -31,8 +31,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
   String imei = '';
 
-  String _email = '';
-  String _password = '';
+  // String _email = '';
+  // String _password = '';
 
   // String _email = 'gprieto@rowing.com.ar';
   // String _password = '1950Arnaldo';
@@ -40,14 +40,14 @@ class _LoginScreenState extends State<LoginScreen> {
   // String _email = 'KEYPRESS';
   // String _password = 'KEYROOT';
 
-  // String _email = 'GPRIETO';
-  // String _password = 'CELESTE';
+  String _email = 'GPRIETO';
+  String _password = 'CELESTE';
 
   // String _email = 'RODRIGUEZE';
   // String _password = 'ROD951';
 
-  // String _email = '517676';
-  // String _password = '94461399';
+  // String _email = '102131';
+  // String _password = '32766601';
 
   // String _email = 'gaos@keypress.com.ar';
   // String _password = 'keyroot';

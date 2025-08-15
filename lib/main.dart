@@ -1,16 +1,22 @@
 import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
-import 'package:rowing_app/blocs/blocs.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/services.dart';
-import 'package:rowing_app/models/models.dart';
-import 'package:rowing_app/models/user.dart';
-import 'package:rowing_app/screens/screens.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import 'blocs/blocs.dart';
+import 'models/models.dart';
+import 'models/user.dart';
+import 'screens/screens.dart';
 
 final navigatorKey = GlobalKey<NavigatorState>();
 void main() {
+  //Estas líneas son para que funcione el http con las direcciones https
+  final context = SecurityContext.defaultContext;
+  context.allowLegacyUnsafeRenegotiation = true;
   runApp(MultiBlocProvider(providers: [
     BlocProvider(create: (context) => GpsBloc()),
     BlocProvider(create: (context) => LocationBloc(null, null, 0, 0, 0, 0)),

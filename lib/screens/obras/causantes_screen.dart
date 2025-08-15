@@ -1,9 +1,10 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
-import 'package:rowing_app/components/loader_component.dart';
-import 'package:rowing_app/helpers/helpers.dart';
-import 'package:rowing_app/models/models.dart';
+
+import '../../components/loader_component.dart';
+import '../../helpers/helpers.dart';
+import '../../models/models.dart';
 
 class CausantesScreen extends StatefulWidget {
   final User user;
@@ -31,7 +32,7 @@ class _CausantesScreenState extends State<CausantesScreen> {
   bool _isFiltered = false;
   String _search = '';
   Subcontratista subcontratistaSelected =
-      Subcontratista(subCodigo: "", subSubcontratista: "", modulo: "");
+      Subcontratista(subCodigo: '', subSubcontratista: '', modulo: '');
 
   Causante causanteSelected = Causante(
       nroCausante: 0,
@@ -419,7 +420,7 @@ class _CausantesScreenState extends State<CausantesScreen> {
       height: 40,
       child: Row(
         children: [
-          const Text("Cantidad de Causantes: ",
+          const Text('Cantidad de Causantes: ',
               style: TextStyle(
                 fontSize: 14,
                 color: Colors.black,
@@ -532,7 +533,7 @@ class _CausantesScreenState extends State<CausantesScreen> {
         _showLoader = false;
       });
       showMyDialog(
-          'Error', "Verifica que estés conectado a Internet", 'Aceptar');
+          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
     }
 
     Response response = Response(isSuccess: false);
@@ -571,7 +572,7 @@ class _CausantesScreenState extends State<CausantesScreen> {
 
   void _goCausante(String subcontratista, Causante causante) async {
     Subcontratista subcontratistaSelected =
-        Subcontratista(subCodigo: "", subSubcontratista: "", modulo: "");
+        Subcontratista(subCodigo: '', subSubcontratista: '', modulo: '');
 
     for (var subc in _subcontratistas) {
       if (subc.subCodigo == subcontratista) {
@@ -609,7 +610,7 @@ class _CausantesScreenState extends State<CausantesScreen> {
         _showLoader = false;
       });
       showMyDialog(
-          'Error', "Verifica que estés conectado a Internet", 'Aceptar');
+          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
     }
 
     Response response = Response(isSuccess: false);

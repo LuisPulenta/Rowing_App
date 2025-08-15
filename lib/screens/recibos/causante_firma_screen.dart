@@ -1,9 +1,11 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 import '../../components/loader_component.dart';
 import '../../helpers/helpers.dart';
@@ -19,25 +21,37 @@ class CausanteFirmaScreen extends StatefulWidget {
 }
 
 class _CausanteFirmaScreenState extends State<CausanteFirmaScreen> {
-//--------------------------------------------------------------
-//-------------------------- Variable --------------------------
-//--------------------------------------------------------------
-
+//-------------------------- Variables --------------------------
   bool _signatureChanged = false;
   late ByteData? _signature;
 
   bool _showLoader = false;
-//--------------------------------------------------------------
+
 //-------------------------- initState --------------------------
-//--------------------------------------------------------------
   @override
   void initState() {
     super.initState();
   }
 
-//--------------------------------------------------------------
+//----------------------- _checkImageUrl ----------------------------
+  Future<Image> _checkImageUrl(String url) async {
+    try {
+      final response = await http.get(Uri.parse(url));
+
+      if (response.statusCode == 200) {
+        // Si la respuesta es exitosa (200 OK), cargamos la imagen
+        return Image.network(url);
+      } else {
+        // Si la URL no es válida (404, 500, etc.), mostramos la imagen predeterminada
+        return Image.asset('assets/errorfirma.png');
+      }
+    } catch (e) {
+      // Si ocurre un error (sin conexión, error en la URL), mostramos la imagen predeterminada
+      return Image.asset('assets/errorfirma.png');
+    }
+  }
+
 //-------------------------- Pantalla --------------------------
-//--------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -89,11 +103,32 @@ class _CausanteFirmaScreenState extends State<CausanteFirmaScreen> {
                                   width: size.width * 0.8,
                                   height: size.width * 0.8,
                                   fit: BoxFit.contain)
-                              : FadeInImage(
-                                  placeholder:
-                                      const AssetImage('assets/loading.gif'),
-                                  image: NetworkImage(
+                              : FutureBuilder<Image>(
+                                  future: _checkImageUrl(
                                       widget.user.firmaUsuarioImageFullPath!),
+                                  builder: (context, snapshot) {
+                                    if (snapshot.connectionState ==
+                                        ConnectionState.waiting) {
+                                      // Muestra un indicador de carga mientras se espera la imagen
+                                      return const FadeInImage(
+                                        placeholder:
+                                            AssetImage('assets/loading.gif'),
+                                        image:
+                                            AssetImage('assets/errorfirma.png'),
+                                      );
+                                    } else if (snapshot.hasError ||
+                                        !snapshot.hasData) {
+                                      // Si la URL no es válida o no está disponible, muestra la imagen predeterminada
+                                      return const FadeInImage(
+                                        placeholder:
+                                            AssetImage('assets/loading.gif'),
+                                        image:
+                                            AssetImage('assets/errorfirma.png'),
+                                      );
+                                    } else {
+                                      return snapshot.data!;
+                                    }
+                                  },
                                 )
                           : Image.memory(
                               _signature!.buffer.asUint8List(),
@@ -116,10 +151,7 @@ class _CausanteFirmaScreenState extends State<CausanteFirmaScreen> {
     );
   }
 
-//--------------------------------------------------------------
 //-------------------------- _takeSignature --------------------
-//--------------------------------------------------------------
-
   void _takeSignature() async {
     Response? response = await Navigator.push(
       context,
@@ -137,9 +169,7 @@ class _CausanteFirmaScreenState extends State<CausanteFirmaScreen> {
     }
   }
 
-//------------------------------------------------------
 //-------------------- _guardar ------------------------
-//------------------------------------------------------
 
   void _guardar() async {
     var connectivityResult = await Connectivity().checkConnectivity();

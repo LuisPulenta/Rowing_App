@@ -1,4 +1,4 @@
-import 'package:rowing_app/models/obras_documento.dart';
+import 'obras_documento.dart';
 
 class Obra {
   int nroObra = 0;
@@ -113,8 +113,10 @@ class Obra {
     data['observaciones'] = observaciones;
     data['finalizada'] = finalizada;
     data['supervisore'] = supervisore;
-    data['codigoEstado'] = codigoEstado;
-    data['codigoSubEstado'] = codigoSubEstado;
+    data['codigoEstado'] =
+        codigoEstado != null ? codigoEstado!.toUpperCase() : '';
+    data['codigoSubEstado'] =
+        codigoSubEstado != null ? codigoSubEstado!.toUpperCase() : '';
     data['modulo'] = modulo;
     data['grupoAlmacen'] = grupoAlmacen;
     data['obrasDocumentos'] = obrasDocumentos.map((v) => v.toJson()).toList();

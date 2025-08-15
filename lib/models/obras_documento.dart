@@ -48,8 +48,8 @@ class ObrasDocumento {
     sector = json['sector'];
     estante = json['estante'];
     generadoPor = json['generadoPor'];
-    latitud = json['latitud'];
-    longitud = json['longitud'];
+    latitud = json['latitud'].toDouble();
+    longitud = json['longitud'].toDouble();
     fechaHsFoto = json['fechaHsFoto'];
     tipoDeFoto = json['tipoDeFoto'];
     direccionFoto = json['direccionFoto'];

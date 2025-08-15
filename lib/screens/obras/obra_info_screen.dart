@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:camera/camera.dart';
@@ -10,12 +11,13 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
-import 'package:rowing_app/components/loader_component.dart';
-import 'package:rowing_app/helpers/helpers.dart';
-import 'package:rowing_app/models/models.dart';
-import 'package:rowing_app/screens/screens.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:uuid/uuid.dart';
+
+import '../../components/loader_component.dart';
+import '../../helpers/helpers.dart';
+import '../../models/models.dart';
+import '../screens.dart';
 
 class ObraInfoScreen extends StatefulWidget {
   final User user;
@@ -47,14 +49,14 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
 
   String _optionEstado = 'Elija un Estado...';
   String _estado = '';
-  String _optionEstadoError = '';
-  bool _optionEstadoShowError = false;
+  final String _optionEstadoError = '';
+  final bool _optionEstadoShowError = false;
   final TextEditingController _optionEstadoController = TextEditingController();
 
   String _optionSubestado = 'Elija un Subestado...';
   String _subestado = '';
-  String _optionSubestadoError = '';
-  bool _optionSubestadoShowError = false;
+  final String _optionSubestadoError = '';
+  final bool _optionSubestadoShowError = false;
   final TextEditingController _optionSubestadoController =
       TextEditingController();
 
@@ -208,7 +210,7 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
           children: [
             Row(
               children: [
-                const Text("N° Obra: ",
+                const Text('N° Obra: ',
                     style: TextStyle(
                       fontSize: 12,
                       color: Color(0xFF781f1e),
@@ -221,7 +223,7 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
                         fontSize: 12,
                       )),
                 ),
-                const Text("Ult.Mov.: ",
+                const Text('Ult.Mov.: ',
                     style: TextStyle(
                       fontSize: 12,
                       color: Color(0xFF781f1e),
@@ -238,7 +240,7 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
                           ))
                       : Container(),
                 ),
-                const Text("Módulo: ",
+                const Text('Módulo: ',
                     style: TextStyle(
                       fontSize: 12,
                       color: Color(0xFF781f1e),
@@ -258,7 +260,7 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
             ),
             Row(
               children: [
-                const Text("Nombre: ",
+                const Text('Nombre: ',
                     style: TextStyle(
                       fontSize: 12,
                       color: Color(0xFF781f1e),
@@ -277,7 +279,7 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
             ),
             Row(
               children: [
-                const Text("OP/N° Fuga: ",
+                const Text('OP/N° Fuga: ',
                     style: TextStyle(
                       fontSize: 12,
                       color: Color(0xFF781f1e),
@@ -289,7 +291,7 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
                         fontSize: 12,
                       )),
                 ),
-                _obra.fechaCierreElectrico == "" ||
+                _obra.fechaCierreElectrico == '' ||
                         _obra.fechaCierreElectrico == null
                     ? MaterialButton(
                         color: const Color(0xFF781f1e),
@@ -306,24 +308,24 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
               ],
             ),
             SizedBox(
-              height: (_obra.fechaCierreElectrico != "" &&
+              height: (_obra.fechaCierreElectrico != '' &&
                       _obra.fechaCierreElectrico != null)
                   ? 5
                   : 0,
             ),
-            _obra.fechaCierreElectrico != "" &&
+            _obra.fechaCierreElectrico != '' &&
                     _obra.fechaCierreElectrico != null
                 ? Row(
                     children: [
                       (widget.user.modulo == 'Aysa' ||
                               widget.user.modulo == 'Cetaco')
-                          ? const Text("Fecha Cierre Hidráulico: ",
+                          ? const Text('Fecha Cierre Hidráulico: ',
                               style: TextStyle(
                                 fontSize: 12,
                                 color: Color(0xFF781f1e),
                                 fontWeight: FontWeight.bold,
                               ))
-                          : const Text("Fecha Cierre Eléctrico: ",
+                          : const Text('Fecha Cierre Eléctrico: ',
                               style: TextStyle(
                                 fontSize: 12,
                                 color: Color(0xFF781f1e),
@@ -1153,7 +1155,7 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
       await showAlertDialog(
           context: context,
           title: 'Error',
-          message: "N° de Obra no válido",
+          message: 'N° de Obra no válido',
           actions: <AlertDialogAction>[
             const AlertDialogAction(key: null, label: 'Aceptar'),
           ]);
@@ -1254,7 +1256,7 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
         widget.obra.nroObra.toString(), requestEstadoSubestado);
 
     if (response.isSuccess) {
-      _showSnackbar("Estado y SubEstado grabados con éxito");
+      _showSnackbar('Estado y SubEstado grabados con éxito');
     }
   }
 
@@ -1276,7 +1278,7 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
         widget.obra.nroObra.toString(), requestFechaCierreElectrico);
 
     if (response.isSuccess) {
-      _showSnackbar("Fecha de Cierre Eléctrico grabada con éxito");
+      _showSnackbar('Fecha de Cierre Eléctrico grabada con éxito');
     }
   }
 
@@ -1364,7 +1366,7 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
 
         return;
       }
-      _showSnackbar("Audio guardado con éxito");
+      _showSnackbar('Audio guardado con éxito');
       _getObra();
       setState(() {
         _showLoader = false;
@@ -1442,7 +1444,7 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
 
         return;
       }
-      _showSnackbar("Video guardado con éxito");
+      _showSnackbar('Video guardado con éxito');
       _getObra();
       setState(() {
         _showLoader = false;
@@ -1699,7 +1701,7 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
 
     for (var estado in widget.estados) {
       list.add(DropdownMenuItem(
-        child: Text(estado.descripcion!.replaceAll("  ", "")),
+        child: Text(estado.descripcion!.replaceAll('  ', '')),
         value: estado.codigo,
       ));
     }
@@ -1773,7 +1775,7 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
     for (var subestado in widget.subestados) {
       if (subestado.codigoestado == _optionEstado) {
         list.add(DropdownMenuItem(
-          child: Text(subestado.descripcion!.replaceAll("  ", "")),
+          child: Text(subestado.descripcion!.replaceAll('  ', '')),
           value: subestado.codigosubestado,
         ));
       }
@@ -1792,7 +1794,7 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
     for (var subestado in widget.subestados) {
       if (subestado.codigoestado == _optionEstado) {
         list.add(DropdownMenuItem(
-          child: Text(subestado.descripcion!.replaceAll("  ", "")),
+          child: Text(subestado.descripcion!.replaceAll('  ', '')),
           value: subestado.codigosubestado,
         ));
       }
