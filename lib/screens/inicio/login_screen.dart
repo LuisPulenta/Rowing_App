@@ -782,7 +782,7 @@ class _LoginScreenState extends State<LoginScreen> {
       'nroConexion': webSesion.nroConexion,
       'usuario': webSesion.usuario,
       'iP': webSesion.iP,
-      'loginDate': webSesion.loginDate,
+      'loginDate': webSesion.loginDate!.substring(0, 10),
       'loginTime': webSesion.loginTime,
       'modulo': webSesion.modulo,
       'logoutDate': webSesion.logoutDate,

@@ -2,10 +2,11 @@ import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:rowing_app/components/loader_component.dart';
-import 'package:rowing_app/helpers/helpers.dart';
-import 'package:rowing_app/models/models.dart';
-import 'package:rowing_app/screens/screens.dart';
+
+import '../../components/loader_component.dart';
+import '../../helpers/helpers.dart';
+import '../../models/models.dart';
+import '../screens.dart';
 
 class MediacionesScreen extends StatefulWidget {
   final User user;
@@ -95,7 +96,7 @@ class _MediacionesScreenState extends State<MediacionesScreen> {
       height: 40,
       child: Row(
         children: [
-          const Text("Cantidad de Mediaciones: ",
+          const Text('Cantidad de Mediaciones: ',
               style: TextStyle(
                 fontSize: 14,
                 color: Colors.white,
@@ -162,7 +163,7 @@ class _MediacionesScreenState extends State<MediacionesScreen> {
                                     SizedBox(
                                       width: ancho,
                                       child: const Text(
-                                        "N° Mediación: ",
+                                        'N° Mediación: ',
                                         style: TextStyle(
                                           fontSize: 12,
                                           color: Color(0xFF781f1e),
@@ -177,7 +178,7 @@ class _MediacionesScreenState extends State<MediacionesScreen> {
                                             fontSize: 12,
                                           )),
                                     ),
-                                    const Text("Fecha: ",
+                                    const Text('Fecha: ',
                                         style: TextStyle(
                                           fontSize: 12,
                                           color: Color(0xFF781f1e),
@@ -201,7 +202,7 @@ class _MediacionesScreenState extends State<MediacionesScreen> {
                                   children: [
                                     SizedBox(
                                       width: ancho,
-                                      child: const Text("Moneda: ",
+                                      child: const Text('Moneda: ',
                                           style: TextStyle(
                                             fontSize: 12,
                                             color: Color(0xFF781f1e),
@@ -221,7 +222,7 @@ class _MediacionesScreenState extends State<MediacionesScreen> {
                                     SizedBox(
                                       width: ancho,
                                       child: const Text(
-                                        "Ofrecimiento: ",
+                                        'Ofrecimiento: ',
                                         style: TextStyle(
                                           fontSize: 12,
                                           color: Color(0xFF781f1e),
@@ -247,7 +248,7 @@ class _MediacionesScreenState extends State<MediacionesScreen> {
                                     SizedBox(
                                       width: ancho,
                                       child: const Text(
-                                        "Tipo transacción: ",
+                                        'Tipo transacción: ',
                                         style: TextStyle(
                                           fontSize: 12,
                                           color: Color(0xFF781f1e),
@@ -268,7 +269,7 @@ class _MediacionesScreenState extends State<MediacionesScreen> {
                                     SizedBox(
                                       width: ancho,
                                       child: const Text(
-                                        "Condición de pago: ",
+                                        'Condición de pago: ',
                                         style: TextStyle(
                                           fontSize: 12,
                                           color: Color(0xFF781f1e),
@@ -289,7 +290,7 @@ class _MediacionesScreenState extends State<MediacionesScreen> {
                                     SizedBox(
                                       width: ancho,
                                       child: const Text(
-                                        "Vencimiento oferta: ",
+                                        'Vencimiento oferta: ',
                                         style: TextStyle(
                                           fontSize: 12,
                                           color: Color(0xFF781f1e),
@@ -316,7 +317,7 @@ class _MediacionesScreenState extends State<MediacionesScreen> {
                                     SizedBox(
                                       width: ancho,
                                       child: const Text(
-                                        "Resultado oferta: ",
+                                        'Resultado oferta: ',
                                         style: TextStyle(
                                           fontSize: 12,
                                           color: Color(0xFF781f1e),
@@ -337,7 +338,7 @@ class _MediacionesScreenState extends State<MediacionesScreen> {
                                     SizedBox(
                                       width: ancho,
                                       child: const Text(
-                                        "Monto contra oferta: ",
+                                        'Monto contra oferta: ',
                                         style: TextStyle(
                                           fontSize: 12,
                                           color: Color(0xFF781f1e),
@@ -363,7 +364,7 @@ class _MediacionesScreenState extends State<MediacionesScreen> {
                                     SizedBox(
                                       width: ancho,
                                       child: const Text(
-                                        "Acept. contra oferta: ",
+                                        'Acept. contra oferta: ',
                                         style: TextStyle(
                                           fontSize: 12,
                                           color: Color(0xFF781f1e),
@@ -412,7 +413,7 @@ class _MediacionesScreenState extends State<MediacionesScreen> {
         _showLoader = false;
       });
       showMyDialog(
-          'Error', "Verifica que estés conectado a Internet", 'Aceptar');
+          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
     }
 
     Response response = Response(isSuccess: false);

@@ -2,10 +2,11 @@ import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:rowing_app/components/loader_component.dart';
-import 'package:rowing_app/helpers/helpers.dart';
-import 'package:rowing_app/models/models.dart';
-import 'package:rowing_app/screens/screens.dart';
+
+import '../../components/loader_component.dart';
+import '../../helpers/helpers.dart';
+import '../../models/models.dart';
+import '../screens.dart';
 
 class NotificacionesScreen extends StatefulWidget {
   final User user;
@@ -96,7 +97,7 @@ class _NotificacionesScreenState extends State<NotificacionesScreen> {
       height: 40,
       child: Row(
         children: [
-          const Text("Cantidad de Notificaciones: ",
+          const Text('Cantidad de Notificaciones: ',
               style: TextStyle(
                 fontSize: 14,
                 color: Colors.white,
@@ -163,7 +164,7 @@ class _NotificacionesScreenState extends State<NotificacionesScreen> {
                                     SizedBox(
                                       width: ancho,
                                       child: const Text(
-                                        "N° Notificación: ",
+                                        'N° Notificación: ',
                                         style: TextStyle(
                                           fontSize: 12,
                                           color: Color(0xFF781f1e),
@@ -178,7 +179,7 @@ class _NotificacionesScreenState extends State<NotificacionesScreen> {
                                             fontSize: 12,
                                           )),
                                     ),
-                                    const Text("Fecha Carga: ",
+                                    const Text('Fecha Carga: ',
                                         style: TextStyle(
                                           fontSize: 12,
                                           color: Color(0xFF781f1e),
@@ -203,7 +204,7 @@ class _NotificacionesScreenState extends State<NotificacionesScreen> {
                                     SizedBox(
                                       width: ancho,
                                       child: const Text(
-                                        "Tipo: ",
+                                        'Tipo: ',
                                         style: TextStyle(
                                           fontSize: 12,
                                           color: Color(0xFF781f1e),
@@ -227,7 +228,7 @@ class _NotificacionesScreenState extends State<NotificacionesScreen> {
                                     SizedBox(
                                       width: ancho,
                                       child: const Text(
-                                        "Título: ",
+                                        'Título: ',
                                         style: TextStyle(
                                           fontSize: 12,
                                           color: Color(0xFF781f1e),
@@ -251,7 +252,7 @@ class _NotificacionesScreenState extends State<NotificacionesScreen> {
                                     SizedBox(
                                       width: ancho,
                                       child: const Text(
-                                        "Observaciones: ",
+                                        'Observaciones: ',
                                         style: TextStyle(
                                           fontSize: 12,
                                           color: Color(0xFF781f1e),
@@ -274,7 +275,7 @@ class _NotificacionesScreenState extends State<NotificacionesScreen> {
                                   children: [
                                     SizedBox(
                                       width: ancho,
-                                      child: const Text("Moneda: ",
+                                      child: const Text('Moneda: ',
                                           style: TextStyle(
                                             fontSize: 12,
                                             color: Color(0xFF781f1e),
@@ -297,7 +298,7 @@ class _NotificacionesScreenState extends State<NotificacionesScreen> {
                                     SizedBox(
                                       width: ancho,
                                       child: const Text(
-                                        "Monto: ",
+                                        'Monto: ',
                                         style: TextStyle(
                                           fontSize: 12,
                                           color: Color(0xFF781f1e),
@@ -323,7 +324,7 @@ class _NotificacionesScreenState extends State<NotificacionesScreen> {
                                     SizedBox(
                                       width: ancho,
                                       child: const Text(
-                                        "Tipo transacción: ",
+                                        'Tipo transacción: ',
                                         style: TextStyle(
                                           fontSize: 12,
                                           color: Color(0xFF781f1e),
@@ -347,7 +348,7 @@ class _NotificacionesScreenState extends State<NotificacionesScreen> {
                                     SizedBox(
                                       width: ancho,
                                       child: const Text(
-                                        "Condición pago: ",
+                                        'Condición pago: ',
                                         style: TextStyle(
                                           fontSize: 12,
                                           color: Color(0xFF781f1e),
@@ -371,7 +372,7 @@ class _NotificacionesScreenState extends State<NotificacionesScreen> {
                                     SizedBox(
                                       width: ancho,
                                       child: const Text(
-                                        "N° Factura: ",
+                                        'N° Factura: ',
                                         style: TextStyle(
                                           fontSize: 12,
                                           color: Color(0xFF781f1e),
@@ -395,7 +396,7 @@ class _NotificacionesScreenState extends State<NotificacionesScreen> {
                                     SizedBox(
                                       width: ancho,
                                       child: const Text(
-                                        "Lugar: ",
+                                        'Lugar: ',
                                         style: TextStyle(
                                           fontSize: 12,
                                           color: Color(0xFF781f1e),
@@ -419,7 +420,7 @@ class _NotificacionesScreenState extends State<NotificacionesScreen> {
                                     SizedBox(
                                       width: ancho,
                                       child: const Text(
-                                        "Participantes: ",
+                                        'Participantes: ',
                                         style: TextStyle(
                                           fontSize: 12,
                                           color: Color(0xFF781f1e),
@@ -470,7 +471,7 @@ class _NotificacionesScreenState extends State<NotificacionesScreen> {
         _showLoader = false;
       });
       showMyDialog(
-          'Error', "Verifica que estés conectado a Internet", 'Aceptar');
+          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
     }
 
     Response response = Response(isSuccess: false);

@@ -1,11 +1,13 @@
 import 'dart:convert';
+
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
-import 'package:rowing_app/components/loader_component.dart';
 import 'package:http/http.dart' as http;
-import 'package:rowing_app/helpers/helpers.dart';
-import 'package:rowing_app/models/models.dart';
-import 'package:rowing_app/widgets/widgets.dart';
+
+import '../../components/loader_component.dart';
+import '../../helpers/helpers.dart';
+import '../../models/models.dart';
+import '../../widgets/widgets.dart';
 
 class ReactivarLegajoScreen extends StatefulWidget {
   final User user;
@@ -22,8 +24,8 @@ class _ReactivarLegajoScreenState extends State<ReactivarLegajoScreen> {
   List<Grupo> _grupos = [];
   bool _isloading = false;
   String _grupo = 'Elija un Grupo...';
-  String _grupoError = '';
-  bool _grupoShowError = false;
+  final String _grupoError = '';
+  final bool _grupoShowError = false;
   bool bandera = false;
   int intentos = 0;
 
@@ -87,7 +89,7 @@ class _ReactivarLegajoScreenState extends State<ReactivarLegajoScreen> {
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 195, 191, 191),
       appBar: AppBar(
-        title: const Text("Reactivar Legajo"),
+        title: const Text('Reactivar Legajo'),
         centerTitle: true,
       ),
       body: Stack(
@@ -264,7 +266,7 @@ class _ReactivarLegajoScreenState extends State<ReactivarLegajoScreen> {
 
     if (connectivityResult == ConnectivityResult.none) {
       showMyDialog(
-          'Error', "Verifica que estés conectado a Internet", 'Aceptar');
+          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
       return;
     }
 

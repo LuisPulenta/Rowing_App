@@ -1,9 +1,10 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
-import 'package:rowing_app/components/loader_component.dart';
-import 'package:rowing_app/helpers/helpers.dart';
-import 'package:rowing_app/models/models.dart';
+
+import '../../components/loader_component.dart';
+import '../../helpers/helpers.dart';
+import '../../models/models.dart';
 
 class ReqEppScreen extends StatefulWidget {
   final User user;
@@ -74,7 +75,7 @@ class _ReqEppScreenState extends State<ReqEppScreen> {
                       onPressed: _showFilter,
                       icon: const Icon(Icons.filter_alt)),
               const Text(
-                "C/N°:",
+                'C/N°:',
                 style: TextStyle(color: Colors.white, fontSize: 14),
               ),
               Switch(
@@ -115,7 +116,7 @@ class _ReqEppScreenState extends State<ReqEppScreen> {
       height: 40,
       child: Row(
         children: [
-          const Text("Cantidad de Catálogos: ",
+          const Text('Cantidad de Catálogos: ',
               style: TextStyle(
                 fontSize: 14,
                 color: Colors.black,
@@ -151,15 +152,15 @@ class _ReqEppScreenState extends State<ReqEppScreen> {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: const [
             Text(
-              "Material         ",
+              'Material         ',
               style: TextStyle(color: Colors.black),
             ),
             Text(
-              "   ",
+              '   ',
               style: TextStyle(color: Colors.black),
             ),
             Text(
-              "Cantidad                 ",
+              'Cantidad                 ',
               style: TextStyle(color: Colors.black),
             ),
           ],
@@ -306,7 +307,7 @@ class _ReqEppScreenState extends State<ReqEppScreen> {
                                                 backgroundColor:
                                                     Colors.grey[300],
                                                 title: const Text(
-                                                    "Ingrese la cantidad"),
+                                                    'Ingrese la cantidad'),
                                                 content: TextField(
                                                   autofocus: true,
                                                   controller:
@@ -525,7 +526,7 @@ class _ReqEppScreenState extends State<ReqEppScreen> {
         _showLoader = false;
       });
       showMyDialog(
-          'Error', "Verifica que estés conectado a Internet", 'Aceptar');
+          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
     }
 
     Response response = Response(isSuccess: false);
@@ -561,7 +562,7 @@ class _ReqEppScreenState extends State<ReqEppScreen> {
 
     if (connectivityResult == ConnectivityResult.none) {
       showMyDialog(
-          'Error', "Verifica que estés conectado a Internet", 'Aceptar');
+          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
     }
     Response response = Response(isSuccess: false);
     response = await ApiHelper.getObrasEPP(widget.user.modulo);
@@ -639,13 +640,12 @@ class _ReqEppScreenState extends State<ReqEppScreen> {
       //-----------------Graba Cabecera--------------
       Map<String, dynamic> request = {
         'NROOBRA': _obra,
-        'FECHACARGA': DateTime.now().toString(),
-        'CONTRATISTA': "PPR",
+        'CONTRATISTA': 'PPR',
         'IDUSUARIO': widget.user.idUsuario,
         'CODGRUPOREC': widget.causante.grupo,
         'CODCAUSANTEREC': widget.causante.codigo,
-        'CODCONCEPTO': "502",
-        'PRIORIDAD': "Baja",
+        'CODCONCEPTO': '502',
+        'PRIORIDAD': 'Baja',
         'FALTAMATERIAL': 0,
         'DESPACHADO': 0,
         'PORDIFERENCIA': 0,

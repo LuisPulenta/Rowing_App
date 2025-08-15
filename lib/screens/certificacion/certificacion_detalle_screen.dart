@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:intl/intl.dart';
-import 'package:rowing_app/models/models.dart';
 
+import '../../models/models.dart';
 import '../../widgets/widgets.dart';
 
 class CertificacionDetalleScreen extends StatefulWidget {
@@ -70,7 +70,7 @@ class _CertificacionDetalleScreenState
               CustomRow(
                 nombredato: 'SubC: ',
                 dato: widget.cabeceraCertificacion.subCodigo.toString() +
-                    " - " +
+                    ' - ' +
                     widget.cabeceraCertificacion.codCausanteC.toString(),
               ),
               CustomRow(
@@ -109,7 +109,7 @@ class _CertificacionDetalleScreenState
               ),
               CustomRow(
                 nombredato: 'Porc. Acta: ',
-                dato: NumberFormat.currency(symbol: '\%')
+                dato: NumberFormat.currency(symbol: '%')
                     .format(widget.cabeceraCertificacion.porcActa),
               ),
               CustomRow(

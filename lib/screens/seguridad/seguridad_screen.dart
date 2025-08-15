@@ -1,15 +1,19 @@
 import 'dart:convert';
+
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:camera/camera.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
-import 'package:rowing_app/components/loader_component.dart';
-import 'package:rowing_app/helpers/helpers.dart';
-import 'package:rowing_app/models/models.dart';
-import 'package:rowing_app/screens/screens.dart';
-import 'package:rowing_app/widgets/widgets.dart';
+
+import '../../components/loader_component.dart';
+import '../../helpers/helpers.dart';
+import '../../helpers/resize_image.dart';
+import '../../models/models.dart';
+import '../../widgets/widgets.dart';
+import '../screens.dart';
 
 class SeguridadScreen extends StatefulWidget {
   final User user;
@@ -87,7 +91,7 @@ class _SeguridadScreenState extends State<SeguridadScreen> {
     return Scaffold(
         backgroundColor: const Color(0xFF484848),
         appBar: AppBar(
-          title: const Text("Seguridad e Higiene"),
+          title: const Text('Seguridad e Higiene'),
           centerTitle: true,
         ),
         body: Stack(
@@ -170,7 +174,7 @@ class _SeguridadScreenState extends State<SeguridadScreen> {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: <Widget>[
         Image.asset(
-          "assets/seg1.png",
+          'assets/seg1.png',
           width: 70,
           height: 70,
         ),
@@ -181,7 +185,7 @@ class _SeguridadScreenState extends State<SeguridadScreen> {
         //   width: 200,
         // ),
         Image.asset(
-          "assets/seg2.png",
+          'assets/seg2.png',
           width: 70,
           height: 70,
         ),
@@ -299,11 +303,11 @@ class _SeguridadScreenState extends State<SeguridadScreen> {
             CustomRow(
               icon: Icons.home,
               nombredato: 'Domicilio:',
-              dato: _causante.direccion != ""
-                  ? _causante.direccion.toString().replaceAll("  ", "")
-                  : "" + _causante.numero.toString() != "0"
-                      ? _causante.numero.toString().replaceAll("  ", "")
-                      : "",
+              dato: _causante.direccion != ''
+                  ? _causante.direccion.toString().replaceAll('  ', '')
+                  : '' + _causante.numero.toString() != '0'
+                      ? _causante.numero.toString().replaceAll('  ', '')
+                      : '',
 
               // _causante.numero.toString() != 0
               //     ? _causante.numero.toString()
@@ -312,7 +316,7 @@ class _SeguridadScreenState extends State<SeguridadScreen> {
             CustomRow(
               icon: Icons.numbers,
               nombredato: 'N°:',
-              dato: _causante.numero != 0 ? _causante.numero.toString() : "",
+              dato: _causante.numero != 0 ? _causante.numero.toString() : '',
 
               // _causante.numero.toString() != 0
               //     ? _causante.numero.toString()
@@ -335,10 +339,10 @@ class _SeguridadScreenState extends State<SeguridadScreen> {
             ),
             CustomRow(
               nombredato: '',
-              dato: _causante.telefonoContacto2 != "" &&
+              dato: _causante.telefonoContacto2 != '' &&
                       _causante.telefonoContacto2 != null
                   ? '(${_causante.telefonoContacto2})'
-                  : "",
+                  : '',
             ),
             CustomRow(
               nombredato: '',
@@ -347,7 +351,7 @@ class _SeguridadScreenState extends State<SeguridadScreen> {
             CustomRow(
               icon: Icons.calendar_month,
               nombredato: 'Fecha Ingreso:',
-              dato: _causante.fecha != ""
+              dato: _causante.fecha != ''
                   ? DateFormat('dd/MM/yyyy')
                       .format(DateTime.parse(_causante.fecha.toString()))
                   : '',
@@ -569,7 +573,7 @@ class _SeguridadScreenState extends State<SeguridadScreen> {
       await showAlertDialog(
           context: context,
           title: 'Error',
-          message: "Legajo o Documento no válido",
+          message: 'Legajo o Documento no válido',
           actions: <AlertDialogAction>[
             const AlertDialogAction(key: null, label: 'Aceptar'),
           ]);
@@ -654,17 +658,21 @@ class _SeguridadScreenState extends State<SeguridadScreen> {
 //-----------------------------------------------------------------
 
   _saveRecord() async {
-    String base64image = '';
+    String base64Image = '';
     if (_photoChanged) {
-      List<int> imageBytes = await _image.readAsBytes();
-      base64image = base64Encode(imageBytes);
+      Uint8List imageBytes = await _image.readAsBytes();
+      int maxWidth = 800; // Ancho máximo
+      int maxHeight = 600; // Alto máximo
+      Uint8List resizedBytes =
+          await resizeImage(imageBytes, maxWidth, maxHeight);
+      String base64Image = base64Encode(resizedBytes);
     }
 
     var connectivityResult = await Connectivity().checkConnectivity();
 
     if (connectivityResult == ConnectivityResult.none) {
       showMyDialog(
-          'Error', "Verifica que estés conectado a Internet", 'Aceptar');
+          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
     }
 
     Map<String, dynamic> request = {
@@ -675,13 +683,13 @@ class _SeguridadScreenState extends State<SeguridadScreen> {
       'TelefonoContacto1': _causante.telefonoContacto1,
       'TelefonoContacto2': _causante.telefonoContacto2,
       'TelefonoContacto3': _causante.telefonoContacto3,
-      'fecha': _causante.fecha,
+      'fecha': _causante.fecha.toString().substring(0, 10),
       'NotasCausantes': _causante.notasCausantes,
       'ciudad': _causante.ciudad,
       'Provincia': _causante.provincia,
       'ZonaTrabajo': _causante.zonaTrabajo,
       'NombreActividad': _causante.nombreActividad,
-      'image': base64image,
+      'image': base64Image,
     };
 
     Response response = await ApiHelper.put(

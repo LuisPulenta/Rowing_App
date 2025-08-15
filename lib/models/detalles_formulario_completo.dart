@@ -52,15 +52,15 @@ class DetallesFormularioCompleto {
 
   factory DetallesFormularioCompleto.fromMap(Map<String, dynamic> json) =>
       DetallesFormularioCompleto(
-        idcliente: json["idcliente"],
-        idgrupoformulario: json["idgrupoformulario"],
-        descgrupoformulario: json["descgrupoformulario"],
-        detallef: json["detallef"],
-        descripcion: json["descripcion"],
-        ponderacionpuntos: json["ponderacionpuntos"],
-        cumple: json["cumple"],
-        foto: json["foto"],
-        soloTexto: json["soloTexto"],
-        obsApp: json["obsApp"],
+        idcliente: json['idcliente'],
+        idgrupoformulario: json['idgrupoformulario'],
+        descgrupoformulario: json['descgrupoformulario'],
+        detallef: json['detallef'],
+        descripcion: json['descripcion'],
+        ponderacionpuntos: json['ponderacionpuntos'],
+        cumple: json['cumple'],
+        foto: json['foto'],
+        soloTexto: json['soloTexto'],
+        obsApp: json['obsApp'],
       );
 }

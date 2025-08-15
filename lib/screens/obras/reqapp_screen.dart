@@ -1,10 +1,11 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
-import 'package:rowing_app/components/loader_component.dart';
-import 'package:rowing_app/helpers/helpers.dart';
-import 'package:rowing_app/models/models.dart';
-import 'package:rowing_app/screens/screens.dart';
+
+import '../../components/loader_component.dart';
+import '../../helpers/helpers.dart';
+import '../../models/models.dart';
+import '../screens.dart';
 
 class ReqAppScreen extends StatefulWidget {
   final User user;
@@ -119,7 +120,7 @@ class _ReqAppScreenState extends State<ReqAppScreen> {
                       onPressed: _showFilter,
                       icon: const Icon(Icons.filter_alt)),
               const Text(
-                "C/N°:",
+                'C/N°:',
                 style: TextStyle(color: Colors.white, fontSize: 14),
               ),
               Switch(
@@ -160,7 +161,7 @@ class _ReqAppScreenState extends State<ReqAppScreen> {
       height: 40,
       child: Row(
         children: [
-          const Text("Cantidad de Catálogos: ",
+          const Text('Cantidad de Catálogos: ',
               style: TextStyle(
                 fontSize: 14,
                 color: Colors.white,
@@ -193,15 +194,15 @@ class _ReqAppScreenState extends State<ReqAppScreen> {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: const [
             Text(
-              "Material         ",
+              'Material         ',
               style: TextStyle(color: Colors.white),
             ),
             Text(
-              "   ",
+              '   ',
               style: TextStyle(color: Colors.white),
             ),
             Text(
-              "Cantidad                 ",
+              'Cantidad                 ',
               style: TextStyle(color: Colors.white),
             ),
           ],
@@ -283,7 +284,7 @@ class _ReqAppScreenState extends State<ReqAppScreen> {
                                                 backgroundColor:
                                                     Colors.grey[300],
                                                 title: const Text(
-                                                    "Ingrese la cantidad"),
+                                                    'Ingrese la cantidad'),
                                                 content: TextField(
                                                   autofocus: true,
                                                   controller:
@@ -502,7 +503,7 @@ class _ReqAppScreenState extends State<ReqAppScreen> {
         _showLoader = false;
       });
       showMyDialog(
-          'Error', "Verifica que estés conectado a Internet", 'Aceptar');
+          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
     }
 
     Response response = Response(isSuccess: false);
@@ -647,13 +648,12 @@ class _ReqAppScreenState extends State<ReqAppScreen> {
       //-----------------Graba Cabecera--------------
       Map<String, dynamic> request = {
         'NROOBRA': widget.obra.nroObra,
-        'FECHACARGA': DateTime.now().toString(),
         'CONTRATISTA': _subcontratista.subCodigo,
         'IDUSUARIO': widget.user.idUsuario,
         'CODGRUPOREC': _causante.grupo,
         'CODCAUSANTEREC': _causante.codigo,
-        'CODCONCEPTO': "502",
-        'PRIORIDAD': "Baja",
+        'CODCONCEPTO': '502',
+        'PRIORIDAD': 'Baja',
         'FALTAMATERIAL': 0,
         'DESPACHADO': 0,
         'PORDIFERENCIA': 0,
@@ -770,7 +770,7 @@ class _ReqAppScreenState extends State<ReqAppScreen> {
                               const SizedBox(
                                 width: 10,
                               ),
-                              const Text("Contratista: ",
+                              const Text('Contratista: ',
                                   style:
                                       TextStyle(fontWeight: FontWeight.bold)),
                               Expanded(
@@ -789,7 +789,7 @@ class _ReqAppScreenState extends State<ReqAppScreen> {
                               const SizedBox(
                                 width: 10,
                               ),
-                              const Text("Causante: ",
+                              const Text('Causante: ',
                                   style:
                                       TextStyle(fontWeight: FontWeight.bold)),
                               Expanded(

@@ -1,12 +1,14 @@
 import 'dart:convert';
+
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
-import 'package:rowing_app/components/loader_component.dart';
 import 'package:http/http.dart' as http;
-import 'package:rowing_app/helpers/helpers.dart';
-import 'package:rowing_app/models/models.dart';
-import 'package:rowing_app/widgets/widgets.dart';
+
+import '../../components/loader_component.dart';
+import '../../helpers/helpers.dart';
+import '../../models/models.dart';
+import '../../widgets/widgets.dart';
 
 class StocksMaximosScreen extends StatefulWidget {
   final User user;
@@ -23,8 +25,8 @@ class _StocksMaximosScreenState extends State<StocksMaximosScreen> {
   List<Grupo> _grupos = [];
   bool _isloading = false;
   String _grupo = 'Elija un Grupo...';
-  String _grupoError = '';
-  bool _grupoShowError = false;
+  final String _grupoError = '';
+  final bool _grupoShowError = false;
   bool bandera = false;
   int intentos = 0;
 
@@ -37,7 +39,7 @@ class _StocksMaximosScreenState extends State<StocksMaximosScreen> {
   String _cantidad = '';
   bool _isFiltered = false;
   String _buscar = '';
-  bool _todas = false;
+  final bool _todas = false;
 
   String _codigo = '';
   final String _codigoError = '';
@@ -99,7 +101,7 @@ class _StocksMaximosScreenState extends State<StocksMaximosScreen> {
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 195, 191, 191),
       appBar: AppBar(
-        title: const Text("Stocks Máximos"),
+        title: const Text('Stocks Máximos'),
         centerTitle: true,
         actions: [
           Row(
@@ -146,15 +148,15 @@ class _StocksMaximosScreenState extends State<StocksMaximosScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: const [
                   Text(
-                    "Material         ",
+                    'Material         ',
                     style: TextStyle(color: Colors.black),
                   ),
                   Text(
-                    "   ",
+                    '   ',
                     style: TextStyle(color: Colors.black),
                   ),
                   Text(
-                    "Cantidad                 ",
+                    'Cantidad                 ',
                     style: TextStyle(color: Colors.black),
                   ),
                 ],
@@ -247,7 +249,7 @@ class _StocksMaximosScreenState extends State<StocksMaximosScreen> {
                                                 backgroundColor:
                                                     Colors.grey[300],
                                                 title: const Text(
-                                                    "Ingrese la cantidad"),
+                                                    'Ingrese la cantidad'),
                                                 content: TextField(
                                                   autofocus: true,
                                                   controller:
@@ -404,7 +406,7 @@ class _StocksMaximosScreenState extends State<StocksMaximosScreen> {
       height: 40,
       child: Row(
         children: [
-          const Text("Cantidad de Catálogos: ",
+          const Text('Cantidad de Catálogos: ',
               style: TextStyle(
                 fontSize: 14,
                 color: Colors.black,
@@ -510,7 +512,7 @@ class _StocksMaximosScreenState extends State<StocksMaximosScreen> {
         _showLoader = false;
       });
       showMyDialog(
-          'Error', "Verifica que estés conectado a Internet", 'Aceptar');
+          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
     }
 
     Response response = Response(isSuccess: false);
@@ -556,7 +558,7 @@ class _StocksMaximosScreenState extends State<StocksMaximosScreen> {
         _showLoader = false;
       });
       showMyDialog(
-          'Error', "Verifica que estés conectado a Internet", 'Aceptar');
+          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
     }
 
     Response response = Response(isSuccess: false);
@@ -604,7 +606,7 @@ class _StocksMaximosScreenState extends State<StocksMaximosScreen> {
 
     if (connectivityResult == ConnectivityResult.none) {
       showMyDialog(
-          'Error', "Verifica que estés conectado a Internet", 'Aceptar');
+          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
       return;
     }
 

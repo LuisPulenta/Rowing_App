@@ -2,9 +2,10 @@ import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:rowing_app/components/loader_component.dart';
-import 'package:rowing_app/helpers/helpers.dart';
-import 'package:rowing_app/models/models.dart';
+
+import '../../components/loader_component.dart';
+import '../../helpers/helpers.dart';
+import '../../models/models.dart';
 
 class PresentismoTurnoNocheScreen extends StatefulWidget {
   final User user;
@@ -176,7 +177,7 @@ class _PresentismoTurnoNocheScreenState
     Map<String, dynamic> request = {
       'IDPRESENTISMO': empleado.idpresentismo,
       'IDSUPERVISOR': empleado.idsupervisor,
-      'FECHA': empleado.fecha,
+      'FECHA': empleado.fecha.substring(0, 10),
       'HORA': empleado.hora,
       'GRUPOC': empleado.grupoc,
       'CAUSANTEC': empleado.causantec,
@@ -228,7 +229,7 @@ class _PresentismoTurnoNocheScreenState
           height: 40,
           child: Row(
             children: [
-              const Text("Cantidad de Empleados: ",
+              const Text('Cantidad de Empleados: ',
                   style: TextStyle(
                     fontSize: 14,
                     color: Colors.white,
@@ -253,7 +254,7 @@ class _PresentismoTurnoNocheScreenState
             children: [
               SizedBox(
                 width: ancho * 0.35,
-                child: const Text("Empleado",
+                child: const Text('Empleado',
                     style: TextStyle(
                       fontSize: 12,
                       color: Colors.white,
@@ -264,7 +265,7 @@ class _PresentismoTurnoNocheScreenState
               ),
               SizedBox(
                 width: ancho * 0.21,
-                child: const Text("Zona de Trabajo",
+                child: const Text('Zona de Trabajo',
                     style: TextStyle(
                       fontSize: 12,
                       color: Colors.white,
@@ -275,7 +276,7 @@ class _PresentismoTurnoNocheScreenState
               ),
               SizedBox(
                 width: ancho * 0.21,
-                child: const Text("Actividad",
+                child: const Text('Actividad',
                     style: TextStyle(
                       fontSize: 12,
                       color: Colors.white,
@@ -283,7 +284,7 @@ class _PresentismoTurnoNocheScreenState
               ),
               SizedBox(
                 width: ancho * 0.13,
-                child: const Text("Estado",
+                child: const Text('Estado',
                     style: TextStyle(
                       fontSize: 12,
                       color: Colors.white,
@@ -472,7 +473,7 @@ class _PresentismoTurnoNocheScreenState
                                         DateFormat('dd/MM/yyyy').format(
                                                 DateTime.parse(
                                                     e.fecha.toString())) +
-                                            " - " +
+                                            ' - ' +
                                             e.perteneceCuadrilla.toString(),
                                         style: const TextStyle(
                                             fontSize: 10,
@@ -572,7 +573,7 @@ class _PresentismoTurnoNocheScreenState
         _showLoader = false;
       });
       showMyDialog(
-          'Error', "Verifica que estés conectado a Internet", 'Aceptar');
+          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
     }
 
     Response response = Response(isSuccess: false);
@@ -625,7 +626,7 @@ class _PresentismoTurnoNocheScreenState
         _showLoader = false;
       });
       showMyDialog(
-          'Error', "Verifica que estés conectado a Internet", 'Aceptar');
+          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
     }
 
     Response response = Response(isSuccess: false);
@@ -674,7 +675,7 @@ class _PresentismoTurnoNocheScreenState
         _showLoader = false;
       });
       showMyDialog(
-          'Error', "Verifica que estés conectado a Internet", 'Aceptar');
+          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
     }
 
     Response response = Response(isSuccess: false);
@@ -723,7 +724,7 @@ class _PresentismoTurnoNocheScreenState
         _showLoader = false;
       });
       showMyDialog(
-          'Error', "Verifica que estés conectado a Internet", 'Aceptar');
+          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
     }
 
     Response response = Response(isSuccess: false);

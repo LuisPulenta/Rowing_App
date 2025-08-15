@@ -1,10 +1,12 @@
 import 'dart:io';
+
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-import 'package:rowing_app/models/photo.dart';
-import 'package:rowing_app/models/response.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
+
+import '../../models/photo.dart';
+import '../../models/response.dart';
 
 class DisplayPictureScreen extends StatefulWidget {
   final XFile image;
@@ -272,7 +274,7 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
       latitud: position.latitude,
       longitud: position.longitude,
       direccion: placemarks[0].street.toString() +
-          " - " +
+          ' - ' +
           placemarks[0].locality.toString(),
     );
 

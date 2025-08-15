@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:camera/camera.dart';
@@ -8,10 +9,11 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
-import 'package:rowing_app/components/loader_component.dart';
-import 'package:rowing_app/helpers/helpers.dart';
-import 'package:rowing_app/models/models.dart';
-import 'package:rowing_app/screens/screens.dart';
+
+import '../../components/loader_component.dart';
+import '../../helpers/helpers.dart';
+import '../../models/models.dart';
+import '../screens.dart';
 
 class VeredaInfoScreen extends StatefulWidget {
   final User user;
@@ -103,13 +105,13 @@ class _VeredaInfoScreenState extends State<VeredaInfoScreen> {
                   height: 5,
                 ),
                 _getInfoVereda(),
-                _titulo("FOTO RELEVAMIENTO"),
+                _titulo('FOTO RELEVAMIENTO'),
                 _getFoto1(ancho),
-                _titulo("FOTO INICIO"),
+                _titulo('FOTO INICIO'),
                 _getFotoInicio(ancho),
                 _showObservacionesFotoInicio(),
                 _showZanja(),
-                _titulo("FOTO FIN"),
+                _titulo('FOTO FIN'),
                 _getFotoFin(ancho),
                 _showObservacionesFotoFin(),
                 const SizedBox(
@@ -300,7 +302,7 @@ class _VeredaInfoScreenState extends State<VeredaInfoScreen> {
                             children: [
                               const SizedBox(
                                 width: 110,
-                                child: Text("N° Obra: ",
+                                child: Text('N° Obra: ',
                                     style: TextStyle(
                                       fontSize: 12,
                                       color: Color(0xFF781f1e),
@@ -314,7 +316,7 @@ class _VeredaInfoScreenState extends State<VeredaInfoScreen> {
                                       fontSize: 12,
                                     )),
                               ),
-                              const Text("Módulo: ",
+                              const Text('Módulo: ',
                                   style: TextStyle(
                                     fontSize: 12,
                                     color: Color(0xFF781f1e),
@@ -333,7 +335,7 @@ class _VeredaInfoScreenState extends State<VeredaInfoScreen> {
                             children: [
                               const SizedBox(
                                 width: 110,
-                                child: Text("Dirección: ",
+                                child: Text('Dirección: ',
                                     style: TextStyle(
                                       fontSize: 12,
                                       color: Color(0xFF0e4888),
@@ -343,7 +345,7 @@ class _VeredaInfoScreenState extends State<VeredaInfoScreen> {
                               Expanded(
                                 child: Text(
                                     widget.obra.direccion! +
-                                        " " +
+                                        ' ' +
                                         widget.obra.altura.toString(),
                                     style: const TextStyle(
                                       fontSize: 12,
@@ -355,7 +357,7 @@ class _VeredaInfoScreenState extends State<VeredaInfoScreen> {
                             children: [
                               const SizedBox(
                                 width: 110,
-                                child: Text("Tipo Vereda: ",
+                                child: Text('Tipo Vereda: ',
                                     style: TextStyle(
                                       fontSize: 12,
                                       color: Color(0xFF0e4888),
@@ -377,7 +379,7 @@ class _VeredaInfoScreenState extends State<VeredaInfoScreen> {
                             children: [
                               const SizedBox(
                                 width: 110,
-                                child: Text("Mts. lineales: ",
+                                child: Text('Mts. lineales: ',
                                     style: TextStyle(
                                       fontSize: 12,
                                       color: Color(0xFF0e4888),
@@ -399,7 +401,7 @@ class _VeredaInfoScreenState extends State<VeredaInfoScreen> {
                             children: [
                               const SizedBox(
                                 width: 110,
-                                child: Text("Ancho [cm]: ",
+                                child: Text('Ancho [cm]: ',
                                     style: TextStyle(
                                       fontSize: 12,
                                       color: Color(0xFF0e4888),
@@ -421,7 +423,7 @@ class _VeredaInfoScreenState extends State<VeredaInfoScreen> {
                             children: [
                               const SizedBox(
                                 width: 110,
-                                child: Text("Profundidad [cm]: ",
+                                child: Text('Profundidad [cm]: ',
                                     style: TextStyle(
                                       fontSize: 12,
                                       color: Color(0xFF0e4888),
@@ -438,7 +440,7 @@ class _VeredaInfoScreenState extends State<VeredaInfoScreen> {
                           ),
                           Row(
                             children: [
-                              const Text("Fecha Cierre Eléctrico: ",
+                              const Text('Fecha Cierre Eléctrico: ',
                                   style: TextStyle(
                                     fontSize: 12,
                                     color: Color(0xFF0e4888),
@@ -799,28 +801,27 @@ class _VeredaInfoScreenState extends State<VeredaInfoScreen> {
         _showLoader = false;
       });
       showMyDialog(
-          'Error', "Verifica que estés conectado a Internet", 'Aceptar');
+          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
     }
 
-    String base64imageInicio = '';
+    String base64ImageInicio = '';
 
     if (_photoInicioChanged) {
       List<int> imageInicioBytes = await _imageInicio.readAsBytes();
-      base64imageInicio = base64Encode(imageInicioBytes);
+      base64ImageInicio = base64Encode(imageInicioBytes);
     }
 
-    String base64imageFin = '';
+    String base64ImageFin = '';
 
     if (_photoFinChanged) {
       List<int> imageFinBytes = await _imageFin.readAsBytes();
-      base64imageFin = base64Encode(imageFinBytes);
+      base64ImageFin = base64Encode(imageFinBytes);
     }
 
     Map<String, dynamic> request = {
       'NROREGISTRO': widget.obra.nroregistro,
-      'FECHACUMPLIMENTO': DateTime.now().toString(),
-      'FotoInicioArray': base64imageInicio,
-      'FotoFinArray': base64imageFin,
+      'FotoInicioArray': base64ImageInicio,
+      'FotoFinArray': base64ImageFin,
       'ObservacionesFotoInicio': _observacionesFotoInicio,
       'ObservacionesFotoFin': _observacionesFotoFin,
       'Largo2': _largo2,

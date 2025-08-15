@@ -1,9 +1,10 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
-import 'package:rowing_app/components/loader_component.dart';
-import 'package:rowing_app/helpers/helpers.dart';
-import 'package:rowing_app/models/models.dart';
+
+import '../../components/loader_component.dart';
+import '../../helpers/helpers.dart';
+import '../../models/models.dart';
 
 class CausanteDatosScreen extends StatefulWidget {
   final Causante causante;
@@ -92,63 +93,63 @@ class _CausanteDatosScreenState extends State<CausanteDatosScreen> {
 
     _phoneNumber = (widget.causante.telefono ?? '');
 
-    _phoneNumber = _phoneNumber.replaceAll(" ", "");
+    _phoneNumber = _phoneNumber.replaceAll(' ', '');
 
     _phoneNumberController.text = (widget.causante.telefono ?? '');
 
     _phoneNumberController.text =
-        _phoneNumberController.text.replaceAll(" ", "");
+        _phoneNumberController.text.replaceAll(' ', '');
 
     _direccion = (widget.causante.direccion ?? '');
-    _direccion = _direccion.replaceAll("  ", "");
+    _direccion = _direccion.replaceAll('  ', '');
     _direccionController.text = (widget.causante.direccion ?? '');
-    _direccionController.text = _direccionController.text.replaceAll("  ", "");
+    _direccionController.text = _direccionController.text.replaceAll('  ', '');
 
     _numero = (widget.causante.numero.toString());
-    _numero = _numero.replaceAll(" ", "");
+    _numero = _numero.replaceAll(' ', '');
     _numeroController.text = (widget.causante.numero.toString());
-    _numeroController.text = _numeroController.text.replaceAll(" ", "");
+    _numeroController.text = _numeroController.text.replaceAll(' ', '');
 
     _ciudad = (widget.causante.ciudad ?? '');
-    _ciudad = _ciudad.replaceAll("  ", "");
+    _ciudad = _ciudad.replaceAll('  ', '');
     _ciudadController.text = (widget.causante.ciudad ?? '');
-    _ciudadController.text = _ciudadController.text.replaceAll("  ", "");
+    _ciudadController.text = _ciudadController.text.replaceAll('  ', '');
 
     _provincia = (widget.causante.provincia ?? '');
-    _provincia = _provincia.replaceAll("  ", "");
+    _provincia = _provincia.replaceAll('  ', '');
     _provinciaController.text = (widget.causante.provincia ?? '');
-    _provinciaController.text = _provinciaController.text.replaceAll("  ", "");
+    _provinciaController.text = _provinciaController.text.replaceAll('  ', '');
 
     _optionContacto = _causante.telefonoContacto2 != null
         ? widget.causante.telefonoContacto2.toString()
         : 'Seleccione un Contacto...';
 
     _optionContactoController.text =
-        widget.causante.telefonoContacto2.toString() != ""
+        widget.causante.telefonoContacto2.toString() != ''
             ? widget.causante.telefonoContacto2.toString()
             : 'Seleccione un Contacto...';
 
     _nombreContacto = widget.causante.telefonoContacto3 != null
         ? (widget.causante.telefonoContacto3.toString())
-        : "";
+        : '';
 
-    _nombreContacto = _nombreContacto.replaceAll("  ", "");
+    _nombreContacto = _nombreContacto.replaceAll('  ', '');
     _nombreContactoController.text = _nombreContacto;
     _nombreContactoController.text =
-        _nombreContactoController.text.replaceAll("  ", "");
+        _nombreContactoController.text.replaceAll('  ', '');
 
     _telefonoContacto = widget.causante.telefonoContacto1 != null
         ? (widget.causante.telefonoContacto1.toString())
-        : "";
-    _telefonoContacto = _telefonoContacto.replaceAll(" ", "");
+        : '';
+    _telefonoContacto = _telefonoContacto.replaceAll(' ', '');
     _telefonoContactoController.text = _telefonoContacto;
     _telefonoContactoController.text =
-        _telefonoContactoController.text.replaceAll(" ", "");
+        _telefonoContactoController.text.replaceAll(' ', '');
 
     _ceco = (widget.causante.notasCausantes.toString());
-    _ceco = _ceco.replaceAll("  ", "");
+    _ceco = _ceco.replaceAll('  ', '');
     _cecoController.text = (widget.causante.notasCausantes.toString());
-    _cecoController.text = _cecoController.text.replaceAll("  ", "");
+    _cecoController.text = _cecoController.text.replaceAll('  ', '');
 
     fechaIngreso = (DateTime.parse(widget.causante.fecha!));
 
@@ -340,7 +341,7 @@ class _CausanteDatosScreenState extends State<CausanteDatosScreen> {
       padding: const EdgeInsets.all(10),
       child: DropdownButtonFormField(
           items: _items,
-          value: _optionContacto == ""
+          value: _optionContacto == ''
               ? 'Seleccione un Contacto...'
               : _optionContacto,
           onChanged: (option) {
@@ -485,8 +486,8 @@ class _CausanteDatosScreenState extends State<CausanteDatosScreen> {
                         height: 30,
                         child: Text(
                           fechaIngreso != null
-                              ? "    ${fechaIngreso!.day}/${fechaIngreso!.month}/${fechaIngreso!.year}"
-                              : "",
+                              ? '    ${fechaIngreso!.day}/${fechaIngreso!.month}/${fechaIngreso!.year}'
+                              : '',
                           style: const TextStyle(color: Color(0xFF781f1e)),
                         ),
                       ),
@@ -637,7 +638,7 @@ class _CausanteDatosScreenState extends State<CausanteDatosScreen> {
       _provinciaShowError = false;
     }
 
-    if (_contacto == "Seleccione un Contacto...") {
+    if (_contacto == 'Seleccione un Contacto...') {
       isValid = false;
       _optionContactoShowError = true;
       _optionContactoError = 'Debes ingresar un Contacto';
@@ -691,7 +692,7 @@ class _CausanteDatosScreenState extends State<CausanteDatosScreen> {
         _showLoader = false;
       });
       showMyDialog(
-          'Error', "Verifica que estés conectado a Internet", 'Aceptar');
+          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
     }
 
     Map<String, dynamic> request = {
@@ -702,7 +703,7 @@ class _CausanteDatosScreenState extends State<CausanteDatosScreen> {
       'TelefonoContacto1': _telefonoContacto,
       'TelefonoContacto2': _contacto,
       'TelefonoContacto3': _nombreContacto,
-      'fecha': fechaIngreso.toString(),
+      'fecha': fechaIngreso.toString().substring(0, 10),
       'NotasCausantes': _ceco,
       'ciudad': _ciudad,
       'Provincia': _provincia,

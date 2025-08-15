@@ -1,15 +1,17 @@
 import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
+
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:camera/camera.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:rowing_app/helpers/helpers.dart';
-import 'package:rowing_app/models/models.dart';
-import 'package:rowing_app/screens/screens.dart';
+
+import '../../helpers/helpers.dart';
+import '../../models/models.dart';
+import '../screens.dart';
 
 class NotificacionAgregarScreen extends StatefulWidget {
   final User user;
@@ -34,7 +36,7 @@ class _NotificacionAgregarScreenState extends State<NotificacionAgregarScreen> {
   String _tipoArray = '';
 
   late XFile _image;
-  String base64imagePdf = '';
+  String base64ImagePdf = '';
 
   String _titulo = '';
   String _tituloError = '';
@@ -423,7 +425,7 @@ class _NotificacionAgregarScreenState extends State<NotificacionAgregarScreen> {
                       child: Text(
                         '  Fecha Notificación: ' +
                             ((_fechaNotificacionOferta != null)
-                                ? "    ${_fechaNotificacionOferta!.day}/${_fechaNotificacionOferta!.month}/${_fechaNotificacionOferta!.year}"
+                                ? '    ${_fechaNotificacionOferta!.day}/${_fechaNotificacionOferta!.month}/${_fechaNotificacionOferta!.year}'
                                 : ''),
                         style:
                             const TextStyle(color: Colors.black, fontSize: 15),
@@ -523,7 +525,7 @@ class _NotificacionAgregarScreenState extends State<NotificacionAgregarScreen> {
                       child: Text(
                         '  Fecha Vencimiento Oferta: ' +
                             ((_fechaVencimientoOferta != null)
-                                ? "    ${_fechaVencimientoOferta!.day}/${_fechaVencimientoOferta!.month}/${_fechaVencimientoOferta!.year}"
+                                ? '    ${_fechaVencimientoOferta!.day}/${_fechaVencimientoOferta!.month}/${_fechaVencimientoOferta!.year}'
                                 : ''),
                         style:
                             const TextStyle(color: Colors.black, fontSize: 15),
@@ -596,7 +598,7 @@ class _NotificacionAgregarScreenState extends State<NotificacionAgregarScreen> {
         width: double.infinity,
         height: 240,
         margin: const EdgeInsets.only(top: 10),
-        child: base64imagePdf == ''
+        child: base64ImagePdf == ''
             ? !_photoChanged
                 ? const Image(
                     image: AssetImage('assets/noimage.png'),
@@ -709,7 +711,7 @@ class _NotificacionAgregarScreenState extends State<NotificacionAgregarScreen> {
         setState(() {
           _photoChanged = true;
           _image = response.result;
-          base64imagePdf = '';
+          base64ImagePdf = '';
           _tipoArray = 'jpg';
         });
       }
@@ -727,7 +729,7 @@ class _NotificacionAgregarScreenState extends State<NotificacionAgregarScreen> {
       setState(() {
         _photoChanged = true;
         _image = image;
-        base64imagePdf = '';
+        base64ImagePdf = '';
         _tipoArray = 'jpg';
       });
     }
@@ -790,7 +792,7 @@ class _NotificacionAgregarScreenState extends State<NotificacionAgregarScreen> {
     bool isValid = true;
 
 //--------- Titulo ----------
-    if (_titulo == "") {
+    if (_titulo == '') {
       isValid = false;
       _tituloShowError = true;
       _tituloError = 'Debe completar Título';
@@ -821,7 +823,7 @@ class _NotificacionAgregarScreenState extends State<NotificacionAgregarScreen> {
     }
 
 //--------- TipoTransaccion ----------
-    if (_tipoTransaccion == 'Elija un tipo de transacción...' && _monto != "") {
+    if (_tipoTransaccion == 'Elija un tipo de transacción...' && _monto != '') {
       isValid = false;
       _tipoTransaccionShowError = true;
       _tipoTransaccionError = 'Debe elegir un tipoTransaccion';
@@ -833,7 +835,7 @@ class _NotificacionAgregarScreenState extends State<NotificacionAgregarScreen> {
     }
 
 //--------- CondicionPago ----------
-    if (_condicionPago == "" && _monto != "") {
+    if (_condicionPago == '' && _monto != '') {
       isValid = false;
       _condicionPagoShowError = true;
       _condicionPagoError = 'Debe completar Condición de Pago';
@@ -852,7 +854,7 @@ class _NotificacionAgregarScreenState extends State<NotificacionAgregarScreen> {
     }
 
 //--------- N° de Factura ----------
-    if (_nroFactura == "" && _monto != "") {
+    if (_nroFactura == '' && _monto != '') {
       isValid = false;
       _nroFacturaShowError = true;
       _nroFacturaError = 'Debe completar N° de Factura';
@@ -883,7 +885,7 @@ class _NotificacionAgregarScreenState extends State<NotificacionAgregarScreen> {
     }
 
     //--------- Participantes ----------
-    if (_participantes == "") {
+    if (_participantes == '') {
       isValid = false;
       _participantesShowError = true;
       _participantesError = 'Debe completar Participantes';
@@ -922,21 +924,19 @@ class _NotificacionAgregarScreenState extends State<NotificacionAgregarScreen> {
         _showLoader = false;
       });
       showMyDialog(
-          'Error', "Verifica que estés conectado a Internet", 'Aceptar');
+          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
     }
 
-    String base64image = '';
+    String base64Image = '';
 
     if (_photoChanged) {
       List<int> imageBytes = await _image.readAsBytes();
-      base64image = base64Encode(imageBytes);
+      base64Image = base64Encode(imageBytes);
     }
 
-    if (base64imagePdf != '') {
-      base64image = base64imagePdf;
+    if (base64ImagePdf != '') {
+      base64Image = base64ImagePdf;
     }
-
-    String ahora = DateTime.now().toString();
 
     Response response2 = await ApiHelper.getNroRegistroMaxNotificaciones();
     if (response2.isSuccess) {
@@ -946,7 +946,6 @@ class _NotificacionAgregarScreenState extends State<NotificacionAgregarScreen> {
     Map<String, dynamic> request = {
       'IDNOTIFICACION': _nroReg,
       'IDJUICIO': widget.juicio.iDCASO,
-      'FECHACARGA': DateTime.now().toString(),
       'TIPO': widget.juicio.tipocaso,
       'TITULO': _titulo,
       'OBSERVACIONES': _observaciones,
@@ -958,13 +957,13 @@ class _NotificacionAgregarScreenState extends State<NotificacionAgregarScreen> {
       'LUGAR': _lugar,
       'PARTICIPANTES': _participantes,
       'FECHAECHO': _fechaNotificacionOferta != null
-          ? _fechaNotificacionOferta.toString()
+          ? _fechaNotificacionOferta.toString().substring(0, 10)
           : '',
       'FECHAVENCIMIENTO': _fechaVencimientoOferta != null
-          ? _fechaVencimientoOferta.toString()
+          ? _fechaVencimientoOferta.toString().substring(0, 10)
           : '',
       'TIPOARRAY': _tipoArray,
-      'ImageArray': base64image,
+      'ImageArray': base64Image,
     };
 
     Response response = await ApiHelper.postNoToken(
@@ -1004,7 +1003,7 @@ class _NotificacionAgregarScreenState extends State<NotificacionAgregarScreen> {
       String fileName = result.files.first.name;
 
       List<int> imageBytesPdf = fileBytes!.buffer.asUint8List();
-      base64imagePdf = base64Encode(imageBytesPdf);
+      base64ImagePdf = base64Encode(imageBytesPdf);
       _tipoArray = 'pdf';
 
       setState(() {});

@@ -3,12 +3,12 @@ import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:intl/intl.dart';
-import 'package:rowing_app/components/loader_component.dart';
-import 'package:rowing_app/helpers/helpers.dart';
-import 'package:rowing_app/models/models.dart';
-import 'package:rowing_app/screens/screens.dart';
-import 'package:rowing_app/widgets/widgets.dart';
-import 'package:rowing_app/helpers/helpers.dart';
+
+import '../../components/loader_component.dart';
+import '../../helpers/helpers.dart';
+import '../../models/models.dart';
+import '../../widgets/widgets.dart';
+import '../screens.dart';
 
 class InspeccionDuplicarScreen extends StatefulWidget {
   final User user;
@@ -245,7 +245,7 @@ class _InspeccionDuplicarScreenState extends State<InspeccionDuplicarScreen> {
                       children: [
                         Row(
                           children: const [
-                            Text("Fecha: ",
+                            Text('Fecha: ',
                                 style: TextStyle(
                                   fontSize: 12,
                                   color: Color(0xFF781f1e),
@@ -255,7 +255,7 @@ class _InspeccionDuplicarScreenState extends State<InspeccionDuplicarScreen> {
                         ),
                         Row(
                           children: const [
-                            Text("Empleado: ",
+                            Text('Empleado: ',
                                 style: TextStyle(
                                   fontSize: 12,
                                   color: Color(0xFF781f1e),
@@ -265,7 +265,7 @@ class _InspeccionDuplicarScreenState extends State<InspeccionDuplicarScreen> {
                         ),
                         Row(
                           children: const [
-                            Text("Cliente: ",
+                            Text('Cliente: ',
                                 style: TextStyle(
                                   fontSize: 12,
                                   color: Color(0xFF781f1e),
@@ -275,7 +275,7 @@ class _InspeccionDuplicarScreenState extends State<InspeccionDuplicarScreen> {
                         ),
                         Row(
                           children: const [
-                            Text("Tipo Trabajo: ",
+                            Text('Tipo Trabajo: ',
                                 style: TextStyle(
                                   fontSize: 12,
                                   color: Color(0xFF781f1e),
@@ -285,7 +285,7 @@ class _InspeccionDuplicarScreenState extends State<InspeccionDuplicarScreen> {
                         ),
                         Row(
                           children: const [
-                            Text("Obra: ",
+                            Text('Obra: ',
                                 style: TextStyle(
                                   fontSize: 12,
                                   color: Color(0xFF781f1e),
@@ -295,7 +295,7 @@ class _InspeccionDuplicarScreenState extends State<InspeccionDuplicarScreen> {
                         ),
                         Row(
                           children: const [
-                            Text("Total Preguntas: ",
+                            Text('Total Preguntas: ',
                                 style: TextStyle(
                                   fontSize: 12,
                                   color: Color(0xFF781f1e),
@@ -305,7 +305,7 @@ class _InspeccionDuplicarScreenState extends State<InspeccionDuplicarScreen> {
                         ),
                         Row(
                           children: const [
-                            Text("Respuestas NO: ",
+                            Text('Respuestas NO: ',
                                 style: TextStyle(
                                   fontSize: 12,
                                   color: Color(0xFF781f1e),
@@ -315,7 +315,7 @@ class _InspeccionDuplicarScreenState extends State<InspeccionDuplicarScreen> {
                         ),
                         Row(
                           children: const [
-                            Text("Total Puntos: ",
+                            Text('Total Puntos: ',
                                 style: TextStyle(
                                   fontSize: 12,
                                   color: Color(0xFF781f1e),
@@ -517,7 +517,7 @@ class _InspeccionDuplicarScreenState extends State<InspeccionDuplicarScreen> {
 //--------------------------------------------------------------
 
   Future<void> _getCausante() async {
-    if (_codigo == "000000") {
+    if (_codigo == '000000') {
       _esContratista = true;
       _enabled3 = false;
       _enabled1 = true;
@@ -553,7 +553,7 @@ class _InspeccionDuplicarScreenState extends State<InspeccionDuplicarScreen> {
       await showAlertDialog(
           context: context,
           title: 'Error',
-          message: "Legajo o Documento no válido",
+          message: 'Legajo o Documento no válido',
           actions: <AlertDialogAction>[
             const AlertDialogAction(key: null, label: 'Aceptar'),
           ]);
@@ -897,7 +897,7 @@ class _InspeccionDuplicarScreenState extends State<InspeccionDuplicarScreen> {
         _showLoader = false;
       });
       showMyDialog(
-          'Error', "Verifica que estés conectado a Internet", 'Aceptar');
+          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
     }
 
     Response response = Response(isSuccess: false);
@@ -943,7 +943,7 @@ class _InspeccionDuplicarScreenState extends State<InspeccionDuplicarScreen> {
         _showLoader = false;
       });
       showMyDialog(
-          'Error', "Verifica que estés conectado a Internet", 'Aceptar');
+          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
     }
 
     Response response = Response(isSuccess: false);
@@ -989,7 +989,7 @@ class _InspeccionDuplicarScreenState extends State<InspeccionDuplicarScreen> {
         _showLoader = false;
       });
       showMyDialog(
-          'Error', "Verifica que estés conectado a Internet", 'Aceptar');
+          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
     }
 
     Response response = Response(isSuccess: false);
@@ -1025,7 +1025,7 @@ class _InspeccionDuplicarScreenState extends State<InspeccionDuplicarScreen> {
 
     if (connectivityResult == ConnectivityResult.none) {
       showMyDialog(
-          'Error', "Verifica que estés conectado a Internet", 'Aceptar');
+          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
     }
 
     bandera = false;

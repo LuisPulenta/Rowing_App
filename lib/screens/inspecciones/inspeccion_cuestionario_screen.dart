@@ -1407,7 +1407,7 @@ class _InspeccionCuestionarioScreenState
     Map<String, dynamic> request = {
       'idinspeccion': 0,
       'idcliente': widget.detallesFormulariosCompleto[0].idcliente,
-      'fecha': DateTime.now().toString(),
+      'fecha': DateTime.now().toString().substring(0, 10),
       'usuarioalta': widget.user.idUsuario,
       'latitud': widget.positionUser.latitude.toString(),
       'longitud': widget.positionUser.longitude.toString(),
@@ -1458,10 +1458,10 @@ class _InspeccionCuestionarioScreenState
     }
 
     _elements.forEach((element) async {
-      String base64image = '';
+      String base64Image = '';
       if (element['photoChanged']) {
         List<int> imageBytes = await element['image'].readAsBytes();
-        base64image = base64Encode(imageBytes);
+        base64Image = base64Encode(imageBytes);
       }
 
       Map<String, dynamic> request2 = {
@@ -1473,7 +1473,7 @@ class _InspeccionCuestionarioScreenState
         'descripcion': element['descripcion'],
         'ponderacionPuntos': element['ponderacionpuntos'],
         'cumple': element['cumple'],
-        'imagearray': base64image,
+        'imagearray': base64Image,
         'obsApp': element['obsApp'] != "" ? element['obsApp'] : "N/A",
         'soloTexto': element['soloTexto'],
       };

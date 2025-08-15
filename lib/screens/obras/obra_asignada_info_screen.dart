@@ -3,10 +3,11 @@ import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:intl/intl.dart';
-import 'package:rowing_app/components/loader_component.dart';
-import 'package:rowing_app/helpers/helpers.dart';
-import 'package:rowing_app/models/models.dart';
-import 'package:rowing_app/screens/screens.dart';
+
+import '../../components/loader_component.dart';
+import '../../helpers/helpers.dart';
+import '../../models/models.dart';
+import '../screens.dart';
 
 class ObraAsignadaInfoScreen extends StatefulWidget {
   final User user;
@@ -227,7 +228,7 @@ class _ObraAsignadaInfoScreenState extends State<ObraAsignadaInfoScreen> {
           children: [
             Row(
               children: [
-                const Text("N° Obra: ",
+                const Text('N° Obra: ',
                     style: TextStyle(
                       fontSize: 12,
                       color: Color(0xFF781f1e),
@@ -240,7 +241,7 @@ class _ObraAsignadaInfoScreenState extends State<ObraAsignadaInfoScreen> {
                         fontSize: 12,
                       )),
                 ),
-                const Text("Módulo: ",
+                const Text('Módulo: ',
                     style: TextStyle(
                       fontSize: 12,
                       color: Color(0xFF781f1e),
@@ -260,7 +261,7 @@ class _ObraAsignadaInfoScreenState extends State<ObraAsignadaInfoScreen> {
             ),
             Row(
               children: [
-                const Text("Nombre: ",
+                const Text('Nombre: ',
                     style: TextStyle(
                       fontSize: 12,
                       color: Color(0xFF781f1e),
@@ -280,7 +281,7 @@ class _ObraAsignadaInfoScreenState extends State<ObraAsignadaInfoScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                _fechaCierreSelected == "" || _fechaCierreSelected == null
+                _fechaCierreSelected == ''
                     ? MaterialButton(
                         color: const Color(0xFF781f1e),
                         child: const Text('Fec. Cierre .',
@@ -300,15 +301,12 @@ class _ObraAsignadaInfoScreenState extends State<ObraAsignadaInfoScreen> {
               ],
             ),
             SizedBox(
-              height:
-                  (_fechaCierreSelected != "" && _fechaCierreSelected != null)
-                      ? 5
-                      : 0,
+              height: (_fechaCierreSelected != '') ? 5 : 0,
             ),
-            _fechaCierreSelected != "" && _fechaCierreSelected != "null"
+            _fechaCierreSelected != '' && _fechaCierreSelected != 'null'
                 ? Row(
                     children: [
-                      const Text("Fecha Cierre: ",
+                      const Text('Fecha Cierre: ',
                           style: TextStyle(
                             fontSize: 12,
                             color: Color(0xFF781f1e),
@@ -361,7 +359,7 @@ class _ObraAsignadaInfoScreenState extends State<ObraAsignadaInfoScreen> {
   _grabar() async {
     FocusScope.of(context).unfocus(); //Oculta el teclado
 
-    _obra.fechaCierre = selectedDate.toString();
+    _obra.fechaCierre = selectedDate.toString().substring(0, 10);
     setState(() {});
 
     Map<String, dynamic> request = {
@@ -375,14 +373,14 @@ class _ObraAsignadaInfoScreenState extends State<ObraAsignadaInfoScreen> {
       'FECHAALTA': widget.obra.fechaalta,
       'FECHAFINASIGNACION': widget.obra.fechafinasignacion,
       'IDUSR': widget.obra.idusr,
-      'FechaCierre': selectedDate.toString(),
+      'FechaCierre': selectedDate.toString().substring(0, 10),
     };
 
     Response response = await ApiHelper.put('/api/Obras/PutObrasAsignacion/',
         widget.obra.nroregistro.toString(), request);
 
     if (response.isSuccess) {
-      _showSnackbar("Datos guardados con éxito");
+      _showSnackbar('Datos guardados con éxito');
       setState(() {});
       Navigator.of(context).pop();
     }
@@ -414,7 +412,7 @@ class _ObraAsignadaInfoScreenState extends State<ObraAsignadaInfoScreen> {
         _showLoader = false;
       });
       showMyDialog(
-          'Error', "Verifica que estés conectado a Internet", 'Aceptar');
+          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
     }
 
     Response response = Response(isSuccess: false);
@@ -451,7 +449,7 @@ class _ObraAsignadaInfoScreenState extends State<ObraAsignadaInfoScreen> {
         _showLoader = false;
       });
       showMyDialog(
-          'Error', "Verifica que estés conectado a Internet", 'Aceptar');
+          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
     }
 
     Response response = Response(isSuccess: false);

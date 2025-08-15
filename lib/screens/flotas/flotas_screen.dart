@@ -3,10 +3,10 @@ import 'package:connectivity/connectivity.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:rowing_app/components/loader_component.dart';
-import 'package:rowing_app/helpers/helpers.dart';
-import 'package:rowing_app/models/models.dart';
-import 'package:rowing_app/widgets/widgets.dart';
+import '../../components/loader_component.dart';
+import '../../helpers/helpers.dart';
+import '../../models/models.dart';
+import '../../widgets/widgets.dart';
 
 class FlotaScreen extends StatefulWidget {
   final User user;
@@ -89,7 +89,7 @@ class _FlotaScreenState extends State<FlotaScreen>
     return Scaffold(
       backgroundColor: const Color(0xFF484848),
       appBar: AppBar(
-        title: (const Text("Km y Preventivos")),
+        title: (const Text('Km y Preventivos')),
         centerTitle: true,
         backgroundColor: const Color(0xff242424),
       ),
@@ -208,7 +208,7 @@ class _FlotaScreenState extends State<FlotaScreen>
                       width: 5,
                     ),
                     Text(
-                      "Km",
+                      'Km',
                       style: TextStyle(fontSize: 14),
                     ),
                   ],
@@ -222,7 +222,7 @@ class _FlotaScreenState extends State<FlotaScreen>
                       width: 5,
                     ),
                     Text(
-                      "Preventivos",
+                      'Preventivos',
                       style: TextStyle(fontSize: 14),
                     ),
                   ],
@@ -242,7 +242,7 @@ class _FlotaScreenState extends State<FlotaScreen>
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: <Widget>[
         Image.asset(
-          "assets/flota1.png",
+          'assets/flota1.png',
           width: 70,
           height: 70,
         ),
@@ -253,7 +253,7 @@ class _FlotaScreenState extends State<FlotaScreen>
         //   width: 200,
         // ),
         Image.asset(
-          "assets/flota2.png",
+          'assets/flota2.png',
           width: 70,
           height: 70,
           color: Colors.white,
@@ -530,7 +530,7 @@ class _FlotaScreenState extends State<FlotaScreen>
       return;
     }
 
-    if (widget.user.habilitaFlotas == "SI") {
+    if (widget.user.habilitaFlotas == 'SI') {
       await _getUsuarioChapa();
     } else {
       await _getVehiculo();
@@ -593,7 +593,6 @@ class _FlotaScreenState extends State<FlotaScreen>
 
       Map<String, dynamic> request = {
         'orden': _nroReg,
-        'fecha': DateTime.now().toString(),
         'equipo': _vehiculo.codProducto,
         'kilini': kmFinAnterior,
         'kilfin': int.parse(_km),
@@ -605,7 +604,6 @@ class _FlotaScreenState extends State<FlotaScreen>
         'procesado': 0,
         'kmfechaanterior': kmFechaAnterior != '' ? kmFechaAnterior : null,
         'nopromediar': 0,
-        'fechaalta': DateTime.now().toString(),
       };
 
       Response response =
@@ -644,8 +642,6 @@ class _FlotaScreenState extends State<FlotaScreen>
 
     response3 =
         await ApiHelper.getProgramasPrev(_vehiculo.codProducto.toString());
-    _programasprev = response3.result;
-
     _programasprev.forEach((element) async {
       Map<String, dynamic> request3 = {
         'nrointerno': element.nroInterno,
@@ -655,7 +651,6 @@ class _FlotaScreenState extends State<FlotaScreen>
       await ApiHelper.put('/api/VehiculosProgramasPrev/',
           element.nroInterno.toString(), request3);
     });
-
 //---------------- MENSAJE FINAL Y CIERRE DE PAGINA ---------
     await showAlertDialog(
         context: context,
@@ -697,7 +692,7 @@ class _FlotaScreenState extends State<FlotaScreen>
       await showAlertDialog(
           context: context,
           title: 'Error',
-          message: "Patente no válida",
+          message: 'Patente no válida',
           actions: <AlertDialogAction>[
             const AlertDialogAction(key: null, label: 'Aceptar'),
           ]);
@@ -766,7 +761,7 @@ class _FlotaScreenState extends State<FlotaScreen>
       await showAlertDialog(
           context: context,
           title: 'Error',
-          message: "Patente no válida",
+          message: 'Patente no válida',
           actions: <AlertDialogAction>[
             const AlertDialogAction(key: null, label: 'Aceptar'),
           ]);
@@ -788,7 +783,7 @@ class _FlotaScreenState extends State<FlotaScreen>
       await showAlertDialog(
           context: context,
           title: 'Error',
-          message: "Esta patente no está asignada a su Usuario",
+          message: 'Esta patente no está asignada a su Usuario',
           actions: <AlertDialogAction>[
             const AlertDialogAction(key: null, label: 'Aceptar'),
           ]);
@@ -830,7 +825,7 @@ class _FlotaScreenState extends State<FlotaScreen>
       height: 40,
       child: Row(
         children: [
-          const Text("Cantidad de Preventivos: ",
+          const Text('Cantidad de Preventivos: ',
               style: TextStyle(
                 fontSize: 14,
                 color: Colors.white,
@@ -894,7 +889,7 @@ class _FlotaScreenState extends State<FlotaScreen>
                                 children: [
                                   const SizedBox(
                                     width: 90,
-                                    child: Text("Descripción: ",
+                                    child: Text('Descripción: ',
                                         style: TextStyle(
                                           fontSize: 12,
                                           color: Color(0xFF781f1e),
@@ -916,7 +911,7 @@ class _FlotaScreenState extends State<FlotaScreen>
                                 children: [
                                   const SizedBox(
                                     width: 90,
-                                    child: Text("",
+                                    child: Text('',
                                         style: TextStyle(
                                           fontSize: 12,
                                           color: Color(0xFF781f1e),
@@ -938,7 +933,7 @@ class _FlotaScreenState extends State<FlotaScreen>
                                 children: [
                                   const SizedBox(
                                     width: 90,
-                                    child: Text("Unid. Med.: ",
+                                    child: Text('Unid. Med.: ',
                                         style: TextStyle(
                                           fontSize: 12,
                                           color: Color(0xFF781f1e),
@@ -960,7 +955,7 @@ class _FlotaScreenState extends State<FlotaScreen>
                                 children: [
                                   const SizedBox(
                                     width: 90,
-                                    child: Text("Frecuencia.: ",
+                                    child: Text('Frecuencia.: ',
                                         style: TextStyle(
                                           fontSize: 12,
                                           color: Color(0xFF781f1e),
@@ -982,7 +977,7 @@ class _FlotaScreenState extends State<FlotaScreen>
                                 children: [
                                   const SizedBox(
                                     width: 90,
-                                    child: Text("Fecha Ult. Ej.: ",
+                                    child: Text('Fecha Ult. Ej.: ',
                                         style: TextStyle(
                                           fontSize: 12,
                                           color: Color(0xFF781f1e),
@@ -998,7 +993,7 @@ class _FlotaScreenState extends State<FlotaScreen>
                                             style: const TextStyle(
                                               fontSize: 12,
                                             ))
-                                        : const Text("",
+                                        : const Text('',
                                             style: TextStyle(
                                               fontSize: 12,
                                             )),
@@ -1012,7 +1007,7 @@ class _FlotaScreenState extends State<FlotaScreen>
                                 children: [
                                   const SizedBox(
                                     width: 90,
-                                    child: Text("Km Ult. Ej.: ",
+                                    child: Text('Km Ult. Ej.: ',
                                         style: TextStyle(
                                           fontSize: 12,
                                           color: Color(0xFF781f1e),
@@ -1034,7 +1029,7 @@ class _FlotaScreenState extends State<FlotaScreen>
                                 children: [
                                   const SizedBox(
                                     width: 90,
-                                    child: Text("Km actual: ",
+                                    child: Text('Km actual: ',
                                         style: TextStyle(
                                           fontSize: 12,
                                           color: Color(0xFF781f1e),
@@ -1043,7 +1038,7 @@ class _FlotaScreenState extends State<FlotaScreen>
                                   ),
                                   Expanded(
                                     child: e.actKmHsEj == null
-                                        ? const Text("",
+                                        ? const Text('',
                                             style: TextStyle(
                                               fontSize: 12,
                                             ))
@@ -1061,7 +1056,7 @@ class _FlotaScreenState extends State<FlotaScreen>
                                 children: [
                                   const SizedBox(
                                     width: 90,
-                                    child: Text("Diferencia: ",
+                                    child: Text('Diferencia: ',
                                         style: TextStyle(
                                           fontSize: 12,
                                           color: Color(0xFF781f1e),
@@ -1083,7 +1078,7 @@ class _FlotaScreenState extends State<FlotaScreen>
                                 children: [
                                   const SizedBox(
                                     width: 90,
-                                    child: Text("Estado: ",
+                                    child: Text('Estado: ',
                                         style: TextStyle(
                                           fontSize: 12,
                                           color: Color(0xFF781f1e),
@@ -1091,7 +1086,7 @@ class _FlotaScreenState extends State<FlotaScreen>
                                         )),
                                   ),
                                   Expanded(
-                                    child: e.estados.toString() == "Vencido"
+                                    child: e.estados.toString() == 'Vencido'
                                         ? Text(e.estados.toString(),
                                             style: const TextStyle(
                                                 fontSize: 12,

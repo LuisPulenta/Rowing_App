@@ -5,13 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:intl/intl.dart';
-import 'package:rowing_app/components/loader_component.dart';
-import 'package:rowing_app/helpers/helpers.dart';
-import 'package:rowing_app/models/models.dart';
-import 'package:rowing_app/screens/screens.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../helpers/api_helper.dart';
+import '../../components/loader_component.dart';
+import '../../helpers/helpers.dart';
+import '../../models/models.dart';
+import '../screens.dart';
 
 class Elementosencallelistado extends StatefulWidget {
   final User user;
@@ -120,7 +119,7 @@ class _ElementosencallelistadoState extends State<Elementosencallelistado> {
       height: 40,
       child: Row(
         children: [
-          const Text("Cantidad de Obras con Elementos en Calle: ",
+          const Text('Cantidad de Obras con Elementos en Calle: ',
               style: TextStyle(
                 fontSize: 14,
                 color: Colors.white,
@@ -183,7 +182,7 @@ class _ElementosencallelistadoState extends State<Elementosencallelistado> {
                               children: [
                                 Row(
                                   children: [
-                                    const Text("N° Obra: ",
+                                    const Text('N° Obra: ',
                                         style: TextStyle(
                                           fontSize: 12,
                                           color: Color(0xFF781f1e),
@@ -203,7 +202,7 @@ class _ElementosencallelistadoState extends State<Elementosencallelistado> {
                                 ),
                                 Row(
                                   children: [
-                                    const Text("Nombre: ",
+                                    const Text('Nombre: ',
                                         style: TextStyle(
                                           fontSize: 12,
                                           color: Color(0xFF781f1e),
@@ -222,7 +221,7 @@ class _ElementosencallelistadoState extends State<Elementosencallelistado> {
                                 ),
                                 Row(
                                   children: [
-                                    const Text("Domicilio: ",
+                                    const Text('Domicilio: ',
                                         style: TextStyle(
                                           fontSize: 12,
                                           color: Color(0xFF781f1e),
@@ -244,7 +243,7 @@ class _ElementosencallelistadoState extends State<Elementosencallelistado> {
                                 ),
                                 Row(
                                   children: [
-                                    const Text("Items: ",
+                                    const Text('Items: ',
                                         style: TextStyle(
                                           fontSize: 12,
                                           color: Color(0xFF781f1e),
@@ -266,7 +265,7 @@ class _ElementosencallelistadoState extends State<Elementosencallelistado> {
                                 ),
                                 Row(
                                   children: [
-                                    const Text("Usuario: ",
+                                    const Text('Usuario: ',
                                         style: TextStyle(
                                           fontSize: 12,
                                           color: Color(0xFF781f1e),
@@ -274,7 +273,7 @@ class _ElementosencallelistadoState extends State<Elementosencallelistado> {
                                         )),
                                     Expanded(
                                       child: Text(
-                                          e.nombreCarga + " " + e.apellidoCarga,
+                                          e.nombreCarga + ' ' + e.apellidoCarga,
                                           style: const TextStyle(
                                             fontSize: 12,
                                           )),
@@ -289,7 +288,7 @@ class _ElementosencallelistadoState extends State<Elementosencallelistado> {
                                 ),
                                 Row(
                                   children: [
-                                    const Text("Fecha: ",
+                                    const Text('Fecha: ',
                                         style: TextStyle(
                                           fontSize: 12,
                                           color: Color(0xFF781f1e),
@@ -398,7 +397,7 @@ class _ElementosencallelistadoState extends State<Elementosencallelistado> {
         _showLoader = false;
       });
       showMyDialog(
-          'Error', "Verifica que estés conectado a Internet", 'Aceptar');
+          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
     }
 
     Response response = Response(isSuccess: false);
@@ -521,7 +520,7 @@ class _ElementosencallelistadoState extends State<Elementosencallelistado> {
         _showLoader = false;
       });
       showMyDialog(
-          'Error', "Verifica que estés conectado a Internet", 'Aceptar');
+          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
     }
 
     Response response = Response(isSuccess: false);
@@ -758,7 +757,7 @@ class _ElementosencallelistadoState extends State<Elementosencallelistado> {
     if (connectivityResult != ConnectivityResult.none) {
       var latt = double.tryParse(elemEnCalle.grxx.toString());
       var long = double.tryParse(elemEnCalle.gryy.toString());
-      var uri = Uri.parse("google.navigation:q=$latt,$long&mode=d");
+      var uri = Uri.parse('google.navigation:q=$latt,$long&mode=d');
       if (await canLaunch(uri.toString())) {
         await launch(uri.toString());
       } else {
@@ -768,7 +767,7 @@ class _ElementosencallelistadoState extends State<Elementosencallelistado> {
       await showAlertDialog(
           context: context,
           title: 'Aviso!',
-          message: "Necesita estar conectado a Internet para acceder al mapa",
+          message: 'Necesita estar conectado a Internet para acceder al mapa',
           actions: <AlertDialogAction>[
             const AlertDialogAction(key: null, label: 'Aceptar'),
           ]);

@@ -3,12 +3,13 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
-import 'package:rowing_app/components/loader_component.dart';
-import 'package:rowing_app/helpers/helpers.dart';
-import 'package:rowing_app/models/catalogo.dart';
-import 'package:rowing_app/models/reclamo.dart';
-import 'package:rowing_app/models/response.dart';
-import 'package:rowing_app/models/user.dart';
+
+import '../../components/loader_component.dart';
+import '../../helpers/helpers.dart';
+import '../../models/catalogo.dart';
+import '../../models/reclamo.dart';
+import '../../models/response.dart';
+import '../../models/user.dart';
 
 class ReclamoInfoScreen extends StatefulWidget {
   final User user;
@@ -82,15 +83,15 @@ class _ReclamoInfoScreenState extends State<ReclamoInfoScreen> {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: const [
             Text(
-              "Material         ",
+              'Material         ',
               style: TextStyle(color: Colors.white),
             ),
             Text(
-              "   ",
+              '   ',
               style: TextStyle(color: Colors.white),
             ),
             Text(
-              "Cantidad                 ",
+              'Cantidad                 ',
               style: TextStyle(color: Colors.white),
             ),
           ],
@@ -134,7 +135,7 @@ class _ReclamoInfoScreenState extends State<ReclamoInfoScreen> {
                       children: [
                         Row(
                           children: const [
-                            Text("AS/N° Reclamo: ",
+                            Text('AS/N° Reclamo: ',
                                 style: TextStyle(
                                   fontSize: 12,
                                   color: Color(0xFF781f1e),
@@ -144,7 +145,7 @@ class _ReclamoInfoScreenState extends State<ReclamoInfoScreen> {
                         ),
                         Row(
                           children: const [
-                            Text("Zona: ",
+                            Text('Zona: ',
                                 style: TextStyle(
                                   fontSize: 12,
                                   color: Color(0xFF781f1e),
@@ -154,7 +155,7 @@ class _ReclamoInfoScreenState extends State<ReclamoInfoScreen> {
                         ),
                         Row(
                           children: const [
-                            Text("Dirección: ",
+                            Text('Dirección: ',
                                 style: TextStyle(
                                   fontSize: 12,
                                   color: Color(0xFF781f1e),
@@ -164,7 +165,7 @@ class _ReclamoInfoScreenState extends State<ReclamoInfoScreen> {
                         ),
                         Row(
                           children: const [
-                            Text("N°: ",
+                            Text('N°: ',
                                 style: TextStyle(
                                   fontSize: 12,
                                   color: Color(0xFF781f1e),
@@ -174,7 +175,7 @@ class _ReclamoInfoScreenState extends State<ReclamoInfoScreen> {
                         ),
                         Row(
                           children: const [
-                            Text("Descr./Nombre: ",
+                            Text('Descr./Nombre: ',
                                 style: TextStyle(
                                   fontSize: 12,
                                   color: Color(0xFF781f1e),
@@ -303,7 +304,7 @@ class _ReclamoInfoScreenState extends State<ReclamoInfoScreen> {
                                                 backgroundColor:
                                                     Colors.grey[300],
                                                 title: const Text(
-                                                    "Ingrese la cantidad"),
+                                                    'Ingrese la cantidad'),
                                                 content: TextField(
                                                   autofocus: true,
                                                   controller:
@@ -520,7 +521,7 @@ class _ReclamoInfoScreenState extends State<ReclamoInfoScreen> {
         _showLoader = false;
       });
       showMyDialog(
-          'Error', "Verifica que estés conectado a Internet", 'Aceptar');
+          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
     }
 
     Response response = Response(isSuccess: false);

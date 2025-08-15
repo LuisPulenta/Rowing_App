@@ -3,11 +3,11 @@ import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:intl/intl.dart';
-import 'package:rowing_app/components/loader_component.dart';
-import 'package:rowing_app/helpers/helpers.dart';
-import 'package:rowing_app/models/models.dart';
-import 'package:rowing_app/screens/screens.dart';
-import 'package:rowing_app/helpers/helpers.dart';
+
+import '../../components/loader_component.dart';
+import '../../helpers/helpers.dart';
+import '../../models/models.dart';
+import '../screens.dart';
 
 class InspeccionesListaScreen extends StatefulWidget {
   final User user;
@@ -94,7 +94,7 @@ class _InspeccionesListaScreenState extends State<InspeccionesListaScreen> {
         _showLoader = false;
       });
       showMyDialog(
-          'Error', "Verifica que estés conectado a Internet", 'Aceptar');
+          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
     }
 
     Response response = Response(isSuccess: false);
@@ -294,7 +294,7 @@ class _InspeccionesListaScreenState extends State<InspeccionesListaScreen> {
                               children: [
                                 Row(
                                   children: const [
-                                    Text("Fecha-Id: ",
+                                    Text('Fecha-Id: ',
                                         style: TextStyle(
                                           fontSize: 12,
                                           color: Color(0xFF781f1e),
@@ -304,7 +304,7 @@ class _InspeccionesListaScreenState extends State<InspeccionesListaScreen> {
                                 ),
                                 Row(
                                   children: const [
-                                    Text("Empleado: ",
+                                    Text('Empleado: ',
                                         style: TextStyle(
                                           fontSize: 12,
                                           color: Color(0xFF781f1e),
@@ -314,7 +314,7 @@ class _InspeccionesListaScreenState extends State<InspeccionesListaScreen> {
                                 ),
                                 Row(
                                   children: const [
-                                    Text("Cliente: ",
+                                    Text('Cliente: ',
                                         style: TextStyle(
                                           fontSize: 12,
                                           color: Color(0xFF781f1e),
@@ -324,7 +324,7 @@ class _InspeccionesListaScreenState extends State<InspeccionesListaScreen> {
                                 ),
                                 Row(
                                   children: const [
-                                    Text("Tipo Trabajo: ",
+                                    Text('Tipo Trabajo: ',
                                         style: TextStyle(
                                           fontSize: 12,
                                           color: Color(0xFF781f1e),
@@ -334,7 +334,7 @@ class _InspeccionesListaScreenState extends State<InspeccionesListaScreen> {
                                 ),
                                 Row(
                                   children: const [
-                                    Text("Obra: ",
+                                    Text('Obra: ',
                                         style: TextStyle(
                                           fontSize: 12,
                                           color: Color(0xFF781f1e),
@@ -344,7 +344,7 @@ class _InspeccionesListaScreenState extends State<InspeccionesListaScreen> {
                                 ),
                                 Row(
                                   children: const [
-                                    Text("Total Preguntas: ",
+                                    Text('Total Preguntas: ',
                                         style: TextStyle(
                                           fontSize: 12,
                                           color: Color(0xFF781f1e),
@@ -354,7 +354,7 @@ class _InspeccionesListaScreenState extends State<InspeccionesListaScreen> {
                                 ),
                                 Row(
                                   children: const [
-                                    Text("Respuestas NO: ",
+                                    Text('Respuestas NO: ',
                                         style: TextStyle(
                                           fontSize: 12,
                                           color: Color(0xFF781f1e),
@@ -364,7 +364,7 @@ class _InspeccionesListaScreenState extends State<InspeccionesListaScreen> {
                                 ),
                                 Row(
                                   children: const [
-                                    Text("Total Puntos: ",
+                                    Text('Total Puntos: ',
                                         style: TextStyle(
                                           fontSize: 12,
                                           color: Color(0xFF781f1e),
@@ -516,7 +516,7 @@ class _InspeccionesListaScreenState extends State<InspeccionesListaScreen> {
       height: 40,
       child: Row(
         children: [
-          const Text("Cantidad de Inspecciones: ",
+          const Text('Cantidad de Inspecciones: ',
               style: TextStyle(
                 fontSize: 14,
                 color: Colors.white,

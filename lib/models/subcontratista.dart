@@ -1,7 +1,7 @@
 class Subcontratista {
-  String subCodigo = "";
-  String subSubcontratista = "";
-  String modulo = "";
+  String subCodigo = '';
+  String subSubcontratista = '';
+  String modulo = '';
 
   Subcontratista(
       {required this.subCodigo,

@@ -2,11 +2,11 @@ import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:rowing_app/components/loader_component.dart';
-import 'package:rowing_app/helpers/helpers.dart';
-import 'package:rowing_app/models/models.dart';
-import 'package:rowing_app/screens/screens.dart';
-import 'package:rowing_app/helpers/helpers.dart';
+
+import '../../components/loader_component.dart';
+import '../../helpers/helpers.dart';
+import '../../models/models.dart';
+import '../screens.dart';
 
 class TurnosScreen extends StatefulWidget {
   final User user;
@@ -96,7 +96,7 @@ class _TurnosScreenState extends State<TurnosScreen> {
       height: 40,
       child: Row(
         children: [
-          const Text("Cantidad de Turnos: ",
+          const Text('Cantidad de Turnos: ',
               style: TextStyle(
                 fontSize: 14,
                 color: Colors.white,
@@ -162,7 +162,7 @@ class _TurnosScreenState extends State<TurnosScreen> {
                                   children: [
                                     SizedBox(
                                       width: ancho,
-                                      child: const Text("Turno: ",
+                                      child: const Text('Turno: ',
                                           style: TextStyle(
                                             fontSize: 12,
                                             color: Color(0xFF781f1e),
@@ -182,7 +182,7 @@ class _TurnosScreenState extends State<TurnosScreen> {
                                     SizedBox(
                                       width: ancho,
                                       child: const Text(
-                                        "Patente: ",
+                                        'Patente: ',
                                         style: TextStyle(
                                           fontSize: 12,
                                           color: Color(0xFF781f1e),
@@ -203,7 +203,7 @@ class _TurnosScreenState extends State<TurnosScreen> {
                                     SizedBox(
                                       width: ancho,
                                       child: const Text(
-                                        "Asignado a: ",
+                                        'Asignado a: ',
                                         style: TextStyle(
                                           fontSize: 12,
                                           color: Color(0xFF781f1e),
@@ -224,7 +224,7 @@ class _TurnosScreenState extends State<TurnosScreen> {
                                     SizedBox(
                                       width: ancho,
                                       child: const Text(
-                                        "Taller: ",
+                                        'Taller: ',
                                         style: TextStyle(
                                           fontSize: 12,
                                           color: Color(0xFF781f1e),
@@ -246,7 +246,7 @@ class _TurnosScreenState extends State<TurnosScreen> {
                                 Row(
                                   children: const [
                                     Text(
-                                      "SOLICITADO PARA: ",
+                                      'SOLICITADO PARA: ',
                                       textAlign: TextAlign.start,
                                       style: TextStyle(
                                         fontSize: 12,
@@ -261,7 +261,7 @@ class _TurnosScreenState extends State<TurnosScreen> {
                                     SizedBox(
                                       width: ancho,
                                       child: const Text(
-                                        "Fecha: ",
+                                        'Fecha: ',
                                         style: TextStyle(
                                           fontSize: 12,
                                           color: Color(0xFF781f1e),
@@ -281,7 +281,7 @@ class _TurnosScreenState extends State<TurnosScreen> {
                                               ))
                                           : Container(),
                                     ),
-                                    const Text("Hora: ",
+                                    const Text('Hora: ',
                                         style: TextStyle(
                                           fontSize: 12,
                                           color: Color(0xFF781f1e),
@@ -302,7 +302,7 @@ class _TurnosScreenState extends State<TurnosScreen> {
                                 Row(
                                   children: const [
                                     Text(
-                                      "CONFIRMADO PARA: ",
+                                      'CONFIRMADO PARA: ',
                                       textAlign: TextAlign.start,
                                       style: TextStyle(
                                         fontSize: 12,
@@ -317,7 +317,7 @@ class _TurnosScreenState extends State<TurnosScreen> {
                                     SizedBox(
                                       width: ancho,
                                       child: const Text(
-                                        "Fecha: ",
+                                        'Fecha: ',
                                         style: TextStyle(
                                           fontSize: 12,
                                           color: Color(0xFF781f1e),
@@ -338,7 +338,7 @@ class _TurnosScreenState extends State<TurnosScreen> {
                                               ))
                                           : Container(),
                                     ),
-                                    const Text("Hora: ",
+                                    const Text('Hora: ',
                                         style: TextStyle(
                                           fontSize: 12,
                                           color: Color(0xFF781f1e),
@@ -382,7 +382,7 @@ class _TurnosScreenState extends State<TurnosScreen> {
 
     if (connectivityResult == ConnectivityResult.none) {
       showMyDialog(
-          'Error', "Verifica que estés conectado a Internet", 'Aceptar');
+          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
     }
 
     Response response = Response(isSuccess: false);
@@ -411,7 +411,7 @@ class _TurnosScreenState extends State<TurnosScreen> {
         _showLoader = false;
       });
       showMyDialog(
-          'Error', "Verifica que estés conectado a Internet", 'Aceptar');
+          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
     }
 
     Response response = Response(isSuccess: false);
@@ -459,7 +459,7 @@ class _TurnosScreenState extends State<TurnosScreen> {
         ((valor - ((valor / 3600).floor()) * 3600) / 60).round().toString();
 
     if (minutos.length == 1) {
-      minutos = "0" + minutos;
+      minutos = '0' + minutos;
     }
     return hora.toString() + ':' + minutos.toString();
   }

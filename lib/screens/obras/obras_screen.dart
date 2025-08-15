@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:custom_info_window/custom_info_window.dart';
@@ -5,12 +7,12 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:intl/intl.dart';
-import 'package:rowing_app/components/loader_component.dart';
-import 'package:rowing_app/helpers/helpers.dart';
-import 'package:rowing_app/models/models.dart';
-import 'package:rowing_app/screens/screens.dart';
-import 'dart:math';
 import 'package:url_launcher/url_launcher.dart';
+
+import '../../components/loader_component.dart';
+import '../../helpers/helpers.dart';
+import '../../models/models.dart';
+import '../screens.dart';
 
 class ObrasScreen extends StatefulWidget {
   final User user;
@@ -147,7 +149,7 @@ class _ObrasScreenState extends State<ObrasScreen> {
               ? Row(
                   children: [
                     const Text(
-                      "Todas:",
+                      'Todas:',
                       style: TextStyle(color: Colors.white, fontSize: 14),
                     ),
                     Switch(
@@ -282,7 +284,7 @@ class _ObrasScreenState extends State<ObrasScreen> {
       height: 40,
       child: Row(
         children: [
-          const Text("Cantidad de Obras: ",
+          const Text('Cantidad de Obras: ',
               style: TextStyle(
                 fontSize: 14,
                 color: Colors.white,
@@ -329,7 +331,7 @@ class _ObrasScreenState extends State<ObrasScreen> {
           return Card(
             color: e.finalizada == 0
                 ? const Color(0xFFC7C7C8)
-                : Color.fromARGB(255, 240, 202, 151),
+                : const Color.fromARGB(255, 240, 202, 151),
             shadowColor: Colors.white,
             elevation: 10,
             margin: const EdgeInsets.fromLTRB(10, 0, 10, 10),
@@ -360,7 +362,7 @@ class _ObrasScreenState extends State<ObrasScreen> {
                                       : Container(),
                                   Row(
                                     children: [
-                                      const Text("N° Obra: ",
+                                      const Text('N° Obra: ',
                                           style: TextStyle(
                                             fontSize: 12,
                                             color: Color(0xFF781f1e),
@@ -373,7 +375,7 @@ class _ObrasScreenState extends State<ObrasScreen> {
                                               fontSize: 12,
                                             )),
                                       ),
-                                      const Text("Ult.Mov.: ",
+                                      const Text('Ult.Mov.: ',
                                           style: TextStyle(
                                             fontSize: 12,
                                             color: Color(0xFF781f1e),
@@ -392,7 +394,7 @@ class _ObrasScreenState extends State<ObrasScreen> {
                                                 ))
                                             : Container(),
                                       ),
-                                      const Text("Módulo: ",
+                                      const Text('Módulo: ',
                                           style: TextStyle(
                                             fontSize: 12,
                                             color: Color(0xFF781f1e),
@@ -412,7 +414,7 @@ class _ObrasScreenState extends State<ObrasScreen> {
                                   ),
                                   Row(
                                     children: [
-                                      const Text("Nombre: ",
+                                      const Text('Nombre: ',
                                           style: TextStyle(
                                             fontSize: 12,
                                             color: Color(0xFF781f1e),
@@ -431,7 +433,7 @@ class _ObrasScreenState extends State<ObrasScreen> {
                                   ),
                                   Row(
                                     children: [
-                                      const Text("OP/N° Fuga: ",
+                                      const Text('OP/N° Fuga: ',
                                           style: TextStyle(
                                             fontSize: 12,
                                             color: Color(0xFF781f1e),
@@ -471,7 +473,7 @@ class _ObrasScreenState extends State<ObrasScreen> {
                                       ? Row(
                                           children: [
                                             const Text(
-                                                "Fecha Cierre Eléctrico: ",
+                                                'Fecha Cierre Eléctrico: ',
                                                 style: TextStyle(
                                                   fontSize: 12,
                                                   color: Color(0xFF781f1e),
@@ -524,7 +526,7 @@ class _ObrasScreenState extends State<ObrasScreen> {
         _showLoader = false;
       });
       showMyDialog(
-          'Error', "Verifica que estés conectado a Internet", 'Aceptar');
+          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
     }
 
     Response response = Response(isSuccess: false);
@@ -835,7 +837,7 @@ class _ObrasScreenState extends State<ObrasScreen> {
         _showLoader = false;
       });
       showMyDialog(
-          'Error', "Verifica que estés conectado a Internet", 'Aceptar');
+          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
     }
 
     Response response = Response(isSuccess: false);
@@ -872,7 +874,7 @@ class _ObrasScreenState extends State<ObrasScreen> {
         _showLoader = false;
       });
       showMyDialog(
-          'Error', "Verifica que estés conectado a Internet", 'Aceptar');
+          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
     }
 
     Response response = Response(isSuccess: false);
@@ -917,7 +919,7 @@ class _ObrasScreenState extends State<ObrasScreen> {
     if (connectivityResult != ConnectivityResult.none) {
       var latt = double.tryParse(obraReparo.latitud.toString());
       var long = double.tryParse(obraReparo.longitud.toString());
-      var uri = Uri.parse("google.navigation:q=$latt,$long&mode=d");
+      var uri = Uri.parse('google.navigation:q=$latt,$long&mode=d');
       if (await canLaunch(uri.toString())) {
         await launch(uri.toString());
       } else {
@@ -927,7 +929,7 @@ class _ObrasScreenState extends State<ObrasScreen> {
       await showAlertDialog(
           context: context,
           title: 'Aviso!',
-          message: "Necesita estar conectado a Internet para acceder al mapa",
+          message: 'Necesita estar conectado a Internet para acceder al mapa',
           actions: <AlertDialogAction>[
             const AlertDialogAction(key: null, label: 'Aceptar'),
           ]);
@@ -987,7 +989,7 @@ class _ObrasScreenState extends State<ObrasScreen> {
       await showAlertDialog(
           context: context,
           title: 'Error',
-          message: "No hay Veredas",
+          message: 'No hay Veredas',
           actions: <AlertDialogAction>[
             const AlertDialogAction(key: null, label: 'Aceptar'),
           ]);

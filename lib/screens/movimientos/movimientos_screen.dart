@@ -2,10 +2,11 @@ import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:rowing_app/components/loader_component.dart';
-import 'package:rowing_app/helpers/helpers.dart';
-import 'package:rowing_app/models/models.dart';
-import 'package:rowing_app/screens/screens.dart';
+
+import '../../components/loader_component.dart';
+import '../../helpers/helpers.dart';
+import '../../models/models.dart';
+import '../screens.dart';
 
 class MovimientosScreen extends StatefulWidget {
   final User user;
@@ -90,7 +91,7 @@ class _MovimientosScreenState extends State<MovimientosScreen> {
       height: 40,
       child: Row(
         children: [
-          const Text("Cantidad de Movimientos: ",
+          const Text('Cantidad de Movimientos: ',
               style: TextStyle(
                 fontSize: 14,
                 color: Colors.white,
@@ -133,7 +134,7 @@ class _MovimientosScreenState extends State<MovimientosScreen> {
       child: ListView(
         children: _movimientos.map((e) {
           return Card(
-            color: e.linkRemito != ""
+            color: e.linkRemito != ''
                 ? const Color(0xFFC7C7C8)
                 : const Color.fromARGB(255, 240, 202, 151),
             shadowColor: Colors.white,
@@ -160,7 +161,7 @@ class _MovimientosScreenState extends State<MovimientosScreen> {
                                 children: [
                                   Row(
                                     children: [
-                                      const Text("N°: ",
+                                      const Text('N°: ',
                                           style: TextStyle(
                                             fontSize: 12,
                                             color: Color(0xFF781f1e),
@@ -173,7 +174,7 @@ class _MovimientosScreenState extends State<MovimientosScreen> {
                                               fontSize: 12,
                                             )),
                                       ),
-                                      const Text("Fecha: ",
+                                      const Text('Fecha: ',
                                           style: TextStyle(
                                             fontSize: 12,
                                             color: Color(0xFF781f1e),
@@ -191,7 +192,7 @@ class _MovimientosScreenState extends State<MovimientosScreen> {
                                                 ))
                                             : Container(),
                                       ),
-                                      const Text("C.Conc.: ",
+                                      const Text('C.Conc.: ',
                                           style: TextStyle(
                                             fontSize: 12,
                                             color: Color(0xFF781f1e),
@@ -211,7 +212,7 @@ class _MovimientosScreenState extends State<MovimientosScreen> {
                                   ),
                                   Row(
                                     children: [
-                                      const Text("Grupo Desde: ",
+                                      const Text('Grupo Desde: ',
                                           style: TextStyle(
                                             fontSize: 12,
                                             color: Color(0xFF781f1e),
@@ -223,7 +224,7 @@ class _MovimientosScreenState extends State<MovimientosScreen> {
                                               fontSize: 12,
                                             )),
                                       ),
-                                      const Text("Causante Desde: ",
+                                      const Text('Causante Desde: ',
                                           style: TextStyle(
                                             fontSize: 12,
                                             color: Color(0xFF781f1e),
@@ -245,7 +246,7 @@ class _MovimientosScreenState extends State<MovimientosScreen> {
                                   ),
                                   Row(
                                     children: [
-                                      const Text("Grupo Recibe: ",
+                                      const Text('Grupo Recibe: ',
                                           style: TextStyle(
                                             fontSize: 12,
                                             color: Color(0xFF781f1e),
@@ -257,7 +258,7 @@ class _MovimientosScreenState extends State<MovimientosScreen> {
                                               fontSize: 12,
                                             )),
                                       ),
-                                      const Text("Causante Recibe: ",
+                                      const Text('Causante Recibe: ',
                                           style: TextStyle(
                                             fontSize: 12,
                                             color: Color(0xFF781f1e),
@@ -276,7 +277,7 @@ class _MovimientosScreenState extends State<MovimientosScreen> {
                                   ),
                                   Row(
                                     children: [
-                                      const Text("N° Remito: ",
+                                      const Text('N° Remito: ',
                                           style: TextStyle(
                                             fontSize: 12,
                                             color: Color(0xFF781f1e),
@@ -288,7 +289,7 @@ class _MovimientosScreenState extends State<MovimientosScreen> {
                                               fontSize: 12,
                                             )),
                                       ),
-                                      const Text("N° Lote: ",
+                                      const Text('N° Lote: ',
                                           style: TextStyle(
                                             fontSize: 12,
                                             color: Color(0xFF781f1e),
@@ -300,7 +301,7 @@ class _MovimientosScreenState extends State<MovimientosScreen> {
                                               fontSize: 12,
                                             )),
                                       ),
-                                      const Text("Foto: ",
+                                      const Text('Foto: ',
                                           style: TextStyle(
                                             fontSize: 12,
                                             color: Color(0xFF781f1e),
@@ -308,11 +309,11 @@ class _MovimientosScreenState extends State<MovimientosScreen> {
                                           )),
                                       Expanded(
                                         child: e.linkRemito != null
-                                            ? const Text("SI",
+                                            ? const Text('SI',
                                                 style: TextStyle(
                                                   fontSize: 12,
                                                 ))
-                                            : const Text("NO",
+                                            : const Text('NO',
                                                 style: TextStyle(
                                                   fontSize: 12,
                                                 )),
@@ -356,7 +357,7 @@ class _MovimientosScreenState extends State<MovimientosScreen> {
         _showLoader = false;
       });
       showMyDialog(
-          'Error', "Verifica que estés conectado a Internet", 'Aceptar');
+          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
     }
 
     Response response = Response(isSuccess: false);

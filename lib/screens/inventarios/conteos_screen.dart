@@ -2,10 +2,11 @@ import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:rowing_app/components/loader_component.dart';
-import 'package:rowing_app/models/models.dart';
-import 'package:rowing_app/screens/screens.dart';
-import 'package:rowing_app/helpers/helpers.dart';
+
+import '../../components/loader_component.dart';
+import '../../helpers/helpers.dart';
+import '../../models/models.dart';
+import '../screens.dart';
 
 class ConteosScreen extends StatefulWidget {
   final User user;
@@ -75,7 +76,7 @@ class _ConteosScreenState extends State<ConteosScreen> {
       height: 40,
       child: Row(
         children: [
-          const Text("Cantidad de Conteos: ",
+          const Text('Cantidad de Conteos: ',
               style: TextStyle(
                 fontSize: 14,
                 color: Colors.white,
@@ -145,7 +146,7 @@ class _ConteosScreenState extends State<ConteosScreen> {
                                       const SizedBox(
                                         width: 42,
                                         child: Text(
-                                          "Grupo: ",
+                                          'Grupo: ',
                                           style: TextStyle(
                                             fontSize: 12,
                                             color: Color(0xFF781f1e),
@@ -161,7 +162,7 @@ class _ConteosScreenState extends State<ConteosScreen> {
                                             )),
                                       ),
                                       const Text(
-                                        "Almacén: ",
+                                        'Almacén: ',
                                         style: TextStyle(
                                           fontSize: 12,
                                           color: Color(0xFF781f1e),
@@ -170,7 +171,7 @@ class _ConteosScreenState extends State<ConteosScreen> {
                                       ),
                                       Expanded(
                                         child:
-                                            Text(e.causanteD + "-" + e.nombre,
+                                            Text(e.causanteD + '-' + e.nombre,
                                                 style: const TextStyle(
                                                   fontSize: 12,
                                                 )),
@@ -185,7 +186,7 @@ class _ConteosScreenState extends State<ConteosScreen> {
                                       const SizedBox(
                                         width: 80,
                                         child: Text(
-                                          "N° Conteo: ",
+                                          'N° Conteo: ',
                                           style: TextStyle(
                                             fontSize: 12,
                                             color: Color(0xFF781f1e),
@@ -200,7 +201,7 @@ class _ConteosScreenState extends State<ConteosScreen> {
                                             )),
                                       ),
                                       const Text(
-                                        "Fecha: ",
+                                        'Fecha: ',
                                         style: TextStyle(
                                           fontSize: 12,
                                           color: Color(0xFF781f1e),
@@ -228,7 +229,7 @@ class _ConteosScreenState extends State<ConteosScreen> {
                                       const SizedBox(
                                         width: 80,
                                         child: Text(
-                                          "Observación: ",
+                                          'Observación: ',
                                           style: TextStyle(
                                             fontSize: 12,
                                             color: Color(0xFF781f1e),
@@ -281,7 +282,7 @@ class _ConteosScreenState extends State<ConteosScreen> {
         _showLoader = false;
       });
       showMyDialog(
-          'Error', "Verifica que estés conectado a Internet", 'Aceptar');
+          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
     }
 
     Response response = Response(isSuccess: false);

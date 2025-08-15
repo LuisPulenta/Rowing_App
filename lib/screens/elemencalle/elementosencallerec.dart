@@ -1,5 +1,5 @@
-import 'dart:convert';
 import 'dart:io';
+
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:camera/camera.dart';
 import 'package:connectivity/connectivity.dart';
@@ -8,10 +8,11 @@ import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:rowing_app/components/loader_component.dart';
-import 'package:rowing_app/helpers/helpers.dart';
-import 'package:rowing_app/models/models.dart';
-import 'package:rowing_app/screens/screens.dart';
+
+import '../../components/loader_component.dart';
+import '../../helpers/helpers.dart';
+import '../../models/models.dart';
+import '../screens.dart';
 
 class Elementosencallerec extends StatefulWidget {
   final User user;
@@ -34,7 +35,7 @@ class _ElementosencallerecState extends State<Elementosencallerec> {
 //-------------------------- Variables --------------------------------
 //---------------------------------------------------------------------
 
-  int _nroReg = 0;
+  final int _nroReg = 0;
   int _nroObra = 0;
   String _nombreObra = '';
   String _estado = '';
@@ -46,7 +47,7 @@ class _ElementosencallerecState extends State<Elementosencallerec> {
   final bool _cantidadShowError = false;
   final TextEditingController _cantidadController = TextEditingController();
 
-  List<Catalogo> _catalogosBD = [];
+  final List<Catalogo> _catalogosBD = [];
   List<Catalogo> _catalogos = [];
   List<Catalogo> _catalogos2 = [];
 
@@ -82,8 +83,8 @@ class _ElementosencallerecState extends State<Elementosencallerec> {
   double longitud = 0;
 
   String _direccion = '';
-  String _direccionError = '';
-  bool _direccionShowError = false;
+  final String _direccionError = '';
+  final bool _direccionShowError = false;
   final TextEditingController _direccionController = TextEditingController();
 
   Obra obra = Obra(
@@ -176,15 +177,15 @@ class _ElementosencallerecState extends State<Elementosencallerec> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: const [
                   Text(
-                    "Material               ",
+                    'Material               ',
                     style: TextStyle(color: Colors.black),
                   ),
                   Text(
-                    "Cant. Dejada",
+                    'Cant. Dejada',
                     style: TextStyle(color: Colors.black),
                   ),
                   Text(
-                    "Recup.                  ",
+                    'Recup.                  ',
                     style: TextStyle(color: Colors.black),
                   ),
                 ],
@@ -215,7 +216,7 @@ class _ElementosencallerecState extends State<Elementosencallerec> {
   Widget _showObra() {
     return Row(
       children: [
-        const Text("Obra: ",
+        const Text('Obra: ',
             style: TextStyle(
               fontSize: 12,
               color: Color(0xFF781f1e),
@@ -238,7 +239,7 @@ class _ElementosencallerecState extends State<Elementosencallerec> {
   Widget _showAddress() {
     return Row(
       children: [
-        const Text("Dirección: ",
+        const Text('Dirección: ',
             style: TextStyle(
               fontSize: 12,
               color: Color(0xFF781f1e),
@@ -276,9 +277,9 @@ class _ElementosencallerecState extends State<Elementosencallerec> {
       latitud = _center.latitude;
       longitud = _center.longitude;
       _direccionController.text = placemarks[0].thoroughfare.toString() +
-          " " +
+          ' ' +
           placemarks[0].name.toString() +
-          " " +
+          ' ' +
           placemarks[0].locality.toString();
       _direccion = _direccionController.text;
       setState(() {
@@ -366,7 +367,7 @@ class _ElementosencallerecState extends State<Elementosencallerec> {
   Widget _showObservaciones() {
     return Row(
       children: [
-        const Text("Observaciones: ",
+        const Text('Observaciones: ',
             style: TextStyle(
               fontSize: 12,
               color: Color(0xFF781f1e),
@@ -495,7 +496,7 @@ class _ElementosencallerecState extends State<Elementosencallerec> {
         _showLoader = false;
       });
       showMyDialog(
-          'Error', "Verifica que estés conectado a Internet", 'Aceptar');
+          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
     }
 
     Response response = Response(isSuccess: false);
@@ -597,7 +598,7 @@ class _ElementosencallerecState extends State<Elementosencallerec> {
                                                 backgroundColor:
                                                     Colors.grey[300],
                                                 title: const Text(
-                                                    "Ingrese la cantidad"),
+                                                    'Ingrese la cantidad'),
                                                 content: TextField(
                                                   autofocus: true,
                                                   keyboardType:
@@ -865,7 +866,7 @@ class _ElementosencallerecState extends State<Elementosencallerec> {
         _showLoader = false;
       });
       showMyDialog(
-          'Error', "Verifica que estés conectado a Internet", 'Aceptar');
+          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
     }
 
     //-----------------Graba Cabecera--------------
@@ -873,14 +874,13 @@ class _ElementosencallerecState extends State<Elementosencallerec> {
       'ID': widget.elemEnCalle.idelementocab,
       'NROOBRA': widget.elemEnCalle.nroobra,
       'IDUSERCARGA': widget.elemEnCalle.idusercarga,
-      'FECHA': widget.elemEnCalle.fechaCarga,
+      'FECHA': widget.elemEnCalle.fechaCarga.substring(0, 10),
       'GRXX': widget.elemEnCalle.grxx,
       'GRYY': widget.elemEnCalle.gryy,
       'DOMICILIO': widget.elemEnCalle.domicilio,
       'OBSERVACION': widget.elemEnCalle.observacion,
       'ESTADO': _estado,
       'IDUSERRECUPERA': widget.user.idUsuario,
-      'FECHARECUPERO': DateTime.now().toString(),
       'ImageArray': '',
     };
 
@@ -1015,7 +1015,7 @@ class _ElementosencallerecState extends State<Elementosencallerec> {
         _showLoader = false;
       });
       showMyDialog(
-          'Error', "Verifica que estés conectado a Internet", 'Aceptar');
+          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
     }
 
     Response response = Response(isSuccess: false);

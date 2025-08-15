@@ -1,11 +1,10 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
-import 'package:rowing_app/components/loader_component.dart';
-import 'package:rowing_app/helpers/helpers.dart';
-import 'package:rowing_app/models/models.dart';
 
-import '../../helpers/api_helper.dart';
+import '../../components/loader_component.dart';
+import '../../helpers/helpers.dart';
+import '../../models/models.dart';
 
 class Elementosencallereporte extends StatefulWidget {
   final User user;
@@ -70,15 +69,15 @@ class _ElementosencallereporteState extends State<Elementosencallereporte> {
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: const [
                         Text(
-                          "Catálogos         ",
+                          'Catálogos         ',
                           style: TextStyle(color: Colors.white),
                         ),
                         Text(
-                          "Elemento   ",
+                          'Elemento   ',
                           style: TextStyle(color: Colors.white),
                         ),
                         Text(
-                          "Cantidad                 ",
+                          'Cantidad                 ',
                           textAlign: TextAlign.end,
                           style: TextStyle(color: Colors.white),
                         ),
@@ -105,7 +104,7 @@ class _ElementosencallereporteState extends State<Elementosencallereporte> {
       height: 40,
       child: Row(
         children: [
-          const Text("Cantidad de Items: ",
+          const Text('Cantidad de Items: ',
               style: TextStyle(
                 fontSize: 14,
                 color: Colors.white,
@@ -172,7 +171,7 @@ class _ElementosencallereporteState extends State<Elementosencallereporte> {
                                       flex: 3,
                                       child: Text(
                                           e.catsiag.toString() +
-                                              "/" +
+                                              '/' +
                                               e.catsap.toString(),
                                           style: const TextStyle(
                                             fontSize: 12,
@@ -227,7 +226,7 @@ class _ElementosencallereporteState extends State<Elementosencallereporte> {
         _showLoader = false;
       });
       showMyDialog(
-          'Error', "Verifica que estés conectado a Internet", 'Aceptar');
+          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
     }
 
     Response response = Response(isSuccess: false);

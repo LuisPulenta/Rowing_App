@@ -6,12 +6,11 @@ import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:rowing_app/components/loader_component.dart';
-import 'package:rowing_app/helpers/helpers.dart';
-import 'package:rowing_app/models/models.dart';
+import '../../components/loader_component.dart';
+import '../../helpers/helpers.dart';
+import '../../models/models.dart';
 import 'package:grouped_list/grouped_list.dart';
-import 'package:rowing_app/screens/screens.dart';
-import 'package:rowing_app/helpers/helpers.dart';
+import '../screens.dart';
 
 class InspeccionCuestionarioDuplicadoScreen extends StatefulWidget {
   final User user;
@@ -96,7 +95,7 @@ class _InspeccionCuestionarioDuplicadoScreenState
           'image': '',
           'imagedesdeweb': element.foto,
           'fotodesdeweb': element.foto !=
-              "http://190.111.249.225/RowingAppApi/images/Inspecciones/noimage.png",
+              'http://190.111.249.225/RowingAppApi/images/Inspecciones/noimage.png',
           'soloTexto': element.soloTexto,
           'obsApp': element.obsApp,
         },
@@ -132,7 +131,7 @@ class _InspeccionCuestionarioDuplicadoScreenState
           Row(
             children: [
               const Text(
-                "Todas:",
+                'Todas:',
                 style: TextStyle(color: Colors.white, fontSize: 14),
               ),
               Switch(
@@ -193,7 +192,7 @@ class _InspeccionCuestionarioDuplicadoScreenState
             children: [
               Row(
                 children: [
-                  const Text("Preguntas: ",
+                  const Text('Preguntas: ',
                       style: TextStyle(
                         fontSize: 14,
                         color: Colors.black,
@@ -209,7 +208,7 @@ class _InspeccionCuestionarioDuplicadoScreenState
               ),
               Row(
                 children: [
-                  const Text("Resp SI: ",
+                  const Text('Resp SI: ',
                       style: TextStyle(
                         fontSize: 14,
                         color: Colors.black,
@@ -225,7 +224,7 @@ class _InspeccionCuestionarioDuplicadoScreenState
               ),
               Row(
                 children: [
-                  const Text("Faltan Responder: ",
+                  const Text('Faltan Responder: ',
                       style: TextStyle(
                         fontSize: 14,
                         color: Colors.black,
@@ -255,7 +254,7 @@ class _InspeccionCuestionarioDuplicadoScreenState
             children: [
               Row(
                 children: [
-                  const Text("Resp. TXT: ",
+                  const Text('Resp. TXT: ',
                       style: TextStyle(
                         fontSize: 14,
                         color: Colors.black,
@@ -271,7 +270,7 @@ class _InspeccionCuestionarioDuplicadoScreenState
               ),
               Row(
                 children: [
-                  const Text("Resp. NO: ",
+                  const Text('Resp. NO: ',
                       style: TextStyle(
                         fontSize: 14,
                         color: Colors.black,
@@ -295,13 +294,13 @@ class _InspeccionCuestionarioDuplicadoScreenState
             children: [
               Row(
                 children: const [
-                  Text("",
+                  Text('',
                       style: TextStyle(
                         fontSize: 14,
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
                       )),
-                  Text("",
+                  Text('',
                       style: TextStyle(
                         fontSize: 14,
                         color: Colors.blue,
@@ -311,7 +310,7 @@ class _InspeccionCuestionarioDuplicadoScreenState
               ),
               Row(
                 children: [
-                  const Text("Resp. N/A: ",
+                  const Text('Resp. N/A: ',
                       style: TextStyle(
                         fontSize: 14,
                         color: Colors.black,
@@ -327,7 +326,7 @@ class _InspeccionCuestionarioDuplicadoScreenState
               ),
               Row(
                 children: [
-                  const Text("Total Puntos: ",
+                  const Text('Total Puntos: ',
                       style: TextStyle(
                         fontSize: 14,
                         color: Colors.black,
@@ -376,9 +375,9 @@ class _InspeccionCuestionarioDuplicadoScreenState
                 margin:
                     const EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
                 child: Container(
-                  color: (element['cumple'] != "SI" &&
-                          element['cumple'] != "NO" &&
-                          element['cumple'] != "N/A")
+                  color: (element['cumple'] != 'SI' &&
+                          element['cumple'] != 'NO' &&
+                          element['cumple'] != 'N/A')
                       ? Colors.white
                       : colorCeleste,
                   child: Column(
@@ -401,11 +400,11 @@ class _InspeccionCuestionarioDuplicadoScreenState
                                   color: Colors.white,
                                   borderRadius: BorderRadius.circular(10),
                                   border: Border.all(
-                                    color: element['cumple'] == "SI"
+                                    color: element['cumple'] == 'SI'
                                         ? colorVerde
-                                        : element['cumple'] == "NO"
+                                        : element['cumple'] == 'NO'
                                             ? colorRojo
-                                            : element['cumple'] == "N/A"
+                                            : element['cumple'] == 'N/A'
                                                 ? colorNaranja
                                                 : colorCeleste,
                                     width: 4,
@@ -421,7 +420,7 @@ class _InspeccionCuestionarioDuplicadoScreenState
                                     Text(
                                       '${element['ponderacionpuntos']} pts',
                                     ),
-                                    element['cumple'] != "null"
+                                    element['cumple'] != 'null'
                                         ? Text(
                                             element['cumple'],
                                           )
@@ -468,28 +467,28 @@ class _InspeccionCuestionarioDuplicadoScreenState
                                         ),
                                       ),
                                       onPressed: () {
-                                        if (element['cumple'] == "NO") {
+                                        if (element['cumple'] == 'NO') {
                                           respNO--;
                                           respSI++;
                                           puntos = puntos -
                                               int.parse(
                                                   element['ponderacionpuntos']);
                                         }
-                                        if (element['cumple'] == "N/A") {
+                                        if (element['cumple'] == 'N/A') {
                                           respNA--;
                                           respSI++;
                                         }
-                                        if (element['cumple'] != "SI" &&
-                                            element['cumple'] != "NO" &&
-                                            element['cumple'] != "N/A") {
+                                        if (element['cumple'] != 'SI' &&
+                                            element['cumple'] != 'NO' &&
+                                            element['cumple'] != 'N/A') {
                                           respSI++;
                                         }
 
-                                        _elements.forEach((e) {
+                                        for (var e in _elements) {
                                           if (e == element) {
-                                            e['cumple'] = "SI";
+                                            e['cumple'] = 'SI';
                                           }
-                                        });
+                                        }
 
                                         setState(() {});
                                       },
@@ -518,29 +517,29 @@ class _InspeccionCuestionarioDuplicadoScreenState
                                         ),
                                       ),
                                       onPressed: () {
-                                        if (element['cumple'] == "SI") {
+                                        if (element['cumple'] == 'SI') {
                                           respSI--;
                                           respNO++;
                                           puntos = puntos +
                                               int.parse(
                                                   element['ponderacionpuntos']);
                                         }
-                                        if (element['cumple'] == "N/A") {
+                                        if (element['cumple'] == 'N/A') {
                                           respNA--;
                                           respNO++;
                                           puntos = puntos +
                                               int.parse(
                                                   element['ponderacionpuntos']);
                                         }
-                                        if (element['cumple'] != "SI" &&
-                                            element['cumple'] != "NO" &&
-                                            element['cumple'] != "N/A") {
+                                        if (element['cumple'] != 'SI' &&
+                                            element['cumple'] != 'NO' &&
+                                            element['cumple'] != 'N/A') {
                                           respNO++;
                                           puntos = puntos +
                                               int.parse(
                                                   element['ponderacionpuntos']);
                                         }
-                                        element['cumple'] = "NO";
+                                        element['cumple'] = 'NO';
                                         setState(() {});
                                       },
                                     ),
@@ -568,23 +567,23 @@ class _InspeccionCuestionarioDuplicadoScreenState
                                         ),
                                       ),
                                       onPressed: () {
-                                        if (element['cumple'] == "SI") {
+                                        if (element['cumple'] == 'SI') {
                                           respSI--;
                                           respNA++;
                                         }
-                                        if (element['cumple'] == "NO") {
+                                        if (element['cumple'] == 'NO') {
                                           respNO--;
                                           respNA++;
                                           puntos = puntos -
                                               int.parse(
                                                   element['ponderacionpuntos']);
                                         }
-                                        if (element['cumple'] != "SI" &&
-                                            element['cumple'] != "NO" &&
-                                            element['cumple'] != "N/A") {
+                                        if (element['cumple'] != 'SI' &&
+                                            element['cumple'] != 'NO' &&
+                                            element['cumple'] != 'N/A') {
                                           respNA++;
                                         }
-                                        element['cumple'] = "N/A";
+                                        element['cumple'] = 'N/A';
                                         setState(() {});
                                       },
                                     ),
@@ -639,7 +638,7 @@ class _InspeccionCuestionarioDuplicadoScreenState
                                             return AlertDialog(
                                               backgroundColor: Colors.grey[300],
                                               title: const Text(
-                                                  "Ingrese al menos 3 caracteres"),
+                                                  'Ingrese al menos 3 caracteres'),
                                               content: TextField(
                                                 autofocus: true,
                                                 controller: _textoController,
@@ -755,7 +754,7 @@ class _InspeccionCuestionarioDuplicadoScreenState
                                                                   element[
                                                                       'descripcion']) {
                                                                 if (e['obsApp'] ==
-                                                                    "") {
+                                                                    '') {
                                                                   respTXT++;
                                                                 }
 
@@ -789,7 +788,7 @@ class _InspeccionCuestionarioDuplicadoScreenState
 
                       !element['photoChanged']
                           ? element['imagedesdeweb'] !=
-                                  "http://190.111.249.225/RowingAppApi/images/Inspecciones/noimage.png"
+                                  'http://190.111.249.225/RowingAppApi/images/Inspecciones/noimage.png'
                               ? CachedNetworkImage(
                                   imageUrl: element['imagedesdeweb'],
                                   errorWidget: (context, url, error) =>
@@ -828,18 +827,18 @@ class _InspeccionCuestionarioDuplicadoScreenState
                   ),
                 ),
               )
-            : (element['cumple'] != "SI" &&
-                    element['cumple'] != "NO" &&
-                    element['cumple'] != "N/A")
+            : (element['cumple'] != 'SI' &&
+                    element['cumple'] != 'NO' &&
+                    element['cumple'] != 'N/A')
                 ? Card(
                     elevation: 8.0,
                     margin: const EdgeInsets.symmetric(
                         horizontal: 10.0, vertical: 6.0),
                     child: Container(
-                      color: (element['cumple'] != "SI" &&
-                              element['cumple'] != "NO" &&
-                              element['cumple'] != "N/A" &&
-                              element['obsApp'] != "")
+                      color: (element['cumple'] != 'SI' &&
+                              element['cumple'] != 'NO' &&
+                              element['cumple'] != 'N/A' &&
+                              element['obsApp'] != '')
                           ? Colors.white
                           : Colors.blue[400],
                       child: Column(
@@ -860,11 +859,11 @@ class _InspeccionCuestionarioDuplicadoScreenState
                                 ? Container(
                                     width: 60,
                                     height: 60,
-                                    color: element['cumple'] == "SI"
+                                    color: element['cumple'] == 'SI'
                                         ? colorVerde
-                                        : element['cumple'] == "NO"
+                                        : element['cumple'] == 'NO'
                                             ? colorRojo
-                                            : element['cumple'] == "N/A"
+                                            : element['cumple'] == 'N/A'
                                                 ? colorNaranja
                                                 : colorCeleste,
                                     child: Center(
@@ -877,7 +876,7 @@ class _InspeccionCuestionarioDuplicadoScreenState
                                           style: const TextStyle(
                                               color: Colors.white),
                                         ),
-                                        element['cumple'] != "null"
+                                        element['cumple'] != 'null'
                                             ? Text(
                                                 element['cumple'],
                                                 style: const TextStyle(
@@ -923,34 +922,34 @@ class _InspeccionCuestionarioDuplicadoScreenState
                                             ),
                                           ),
                                           onPressed: () {
-                                            if (element['cumple'] == "NO") {
+                                            if (element['cumple'] == 'NO') {
                                               respNO--;
                                               respSI++;
                                               puntos = puntos +
                                                   int.parse(element[
                                                       'ponderacionpuntos']);
                                             }
-                                            if (element['cumple'] == "N/A") {
+                                            if (element['cumple'] == 'N/A') {
                                               respNA--;
                                               respSI++;
                                               puntos = puntos +
                                                   int.parse(element[
                                                       'ponderacionpuntos']);
                                             }
-                                            if (element['cumple'] != "SI" &&
-                                                element['cumple'] != "NO" &&
-                                                element['cumple'] != "N/A") {
+                                            if (element['cumple'] != 'SI' &&
+                                                element['cumple'] != 'NO' &&
+                                                element['cumple'] != 'N/A') {
                                               respSI++;
                                               puntos = puntos +
                                                   int.parse(element[
                                                       'ponderacionpuntos']);
                                             }
 
-                                            _elements.forEach((e) {
+                                            for (var e in _elements) {
                                               if (e == element) {
-                                                e['cumple'] = "SI";
+                                                e['cumple'] = 'SI';
                                               }
-                                            });
+                                            }
 
                                             setState(() {});
                                           },
@@ -979,23 +978,23 @@ class _InspeccionCuestionarioDuplicadoScreenState
                                             ),
                                           ),
                                           onPressed: () {
-                                            if (element['cumple'] == "SI") {
+                                            if (element['cumple'] == 'SI') {
                                               respSI--;
                                               respNO++;
                                               puntos = puntos -
                                                   int.parse(element[
                                                       'ponderacionpuntos']);
                                             }
-                                            if (element['cumple'] == "N/A") {
+                                            if (element['cumple'] == 'N/A') {
                                               respNA--;
                                               respNO++;
                                             }
-                                            if (element['cumple'] != "SI" &&
-                                                element['cumple'] != "NO" &&
-                                                element['cumple'] != "N/A") {
+                                            if (element['cumple'] != 'SI' &&
+                                                element['cumple'] != 'NO' &&
+                                                element['cumple'] != 'N/A') {
                                               respNO++;
                                             }
-                                            element['cumple'] = "NO";
+                                            element['cumple'] = 'NO';
                                             setState(() {});
                                           },
                                         ),
@@ -1023,23 +1022,23 @@ class _InspeccionCuestionarioDuplicadoScreenState
                                             ),
                                           ),
                                           onPressed: () {
-                                            if (element['cumple'] == "SI") {
+                                            if (element['cumple'] == 'SI') {
                                               respSI--;
                                               respNA++;
                                               puntos = puntos -
                                                   int.parse(element[
                                                       'ponderacionpuntos']);
                                             }
-                                            if (element['cumple'] == "NO") {
+                                            if (element['cumple'] == 'NO') {
                                               respNO--;
                                               respNA++;
                                             }
-                                            if (element['cumple'] != "SI" &&
-                                                element['cumple'] != "NO" &&
-                                                element['cumple'] != "N/A") {
+                                            if (element['cumple'] != 'SI' &&
+                                                element['cumple'] != 'NO' &&
+                                                element['cumple'] != 'N/A') {
                                               respNA++;
                                             }
-                                            element['cumple'] = "N/A";
+                                            element['cumple'] = 'N/A';
                                             setState(() {});
                                           },
                                         ),
@@ -1077,7 +1076,7 @@ class _InspeccionCuestionarioDuplicadoScreenState
                                                   backgroundColor:
                                                       Colors.grey[300],
                                                   title: const Text(
-                                                      "Ingrese al menos 3 caracteres"),
+                                                      'Ingrese al menos 3 caracteres'),
                                                   content: TextField(
                                                     autofocus: true,
                                                     controller:
@@ -1297,7 +1296,7 @@ class _InspeccionCuestionarioDuplicadoScreenState
                     ),
                   ),
                   onPressed: () {
-                    Navigator.pop(context, "No");
+                    Navigator.pop(context, 'No');
                   },
                 ),
               ),
@@ -1357,13 +1356,13 @@ class _InspeccionCuestionarioDuplicadoScreenState
         _showLoader = false;
       });
       showMyDialog(
-          'Error', "Verifica que estés conectado a Internet", 'Aceptar');
+          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
     }
 
     Map<String, dynamic> request = {
       'idinspeccion': 0,
       'idcliente': widget.detallesFormulariosCompleto[0].idcliente,
-      'fecha': DateTime.now().toString(),
+      'fecha': DateTime.now().toString().substring(0, 10),
       'usuarioalta': widget.user.idUsuario,
       'latitud': widget.positionUser.latitude.toString(),
       'longitud': widget.positionUser.longitude.toString(),

@@ -1,9 +1,10 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
-import 'package:rowing_app/components/loader_component.dart';
-import 'package:rowing_app/helpers/helpers.dart';
-import 'package:rowing_app/models/models.dart';
+
+import '../../components/loader_component.dart';
+import '../../helpers/helpers.dart';
+import '../../models/models.dart';
 
 class SiniestroEditarScreen extends StatefulWidget {
   final User user;
@@ -498,7 +499,7 @@ class _SiniestroEditarScreenState extends State<SiniestroEditarScreen> {
         children: [
           const SizedBox(
             width: 160,
-            child: Text("Hubo lesionados: ",
+            child: Text('Hubo lesionados: ',
                 style: TextStyle(
                   fontSize: 15,
                   color: Colors.black,
@@ -554,7 +555,7 @@ class _SiniestroEditarScreenState extends State<SiniestroEditarScreen> {
         children: [
           const SizedBox(
             width: 160,
-            child: Text("Intervino la Policía: ",
+            child: Text('Intervino la Policía: ',
                 style: TextStyle(
                   fontSize: 15,
                   color: Colors.black,
@@ -587,7 +588,7 @@ class _SiniestroEditarScreenState extends State<SiniestroEditarScreen> {
         children: [
           const SizedBox(
             width: 160,
-            child: Text("Intervino Ambulancia: ",
+            child: Text('Intervino Ambulancia: ',
                 style: TextStyle(
                   fontSize: 15,
                   color: Colors.black,
@@ -695,7 +696,7 @@ class _SiniestroEditarScreenState extends State<SiniestroEditarScreen> {
         children: [
           const SizedBox(
             width: 160,
-            child: Text("Notif. a la Empresa: ",
+            child: Text('Notif. a la Empresa: ',
                 style: TextStyle(
                   fontSize: 15,
                   color: Colors.black,
@@ -771,7 +772,7 @@ class _SiniestroEditarScreenState extends State<SiniestroEditarScreen> {
                       },
                       child: InkWell(
                         child: Text(
-                            "    ${selectedDate.day}/${selectedDate.month}/${selectedDate.year}"),
+                            '    ${selectedDate.day}/${selectedDate.month}/${selectedDate.year}'),
                       ),
                     ),
                   ],
@@ -800,7 +801,7 @@ class _SiniestroEditarScreenState extends State<SiniestroEditarScreen> {
                       },
                       child: InkWell(
                         child: Text(
-                            "        ${selectedTime.hour}:${selectedTime.minute}"),
+                            '        ${selectedTime.hour}:${selectedTime.minute}'),
                       ),
                     ),
                   ],
@@ -1019,7 +1020,7 @@ class _SiniestroEditarScreenState extends State<SiniestroEditarScreen> {
       _nropolizaShowError = false;
     }
 
-    if (_huboLesionados && (_numlesionados.isEmpty || _numlesionados == "0")) {
+    if (_huboLesionados && (_numlesionados.isEmpty || _numlesionados == '0')) {
       isValid = false;
       _numlesionadosShowError = true;
       _numlesionadosError = 'Ingrese N° Lesion.';
@@ -1027,7 +1028,7 @@ class _SiniestroEditarScreenState extends State<SiniestroEditarScreen> {
       _numlesionadosShowError = false;
     }
 
-    if (_observaciones.isEmpty || _observaciones == "") {
+    if (_observaciones.isEmpty || _observaciones == '') {
       isValid = false;
       _observacionesShowError = true;
       _observacionesError = 'Debe ingresar Relato del Siniestro';
@@ -1035,7 +1036,7 @@ class _SiniestroEditarScreenState extends State<SiniestroEditarScreen> {
       _observacionesShowError = false;
     }
 
-    if (_detalleDanosTercero.isEmpty || _detalleDanosTercero == "") {
+    if (_detalleDanosTercero.isEmpty || _detalleDanosTercero == '') {
       isValid = false;
       _detalleDanosTerceroShowError = true;
       _detalleDanosTerceroError = 'Debe ingresar detalle de daños del Tercero';
@@ -1043,7 +1044,7 @@ class _SiniestroEditarScreenState extends State<SiniestroEditarScreen> {
       _detalleDanosTerceroShowError = false;
     }
 
-    if (_detalleDanosPropio.isEmpty || _detalleDanosPropio == "") {
+    if (_detalleDanosPropio.isEmpty || _detalleDanosPropio == '') {
       isValid = false;
       _detalleDanosPropioShowError = true;
       _detalleDanosPropioError = 'Debe ingresar detalle de daños propios';
@@ -1105,29 +1106,29 @@ class _SiniestroEditarScreenState extends State<SiniestroEditarScreen> {
         _showLoader = false;
       });
       showMyDialog(
-          'Error', "Verifica que estés conectado a Internet", 'Aceptar');
+          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
     }
 
     Map<String, dynamic> request = {
       'nrosiniestro': widget.siniestro.nrosiniestro,
-      'fechacarga': selectedDate.toString(),
+      'fechacarga': selectedDate.toString().substring(0, 10),
       'grupo': widget.siniestro.grupo,
       'causante': widget.siniestro.causante,
       'apellidonombretercero': pLMayusc(_tercero),
       'nropolizatercero': _nropoliza,
       'telefonocontactotercero': _telefonotercero,
       'emailtercero': _emailtercero,
-      'notificadoempresa': _notifico ? "SI" : "NO",
+      'notificadoempresa': _notifico ? 'SI' : 'NO',
       'notificadoa': _notificadoa,
       'direccionsiniestro': pLMayusc(_calle),
       'altura': _numero,
       'ciudad': pLMayusc(_ciudad),
       'provincia': pLMayusc(_provincia),
       'horasiniestro': selectedTime.hour * 3600 + selectedTime.minute * 60,
-      'lesionados': _huboLesionados ? "SI" : "NO",
+      'lesionados': _huboLesionados ? 'SI' : 'NO',
       'cantidadlesionados': _huboLesionados ? _numlesionados : 0,
-      'intervinopolicia': _intervinoPolicia ? "SI" : "NO",
-      'intervinoambulancia': _intervinoAmbulancia ? "SI" : "NO",
+      'intervinopolicia': _intervinoPolicia ? 'SI' : 'NO',
+      'intervinoambulancia': _intervinoAmbulancia ? 'SI' : 'NO',
       'relatosiniestro': _observaciones,
       'numcha': _numcha.toUpperCase(),
       'companiasegurotercero': pLMayusc(_companiaseguro),
@@ -1135,7 +1136,6 @@ class _SiniestroEditarScreenState extends State<SiniestroEditarScreen> {
       'detalledanostercero': _detalleDanosTercero,
       'detalledanospropio': _detalleDanosPropio,
       'numchatercero': _numchatercero,
-      'fechacargaapp': DateTime.now().toString(),
     };
 
     Response response = await ApiHelper.put('/api/VehiculosSiniestros/',
@@ -1175,7 +1175,7 @@ class _SiniestroEditarScreenState extends State<SiniestroEditarScreen> {
         isSpace = false;
       }
 
-      if (string[i] == " ") {
+      if (string[i] == ' ') {
         isSpace = true;
       } else {
         isSpace = false;
@@ -1234,17 +1234,17 @@ class _SiniestroEditarScreenState extends State<SiniestroEditarScreen> {
     _nropoliza = widget.siniestro.nropolizatercero;
     _nropolizaController.text = widget.siniestro.nropolizatercero;
 
-    _huboLesionados = widget.siniestro.lesionados == "SI" ? true : false;
+    _huboLesionados = widget.siniestro.lesionados == 'SI' ? true : false;
 
     _numlesionados = widget.siniestro.cantidadlesionados.toString();
     _numlesionadosController.text =
         widget.siniestro.cantidadlesionados.toString();
 
     _intervinoPolicia =
-        widget.siniestro.intervinopolicia == "SI" ? true : false;
+        widget.siniestro.intervinopolicia == 'SI' ? true : false;
 
     _intervinoAmbulancia =
-        widget.siniestro.intervinoambulancia == "SI" ? true : false;
+        widget.siniestro.intervinoambulancia == 'SI' ? true : false;
 
     _observaciones = widget.siniestro.relatosiniestro;
     _observacionesController.text = widget.siniestro.relatosiniestro;
@@ -1255,7 +1255,7 @@ class _SiniestroEditarScreenState extends State<SiniestroEditarScreen> {
     _detalleDanosTercero = widget.siniestro.detalledanostercero;
     _detalleDanosTerceroController.text = widget.siniestro.detalledanostercero;
 
-    _notifico = widget.siniestro.notificadoempresa == "SI" ? true : false;
+    _notifico = widget.siniestro.notificadoempresa == 'SI' ? true : false;
 
     _notificadoa = widget.siniestro.notificadoa;
     _notificadoaController.text = widget.siniestro.notificadoa;

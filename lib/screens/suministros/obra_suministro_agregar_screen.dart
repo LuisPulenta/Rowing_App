@@ -1,5 +1,6 @@
-import 'dart:io';
 import 'dart:convert';
+import 'dart:io';
+
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/gestures.dart';
@@ -7,11 +8,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:rowing_app/components/loader_component.dart';
-import 'package:rowing_app/helpers/dbsuministros_helper.dart';
-import 'package:rowing_app/models/models.dart';
-import 'package:rowing_app/screens/screens.dart';
 import 'package:path_provider/path_provider.dart';
+
+import '../../components/loader_component.dart';
+import '../../helpers/dbsuministros_helper.dart';
+import '../../models/models.dart';
+import '../screens.dart';
 
 class ObraSuministroAgregarScreen extends StatefulWidget {
   final User user;
@@ -252,12 +254,12 @@ class _ObraSuministroAgregarScreenState
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: const [
-                          Text("DNI Frente",
+                          Text('DNI Frente',
                               style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 16,
                                   fontWeight: FontWeight.bold)),
-                          Text("DNI Dorso",
+                          Text('DNI Dorso',
                               style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 16,
@@ -271,7 +273,7 @@ class _ObraSuministroAgregarScreenState
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: const [
-                          Text("Firma Cliente",
+                          Text('Firma Cliente',
                               style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 16,
@@ -308,7 +310,7 @@ class _ObraSuministroAgregarScreenState
                           Expanded(
                             flex: 1,
                             child: SwitchListTile.adaptive(
-                                title: const Text("Corte:"),
+                                title: const Text('Corte:'),
                                 activeColor: const Color(0xFF781f1e),
                                 value: _corte,
                                 onChanged: (value) {
@@ -319,7 +321,7 @@ class _ObraSuministroAgregarScreenState
                           Expanded(
                             flex: 1,
                             child: SwitchListTile.adaptive(
-                                title: const Text("Denuncia:"),
+                                title: const Text('Denuncia:'),
                                 activeColor: const Color(0xFF781f1e),
                                 value: _denuncia,
                                 onChanged: (value) {
@@ -334,7 +336,7 @@ class _ObraSuministroAgregarScreenState
                           Expanded(
                             flex: 1,
                             child: SwitchListTile.adaptive(
-                                title: const Text("Retiro Cruce Calle:"),
+                                title: const Text('Retiro Cruce Calle:'),
                                 activeColor: const Color(0xFF781f1e),
                                 value: _retirocrucecalle,
                                 onChanged: (value) {
@@ -345,7 +347,7 @@ class _ObraSuministroAgregarScreenState
                           Expanded(
                             flex: 1,
                             child: SwitchListTile.adaptive(
-                                title: const Text("Trabajo con Hidro:"),
+                                title: const Text('Trabajo con Hidro:'),
                                 activeColor: const Color(0xFF781f1e),
                                 value: _trabajoconhidro,
                                 onChanged: (value) {
@@ -360,7 +362,7 @@ class _ObraSuministroAgregarScreenState
                           Expanded(
                             flex: 1,
                             child: SwitchListTile.adaptive(
-                                title: const Text("Poste podrido:"),
+                                title: const Text('Poste podrido:'),
                                 activeColor: const Color(0xFF781f1e),
                                 value: _postepodrido,
                                 onChanged: (value) {
@@ -551,7 +553,7 @@ class _ObraSuministroAgregarScreenState
                       width: 5,
                     ),
                     Text(
-                      "Cliente",
+                      'Cliente',
                       style: TextStyle(fontSize: 14),
                     ),
                   ],
@@ -565,7 +567,7 @@ class _ObraSuministroAgregarScreenState
                       width: 5,
                     ),
                     Text(
-                      "Suministro",
+                      'Suministro',
                       style: TextStyle(fontSize: 14),
                     ),
                   ],
@@ -579,7 +581,7 @@ class _ObraSuministroAgregarScreenState
                       width: 5,
                     ),
                     Text(
-                      "Fotos",
+                      'Fotos',
                       style: TextStyle(fontSize: 14),
                     ),
                   ],
@@ -600,7 +602,7 @@ class _ObraSuministroAgregarScreenState
       child: TextField(
         controller: _nameController,
         decoration: InputDecoration(
-            fillColor: _name == "" ? Colors.yellow : Colors.white,
+            fillColor: _name == '' ? Colors.yellow : Colors.white,
             filled: true,
             hintText: 'Ingrese apellido y nombre...',
             labelText: 'Apellido y Nombre',
@@ -629,7 +631,7 @@ class _ObraSuministroAgregarScreenState
               controller: _documentController,
               keyboardType: TextInputType.number,
               decoration: InputDecoration(
-                  fillColor: _document == "" ? Colors.yellow : Colors.white,
+                  fillColor: _document == '' ? Colors.yellow : Colors.white,
                   filled: true,
                   enabled: true,
                   hintText: 'Ingresa documento...',
@@ -673,7 +675,7 @@ class _ObraSuministroAgregarScreenState
                 int arroba5 = 0;
 
                 for (int c = 0; c <= barcodeScanRes.length - 1; c++) {
-                  if (barcodeScanRes[c] == "@") {
+                  if (barcodeScanRes[c] == '@') {
                     cantArrobas++;
 
                     if (arroba4 != 0 && arroba5 == 0) {
@@ -696,8 +698,8 @@ class _ObraSuministroAgregarScreenState
                 }
 
                 if (cantArrobas < 6) {
-                  _documentController.text = "";
-                  _nameController.text = "";
+                  _documentController.text = '';
+                  _nameController.text = '';
                 } else {
                   _documentController.text =
                       barcodeScanRes.substring(arroba4 + 1, arroba5);
@@ -873,7 +875,7 @@ class _ObraSuministroAgregarScreenState
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: const [
-              Text("Foto Antes 1",
+              Text('Foto Antes 1',
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: 16,
@@ -957,7 +959,7 @@ class _ObraSuministroAgregarScreenState
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: const [
-              Text("Foto Antes 2",
+              Text('Foto Antes 2',
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: 16,
@@ -1041,7 +1043,7 @@ class _ObraSuministroAgregarScreenState
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: const [
-              Text("Foto Después 1",
+              Text('Foto Después 1',
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: 16,
@@ -1125,7 +1127,7 @@ class _ObraSuministroAgregarScreenState
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: const [
-              Text("Foto Después 2",
+              Text('Foto Después 2',
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: 16,
@@ -1223,7 +1225,7 @@ class _ObraSuministroAgregarScreenState
               keyboardType: TextInputType.streetAddress,
               decoration: InputDecoration(
                   fillColor:
-                      _domicilio == "" ? Colors.yellow[200] : Colors.white,
+                      _domicilio == '' ? Colors.yellow[200] : Colors.white,
                   filled: true,
                   hintText: 'Ingresa domicilio...',
                   labelText: 'Domicilio',
@@ -1255,7 +1257,7 @@ class _ObraSuministroAgregarScreenState
               controller: _barrioController,
               keyboardType: TextInputType.streetAddress,
               decoration: InputDecoration(
-                  fillColor: _barrio == "" ? Colors.yellow[200] : Colors.white,
+                  fillColor: _barrio == '' ? Colors.yellow[200] : Colors.white,
                   filled: true,
                   hintText: 'Ingresa barrio...',
                   labelText: 'Barrio',
@@ -1288,7 +1290,7 @@ class _ObraSuministroAgregarScreenState
               keyboardType: TextInputType.streetAddress,
               decoration: InputDecoration(
                   fillColor:
-                      _localidad == "" ? Colors.yellow[200] : Colors.white,
+                      _localidad == '' ? Colors.yellow[200] : Colors.white,
                   filled: true,
                   hintText: 'Ingresa localidad...',
                   labelText: 'Localidad',
@@ -1320,7 +1322,7 @@ class _ObraSuministroAgregarScreenState
               controller: _partidoController,
               keyboardType: TextInputType.streetAddress,
               decoration: InputDecoration(
-                  fillColor: _partido == "" ? Colors.yellow[200] : Colors.white,
+                  fillColor: _partido == '' ? Colors.yellow[200] : Colors.white,
                   filled: true,
                   hintText: 'Ingresa partido...',
                   labelText: 'Partido',
@@ -1353,7 +1355,7 @@ class _ObraSuministroAgregarScreenState
               keyboardType: TextInputType.streetAddress,
               decoration: InputDecoration(
                   fillColor:
-                      _entrecalles1 == "" ? Colors.yellow[200] : Colors.white,
+                      _entrecalles1 == '' ? Colors.yellow[200] : Colors.white,
                   filled: true,
                   hintText: 'Ingresa entrecalle 1...',
                   labelText: 'Entrecalle 1',
@@ -1386,7 +1388,7 @@ class _ObraSuministroAgregarScreenState
               keyboardType: TextInputType.streetAddress,
               decoration: InputDecoration(
                   fillColor:
-                      _entrecalles2 == "" ? Colors.yellow[200] : Colors.white,
+                      _entrecalles2 == '' ? Colors.yellow[200] : Colors.white,
                   filled: true,
                   hintText: 'Ingresa entrecalle 2...',
                   labelText: 'Entrecalle 2',
@@ -1415,7 +1417,7 @@ class _ObraSuministroAgregarScreenState
         controller: _telefonoController,
         keyboardType: TextInputType.phone,
         decoration: InputDecoration(
-            fillColor: _telefono == "" ? Colors.yellow[200] : Colors.white,
+            fillColor: _telefono == '' ? Colors.yellow[200] : Colors.white,
             filled: true,
             hintText: 'Ingresa Teléfono...',
             labelText: 'Teléfono',
@@ -1442,7 +1444,7 @@ class _ObraSuministroAgregarScreenState
         controller: _emailController,
         keyboardType: TextInputType.emailAddress,
         decoration: InputDecoration(
-            fillColor: _email == "" ? Colors.yellow[200] : Colors.white,
+            fillColor: _email == '' ? Colors.yellow[200] : Colors.white,
             filled: true,
             enabled: false,
             hintText: 'Ingresa Email...',
@@ -1861,7 +1863,7 @@ class _ObraSuministroAgregarScreenState
             child: TextField(
               controller: _medidorcolocadoController,
               decoration: InputDecoration(
-                  fillColor: _medidorcolocado == ""
+                  fillColor: _medidorcolocado == ''
                       ? Colors.yellow[200]
                       : Colors.white,
                   filled: true,
@@ -2125,7 +2127,7 @@ class _ObraSuministroAgregarScreenState
         isSpace = false;
       }
 
-      if (string[i] == " ") {
+      if (string[i] == ' ') {
         isSpace = true;
       } else {
         isSpace = false;
@@ -2271,20 +2273,20 @@ class _ObraSuministroAgregarScreenState
 
     for (var suministro in _suministros) {
       if (suministro.dni == _document && _document != dniAntesEditar) {
-        _showSnackbar("El DNI ya existe", Colors.red);
+        _showSnackbar('El DNI ya existe', Colors.red);
         existeDNIenBD = true;
       }
     }
 
     if (!existeDNIenBD && widget.editMode == false) {
       await DBSuministros.insertSuministro(requestObrasNuevoSuministro);
-      _showSnackbar("Suministro grabado con éxito", Colors.lightGreen);
+      _showSnackbar('Suministro grabado con éxito', Colors.lightGreen);
       Navigator.pop(context, 'yes');
     }
 
     if (widget.editMode == true && !existeDNIenBD) {
       await DBSuministros.update(requestObrasNuevoSuministro);
-      _showSnackbar("Suministro grabado con éxito", Colors.lightGreen);
+      _showSnackbar('Suministro grabado con éxito', Colors.lightGreen);
       Navigator.pop(context, 'yes');
     }
 
@@ -2292,7 +2294,7 @@ class _ObraSuministroAgregarScreenState
         existeDNIenBD &&
         _document == dniAntesEditar) {
       await DBSuministros.update(requestObrasNuevoSuministro);
-      _showSnackbar("Suministro grabado con éxito", Colors.lightGreen);
+      _showSnackbar('Suministro grabado con éxito', Colors.lightGreen);
       Navigator.pop(context, 'yes');
     }
   }
@@ -2378,19 +2380,19 @@ class _ObraSuministroAgregarScreenState
     _medidorvecino = widget.suministro.medidorvecino!;
     _medidorvecinoController.text = widget.suministro.medidorvecino!;
 
-    _tensionContratada = widget.suministro.tensioncontratada.toString() != "0"
+    _tensionContratada = widget.suministro.tensioncontratada.toString() != '0'
         ? widget.suministro.tensioncontratada.toString()
-        : "";
+        : '';
     _tensionContratadaController.text = _tensionContratada!;
 
-    _potenciaContratada = widget.suministro.potenciacontratada.toString() != "0"
+    _potenciaContratada = widget.suministro.potenciacontratada.toString() != '0'
         ? widget.suministro.potenciacontratada.toString()
-        : "";
+        : '';
     _potenciaContratadaController.text = _potenciaContratada!;
 
-    _mtsCableRetirado = widget.suministro.mtscableretirado.toString() != "0"
+    _mtsCableRetirado = widget.suministro.mtscableretirado.toString() != '0'
         ? widget.suministro.mtscableretirado.toString()
-        : "";
+        : '';
     _mtsCableRetiradoController.text = _mtsCableRetirado!;
 
     _observaciones = widget.suministro.observaciones.toString();
@@ -2402,7 +2404,7 @@ class _ObraSuministroAgregarScreenState
     File fotoDNIFrenteFile = await File(pathRutafotoDNIFrente).create();
     fotoDNIFrenteFile.writeAsBytesSync(fotoDNIFrente, flush: true);
     _imageFrente = XFile(fotoDNIFrenteFile.path);
-    widget.suministro.fotodnifrente != ""
+    widget.suministro.fotodnifrente != ''
         ? _photoChangedDNIFrente = true
         : _photoChangedDNIFrente = false;
 
@@ -2412,7 +2414,7 @@ class _ObraSuministroAgregarScreenState
     File fotoDNIDorsoFile = await File(pathRutafotoDNIDorso).create();
     fotoDNIDorsoFile.writeAsBytesSync(fotoDNIDorso, flush: true);
     _imageDorso = XFile(fotoDNIDorsoFile.path);
-    widget.suministro.fotodnireverso != ""
+    widget.suministro.fotodnireverso != ''
         ? _photoChangedDNIDorso = true
         : _photoChangedDNIDorso = false;
 
@@ -2422,7 +2424,7 @@ class _ObraSuministroAgregarScreenState
     File fotoAntes1File = await File(pathRutafotoAntes1).create();
     fotoAntes1File.writeAsBytesSync(fotoAntes1, flush: true);
     _imageAntes1 = XFile(fotoAntes1File.path);
-    widget.suministro.antesfotO1 != ""
+    widget.suministro.antesfotO1 != ''
         ? _photoChangedAntes1 = true
         : _photoChangedAntes1 = false;
 
@@ -2432,7 +2434,7 @@ class _ObraSuministroAgregarScreenState
     File fotoAntes2File = await File(pathRutafotoAntes2).create();
     fotoAntes2File.writeAsBytesSync(fotoAntes2, flush: true);
     _imageAntes2 = XFile(fotoAntes2File.path);
-    widget.suministro.antesfotO2 != ""
+    widget.suministro.antesfotO2 != ''
         ? _photoChangedAntes2 = true
         : _photoChangedAntes2 = false;
 
@@ -2442,7 +2444,7 @@ class _ObraSuministroAgregarScreenState
     File fotoDespues1File = await File(pathRutafotoDespues1).create();
     fotoDespues1File.writeAsBytesSync(fotoDespues1, flush: true);
     _imageDespues1 = XFile(fotoDespues1File.path);
-    widget.suministro.despuesfotO1 != ""
+    widget.suministro.despuesfotO1 != ''
         ? _photoChangedDespues1 = true
         : _photoChangedDespues1 = false;
 
@@ -2452,14 +2454,14 @@ class _ObraSuministroAgregarScreenState
     File fotoDespues2File = await File(pathRutafotoDespues2).create();
     fotoDespues2File.writeAsBytesSync(fotoDespues2, flush: true);
     _imageDespues2 = XFile(fotoDespues2File.path);
-    widget.suministro.despuesfotO2 != ""
+    widget.suministro.despuesfotO2 != ''
         ? _photoChangedDespues2 = true
         : _photoChangedDespues2 = false;
 
     Uint8List firmaCliente2 = base64Decode(widget.suministro.firmacliente!);
     _signature = ByteData.view(firmaCliente2.buffer);
 
-    widget.suministro.firmacliente != ""
+    widget.suministro.firmacliente != ''
         ? _signatureChanged = true
         : _signatureChanged = false;
 

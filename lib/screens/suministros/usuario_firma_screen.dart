@@ -1,13 +1,14 @@
 import 'dart:convert';
+import 'dart:typed_data';
 
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
-import 'package:rowing_app/components/loader_component.dart';
-import 'package:rowing_app/helpers/helpers.dart';
-import 'dart:typed_data';
-import 'package:rowing_app/models/models.dart';
-import 'package:rowing_app/screens/screens.dart';
+
+import '../../components/loader_component.dart';
+import '../../helpers/helpers.dart';
+import '../../models/models.dart';
+import '../screens.dart';
 
 class UsuarioFirmaScreen extends StatefulWidget {
   final User user;
@@ -172,7 +173,7 @@ class _UsuarioFirmaScreenState extends State<UsuarioFirmaScreen> {
 
   void _showSnackbar() {
     SnackBar snackbar = const SnackBar(
-      content: Text("Firma grabada con éxito"),
+      content: Text('Firma grabada con éxito'),
       backgroundColor: Colors.lightGreen,
       //duration: Duration(seconds: 3),
     );

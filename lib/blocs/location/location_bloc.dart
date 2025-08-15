@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:math';
+
 import 'package:battery_plus/battery_plus.dart';
 import 'package:bloc/bloc.dart';
 import 'package:connectivity/connectivity.dart';
@@ -8,11 +9,12 @@ import 'package:equatable/equatable.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart' show LatLng;
-import 'package:rowing_app/helpers/api_helper.dart';
-import 'package:rowing_app/helpers/constants.dart';
-import 'package:rowing_app/models/models.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../helpers/api_helper.dart';
+import '../../helpers/constants.dart';
+import '../../models/models.dart';
 
 part 'location_event.dart';
 part 'location_state.dart';
@@ -83,7 +85,7 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
     String? userBody = prefs.getString('userBody');
-    if (userBody != null && userBody != "") {
+    if (userBody != null && userBody != '') {
       var decodedJson = jsonDecode(userBody);
       _user = User.fromJson(decodedJson);
     }
@@ -203,9 +205,9 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
     List<Placemark> placemarks =
         await placemarkFromCoordinates(latitud, longitud);
     String direccion = placemarks[0].street.toString() +
-        " - " +
+        ' - ' +
         placemarks[0].locality.toString() +
-        " - " +
+        ' - ' +
         placemarks[0].country.toString();
 
     _battery.batteryState.then(_updateBatteryState);
@@ -219,11 +221,11 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
       'UsuarioStr': _user.fullName,
       'latitud': latitud,
       'longitud': longitud,
-      'PIN': "mapinred.ico", //distancia.toString(),
+      'PIN': 'mapinred.ico', //distancia.toString(),
       'PosicionCalle': direccion,
       'Velocidad': 0,
       'Bateria': batnivel,
-      'Fecha': DateTime.now().toString(),
+      'Fecha': DateTime.now().toString().substring(0, 10),
       'Modulo': _user.modulo,
       'Origen': 0,
     };

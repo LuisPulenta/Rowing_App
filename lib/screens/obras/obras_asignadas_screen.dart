@@ -2,10 +2,11 @@ import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:rowing_app/components/loader_component.dart';
-import 'package:rowing_app/helpers/helpers.dart';
-import 'package:rowing_app/models/models.dart';
-import 'package:rowing_app/screens/screens.dart';
+
+import '../../components/loader_component.dart';
+import '../../helpers/helpers.dart';
+import '../../models/models.dart';
+import '../screens.dart';
 
 class ObrasAsignadasScreen extends StatefulWidget {
   final User user;
@@ -46,7 +47,7 @@ class _ObrasAsignadasScreenState extends State<ObrasAsignadasScreen> {
       modulo: '',
       elempep: '');
 
-  ObraAsignada _obraSeleccionada = ObraAsignada(
+  final ObraAsignada _obraSeleccionada = ObraAsignada(
       nroregistro: 0,
       nroobra: 0,
       subcontratista: '',
@@ -214,7 +215,7 @@ class _ObrasAsignadasScreenState extends State<ObrasAsignadasScreen> {
       height: 40,
       child: Row(
         children: [
-          const Text("Cantidad de Obras: ",
+          const Text('Cantidad de Obras: ',
               style: TextStyle(
                 fontSize: 14,
                 color: Colors.white,
@@ -284,7 +285,7 @@ class _ObrasAsignadasScreenState extends State<ObrasAsignadasScreen> {
                                 children: [
                                   Row(
                                     children: [
-                                      const Text("N° Obra: ",
+                                      const Text('N° Obra: ',
                                           style: TextStyle(
                                             fontSize: 12,
                                             color: Color(0xFF781f1e),
@@ -297,7 +298,7 @@ class _ObrasAsignadasScreenState extends State<ObrasAsignadasScreen> {
                                               fontSize: 12,
                                             )),
                                       ),
-                                      const Text("Módulo: ",
+                                      const Text('Módulo: ',
                                           style: TextStyle(
                                             fontSize: 12,
                                             color: Color(0xFF781f1e),
@@ -317,7 +318,7 @@ class _ObrasAsignadasScreenState extends State<ObrasAsignadasScreen> {
                                   ),
                                   Row(
                                     children: [
-                                      const Text("Nombre: ",
+                                      const Text('Nombre: ',
                                           style: TextStyle(
                                             fontSize: 12,
                                             color: Color(0xFF781f1e),
@@ -336,7 +337,7 @@ class _ObrasAsignadasScreenState extends State<ObrasAsignadasScreen> {
                                   ),
                                   Row(
                                     children: [
-                                      const Text("Sigest/Odt: ",
+                                      const Text('Sigest/Odt: ',
                                           style: TextStyle(
                                             fontSize: 12,
                                             color: Color(0xFF781f1e),
@@ -389,7 +390,7 @@ class _ObrasAsignadasScreenState extends State<ObrasAsignadasScreen> {
         _showLoader = false;
       });
       showMyDialog(
-          'Error', "Verifica que estés conectado a Internet", 'Aceptar');
+          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
     }
 
     Response response = Response(isSuccess: false);

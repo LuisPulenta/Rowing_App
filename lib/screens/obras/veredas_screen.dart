@@ -3,9 +3,10 @@ import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:intl/intl.dart';
-import 'package:rowing_app/helpers/helpers.dart';
-import 'package:rowing_app/models/models.dart';
-import 'package:rowing_app/screens/screens.dart';
+
+import '../../helpers/helpers.dart';
+import '../../models/models.dart';
+import '../screens.dart';
 
 class VeredasScreen extends StatefulWidget {
   final User user;
@@ -258,7 +259,7 @@ class _VeredasScreenState extends State<VeredasScreen> {
                                   children: [
                                     const SizedBox(
                                       width: 110,
-                                      child: Text("Dirección: ",
+                                      child: Text('Dirección: ',
                                           style: TextStyle(
                                             fontSize: 12,
                                             color: Color(0xFF0e4888),
@@ -268,7 +269,7 @@ class _VeredasScreenState extends State<VeredasScreen> {
                                     Expanded(
                                       child: Text(
                                           e.direccion! +
-                                              " " +
+                                              ' ' +
                                               e.altura.toString(),
                                           style: const TextStyle(
                                             fontSize: 12,
@@ -283,7 +284,7 @@ class _VeredasScreenState extends State<VeredasScreen> {
                                   children: [
                                     const SizedBox(
                                       width: 110,
-                                      child: Text("Tipo Vereda: ",
+                                      child: Text('Tipo Vereda: ',
                                           style: TextStyle(
                                             fontSize: 12,
                                             color: Color(0xFF0e4888),
@@ -305,7 +306,7 @@ class _VeredasScreenState extends State<VeredasScreen> {
                                   children: [
                                     const SizedBox(
                                       width: 110,
-                                      child: Text("Mts. lineales: ",
+                                      child: Text('Mts. lineales: ',
                                           style: TextStyle(
                                             fontSize: 12,
                                             color: Color(0xFF0e4888),
@@ -327,7 +328,7 @@ class _VeredasScreenState extends State<VeredasScreen> {
                                   children: [
                                     const SizedBox(
                                       width: 110,
-                                      child: Text("Ancho [cm]: ",
+                                      child: Text('Ancho [cm]: ',
                                           style: TextStyle(
                                             fontSize: 12,
                                             color: Color(0xFF0e4888),
@@ -349,7 +350,7 @@ class _VeredasScreenState extends State<VeredasScreen> {
                                   children: [
                                     const SizedBox(
                                       width: 110,
-                                      child: Text("Profundidad [cm]: ",
+                                      child: Text('Profundidad [cm]: ',
                                           style: TextStyle(
                                             fontSize: 12,
                                             color: Color(0xFF0e4888),
@@ -367,13 +368,13 @@ class _VeredasScreenState extends State<VeredasScreen> {
                                 const SizedBox(
                                   height: 1,
                                 ),
-                                e.fechacumplimento != "null" &&
+                                e.fechacumplimento != 'null' &&
                                         e.fechacumplimento != null
                                     ? Row(
                                         children: [
                                           const SizedBox(
                                             width: 110,
-                                            child: Text("Fecha  cumpl.: ",
+                                            child: Text('Fecha  cumpl.: ',
                                                 style: TextStyle(
                                                   fontSize: 12,
                                                   color: Colors.red,
@@ -400,7 +401,7 @@ class _VeredasScreenState extends State<VeredasScreen> {
                       ),
                     ),
                   ),
-                  e.fechacumplimento == null || e.fechacumplimento == "null"
+                  e.fechacumplimento == null || e.fechacumplimento == 'null'
                       ? const Icon(
                           Icons.fact_check,
                           color: Color(0xFF781f1e),
@@ -436,7 +437,7 @@ class _VeredasScreenState extends State<VeredasScreen> {
           children: [
             Row(
               children: [
-                const Text("N° Obra: ",
+                const Text('N° Obra: ',
                     style: TextStyle(
                       fontSize: 14,
                       color: Color(0xFF781f1e),
@@ -455,7 +456,7 @@ class _VeredasScreenState extends State<VeredasScreen> {
             ),
             Row(
               children: [
-                const Text("Nombre: ",
+                const Text('Nombre: ',
                     style: TextStyle(
                       fontSize: 14,
                       color: Color(0xFF781f1e),
@@ -474,7 +475,7 @@ class _VeredasScreenState extends State<VeredasScreen> {
             ),
             Row(
               children: [
-                const Text("OP/N° Fuga: ",
+                const Text('OP/N° Fuga: ',
                     style: TextStyle(
                       fontSize: 14,
                       color: Color(0xFF781f1e),
@@ -489,12 +490,12 @@ class _VeredasScreenState extends State<VeredasScreen> {
               ],
             ),
             SizedBox(
-              height: (_obra.fechaCierreElectrico != "" &&
+              height: (_obra.fechaCierreElectrico != '' &&
                       _obra.fechaCierreElectrico != null)
                   ? 5
                   : 0,
             ),
-            _obra.fechaCierreElectrico != "" &&
+            _obra.fechaCierreElectrico != '' &&
                     _obra.fechaCierreElectrico != null
                 ? Row(
                     children: [
@@ -535,14 +536,14 @@ class _VeredasScreenState extends State<VeredasScreen> {
 
   Future<void> _goObraReparo(ObrasReparo obraReparo) async {
     if (obraReparo.fechacumplimento == null ||
-        obraReparo.fechacumplimento == "null") {
+        obraReparo.fechacumplimento == 'null') {
       final DateTime? selected = await showDatePicker(
         context: context,
         initialDate: DateTime.now(),
         firstDate: DateTime.now().subtract(const Duration(days: 7)),
         lastDate: DateTime.now().add(const Duration(days: 0)),
       );
-      obraReparo.fechacumplimento = selected.toString();
+      obraReparo.fechacumplimento = selected.toString().substring(0, 10);
       setState(() {});
     } else {
       obraReparo.fechacumplimento = null;
@@ -551,8 +552,8 @@ class _VeredasScreenState extends State<VeredasScreen> {
     Map<String, dynamic> request = {
       'NROREGISTRO': obraReparo.nroregistro,
       'FECHACUMPLIMENTO': obraReparo.fechacumplimento,
-      'ObservacionesFotoInicio': obraReparo.observacionesFotoInicio ?? "",
-      'ObservacionesFotoFin': obraReparo.observacionesFotoFin ?? "",
+      'ObservacionesFotoInicio': obraReparo.observacionesFotoInicio ?? '',
+      'ObservacionesFotoFin': obraReparo.observacionesFotoFin ?? '',
     };
 
     await ApiHelper.put(
@@ -589,7 +590,7 @@ class _VeredasScreenState extends State<VeredasScreen> {
       await showAlertDialog(
           context: context,
           title: 'Error',
-          message: "N° de Obra no válido",
+          message: 'N° de Obra no válido',
           actions: <AlertDialogAction>[
             const AlertDialogAction(key: null, label: 'Aceptar'),
           ]);

@@ -1,14 +1,16 @@
 import 'dart:async';
 import 'dart:convert';
+
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:rowing_app/models/models.dart';
-import 'package:rowing_app/screens/screens.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
-import 'package:rowing_app/helpers/helpers.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../helpers/helpers.dart';
+import '../../models/models.dart';
+import '../screens.dart';
 
 class Home3Screen extends StatefulWidget {
   final Token token;
@@ -133,7 +135,7 @@ class _Home3ScreenState extends State<Home3Screen> {
         child: Column(
           children: [
             Image.asset(
-              "assets/logo.png",
+              'assets/logo.png',
               height: 200,
             ),
             const Text(
@@ -144,7 +146,7 @@ class _Home3ScreenState extends State<Home3Screen> {
                   color: Colors.white),
             ),
             Text(
-              widget.user2.firstName!.replaceAll("  ", ""),
+              widget.user2.firstName!.replaceAll('  ', ''),
               style: const TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
@@ -241,7 +243,7 @@ class _Home3ScreenState extends State<Home3Screen> {
                   Row(
                     children: [
                       const Text(
-                        "Usuario: ",
+                        'Usuario: ',
                         style: (TextStyle(
                             color: Colors.white, fontWeight: FontWeight.bold)),
                       ),
@@ -367,7 +369,7 @@ class _Home3ScreenState extends State<Home3Screen> {
                             Icons.list_alt,
                             color: Colors.white,
                           ),
-                          title: const Text("Recibos",
+                          title: const Text('Recibos',
                               style:
                                   TextStyle(fontSize: 15, color: Colors.white)),
                           children: <Widget>[
@@ -555,7 +557,7 @@ class _Home3ScreenState extends State<Home3Screen> {
       await showAlertDialog(
           context: context,
           title: 'Error',
-          message: "Legajo o Documento no válido",
+          message: 'Legajo o Documento no válido',
           actions: <AlertDialogAction>[
             const AlertDialogAction(key: null, label: 'Aceptar'),
           ]);
@@ -598,7 +600,7 @@ class _Home3ScreenState extends State<Home3Screen> {
       await showAlertDialog(
           context: context,
           title: 'Error',
-          message: "Legajo o Documento no válido",
+          message: 'Legajo o Documento no válido',
           actions: <AlertDialogAction>[
             const AlertDialogAction(key: null, label: 'Aceptar'),
           ]);
@@ -610,7 +612,7 @@ class _Home3ScreenState extends State<Home3Screen> {
     _novedades = [];
     _novedadesAux = response2.result;
     for (var novedad in _novedadesAux) {
-      if (novedad.estado != "Pendiente" && novedad.confirmaLeido != 1) {
+      if (novedad.estado != 'Pendiente' && novedad.confirmaLeido != 1) {
         _novedades.add(novedad);
       }
     }

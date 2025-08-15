@@ -1,12 +1,12 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
-import 'package:rowing_app/components/loader_component.dart';
-import 'package:rowing_app/helpers/helpers.dart';
-import 'package:rowing_app/helpers/helpers.dart';
-import 'package:rowing_app/models/models.dart';
-import 'package:rowing_app/screens/screens.dart';
+import 'package:geolocator/geolocator.dart';
+
+import '../../components/loader_component.dart';
+import '../../helpers/helpers.dart';
+import '../../models/models.dart';
+import '../screens.dart';
 
 class CertificacionNuevaScreen extends StatefulWidget {
   final User user;
@@ -72,17 +72,17 @@ class _CertificacionNuevaScreenState extends State<CertificacionNuevaScreen> {
   String _montoC = '';
   String _montoCError = '';
   bool _montoCShowError = false;
-  TextEditingController _montoCController = TextEditingController();
+  final TextEditingController _montoCController = TextEditingController();
 
   String _montoT = '';
   String _montoTError = '';
   bool _montoTShowError = false;
-  TextEditingController _montoTController = TextEditingController();
+  final TextEditingController _montoTController = TextEditingController();
 
   String _porcActa = '';
   String _porcActaError = '';
   bool _porcActaShowError = false;
-  TextEditingController _porcActaController = TextEditingController();
+  final TextEditingController _porcActaController = TextEditingController();
 
   bool bandera = false;
   int intentos = 0;
@@ -111,9 +111,10 @@ class _CertificacionNuevaScreenState extends State<CertificacionNuevaScreen> {
   ];
 
   String _observaciones = '';
-  String _observacionesError = '';
-  bool _observacionesShowError = false;
-  TextEditingController _observacionesController = TextEditingController();
+  final String _observacionesError = '';
+  final bool _observacionesShowError = false;
+  final TextEditingController _observacionesController =
+      TextEditingController();
 
   String _contratista = 'Elija una SubContratista...';
   String _contratistaError = '';
@@ -487,8 +488,8 @@ class _CertificacionNuevaScreenState extends State<CertificacionNuevaScreen> {
                         height: 30,
                         child: Text(
                           fechaCorrespondencia != null
-                              ? "    ${fechaCorrespondencia!.day}/${fechaCorrespondencia!.month}/${fechaCorrespondencia!.year}"
-                              : "",
+                              ? '    ${fechaCorrespondencia!.day}/${fechaCorrespondencia!.month}/${fechaCorrespondencia!.year}'
+                              : '',
                           style: const TextStyle(color: Color(0xFF781f1e)),
                         ),
                       ),
@@ -658,7 +659,7 @@ class _CertificacionNuevaScreenState extends State<CertificacionNuevaScreen> {
     }
 
     //--------------- Valida MontoC y MontoT --------------------
-    if ((_montoC == "") && (_montoT == "")) {
+    if ((_montoC == '') && (_montoT == '')) {
       isValid = false;
       _montoCShowError = true;
       _montoCError = 'Debe ingresar MontoC o MontoT o ambos';
@@ -672,7 +673,7 @@ class _CertificacionNuevaScreenState extends State<CertificacionNuevaScreen> {
     }
 
     //--------------- Valida Porc Acta --------------------
-    if (_porcActa == "" ||
+    if (_porcActa == '' ||
         ((double.tryParse(_porcActa)! <= 0) ||
             (double.tryParse(_porcActa)! > 100))) {
       isValid = false;
@@ -742,7 +743,7 @@ class _CertificacionNuevaScreenState extends State<CertificacionNuevaScreen> {
         _showLoader = false;
       });
       showMyDialog(
-          'Error', "Verifica que estés conectado a Internet", 'Aceptar');
+          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
     }
 
     Response response2 = await ApiHelper.getNroRegistroMaxCertificaciones();
@@ -756,9 +757,9 @@ class _CertificacionNuevaScreenState extends State<CertificacionNuevaScreen> {
       'ID': !widget.editMode ? _nroReg : widget.cabeceraCertificacion.id,
       'NROOBRA': obra.nroObra,
       'DefProy': obra.defProy,
-      'FECHACARGA': DateTime.now().toString(),
-      'FECHADESPACHO': DateTime.now().toString(),
-      'FECHAEJECUCION': DateTime.now().toString(),
+      'FECHACARGA': DateTime.now().toString().substring(0, 10),
+      'FECHADESPACHO': DateTime.now().toString().substring(0, 10),
+      'FECHAEJECUCION': DateTime.now().toString().substring(0, 10),
       'NombreObra': obra.nombreObra,
       'NroOE': obra.nroOE,
       'FINALIZADA': 1,
@@ -776,7 +777,7 @@ class _CertificacionNuevaScreenState extends State<CertificacionNuevaScreen> {
       'NRO103': '',
       'NRO105': '',
       'IDUSUARIOP': 1,
-      'FECHALIBERACION': DateTime.now().toString(),
+      'FECHALIBERACION': DateTime.now().toString().substring(0, 10),
       'IDUSUARIOL': 1,
       'NROORDENPAGO': 0,
       'VALORTOTAL': _montoC,
@@ -866,7 +867,7 @@ class _CertificacionNuevaScreenState extends State<CertificacionNuevaScreen> {
 
     if (connectivityResult == ConnectivityResult.none) {
       showMyDialog(
-          'Error', "Verifica que estés conectado a Internet", 'Aceptar');
+          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
     }
 
     bandera = false;
@@ -896,7 +897,7 @@ class _CertificacionNuevaScreenState extends State<CertificacionNuevaScreen> {
 
     if (connectivityResult == ConnectivityResult.none) {
       showMyDialog(
-          'Error', "Verifica que estés conectado a Internet", 'Aceptar');
+          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
     }
 
     bandera = false;
@@ -928,14 +929,14 @@ class _CertificacionNuevaScreenState extends State<CertificacionNuevaScreen> {
 
     if (connectivityResult == ConnectivityResult.none) {
       showMyDialog(
-          'Error', "Verifica que estés conectado a Internet", 'Aceptar');
+          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
     }
 
     bandera = false;
     intentos = 0;
 
     Map<String, dynamic> request = {
-      'Fecha': fechaCorrespondencia.toString(),
+      'Fecha': fechaCorrespondencia.toString().substring(0, 10),
     };
 
     if (fechaCorrespondencia != null) {
@@ -961,7 +962,7 @@ class _CertificacionNuevaScreenState extends State<CertificacionNuevaScreen> {
 
     if (connectivityResult == ConnectivityResult.none) {
       showMyDialog(
-          'Error', "Verifica que estés conectado a Internet", 'Aceptar');
+          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
     }
 
     bandera = false;
@@ -1031,13 +1032,13 @@ class _CertificacionNuevaScreenState extends State<CertificacionNuevaScreen> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: const [
-                              Text("Obra: ",
+                              Text('Obra: ',
                                   style:
                                       TextStyle(fontWeight: FontWeight.bold)),
-                              Text("Def.Proy.: ",
+                              Text('Def.Proy.: ',
                                   style:
                                       TextStyle(fontWeight: FontWeight.bold)),
-                              Text("Central: ",
+                              Text('Central: ',
                                   style:
                                       TextStyle(fontWeight: FontWeight.bold)),
                             ],

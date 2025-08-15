@@ -2,11 +2,12 @@ import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:rowing_app/helpers/helpers.dart';
-import 'package:rowing_app/models/models.dart';
-import 'package:rowing_app/screens/screens.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:whatsapp_unilink/whatsapp_unilink.dart';
+
+import '../../helpers/helpers.dart';
+import '../../models/models.dart';
+import '../screens.dart';
 
 class JuicioInfoScreen extends StatefulWidget {
   final User user;
@@ -89,7 +90,7 @@ class _JuicioInfoScreenState extends State<JuicioInfoScreen> {
                               const SizedBox(
                                 width: 70,
                                 child: Text(
-                                  "N° Caso: ",
+                                  'N° Caso: ',
                                   style: TextStyle(
                                     fontSize: 12,
                                     color: Color(0xFF781f1e),
@@ -104,7 +105,7 @@ class _JuicioInfoScreenState extends State<JuicioInfoScreen> {
                                       fontSize: 12,
                                     )),
                               ),
-                              const Text("N° Expediente: ",
+                              const Text('N° Expediente: ',
                                   style: TextStyle(
                                     fontSize: 12,
                                     color: Color(0xFF781f1e),
@@ -127,7 +128,7 @@ class _JuicioInfoScreenState extends State<JuicioInfoScreen> {
                             children: [
                               const SizedBox(
                                 width: 70,
-                                child: Text("Tipo Caso: ",
+                                child: Text('Tipo Caso: ',
                                     style: TextStyle(
                                       fontSize: 12,
                                       color: Color(0xFF781f1e),
@@ -150,7 +151,7 @@ class _JuicioInfoScreenState extends State<JuicioInfoScreen> {
                               const SizedBox(
                                 width: 70,
                                 child: Text(
-                                  "Estado: ",
+                                  'Estado: ',
                                   style: TextStyle(
                                     fontSize: 12,
                                     color: Color(0xFF781f1e),
@@ -174,7 +175,7 @@ class _JuicioInfoScreenState extends State<JuicioInfoScreen> {
                               const SizedBox(
                                 width: 70,
                                 child: Text(
-                                  "Ult. mov.: ",
+                                  'Ult. mov.: ',
                                   style: TextStyle(
                                     fontSize: 12,
                                     color: Color(0xFF781f1e),
@@ -204,7 +205,7 @@ class _JuicioInfoScreenState extends State<JuicioInfoScreen> {
                               const SizedBox(
                                 width: 70,
                                 child: Text(
-                                  "Carátula: ",
+                                  'Carátula: ',
                                   style: TextStyle(
                                     fontSize: 12,
                                     color: Color(0xFF781f1e),
@@ -228,7 +229,7 @@ class _JuicioInfoScreenState extends State<JuicioInfoScreen> {
                               const SizedBox(
                                 width: 70,
                                 child: Text(
-                                  "Abogado: ",
+                                  'Abogado: ',
                                   style: TextStyle(
                                     fontSize: 12,
                                     color: Color(0xFF781f1e),
@@ -255,7 +256,7 @@ class _JuicioInfoScreenState extends State<JuicioInfoScreen> {
                               const SizedBox(
                                 width: 110,
                                 child: Text(
-                                  "Importe Juicio: ",
+                                  'Importe Juicio: ',
                                   style: TextStyle(
                                     fontSize: 12,
                                     color: Color(0xFF781f1e),
@@ -283,7 +284,7 @@ class _JuicioInfoScreenState extends State<JuicioInfoScreen> {
                               const SizedBox(
                                 width: 110,
                                 child: Text(
-                                  "Importe Interés: ",
+                                  'Importe Interés: ',
                                   style: TextStyle(
                                     fontSize: 12,
                                     color: Color(0xFF781f1e),
@@ -313,7 +314,7 @@ class _JuicioInfoScreenState extends State<JuicioInfoScreen> {
                               const SizedBox(
                                 width: 110,
                                 child: Text(
-                                  "Moneda: ",
+                                  'Moneda: ',
                                   style: TextStyle(
                                     fontSize: 12,
                                     color: Color(0xFF781f1e),
@@ -378,7 +379,7 @@ class _JuicioInfoScreenState extends State<JuicioInfoScreen> {
                                   children: [
                                     const SizedBox(
                                       width: 86,
-                                      child: Text("Contraparte: ",
+                                      child: Text('Contraparte: ',
                                           style: TextStyle(
                                             fontSize: 12,
                                             color: Color(0xFF0e4888),
@@ -401,7 +402,7 @@ class _JuicioInfoScreenState extends State<JuicioInfoScreen> {
                                   children: [
                                     const SizedBox(
                                       width: 86,
-                                      child: Text("Domicilio: ",
+                                      child: Text('Domicilio: ',
                                           style: TextStyle(
                                             fontSize: 12,
                                             color: Color(0xFF0e4888),
@@ -432,7 +433,7 @@ class _JuicioInfoScreenState extends State<JuicioInfoScreen> {
                                         children: [
                                           const SizedBox(
                                             width: 90,
-                                            child: Text("Teléfono fijo: ",
+                                            child: Text('Teléfono fijo: ',
                                                 style: TextStyle(
                                                   fontSize: 12,
                                                   color: Color(0xFF0e4888),
@@ -459,15 +460,15 @@ class _JuicioInfoScreenState extends State<JuicioInfoScreen> {
                                                               0]
                                                           .telefono
                                                           .toString() !=
-                                                      "Sin Dato" &&
+                                                      'Sin Dato' &&
                                                   _contrapartes[0]
                                                           .telefono
                                                           .toString() !=
-                                                      "xxx" &&
+                                                      'xxx' &&
                                                   _contrapartes[0]
                                                           .telefono
                                                           .toString() !=
-                                                      "XXX") {
+                                                      'XXX') {
                                                 launch(
                                                     'tel://${_contrapartes[0].telefono.toString()}');
                                               }
@@ -486,7 +487,7 @@ class _JuicioInfoScreenState extends State<JuicioInfoScreen> {
                                         children: [
                                           const SizedBox(
                                             width: 90,
-                                            child: Text("Celular: ",
+                                            child: Text('Celular: ',
                                                 style: TextStyle(
                                                   fontSize: 12,
                                                   color: Color(0xFF0e4888),
@@ -531,15 +532,15 @@ class _JuicioInfoScreenState extends State<JuicioInfoScreen> {
                                               if (_contrapartes[0]
                                                           .celular
                                                           .toString() !=
-                                                      "Sin Dato" &&
+                                                      'Sin Dato' &&
                                                   _contrapartes[0]
                                                           .celular
                                                           .toString() !=
-                                                      "xxx" &&
+                                                      'xxx' &&
                                                   _contrapartes[0]
                                                           .celular
                                                           .toString() !=
-                                                      "XXX") {
+                                                      'XXX') {
                                                 launch(
                                                     'tel://${_contrapartes[0].celular.toString()}');
                                               }
@@ -676,7 +677,7 @@ class _JuicioInfoScreenState extends State<JuicioInfoScreen> {
         _showLoader = false;
       });
       showMyDialog(
-          'Error', "Verifica que estés conectado a Internet", 'Aceptar');
+          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
     }
 
     Response response = Response(isSuccess: false);
@@ -725,7 +726,7 @@ class _JuicioInfoScreenState extends State<JuicioInfoScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: const [
                     Text(
-                      "Atención!!",
+                      'Atención!!',
                       style: TextStyle(color: Colors.green, fontSize: 20),
                     ),
                   ],
@@ -735,10 +736,10 @@ class _JuicioInfoScreenState extends State<JuicioInfoScreen> {
                   child: Column(
                     children: [
                       const Text(
-                        "Verifique si el N° de teléfono tiene el formato correcto para WhatsApp",
+                        'Verifique si el N° de teléfono tiene el formato correcto para WhatsApp',
                         style: TextStyle(fontSize: 14),
                       ),
-                      const Text(""),
+                      const Text(''),
                       TextField(
                         controller: _phoneController,
                         decoration: InputDecoration(
@@ -759,10 +760,10 @@ class _JuicioInfoScreenState extends State<JuicioInfoScreen> {
                       Expanded(
                         flex: 1,
                         child: ElevatedButton(
-                            child: const Text("+549"),
+                            child: const Text('+549'),
                             onPressed: () async {
                               _phoneController.text =
-                                  "549" + _phoneController.text;
+                                  '549' + _phoneController.text;
                             }),
                       ),
                     ],

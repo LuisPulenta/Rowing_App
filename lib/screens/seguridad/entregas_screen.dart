@@ -2,10 +2,11 @@ import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:rowing_app/components/loader_component.dart';
-import 'package:rowing_app/helpers/helpers.dart';
-import 'package:rowing_app/models/entrega.dart';
-import 'package:rowing_app/models/response.dart';
+
+import '../../components/loader_component.dart';
+import '../../helpers/helpers.dart';
+import '../../models/entrega.dart';
+import '../../models/response.dart';
 
 class EntregasScreen extends StatefulWidget {
   final String codigo;
@@ -79,7 +80,7 @@ class _EntregasScreenState extends State<EntregasScreen> {
         _showLoader = false;
       });
       showMyDialog(
-          'Error', "Verifica que estés conectado a Internet", 'Aceptar');
+          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
     }
 
     Response response = Response(isSuccess: false);
@@ -222,7 +223,7 @@ class _EntregasScreenState extends State<EntregasScreen> {
                           horizontal: 0, vertical: 5),
                       child: Row(
                         children: [
-                          const Text("Fecha últ. entr.:",
+                          const Text('Fecha últ. entr.:',
                               style: TextStyle(
                                 fontSize: 10,
                               )),
@@ -339,7 +340,7 @@ class _EntregasScreenState extends State<EntregasScreen> {
           height: 40,
           child: Row(
             children: [
-              const Text("Cantidad de Items entregados: ",
+              const Text('Cantidad de Items entregados: ',
                   style: TextStyle(
                     fontSize: 14,
                     color: Colors.white,
@@ -362,7 +363,7 @@ class _EntregasScreenState extends State<EntregasScreen> {
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
           child: Row(
             children: const [
-              Text("Código",
+              Text('Código',
                   style: TextStyle(
                     fontSize: 12,
                     color: Colors.white,
@@ -370,7 +371,7 @@ class _EntregasScreenState extends State<EntregasScreen> {
               SizedBox(
                 width: 15,
               ),
-              Text("Cod. SAP",
+              Text('Cod. SAP',
                   style: TextStyle(
                     fontSize: 12,
                     color: Colors.white,
@@ -379,13 +380,13 @@ class _EntregasScreenState extends State<EntregasScreen> {
                 width: 15,
               ),
               Expanded(
-                child: Text("Descripción",
+                child: Text('Descripción',
                     style: TextStyle(
                       fontSize: 12,
                       color: Colors.white,
                     )),
               ),
-              Text("Cantidad",
+              Text('Cantidad',
                   style: TextStyle(
                     fontSize: 12,
                     color: Colors.white,

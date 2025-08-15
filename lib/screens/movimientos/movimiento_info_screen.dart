@@ -4,12 +4,15 @@ import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:camera/camera.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
-import 'package:rowing_app/components/loader_component.dart';
-import 'package:rowing_app/helpers/helpers.dart';
-import 'package:rowing_app/models/models.dart';
-import 'package:rowing_app/screens/screens.dart';
+
+import '../../components/loader_component.dart';
+import '../../helpers/helpers.dart';
+import '../../helpers/resize_image.dart';
+import '../../models/models.dart';
+import '../screens.dart';
 
 class MovimientoInfoScreen extends StatefulWidget {
   final User user;
@@ -42,7 +45,7 @@ class _MovimientoInfoScreenState extends State<MovimientoInfoScreen> {
       linkRemito: '',
       imageFullPath: '');
 
-  bool _showLoader = false;
+  final bool _showLoader = false;
 
   bool _photoChanged = false;
   late Photo _photo;
@@ -114,7 +117,7 @@ class _MovimientoInfoScreenState extends State<MovimientoInfoScreen> {
 
   Widget _getInfoMovimiento() {
     return Card(
-      color: _movimiento.linkRemito != ""
+      color: _movimiento.linkRemito != ''
           ? const Color(0xFFC7C7C8)
           : const Color.fromARGB(255, 240, 202, 151),
       shadowColor: Colors.white,
@@ -137,7 +140,7 @@ class _MovimientoInfoScreenState extends State<MovimientoInfoScreen> {
                           children: [
                             Row(
                               children: [
-                                const Text("N°: ",
+                                const Text('N°: ',
                                     style: TextStyle(
                                       fontSize: 12,
                                       color: Color(0xFF781f1e),
@@ -151,7 +154,7 @@ class _MovimientoInfoScreenState extends State<MovimientoInfoScreen> {
                                             fontSize: 12,
                                           )),
                                 ),
-                                const Text("Fecha: ",
+                                const Text('Fecha: ',
                                     style: TextStyle(
                                       fontSize: 12,
                                       color: Color(0xFF781f1e),
@@ -170,7 +173,7 @@ class _MovimientoInfoScreenState extends State<MovimientoInfoScreen> {
                                           ))
                                       : Container(),
                                 ),
-                                const Text("C.Conc.: ",
+                                const Text('C.Conc.: ',
                                     style: TextStyle(
                                       fontSize: 12,
                                       color: Color(0xFF781f1e),
@@ -191,7 +194,7 @@ class _MovimientoInfoScreenState extends State<MovimientoInfoScreen> {
                             ),
                             Row(
                               children: [
-                                const Text("Grupo Desde: ",
+                                const Text('Grupo Desde: ',
                                     style: TextStyle(
                                       fontSize: 12,
                                       color: Color(0xFF781f1e),
@@ -203,7 +206,7 @@ class _MovimientoInfoScreenState extends State<MovimientoInfoScreen> {
                                         fontSize: 12,
                                       )),
                                 ),
-                                const Text("Causante Desde: ",
+                                const Text('Causante Desde: ',
                                     style: TextStyle(
                                       fontSize: 12,
                                       color: Color(0xFF781f1e),
@@ -225,7 +228,7 @@ class _MovimientoInfoScreenState extends State<MovimientoInfoScreen> {
                             ),
                             Row(
                               children: [
-                                const Text("Grupo Recibe: ",
+                                const Text('Grupo Recibe: ',
                                     style: TextStyle(
                                       fontSize: 12,
                                       color: Color(0xFF781f1e),
@@ -237,7 +240,7 @@ class _MovimientoInfoScreenState extends State<MovimientoInfoScreen> {
                                         fontSize: 12,
                                       )),
                                 ),
-                                const Text("Causante Recibe: ",
+                                const Text('Causante Recibe: ',
                                     style: TextStyle(
                                       fontSize: 12,
                                       color: Color(0xFF781f1e),
@@ -256,7 +259,7 @@ class _MovimientoInfoScreenState extends State<MovimientoInfoScreen> {
                             ),
                             Row(
                               children: [
-                                const Text("N° Remito: ",
+                                const Text('N° Remito: ',
                                     style: TextStyle(
                                       fontSize: 12,
                                       color: Color(0xFF781f1e),
@@ -268,7 +271,7 @@ class _MovimientoInfoScreenState extends State<MovimientoInfoScreen> {
                                         fontSize: 12,
                                       )),
                                 ),
-                                const Text("N° Lote: ",
+                                const Text('N° Lote: ',
                                     style: TextStyle(
                                       fontSize: 12,
                                       color: Color(0xFF781f1e),
@@ -280,7 +283,7 @@ class _MovimientoInfoScreenState extends State<MovimientoInfoScreen> {
                                         fontSize: 12,
                                       )),
                                 ),
-                                const Text("Foto: ",
+                                const Text('Foto: ',
                                     style: TextStyle(
                                       fontSize: 12,
                                       color: Color(0xFF781f1e),
@@ -288,11 +291,11 @@ class _MovimientoInfoScreenState extends State<MovimientoInfoScreen> {
                                     )),
                                 Expanded(
                                   child: _movimiento.linkRemito != null
-                                      ? const Text("SI",
+                                      ? const Text('SI',
                                           style: TextStyle(
                                             fontSize: 12,
                                           ))
-                                      : const Text("NO",
+                                      : const Text('NO',
                                           style: TextStyle(
                                             fontSize: 12,
                                           )),
@@ -471,9 +474,11 @@ class _MovimientoInfoScreenState extends State<MovimientoInfoScreen> {
       return;
     }
 
-    List<int> imageBytes = await _image.readAsBytes();
-
-    String base64Image = base64Encode(imageBytes);
+    Uint8List imageBytes = await _image.readAsBytes();
+    int maxWidth = 800; // Ancho máximo
+    int maxHeight = 600; // Alto máximo
+    Uint8List resizedBytes = await resizeImage(imageBytes, maxWidth, maxHeight);
+    String base64Image = base64Encode(resizedBytes);
 
     Map<String, dynamic> request = {
       'imagearray': base64Image,
@@ -526,7 +531,7 @@ class _MovimientoInfoScreenState extends State<MovimientoInfoScreen> {
       await showAlertDialog(
           context: context,
           title: 'Error',
-          message: "N° de Movimiento no válido",
+          message: 'N° de Movimiento no válido',
           actions: <AlertDialogAction>[
             const AlertDialogAction(key: null, label: 'Aceptar'),
           ]);

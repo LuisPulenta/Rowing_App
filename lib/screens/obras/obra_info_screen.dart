@@ -8,6 +8,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
@@ -16,6 +17,7 @@ import 'package:uuid/uuid.dart';
 
 import '../../components/loader_component.dart';
 import '../../helpers/helpers.dart';
+import '../../helpers/resize_image.dart';
 import '../../models/models.dart';
 import '../screens.dart';
 
@@ -963,7 +965,6 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
 //-----------------------------------------------------------------------------
 //------------------------------ _addPicture ----------------------------------
 //-----------------------------------------------------------------------------
-
   void _addPicture() async {
     setState(() {});
 
@@ -980,13 +981,14 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
       return;
     }
 
-    List<int> imageBytes = await _image.readAsBytes();
-
-    String base64Image = base64Encode(imageBytes);
+    Uint8List imageBytes = await _image.readAsBytes();
+    int maxWidth = 800; // Ancho máximo
+    int maxHeight = 600; // Alto máximo
+    Uint8List resizedBytes = await resizeImage(imageBytes, maxWidth, maxHeight);
+    String base64Image = base64Encode(resizedBytes);
 
     Map<String, dynamic> request = {
       'imagearray': base64Image,
-      'fecha': DateTime.now().toString(),
       'nroobra': _obra.nroObra,
       'observacion': _photo.observaciones,
       'estante': 'App',
@@ -998,7 +1000,6 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
       'longitud': _photo.longitud,
       'tipodefoto': _photo.tipofoto,
       'direccionfoto': _photo.direccion,
-      'fechaHsFoto': DateTime.now().toString(),
       'obra': _obra,
     };
 
@@ -1265,13 +1266,13 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
 //-------------------------------------------------
 
   _grabar() async {
-    _obra.fechaCierreElectrico = selectedDate.toString();
+    _obra.fechaCierreElectrico = selectedDate.toString().substring(0, 10);
     setState(() {});
 
     Map<String, dynamic> requestFechaCierreElectrico = {
       // 'nrosuministro': 0,
       'NroObra': widget.obra.nroObra,
-      'FechaCierreElectrico': selectedDate.toString(),
+      'FechaCierreElectrico': selectedDate.toString().substring(0, 10),
     };
 
     Response response = await ApiHelper.put('/api/Obras/',
@@ -1334,7 +1335,6 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
 
       Map<String, dynamic> request = {
         'link': '~/images/Multimedia/$fileName.wav',
-        'fecha': DateTime.now().toString(),
         'nroobra': _obra.nroObra,
         'observacion': '',
         'estante': 'App',
@@ -1346,7 +1346,6 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
         'longitud': '',
         'tipodefoto': 20,
         'direccionfoto': '',
-        'fechaHsFoto': DateTime.now().toString(),
         'obra': _obra,
       };
 
@@ -1412,7 +1411,6 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
 
       Map<String, dynamic> request = {
         'link': '~/images/Multimedia/$fileName.mp4',
-        'fecha': DateTime.now().toString(),
         'nroobra': _obra.nroObra,
         'observacion': '',
         'estante': 'App',
@@ -1424,7 +1422,6 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
         'longitud': '',
         'tipodefoto': 30,
         'direccionfoto': '',
-        'fechaHsFoto': DateTime.now().toString(),
         'obra': _obra,
       };
 

@@ -1,13 +1,15 @@
 import 'dart:async';
 import 'dart:convert';
+
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
-import 'package:rowing_app/models/models.dart';
-import 'package:rowing_app/screens/screens.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
-import 'package:rowing_app/helpers/helpers.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../helpers/helpers.dart';
+import '../../models/models.dart';
+import '../screens.dart';
 
 class Home2Screen extends StatefulWidget {
   final User user;
@@ -114,7 +116,7 @@ class _Home2ScreenState extends State<Home2Screen> {
         child: Column(
           children: [
             Image.asset(
-              "assets/logo.png",
+              'assets/logo.png',
               height: 200,
             ),
             const Text(
@@ -125,7 +127,7 @@ class _Home2ScreenState extends State<Home2Screen> {
                   color: Colors.white),
             ),
             Text(
-              widget.user.apellido!.replaceAll("  ", ""),
+              widget.user.apellido!.replaceAll('  ', ''),
               style: const TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
@@ -180,7 +182,7 @@ class _Home2ScreenState extends State<Home2Screen> {
                   Row(
                     children: [
                       const Text(
-                        "Usuario: ",
+                        'Usuario: ',
                         style: (TextStyle(
                             color: Colors.white, fontWeight: FontWeight.bold)),
                       ),
@@ -417,7 +419,7 @@ class _Home2ScreenState extends State<Home2Screen> {
       await showAlertDialog(
           context: context,
           title: 'Error',
-          message: "Legajo o Documento no válido",
+          message: 'Legajo o Documento no válido',
           actions: <AlertDialogAction>[
             const AlertDialogAction(key: null, label: 'Aceptar'),
           ]);
@@ -460,7 +462,7 @@ class _Home2ScreenState extends State<Home2Screen> {
       await showAlertDialog(
           context: context,
           title: 'Error',
-          message: "Legajo o Documento no válido",
+          message: 'Legajo o Documento no válido',
           actions: <AlertDialogAction>[
             const AlertDialogAction(key: null, label: 'Aceptar'),
           ]);
@@ -472,7 +474,7 @@ class _Home2ScreenState extends State<Home2Screen> {
     _novedades = [];
     _novedadesAux = response2.result;
     for (var novedad in _novedadesAux) {
-      if (novedad.estado != "Pendiente" && novedad.confirmaLeido != 1) {
+      if (novedad.estado != 'Pendiente' && novedad.confirmaLeido != 1) {
         _novedades.add(novedad);
       }
     }

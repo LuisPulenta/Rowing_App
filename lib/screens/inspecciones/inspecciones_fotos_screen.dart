@@ -4,8 +4,9 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:rowing_app/helpers/helpers.dart';
-import 'package:rowing_app/models/models.dart';
+
+import '../../helpers/helpers.dart';
+import '../../models/models.dart';
 
 class InspeccionesFotosScreen extends StatefulWidget {
   final User user;
@@ -55,7 +56,7 @@ class _InspeccionesFotosScreenState extends State<InspeccionesFotosScreen> {
           Row(
             children: [
               const Text(
-                "Datos:",
+                'Datos:',
                 style: TextStyle(color: Colors.white, fontSize: 14),
               ),
               Switch(
@@ -151,7 +152,7 @@ class _InspeccionesFotosScreenState extends State<InspeccionesFotosScreen> {
                                   const SizedBox(
                                     width: 86,
                                     child: Text(
-                                      "Supervisor: ",
+                                      'Supervisor: ',
                                       style: TextStyle(
                                           color: Colors.white,
                                           fontSize: 12,
@@ -160,7 +161,7 @@ class _InspeccionesFotosScreenState extends State<InspeccionesFotosScreen> {
                                   ),
                                   Expanded(
                                     child: Text(
-                                      i.apellido + " " + i.nombre,
+                                      i.apellido + ' ' + i.nombre,
                                       style: const TextStyle(
                                         color: Colors.white,
                                       ),
@@ -176,7 +177,7 @@ class _InspeccionesFotosScreenState extends State<InspeccionesFotosScreen> {
                                   const SizedBox(
                                     width: 86,
                                     child: Text(
-                                      "Fecha: ",
+                                      'Fecha: ',
                                       style: TextStyle(
                                           color: Colors.white,
                                           fontSize: 12,
@@ -200,7 +201,7 @@ class _InspeccionesFotosScreenState extends State<InspeccionesFotosScreen> {
                                   const SizedBox(
                                     width: 86,
                                     child: Text(
-                                      "Causante: ",
+                                      'Causante: ',
                                       style: TextStyle(
                                           color: Colors.white,
                                           fontSize: 12,
@@ -226,7 +227,7 @@ class _InspeccionesFotosScreenState extends State<InspeccionesFotosScreen> {
                                   const SizedBox(
                                     width: 86,
                                     child: Text(
-                                      "Descripción: ",
+                                      'Descripción: ',
                                       style: TextStyle(
                                           color: Colors.white,
                                           fontSize: 12,
@@ -252,7 +253,7 @@ class _InspeccionesFotosScreenState extends State<InspeccionesFotosScreen> {
                                   const SizedBox(
                                     width: 86,
                                     child: Text(
-                                      "Cumple: ",
+                                      'Cumple: ',
                                       style: TextStyle(
                                           color: Colors.white,
                                           fontSize: 12,
@@ -276,7 +277,7 @@ class _InspeccionesFotosScreenState extends State<InspeccionesFotosScreen> {
                                   const SizedBox(
                                     width: 86,
                                     child: Text(
-                                      "Cliente: ",
+                                      'Cliente: ',
                                       style: TextStyle(
                                           color: Colors.white,
                                           fontSize: 12,
@@ -309,7 +310,7 @@ class _InspeccionesFotosScreenState extends State<InspeccionesFotosScreen> {
                   child: const Text('←'),
                 ),
               ),
-              Text("Fotos: ${_fotos.length.toString()}",
+              Text('Fotos: ${_fotos.length.toString()}',
                   style: const TextStyle(
                       color: Colors.white,
                       fontSize: 16,
@@ -354,7 +355,7 @@ class _InspeccionesFotosScreenState extends State<InspeccionesFotosScreen> {
       await showAlertDialog(
           context: context,
           title: 'Error',
-          message: "No hay fotos",
+          message: 'No hay fotos',
           actions: <AlertDialogAction>[
             const AlertDialogAction(key: null, label: 'Aceptar'),
           ]);
@@ -383,7 +384,7 @@ class _InspeccionesFotosScreenState extends State<InspeccionesFotosScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Text("Antiguedad (días): ",
+              const Text('Antiguedad (días): ',
                   style: TextStyle(
                     fontSize: 14,
                     color: Colors.white,

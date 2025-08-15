@@ -1,18 +1,20 @@
 import 'dart:convert';
 import 'dart:io';
+
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:camera/camera.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
-import 'package:rowing_app/components/loader_component.dart';
-import 'package:rowing_app/helpers/helpers.dart';
-import 'package:rowing_app/models/causante.dart';
-import 'package:rowing_app/models/response.dart';
-import 'package:rowing_app/models/tipo_novedad.dart';
-import 'package:rowing_app/models/user.dart';
-import 'package:rowing_app/screens/novedades/take_picturea.dart';
-import 'package:rowing_app/screens/novedades/take_pictureb.dart';
+import 'package:image_picker/image_picker.dart';
+
+import '../../components/loader_component.dart';
+import '../../helpers/helpers.dart';
+import '../../models/causante.dart';
+import '../../models/response.dart';
+import '../../models/tipo_novedad.dart';
+import '../../models/user.dart';
+import 'take_picturea.dart';
+import 'take_pictureb.dart';
 
 class NovedadAgregarScreen extends StatefulWidget {
   final User user;
@@ -382,8 +384,8 @@ class _NovedadAgregarScreenState extends State<NovedadAgregarScreen> {
                         height: 30,
                         child: Text(
                           fechaInicio != null
-                              ? "    ${fechaInicio!.day}/${fechaInicio!.month}/${fechaInicio!.year}"
-                              : "",
+                              ? '    ${fechaInicio!.day}/${fechaInicio!.month}/${fechaInicio!.year}'
+                              : '',
                           style: const TextStyle(color: Color(0xFF781f1e)),
                         ),
                       ),
@@ -444,8 +446,8 @@ class _NovedadAgregarScreenState extends State<NovedadAgregarScreen> {
                         height: 30,
                         child: Text(
                           fechaFin != null
-                              ? "    ${fechaFin!.day}/${fechaFin!.month}/${fechaFin!.year}"
-                              : "",
+                              ? '    ${fechaFin!.day}/${fechaFin!.month}/${fechaFin!.year}'
+                              : '',
                           style: const TextStyle(color: Color(0xFF781f1e)),
                         ),
                       ),
@@ -683,41 +685,37 @@ class _NovedadAgregarScreenState extends State<NovedadAgregarScreen> {
         _showLoader = false;
       });
       showMyDialog(
-          'Error', "Verifica que estés conectado a Internet", 'Aceptar');
+          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
     }
 
-    String base64image1 = '';
-    String base64image2 = '';
+    String base64Image1 = '';
+    String base64Image2 = '';
     if (_photoChanged1) {
       List<int> imageBytes1 = await _image1.readAsBytes();
-      base64image1 = base64Encode(imageBytes1);
+      base64Image1 = base64Encode(imageBytes1);
     }
 
     if (_photoChanged2) {
       List<int> imageBytes2 = await _image2.readAsBytes();
-      base64image2 = base64Encode(imageBytes2);
+      base64Image2 = base64Encode(imageBytes2);
     }
-
-    String ahora = DateTime.now().toString();
 
     Map<String, dynamic> request = {
       //'nroregistro': _ticket.nroregistro,
       'grupo': widget.causante.grupo,
       'causante': widget.causante.codigo,
-      'fechacarga': ahora,
-      'fechanovedad': ahora,
       'empresa': 'Rowing',
-      'fechainicio': fechaInicio.toString(),
-      'fechafin': fechaFin.toString(),
+      'fechainicio': fechaInicio.toString().substring(0, 10),
+      'fechafin': fechaFin.toString().substring(0, 10),
       'tiponovedad': _tiponovedad,
       'observaciones': _observaciones,
       'vistaRRHH': 0,
       'idusuario': widget.user.idUsuario,
       'linkadjunto1': '',
       'linkadjunto2': '',
-      'imagearray1': base64image1,
-      'imagearray2': base64image2,
-      'fec': base64image2,
+      'imagearray1': base64Image1,
+      'imagearray2': base64Image2,
+      'fec': base64Image2,
       'fechaEstado': '',
       'observacionEstado': '',
       'confirmaLeido': null,
@@ -762,7 +760,7 @@ class _NovedadAgregarScreenState extends State<NovedadAgregarScreen> {
 
     if (connectivityResult == ConnectivityResult.none) {
       showMyDialog(
-          'Error', "Verifica que estés conectado a Internet", 'Aceptar');
+          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
     }
 
     bandera = false;

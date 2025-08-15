@@ -2,11 +2,11 @@ import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:rowing_app/components/loader_component.dart';
-import 'package:rowing_app/helpers/helpers.dart';
-import 'package:rowing_app/helpers/helpers.dart';
-import 'package:rowing_app/models/models.dart';
-import 'package:rowing_app/widgets/widgets.dart';
+
+import '../../components/loader_component.dart';
+import '../../helpers/helpers.dart';
+import '../../models/models.dart';
+import '../../widgets/widgets.dart';
 
 enum OptionTwo { SI, NO }
 
@@ -297,7 +297,7 @@ class _GruasCheckListAgregarScreenState
                             color: const Color.fromARGB(255, 33, 172, 236),
                             child: const Padding(
                               padding: EdgeInsets.only(left: 8.0),
-                              child: Text("Concepto",
+                              child: Text('Concepto',
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                       fontSize: 12,
@@ -306,7 +306,7 @@ class _GruasCheckListAgregarScreenState
                           ),
                           Container(
                             color: const Color.fromARGB(255, 33, 172, 236),
-                            child: const Text("SI",
+                            child: const Text('SI',
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                     fontSize: 12, fontWeight: FontWeight.bold)),
@@ -315,7 +315,7 @@ class _GruasCheckListAgregarScreenState
                             color: const Color.fromARGB(255, 33, 172, 236),
                             child: const Padding(
                               padding: EdgeInsets.only(left: 8.0),
-                              child: Text("NO",
+                              child: Text('NO',
                                   style: TextStyle(
                                       fontSize: 12,
                                       fontWeight: FontWeight.bold)),
@@ -323,7 +323,7 @@ class _GruasCheckListAgregarScreenState
                           ),
                           Container(
                             color: const Color.fromARGB(255, 33, 172, 236),
-                            child: const Text("Fecha Venc.",
+                            child: const Text('Fecha Venc.',
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                     fontSize: 12, fontWeight: FontWeight.bold)),
@@ -341,7 +341,7 @@ class _GruasCheckListAgregarScreenState
                                         color: Colors.green,
                                       )
                                     : Container()),
-                                const Text("VTV",
+                                const Text('VTV',
                                     style: TextStyle(fontSize: 11)),
                               ],
                             ),
@@ -391,7 +391,7 @@ class _GruasCheckListAgregarScreenState
                                         color: Colors.green,
                                       )
                                     : Container()),
-                                const Text("VTH",
+                                const Text('VTH',
                                     style: TextStyle(fontSize: 11)),
                               ],
                             ),
@@ -441,7 +441,7 @@ class _GruasCheckListAgregarScreenState
                                         color: Colors.green,
                                       )
                                     : Container()),
-                                const Text("Seguro",
+                                const Text('Seguro',
                                     style: TextStyle(fontSize: 11)),
                               ],
                             ),
@@ -513,7 +513,7 @@ class _GruasCheckListAgregarScreenState
                             color: const Color.fromARGB(255, 33, 172, 236),
                             child: const Padding(
                               padding: EdgeInsets.only(left: 8.0),
-                              child: Text("Concepto",
+                              child: Text('Concepto',
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                       fontSize: 12,
@@ -522,7 +522,7 @@ class _GruasCheckListAgregarScreenState
                           ),
                           Container(
                             color: const Color.fromARGB(255, 33, 172, 236),
-                            child: const Text("Bien",
+                            child: const Text('Bien',
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                     fontSize: 12, fontWeight: FontWeight.bold)),
@@ -531,7 +531,7 @@ class _GruasCheckListAgregarScreenState
                             color: const Color.fromARGB(255, 33, 172, 236),
                             child: const Padding(
                               padding: EdgeInsets.only(left: 8.0),
-                              child: Text("Regular",
+                              child: Text('Regular',
                                   style: TextStyle(
                                       fontSize: 12,
                                       fontWeight: FontWeight.bold)),
@@ -539,14 +539,14 @@ class _GruasCheckListAgregarScreenState
                           ),
                           Container(
                             color: const Color.fromARGB(255, 33, 172, 236),
-                            child: const Text("Malo",
+                            child: const Text('Malo',
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                     fontSize: 12, fontWeight: FontWeight.bold)),
                           ),
                           Container(
                             color: const Color.fromARGB(255, 33, 172, 236),
-                            child: const Text("No Aplica",
+                            child: const Text('No Aplica',
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                     fontSize: 12, fontWeight: FontWeight.bold)),
@@ -565,7 +565,7 @@ class _GruasCheckListAgregarScreenState
                                         color: Colors.green,
                                       )
                                     : Container()),
-                                const Text("Cubiertas",
+                                const Text('Cubiertas',
                                     style: TextStyle(fontSize: 11)),
                               ],
                             ),
@@ -644,7 +644,7 @@ class _GruasCheckListAgregarScreenState
                                         color: Colors.green,
                                       )
                                     : Container()),
-                                const Text("Correas/Cinturón",
+                                const Text('Correas/Cinturón',
                                     style: TextStyle(fontSize: 11)),
                               ],
                             ),
@@ -723,7 +723,7 @@ class _GruasCheckListAgregarScreenState
                                         color: Colors.green,
                                       )
                                     : Container()),
-                                const Text("Apoya cabezas",
+                                const Text('Apoya cabezas',
                                     style: TextStyle(fontSize: 11)),
                               ],
                             ),
@@ -801,7 +801,7 @@ class _GruasCheckListAgregarScreenState
                                         color: Colors.green,
                                       )
                                     : Container()),
-                                const Text("Limpiavidrios",
+                                const Text('Limpiavidrios',
                                     style: TextStyle(fontSize: 11)),
                               ],
                             ),
@@ -879,7 +879,7 @@ class _GruasCheckListAgregarScreenState
                                         color: Colors.green,
                                       )
                                     : Container()),
-                                const Text("Espejos",
+                                const Text('Espejos',
                                     style: TextStyle(fontSize: 11)),
                               ],
                             ),
@@ -957,7 +957,7 @@ class _GruasCheckListAgregarScreenState
                                         color: Colors.green,
                                       )
                                     : Container()),
-                                const Text("Indicad. de giro",
+                                const Text('Indicad. de giro',
                                     style: TextStyle(fontSize: 11)),
                               ],
                             ),
@@ -1035,7 +1035,7 @@ class _GruasCheckListAgregarScreenState
                                         color: Colors.green,
                                       )
                                     : Container()),
-                                const Text("Bocina",
+                                const Text('Bocina',
                                     style: TextStyle(fontSize: 11)),
                               ],
                             ),
@@ -1113,7 +1113,7 @@ class _GruasCheckListAgregarScreenState
                                         color: Colors.green,
                                       )
                                     : Container()),
-                                const Text("Dispositivo PAT",
+                                const Text('Dispositivo PAT',
                                     style: TextStyle(fontSize: 11)),
                               ],
                             ),
@@ -1191,7 +1191,7 @@ class _GruasCheckListAgregarScreenState
                                         color: Colors.green,
                                       )
                                     : Container()),
-                                const Text("Ganchos",
+                                const Text('Ganchos',
                                     style: TextStyle(fontSize: 11)),
                               ],
                             ),
@@ -1269,7 +1269,7 @@ class _GruasCheckListAgregarScreenState
                                         color: Colors.green,
                                       )
                                     : Container()),
-                                const Text("Alarma de retroc.",
+                                const Text('Alarma de retroc.',
                                     style: TextStyle(fontSize: 11)),
                               ],
                             ),
@@ -1347,7 +1347,7 @@ class _GruasCheckListAgregarScreenState
                                         color: Colors.green,
                                       )
                                     : Container()),
-                                const Text("Mang. circ. hidr.",
+                                const Text('Mang. circ. hidr.',
                                     style: TextStyle(fontSize: 11)),
                               ],
                             ),
@@ -1447,7 +1447,7 @@ class _GruasCheckListAgregarScreenState
                             color: const Color.fromARGB(255, 33, 172, 236),
                             child: const Padding(
                               padding: EdgeInsets.only(left: 8.0),
-                              child: Text("Concepto",
+                              child: Text('Concepto',
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                       fontSize: 12,
@@ -1456,7 +1456,7 @@ class _GruasCheckListAgregarScreenState
                           ),
                           Container(
                             color: const Color.fromARGB(255, 33, 172, 236),
-                            child: const Text("Bien",
+                            child: const Text('Bien',
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                     fontSize: 12, fontWeight: FontWeight.bold)),
@@ -1465,7 +1465,7 @@ class _GruasCheckListAgregarScreenState
                             color: const Color.fromARGB(255, 33, 172, 236),
                             child: const Padding(
                               padding: EdgeInsets.only(left: 8.0),
-                              child: Text("Regular",
+                              child: Text('Regular',
                                   style: TextStyle(
                                       fontSize: 12,
                                       fontWeight: FontWeight.bold)),
@@ -1473,14 +1473,14 @@ class _GruasCheckListAgregarScreenState
                           ),
                           Container(
                             color: const Color.fromARGB(255, 33, 172, 236),
-                            child: const Text("Malo",
+                            child: const Text('Malo',
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                     fontSize: 12, fontWeight: FontWeight.bold)),
                           ),
                           Container(
                             color: const Color.fromARGB(255, 33, 172, 236),
-                            child: const Text("No Aplica",
+                            child: const Text('No Aplica',
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                     fontSize: 12, fontWeight: FontWeight.bold)),
@@ -1498,7 +1498,7 @@ class _GruasCheckListAgregarScreenState
                                         color: Colors.green,
                                       )
                                     : Container()),
-                                const Text("Faros delanteros",
+                                const Text('Faros delanteros',
                                     style: TextStyle(fontSize: 11)),
                               ],
                             ),
@@ -1577,7 +1577,7 @@ class _GruasCheckListAgregarScreenState
                                         color: Colors.green,
                                       )
                                     : Container()),
-                                const Text("Faros traseros",
+                                const Text('Faros traseros',
                                     style: TextStyle(fontSize: 11)),
                               ],
                             ),
@@ -1655,7 +1655,7 @@ class _GruasCheckListAgregarScreenState
                                         color: Colors.green,
                                       )
                                     : Container()),
-                                const Text("Luz de posición",
+                                const Text('Luz de posición',
                                     style: TextStyle(fontSize: 11)),
                               ],
                             ),
@@ -1733,7 +1733,7 @@ class _GruasCheckListAgregarScreenState
                                         color: Colors.green,
                                       )
                                     : Container()),
-                                const Text("Luz de freno",
+                                const Text('Luz de freno',
                                     style: TextStyle(fontSize: 11)),
                               ],
                             ),
@@ -1811,7 +1811,7 @@ class _GruasCheckListAgregarScreenState
                                         color: Colors.green,
                                       )
                                     : Container()),
-                                const Text("Luz de retroceso",
+                                const Text('Luz de retroceso',
                                     style: TextStyle(fontSize: 11)),
                               ],
                             ),
@@ -1889,7 +1889,7 @@ class _GruasCheckListAgregarScreenState
                                         color: Colors.green,
                                       )
                                     : Container()),
-                                const Text("Luz de emergencia",
+                                const Text('Luz de emergencia',
                                     style: TextStyle(fontSize: 11)),
                               ],
                             ),
@@ -1990,7 +1990,7 @@ class _GruasCheckListAgregarScreenState
                             color: const Color.fromARGB(255, 33, 172, 236),
                             child: const Padding(
                               padding: EdgeInsets.only(left: 8.0),
-                              child: Text("Concepto",
+                              child: Text('Concepto',
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                       fontSize: 12,
@@ -1999,7 +1999,7 @@ class _GruasCheckListAgregarScreenState
                           ),
                           Container(
                             color: const Color.fromARGB(255, 33, 172, 236),
-                            child: const Text("Bien",
+                            child: const Text('Bien',
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                     fontSize: 12, fontWeight: FontWeight.bold)),
@@ -2008,7 +2008,7 @@ class _GruasCheckListAgregarScreenState
                             color: const Color.fromARGB(255, 33, 172, 236),
                             child: const Padding(
                               padding: EdgeInsets.only(left: 8.0),
-                              child: Text("Regular",
+                              child: Text('Regular',
                                   style: TextStyle(
                                       fontSize: 12,
                                       fontWeight: FontWeight.bold)),
@@ -2016,14 +2016,14 @@ class _GruasCheckListAgregarScreenState
                           ),
                           Container(
                             color: const Color.fromARGB(255, 33, 172, 236),
-                            child: const Text("Malo",
+                            child: const Text('Malo',
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                     fontSize: 12, fontWeight: FontWeight.bold)),
                           ),
                           Container(
                             color: const Color.fromARGB(255, 33, 172, 236),
-                            child: const Text("No Aplica",
+                            child: const Text('No Aplica',
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                     fontSize: 12, fontWeight: FontWeight.bold)),
@@ -2041,7 +2041,7 @@ class _GruasCheckListAgregarScreenState
                                         color: Colors.green,
                                       )
                                     : Container()),
-                                const Text("Baliza portátil",
+                                const Text('Baliza portátil',
                                     style: TextStyle(fontSize: 11)),
                               ],
                             ),
@@ -2119,7 +2119,7 @@ class _GruasCheckListAgregarScreenState
                                         color: Colors.green,
                                       )
                                     : Container()),
-                                const Text("Matafuegos",
+                                const Text('Matafuegos',
                                     style: TextStyle(fontSize: 11)),
                               ],
                             ),
@@ -2197,7 +2197,7 @@ class _GruasCheckListAgregarScreenState
                                         color: Colors.green,
                                       )
                                     : Container()),
-                                const Text("Identif. de Empresa",
+                                const Text('Identif. de Empresa',
                                     style: TextStyle(fontSize: 11)),
                               ],
                             ),
@@ -2275,7 +2275,7 @@ class _GruasCheckListAgregarScreenState
                                         color: Colors.green,
                                       )
                                     : Container()),
-                                const Text("Sobresal. Peligro",
+                                const Text('Sobresal. Peligro',
                                     style: TextStyle(fontSize: 11)),
                               ],
                             ),
@@ -2353,7 +2353,7 @@ class _GruasCheckListAgregarScreenState
                                         color: Colors.green,
                                       )
                                     : Container()),
-                                const Text("Diagrama de carga",
+                                const Text('Diagrama de carga',
                                     style: TextStyle(fontSize: 11)),
                               ],
                             ),
@@ -2432,7 +2432,7 @@ class _GruasCheckListAgregarScreenState
                                         color: Colors.green,
                                       )
                                     : Container()),
-                                const Text("Fajas",
+                                const Text('Fajas',
                                     style: TextStyle(fontSize: 11)),
                               ],
                             ),
@@ -2511,7 +2511,7 @@ class _GruasCheckListAgregarScreenState
                                         color: Colors.green,
                                       )
                                     : Container()),
-                                const Text("Grilletes",
+                                const Text('Grilletes',
                                     style: TextStyle(fontSize: 11)),
                               ],
                             ),
@@ -2590,7 +2590,7 @@ class _GruasCheckListAgregarScreenState
                                         color: Colors.green,
                                       )
                                     : Container()),
-                                const Text("Cinta suj. de carga",
+                                const Text('Cinta suj. de carga',
                                     style: TextStyle(fontSize: 11)),
                               ],
                             ),
@@ -2884,7 +2884,7 @@ class _GruasCheckListAgregarScreenState
       return isValid;
     }
 
-    if (_codigo == "" || _vehiculo.numcha == "") {
+    if (_codigo == '' || _vehiculo.numcha == '') {
       isValid = false;
       showAlertDialog(
           context: context,
@@ -2896,7 +2896,7 @@ class _GruasCheckListAgregarScreenState
       return isValid;
     }
 
-    if (_vehiculo.numcha == '000000  ' && _nombreApellido == "") {
+    if (_vehiculo.numcha == '000000  ' && _nombreApellido == '') {
       isValid = false;
       showAlertDialog(
           context: context,
@@ -2908,7 +2908,7 @@ class _GruasCheckListAgregarScreenState
       return isValid;
     }
 
-    if (_vehiculo.numcha == '000000  ' && _documento == "") {
+    if (_vehiculo.numcha == '000000  ' && _documento == '') {
       isValid = false;
       showAlertDialog(
           context: context,
@@ -2921,7 +2921,7 @@ class _GruasCheckListAgregarScreenState
     }
 
     if (_vtv == OptionTwo.SI &&
-        (_fechaVencVtv == null || _fechaVencVtv == "")) {
+        (_fechaVencVtv == null || _fechaVencVtv == '')) {
       isValid = false;
       showAlertDialog(
           context: context,
@@ -2934,7 +2934,7 @@ class _GruasCheckListAgregarScreenState
     }
 
     if (_vth == OptionTwo.SI &&
-        (_fechaVencVth == null || _fechaVencVth == "")) {
+        (_fechaVencVth == null || _fechaVencVth == '')) {
       isValid = false;
       showAlertDialog(
           context: context,
@@ -2947,7 +2947,7 @@ class _GruasCheckListAgregarScreenState
     }
 
     if (_seguro == OptionTwo.SI &&
-        (_fechaVencSeguro == null || _fechaVencSeguro == "")) {
+        (_fechaVencSeguro == null || _fechaVencSeguro == '')) {
       isValid = false;
       showAlertDialog(
           context: context,
@@ -2979,7 +2979,7 @@ class _GruasCheckListAgregarScreenState
           message:
               'Jefe Directo no puede superar los 30 caracteres. Ha escrito ' +
                   _jefeDirecto.length.toString() +
-                  ".",
+                  '.',
           actions: <AlertDialogAction>[
             const AlertDialogAction(key: null, label: 'Aceptar'),
           ]);
@@ -3006,7 +3006,7 @@ class _GruasCheckListAgregarScreenState
           message:
               'Responsable Vehiculo no puede superar los 30 caracteres. Ha escrito ' +
                   _responsableVehiculo.length.toString() +
-                  ".",
+                  '.',
           actions: <AlertDialogAction>[
             const AlertDialogAction(key: null, label: 'Aceptar'),
           ]);
@@ -3021,7 +3021,7 @@ class _GruasCheckListAgregarScreenState
           message:
               'Observaciones no puede superar los 200 caracteres. Ha escrito ' +
                   _observaciones.length.toString() +
-                  ".",
+                  '.',
           actions: <AlertDialogAction>[
             const AlertDialogAction(key: null, label: 'Aceptar'),
           ]);
@@ -3086,12 +3086,12 @@ class _GruasCheckListAgregarScreenState
         _showLoader = false;
       });
       showMyDialog(
-          'Error', "Verifica que estés conectado a Internet", 'Aceptar');
+          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
     }
 
     Map<String, dynamic> request = {
       'IDCheckList': widget.editMode == true ? widget.checkList.idCheckList : 0,
-      'Fecha': DateTime.now().toString(),
+      'Fecha': DateTime.now().toString().substring(0, 10),
       'IDUser': widget.user.idUsuario,
       'IdCliente': _cliente,
       'IDVehiculo': _vehiculo.codveh,
@@ -3170,8 +3170,9 @@ class _GruasCheckListAgregarScreenState
       'DNI': _documento,
       'ApellidoNombre': _nombreApellido,
       'Seguro': _seguro.toString().substring(10, _seguro.toString().length),
-      'FechaVencSeguro':
-          _fechaVencSeguro != null ? _fechaVencSeguro.toString() : '',
+      'FechaVencSeguro': _fechaVencSeguro != null
+          ? _fechaVencSeguro.toString().substring(0, 10)
+          : '',
     };
 
     Response? response;
@@ -3220,7 +3221,7 @@ class _GruasCheckListAgregarScreenState
         isSpace = false;
       }
 
-      if (string[i] == " ") {
+      if (string[i] == ' ') {
         isSpace = true;
       } else {
         isSpace = false;
@@ -3245,8 +3246,8 @@ class _GruasCheckListAgregarScreenState
         height: 30,
         child: Text(
           _fechaVencVtv != null
-              ? "    ${_fechaVencVtv!.day}/${_fechaVencVtv!.month}/${_fechaVencVtv!.year}"
-              : "",
+              ? '    ${_fechaVencVtv!.day}/${_fechaVencVtv!.month}/${_fechaVencVtv!.year}'
+              : '',
           style: const TextStyle(color: Colors.black),
         ),
       ),
@@ -3267,8 +3268,8 @@ class _GruasCheckListAgregarScreenState
         height: 30,
         child: Text(
           _fechaVencVth != null
-              ? "    ${_fechaVencVth!.day}/${_fechaVencVth!.month}/${_fechaVencVth!.year}"
-              : "",
+              ? '    ${_fechaVencVth!.day}/${_fechaVencVth!.month}/${_fechaVencVth!.year}'
+              : '',
           style: const TextStyle(color: Colors.black),
         ),
       ),
@@ -3289,8 +3290,8 @@ class _GruasCheckListAgregarScreenState
         height: 30,
         child: Text(
           _fechaVencSeguro != null
-              ? "    ${_fechaVencSeguro!.day}/${_fechaVencSeguro!.month}/${_fechaVencSeguro!.year}"
-              : "",
+              ? '    ${_fechaVencSeguro!.day}/${_fechaVencSeguro!.month}/${_fechaVencSeguro!.year}'
+              : '',
           style: const TextStyle(color: Colors.black),
         ),
       ),
@@ -3376,7 +3377,7 @@ class _GruasCheckListAgregarScreenState
         _showLoader = false;
       });
       showMyDialog(
-          'Error', "Verifica que estés conectado a Internet", 'Aceptar');
+          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
     }
 
     Response response = Response(isSuccess: false);
@@ -3592,7 +3593,7 @@ class _GruasCheckListAgregarScreenState
       await showAlertDialog(
           context: context,
           title: 'Error',
-          message: "Patente no existe en la BD",
+          message: 'Patente no existe en la BD',
           actions: <AlertDialogAction>[
             const AlertDialogAction(key: null, label: 'Aceptar'),
           ]);
@@ -3606,8 +3607,8 @@ class _GruasCheckListAgregarScreenState
       _showLoader = false;
       _vehiculoAux = response.result;
       if (_vehiculoAux.numcha != '000000  ') {
-        _nombreApellido = "";
-        _documento = "";
+        _nombreApellido = '';
+        _documento = '';
       }
     });
 
@@ -3615,7 +3616,7 @@ class _GruasCheckListAgregarScreenState
       await showAlertDialog(
           context: context,
           title: 'Error',
-          message: "Vehículo no habilitado",
+          message: 'Vehículo no habilitado',
           actions: <AlertDialogAction>[
             const AlertDialogAction(key: null, label: 'Aceptar'),
           ]);
@@ -3630,7 +3631,7 @@ class _GruasCheckListAgregarScreenState
       await showAlertDialog(
           context: context,
           title: 'Error',
-          message: "Vehículo no habilitado para CheckList",
+          message: 'Vehículo no habilitado para CheckList',
           actions: <AlertDialogAction>[
             const AlertDialogAction(key: null, label: 'Aceptar'),
           ]);
@@ -3903,7 +3904,7 @@ class _GruasCheckListAgregarScreenState
       await showAlertDialog(
           context: context,
           title: 'Error',
-          message: "Legajo o Documento no válido",
+          message: 'Legajo o Documento no válido',
           actions: <AlertDialogAction>[
             const AlertDialogAction(key: null, label: 'Aceptar'),
           ]);

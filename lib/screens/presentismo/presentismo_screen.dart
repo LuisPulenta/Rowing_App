@@ -2,9 +2,10 @@ import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:rowing_app/components/loader_component.dart';
-import 'package:rowing_app/helpers/helpers.dart';
-import 'package:rowing_app/models/models.dart';
+
+import '../../components/loader_component.dart';
+import '../../helpers/helpers.dart';
+import '../../models/models.dart';
 
 class PresentismoScreen extends StatefulWidget {
   final User user;
@@ -270,7 +271,7 @@ class _PresentismoScreenState extends State<PresentismoScreen> {
       Map<String, dynamic> request = {
         'IDPRESENTISMO': 0,
         'IDSUPERVISOR': widget.user.idUsuario,
-        'FECHA': hoy.toString(),
+        'FECHA': hoy.toString().substring(0, 10),
         'HORA': hora,
         'GRUPOC': empleado.grupo,
         'CAUSANTEC': empleado.codigo,
@@ -330,7 +331,7 @@ class _PresentismoScreenState extends State<PresentismoScreen> {
           height: 40,
           child: Row(
             children: [
-              const Text("Cantidad de Empleados: ",
+              const Text('Cantidad de Empleados: ',
                   style: TextStyle(
                     fontSize: 14,
                     color: Colors.white,
@@ -355,7 +356,7 @@ class _PresentismoScreenState extends State<PresentismoScreen> {
             children: [
               SizedBox(
                 width: ancho * 0.35,
-                child: const Text("Empleado",
+                child: const Text('Empleado',
                     style: TextStyle(
                       fontSize: 12,
                       color: Colors.white,
@@ -366,7 +367,7 @@ class _PresentismoScreenState extends State<PresentismoScreen> {
               ),
               SizedBox(
                 width: ancho * 0.21,
-                child: const Text("Zona de Trabajo",
+                child: const Text('Zona de Trabajo',
                     style: TextStyle(
                       fontSize: 12,
                       color: Colors.white,
@@ -377,7 +378,7 @@ class _PresentismoScreenState extends State<PresentismoScreen> {
               ),
               SizedBox(
                 width: ancho * 0.21,
-                child: const Text("Actividad",
+                child: const Text('Actividad',
                     style: TextStyle(
                       fontSize: 12,
                       color: Colors.white,
@@ -385,7 +386,7 @@ class _PresentismoScreenState extends State<PresentismoScreen> {
               ),
               SizedBox(
                 width: ancho * 0.13,
-                child: const Text("Estado",
+                child: const Text('Estado',
                     style: TextStyle(
                       fontSize: 12,
                       color: Colors.white,
@@ -743,7 +744,7 @@ class _PresentismoScreenState extends State<PresentismoScreen> {
         _showLoader = false;
       });
       showMyDialog(
-          'Error', "Verifica que estés conectado a Internet", 'Aceptar');
+          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
     }
 
     Response response = Response(isSuccess: false);
@@ -800,7 +801,7 @@ class _PresentismoScreenState extends State<PresentismoScreen> {
         _showLoader = false;
       });
       showMyDialog(
-          'Error', "Verifica que estés conectado a Internet", 'Aceptar');
+          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
     }
 
     Response response = Response(isSuccess: false);
@@ -849,7 +850,7 @@ class _PresentismoScreenState extends State<PresentismoScreen> {
         _showLoader = false;
       });
       showMyDialog(
-          'Error', "Verifica que estés conectado a Internet", 'Aceptar');
+          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
     }
 
     Response response = Response(isSuccess: false);
@@ -898,7 +899,7 @@ class _PresentismoScreenState extends State<PresentismoScreen> {
         _showLoader = false;
       });
       showMyDialog(
-          'Error', "Verifica que estés conectado a Internet", 'Aceptar');
+          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
     }
 
     Response response = Response(isSuccess: false);
@@ -947,7 +948,7 @@ class _PresentismoScreenState extends State<PresentismoScreen> {
         _showLoader = false;
       });
       showMyDialog(
-          'Error', "Verifica que estés conectado a Internet", 'Aceptar');
+          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
     }
 
     Response response = Response(isSuccess: false);

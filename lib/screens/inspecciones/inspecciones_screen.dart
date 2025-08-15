@@ -2,11 +2,11 @@ import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:rowing_app/helpers/helpers.dart';
-import 'package:rowing_app/models/models.dart';
-import 'package:rowing_app/screens/screens.dart';
-import 'package:rowing_app/widgets/widgets.dart';
-import 'package:rowing_app/helpers/helpers.dart';
+
+import '../../helpers/helpers.dart';
+import '../../models/models.dart';
+import '../../widgets/widgets.dart';
+import '../screens.dart';
 
 class InspeccionesScreen extends StatefulWidget {
   final User user;
@@ -410,7 +410,7 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
 //--------------------------------------------------------------
 
   Future<void> _getCausante() async {
-    if (_codigo == "000000") {
+    if (_codigo == '000000') {
       _esContratista = true;
       _enabled3 = false;
       _enabled1 = true;
@@ -442,7 +442,7 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
       await showAlertDialog(
           context: context,
           title: 'Error',
-          message: "Legajo o Documento no válido",
+          message: 'Legajo o Documento no válido',
           actions: <AlertDialogAction>[
             const AlertDialogAction(key: null, label: 'Aceptar'),
           ]);
@@ -476,7 +476,7 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
 
     if (connectivityResult == ConnectivityResult.none) {
       showMyDialog(
-          'Error', "Verifica que estés conectado a Internet", 'Aceptar');
+          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
     }
 
     bandera = false;
@@ -564,7 +564,7 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
 
     if (connectivityResult == ConnectivityResult.none) {
       showMyDialog(
-          'Error', "Verifica que estés conectado a Internet", 'Aceptar');
+          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
     }
 
     bandera = false;
@@ -642,7 +642,7 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
 
     if (connectivityResult == ConnectivityResult.none) {
       showMyDialog(
-          'Error', "Verifica que estés conectado a Internet", 'Aceptar');
+          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
     }
 
     bandera = false;
@@ -672,7 +672,7 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
 
     if (connectivityResult == ConnectivityResult.none) {
       showMyDialog(
-          'Error', "Verifica que estés conectado a Internet", 'Aceptar');
+          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
     }
 
     _detallesFormularios = [];
@@ -894,7 +894,7 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
                           const SizedBox(
                             width: 10,
                           ),
-                          const Text("Obra: ",
+                          const Text('Obra: ',
                               style: TextStyle(fontWeight: FontWeight.bold)),
                           Expanded(
                             child: Text(obra.nombreObra),

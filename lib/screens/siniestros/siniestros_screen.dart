@@ -2,11 +2,12 @@ import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:rowing_app/components/loader_component.dart';
-import 'package:rowing_app/helpers/helpers.dart';
-import 'package:rowing_app/models/models.dart';
-import 'package:rowing_app/screens/screens.dart';
-import 'package:rowing_app/widgets/widgets.dart';
+
+import '../../components/loader_component.dart';
+import '../../helpers/helpers.dart';
+import '../../models/models.dart';
+import '../../widgets/widgets.dart';
+import '../screens.dart';
 
 class SiniestrosScreen extends StatefulWidget {
   final User user;
@@ -116,7 +117,7 @@ class _SiniestrosScreenState extends State<SiniestrosScreen> {
       backgroundColor: const Color(0xFF484848),
       appBar: AppBar(
         title: Text(
-            widget.user.habilitaSSHH == 0 ? "Mis Siniestros" : "Siniestros"),
+            widget.user.habilitaSSHH == 0 ? 'Mis Siniestros' : 'Siniestros'),
         centerTitle: true,
       ),
       body: Stack(
@@ -274,7 +275,7 @@ class _SiniestrosScreenState extends State<SiniestrosScreen> {
                                 children: [
                                   const SizedBox(
                                     width: 100,
-                                    child: Text("Fecha: ",
+                                    child: Text('Fecha: ',
                                         style: TextStyle(
                                           fontSize: 12,
                                           color: Color(0xFF0e4888),
@@ -293,7 +294,7 @@ class _SiniestrosScreenState extends State<SiniestrosScreen> {
                                   ),
                                   const SizedBox(
                                     width: 40,
-                                    child: Text("Hora: ",
+                                    child: Text('Hora: ',
                                         style: TextStyle(
                                           fontSize: 12,
                                           color: Color(0xFF0e4888),
@@ -315,7 +316,7 @@ class _SiniestrosScreenState extends State<SiniestrosScreen> {
                                 children: [
                                   const SizedBox(
                                     width: 100,
-                                    child: Text("Patente: ",
+                                    child: Text('Patente: ',
                                         style: TextStyle(
                                           fontSize: 12,
                                           color: Color(0xFF0e4888),
@@ -337,7 +338,7 @@ class _SiniestrosScreenState extends State<SiniestrosScreen> {
                                 children: [
                                   const SizedBox(
                                     width: 100,
-                                    child: Text("Tercero: ",
+                                    child: Text('Tercero: ',
                                         style: TextStyle(
                                           fontSize: 12,
                                           color: Color(0xFF0e4888),
@@ -359,7 +360,7 @@ class _SiniestrosScreenState extends State<SiniestrosScreen> {
                                 children: [
                                   const SizedBox(
                                     width: 100,
-                                    child: Text("Dirección: ",
+                                    child: Text('Dirección: ',
                                         style: TextStyle(
                                           fontSize: 12,
                                           color: Color(0xFF0e4888),
@@ -368,7 +369,7 @@ class _SiniestrosScreenState extends State<SiniestrosScreen> {
                                   ),
                                   Expanded(
                                     child: Text(
-                                        e.direccionsiniestro + " " + e.altura,
+                                        e.direccionsiniestro + ' ' + e.altura,
                                         style: const TextStyle(
                                           fontSize: 12,
                                         )),
@@ -382,7 +383,7 @@ class _SiniestrosScreenState extends State<SiniestrosScreen> {
                                 children: [
                                   const SizedBox(
                                     width: 100,
-                                    child: Text("Ciudad: ",
+                                    child: Text('Ciudad: ',
                                         style: TextStyle(
                                           fontSize: 12,
                                           color: Color(0xFF0e4888),
@@ -404,7 +405,7 @@ class _SiniestrosScreenState extends State<SiniestrosScreen> {
                                 children: [
                                   const SizedBox(
                                     width: 100,
-                                    child: Text("Provincia: ",
+                                    child: Text('Provincia: ',
                                         style: TextStyle(
                                           fontSize: 12,
                                           color: Color(0xFF0e4888),
@@ -426,7 +427,7 @@ class _SiniestrosScreenState extends State<SiniestrosScreen> {
                                 children: [
                                   const SizedBox(
                                     width: 100,
-                                    child: Text("Notificó: ",
+                                    child: Text('Notificó: ',
                                         style: TextStyle(
                                           fontSize: 12,
                                           color: Color(0xFF0e4888),
@@ -448,7 +449,7 @@ class _SiniestrosScreenState extends State<SiniestrosScreen> {
                                 children: [
                                   const SizedBox(
                                     width: 100,
-                                    child: Text("Notificado a: ",
+                                    child: Text('Notificado a: ',
                                         style: TextStyle(
                                           fontSize: 12,
                                           color: Color(0xFF0e4888),
@@ -471,7 +472,7 @@ class _SiniestrosScreenState extends State<SiniestrosScreen> {
                                   const SizedBox(
                                     width: 100,
                                     child: Text(
-                                      "Tipo Siniestro: ",
+                                      'Tipo Siniestro: ',
                                       style: TextStyle(
                                         fontSize: 12,
                                         color: Color(0xFF0e4888),
@@ -488,7 +489,7 @@ class _SiniestrosScreenState extends State<SiniestrosScreen> {
                                         )
                                       : const Expanded(
                                           child: Text(
-                                            "",
+                                            '',
                                             style: TextStyle(
                                               fontSize: 12,
                                             ),
@@ -569,7 +570,7 @@ class _SiniestrosScreenState extends State<SiniestrosScreen> {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: <Widget>[
         Image.asset(
-          "assets/danger.png",
+          'assets/danger.png',
           width: 70,
           height: 70,
         ),
@@ -582,7 +583,7 @@ class _SiniestrosScreenState extends State<SiniestrosScreen> {
         Transform.rotate(
           angle: 0,
           child: Image.asset(
-            "assets/danger.png",
+            'assets/danger.png',
             width: 70,
             height: 70,
           ),
@@ -754,7 +755,7 @@ class _SiniestrosScreenState extends State<SiniestrosScreen> {
       await showAlertDialog(
           context: context,
           title: 'Error',
-          message: "Legajo o Documento no válido",
+          message: 'Legajo o Documento no válido',
           actions: <AlertDialogAction>[
             const AlertDialogAction(key: null, label: 'Aceptar'),
           ]);
@@ -806,7 +807,7 @@ class _SiniestrosScreenState extends State<SiniestrosScreen> {
       await showAlertDialog(
           context: context,
           title: 'Error',
-          message: "Legajo o Documento no válido",
+          message: 'Legajo o Documento no válido',
           actions: <AlertDialogAction>[
             const AlertDialogAction(key: null, label: 'Aceptar'),
           ]);
@@ -851,7 +852,7 @@ class _SiniestrosScreenState extends State<SiniestrosScreen> {
         ((valor - ((valor / 3600).floor()) * 3600) / 60).round().toString();
 
     if (minutos.length == 1) {
-      minutos = "0" + minutos;
+      minutos = '0' + minutos;
     }
     return hora.toString() + ':' + minutos.toString();
   }

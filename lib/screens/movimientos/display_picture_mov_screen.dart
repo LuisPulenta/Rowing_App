@@ -1,9 +1,11 @@
 import 'dart:io';
+
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-import 'package:rowing_app/models/photo.dart';
-import 'package:rowing_app/models/response.dart';
+
+import '../../models/photo.dart';
+import '../../models/response.dart';
 
 class DisplayPictureMovScreen extends StatefulWidget {
   final XFile image;
@@ -20,7 +22,7 @@ class _DisplayPictureMovScreenState extends State<DisplayPictureMovScreen> {
 //---------------------------------------------------------------------
 //-------------------------- Variables --------------------------------
 //---------------------------------------------------------------------
-  String _observaciones = '';
+  final String _observaciones = '';
   final String _observacionesError = '';
   final bool _observacionesShowError = false;
 
@@ -126,7 +128,7 @@ class _DisplayPictureMovScreenState extends State<DisplayPictureMovScreen> {
           message:
               'Las observaciones no pueden superar los 100 caracteres. Ha escrito ' +
                   _observaciones.length.toString() +
-                  ".",
+                  '.',
           actions: <AlertDialogAction>[
             const AlertDialogAction(key: null, label: 'Aceptar'),
           ]);

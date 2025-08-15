@@ -1,10 +1,10 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
-import 'package:rowing_app/components/loader_component.dart';
-import 'package:rowing_app/helpers/helpers.dart';
-import 'package:rowing_app/models/models.dart';
-import 'package:rowing_app/helpers/helpers.dart';
+
+import '../../components/loader_component.dart';
+import '../../helpers/helpers.dart';
+import '../../models/models.dart';
 
 class ConteoInfoScreen extends StatefulWidget {
   final User user;
@@ -127,7 +127,7 @@ class _ConteoInfoScreenState extends State<ConteoInfoScreen> {
         await showAlertDialog(
             context: context,
             title: 'Error',
-            message: "No puede guardar números menores a cero.",
+            message: 'No puede guardar números menores a cero.',
             actions: <AlertDialogAction>[
               const AlertDialogAction(key: null, label: 'Aceptar'),
             ]);
@@ -184,7 +184,7 @@ class _ConteoInfoScreenState extends State<ConteoInfoScreen> {
           height: 40,
           child: Row(
             children: [
-              const Text("Cantidad de Items: ",
+              const Text('Cantidad de Items: ',
                   style: TextStyle(
                     fontSize: 14,
                     color: Colors.white,
@@ -209,7 +209,7 @@ class _ConteoInfoScreenState extends State<ConteoInfoScreen> {
             children: [
               SizedBox(
                 width: ancho * 0.2,
-                child: const Text("SIAG/SAP",
+                child: const Text('SIAG/SAP',
                     style: TextStyle(
                       fontSize: 12,
                       color: Colors.white,
@@ -220,7 +220,7 @@ class _ConteoInfoScreenState extends State<ConteoInfoScreen> {
               ),
               SizedBox(
                 width: ancho * 0.48,
-                child: const Text("Descripción",
+                child: const Text('Descripción',
                     style: TextStyle(
                       fontSize: 12,
                       color: Colors.white,
@@ -228,7 +228,7 @@ class _ConteoInfoScreenState extends State<ConteoInfoScreen> {
               ),
               SizedBox(
                 width: ancho * 0.15,
-                child: const Text("Cantidad",
+                child: const Text('Cantidad',
                     style: TextStyle(
                       fontSize: 12,
                       color: Colors.white,
@@ -301,8 +301,8 @@ class _ConteoInfoScreenState extends State<ConteoInfoScreen> {
                                           style: const TextStyle(
                                             fontSize: 10,
                                           )),
-                                      e.codigosap.replaceAll(" ", "") !=
-                                              e.codigosiag.replaceAll(" ", "")
+                                      e.codigosap.replaceAll(' ', '') !=
+                                              e.codigosiag.replaceAll(' ', '')
                                           ? Text(e.codigosap,
                                               textAlign: TextAlign.center,
                                               style: const TextStyle(
@@ -342,7 +342,7 @@ class _ConteoInfoScreenState extends State<ConteoInfoScreen> {
                                             return AlertDialog(
                                               backgroundColor: Colors.grey[300],
                                               title: const Text(
-                                                  "Ingrese la cantidad"),
+                                                  'Ingrese la cantidad'),
                                               content: TextField(
                                                 autofocus: true,
                                                 keyboardType:
@@ -501,7 +501,7 @@ class _ConteoInfoScreenState extends State<ConteoInfoScreen> {
         _showLoader = false;
       });
       showMyDialog(
-          'Error', "Verifica que estés conectado a Internet", 'Aceptar');
+          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
     }
 
     Response response = Response(isSuccess: false);

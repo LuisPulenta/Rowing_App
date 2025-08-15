@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:custom_info_window/custom_info_window.dart';
@@ -5,12 +7,12 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:intl/intl.dart';
-import 'package:rowing_app/components/loader_component.dart';
-import 'package:rowing_app/helpers/helpers.dart';
-import 'package:rowing_app/models/models.dart';
-import 'package:rowing_app/screens/screens.dart';
-import 'dart:math';
 import 'package:url_launcher/url_launcher.dart';
+
+import '../../components/loader_component.dart';
+import '../../helpers/helpers.dart';
+import '../../models/models.dart';
+import '../screens.dart';
 
 class ObrasReparosScreen extends StatefulWidget {
   final User user;
@@ -277,7 +279,7 @@ class _ObrasReparosScreenState extends State<ObrasReparosScreen> {
       height: 40,
       child: Row(
         children: [
-          const Text("Cantidad de Veredas sin Fecha Cumplida: ",
+          const Text('Cantidad de Veredas sin Fecha Cumplida: ',
               style: TextStyle(
                 fontSize: 14,
                 color: Colors.white,
@@ -349,7 +351,7 @@ class _ObrasReparosScreenState extends State<ObrasReparosScreen> {
                                     children: [
                                       const SizedBox(
                                         width: 110,
-                                        child: Text("N° Obra: ",
+                                        child: Text('N° Obra: ',
                                             style: TextStyle(
                                               fontSize: 12,
                                               color: Color(0xFF781f1e),
@@ -363,7 +365,7 @@ class _ObrasReparosScreenState extends State<ObrasReparosScreen> {
                                               fontSize: 12,
                                             )),
                                       ),
-                                      const Text("Módulo: ",
+                                      const Text('Módulo: ',
                                           style: TextStyle(
                                             fontSize: 12,
                                             color: Color(0xFF781f1e),
@@ -392,7 +394,7 @@ class _ObrasReparosScreenState extends State<ObrasReparosScreen> {
                                     children: [
                                       const SizedBox(
                                         width: 110,
-                                        child: Text("Dirección: ",
+                                        child: Text('Dirección: ',
                                             style: TextStyle(
                                               fontSize: 12,
                                               color: Color(0xFF0e4888),
@@ -402,7 +404,7 @@ class _ObrasReparosScreenState extends State<ObrasReparosScreen> {
                                       Expanded(
                                         child: Text(
                                             e.direccion! +
-                                                " " +
+                                                ' ' +
                                                 e.altura.toString(),
                                             style: const TextStyle(
                                               fontSize: 12,
@@ -414,7 +416,7 @@ class _ObrasReparosScreenState extends State<ObrasReparosScreen> {
                                     children: [
                                       const SizedBox(
                                         width: 110,
-                                        child: Text("Tipo Vereda: ",
+                                        child: Text('Tipo Vereda: ',
                                             style: TextStyle(
                                               fontSize: 12,
                                               color: Color(0xFF0e4888),
@@ -436,7 +438,7 @@ class _ObrasReparosScreenState extends State<ObrasReparosScreen> {
                                     children: [
                                       const SizedBox(
                                         width: 110,
-                                        child: Text("Clase Vereda: ",
+                                        child: Text('Clase Vereda: ',
                                             style: TextStyle(
                                               fontSize: 12,
                                               color: Color(0xFF0e4888),
@@ -458,7 +460,7 @@ class _ObrasReparosScreenState extends State<ObrasReparosScreen> {
                                     children: [
                                       const SizedBox(
                                         width: 110,
-                                        child: Text("Mts. lineales: ",
+                                        child: Text('Mts. lineales: ',
                                             style: TextStyle(
                                               fontSize: 12,
                                               color: Color(0xFF0e4888),
@@ -480,7 +482,7 @@ class _ObrasReparosScreenState extends State<ObrasReparosScreen> {
                                     children: [
                                       const SizedBox(
                                         width: 110,
-                                        child: Text("Ancho [cm]: ",
+                                        child: Text('Ancho [cm]: ',
                                             style: TextStyle(
                                               fontSize: 12,
                                               color: Color(0xFF0e4888),
@@ -502,7 +504,7 @@ class _ObrasReparosScreenState extends State<ObrasReparosScreen> {
                                     children: [
                                       const SizedBox(
                                         width: 110,
-                                        child: Text("Profundidad [cm]: ",
+                                        child: Text('Profundidad [cm]: ',
                                             style: TextStyle(
                                               fontSize: 12,
                                               color: Color(0xFF0e4888),
@@ -519,7 +521,7 @@ class _ObrasReparosScreenState extends State<ObrasReparosScreen> {
                                   ),
                                   Row(
                                     children: [
-                                      const Text("Fec. Cierre Eléctr.: ",
+                                      const Text('Fec. Cierre Eléctr.: ',
                                           style: TextStyle(
                                             fontSize: 12,
                                             color: Color(0xFF0e4888),
@@ -573,7 +575,7 @@ class _ObrasReparosScreenState extends State<ObrasReparosScreen> {
         _showLoader = false;
       });
       showMyDialog(
-          'Error', "Verifica que estés conectado a Internet", 'Aceptar');
+          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
     }
 
     Response response = Response(isSuccess: false);
@@ -895,7 +897,7 @@ class _ObrasReparosScreenState extends State<ObrasReparosScreen> {
     if (connectivityResult != ConnectivityResult.none) {
       var latt = double.tryParse(obraReparo.latitud.toString());
       var long = double.tryParse(obraReparo.longitud.toString());
-      var uri = Uri.parse("google.navigation:q=$latt,$long&mode=d");
+      var uri = Uri.parse('google.navigation:q=$latt,$long&mode=d');
       if (await canLaunch(uri.toString())) {
         await launch(uri.toString());
       } else {
@@ -905,7 +907,7 @@ class _ObrasReparosScreenState extends State<ObrasReparosScreen> {
       await showAlertDialog(
           context: context,
           title: 'Aviso!',
-          message: "Necesita estar conectado a Internet para acceder al mapa",
+          message: 'Necesita estar conectado a Internet para acceder al mapa',
           actions: <AlertDialogAction>[
             const AlertDialogAction(key: null, label: 'Aceptar'),
           ]);
@@ -1034,7 +1036,7 @@ class _ObrasReparosScreenState extends State<ObrasReparosScreen> {
       await showAlertDialog(
           context: context,
           title: 'Error',
-          message: "No hay Veredas",
+          message: 'No hay Veredas',
           actions: <AlertDialogAction>[
             const AlertDialogAction(key: null, label: 'Aceptar'),
           ]);
@@ -1064,7 +1066,7 @@ class _ObrasReparosScreenState extends State<ObrasReparosScreen> {
 
     if (connectivityResult == ConnectivityResult.none) {
       showMyDialog(
-          'Error', "Verifica que estés conectado a Internet", 'Aceptar');
+          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
     }
 
     Response response = Response(isSuccess: false);

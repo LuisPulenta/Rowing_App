@@ -1,11 +1,12 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
-import 'package:rowing_app/components/loader_component.dart';
-import 'package:rowing_app/helpers/helpers.dart';
-import 'package:rowing_app/models/obra.dart';
-import 'package:rowing_app/models/response.dart';
-import 'package:rowing_app/models/user.dart';
+
+import '../../components/loader_component.dart';
+import '../../helpers/helpers.dart';
+import '../../models/obra.dart';
+import '../../models/response.dart';
+import '../../models/user.dart';
 
 class ReclamoAgregarScreen extends StatefulWidget {
   final User user;
@@ -340,7 +341,7 @@ class _ReclamoAgregarScreenState extends State<ReclamoAgregarScreen> {
         _showLoader = false;
       });
       showMyDialog(
-          'Error', "Verifica que estés conectado a Internet", 'Aceptar');
+          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
     }
 
     Response response = Response(isSuccess: false);
@@ -443,38 +444,36 @@ class _ReclamoAgregarScreenState extends State<ReclamoAgregarScreen> {
         _showLoader = false;
       });
       showMyDialog(
-          'Error', "Verifica que estés conectado a Internet", 'Aceptar');
+          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
     }
 
     Map<String, dynamic> request = {
       //'nroregistro': _ticket.nroregistro,
       'nroobra': _obraId,
       'asticket': _asreclamo,
-      'cliente': "",
+      'cliente': '',
       'direccion': _direccion,
       'numeracion': _numero,
-      'localidad': "",
-      'telefono': "",
-      'tipoImput': "Reclamos",
-      'certificado': "No",
-      'serieMedidorColocado': "",
-      'precinto': "",
-      'cajaDAE': "",
+      'localidad': '',
+      'telefono': '',
+      'tipoImput': 'Reclamos',
+      'certificado': 'No',
+      'serieMedidorColocado': '',
+      'precinto': '',
+      'cajaDAE': '',
       'IDActaCertif': 0,
-      'observaciones': "",
-      'lindero1': "",
-      'lindero2': "",
+      'observaciones': '',
+      'lindero1': '',
+      'lindero2': '',
       'zona': _zona,
       'terminal': _descripcion,
       'subcontratista': widget.user.codigogrupo,
       'causanteC': widget.user.codigocausante,
-      'grxx': "",
-      'gryy': "",
+      'grxx': '',
+      'gryy': '',
       'idUsrIn': widget.user.idUsuario,
-      'observacionAdicional': "App",
-      'fechaCarga': DateTime.now().toString(),
-      'riesgoElectrico': "No",
-      'fechaasignacion': DateTime.now().toString(),
+      'observacionAdicional': 'App',
+      'riesgoElectrico': 'No',
       'mes': DateTime.now().month,
     };
 

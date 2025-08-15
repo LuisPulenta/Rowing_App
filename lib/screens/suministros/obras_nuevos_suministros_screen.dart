@@ -699,7 +699,7 @@ class _ObrasNuevosSuministrosScreenState
     Map<String, dynamic> requestSuministro = {
       // 'nrosuministro': 0,
       'nroobra': e.nroobra,
-      'fecha': e.fecha,
+      'fecha': e.fecha.toString().substring(0, 10),
       'apellidonombre': e.apellidonombre,
       'dni': e.dni,
       'telefono': e.telefono,

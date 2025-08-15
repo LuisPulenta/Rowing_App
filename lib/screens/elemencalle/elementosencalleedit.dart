@@ -1,17 +1,21 @@
 import 'dart:convert';
 import 'dart:io';
+
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:camera/camera.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:rowing_app/components/loader_component.dart';
-import 'package:rowing_app/helpers/helpers.dart';
-import 'package:rowing_app/models/models.dart';
-import 'package:rowing_app/screens/screens.dart';
+
+import '../../components/loader_component.dart';
+import '../../helpers/helpers.dart';
+import '../../helpers/resize_image.dart';
+import '../../models/models.dart';
+import '../screens.dart';
 
 class Elementosencalleedit extends StatefulWidget {
   final User user;
@@ -34,7 +38,7 @@ class _ElementosencalleeditState extends State<Elementosencalleedit> {
 //-------------------------- Variables --------------------------------
 //---------------------------------------------------------------------
 
-  int _nroReg = 0;
+  final int _nroReg = 0;
   int _nroObra = 0;
   String _nombreObra = '';
 
@@ -45,7 +49,7 @@ class _ElementosencalleeditState extends State<Elementosencalleedit> {
   final bool _cantidadShowError = false;
   final TextEditingController _cantidadController = TextEditingController();
 
-  List<Catalogo> _catalogosBD = [];
+  final List<Catalogo> _catalogosBD = [];
   List<Catalogo> _catalogos = [];
 
   late XFile _image;
@@ -80,8 +84,8 @@ class _ElementosencalleeditState extends State<Elementosencalleedit> {
   double longitud = 0;
 
   String _direccion = '';
-  String _direccionError = '';
-  bool _direccionShowError = false;
+  final String _direccionError = '';
+  final bool _direccionShowError = false;
   final TextEditingController _direccionController = TextEditingController();
 
   Obra obra = Obra(
@@ -162,15 +166,15 @@ class _ElementosencalleeditState extends State<Elementosencalleedit> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: const [
                   Text(
-                    "Material         ",
+                    'Material         ',
                     style: TextStyle(color: Colors.black),
                   ),
                   Text(
-                    "   ",
+                    '   ',
                     style: TextStyle(color: Colors.black),
                   ),
                   Text(
-                    "Cantidad                 ",
+                    'Cantidad                 ',
                     style: TextStyle(color: Colors.black),
                   ),
                 ],
@@ -222,7 +226,7 @@ class _ElementosencalleeditState extends State<Elementosencalleedit> {
                           const SizedBox(
                             width: 10,
                           ),
-                          const Text("Obra: ",
+                          const Text('Obra: ',
                               style: TextStyle(fontWeight: FontWeight.bold)),
                           Expanded(
                             child: Text(_nombreObra),
@@ -257,11 +261,9 @@ class _ElementosencalleeditState extends State<Elementosencalleedit> {
                     ),
                   ),
                 );
-                if (obra2 != null) {
-                  obra = obra2;
-                  _nombreObra = obra.nombreObra;
-                  _nroObra = obra.nroObra;
-                }
+                obra = obra2;
+                _nombreObra = obra.nombreObra;
+                _nroObra = obra.nroObra;
                 setState(() {});
               },
             ),
@@ -353,9 +355,9 @@ class _ElementosencalleeditState extends State<Elementosencalleedit> {
       latitud = _center.latitude;
       longitud = _center.longitude;
       _direccionController.text = placemarks[0].thoroughfare.toString() +
-          " " +
+          ' ' +
           placemarks[0].name.toString() +
-          " " +
+          ' ' +
           placemarks[0].locality.toString();
       _direccion = _direccionController.text;
       setState(() {
@@ -615,7 +617,7 @@ class _ElementosencalleeditState extends State<Elementosencalleedit> {
         _showLoader = false;
       });
       showMyDialog(
-          'Error', "Verifica que estés conectado a Internet", 'Aceptar');
+          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
     }
 
     Response response = Response(isSuccess: false);
@@ -705,7 +707,7 @@ class _ElementosencalleeditState extends State<Elementosencalleedit> {
                                                 backgroundColor:
                                                     Colors.grey[300],
                                                 title: const Text(
-                                                    "Ingrese la cantidad"),
+                                                    'Ingrese la cantidad'),
                                                 content: TextField(
                                                   autofocus: true,
                                                   keyboardType:
@@ -993,8 +995,12 @@ class _ElementosencalleeditState extends State<Elementosencalleedit> {
       String base64Image = '';
 
       if (_photoChanged) {
-        List<int> imageBytes = await _image.readAsBytes();
-        base64Image = base64Encode(imageBytes);
+        Uint8List imageBytes = await _image.readAsBytes();
+        int maxWidth = 800; // Ancho máximo
+        int maxHeight = 600; // Alto máximo
+        Uint8List resizedBytes =
+            await resizeImage(imageBytes, maxWidth, maxHeight);
+        base64Image = base64Encode(resizedBytes);
       }
 
       //-----------------Graba Cabecera--------------
@@ -1002,12 +1008,11 @@ class _ElementosencalleeditState extends State<Elementosencalleedit> {
         'ID': widget.elemEnCalle.idelementocab,
         'NROOBRA': _nroObra,
         'IDUSERCARGA': widget.user.idUsuario,
-        'FECHA': DateTime.now().toString(),
         'GRXX': latitud,
         'GRYY': longitud,
         'DOMICILIO': _direccion,
         'OBSERVACION': _observaciones,
-        'ESTADO': "PENDIENTE",
+        'ESTADO': 'PENDIENTE',
         'IDUSERRECUPERA': null,
         'FECHARECUPERO': null,
         'ImageArray': base64Image,
@@ -1066,12 +1071,12 @@ class _ElementosencalleeditState extends State<Elementosencalleedit> {
       }
 
       showMyDialog(
-          'Aviso', "Elementos en Calle guardado con éxito!", 'Aceptar');
+          'Aviso', 'Elementos en Calle guardado con éxito!', 'Aceptar');
 
       Navigator.pop(context);
     } else {
       showMyDialog(
-          'Error', "No hay materiales que tengan cantidades", 'Aceptar');
+          'Error', 'No hay materiales que tengan cantidades', 'Aceptar');
 
       return;
     } //Termina Bandera
@@ -1124,7 +1129,7 @@ class _ElementosencalleeditState extends State<Elementosencalleedit> {
         _showLoader = false;
       });
       showMyDialog(
-          'Error', "Verifica que estés conectado a Internet", 'Aceptar');
+          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
     }
 
     Response response = Response(isSuccess: false);

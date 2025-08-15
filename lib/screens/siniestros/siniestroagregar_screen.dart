@@ -1,9 +1,10 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
-import 'package:rowing_app/components/loader_component.dart';
-import 'package:rowing_app/helpers/helpers.dart';
-import 'package:rowing_app/models/models.dart';
+
+import '../../components/loader_component.dart';
+import '../../helpers/helpers.dart';
+import '../../models/models.dart';
 
 class SiniestroAgregarScreen extends StatefulWidget {
   final User user;
@@ -497,7 +498,7 @@ class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
         children: [
           const SizedBox(
             width: 160,
-            child: Text("Hubo lesionados: ",
+            child: Text('Hubo lesionados: ',
                 style: TextStyle(
                   fontSize: 15,
                   color: Colors.black,
@@ -553,7 +554,7 @@ class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
         children: [
           const SizedBox(
             width: 160,
-            child: Text("Intervino la Policía: ",
+            child: Text('Intervino la Policía: ',
                 style: TextStyle(
                   fontSize: 15,
                   color: Colors.black,
@@ -586,7 +587,7 @@ class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
         children: [
           const SizedBox(
             width: 160,
-            child: Text("Intervino Ambulancia: ",
+            child: Text('Intervino Ambulancia: ',
                 style: TextStyle(
                   fontSize: 15,
                   color: Colors.black,
@@ -694,7 +695,7 @@ class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
         children: [
           const SizedBox(
             width: 160,
-            child: Text("Notif. a la Empresa: ",
+            child: Text('Notif. a la Empresa: ',
                 style: TextStyle(
                   fontSize: 15,
                   color: Colors.black,
@@ -770,7 +771,7 @@ class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
                       },
                       child: InkWell(
                         child: Text(
-                            "    ${selectedDate.day}/${selectedDate.month}/${selectedDate.year}"),
+                            '    ${selectedDate.day}/${selectedDate.month}/${selectedDate.year}'),
                       ),
                     ),
                   ],
@@ -799,7 +800,7 @@ class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
                       },
                       child: InkWell(
                         child: Text(
-                            "        ${selectedTime.hour}:${selectedTime.minute}"),
+                            '        ${selectedTime.hour}:${selectedTime.minute}'),
                       ),
                     ),
                   ],
@@ -1016,7 +1017,7 @@ class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
       _nropolizaShowError = false;
     }
 
-    if (_huboLesionados && (_numlesionados.isEmpty || _numlesionados == "0")) {
+    if (_huboLesionados && (_numlesionados.isEmpty || _numlesionados == '0')) {
       isValid = false;
       _numlesionadosShowError = true;
       _numlesionadosError = 'Ingrese N° Lesion.';
@@ -1024,7 +1025,7 @@ class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
       _numlesionadosShowError = false;
     }
 
-    if (_observaciones.isEmpty || _observaciones == "") {
+    if (_observaciones.isEmpty || _observaciones == '') {
       isValid = false;
       _observacionesShowError = true;
       _observacionesError = 'Debe ingresar Relato del Siniestro';
@@ -1032,7 +1033,7 @@ class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
       _observacionesShowError = false;
     }
 
-    if (_detalleDanosTercero.isEmpty || _detalleDanosTercero == "") {
+    if (_detalleDanosTercero.isEmpty || _detalleDanosTercero == '') {
       isValid = false;
       _detalleDanosTerceroShowError = true;
       _detalleDanosTerceroError = 'Debe ingresar detalle de daños del Tercero';
@@ -1040,7 +1041,7 @@ class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
       _detalleDanosTerceroShowError = false;
     }
 
-    if (_detalleDanosPropio.isEmpty || _detalleDanosPropio == "") {
+    if (_detalleDanosPropio.isEmpty || _detalleDanosPropio == '') {
       isValid = false;
       _detalleDanosPropioShowError = true;
       _detalleDanosPropioError = 'Debe ingresar detalle de daños propios';
@@ -1102,29 +1103,29 @@ class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
         _showLoader = false;
       });
       showMyDialog(
-          'Error', "Verifica que estés conectado a Internet", 'Aceptar');
+          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
     }
 
     Map<String, dynamic> request = {
       //'nroregistro': _ticket.nroregistro,
-      'fechacarga': selectedDate.toString(),
+      'fechacarga': selectedDate.toString().substring(0, 10),
       'grupo': widget.causante.grupo,
       'causante': widget.causante.codigo,
       'apellidonombretercero': pLMayusc(_tercero),
       'nropolizatercero': _nropoliza,
       'telefonocontactotercero': _telefonotercero,
       'emailtercero': _emailtercero,
-      'notificadoempresa': _notifico ? "SI" : "NO",
+      'notificadoempresa': _notifico ? 'SI' : 'NO',
       'notificadoa': _notificadoa,
       'direccionsiniestro': pLMayusc(_calle),
       'altura': _numero,
       'ciudad': pLMayusc(_ciudad),
       'provincia': pLMayusc(_provincia),
       'horasiniestro': selectedTime.hour * 3600 + selectedTime.minute * 60,
-      'lesionados': _huboLesionados ? "SI" : "NO",
+      'lesionados': _huboLesionados ? 'SI' : 'NO',
       'cantidadlesionados': _huboLesionados ? _numlesionados : 0,
-      'intervinopolicia': _intervinoPolicia ? "SI" : "NO",
-      'intervinoambulancia': _intervinoAmbulancia ? "SI" : "NO",
+      'intervinopolicia': _intervinoPolicia ? 'SI' : 'NO',
+      'intervinoambulancia': _intervinoAmbulancia ? 'SI' : 'NO',
       'relatosiniestro': _observaciones,
       'numcha': _numcha.toUpperCase(),
       'companiasegurotercero': pLMayusc(_companiaseguro),
@@ -1132,7 +1133,6 @@ class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
       'detalledanostercero': _detalleDanosTercero,
       'detalledanospropio': _detalleDanosPropio,
       'numchatercero': _numchatercero,
-      'fechacargaapp': DateTime.now().toString(),
       'modulo': widget.user.modulo,
       'TipoDeSiniestro': 'Sin Datos',
     };
@@ -1174,7 +1174,7 @@ class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
         isSpace = false;
       }
 
-      if (string[i] == " ") {
+      if (string[i] == ' ') {
         isSpace = true;
       } else {
         isSpace = false;

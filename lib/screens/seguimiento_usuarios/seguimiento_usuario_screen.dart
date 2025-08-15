@@ -4,9 +4,10 @@ import 'package:custom_info_window/custom_info_window.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:intl/intl.dart';
-import 'package:rowing_app/helpers/helpers.dart';
-import 'package:rowing_app/models/models.dart';
-import 'package:rowing_app/screens/screens.dart';
+
+import '../../helpers/helpers.dart';
+import '../../models/models.dart';
+import '../screens.dart';
 
 class SeguimientoUsuarioScreen extends StatefulWidget {
   final User user;
@@ -116,7 +117,7 @@ class _SeguimientoUsuarioScreenState extends State<SeguimientoUsuarioScreen> {
                             children: [
                               SizedBox(
                                 width: ancho,
-                                child: const Text("Cantidad de Puntos: ",
+                                child: const Text('Cantidad de Puntos: ',
                                     style: TextStyle(
                                       fontSize: 12,
                                       color: Color(0xFF781f1e),
@@ -138,7 +139,7 @@ class _SeguimientoUsuarioScreenState extends State<SeguimientoUsuarioScreen> {
                             children: [
                               SizedBox(
                                 width: ancho,
-                                child: const Text("Puntos por Menú: ",
+                                child: const Text('Puntos por Menú: ',
                                     style: TextStyle(
                                       fontSize: 12,
                                       color: Color(0xFF781f1e),
@@ -160,7 +161,7 @@ class _SeguimientoUsuarioScreenState extends State<SeguimientoUsuarioScreen> {
                             children: [
                               SizedBox(
                                 width: ancho,
-                                child: const Text("Puntos automáticos: ",
+                                child: const Text('Puntos automáticos: ',
                                     style: TextStyle(
                                       fontSize: 12,
                                       color: Color(0xFF781f1e),
@@ -182,7 +183,7 @@ class _SeguimientoUsuarioScreenState extends State<SeguimientoUsuarioScreen> {
                             children: [
                               SizedBox(
                                 width: ancho,
-                                child: const Text("Hora Primer Punto: ",
+                                child: const Text('Hora Primer Punto: ',
                                     style: TextStyle(
                                       fontSize: 12,
                                       color: Color(0xFF781f1e),
@@ -205,7 +206,7 @@ class _SeguimientoUsuarioScreenState extends State<SeguimientoUsuarioScreen> {
                             children: [
                               SizedBox(
                                 width: ancho,
-                                child: const Text("Hora Ultimo Punto: ",
+                                child: const Text('Hora Ultimo Punto: ',
                                     style: TextStyle(
                                       fontSize: 12,
                                       color: Color(0xFF781f1e),
@@ -451,7 +452,7 @@ class _SeguimientoUsuarioScreenState extends State<SeguimientoUsuarioScreen> {
 
     if (connectivityResult == ConnectivityResult.none) {
       showMyDialog(
-          'Error', "Verifica que estés conectado a Internet", 'Aceptar');
+          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
     }
 
     Response response = Response(isSuccess: false);
@@ -504,7 +505,7 @@ class _SeguimientoUsuarioScreenState extends State<SeguimientoUsuarioScreen> {
 
     if (connectivityResult == ConnectivityResult.none) {
       showMyDialog(
-          'Error', "Verifica que estés conectado a Internet", 'Aceptar');
+          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
     }
 
     Response response = Response(isSuccess: false);
@@ -599,7 +600,7 @@ class _SeguimientoUsuarioScreenState extends State<SeguimientoUsuarioScreen> {
                               children: [
                                 const SizedBox(
                                   width: 80,
-                                  child: Text("Domicilio: ",
+                                  child: Text('Domicilio: ',
                                       style: TextStyle(
                                         fontSize: 12,
                                         color: Color(0xFF781f1e),
@@ -617,7 +618,7 @@ class _SeguimientoUsuarioScreenState extends State<SeguimientoUsuarioScreen> {
                               children: [
                                 const SizedBox(
                                   width: 80,
-                                  child: Text("Hora: ",
+                                  child: Text('Hora: ',
                                       style: TextStyle(
                                         fontSize: 12,
                                         color: Color(0xFF781f1e),

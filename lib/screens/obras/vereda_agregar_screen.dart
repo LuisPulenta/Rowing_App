@@ -1,17 +1,21 @@
 import 'dart:convert';
 import 'dart:io';
+
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:camera/camera.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:rowing_app/components/loader_component.dart';
-import 'package:rowing_app/helpers/helpers.dart';
-import 'package:rowing_app/models/models.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:rowing_app/screens/screens.dart';
+import 'package:image_picker/image_picker.dart';
+
+import '../../components/loader_component.dart';
+import '../../helpers/helpers.dart';
+import '../../helpers/resize_image.dart';
+import '../../models/models.dart';
+import '../screens.dart';
 
 class VeredaAgregarScreen extends StatefulWidget {
   final User user;
@@ -923,17 +927,19 @@ class _VeredaAgregarScreenState extends State<VeredaAgregarScreen> {
         _showLoader = false;
       });
       showMyDialog(
-          'Error', "Verifica que estés conectado a Internet", 'Aceptar');
+          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
     }
 
-    String base64image = '';
+    String base64Image = '';
 
     if (_photoChanged) {
-      List<int> imageBytes = await _image.readAsBytes();
-      base64image = base64Encode(imageBytes);
+      Uint8List imageBytes = await _image.readAsBytes();
+      int maxWidth = 800; // Ancho máximo
+      int maxHeight = 600; // Alto máximo
+      Uint8List resizedBytes =
+          await resizeImage(imageBytes, maxWidth, maxHeight);
+      base64Image = base64Encode(resizedBytes);
     }
-
-    String ahora = DateTime.now().toString();
 
     Response response2 = await ApiHelper.getNroRegistroMax2();
     if (response2.isSuccess) {
@@ -953,8 +959,10 @@ class _VeredaAgregarScreenState extends State<VeredaAgregarScreen> {
       'cantidadmtl': _cantidadMTL,
       'ancho': _ancho,
       'profundidad': _profundidad,
-      'fechacierreelectrico': widget.obra.fechaCierreElectrico ?? '',
-      'imagearray': base64image,
+      'fechacierreelectrico': widget.obra.fechaCierreElectrico != null
+          ? widget.obra.fechaCierreElectrico!.substring(0, 10)
+          : '',
+      'imagearray': base64Image,
       'codtipostdrparo': _clase,
       'ancho2': 0,
       'largo2': 0,
@@ -998,7 +1006,7 @@ class _VeredaAgregarScreenState extends State<VeredaAgregarScreen> {
 
     if (connectivityResult == ConnectivityResult.none) {
       showMyDialog(
-          'Error', "Verifica que estés conectado a Internet", 'Aceptar');
+          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
     }
 
     Response response = Response(isSuccess: false);

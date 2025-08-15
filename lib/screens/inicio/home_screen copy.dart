@@ -1,18 +1,18 @@
 import 'dart:async';
+
 import 'package:adaptive_dialog/adaptive_dialog.dart';
+import 'package:battery_plus/battery_plus.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:rowing_app/blocs/blocs.dart';
-import 'package:rowing_app/helpers/helpers.dart';
-import 'package:rowing_app/helpers/constants.dart';
-import 'package:rowing_app/models/models.dart';
-
-import 'package:rowing_app/screens/screens.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:battery_plus/battery_plus.dart';
+
+import '../../blocs/blocs.dart';
+import '../../helpers/helpers.dart';
+import '../../models/models.dart';
+import '../screens.dart';
 
 class HomeScreen extends StatefulWidget {
   final User user;
@@ -150,7 +150,7 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Column(
           children: [
             Image.asset(
-              "assets/logo.png",
+              'assets/logo.png',
               height: 200,
             ),
 
@@ -212,7 +212,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   Row(
                     children: [
                       const Text(
-                        "Usuario: ",
+                        'Usuario: ',
                         style: (TextStyle(
                             color: Colors.white, fontWeight: FontWeight.bold)),
                       ),
@@ -244,7 +244,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       Icons.construction,
                       color: Colors.white,
                     ),
-                    title: const Text("Obras",
+                    title: const Text('Obras',
                         style: TextStyle(fontSize: 15, color: Colors.white)),
                     children: <Widget>[
                       Padding(
@@ -472,7 +472,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             Icons.fence,
                             color: Colors.white,
                           ),
-                          title: const Text("Elem. en Calle",
+                          title: const Text('Elem. en Calle',
                               style:
                                   TextStyle(fontSize: 15, color: Colors.white)),
                           children: <Widget>[
@@ -674,7 +674,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             Icons.group_outlined,
                             color: Colors.white,
                           ),
-                          title: const Text("Presentismo",
+                          title: const Text('Presentismo',
                               style:
                                   TextStyle(fontSize: 15, color: Colors.white)),
                           children: <Widget>[
@@ -763,7 +763,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ],
                   )
                 : Container(),
-            widget.user.habilitaFlotas.toLowerCase() != "no"
+            widget.user.habilitaFlotas.toLowerCase() != 'no'
                 ? Row(
                     children: [
                       Expanded(
@@ -774,7 +774,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             Icons.directions_car,
                             color: Colors.white,
                           ),
-                          title: const Text("Flotas",
+                          title: const Text('Flotas',
                               style:
                                   TextStyle(fontSize: 15, color: Colors.white)),
                           children: <Widget>[
@@ -788,7 +788,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 tileColor: const Color(0xff8c8c94),
                                 title: Text(
                                     widget.user.habilitaFlotas.toLowerCase() ==
-                                            "admin"
+                                            'admin'
                                         ? 'Km y Preventivos'
                                         : 'Mis Vehículos',
                                     style: const TextStyle(
@@ -871,7 +871,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       Icons.inventory,
                       color: Colors.white,
                     ),
-                    title: const Text("Inventarios",
+                    title: const Text('Inventarios',
                         style: TextStyle(fontSize: 15, color: Colors.white)),
                     children: <Widget>[
                       Padding(
@@ -1094,7 +1094,7 @@ class _HomeScreenState extends State<HomeScreen> {
       await showAlertDialog(
           context: context,
           title: 'Error',
-          message: "Legajo o Documento no válido",
+          message: 'Legajo o Documento no válido',
           actions: <AlertDialogAction>[
             const AlertDialogAction(key: null, label: 'Aceptar'),
           ]);
@@ -1137,7 +1137,7 @@ class _HomeScreenState extends State<HomeScreen> {
       await showAlertDialog(
           context: context,
           title: 'Error',
-          message: "Legajo o Documento no válido",
+          message: 'Legajo o Documento no válido',
           actions: <AlertDialogAction>[
             const AlertDialogAction(key: null, label: 'Aceptar'),
           ]);
@@ -1149,7 +1149,7 @@ class _HomeScreenState extends State<HomeScreen> {
     _novedades = [];
     _novedadesAux = response2.result;
     for (var novedad in _novedadesAux) {
-      if (novedad.estado != "Pendiente" && novedad.confirmaLeido != 1) {
+      if (novedad.estado != 'Pendiente' && novedad.confirmaLeido != 1) {
         _novedades.add(novedad);
       }
     }
@@ -1180,11 +1180,11 @@ class _HomeScreenState extends State<HomeScreen> {
       'UsuarioStr': user.fullName,
       'LATITUD': _positionUser.latitude,
       'LONGITUD': _positionUser.longitude,
-      'PIN': "mapinred.ico",
+      'PIN': 'mapinred.ico',
       'PosicionCalle': direccion,
       'Velocidad': 0,
       'Bateria': batnivel,
-      'Fecha': DateTime.now().toString(),
+      'Fecha': DateTime.now().toString().substring(0, 10),
       'Modulo': user.modulo,
       'Origen': 1,
     };
@@ -1297,9 +1297,9 @@ class _HomeScreenState extends State<HomeScreen> {
       List<Placemark> placemarks = await placemarkFromCoordinates(
           _positionUser.latitude, _positionUser.longitude);
       direccion = placemarks[0].street.toString() +
-          " - " +
+          ' - ' +
           placemarks[0].locality.toString() +
-          " - " +
+          ' - ' +
           placemarks[0].country.toString();
     }
   }

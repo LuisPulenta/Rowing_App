@@ -2,11 +2,12 @@ import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:rowing_app/components/loader_component.dart';
-import 'package:rowing_app/helpers/helpers.dart';
-import 'package:rowing_app/models/models.dart';
-import 'package:rowing_app/screens/screens.dart';
-import 'package:rowing_app/widgets/widgets.dart';
+
+import '../../components/loader_component.dart';
+import '../../helpers/helpers.dart';
+import '../../models/models.dart';
+import '../../widgets/widgets.dart';
+import '../screens.dart';
 
 class NovedadesScreen extends StatefulWidget {
   final User user;
@@ -86,7 +87,7 @@ class _NovedadesScreenState extends State<NovedadesScreen> {
       backgroundColor: const Color(0xFF484848),
       appBar: AppBar(
         title:
-            Text(widget.user.habilitaRRHH == 0 ? "Mis Novedades" : "Novedades"),
+            Text(widget.user.habilitaRRHH == 0 ? 'Mis Novedades' : 'Novedades'),
         centerTitle: true,
       ),
       body: Stack(
@@ -247,7 +248,7 @@ class _NovedadesScreenState extends State<NovedadesScreen> {
                                   children: [
                                     const SizedBox(
                                       width: 100,
-                                      child: Text("Tipo Novedad: ",
+                                      child: Text('Tipo Novedad: ',
                                           style: TextStyle(
                                             fontSize: 12,
                                             color: Color(0xFF0e4888),
@@ -262,7 +263,7 @@ class _NovedadesScreenState extends State<NovedadesScreen> {
                                     ),
                                     const SizedBox(
                                       width: 100,
-                                      child: Text("Vista RRHH: ",
+                                      child: Text('Vista RRHH: ',
                                           style: TextStyle(
                                             fontSize: 12,
                                             color: Color(0xFF0e4888),
@@ -284,7 +285,7 @@ class _NovedadesScreenState extends State<NovedadesScreen> {
                                   children: [
                                     const SizedBox(
                                       width: 100,
-                                      child: Text("Fecha Novedad: ",
+                                      child: Text('Fecha Novedad: ',
                                           style: TextStyle(
                                             fontSize: 12,
                                             color: Color(0xFF0e4888),
@@ -309,7 +310,7 @@ class _NovedadesScreenState extends State<NovedadesScreen> {
                                   children: [
                                     const SizedBox(
                                       width: 100,
-                                      child: Text("Fecha Inicio: ",
+                                      child: Text('Fecha Inicio: ',
                                           style: TextStyle(
                                             fontSize: 12,
                                             color: Color(0xFF0e4888),
@@ -334,7 +335,7 @@ class _NovedadesScreenState extends State<NovedadesScreen> {
                                   children: [
                                     const SizedBox(
                                       width: 100,
-                                      child: Text("Fecha Fin: ",
+                                      child: Text('Fecha Fin: ',
                                           style: TextStyle(
                                             fontSize: 12,
                                             color: Color(0xFF0e4888),
@@ -359,7 +360,7 @@ class _NovedadesScreenState extends State<NovedadesScreen> {
                                   children: [
                                     const SizedBox(
                                       width: 100,
-                                      child: Text("Observaciones: ",
+                                      child: Text('Observaciones: ',
                                           style: TextStyle(
                                             fontSize: 12,
                                             color: Color(0xFF0e4888),
@@ -384,7 +385,7 @@ class _NovedadesScreenState extends State<NovedadesScreen> {
                                   children: [
                                     const SizedBox(
                                       width: 100,
-                                      child: Text("Estado: ",
+                                      child: Text('Estado: ',
                                           style: TextStyle(
                                             fontSize: 12,
                                             color: Color(0xFF0e4888),
@@ -396,14 +397,14 @@ class _NovedadesScreenState extends State<NovedadesScreen> {
                                         e.estado.toString(),
                                         style: TextStyle(
                                             fontSize: 12,
-                                            color: e.estado == "Rechazado"
+                                            color: e.estado == 'Rechazado'
                                                 ? Colors.red
-                                                : e.estado == "Aprobado"
+                                                : e.estado == 'Aprobado'
                                                     ? Colors.green
                                                     : Colors.black,
                                             fontWeight:
-                                                e.estado == "Rechazado" ||
-                                                        e.estado == "Aprobado"
+                                                e.estado == 'Rechazado' ||
+                                                        e.estado == 'Aprobado'
                                                     ? FontWeight.bold
                                                     : FontWeight.normal),
                                       ),
@@ -417,7 +418,7 @@ class _NovedadesScreenState extends State<NovedadesScreen> {
                                   children: [
                                     const SizedBox(
                                       width: 100,
-                                      child: Text("Fecha RRHH: ",
+                                      child: Text('Fecha RRHH: ',
                                           style: TextStyle(
                                             fontSize: 12,
                                             color: Color(0xFF0e4888),
@@ -432,13 +433,13 @@ class _NovedadesScreenState extends State<NovedadesScreen> {
                                                       .toString())),
                                               style: TextStyle(
                                                 fontSize: 12,
-                                                color: e.estado == "Rechazado"
+                                                color: e.estado == 'Rechazado'
                                                     ? Colors.red
-                                                    : e.estado == "Aprobado"
+                                                    : e.estado == 'Aprobado'
                                                         ? Colors.green
                                                         : Colors.black,
                                               ))
-                                          : const Text(""),
+                                          : const Text(''),
                                     ),
                                   ],
                                 ),
@@ -449,7 +450,7 @@ class _NovedadesScreenState extends State<NovedadesScreen> {
                                   children: [
                                     const SizedBox(
                                       width: 100,
-                                      child: Text("Obs RRHH: ",
+                                      child: Text('Obs RRHH: ',
                                           style: TextStyle(
                                             fontSize: 12,
                                             color: Color(0xFF0e4888),
@@ -460,12 +461,12 @@ class _NovedadesScreenState extends State<NovedadesScreen> {
                                       child: Text(
                                         e.observacionEstado != null
                                             ? e.observacionEstado.toString()
-                                            : "",
+                                            : '',
                                         style: TextStyle(
                                           fontSize: 12,
-                                          color: e.estado == "Rechazado"
+                                          color: e.estado == 'Rechazado'
                                               ? Colors.red
-                                              : e.estado == "Aprobado"
+                                              : e.estado == 'Aprobado'
                                                   ? Colors.green
                                                   : Colors.black,
                                         ),
@@ -486,7 +487,7 @@ class _NovedadesScreenState extends State<NovedadesScreen> {
                                     e.confirmaLeido == 1
                                         ? const SizedBox(
                                             width: 110,
-                                            child: Text("Leído/Notificado:",
+                                            child: Text('Leído/Notificado:',
                                                 style: TextStyle(
                                                   fontSize: 12,
                                                   color: Color(0xFF0e4888),
@@ -504,7 +505,7 @@ class _NovedadesScreenState extends State<NovedadesScreen> {
                                                 MaterialTapTargetSize.padded,
                                             onChanged: null)
                                         : Container(),
-                                    e.estado != "Pendiente" &&
+                                    e.estado != 'Pendiente' &&
                                             e.confirmaLeido != 1
                                         ? Container(
                                             width: 200,
@@ -522,7 +523,7 @@ class _NovedadesScreenState extends State<NovedadesScreen> {
                                                     SizedBox(
                                                       width: 5,
                                                     ),
-                                                    Text("Leído/Notificado"),
+                                                    Text('Leído/Notificado'),
                                                   ],
                                                 ),
                                                 style: ElevatedButton.styleFrom(
@@ -543,7 +544,7 @@ class _NovedadesScreenState extends State<NovedadesScreen> {
                                                       builder: (context) {
                                                         return AlertDialog(
                                                           title: const Text(
-                                                              "Atencion!!"),
+                                                              'Atencion!!'),
                                                           elevation: 5,
                                                           shape: RoundedRectangleBorder(
                                                               borderRadius:
@@ -556,9 +557,9 @@ class _NovedadesScreenState extends State<NovedadesScreen> {
                                                                     .min,
                                                             children: const [
                                                               Text(
-                                                                  "¿Confirma Ud. que marca la Novedad como Leida/Notificada?"),
+                                                                  '¿Confirma Ud. que marca la Novedad como Leida/Notificada?'),
                                                               Text(
-                                                                  "Esto no es posible deshacer",
+                                                                  'Esto no es posible deshacer',
                                                                   style: TextStyle(
                                                                       color: Colors
                                                                           .red,
@@ -583,14 +584,14 @@ class _NovedadesScreenState extends State<NovedadesScreen> {
                                                                     context);
                                                               },
                                                               child: const Text(
-                                                                  "SI"),
+                                                                  'SI'),
                                                             ),
                                                             TextButton(
                                                               onPressed: () =>
                                                                   Navigator.pop(
                                                                       context),
                                                               child: const Text(
-                                                                  "NO"),
+                                                                  'NO'),
                                                             ),
                                                           ],
                                                         );
@@ -627,19 +628,19 @@ class _NovedadesScreenState extends State<NovedadesScreen> {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: <Widget>[
         Image.asset(
-          "assets/novedad.png",
+          'assets/novedad.png',
           width: 70,
           height: 70,
         ),
         Image.asset(
-          "assets/logo.png",
+          'assets/logo.png',
           height: 70,
           width: 200,
         ),
         Transform.rotate(
           angle: 45,
           child: Image.asset(
-            "assets/novedad.png",
+            'assets/novedad.png',
             width: 70,
             height: 70,
           ),
@@ -811,7 +812,7 @@ class _NovedadesScreenState extends State<NovedadesScreen> {
       await showAlertDialog(
           context: context,
           title: 'Error',
-          message: "Legajo o Documento no válido",
+          message: 'Legajo o Documento no válido',
           actions: <AlertDialogAction>[
             const AlertDialogAction(key: null, label: 'Aceptar'),
           ]);
@@ -863,7 +864,7 @@ class _NovedadesScreenState extends State<NovedadesScreen> {
       await showAlertDialog(
           context: context,
           title: 'Error',
-          message: "Legajo o Documento no válido",
+          message: 'Legajo o Documento no válido',
           actions: <AlertDialogAction>[
             const AlertDialogAction(key: null, label: 'Aceptar'),
           ]);
@@ -881,7 +882,7 @@ class _NovedadesScreenState extends State<NovedadesScreen> {
     });
 
     for (var novedad in _novedades) {
-      if (novedad.estado != "Pendiente" && novedad.confirmaLeido != 1) {
+      if (novedad.estado != 'Pendiente' && novedad.confirmaLeido != 1) {
         _novedadesSinLeer.add(novedad);
       }
     }
@@ -897,7 +898,7 @@ class _NovedadesScreenState extends State<NovedadesScreen> {
           context: context,
           title: 'Error',
           message:
-              "No puede agregar nuevas novedades si tiene novedades aprobadas / rechazadas sin leer.",
+              'No puede agregar nuevas novedades si tiene novedades aprobadas / rechazadas sin leer.',
           actions: <AlertDialogAction>[
             const AlertDialogAction(key: null, label: 'Aceptar'),
           ]);
@@ -932,7 +933,7 @@ class _NovedadesScreenState extends State<NovedadesScreen> {
         _showLoader = false;
       });
       showMyDialog(
-          'Error', "Verifica que estés conectado a Internet", 'Aceptar');
+          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
     }
 
     Map<String, dynamic> request = {
@@ -966,7 +967,7 @@ class _NovedadesScreenState extends State<NovedadesScreen> {
     await _getNovedades();
     _novedadesSinLeer = [];
     for (var novedad in _novedades) {
-      if (novedad.estado != "Pendiente" && novedad.confirmaLeido != 1) {
+      if (novedad.estado != 'Pendiente' && novedad.confirmaLeido != 1) {
         _novedadesSinLeer.add(novedad);
       }
     }

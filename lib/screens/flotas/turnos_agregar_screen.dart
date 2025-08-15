@@ -1,10 +1,10 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
-import 'package:rowing_app/helpers/helpers.dart';
-import 'package:rowing_app/models/models.dart';
-import 'package:rowing_app/widgets/widgets.dart';
-import 'package:rowing_app/helpers/helpers.dart';
+
+import '../../helpers/helpers.dart';
+import '../../models/models.dart';
+import '../../widgets/widgets.dart';
 
 class TurnosAgregarScreen extends StatefulWidget {
   final User user;
@@ -297,7 +297,7 @@ class _TurnosAgregarScreenState extends State<TurnosAgregarScreen> {
 
     for (var taller in _talleres) {
       list.add(DropdownMenuItem(
-        child: Text(taller.nombre.replaceAll("  ", "")),
+        child: Text(taller.nombre.replaceAll('  ', '')),
         value: taller.codigo,
       ));
     }
@@ -333,7 +333,7 @@ class _TurnosAgregarScreenState extends State<TurnosAgregarScreen> {
                       },
                       child: InkWell(
                         child: Text(
-                            "    ${selectedDate.day}/${selectedDate.month}/${selectedDate.year}"),
+                            '    ${selectedDate.day}/${selectedDate.month}/${selectedDate.year}'),
                       ),
                     ),
                   ],
@@ -363,7 +363,7 @@ class _TurnosAgregarScreenState extends State<TurnosAgregarScreen> {
                       },
                       child: InkWell(
                         child: Text(
-                            "        ${selectedTime.hour}:${selectedTime.minute}"),
+                            '        ${selectedTime.hour}:${selectedTime.minute}'),
                       ),
                     ),
                   ],
@@ -525,7 +525,7 @@ class _TurnosAgregarScreenState extends State<TurnosAgregarScreen> {
       await showAlertDialog(
           context: context,
           title: 'Error',
-          message: "Patente no válida",
+          message: 'Patente no válida',
           actions: <AlertDialogAction>[
             const AlertDialogAction(key: null, label: 'Aceptar'),
           ]);
@@ -563,7 +563,7 @@ class _TurnosAgregarScreenState extends State<TurnosAgregarScreen> {
     bool isValid = true;
 
     //--------- N° Chapa ----------
-    if (_codigo == "") {
+    if (_codigo == '') {
       isValid = false;
       _codigoShowError = true;
       _codigoError = 'Debe completar Patente';
@@ -581,7 +581,7 @@ class _TurnosAgregarScreenState extends State<TurnosAgregarScreen> {
       _codigoShowError = false;
     }
 
-    if (_vehiculo.numcha == "") {
+    if (_vehiculo.numcha == '') {
       isValid = false;
       _codigoShowError = true;
       _codigoError = 'Ingrese una Patente válida';
@@ -593,7 +593,7 @@ class _TurnosAgregarScreenState extends State<TurnosAgregarScreen> {
     }
 
     //--------- Observaciones ----------
-    if (_observaciones == "") {
+    if (_observaciones == '') {
       isValid = false;
       _observacionesShowError = true;
       _observacionesError = 'Debe completar Observaciones';
@@ -644,10 +644,10 @@ class _TurnosAgregarScreenState extends State<TurnosAgregarScreen> {
         _showLoader = false;
       });
       showMyDialog(
-          'Error', "Verifica que estés conectado a Internet", 'Aceptar');
+          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
     }
 
-    String ahora = DateTime.now().toString();
+    String ahora = DateTime.now().toString().substring(0, 10);
 
     Map<String, dynamic> request = {
       'IDTurno': 0,
@@ -663,7 +663,7 @@ class _TurnosAgregarScreenState extends State<TurnosAgregarScreen> {
       'IDUserConfirma': 0,
       'FechaTurnoConfirmado': null,
       'HoraTurnoConfirmado': 0,
-      'Grupo': "TAL",
+      'Grupo': 'TAL',
       'Causante': _taller,
       'VehiculoRetirado': 0,
       'IdVehiculoParteTaller': 0,
@@ -716,7 +716,7 @@ class _TurnosAgregarScreenState extends State<TurnosAgregarScreen> {
 
     if (connectivityResult == ConnectivityResult.none) {
       showMyDialog(
-          'Error', "Verifica que estés conectado a Internet", 'Aceptar');
+          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
     }
 
     Response response = Response(isSuccess: false);

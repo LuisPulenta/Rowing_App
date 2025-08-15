@@ -3,12 +3,13 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
-import 'package:rowing_app/components/loader_component.dart';
-import 'package:rowing_app/helpers/helpers.dart';
-import 'package:rowing_app/models/reclamo.dart';
-import 'package:rowing_app/models/response.dart';
-import 'package:rowing_app/models/user.dart';
-import 'package:rowing_app/screens/screens.dart';
+
+import '../../components/loader_component.dart';
+import '../../helpers/helpers.dart';
+import '../../models/reclamo.dart';
+import '../../models/response.dart';
+import '../../models/user.dart';
+import '../screens.dart';
 
 class ReclamosScreen extends StatefulWidget {
   final User user;
@@ -90,7 +91,7 @@ class _ReclamosScreenState extends State<ReclamosScreen> {
         _showLoader = false;
       });
       showMyDialog(
-          'Error', "Verifica que estés conectado a Internet", 'Aceptar');
+          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
     }
 
     Response response = Response(isSuccess: false);
@@ -278,7 +279,7 @@ class _ReclamosScreenState extends State<ReclamosScreen> {
                               children: [
                                 Row(
                                   children: const [
-                                    Text("AS/N° Reclamo: ",
+                                    Text('AS/N° Reclamo: ',
                                         style: TextStyle(
                                           fontSize: 12,
                                           color: Color(0xFF781f1e),
@@ -288,7 +289,7 @@ class _ReclamosScreenState extends State<ReclamosScreen> {
                                 ),
                                 Row(
                                   children: const [
-                                    Text("Zona: ",
+                                    Text('Zona: ',
                                         style: TextStyle(
                                           fontSize: 12,
                                           color: Color(0xFF781f1e),
@@ -298,7 +299,7 @@ class _ReclamosScreenState extends State<ReclamosScreen> {
                                 ),
                                 Row(
                                   children: const [
-                                    Text("Dirección: ",
+                                    Text('Dirección: ',
                                         style: TextStyle(
                                           fontSize: 12,
                                           color: Color(0xFF781f1e),
@@ -308,7 +309,7 @@ class _ReclamosScreenState extends State<ReclamosScreen> {
                                 ),
                                 Row(
                                   children: const [
-                                    Text("N°: ",
+                                    Text('N°: ',
                                         style: TextStyle(
                                           fontSize: 12,
                                           color: Color(0xFF781f1e),
@@ -318,7 +319,7 @@ class _ReclamosScreenState extends State<ReclamosScreen> {
                                 ),
                                 Row(
                                   children: const [
-                                    Text("Descr./Nombre: ",
+                                    Text('Descr./Nombre: ',
                                         style: TextStyle(
                                           fontSize: 12,
                                           color: Color(0xFF781f1e),
@@ -417,7 +418,7 @@ class _ReclamosScreenState extends State<ReclamosScreen> {
       height: 40,
       child: Row(
         children: [
-          const Text("Cantidad de Reclamos: ",
+          const Text('Cantidad de Reclamos: ',
               style: TextStyle(
                 fontSize: 14,
                 color: Colors.white,

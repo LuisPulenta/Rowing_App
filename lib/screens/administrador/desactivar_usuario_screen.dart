@@ -1,13 +1,14 @@
 import 'dart:convert';
+
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
-import 'package:rowing_app/components/loader_component.dart';
 import 'package:http/http.dart' as http;
-import 'package:rowing_app/helpers/helpers.dart';
-import 'package:rowing_app/helpers/constants.dart';
-import 'package:rowing_app/models/models.dart';
-import 'package:rowing_app/widgets/widgets.dart';
+
+import '../../components/loader_component.dart';
+import '../../helpers/helpers.dart';
+import '../../models/models.dart';
+import '../../widgets/widgets.dart';
 
 class DesactivarUsuarioScreen extends StatefulWidget {
   final User user;
@@ -92,7 +93,7 @@ class _DesactivarUsuarioScreenState extends State<DesactivarUsuarioScreen> {
     return Scaffold(
       backgroundColor: const Color(0xFF484848),
       appBar: AppBar(
-        title: const Text("Desactivar Usuario"),
+        title: const Text('Desactivar Usuario'),
         centerTitle: true,
       ),
       body: Stack(
@@ -160,7 +161,7 @@ class _DesactivarUsuarioScreenState extends State<DesactivarUsuarioScreen> {
                       borderRadius: BorderRadius.circular(5),
                     ),
                   ),
-                  onPressed: _user.login == "" || _user.estado == 0
+                  onPressed: _user.login == '' || _user.estado == 0
                       ? null
                       : _desactivarUsuario,
                 ),
@@ -196,19 +197,19 @@ class _DesactivarUsuarioScreenState extends State<DesactivarUsuarioScreen> {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: <Widget>[
         Image.asset(
-          "assets/reset.png",
+          'assets/reset.png',
           width: 70,
           height: 70,
         ),
         Image.asset(
-          "assets/logo.png",
+          'assets/logo.png',
           height: 70,
           width: 200,
         ),
         Transform.rotate(
           angle: 0,
           child: Image.asset(
-            "assets/resetpassword.png",
+            'assets/resetpassword.png',
             width: 70,
             height: 70,
           ),

@@ -1,15 +1,19 @@
 import 'dart:convert';
+
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:camera/camera.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:rowing_app/components/loader_component.dart';
-import 'package:rowing_app/helpers/helpers.dart';
-import 'package:rowing_app/models/models.dart';
-import 'package:rowing_app/screens/screens.dart';
+
+import '../../components/loader_component.dart';
+import '../../helpers/helpers.dart';
+import '../../helpers/resize_image.dart';
+import '../../models/models.dart';
+import '../screens.dart';
 
 class MedidoresScreen extends StatefulWidget {
   final User user;
@@ -253,7 +257,7 @@ class _MedidoresScreenState extends State<MedidoresScreen> {
                   Icons.person,
                   color: Colors.blue,
                 ),
-                const Text("Cliente: ",
+                const Text('Cliente: ',
                     style: TextStyle(
                       fontSize: 14,
                       color: Color(0xFF781f1e),
@@ -277,7 +281,7 @@ class _MedidoresScreenState extends State<MedidoresScreen> {
                   Icons.directions,
                   color: Colors.blue,
                 ),
-                const Text("Dirección: ",
+                const Text('Dirección: ',
                     style: TextStyle(
                       fontSize: 14,
                       color: Color(0xFF781f1e),
@@ -303,7 +307,7 @@ class _MedidoresScreenState extends State<MedidoresScreen> {
                   Icons.phone,
                   color: Colors.blue,
                 ),
-                const Text("Teléfono: ",
+                const Text('Teléfono: ',
                     style: TextStyle(
                       fontSize: 14,
                       color: Color(0xFF781f1e),
@@ -789,14 +793,14 @@ class _MedidoresScreenState extends State<MedidoresScreen> {
       return;
     }
 
-    List<int> imageBytes = await _image.readAsBytes();
-
-    String base64Image = base64Encode(imageBytes);
+    Uint8List imageBytes = await _image.readAsBytes();
+    int maxWidth = 800; // Ancho máximo
+    int maxHeight = 600; // Alto máximo
+    Uint8List resizedBytes = await resizeImage(imageBytes, maxWidth, maxHeight);
+    String base64Image = base64Encode(resizedBytes);
 
     Map<String, dynamic> request33 = {
       'imagearray': base64Image,
-      'fecha': DateTime.now().toString(),
-      'nroobra': _ticket.nroobra,
       'idObrasPostes': _ticket.nroregistro,
       'observacion': _photo.observaciones,
       'estante': 'App',
@@ -808,7 +812,6 @@ class _MedidoresScreenState extends State<MedidoresScreen> {
       'longitud': _photo.longitud,
       'tipodefoto': _photo.tipofoto,
       'direccionfoto': _photo.direccion,
-      'fechaHsFoto': DateTime.now().toString(),
       'obra': _ticket,
     };
 
@@ -971,7 +974,7 @@ class _MedidoresScreenState extends State<MedidoresScreen> {
       await showAlertDialog(
           context: context,
           title: 'Error',
-          message: "N° de Ticket no válido",
+          message: 'N° de Ticket no válido',
           actions: <AlertDialogAction>[
             const AlertDialogAction(key: null, label: 'Aceptar'),
           ]);
@@ -1002,7 +1005,7 @@ class _MedidoresScreenState extends State<MedidoresScreen> {
       await showAlertDialog(
           context: context,
           title: 'Aviso',
-          message: "Este medidor ya fue certificado",
+          message: 'Este medidor ya fue certificado',
           actions: <AlertDialogAction>[
             const AlertDialogAction(key: null, label: 'Aceptar'),
           ]);
@@ -1181,9 +1184,9 @@ class _MedidoresScreenState extends State<MedidoresScreen> {
       'riesgoElectrico': _ticket.riesgoElectrico,
       'fechaasignacion': _ticket.fechaasignacion,
       'mes': _ticket.mes,
-      'fechaActualizada': DateTime.now().toString(),
+      'fechaActualizada': DateTime.now().toString().substring(0, 10),
       'iDUsrAcualiza': widget.user.idUsuario,
-      'provieneAct': "APP",
+      'provieneAct': 'APP',
     };
 
     var connectivityResult = await Connectivity().checkConnectivity();
@@ -1193,7 +1196,7 @@ class _MedidoresScreenState extends State<MedidoresScreen> {
         _showLoader = false;
       });
       showMyDialog(
-          'Error', "Verifica que estés conectado a Internet", 'Aceptar');
+          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
     }
 
     Response response = await ApiHelper.put(

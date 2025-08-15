@@ -6,11 +6,14 @@ import 'package:camera/camera.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
-import 'package:rowing_app/helpers/helpers.dart';
-import 'package:rowing_app/models/models.dart';
-import 'package:rowing_app/screens/screens.dart';
+
+import '../../helpers/helpers.dart';
+import '../../helpers/resize_image.dart';
+import '../../models/models.dart';
+import '../screens.dart';
 
 class GruasCheckListFotosScreen extends StatefulWidget {
   final User user;
@@ -502,9 +505,11 @@ class _GruasCheckListFotosScreenState extends State<GruasCheckListFotosScreen> {
       return;
     }
 
-    List<int> imageBytes = await _image.readAsBytes();
-
-    String base64Image = base64Encode(imageBytes);
+    Uint8List imageBytes = await _image.readAsBytes();
+    int maxWidth = 800; // Ancho máximo
+    int maxHeight = 600; // Alto máximo
+    Uint8List resizedBytes = await resizeImage(imageBytes, maxWidth, maxHeight);
+    String base64Image = base64Encode(resizedBytes);
 
     Map<String, dynamic> request = {
       'IDCHECKLISTCAB': widget.vehiculosCheckList.idCheckList,
@@ -615,7 +620,7 @@ class _GruasCheckListFotosScreenState extends State<GruasCheckListFotosScreen> {
         _showLoader = false;
       });
       showMyDialog(
-          'Error', "Verifica que estés conectado a Internet", 'Aceptar');
+          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
     }
 
     Response response = Response(isSuccess: false);

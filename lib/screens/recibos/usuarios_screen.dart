@@ -1,12 +1,14 @@
 import 'dart:convert';
+
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import 'package:rowing_app/components/loader_component.dart';
-import 'package:rowing_app/helpers/helpers.dart';
-import 'package:rowing_app/models/models.dart';
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
+
+import '../../components/loader_component.dart';
+import '../../helpers/helpers.dart';
+import '../../models/models.dart';
 
 class UsuariosScreen extends StatefulWidget {
   final Token token;
@@ -196,7 +198,7 @@ class _UsuariosScreenState extends State<UsuariosScreen> {
       height: 40,
       child: Row(
         children: [
-          const Text("Cantidad de Usuarios: ",
+          const Text('Cantidad de Usuarios: ',
               style: TextStyle(
                 fontSize: 14,
                 color: Colors.white,
@@ -267,7 +269,7 @@ class _UsuariosScreenState extends State<UsuariosScreen> {
                                 children: [
                                   Row(
                                     children: [
-                                      const Text("Usuario: ",
+                                      const Text('Usuario: ',
                                           style: TextStyle(
                                             fontSize: 12,
                                             color: Color(0xFF781f1e),
@@ -287,7 +289,7 @@ class _UsuariosScreenState extends State<UsuariosScreen> {
                                   ),
                                   Row(
                                     children: [
-                                      const Text("Ult. login: ",
+                                      const Text('Ult. login: ',
                                           style: TextStyle(
                                             fontSize: 12,
                                             color: Color(0xFF781f1e),
@@ -305,7 +307,7 @@ class _UsuariosScreenState extends State<UsuariosScreen> {
                                                 ))
                                             : Container(),
                                       ),
-                                      const Text("Camb. Passw.: ",
+                                      const Text('Camb. Passw.: ',
                                           style: TextStyle(
                                             fontSize: 12,
                                             color: Color(0xFF781f1e),
@@ -371,7 +373,7 @@ class _UsuariosScreenState extends State<UsuariosScreen> {
         _showLoader = false;
       });
       showMyDialog(
-          'Error', "Verifica que estés conectado a Internet", 'Aceptar');
+          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
     }
 
     Response response = Response(isSuccess: false);
@@ -417,7 +419,7 @@ class _UsuariosScreenState extends State<UsuariosScreen> {
         _showLoader = false;
       });
       showMyDialog(
-          'Error', "Verifica que estés conectado a Internet", 'Aceptar');
+          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
     }
 
     Response response = Response(isSuccess: false);

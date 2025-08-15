@@ -1,18 +1,21 @@
 import 'dart:convert';
 import 'dart:typed_data';
+
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:camera/camera.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:file_picker/file_picker.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
-import 'package:rowing_app/helpers/helpers.dart';
-import 'package:rowing_app/models/models.dart';
-import 'package:rowing_app/screens/screens.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+import '../../helpers/helpers.dart';
+import '../../helpers/resize_image.dart';
+import '../../models/models.dart';
+import '../screens.dart';
 
 class SiniestroInfoScreen extends StatefulWidget {
   final User user;
@@ -140,7 +143,7 @@ class _SiniestroInfoScreenState extends State<SiniestroInfoScreen> {
                             children: [
                               const SizedBox(
                                 width: 70,
-                                child: Text("Fecha: ",
+                                child: Text('Fecha: ',
                                     style: TextStyle(
                                       fontSize: 12,
                                       color: Color(0xFF0e4888),
@@ -160,7 +163,7 @@ class _SiniestroInfoScreenState extends State<SiniestroInfoScreen> {
                               ),
                               const SizedBox(
                                 width: 40,
-                                child: Text("Hora: ",
+                                child: Text('Hora: ',
                                     style: TextStyle(
                                       fontSize: 12,
                                       color: Color(0xFF0e4888),
@@ -183,7 +186,7 @@ class _SiniestroInfoScreenState extends State<SiniestroInfoScreen> {
                             children: [
                               const SizedBox(
                                 width: 70,
-                                child: Text("Patente: ",
+                                child: Text('Patente: ',
                                     style: TextStyle(
                                       fontSize: 12,
                                       color: Color(0xFF0e4888),
@@ -205,7 +208,7 @@ class _SiniestroInfoScreenState extends State<SiniestroInfoScreen> {
                             children: [
                               const SizedBox(
                                 width: 70,
-                                child: Text("Tercero: ",
+                                child: Text('Tercero: ',
                                     style: TextStyle(
                                       fontSize: 12,
                                       color: Color(0xFF0e4888),
@@ -228,7 +231,7 @@ class _SiniestroInfoScreenState extends State<SiniestroInfoScreen> {
                             children: [
                               const SizedBox(
                                 width: 70,
-                                child: Text("Dirección: ",
+                                child: Text('Dirección: ',
                                     style: TextStyle(
                                       fontSize: 12,
                                       color: Color(0xFF0e4888),
@@ -238,7 +241,7 @@ class _SiniestroInfoScreenState extends State<SiniestroInfoScreen> {
                               Expanded(
                                 child: Text(
                                     widget.siniestro.direccionsiniestro +
-                                        " " +
+                                        ' ' +
                                         widget.siniestro.altura,
                                     style: const TextStyle(
                                       fontSize: 12,
@@ -253,7 +256,7 @@ class _SiniestroInfoScreenState extends State<SiniestroInfoScreen> {
                             children: [
                               const SizedBox(
                                 width: 70,
-                                child: Text("Ciudad: ",
+                                child: Text('Ciudad: ',
                                     style: TextStyle(
                                       fontSize: 12,
                                       color: Color(0xFF0e4888),
@@ -275,7 +278,7 @@ class _SiniestroInfoScreenState extends State<SiniestroInfoScreen> {
                             children: [
                               const SizedBox(
                                 width: 70,
-                                child: Text("Provincia: ",
+                                child: Text('Provincia: ',
                                     style: TextStyle(
                                       fontSize: 12,
                                       color: Color(0xFF0e4888),
@@ -294,7 +297,7 @@ class _SiniestroInfoScreenState extends State<SiniestroInfoScreen> {
                             height: 2,
                             color: Colors.black,
                           ),
-                          const Text("FOTOS",
+                          const Text('FOTOS',
                               style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 16,
@@ -310,12 +313,12 @@ class _SiniestroInfoScreenState extends State<SiniestroInfoScreen> {
                             border: TableBorder.all(),
                             children: const [
                               TableRow(children: [
-                                Text("PROPIO",
+                                Text('PROPIO',
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                         color: Colors.black,
                                         fontWeight: FontWeight.bold)),
-                                Text("TERCERO",
+                                Text('TERCERO',
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                         color: Colors.black,
@@ -338,7 +341,7 @@ class _SiniestroInfoScreenState extends State<SiniestroInfoScreen> {
                               TableRow(children: [
                                 const Padding(
                                   padding: EdgeInsets.only(left: 8.0),
-                                  child: Text("DNI Frente:",
+                                  child: Text('DNI Frente:',
                                       style: TextStyle(fontSize: 12)),
                                 ),
                                 Text(fotospropiodnifrente.toString(),
@@ -350,7 +353,7 @@ class _SiniestroInfoScreenState extends State<SiniestroInfoScreen> {
                                             : Colors.blue)),
                                 const Padding(
                                   padding: EdgeInsets.only(left: 8.0),
-                                  child: Text("DNI Frente:",
+                                  child: Text('DNI Frente:',
                                       style: TextStyle(fontSize: 12)),
                                 ),
                                 Text(fotostercerodnifrente.toString(),
@@ -364,7 +367,7 @@ class _SiniestroInfoScreenState extends State<SiniestroInfoScreen> {
                               TableRow(children: [
                                 const Padding(
                                   padding: EdgeInsets.only(left: 8.0),
-                                  child: Text("DNI Dorso:",
+                                  child: Text('DNI Dorso:',
                                       style: TextStyle(fontSize: 12)),
                                 ),
                                 Text(fotospropiodnidorso.toString(),
@@ -376,7 +379,7 @@ class _SiniestroInfoScreenState extends State<SiniestroInfoScreen> {
                                             : Colors.blue)),
                                 const Padding(
                                   padding: EdgeInsets.only(left: 8.0),
-                                  child: Text("DNI Dorso:",
+                                  child: Text('DNI Dorso:',
                                       style: TextStyle(fontSize: 12)),
                                 ),
                                 Text(fotostercerodnidorso.toString(),
@@ -390,7 +393,7 @@ class _SiniestroInfoScreenState extends State<SiniestroInfoScreen> {
                               TableRow(children: [
                                 const Padding(
                                   padding: EdgeInsets.only(left: 8.0),
-                                  child: Text("Carnet Frente:",
+                                  child: Text('Carnet Frente:',
                                       style: TextStyle(fontSize: 12)),
                                 ),
                                 Text(fotospropiocarnetfrente.toString(),
@@ -402,7 +405,7 @@ class _SiniestroInfoScreenState extends State<SiniestroInfoScreen> {
                                             : Colors.blue)),
                                 const Padding(
                                   padding: EdgeInsets.only(left: 8.0),
-                                  child: Text("Carnet Frente:",
+                                  child: Text('Carnet Frente:',
                                       style: TextStyle(fontSize: 12)),
                                 ),
                                 Text(fotostercerocarnetfrente.toString(),
@@ -416,7 +419,7 @@ class _SiniestroInfoScreenState extends State<SiniestroInfoScreen> {
                               TableRow(children: [
                                 const Padding(
                                   padding: EdgeInsets.only(left: 8.0),
-                                  child: Text("Carnet Dorso:",
+                                  child: Text('Carnet Dorso:',
                                       style: TextStyle(fontSize: 12)),
                                 ),
                                 Text(fotospropiocarnetdorso.toString(),
@@ -428,7 +431,7 @@ class _SiniestroInfoScreenState extends State<SiniestroInfoScreen> {
                                             : Colors.blue)),
                                 const Padding(
                                   padding: EdgeInsets.only(left: 8.0),
-                                  child: Text("Carnet Dorso:",
+                                  child: Text('Carnet Dorso:',
                                       style: TextStyle(fontSize: 12)),
                                 ),
                                 Text(fotostercerocarnetdorso.toString(),
@@ -442,7 +445,7 @@ class _SiniestroInfoScreenState extends State<SiniestroInfoScreen> {
                               TableRow(children: [
                                 const Padding(
                                   padding: EdgeInsets.only(left: 8.0),
-                                  child: Text("Cédula Frente:",
+                                  child: Text('Cédula Frente:',
                                       style: TextStyle(fontSize: 12)),
                                 ),
                                 Text(fotospropiocedulafrente.toString(),
@@ -454,7 +457,7 @@ class _SiniestroInfoScreenState extends State<SiniestroInfoScreen> {
                                             : Colors.blue)),
                                 const Padding(
                                   padding: EdgeInsets.only(left: 8.0),
-                                  child: Text("Cédula Frente:",
+                                  child: Text('Cédula Frente:',
                                       style: TextStyle(fontSize: 12)),
                                 ),
                                 Text(fotostercerocedulafrente.toString(),
@@ -468,7 +471,7 @@ class _SiniestroInfoScreenState extends State<SiniestroInfoScreen> {
                               TableRow(children: [
                                 const Padding(
                                   padding: EdgeInsets.only(left: 8.0),
-                                  child: Text("Cédula Dorso:",
+                                  child: Text('Cédula Dorso:',
                                       style: TextStyle(fontSize: 12)),
                                 ),
                                 Text(fotospropioceduladorso.toString(),
@@ -480,7 +483,7 @@ class _SiniestroInfoScreenState extends State<SiniestroInfoScreen> {
                                             : Colors.blue)),
                                 const Padding(
                                   padding: EdgeInsets.only(left: 8.0),
-                                  child: Text("Cédula Dorso:",
+                                  child: Text('Cédula Dorso:',
                                       style: TextStyle(fontSize: 12)),
                                 ),
                                 Text(fotosterceroceduladorso.toString(),
@@ -494,7 +497,7 @@ class _SiniestroInfoScreenState extends State<SiniestroInfoScreen> {
                               TableRow(children: [
                                 const Padding(
                                   padding: EdgeInsets.only(left: 8.0),
-                                  child: Text("Sin. Lateral Derecho:",
+                                  child: Text('Sin. Lateral Derecho:',
                                       style: TextStyle(fontSize: 12)),
                                 ),
                                 Text(
@@ -510,7 +513,7 @@ class _SiniestroInfoScreenState extends State<SiniestroInfoScreen> {
                                                 : Colors.blue)),
                                 const Padding(
                                   padding: EdgeInsets.only(left: 8.0),
-                                  child: Text("Sin. Lateral Derecho:",
+                                  child: Text('Sin. Lateral Derecho:',
                                       style: TextStyle(fontSize: 12)),
                                 ),
                                 Text(
@@ -528,7 +531,7 @@ class _SiniestroInfoScreenState extends State<SiniestroInfoScreen> {
                               TableRow(children: [
                                 const Padding(
                                   padding: EdgeInsets.only(left: 8.0),
-                                  child: Text("Sin. Lateral Izquierdo:",
+                                  child: Text('Sin. Lateral Izquierdo:',
                                       style: TextStyle(fontSize: 12)),
                                 ),
                                 Text(
@@ -544,7 +547,7 @@ class _SiniestroInfoScreenState extends State<SiniestroInfoScreen> {
                                                 : Colors.blue)),
                                 const Padding(
                                   padding: EdgeInsets.only(left: 8.0),
-                                  child: Text("Sin. Lateral Izquierdo:",
+                                  child: Text('Sin. Lateral Izquierdo:',
                                       style: TextStyle(fontSize: 12)),
                                 ),
                                 Text(
@@ -562,7 +565,7 @@ class _SiniestroInfoScreenState extends State<SiniestroInfoScreen> {
                               TableRow(children: [
                                 const Padding(
                                   padding: EdgeInsets.only(left: 8.0),
-                                  child: Text("Sin. Frente:",
+                                  child: Text('Sin. Frente:',
                                       style: TextStyle(fontSize: 12)),
                                 ),
                                 Text(fotospropiosiniestrofrente.toString(),
@@ -574,7 +577,7 @@ class _SiniestroInfoScreenState extends State<SiniestroInfoScreen> {
                                             : Colors.blue)),
                                 const Padding(
                                   padding: EdgeInsets.only(left: 8.0),
-                                  child: Text("Sin. Frente:",
+                                  child: Text('Sin. Frente:',
                                       style: TextStyle(fontSize: 12)),
                                 ),
                                 Text(fotostercerosiniestrofrente.toString(),
@@ -588,7 +591,7 @@ class _SiniestroInfoScreenState extends State<SiniestroInfoScreen> {
                               TableRow(children: [
                                 const Padding(
                                   padding: EdgeInsets.only(left: 8.0),
-                                  child: Text("Sin. Trasero:",
+                                  child: Text('Sin. Trasero:',
                                       style: TextStyle(fontSize: 12)),
                                 ),
                                 Text(fotospropiosiniestrotrasero.toString(),
@@ -600,7 +603,7 @@ class _SiniestroInfoScreenState extends State<SiniestroInfoScreen> {
                                             : Colors.blue)),
                                 const Padding(
                                   padding: EdgeInsets.only(left: 8.0),
-                                  child: Text("Sin. Trasero:",
+                                  child: Text('Sin. Trasero:',
                                       style: TextStyle(fontSize: 12)),
                                 ),
                                 Text(fotostercerosiniestrotrasero.toString(),
@@ -614,7 +617,7 @@ class _SiniestroInfoScreenState extends State<SiniestroInfoScreen> {
                               TableRow(children: [
                                 const Padding(
                                   padding: EdgeInsets.only(left: 8.0),
-                                  child: Text("Form. Denuncia:",
+                                  child: Text('Form. Denuncia:',
                                       style: TextStyle(fontSize: 12)),
                                 ),
                                 Text(formulariodenunciapropio.toString(),
@@ -626,7 +629,7 @@ class _SiniestroInfoScreenState extends State<SiniestroInfoScreen> {
                                             : Colors.blue)),
                                 const Padding(
                                   padding: EdgeInsets.only(left: 8.0),
-                                  child: Text("Seguro Frente:",
+                                  child: Text('Seguro Frente:',
                                       style: TextStyle(fontSize: 12)),
                                 ),
                                 Text(fotostercerosegurofrente.toString(),
@@ -640,12 +643,12 @@ class _SiniestroInfoScreenState extends State<SiniestroInfoScreen> {
                               TableRow(children: [
                                 const Padding(
                                   padding: EdgeInsets.only(left: 8.0),
-                                  child: Text(""),
+                                  child: Text(''),
                                 ),
-                                const Text(""),
+                                const Text(''),
                                 const Padding(
                                   padding: EdgeInsets.only(left: 8.0),
-                                  child: Text("Seguro Dorso:",
+                                  child: Text('Seguro Dorso:',
                                       style: TextStyle(fontSize: 12)),
                                 ),
                                 Text(fotostercerosegurodorso.toString(),
@@ -757,7 +760,7 @@ class _SiniestroInfoScreenState extends State<SiniestroInfoScreen> {
                   child: const Text('←'),
                 ),
               ),
-              Text("Fotos: ${_fotosSinPdf.length.toString()}",
+              Text('Fotos: ${_fotosSinPdf.length.toString()}',
                   style: const TextStyle(
                       color: Colors.white,
                       fontSize: 16,
@@ -1030,10 +1033,10 @@ class _SiniestroInfoScreenState extends State<SiniestroInfoScreen> {
       Uint8List? fileBytes = result.files.first.bytes;
       String fileName = result.files.first.name;
 
-      String base64imagePdf = '';
+      String base64ImagePdf = '';
 
       List<int> imageBytesPdf = fileBytes!.buffer.asUint8List();
-      base64imagePdf = base64Encode(imageBytesPdf);
+      base64ImagePdf = base64Encode(imageBytesPdf);
 
       var connectivityResult = await Connectivity().checkConnectivity();
       if (connectivityResult == ConnectivityResult.none) {
@@ -1049,7 +1052,7 @@ class _SiniestroInfoScreenState extends State<SiniestroInfoScreen> {
       }
 
       Map<String, dynamic> request = {
-        'ImageArray': base64imagePdf,
+        'ImageArray': base64ImagePdf,
         'NROSINIESTROCAB': widget.siniestro.nrosiniestro,
         'OBSERVACION': '',
         'CORRESPONDEA': 'Formulario Denuncia',
@@ -1097,9 +1100,11 @@ class _SiniestroInfoScreenState extends State<SiniestroInfoScreen> {
       return;
     }
 
-    List<int> imageBytes = await _image.readAsBytes();
-
-    String base64Image = base64Encode(imageBytes);
+    Uint8List imageBytes = await _image.readAsBytes();
+    int maxWidth = 800; // Ancho máximo
+    int maxHeight = 600; // Alto máximo
+    Uint8List resizedBytes = await resizeImage(imageBytes, maxWidth, maxHeight);
+    String base64Image = base64Encode(resizedBytes);
 
     Map<String, dynamic> request = {
       'ImageArray': base64Image,
@@ -1302,7 +1307,7 @@ class _SiniestroInfoScreenState extends State<SiniestroInfoScreen> {
       await showAlertDialog(
           context: context,
           title: 'Error',
-          message: "N° de Siniestro no válido",
+          message: 'N° de Siniestro no válido',
           actions: <AlertDialogAction>[
             const AlertDialogAction(key: null, label: 'Aceptar'),
           ]);
@@ -1440,7 +1445,7 @@ class _SiniestroInfoScreenState extends State<SiniestroInfoScreen> {
         ((valor - ((valor / 3600).floor()) * 3600) / 60).round().toString();
 
     if (minutos.length == 1) {
-      minutos = "0" + minutos;
+      minutos = '0' + minutos;
     }
     return hora.toString() + ':' + minutos.toString();
   }

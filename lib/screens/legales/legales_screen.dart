@@ -2,10 +2,11 @@ import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:rowing_app/components/loader_component.dart';
-import 'package:rowing_app/helpers/helpers.dart';
-import 'package:rowing_app/models/models.dart';
-import 'package:rowing_app/screens/screens.dart';
+
+import '../../components/loader_component.dart';
+import '../../helpers/helpers.dart';
+import '../../models/models.dart';
+import '../screens.dart';
 
 class LegalesScreen extends StatefulWidget {
   final User user;
@@ -123,7 +124,7 @@ class _LegalesScreenState extends State<LegalesScreen> {
       height: 40,
       child: Row(
         children: [
-          const Text("Cantidad de Juicios: ",
+          const Text('Cantidad de Juicios: ',
               style: TextStyle(
                 fontSize: 14,
                 color: Colors.white,
@@ -196,7 +197,7 @@ class _LegalesScreenState extends State<LegalesScreen> {
                                       const SizedBox(
                                         width: 70,
                                         child: Text(
-                                          "N° Caso: ",
+                                          'N° Caso: ',
                                           style: TextStyle(
                                             fontSize: 12,
                                             color: Color(0xFF781f1e),
@@ -211,7 +212,7 @@ class _LegalesScreenState extends State<LegalesScreen> {
                                               fontSize: 12,
                                             )),
                                       ),
-                                      const Text("N° Expediente: ",
+                                      const Text('N° Expediente: ',
                                           style: TextStyle(
                                             fontSize: 12,
                                             color: Color(0xFF781f1e),
@@ -233,7 +234,7 @@ class _LegalesScreenState extends State<LegalesScreen> {
                                     children: [
                                       const SizedBox(
                                         width: 70,
-                                        child: Text("Tipo Caso: ",
+                                        child: Text('Tipo Caso: ',
                                             style: TextStyle(
                                               fontSize: 12,
                                               color: Color(0xFF781f1e),
@@ -256,7 +257,7 @@ class _LegalesScreenState extends State<LegalesScreen> {
                                       const SizedBox(
                                         width: 70,
                                         child: Text(
-                                          "Estado: ",
+                                          'Estado: ',
                                           style: TextStyle(
                                             fontSize: 12,
                                             color: Color(0xFF781f1e),
@@ -280,7 +281,7 @@ class _LegalesScreenState extends State<LegalesScreen> {
                                       const SizedBox(
                                         width: 70,
                                         child: Text(
-                                          "Ult. mov.: ",
+                                          'Ult. mov.: ',
                                           style: TextStyle(
                                             fontSize: 12,
                                             color: Color(0xFF781f1e),
@@ -309,7 +310,7 @@ class _LegalesScreenState extends State<LegalesScreen> {
                                       const SizedBox(
                                         width: 70,
                                         child: Text(
-                                          "Carátula: ",
+                                          'Carátula: ',
                                           style: TextStyle(
                                             fontSize: 12,
                                             color: Color(0xFF781f1e),
@@ -333,7 +334,7 @@ class _LegalesScreenState extends State<LegalesScreen> {
                                       const SizedBox(
                                         width: 70,
                                         child: Text(
-                                          "Abogado: ",
+                                          'Abogado: ',
                                           style: TextStyle(
                                             fontSize: 12,
                                             color: Color(0xFF781f1e),
@@ -383,7 +384,7 @@ class _LegalesScreenState extends State<LegalesScreen> {
         _showLoader = false;
       });
       showMyDialog(
-          'Error', "Verifica que estés conectado a Internet", 'Aceptar');
+          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
     }
 
     Response response = Response(isSuccess: false);

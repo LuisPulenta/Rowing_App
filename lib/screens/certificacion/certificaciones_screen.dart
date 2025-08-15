@@ -5,11 +5,11 @@ import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:intl/intl.dart';
-import 'package:rowing_app/components/loader_component.dart';
-import 'package:rowing_app/helpers/helpers.dart';
-import 'package:rowing_app/helpers/helpers.dart';
-import 'package:rowing_app/models/models.dart';
-import 'package:rowing_app/screens/screens.dart';
+
+import '../../components/loader_component.dart';
+import '../../helpers/helpers.dart';
+import '../../models/models.dart';
+import '../screens.dart';
 
 class CertificacionesScreen extends StatefulWidget {
   final User user;
@@ -89,7 +89,7 @@ class _CertificacionesScreenState extends State<CertificacionesScreen> {
         _showLoader = false;
       });
       showMyDialog(
-          'Error', "Verifica que estés conectado a Internet", 'Aceptar');
+          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
     }
 
     Response response = Response(isSuccess: false);
@@ -190,7 +190,7 @@ class _CertificacionesScreenState extends State<CertificacionesScreen> {
                               children: [
                                 Row(
                                   children: const [
-                                    Text("Id Acta: ",
+                                    Text('Id Acta: ',
                                         style: TextStyle(
                                           fontSize: 12,
                                           color: Color(0xFF781f1e),
@@ -200,7 +200,7 @@ class _CertificacionesScreenState extends State<CertificacionesScreen> {
                                 ),
                                 Row(
                                   children: const [
-                                    Text("Fecha: ",
+                                    Text('Fecha: ',
                                         style: TextStyle(
                                           fontSize: 12,
                                           color: Color(0xFF781f1e),
@@ -210,7 +210,7 @@ class _CertificacionesScreenState extends State<CertificacionesScreen> {
                                 ),
                                 Row(
                                   children: const [
-                                    Text("N° Obra: ",
+                                    Text('N° Obra: ',
                                         style: TextStyle(
                                           fontSize: 12,
                                           color: Color(0xFF781f1e),
@@ -220,7 +220,7 @@ class _CertificacionesScreenState extends State<CertificacionesScreen> {
                                 ),
                                 Row(
                                   children: const [
-                                    Text("Central: ",
+                                    Text('Central: ',
                                         style: TextStyle(
                                           fontSize: 12,
                                           color: Color(0xFF781f1e),
@@ -230,7 +230,7 @@ class _CertificacionesScreenState extends State<CertificacionesScreen> {
                                 ),
                                 Row(
                                   children: const [
-                                    Text("SubC: ",
+                                    Text('SubC: ',
                                         style: TextStyle(
                                           fontSize: 12,
                                           color: Color(0xFF781f1e),
@@ -240,7 +240,7 @@ class _CertificacionesScreenState extends State<CertificacionesScreen> {
                                 ),
                                 Row(
                                   children: const [
-                                    Text("Fecha Corresp.: ",
+                                    Text('Fecha Corresp.: ',
                                         style: TextStyle(
                                           fontSize: 12,
                                           color: Color(0xFF781f1e),
@@ -250,7 +250,7 @@ class _CertificacionesScreenState extends State<CertificacionesScreen> {
                                 ),
                                 Row(
                                   children: const [
-                                    Text("Cod. Prod.: ",
+                                    Text('Cod. Prod.: ',
                                         style: TextStyle(
                                           fontSize: 12,
                                           color: Color(0xFF781f1e),
@@ -260,7 +260,7 @@ class _CertificacionesScreenState extends State<CertificacionesScreen> {
                                 ),
                                 Row(
                                   children: const [
-                                    Text("Mes Imput.: ",
+                                    Text('Mes Imput.: ',
                                         style: TextStyle(
                                           fontSize: 12,
                                           color: Color(0xFF781f1e),
@@ -270,7 +270,7 @@ class _CertificacionesScreenState extends State<CertificacionesScreen> {
                                 ),
                                 Row(
                                   children: const [
-                                    Text("Objeto: ",
+                                    Text('Objeto: ',
                                         style: TextStyle(
                                           fontSize: 12,
                                           color: Color(0xFF781f1e),
@@ -280,7 +280,7 @@ class _CertificacionesScreenState extends State<CertificacionesScreen> {
                                 ),
                                 Row(
                                   children: const [
-                                    Text("MontoC: ",
+                                    Text('MontoC: ',
                                         style: TextStyle(
                                           fontSize: 12,
                                           color: Color(0xFF781f1e),
@@ -290,7 +290,7 @@ class _CertificacionesScreenState extends State<CertificacionesScreen> {
                                 ),
                                 Row(
                                   children: const [
-                                    Text("MontoT: ",
+                                    Text('MontoT: ',
                                         style: TextStyle(
                                           fontSize: 12,
                                           color: Color(0xFF781f1e),
@@ -345,7 +345,7 @@ class _CertificacionesScreenState extends State<CertificacionesScreen> {
                                       children: [
                                         Text(
                                             e.subCodigo.toString() +
-                                                " - " +
+                                                ' - ' +
                                                 e.codCausanteC.toString(),
                                             style: const TextStyle(
                                               fontSize: 12,
@@ -424,7 +424,7 @@ class _CertificacionesScreenState extends State<CertificacionesScreen> {
                     Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        (e.nrO103 == "")
+                        (e.nrO103 == '')
                             ? IconButton(
                                 icon: const CircleAvatar(
                                   backgroundColor: Color(0xFF781f1e),
@@ -436,7 +436,7 @@ class _CertificacionesScreenState extends State<CertificacionesScreen> {
                                 },
                               )
                             : Container(),
-                        (e.nrO103 == "")
+                        (e.nrO103 == '')
                             ? IconButton(
                                 icon: const CircleAvatar(
                                   backgroundColor: Colors.white,
@@ -499,7 +499,7 @@ class _CertificacionesScreenState extends State<CertificacionesScreen> {
       height: 40,
       child: Row(
         children: [
-          const Text("Cantidad de Certificaciones: ",
+          const Text('Cantidad de Certificaciones: ',
               style: TextStyle(
                 fontSize: 14,
                 color: Colors.white,

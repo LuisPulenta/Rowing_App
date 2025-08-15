@@ -7,7 +7,7 @@ Widget getImage({required User user, double? width, double? height}) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Image.asset(
-        "assets/navitas.png",
+        'assets/navitas.png',
         width: width ?? 300,
         height: height ?? 200,
       ),
@@ -15,7 +15,7 @@ Widget getImage({required User user, double? width, double? height}) {
   }
 
   return Image.asset(
-    "assets/logo.png",
+    'assets/logo.png',
     width: width ?? 300,
     height: height ?? 200,
   );

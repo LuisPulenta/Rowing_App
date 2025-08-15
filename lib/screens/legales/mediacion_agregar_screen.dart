@@ -8,9 +8,10 @@ import 'package:connectivity/connectivity.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:rowing_app/helpers/helpers.dart';
-import 'package:rowing_app/models/models.dart';
-import 'package:rowing_app/screens/screens.dart';
+
+import '../../helpers/helpers.dart';
+import '../../models/models.dart';
+import '../screens.dart';
 
 class MediacionAgregarScreen extends StatefulWidget {
   final User user;
@@ -34,7 +35,7 @@ class _MediacionAgregarScreenState extends State<MediacionAgregarScreen> {
   String _tipoArray = '';
 
   late XFile _image;
-  String base64imagePdf = '';
+  String base64ImagePdf = '';
 
   String _mediadores = '';
   String _mediadoresError = '';
@@ -317,7 +318,7 @@ class _MediacionAgregarScreenState extends State<MediacionAgregarScreen> {
                       child: Text(
                         '  Vencimiento Oferta: ' +
                             ((_fechaVencimientoOferta != null)
-                                ? "    ${_fechaVencimientoOferta!.day}/${_fechaVencimientoOferta!.month}/${_fechaVencimientoOferta!.year}"
+                                ? '    ${_fechaVencimientoOferta!.day}/${_fechaVencimientoOferta!.month}/${_fechaVencimientoOferta!.year}'
                                 : ''),
                         style:
                             const TextStyle(color: Colors.black, fontSize: 15),
@@ -476,7 +477,7 @@ class _MediacionAgregarScreenState extends State<MediacionAgregarScreen> {
         width: double.infinity,
         height: 240,
         margin: const EdgeInsets.only(top: 10),
-        child: base64imagePdf == ''
+        child: base64ImagePdf == ''
             ? !_photoChanged
                 ? const Image(
                     image: AssetImage('assets/noimage.png'),
@@ -589,7 +590,7 @@ class _MediacionAgregarScreenState extends State<MediacionAgregarScreen> {
         setState(() {
           _photoChanged = true;
           _image = response.result;
-          base64imagePdf = '';
+          base64ImagePdf = '';
           _tipoArray = 'jpg';
         });
       }
@@ -607,7 +608,7 @@ class _MediacionAgregarScreenState extends State<MediacionAgregarScreen> {
       setState(() {
         _photoChanged = true;
         _image = image;
-        base64imagePdf = '';
+        base64ImagePdf = '';
         _tipoArray = 'jpg';
       });
     }
@@ -670,7 +671,7 @@ class _MediacionAgregarScreenState extends State<MediacionAgregarScreen> {
     bool isValid = true;
 
 //--------- Mediadores ----------
-    if (_mediadores == "") {
+    if (_mediadores == '') {
       isValid = false;
       _mediadoresShowError = true;
       _mediadoresError = 'Debe completar Mediadores';
@@ -689,7 +690,7 @@ class _MediacionAgregarScreenState extends State<MediacionAgregarScreen> {
     }
 
 //--------- Ofrecimiento ----------
-    if (_ofrecimiento == "") {
+    if (_ofrecimiento == '') {
       isValid = false;
       _ofrecimientoShowError = true;
       _ofrecimientoError = 'Debe completar Ofrecimiento';
@@ -713,7 +714,7 @@ class _MediacionAgregarScreenState extends State<MediacionAgregarScreen> {
     }
 
 //--------- CondicionPago ----------
-    if (_condicionPago == "") {
+    if (_condicionPago == '') {
       isValid = false;
       _condicionPagoShowError = true;
       _condicionPagoError = 'Debe completar Condición de Pago';
@@ -752,21 +753,19 @@ class _MediacionAgregarScreenState extends State<MediacionAgregarScreen> {
         _showLoader = false;
       });
       showMyDialog(
-          'Error', "Verifica que estés conectado a Internet", 'Aceptar');
+          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
     }
 
-    String base64image = '';
+    String base64Image = '';
 
     if (_photoChanged) {
       List<int> imageBytes = await _image.readAsBytes();
-      base64image = base64Encode(imageBytes);
+      base64Image = base64Encode(imageBytes);
     }
 
-    if (base64imagePdf != '') {
-      base64image = base64imagePdf;
+    if (base64ImagePdf != '') {
+      base64Image = base64ImagePdf;
     }
-
-    String ahora = DateTime.now().toString();
 
     Response response2 = await ApiHelper.getNroRegistroMaxMediaciones();
     if (response2.isSuccess) {
@@ -777,7 +776,6 @@ class _MediacionAgregarScreenState extends State<MediacionAgregarScreen> {
       'IDMEDIACION': _nroReg,
       'IDCAUSANTEJUICIO': widget.juicio.iDCASO,
       'MEDIADORES': _mediadores,
-      'FECHA': ahora.toString(),
       'ABOGADO': widget.juicio.abogado,
       'IDCONTRAPARTE': widget.juicio.idContraparte,
       'MONEDA': _moneda,
@@ -785,7 +783,7 @@ class _MediacionAgregarScreenState extends State<MediacionAgregarScreen> {
       'TIPOTRANSACCION': _tipoTransaccion,
       'CONDICIONPAGO': _condicionPago,
       'VENCIMIENTOOFERTA': _fechaVencimientoOferta != null
-          ? _fechaVencimientoOferta.toString()
+          ? _fechaVencimientoOferta.toString().substring(0, 10)
           : '',
       'RESULTADOOFERTA': _resultadoOferta,
       'MONTOCONTRAOFERTA': _montoContraOferta,
@@ -794,7 +792,7 @@ class _MediacionAgregarScreenState extends State<MediacionAgregarScreen> {
               ? _aceptacionContraOferta
               : '',
       'TIPOARRAY': _tipoArray,
-      'ImageArray': base64image,
+      'ImageArray': base64Image,
     };
 
     Response response = await ApiHelper.postNoToken(
@@ -834,7 +832,7 @@ class _MediacionAgregarScreenState extends State<MediacionAgregarScreen> {
       String fileName = result.files.first.name;
 
       List<int> imageBytesPdf = fileBytes!.buffer.asUint8List();
-      base64imagePdf = base64Encode(imageBytesPdf);
+      base64ImagePdf = base64Encode(imageBytesPdf);
       _tipoArray = 'pdf';
 
       setState(() {});

@@ -3,9 +3,10 @@ import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:rowing_app/components/loader_component.dart';
-import 'package:rowing_app/helpers/helpers.dart';
-import 'package:rowing_app/models/models.dart';
+
+import '../../components/loader_component.dart';
+import '../../helpers/helpers.dart';
+import '../../models/models.dart';
 
 class ObraInfoDataScreen extends StatefulWidget {
   final User user;
@@ -394,7 +395,7 @@ class _ObraInfoDataScreenState extends State<ObraInfoDataScreen> {
     List<Placemark> placemarks = await placemarkFromCoordinates(
         _positionUser.latitude, _positionUser.longitude);
     _direccion = placemarks[0].street.toString() +
-        " - " +
+        ' - ' +
         placemarks[0].locality.toString();
 
     _obra.posx = _positionUser.latitude.toString();
@@ -789,7 +790,7 @@ class _ObraInfoDataScreenState extends State<ObraInfoDataScreen> {
 
     if (connectivityResult == ConnectivityResult.none) {
       showMyDialog(
-          'Error', "Verifica que estés conectado a Internet", 'Aceptar');
+          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
     }
 
     Response response = Response(isSuccess: false);
@@ -1117,7 +1118,7 @@ class _ObraInfoDataScreenState extends State<ObraInfoDataScreen> {
         _showLoader = false;
       });
       showMyDialog(
-          'Error', "Verifica que estés conectado a Internet", 'Aceptar');
+          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
     }
 
     Map<String, dynamic> request = {
@@ -1138,7 +1139,7 @@ class _ObraInfoDataScreenState extends State<ObraInfoDataScreen> {
         '/api/Obras/PutDatosObra/', widget.obra.nroObra.toString(), request);
 
     if (response.isSuccess) {
-      _showSnackbar("Datos de Obra grabados con éxito");
+      _showSnackbar('Datos de Obra grabados con éxito');
     }
 
     setState(() {
