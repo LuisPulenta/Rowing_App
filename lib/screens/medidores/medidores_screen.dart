@@ -801,6 +801,7 @@ class _MedidoresScreenState extends State<MedidoresScreen> {
 
     Map<String, dynamic> request33 = {
       'imagearray': base64Image,
+      'nroobra': _ticket.nroobra,
       'idObrasPostes': _ticket.nroregistro,
       'observacion': _photo.observaciones,
       'estante': 'App',
@@ -812,7 +813,6 @@ class _MedidoresScreenState extends State<MedidoresScreen> {
       'longitud': _photo.longitud,
       'tipodefoto': _photo.tipofoto,
       'direccionfoto': _photo.direccion,
-      'obra': _ticket,
     };
 
     Response response =
