@@ -1168,6 +1168,14 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
     _obrasDocumentos = _obra.obrasDocumentos.toList();
 
     for (ObrasDocumento obraDocumento in _obrasDocumentos) {
+      if (obraDocumento.tipoDeFoto == null) {
+        continue;
+      }
+
+      if (obraDocumento.sector != 'App') {
+        continue;
+      }
+
       if (obraDocumento.tipoDeFoto == 3) {
         obraDocumento.tipoDeFoto = 4;
       }
@@ -1342,8 +1350,8 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
         'modulo': widget.user.modulo,
         'nrolote': 'App',
         'sector': 'App',
-        'latitud': '',
-        'longitud': '',
+        'latitud': null,
+        'longitud': null,
         'tipodefoto': 20,
         'direccionfoto': '',
         'obra': _obra,
@@ -1418,8 +1426,8 @@ class _ObraInfoScreenState extends State<ObraInfoScreen> {
         'modulo': widget.user.modulo,
         'nrolote': 'App',
         'sector': 'App',
-        'latitud': '',
-        'longitud': '',
+        'latitud': null,
+        'longitud': null,
         'tipodefoto': 30,
         'direccionfoto': '',
         'obra': _obra,

@@ -135,12 +135,31 @@ class _ObraInfoDataScreenState extends State<ObraInfoDataScreen> {
     _obra.posy ??= '';
     _direccionController.text =
         _obra.direccion != null ? _obra.direccion.toString() : '';
-    _obra.textoLocalizacion ??= 'Seleccione un Motivo...';
-    _obra.textoClase ??= 'Seleccione una Conexión...';
-    _obra.textoTipo ??= 'Seleccione un Lugar...';
-    _obra.textoComponente ??= 'Seleccione un Material...';
-    _obra.codigoDiametro ??= 'Seleccione un Diámetro de Caño...';
-    _obra.motivo ??= 'Seleccione un Tipo de Fuga...';
+
+    if (_obra.textoLocalizacion == null || _obra.textoLocalizacion == '') {
+      _obra.textoLocalizacion = 'Seleccione un Motivo...';
+    }
+
+    if (_obra.textoClase == null || _obra.textoClase == '') {
+      _obra.textoClase = 'Seleccione una Conexión...';
+    }
+
+    if (_obra.textoTipo == null || _obra.textoTipo == '') {
+      _obra.textoTipo = 'Seleccione un Lugar...';
+    }
+
+    if (_obra.textoComponente == null || _obra.textoComponente == '') {
+      _obra.textoComponente = 'Seleccione un Material...';
+    }
+
+    if (_obra.codigoDiametro == null || _obra.codigoDiametro == '') {
+      _obra.codigoDiametro = 'Seleccione un Diámetro de Caño...';
+    }
+
+    if (_obra.motivo == null || _obra.motivo == '') {
+      _obra.motivo = 'Seleccione un Tipo de Fuga...';
+    }
+
     _comentariosController.text =
         _obra.planos != null ? _obra.planos.toString() : '';
 
