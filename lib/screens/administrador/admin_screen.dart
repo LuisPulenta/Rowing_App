@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:rowing_app/helpers/helpers.dart';
-import 'package:rowing_app/models/models.dart';
-import 'package:rowing_app/screens/screens.dart';
+
+import '../../helpers/helpers.dart';
+import '../../models/models.dart';
+import '../screens.dart';
 
 class AdminScreen extends StatefulWidget {
   final User user;
@@ -70,7 +71,7 @@ class _AdminScreenState extends State<AdminScreen> {
               ],
             ),
             style: ElevatedButton.styleFrom(
-              backgroundColor: Color.fromARGB(255, 196, 9, 37),
+              backgroundColor: const Color.fromARGB(255, 196, 9, 37),
               minimumSize: const Size(100, 50),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(5),
@@ -102,7 +103,7 @@ class _AdminScreenState extends State<AdminScreen> {
               ],
             ),
             style: ElevatedButton.styleFrom(
-              backgroundColor: Color.fromARGB(255, 196, 9, 37),
+              backgroundColor: const Color.fromARGB(255, 196, 9, 37),
               minimumSize: const Size(100, 50),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(5),

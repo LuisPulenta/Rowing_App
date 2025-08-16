@@ -451,8 +451,9 @@ class _DesactivarUsuarioScreenState extends State<DesactivarUsuarioScreen> {
       //Calculo dif entre hoy y el 1 de Enero de 2022 que es el 80723 y le sumo el 80723 y 70 días más
     };
 
-    Response response =
-        await ApiHelper.put('/api/Account/', _codigo.toString(), request);
+    // Response response = await ApiHelper.put('/api/Account/', _codigo.toString(), request);
+
+    Response response = await ApiHelper.post('/api/Account/$_codigo', request);
 
     setState(() {
       _showLoader = false;

@@ -1190,8 +1190,8 @@ class _HomeScreenState extends State<HomeScreen> {
     Map<String, dynamic> request1 = {
       'IdUsuario': user.idUsuario,
       'UsuarioStr': user.fullName,
-      'LATITUD': _positionUser.latitude,
-      'LONGITUD': _positionUser.longitude,
+      'LATITUD': _positionUser.latitude.toString(),
+      'LONGITUD': _positionUser.longitude.toString(),
       'PIN': 'mapinred.ico',
       'PosicionCalle': direccion,
       'Velocidad': 0,
@@ -1201,7 +1201,7 @@ class _HomeScreenState extends State<HomeScreen> {
       'Origen': 1,
     };
 
-    ApiHelper.post('/api/UsuariosGeos', request1);
+    var response = ApiHelper.post('/api/UsuariosGeos', request1);
 
     return;
   }
