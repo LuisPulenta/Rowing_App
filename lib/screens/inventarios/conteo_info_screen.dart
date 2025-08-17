@@ -339,6 +339,8 @@ class _ConteoInfoScreenState extends State<ConteoInfoScreen> {
                                       showDialog(
                                           context: context,
                                           builder: (BuildContext context) {
+                                            _cantidad =
+                                                _cantidadController.text;
                                             return AlertDialog(
                                               backgroundColor: Colors.grey[300],
                                               title: const Text(

@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../helpers/helpers.dart';
+import '../../helpers/resize_image.dart';
 import '../../models/models.dart';
 import '../screens.dart';
 
@@ -930,8 +931,12 @@ class _NotificacionAgregarScreenState extends State<NotificacionAgregarScreen> {
     String base64Image = '';
 
     if (_photoChanged) {
-      List<int> imageBytes = await _image.readAsBytes();
-      base64Image = base64Encode(imageBytes);
+      Uint8List imageBytes = await _image.readAsBytes();
+      int maxWidth = 800; // Ancho máximo
+      int maxHeight = 600; // Alto máximo
+      Uint8List resizedBytes =
+          await resizeImage(imageBytes, maxWidth, maxHeight);
+      base64Image = base64Encode(resizedBytes);
     }
 
     if (base64ImagePdf != '') {
