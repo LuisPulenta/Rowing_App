@@ -3096,9 +3096,13 @@ class _GruasCheckListAgregarScreenState
       'IdCliente': _cliente,
       'IDVehiculo': _vehiculo.codveh,
       'VTV': _vtv.toString().substring(10, _vtv.toString().length),
-      'FechaVencVTV': _fechaVencVtv != null ? _fechaVencVtv.toString() : '',
+      'FechaVencVTV': _fechaVencVtv != null
+          ? _fechaVencVtv.toString().substring(0, 10)
+          : '',
       'VTH': _vth.toString().substring(10, _vth.toString().length),
-      'FechaVencVTH': _fechaVencVth != null ? _fechaVencVth.toString() : '',
+      'FechaVencVTH': _fechaVencVth != null
+          ? _fechaVencVth.toString().substring(0, 10)
+          : '',
       'Cubiertas':
           _cubiertas.toString().substring(8, _cubiertas.toString().length),
       'CorreaCinturon': _correasCinturon

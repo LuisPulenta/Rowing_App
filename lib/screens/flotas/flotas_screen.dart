@@ -600,7 +600,7 @@ class _FlotaScreenState extends State<FlotaScreen>
         'horlle': 0,
         'codsuc': 0,
         'nrodeot': 0,
-        'cambio': 0,
+        'cambio': '',
         'procesado': 0,
         'kmfechaanterior': kmFechaAnterior != '' ? kmFechaAnterior : null,
         'nopromediar': 0,
@@ -642,6 +642,9 @@ class _FlotaScreenState extends State<FlotaScreen>
 
     response3 =
         await ApiHelper.getProgramasPrev(_vehiculo.codProducto.toString());
+
+    _programasprev = response3.result;
+
     _programasprev.forEach((element) async {
       Map<String, dynamic> request3 = {
         'nrointerno': element.nroInterno,

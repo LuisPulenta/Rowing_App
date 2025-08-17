@@ -656,7 +656,7 @@ class _TurnosAgregarScreenState extends State<TurnosAgregarScreen> {
       'Numcha': _codigo.toUpperCase(),
       'CodVehiculo': _vehiculo.codProducto,
       'AsignadoActual': _vehiculo.campomemo,
-      'FechaTurno': selectedDate.toString(),
+      'FechaTurno': selectedDate.toString().substring(0, 10),
       'HoraTurno': selectedTime.hour * 3600 + selectedTime.minute * 60,
       'TextoBreve': _observaciones,
       'FechaConfirmaTurno': null,
