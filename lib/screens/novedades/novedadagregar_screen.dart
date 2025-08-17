@@ -5,10 +5,12 @@ import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:camera/camera.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../components/loader_component.dart';
 import '../../helpers/helpers.dart';
+import '../../helpers/resize_image.dart';
 import '../../models/causante.dart';
 import '../../models/response.dart';
 import '../../models/tipo_novedad.dart';
@@ -690,14 +692,23 @@ class _NovedadAgregarScreenState extends State<NovedadAgregarScreen> {
 
     String base64Image1 = '';
     String base64Image2 = '';
+
     if (_photoChanged1) {
-      List<int> imageBytes1 = await _image1.readAsBytes();
-      base64Image1 = base64Encode(imageBytes1);
+      Uint8List imageBytes1 = await _image1.readAsBytes();
+      int maxWidth1 = 800; // Ancho máximo
+      int maxHeight1 = 600; // Alto máximo
+      Uint8List resizedBytes1 =
+          await resizeImage(imageBytes1, maxWidth1, maxHeight1);
+      base64Image1 = base64Encode(resizedBytes1);
     }
 
     if (_photoChanged2) {
-      List<int> imageBytes2 = await _image2.readAsBytes();
-      base64Image2 = base64Encode(imageBytes2);
+      Uint8List imageBytes2 = await _image2.readAsBytes();
+      int maxWidth2 = 800; // Ancho máximo
+      int maxHeight2 = 600; // Alto máximo
+      Uint8List resizedBytes2 =
+          await resizeImage(imageBytes2, maxWidth2, maxHeight2);
+      base64Image2 = base64Encode(resizedBytes2);
     }
 
     Map<String, dynamic> request = {
@@ -716,7 +727,7 @@ class _NovedadAgregarScreenState extends State<NovedadAgregarScreen> {
       'imagearray1': base64Image1,
       'imagearray2': base64Image2,
       'fec': base64Image2,
-      'fechaEstado': '',
+      'fechaEstado': null,
       'observacionEstado': '',
       'confirmaLeido': null,
       'iIDUsrEstado': null,

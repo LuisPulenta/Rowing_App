@@ -961,9 +961,9 @@ class _NovedadesScreenState extends State<NovedadesScreen> {
           ]);
       return;
     }
-    if (widget.user.codigoCausante != widget.user.login) {
-      Navigator.pop(context, 'yes');
-    }
+    // if (widget.user.codigoCausante != widget.user.login) {
+    //   Navigator.pop(context, 'yes');
+    // }
     await _getNovedades();
     _novedadesSinLeer = [];
     for (var novedad in _novedades) {
@@ -971,6 +971,9 @@ class _NovedadesScreenState extends State<NovedadesScreen> {
         _novedadesSinLeer.add(novedad);
       }
     }
-    setState(() {});
+
+    if (mounted) {
+      setState(() {});
+    }
   }
 }

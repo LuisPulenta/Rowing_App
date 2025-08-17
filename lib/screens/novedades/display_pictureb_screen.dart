@@ -1,7 +1,9 @@
 import 'dart:io';
+
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-import 'package:rowing_app/models/response.dart';
+
+import '../../models/response.dart';
 
 class DisplayPictureBScreen extends StatefulWidget {
   final XFile image;
