@@ -45,7 +45,9 @@ class ElemEnCalle {
     domicilio = json['domicilio'];
     observacion = json['observacion'];
     linkfoto = json['linkfoto'];
-    imageFullPath = json['imageFullPath'];
+    imageFullPath = json['linkfoto'].toString().isNotEmpty
+        ? 'https://gaos2.keypress.com.ar/RowingAppApi${json['linkfoto'].toString().substring(1)}'
+        : 'https://gaos2.keypress.com.ar/RowingAppApi/images/ElemEnCalle/noimage.png';
     estado = json['estado'];
     cantItems = json['cantItems'];
   }

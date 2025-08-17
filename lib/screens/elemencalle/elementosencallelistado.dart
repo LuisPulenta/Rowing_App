@@ -461,7 +461,6 @@ class _ElementosencallelistadoState extends State<Elementosencallelistado> {
                 )));
     if (result == 'yes' || result != 'yes') {
       _getElemEnCalle();
-      setState(() {});
     }
   }
 
