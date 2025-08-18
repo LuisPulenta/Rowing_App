@@ -299,7 +299,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
       await showAlertDialog(
           context: context,
           title: 'Error',
-          message: response.message,
+          message: 'Contraseña incorrecta',
           actions: <AlertDialogAction>[
             const AlertDialogAction(key: null, label: 'Aceptar'),
           ]);

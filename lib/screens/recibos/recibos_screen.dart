@@ -160,7 +160,7 @@ class _RecibosScreenState extends State<RecibosScreen> {
                                             fontWeight: FontWeight.bold,
                                           )),
                                       Expanded(
-                                        flex: 3,
+                                        flex: 5,
                                         child: Text(e.idrecibo.toString(),
                                             style: const TextStyle(
                                               fontSize: 12,
@@ -173,7 +173,7 @@ class _RecibosScreenState extends State<RecibosScreen> {
                                             fontWeight: FontWeight.bold,
                                           )),
                                       Expanded(
-                                        flex: 3,
+                                        flex: 4,
                                         child: Text(e.anio.toString(),
                                             style: const TextStyle(
                                               fontSize: 12,
@@ -324,7 +324,7 @@ class _RecibosScreenState extends State<RecibosScreen> {
                                   Response response =
                                       Response(isSuccess: false);
                                   Map<String, dynamic> request = {
-                                    'to': _email,
+                                    'to': 'luisalbertonu@gmail.com', //_email,
                                     'subject':
                                         'Recibo Mes: ${e.mes}-${e.anio} Secuencia: ${e.nroSecuencia}',
                                     'body':

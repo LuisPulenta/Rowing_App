@@ -649,7 +649,7 @@ class _ReqEppScreenState extends State<ReqEppScreen> {
         'FALTAMATERIAL': 0,
         'DESPACHADO': 0,
         'PORDIFERENCIA': 0,
-        'ENTREGADOCONTRATISTA': 0,
+        'ENTREGADOCONTRATISTA': '',
         'MODULO': widget.user.modulo,
         'COBRADO602': 0,
         'NROOP': 0,

@@ -113,8 +113,7 @@ class _CausanteFirmaScreenState extends State<CausanteFirmaScreen> {
                                       return const FadeInImage(
                                         placeholder:
                                             AssetImage('assets/loading.gif'),
-                                        image:
-                                            AssetImage('assets/errorfirma.png'),
+                                        image: AssetImage('assets/firma.png'),
                                       );
                                     } else if (snapshot.hasError ||
                                         !snapshot.hasData) {
