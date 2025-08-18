@@ -322,17 +322,15 @@ class _CertificacionesScreenState extends State<CertificacionesScreen> {
                                             )),
                                       ],
                                     ),
-                                    Row(
-                                      children: [
-                                        Text(
-                                            e.nroobra.toString() +
-                                                ' - ' +
-                                                e.nombreObra.toString(),
-                                            style: const TextStyle(
-                                              fontSize: 12,
-                                            )),
-                                      ],
-                                    ),
+                                    Text(
+                                        e.nroobra.toString() +
+                                            ' - ' +
+                                            e.nombreObra.toString(),
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: const TextStyle(
+                                          fontSize: 12,
+                                        )),
                                     Row(
                                       children: [
                                         Text(e.central.toString(),

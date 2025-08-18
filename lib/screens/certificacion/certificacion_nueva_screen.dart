@@ -289,7 +289,9 @@ class _CertificacionNuevaScreenState extends State<CertificacionNuevaScreen> {
 
     for (var causante in _causantes) {
       list.add(DropdownMenuItem(
-        child: Text(causante.nombre),
+        child: Text(causante.nombre.length > 30
+            ? (causante.nombre.substring(0, 29))
+            : (causante.nombre)),
         value: causante.codigo,
       ));
     }
@@ -762,58 +764,30 @@ class _CertificacionNuevaScreenState extends State<CertificacionNuevaScreen> {
       'FECHAEJECUCION': DateTime.now().toString().substring(0, 10),
       'NombreObra': obra.nombreObra,
       'NroOE': obra.nroOE,
-      'FINALIZADA': 1,
-      'MATERIALESDESCONTADOS': 1,
       'subCodigo': _contratista,
-      'CENTRAL': obra.central.substring(0, 3),
-      'PREADICIONAL': 0,
+      'CENTRAL':
+          obra.central.length >= 3 ? obra.central.substring(0, 3) : 'xxx',
       'NroPre': !widget.editMode ? _nroReg : widget.cabeceraCertificacion.id,
-      'SIPA': '1',
       'OBSERVACION': _observaciones,
-      'TIPIFICACION': 'Normal',
       'FECHACORRESPONDENCIA':
           fechaCorrespondencia!.difference(DateTime(1900, 1, 1)).inDays + 36163,
-      'MARCADEVENTA': 0,
-      'NRO103': '',
-      'NRO105': '',
-      'IDUSUARIOP': 1,
       'FECHALIBERACION': DateTime.now().toString().substring(0, 10),
-      'IDUSUARIOL': 1,
-      'NROORDENPAGO': 0,
-      'VALORTOTAL': _montoC,
-      'PAGAR90': 'N',
-      'VALOR90': _montoC,
-      'PRECIO90': _montoC,
-      'MONTO90': _montoC,
-      'PAGAR10': 'N',
-      'VALOR10': 0,
-      'PRECIO10': 0,
-      'MONTO10': 0,
-      'IDUSUARIOFR': 0,
-      'FECHAFONDOREPARO': null,
-      'NROPAGOFR': 0,
+      'VALORTOTAL': double.tryParse(_montoC),
+      'VALOR90': double.tryParse(_montoC),
+      'PRECIO90': double.tryParse(_montoC),
+      'MONTO90': double.tryParse(_montoC),
       'CODIGOPRODUCCION': _codigoProduccion,
-      'ObservacionO': 'App',
-      'Clase': 'Puntos',
-      'VALORTOTALC': _montoC,
-      'VALORTOTALT': _montoT,
-      'PorcAplicado': 100,
-      'PAGARX': 'N',
-      'VALORX': 0,
-      'PRECIO10X': 0,
-      'MONTOX': 0,
+      'VALORTOTALC': double.tryParse(_montoC),
+      'VALORTOTALT': double.tryParse(_montoT),
       'CodCausanteC': _causante,
-      'Cobrar': 1,
-      'Presentado': 'No',
-      'Estado': 'PEN',
       'Modulo': widget.user.modulo,
       'IdUsuario': widget.user.idUsuario,
       'Terminal': widget.imei,
-      'Fecha103': null,
-      'Fecha105': null,
       'MesImputacion': _mesImputacion,
       'Objeto': _objeto,
-      'PorcActa': _porcActa,
+      'PorcActa': double.tryParse(
+        _porcActa,
+      )
     };
 
     if (!widget.editMode) {
@@ -934,7 +908,7 @@ class _CertificacionNuevaScreenState extends State<CertificacionNuevaScreen> {
 
     bandera = false;
     intentos = 0;
-
+    if (fechaCorrespondencia == null) return;
     Map<String, dynamic> request = {
       'Fecha': fechaCorrespondencia.toString().substring(0, 10),
     };
@@ -1050,10 +1024,20 @@ class _CertificacionNuevaScreenState extends State<CertificacionNuevaScreen> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Text(obra.nroObra.toString() +
-                                          ' - ' +
-                                          obra.nombreObra),
-                                      Text(obra.defProy.toString()),
+                                      Text(
+                                        obra.nroObra.toString() +
+                                            ' - ' +
+                                            obra.nombreObra,
+                                        maxLines: 1,
+                                        style: TextStyle(
+                                            overflow: TextOverflow.ellipsis),
+                                      ),
+                                      Text(
+                                        obra.defProy.toString(),
+                                        maxLines: 1,
+                                        style: TextStyle(
+                                            overflow: TextOverflow.ellipsis),
+                                      ),
                                       Text(obra.central.toString()),
                                     ],
                                   )

@@ -506,14 +506,16 @@ class ApiHelper {
   static Future<Response> postNoToken(
       String controller, Map<String, dynamic> request) async {
     var url = Uri.parse('${Constants.apiUrl}$controller');
-    var response = await http.post(
-      url,
-      headers: {
-        'content-type': 'application/json',
-        'accept': 'application/json',
-      },
-      body: jsonEncode(request),
-    );
+    var response = await http
+        .post(
+          url,
+          headers: {
+            'content-type': 'application/json',
+            'accept': 'application/json',
+          },
+          body: jsonEncode(request),
+        )
+        .timeout(Duration(seconds: 30));
 
     if (response.statusCode >= 400) {
       return Response(isSuccess: false, message: response.body);
@@ -525,7 +527,7 @@ class ApiHelper {
 //---------------------------------------------------------------------------
   static Future<Response> getNroRegistroMax() async {
     var url = Uri.parse(
-        '${Constants.apiUrl}/api/VehiculosKilometraje/GetNroRegistroMax');
+        '${Constants.apiUrl}/api/CabeceraCertificacion/GetNroRegistroMax');
     var response = await http.get(
       url,
       headers: {
