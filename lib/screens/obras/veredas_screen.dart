@@ -543,6 +543,7 @@ class _VeredasScreenState extends State<VeredasScreen> {
         firstDate: DateTime.now().subtract(const Duration(days: 7)),
         lastDate: DateTime.now().add(const Duration(days: 0)),
       );
+      if (selected == null) return;
       obraReparo.fechacumplimento = selected.toString().substring(0, 10);
       setState(() {});
     } else {

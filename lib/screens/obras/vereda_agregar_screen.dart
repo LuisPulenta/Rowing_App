@@ -961,7 +961,7 @@ class _VeredaAgregarScreenState extends State<VeredaAgregarScreen> {
       'profundidad': _profundidad,
       'fechacierreelectrico': widget.obra.fechaCierreElectrico != null
           ? widget.obra.fechaCierreElectrico!.substring(0, 10)
-          : '',
+          : null,
       'imagearray': base64Image,
       'codtipostdrparo': _clase,
       'ancho2': 0,
