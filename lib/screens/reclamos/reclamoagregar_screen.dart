@@ -146,7 +146,7 @@ class _ReclamoAgregarScreenState extends State<ReclamoAgregarScreen> {
 
     for (var obra in _obras) {
       list.add(DropdownMenuItem(
-        child: Text(obra.nombreObra),
+        child: Text(obra.nombreObra.toString().substring(0, 35)),
         value: obra.nroObra,
       ));
     }
@@ -346,7 +346,8 @@ class _ReclamoAgregarScreenState extends State<ReclamoAgregarScreen> {
 
     Response response = Response(isSuccess: false);
 
-    response = await ApiHelper.getObrasReclamos(widget.user.modulo);
+    response =
+        await ApiHelper.getObrasReclamos('ObrasTasa'); //widget.user.modulo
 
     setState(() {
       _showLoader = false;

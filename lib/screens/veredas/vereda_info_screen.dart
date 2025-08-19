@@ -6,12 +6,14 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:camera/camera.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 
 import '../../components/loader_component.dart';
 import '../../helpers/helpers.dart';
+import '../../helpers/resize_image.dart';
 import '../../models/models.dart';
 import '../screens.dart';
 
@@ -807,15 +809,23 @@ class _VeredaInfoScreenState extends State<VeredaInfoScreen> {
     String base64ImageInicio = '';
 
     if (_photoInicioChanged) {
-      List<int> imageInicioBytes = await _imageInicio.readAsBytes();
-      base64ImageInicio = base64Encode(imageInicioBytes);
+      Uint8List imageInicioBytes = await _imageInicio.readAsBytes();
+      int maxWidth = 800; // Ancho máximo
+      int maxHeight = 600; // Alto máximo
+      Uint8List resizedBytes =
+          await resizeImage(imageInicioBytes, maxWidth, maxHeight);
+      base64ImageInicio = base64Encode(resizedBytes);
     }
 
     String base64ImageFin = '';
 
     if (_photoFinChanged) {
-      List<int> imageFinBytes = await _imageFin.readAsBytes();
-      base64ImageFin = base64Encode(imageFinBytes);
+      Uint8List imageFinBytes = await _imageFin.readAsBytes();
+      int maxWidth = 800; // Ancho máximo
+      int maxHeight = 600; // Alto máximo
+      Uint8List resizedBytes =
+          await resizeImage(imageFinBytes, maxWidth, maxHeight);
+      base64ImageFin = base64Encode(resizedBytes);
     }
 
     Map<String, dynamic> request = {
