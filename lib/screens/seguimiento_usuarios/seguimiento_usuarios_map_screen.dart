@@ -1,8 +1,9 @@
 import 'package:custom_info_window/custom_info_window.dart';
-import 'package:rowing_app/components/loader_component.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+
+import '../../components/loader_component.dart';
 
 class SeguimientoUsuariosMapScreen extends StatefulWidget {
   final LatLng posicion;

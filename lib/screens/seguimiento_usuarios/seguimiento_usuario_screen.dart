@@ -482,9 +482,30 @@ class _SeguimientoUsuarioScreenState extends State<SeguimientoUsuarioScreen> {
       _usuarios = _usuariosAux;
     } else {
       for (var usuario in _usuariosAux) {
-        if (usuario.modulo == widget.user.modulo) _usuarios.add(usuario);
+        if (usuario.modulo == widget.user.modulo) {
+          usuario.modulo = '';
+          _usuarios.add(usuario);
+        }
       }
     }
+
+    List<UsuarioGeo> _usuarios2 = [];
+    bool bandera = true;
+
+    for (var usuario1 in _usuarios) {
+      bandera = true;
+
+      for (var usuario2 in _usuarios2) {
+        if (usuario1.usuarioStr == usuario2.usuarioStr) {
+          bandera = false;
+        }
+      }
+      if (bandera) {
+        _usuarios2.add(usuario1);
+      }
+    }
+
+    _usuarios = _usuarios2;
 
     _usuarios.sort((a, b) {
       return a.usuarioStr

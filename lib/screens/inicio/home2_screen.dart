@@ -1,10 +1,8 @@
 import 'dart:async';
-import 'dart:convert';
 
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../helpers/helpers.dart';
@@ -478,49 +476,6 @@ class _Home2ScreenState extends State<Home2Screen> {
         _novedades.add(novedad);
       }
     }
-    setState(() {});
-  }
-
-//------------------------------------------------------------------
-//------------------------------ _getUsuario --------------------------
-//------------------------------------------------------------------
-
-  Future<void> _getUsuario() async {
-    var connectivityResult = await Connectivity().checkConnectivity();
-    if (connectivityResult == ConnectivityResult.none) {
-      setState(() {});
-      await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: 'Verifica que estes conectado a internet.',
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
-      return;
-    }
-
-    Map<String, dynamic> request = {
-      'Email': widget.user.codigoCausante,
-      'password': widget.user.contrasena,
-    };
-
-    var url = Uri.parse('${Constants.apiUrl}/Api/Account/GetUserByEmail');
-    var response = await http.post(
-      url,
-      headers: {
-        'content-type': 'application/json',
-        'accept': 'application/json',
-      },
-      body: jsonEncode(request),
-    );
-
-    var body = response.body;
-    var decodedJson = jsonDecode(body);
-    var user = User.fromJson(decodedJson);
-
-    widget.user.firmaUsuario = user.firmaUsuario;
-    widget.user.firmaUsuarioImageFullPath = user.firmaUsuarioImageFullPath;
-
     setState(() {});
   }
 }
