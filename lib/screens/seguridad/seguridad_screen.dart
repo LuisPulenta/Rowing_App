@@ -665,7 +665,7 @@ class _SeguridadScreenState extends State<SeguridadScreen> {
       int maxHeight = 600; // Alto máximo
       Uint8List resizedBytes =
           await resizeImage(imageBytes, maxWidth, maxHeight);
-      String base64Image = base64Encode(resizedBytes);
+      base64Image = base64Encode(resizedBytes);
     }
 
     var connectivityResult = await Connectivity().checkConnectivity();

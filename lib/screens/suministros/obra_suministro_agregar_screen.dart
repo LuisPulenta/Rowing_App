@@ -12,6 +12,7 @@ import 'package:path_provider/path_provider.dart';
 
 import '../../components/loader_component.dart';
 import '../../helpers/dbsuministros_helper.dart';
+import '../../helpers/resize_image.dart';
 import '../../models/models.dart';
 import '../screens.dart';
 
@@ -2143,42 +2144,55 @@ class _ObraSuministroAgregarScreenState
 //-------------------------------------------------------------
 
   Future<void> _grabarEnBDLocal() async {
+    int maxWidth = 800; // Ancho máximo
+    int maxHeight = 600; // Alto máximo
+
     String base64ImageAntes1 = '';
     if (_photoChangedAntes1) {
-      List<int> imageBytesAntes1 = await _imageAntes1.readAsBytes();
-      base64ImageAntes1 = base64Encode(imageBytesAntes1);
+      Uint8List imageBytesAntes1 = await _imageAntes1.readAsBytes();
+      Uint8List resizedBytes =
+          await resizeImage(imageBytesAntes1, maxWidth, maxHeight);
+      base64ImageAntes1 = base64Encode(resizedBytes);
     }
 
     String base64ImageAntes2 = '';
     if (_photoChangedAntes2) {
-      List<int> imageBytesAntes2 = await _imageAntes2.readAsBytes();
-      base64ImageAntes2 = base64Encode(imageBytesAntes2);
+      Uint8List imageBytesAntes2 = await _imageAntes2.readAsBytes();
+      Uint8List resizedBytes =
+          await resizeImage(imageBytesAntes2, maxWidth, maxHeight);
+      base64ImageAntes2 = base64Encode(resizedBytes);
     }
 
     String base64ImageDespues1 = '';
     if (_photoChangedDespues1) {
-      List<int> imageBytesDespues1 = await _imageDespues1.readAsBytes();
-      base64ImageDespues1 = base64Encode(imageBytesDespues1);
+      Uint8List imageBytesDespues1 = await _imageDespues1.readAsBytes();
+      Uint8List resizedBytes =
+          await resizeImage(imageBytesDespues1, maxWidth, maxHeight);
+      base64ImageDespues1 = base64Encode(resizedBytes);
     }
 
     String base64ImageDespues2 = '';
     if (_photoChangedDespues2) {
-      List<int> imageBytesDespues2 = await _imageDespues2.readAsBytes();
-      base64ImageDespues2 = base64Encode(imageBytesDespues2);
+      Uint8List imageBytesDespues2 = await _imageDespues2.readAsBytes();
+      Uint8List resizedBytes =
+          await resizeImage(imageBytesDespues2, maxWidth, maxHeight);
+      base64ImageDespues2 = base64Encode(resizedBytes);
     }
 
     String base64ImageDNIFrente = '';
     if (_photoChangedDNIFrente) {
-      List<int> imageBytesDNIFrente = await _imageFrente.readAsBytes();
-      var b = 1;
-      base64ImageDNIFrente = base64Encode(imageBytesDNIFrente);
-      var c = 1;
+      Uint8List imageBytesDNIFrente = await _imageFrente.readAsBytes();
+      Uint8List resizedBytes =
+          await resizeImage(imageBytesDNIFrente, maxWidth, maxHeight);
+      base64ImageDNIFrente = base64Encode(resizedBytes);
     }
 
     String base64ImageDNIDorso = '';
     if (_photoChangedDNIDorso) {
-      List<int> imageBytesDNIDorso = await _imageDorso.readAsBytes();
-      base64ImageDNIDorso = base64Encode(imageBytesDNIDorso);
+      Uint8List imageBytesDNIDorso = await _imageDorso.readAsBytes();
+      Uint8List resizedBytes =
+          await resizeImage(imageBytesDNIDorso, maxWidth, maxHeight);
+      base64ImageDNIDorso = base64Encode(resizedBytes);
     }
 
     String base64ImageFirmaCliente = '';
