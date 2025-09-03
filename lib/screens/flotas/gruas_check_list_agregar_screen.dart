@@ -1,5 +1,5 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
-import 'package:connectivity/connectivity.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -16,12 +16,12 @@ class GruasCheckListAgregarScreen extends StatefulWidget {
   final User user;
   final bool editMode;
   final VehiculosCheckList checkList;
-  const GruasCheckListAgregarScreen(
-      {Key? key,
-      required this.user,
-      required this.editMode,
-      required this.checkList})
-      : super(key: key);
+  const GruasCheckListAgregarScreen({
+    super.key,
+    required this.user,
+    required this.editMode,
+    required this.checkList,
+  });
 
   @override
   State<GruasCheckListAgregarScreen> createState() =>
@@ -30,9 +30,9 @@ class GruasCheckListAgregarScreen extends StatefulWidget {
 
 class _GruasCheckListAgregarScreenState
     extends State<GruasCheckListAgregarScreen> {
-//--------------------------------------------------------------------
-//------------------------- Variables --------------------------------
-//--------------------------------------------------------------------
+  //--------------------------------------------------------------------
+  //------------------------- Variables --------------------------------
+  //--------------------------------------------------------------------
 
   OptionTwo? _vtv;
   DateTime? _fechaVencVtv;
@@ -119,88 +119,91 @@ class _GruasCheckListAgregarScreenState
   late Causante _causante;
   late Causante _causanteVacio;
 
-//--------------------------------------------------------------------
-//------------------------- Init State -------------------------------
-//--------------------------------------------------------------------
+  //--------------------------------------------------------------------
+  //------------------------- Init State -------------------------------
+  //--------------------------------------------------------------------
 
   @override
   void initState() {
     super.initState();
     _vehiculo = Vehiculo(
-        codveh: 0,
-        numcha: '',
-        nrotar: '',
-        codProducto: '',
-        aniofa: 0,
-        descripcion: '',
-        nmotor: '',
-        chasis: '',
-        fechaVencITV: 0,
-        nroPolizaSeguro: '',
-        centroCosto: '',
-        propiedadDe: '',
-        telepase: '',
-        kmhsactual: 0,
-        usaHoras: 0,
-        habilitado: 0,
-        fechaVencObleaGAS: 0,
-        modulo: '',
-        campomemo: '',
-        habilitaChecklist: 0);
+      codveh: 0,
+      numcha: '',
+      nrotar: '',
+      codProducto: '',
+      aniofa: 0,
+      descripcion: '',
+      nmotor: '',
+      chasis: '',
+      fechaVencITV: 0,
+      nroPolizaSeguro: '',
+      centroCosto: '',
+      propiedadDe: '',
+      telepase: '',
+      kmhsactual: 0,
+      usaHoras: 0,
+      habilitado: 0,
+      fechaVencObleaGAS: 0,
+      modulo: '',
+      campomemo: '',
+      habilitaChecklist: 0,
+    );
 
     _vehiculoVacio = Vehiculo(
-        codveh: 0,
-        numcha: '',
-        nrotar: '',
-        codProducto: '',
-        aniofa: 0,
-        descripcion: '',
-        nmotor: '',
-        chasis: '',
-        fechaVencITV: 0,
-        nroPolizaSeguro: '',
-        centroCosto: '',
-        propiedadDe: '',
-        telepase: '',
-        kmhsactual: 0,
-        usaHoras: 0,
-        habilitado: 0,
-        fechaVencObleaGAS: 0,
-        modulo: '',
-        campomemo: '',
-        habilitaChecklist: 0);
+      codveh: 0,
+      numcha: '',
+      nrotar: '',
+      codProducto: '',
+      aniofa: 0,
+      descripcion: '',
+      nmotor: '',
+      chasis: '',
+      fechaVencITV: 0,
+      nroPolizaSeguro: '',
+      centroCosto: '',
+      propiedadDe: '',
+      telepase: '',
+      kmhsactual: 0,
+      usaHoras: 0,
+      habilitado: 0,
+      fechaVencObleaGAS: 0,
+      modulo: '',
+      campomemo: '',
+      habilitaChecklist: 0,
+    );
 
     _causante = Causante(
-        nroCausante: 0,
-        codigo: '',
-        nombre: '',
-        encargado: '',
-        telefono: '',
-        grupo: '',
-        nroSAP: '',
-        estado: false,
-        razonSocial: '',
-        linkFoto: '',
-        imageFullPath: '',
-        image: null,
-        direccion: '',
-        numero: 0,
-        telefonoContacto1: '',
-        telefonoContacto2: '',
-        telefonoContacto3: '',
-        fecha: '',
-        notasCausantes: '',
-        ciudad: '',
-        provincia: '',
-        codigoSupervisorObras: 0,
-        zonaTrabajo: '',
-        nombreActividad: '',
-        notas: '',
-        presentismo: '',
-        perteneceCuadrilla: '',
-        firma: null,
-        firmaDigitalAPP: '',
-        firmaFullPath: '');
+      nroCausante: 0,
+      codigo: '',
+      nombre: '',
+      encargado: '',
+      telefono: '',
+      grupo: '',
+      nroSAP: '',
+      estado: false,
+      razonSocial: '',
+      linkFoto: '',
+      imageFullPath: '',
+      image: null,
+      direccion: '',
+      numero: 0,
+      telefonoContacto1: '',
+      telefonoContacto2: '',
+      telefonoContacto3: '',
+      fecha: '',
+      notasCausantes: '',
+      ciudad: '',
+      provincia: '',
+      codigoSupervisorObras: 0,
+      zonaTrabajo: '',
+      nombreActividad: '',
+      notas: '',
+      presentismo: '',
+      perteneceCuadrilla: '',
+      firma: null,
+      firmaDigitalAPP: '',
+      firmaFullPath: '',
+    );
 
     _causanteVacio = _causante;
 
@@ -211,18 +214,15 @@ class _GruasCheckListAgregarScreenState
     }
   }
 
-//--------------------------------------------------------------------
-//------------------------- Pantalla ---------------------------------
-//--------------------------------------------------------------------
+  //--------------------------------------------------------------------
+  //------------------------- Pantalla ---------------------------------
+  //--------------------------------------------------------------------
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xff8c8c94),
-      appBar: AppBar(
-        title: const Text('Nuevo Check List'),
-        centerTitle: true,
-      ),
+      appBar: AppBar(title: const Text('Nuevo Check List'), centerTitle: true),
       body: Stack(
         children: [
           SingleChildScrollView(
@@ -232,24 +232,14 @@ class _GruasCheckListAgregarScreenState
                 const Divider(color: Colors.white),
                 Row(
                   children: [
-                    Expanded(
-                      child: _showChapa(),
-                      flex: 10,
-                    ),
-                    Expanded(
-                      child: _showSearchButton(),
-                      flex: 7,
-                    ),
+                    Expanded(flex: 10, child: _showChapa()),
+                    Expanded(flex: 7, child: _showSearchButton()),
                   ],
                 ),
-                const SizedBox(
-                  height: 5,
-                ),
+                const SizedBox(height: 5),
                 _showInfo(),
                 const Divider(color: Colors.white),
-                const SizedBox(
-                  height: 0,
-                ),
+                const SizedBox(height: 0),
 
                 Row(
                   children: [
@@ -268,14 +258,10 @@ class _GruasCheckListAgregarScreenState
                 _vehiculo.numcha == '000000  '
                     ? const SizedBox(height: 0)
                     : Container(),
-                const SizedBox(
-                  height: 5,
-                ),
+                const SizedBox(height: 5),
                 _showInfo2(),
                 const Divider(color: Colors.white),
-                const SizedBox(
-                  height: 10,
-                ),
+                const SizedBox(height: 10),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10),
                   child: Container(
@@ -292,205 +278,230 @@ class _GruasCheckListAgregarScreenState
                       border: TableBorder.all(),
                       children: [
                         //---------------- Título -----------------------------
-                        TableRow(children: [
-                          Container(
-                            color: const Color.fromARGB(255, 33, 172, 236),
-                            child: const Padding(
-                              padding: EdgeInsets.only(left: 8.0),
-                              child: Text('Concepto',
+                        TableRow(
+                          children: [
+                            Container(
+                              color: const Color.fromARGB(255, 33, 172, 236),
+                              child: const Padding(
+                                padding: EdgeInsets.only(left: 8.0),
+                                child: Text(
+                                  'Concepto',
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.bold)),
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
                             ),
-                          ),
-                          Container(
-                            color: const Color.fromARGB(255, 33, 172, 236),
-                            child: const Text('SI',
+                            Container(
+                              color: const Color.fromARGB(255, 33, 172, 236),
+                              child: const Text(
+                                'SI',
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
-                                    fontSize: 12, fontWeight: FontWeight.bold)),
-                          ),
-                          Container(
-                            color: const Color.fromARGB(255, 33, 172, 236),
-                            child: const Padding(
-                              padding: EdgeInsets.only(left: 8.0),
-                              child: Text('NO',
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                            Container(
+                              color: const Color.fromARGB(255, 33, 172, 236),
+                              child: const Padding(
+                                padding: EdgeInsets.only(left: 8.0),
+                                child: Text(
+                                  'NO',
                                   style: TextStyle(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.bold)),
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
                             ),
-                          ),
-                          Container(
-                            color: const Color.fromARGB(255, 33, 172, 236),
-                            child: const Text('Fecha Venc.',
+                            Container(
+                              color: const Color.fromARGB(255, 33, 172, 236),
+                              child: const Text(
+                                'Fecha Venc.',
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
-                                    fontSize: 12, fontWeight: FontWeight.bold)),
-                          ),
-                        ]),
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                         //---------------- VTV -----------------------------
-                        TableRow(children: [
-                          Padding(
-                            padding: const EdgeInsets.only(left: 8.0),
-                            child: Row(
-                              children: [
-                                (_vtv != null
-                                    ? const Icon(
-                                        Icons.done,
-                                        color: Colors.green,
-                                      )
-                                    : Container()),
-                                const Text('VTV',
-                                    style: TextStyle(fontSize: 11)),
-                              ],
+                        TableRow(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(left: 8.0),
+                              child: Row(
+                                children: [
+                                  (_vtv != null
+                                      ? const Icon(
+                                          Icons.done,
+                                          color: Colors.green,
+                                        )
+                                      : Container()),
+                                  const Text(
+                                    'VTV',
+                                    style: TextStyle(fontSize: 11),
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                          Radio<OptionTwo>(
-                            value: OptionTwo.SI,
-                            visualDensity: const VisualDensity(
-                              horizontal: VisualDensity.minimumDensity,
-                              vertical: VisualDensity.minimumDensity,
+                            Radio<OptionTwo>(
+                              value: OptionTwo.SI,
+                              visualDensity: const VisualDensity(
+                                horizontal: VisualDensity.minimumDensity,
+                                vertical: VisualDensity.minimumDensity,
+                              ),
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              groupValue: _vtv,
+                              onChanged: (OptionTwo? value) {
+                                setState(() {
+                                  _vtv = value;
+                                });
+                              },
                             ),
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                            groupValue: _vtv,
-                            onChanged: (OptionTwo? value) {
-                              setState(() {
-                                _vtv = value;
-                              });
-                            },
-                          ),
-                          Radio<OptionTwo>(
-                            value: OptionTwo.NO,
-                            visualDensity: const VisualDensity(
-                              horizontal: VisualDensity.minimumDensity,
-                              vertical: VisualDensity.minimumDensity,
+                            Radio<OptionTwo>(
+                              value: OptionTwo.NO,
+                              visualDensity: const VisualDensity(
+                                horizontal: VisualDensity.minimumDensity,
+                                vertical: VisualDensity.minimumDensity,
+                              ),
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              groupValue: _vtv,
+                              onChanged: (OptionTwo? value) {
+                                setState(() {
+                                  _vtv = value;
+                                  _fechaVencVtv = null;
+                                });
+                              },
                             ),
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                            groupValue: _vtv,
-                            onChanged: (OptionTwo? value) {
-                              setState(() {
-                                _vtv = value;
-                                _fechaVencVtv = null;
-                              });
-                            },
-                          ),
-                          _showFechaVTV()
-                        ]),
+                            _showFechaVTV(),
+                          ],
+                        ),
                         //---------------- VTH -----------------------------
-                        TableRow(children: [
-                          Padding(
-                            padding: const EdgeInsets.only(left: 8.0),
-                            child: Row(
-                              children: [
-                                (_vth != null
-                                    ? const Icon(
-                                        Icons.done,
-                                        color: Colors.green,
-                                      )
-                                    : Container()),
-                                const Text('VTH',
-                                    style: TextStyle(fontSize: 11)),
-                              ],
+                        TableRow(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(left: 8.0),
+                              child: Row(
+                                children: [
+                                  (_vth != null
+                                      ? const Icon(
+                                          Icons.done,
+                                          color: Colors.green,
+                                        )
+                                      : Container()),
+                                  const Text(
+                                    'VTH',
+                                    style: TextStyle(fontSize: 11),
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                          Radio<OptionTwo>(
-                            value: OptionTwo.SI,
-                            visualDensity: const VisualDensity(
-                              horizontal: VisualDensity.minimumDensity,
-                              vertical: VisualDensity.minimumDensity,
+                            Radio<OptionTwo>(
+                              value: OptionTwo.SI,
+                              visualDensity: const VisualDensity(
+                                horizontal: VisualDensity.minimumDensity,
+                                vertical: VisualDensity.minimumDensity,
+                              ),
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              groupValue: _vth,
+                              onChanged: (OptionTwo? value) {
+                                setState(() {
+                                  _vth = value;
+                                });
+                              },
                             ),
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                            groupValue: _vth,
-                            onChanged: (OptionTwo? value) {
-                              setState(() {
-                                _vth = value;
-                              });
-                            },
-                          ),
-                          Radio<OptionTwo>(
-                            value: OptionTwo.NO,
-                            visualDensity: const VisualDensity(
-                              horizontal: VisualDensity.minimumDensity,
-                              vertical: VisualDensity.minimumDensity,
+                            Radio<OptionTwo>(
+                              value: OptionTwo.NO,
+                              visualDensity: const VisualDensity(
+                                horizontal: VisualDensity.minimumDensity,
+                                vertical: VisualDensity.minimumDensity,
+                              ),
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              groupValue: _vth,
+                              onChanged: (OptionTwo? value) {
+                                setState(() {
+                                  _vth = value;
+                                  _fechaVencVth = null;
+                                });
+                              },
                             ),
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                            groupValue: _vth,
-                            onChanged: (OptionTwo? value) {
-                              setState(() {
-                                _vth = value;
-                                _fechaVencVth = null;
-                              });
-                            },
-                          ),
-                          _showFechaVTH()
-                        ]),
+                            _showFechaVTH(),
+                          ],
+                        ),
                         //---------------- SEGURO -----------------------------
-                        TableRow(children: [
-                          Padding(
-                            padding: const EdgeInsets.only(left: 8.0),
-                            child: Row(
-                              children: [
-                                (_seguro != null
-                                    ? const Icon(
-                                        Icons.done,
-                                        color: Colors.green,
-                                      )
-                                    : Container()),
-                                const Text('Seguro',
-                                    style: TextStyle(fontSize: 11)),
-                              ],
+                        TableRow(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(left: 8.0),
+                              child: Row(
+                                children: [
+                                  (_seguro != null
+                                      ? const Icon(
+                                          Icons.done,
+                                          color: Colors.green,
+                                        )
+                                      : Container()),
+                                  const Text(
+                                    'Seguro',
+                                    style: TextStyle(fontSize: 11),
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                          Radio<OptionTwo>(
-                            value: OptionTwo.SI,
-                            visualDensity: const VisualDensity(
-                              horizontal: VisualDensity.minimumDensity,
-                              vertical: VisualDensity.minimumDensity,
+                            Radio<OptionTwo>(
+                              value: OptionTwo.SI,
+                              visualDensity: const VisualDensity(
+                                horizontal: VisualDensity.minimumDensity,
+                                vertical: VisualDensity.minimumDensity,
+                              ),
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              groupValue: _seguro,
+                              onChanged: (OptionTwo? value) {
+                                setState(() {
+                                  _seguro = value;
+                                });
+                              },
                             ),
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                            groupValue: _seguro,
-                            onChanged: (OptionTwo? value) {
-                              setState(() {
-                                _seguro = value;
-                              });
-                            },
-                          ),
-                          Radio<OptionTwo>(
-                            value: OptionTwo.NO,
-                            visualDensity: const VisualDensity(
-                              horizontal: VisualDensity.minimumDensity,
-                              vertical: VisualDensity.minimumDensity,
+                            Radio<OptionTwo>(
+                              value: OptionTwo.NO,
+                              visualDensity: const VisualDensity(
+                                horizontal: VisualDensity.minimumDensity,
+                                vertical: VisualDensity.minimumDensity,
+                              ),
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              groupValue: _seguro,
+                              onChanged: (OptionTwo? value) {
+                                setState(() {
+                                  _seguro = value;
+                                  _fechaVencSeguro = null;
+                                });
+                              },
                             ),
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                            groupValue: _seguro,
-                            onChanged: (OptionTwo? value) {
-                              setState(() {
-                                _seguro = value;
-                                _fechaVencSeguro = null;
-                              });
-                            },
-                          ),
-                          _showFechaSeguro()
-                        ]),
+                            _showFechaSeguro(),
+                          ],
+                        ),
                       ],
                     ),
                   ),
                 ),
-                const SizedBox(
-                  height: 20,
-                ),
+                const SizedBox(height: 20),
 
                 //--------------------------------------------------------------------
                 //------------------------- Primera Tabla ----------------------------
                 //--------------------------------------------------------------------
-
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10),
                   child: Container(
@@ -508,923 +519,984 @@ class _GruasCheckListAgregarScreenState
                       border: TableBorder.all(),
                       children: [
                         //---------------- Título -----------------------------
-                        TableRow(children: [
-                          Container(
-                            color: const Color.fromARGB(255, 33, 172, 236),
-                            child: const Padding(
-                              padding: EdgeInsets.only(left: 8.0),
-                              child: Text('Concepto',
+                        TableRow(
+                          children: [
+                            Container(
+                              color: const Color.fromARGB(255, 33, 172, 236),
+                              child: const Padding(
+                                padding: EdgeInsets.only(left: 8.0),
+                                child: Text(
+                                  'Concepto',
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.bold)),
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
                             ),
-                          ),
-                          Container(
-                            color: const Color.fromARGB(255, 33, 172, 236),
-                            child: const Text('Bien',
+                            Container(
+                              color: const Color.fromARGB(255, 33, 172, 236),
+                              child: const Text(
+                                'Bien',
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
-                                    fontSize: 12, fontWeight: FontWeight.bold)),
-                          ),
-                          Container(
-                            color: const Color.fromARGB(255, 33, 172, 236),
-                            child: const Padding(
-                              padding: EdgeInsets.only(left: 8.0),
-                              child: Text('Regular',
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                            Container(
+                              color: const Color.fromARGB(255, 33, 172, 236),
+                              child: const Padding(
+                                padding: EdgeInsets.only(left: 8.0),
+                                child: Text(
+                                  'Regular',
                                   style: TextStyle(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.bold)),
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
                             ),
-                          ),
-                          Container(
-                            color: const Color.fromARGB(255, 33, 172, 236),
-                            child: const Text('Malo',
+                            Container(
+                              color: const Color.fromARGB(255, 33, 172, 236),
+                              child: const Text(
+                                'Malo',
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
-                                    fontSize: 12, fontWeight: FontWeight.bold)),
-                          ),
-                          Container(
-                            color: const Color.fromARGB(255, 33, 172, 236),
-                            child: const Text('No Aplica',
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                            Container(
+                              color: const Color.fromARGB(255, 33, 172, 236),
+                              child: const Text(
+                                'No Aplica',
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
-                                    fontSize: 12, fontWeight: FontWeight.bold)),
-                          ),
-                        ]),
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
 
                         //---------------- Cubiertas -----------------------------
-                        TableRow(children: [
-                          Padding(
-                            padding: const EdgeInsets.only(left: 8.0),
-                            child: Row(
-                              children: [
-                                (_cubiertas != null
-                                    ? const Icon(
-                                        Icons.done,
-                                        color: Colors.green,
-                                      )
-                                    : Container()),
-                                const Text('Cubiertas',
-                                    style: TextStyle(fontSize: 11)),
-                              ],
+                        TableRow(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(left: 8.0),
+                              child: Row(
+                                children: [
+                                  (_cubiertas != null
+                                      ? const Icon(
+                                          Icons.done,
+                                          color: Colors.green,
+                                        )
+                                      : Container()),
+                                  const Text(
+                                    'Cubiertas',
+                                    style: TextStyle(fontSize: 11),
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                          Radio<Option4>(
-                            value: Option4.Bien,
-                            visualDensity: const VisualDensity(
-                              horizontal: VisualDensity.minimumDensity,
-                              vertical: VisualDensity.minimumDensity,
+                            Radio<Option4>(
+                              value: Option4.Bien,
+                              visualDensity: const VisualDensity(
+                                horizontal: VisualDensity.minimumDensity,
+                                vertical: VisualDensity.minimumDensity,
+                              ),
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              groupValue: _cubiertas,
+                              onChanged: (Option4? value) {
+                                setState(() {
+                                  _cubiertas = value;
+                                });
+                              },
                             ),
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                            groupValue: _cubiertas,
-                            onChanged: (Option4? value) {
-                              setState(() {
-                                _cubiertas = value;
-                              });
-                            },
-                          ),
-                          Radio<Option4>(
-                            value: Option4.Regular,
-                            visualDensity: const VisualDensity(
-                              horizontal: VisualDensity.minimumDensity,
-                              vertical: VisualDensity.minimumDensity,
+                            Radio<Option4>(
+                              value: Option4.Regular,
+                              visualDensity: const VisualDensity(
+                                horizontal: VisualDensity.minimumDensity,
+                                vertical: VisualDensity.minimumDensity,
+                              ),
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              groupValue: _cubiertas,
+                              onChanged: (Option4? value) {
+                                setState(() {
+                                  _cubiertas = value;
+                                });
+                              },
                             ),
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                            groupValue: _cubiertas,
-                            onChanged: (Option4? value) {
-                              setState(() {
-                                _cubiertas = value;
-                              });
-                            },
-                          ),
-                          Radio<Option4>(
-                            value: Option4.Malo,
-                            visualDensity: const VisualDensity(
-                              horizontal: VisualDensity.minimumDensity,
-                              vertical: VisualDensity.minimumDensity,
+                            Radio<Option4>(
+                              value: Option4.Malo,
+                              visualDensity: const VisualDensity(
+                                horizontal: VisualDensity.minimumDensity,
+                                vertical: VisualDensity.minimumDensity,
+                              ),
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              groupValue: _cubiertas,
+                              onChanged: (Option4? value) {
+                                setState(() {
+                                  _cubiertas = value;
+                                });
+                              },
                             ),
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                            groupValue: _cubiertas,
-                            onChanged: (Option4? value) {
-                              setState(() {
-                                _cubiertas = value;
-                              });
-                            },
-                          ),
-                          Radio<Option4>(
-                            value: Option4.NoAplica,
-                            visualDensity: const VisualDensity(
-                              horizontal: VisualDensity.minimumDensity,
-                              vertical: VisualDensity.minimumDensity,
+                            Radio<Option4>(
+                              value: Option4.NoAplica,
+                              visualDensity: const VisualDensity(
+                                horizontal: VisualDensity.minimumDensity,
+                                vertical: VisualDensity.minimumDensity,
+                              ),
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              groupValue: _cubiertas,
+                              onChanged: (Option4? value) {
+                                setState(() {
+                                  _cubiertas = value;
+                                });
+                              },
                             ),
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                            groupValue: _cubiertas,
-                            onChanged: (Option4? value) {
-                              setState(() {
-                                _cubiertas = value;
-                              });
-                            },
-                          ),
-                        ]),
+                          ],
+                        ),
 
                         //---------------- CorreasCinturon -----------------------------
-                        TableRow(children: [
-                          Padding(
-                            padding: const EdgeInsets.only(left: 8.0),
-                            child: Row(
-                              children: [
-                                (_correasCinturon != null
-                                    ? const Icon(
-                                        Icons.done,
-                                        color: Colors.green,
-                                      )
-                                    : Container()),
-                                const Text('Correas/Cinturón',
-                                    style: TextStyle(fontSize: 11)),
-                              ],
+                        TableRow(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(left: 8.0),
+                              child: Row(
+                                children: [
+                                  (_correasCinturon != null
+                                      ? const Icon(
+                                          Icons.done,
+                                          color: Colors.green,
+                                        )
+                                      : Container()),
+                                  const Text(
+                                    'Correas/Cinturón',
+                                    style: TextStyle(fontSize: 11),
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                          Radio<Option4>(
-                            value: Option4.Bien,
-                            visualDensity: const VisualDensity(
-                              horizontal: VisualDensity.minimumDensity,
-                              vertical: VisualDensity.minimumDensity,
+                            Radio<Option4>(
+                              value: Option4.Bien,
+                              visualDensity: const VisualDensity(
+                                horizontal: VisualDensity.minimumDensity,
+                                vertical: VisualDensity.minimumDensity,
+                              ),
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              groupValue: _correasCinturon,
+                              onChanged: (Option4? value) {
+                                setState(() {
+                                  _correasCinturon = value;
+                                });
+                              },
                             ),
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                            groupValue: _correasCinturon,
-                            onChanged: (Option4? value) {
-                              setState(() {
-                                _correasCinturon = value;
-                              });
-                            },
-                          ),
-                          Radio<Option4>(
-                            value: Option4.Regular,
-                            visualDensity: const VisualDensity(
-                              horizontal: VisualDensity.minimumDensity,
-                              vertical: VisualDensity.minimumDensity,
+                            Radio<Option4>(
+                              value: Option4.Regular,
+                              visualDensity: const VisualDensity(
+                                horizontal: VisualDensity.minimumDensity,
+                                vertical: VisualDensity.minimumDensity,
+                              ),
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              groupValue: _correasCinturon,
+                              onChanged: (Option4? value) {
+                                setState(() {
+                                  _correasCinturon = value;
+                                });
+                              },
                             ),
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                            groupValue: _correasCinturon,
-                            onChanged: (Option4? value) {
-                              setState(() {
-                                _correasCinturon = value;
-                              });
-                            },
-                          ),
-                          Radio<Option4>(
-                            value: Option4.Malo,
-                            visualDensity: const VisualDensity(
-                              horizontal: VisualDensity.minimumDensity,
-                              vertical: VisualDensity.minimumDensity,
+                            Radio<Option4>(
+                              value: Option4.Malo,
+                              visualDensity: const VisualDensity(
+                                horizontal: VisualDensity.minimumDensity,
+                                vertical: VisualDensity.minimumDensity,
+                              ),
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              groupValue: _correasCinturon,
+                              onChanged: (Option4? value) {
+                                setState(() {
+                                  _correasCinturon = value;
+                                });
+                              },
                             ),
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                            groupValue: _correasCinturon,
-                            onChanged: (Option4? value) {
-                              setState(() {
-                                _correasCinturon = value;
-                              });
-                            },
-                          ),
-                          Radio<Option4>(
-                            value: Option4.NoAplica,
-                            visualDensity: const VisualDensity(
-                              horizontal: VisualDensity.minimumDensity,
-                              vertical: VisualDensity.minimumDensity,
+                            Radio<Option4>(
+                              value: Option4.NoAplica,
+                              visualDensity: const VisualDensity(
+                                horizontal: VisualDensity.minimumDensity,
+                                vertical: VisualDensity.minimumDensity,
+                              ),
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              groupValue: _correasCinturon,
+                              onChanged: (Option4? value) {
+                                setState(() {
+                                  _correasCinturon = value;
+                                });
+                              },
                             ),
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                            groupValue: _correasCinturon,
-                            onChanged: (Option4? value) {
-                              setState(() {
-                                _correasCinturon = value;
-                              });
-                            },
-                          ),
-                        ]),
+                          ],
+                        ),
 
                         //---------------- ApoyaCabezas -----------------------------
-                        TableRow(children: [
-                          Padding(
-                            padding: const EdgeInsets.only(left: 8.0),
-                            child: Row(
-                              children: [
-                                (_apoyaCabezas != null
-                                    ? const Icon(
-                                        Icons.done,
-                                        color: Colors.green,
-                                      )
-                                    : Container()),
-                                const Text('Apoya cabezas',
-                                    style: TextStyle(fontSize: 11)),
-                              ],
+                        TableRow(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(left: 8.0),
+                              child: Row(
+                                children: [
+                                  (_apoyaCabezas != null
+                                      ? const Icon(
+                                          Icons.done,
+                                          color: Colors.green,
+                                        )
+                                      : Container()),
+                                  const Text(
+                                    'Apoya cabezas',
+                                    style: TextStyle(fontSize: 11),
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                          Radio<Option4>(
-                            value: Option4.Bien,
-                            visualDensity: const VisualDensity(
-                              horizontal: VisualDensity.minimumDensity,
-                              vertical: VisualDensity.minimumDensity,
+                            Radio<Option4>(
+                              value: Option4.Bien,
+                              visualDensity: const VisualDensity(
+                                horizontal: VisualDensity.minimumDensity,
+                                vertical: VisualDensity.minimumDensity,
+                              ),
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              groupValue: _apoyaCabezas,
+                              onChanged: (Option4? value) {
+                                setState(() {
+                                  _apoyaCabezas = value;
+                                });
+                              },
                             ),
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                            groupValue: _apoyaCabezas,
-                            onChanged: (Option4? value) {
-                              setState(() {
-                                _apoyaCabezas = value;
-                              });
-                            },
-                          ),
-                          Radio<Option4>(
-                            value: Option4.Regular,
-                            visualDensity: const VisualDensity(
-                              horizontal: VisualDensity.minimumDensity,
-                              vertical: VisualDensity.minimumDensity,
+                            Radio<Option4>(
+                              value: Option4.Regular,
+                              visualDensity: const VisualDensity(
+                                horizontal: VisualDensity.minimumDensity,
+                                vertical: VisualDensity.minimumDensity,
+                              ),
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              groupValue: _apoyaCabezas,
+                              onChanged: (Option4? value) {
+                                setState(() {
+                                  _apoyaCabezas = value;
+                                });
+                              },
                             ),
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                            groupValue: _apoyaCabezas,
-                            onChanged: (Option4? value) {
-                              setState(() {
-                                _apoyaCabezas = value;
-                              });
-                            },
-                          ),
-                          Radio<Option4>(
-                            value: Option4.Malo,
-                            visualDensity: const VisualDensity(
-                              horizontal: VisualDensity.minimumDensity,
-                              vertical: VisualDensity.minimumDensity,
+                            Radio<Option4>(
+                              value: Option4.Malo,
+                              visualDensity: const VisualDensity(
+                                horizontal: VisualDensity.minimumDensity,
+                                vertical: VisualDensity.minimumDensity,
+                              ),
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              groupValue: _apoyaCabezas,
+                              onChanged: (Option4? value) {
+                                setState(() {
+                                  _apoyaCabezas = value;
+                                });
+                              },
                             ),
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                            groupValue: _apoyaCabezas,
-                            onChanged: (Option4? value) {
-                              setState(() {
-                                _apoyaCabezas = value;
-                              });
-                            },
-                          ),
-                          Radio<Option4>(
-                            value: Option4.NoAplica,
-                            visualDensity: const VisualDensity(
-                              horizontal: VisualDensity.minimumDensity,
-                              vertical: VisualDensity.minimumDensity,
+                            Radio<Option4>(
+                              value: Option4.NoAplica,
+                              visualDensity: const VisualDensity(
+                                horizontal: VisualDensity.minimumDensity,
+                                vertical: VisualDensity.minimumDensity,
+                              ),
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              groupValue: _apoyaCabezas,
+                              onChanged: (Option4? value) {
+                                setState(() {
+                                  _apoyaCabezas = value;
+                                });
+                              },
                             ),
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                            groupValue: _apoyaCabezas,
-                            onChanged: (Option4? value) {
-                              setState(() {
-                                _apoyaCabezas = value;
-                              });
-                            },
-                          ),
-                        ]),
+                          ],
+                        ),
                         //---------------- LimpiaVidrios -----------------------------
-                        TableRow(children: [
-                          Padding(
-                            padding: const EdgeInsets.only(left: 8.0),
-                            child: Row(
-                              children: [
-                                (_limpiaVidrios != null
-                                    ? const Icon(
-                                        Icons.done,
-                                        color: Colors.green,
-                                      )
-                                    : Container()),
-                                const Text('Limpiavidrios',
-                                    style: TextStyle(fontSize: 11)),
-                              ],
+                        TableRow(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(left: 8.0),
+                              child: Row(
+                                children: [
+                                  (_limpiaVidrios != null
+                                      ? const Icon(
+                                          Icons.done,
+                                          color: Colors.green,
+                                        )
+                                      : Container()),
+                                  const Text(
+                                    'Limpiavidrios',
+                                    style: TextStyle(fontSize: 11),
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                          Radio<Option4>(
-                            value: Option4.Bien,
-                            visualDensity: const VisualDensity(
-                              horizontal: VisualDensity.minimumDensity,
-                              vertical: VisualDensity.minimumDensity,
+                            Radio<Option4>(
+                              value: Option4.Bien,
+                              visualDensity: const VisualDensity(
+                                horizontal: VisualDensity.minimumDensity,
+                                vertical: VisualDensity.minimumDensity,
+                              ),
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              groupValue: _limpiaVidrios,
+                              onChanged: (Option4? value) {
+                                setState(() {
+                                  _limpiaVidrios = value;
+                                });
+                              },
                             ),
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                            groupValue: _limpiaVidrios,
-                            onChanged: (Option4? value) {
-                              setState(() {
-                                _limpiaVidrios = value;
-                              });
-                            },
-                          ),
-                          Radio<Option4>(
-                            value: Option4.Regular,
-                            visualDensity: const VisualDensity(
-                              horizontal: VisualDensity.minimumDensity,
-                              vertical: VisualDensity.minimumDensity,
+                            Radio<Option4>(
+                              value: Option4.Regular,
+                              visualDensity: const VisualDensity(
+                                horizontal: VisualDensity.minimumDensity,
+                                vertical: VisualDensity.minimumDensity,
+                              ),
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              groupValue: _limpiaVidrios,
+                              onChanged: (Option4? value) {
+                                setState(() {
+                                  _limpiaVidrios = value;
+                                });
+                              },
                             ),
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                            groupValue: _limpiaVidrios,
-                            onChanged: (Option4? value) {
-                              setState(() {
-                                _limpiaVidrios = value;
-                              });
-                            },
-                          ),
-                          Radio<Option4>(
-                            value: Option4.Malo,
-                            visualDensity: const VisualDensity(
-                              horizontal: VisualDensity.minimumDensity,
-                              vertical: VisualDensity.minimumDensity,
+                            Radio<Option4>(
+                              value: Option4.Malo,
+                              visualDensity: const VisualDensity(
+                                horizontal: VisualDensity.minimumDensity,
+                                vertical: VisualDensity.minimumDensity,
+                              ),
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              groupValue: _limpiaVidrios,
+                              onChanged: (Option4? value) {
+                                setState(() {
+                                  _limpiaVidrios = value;
+                                });
+                              },
                             ),
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                            groupValue: _limpiaVidrios,
-                            onChanged: (Option4? value) {
-                              setState(() {
-                                _limpiaVidrios = value;
-                              });
-                            },
-                          ),
-                          Radio<Option4>(
-                            value: Option4.NoAplica,
-                            visualDensity: const VisualDensity(
-                              horizontal: VisualDensity.minimumDensity,
-                              vertical: VisualDensity.minimumDensity,
+                            Radio<Option4>(
+                              value: Option4.NoAplica,
+                              visualDensity: const VisualDensity(
+                                horizontal: VisualDensity.minimumDensity,
+                                vertical: VisualDensity.minimumDensity,
+                              ),
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              groupValue: _limpiaVidrios,
+                              onChanged: (Option4? value) {
+                                setState(() {
+                                  _limpiaVidrios = value;
+                                });
+                              },
                             ),
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                            groupValue: _limpiaVidrios,
-                            onChanged: (Option4? value) {
-                              setState(() {
-                                _limpiaVidrios = value;
-                              });
-                            },
-                          ),
-                        ]),
+                          ],
+                        ),
                         //---------------- Espejos -----------------------------
-                        TableRow(children: [
-                          Padding(
-                            padding: const EdgeInsets.only(left: 8.0),
-                            child: Row(
-                              children: [
-                                (_espejos != null
-                                    ? const Icon(
-                                        Icons.done,
-                                        color: Colors.green,
-                                      )
-                                    : Container()),
-                                const Text('Espejos',
-                                    style: TextStyle(fontSize: 11)),
-                              ],
+                        TableRow(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(left: 8.0),
+                              child: Row(
+                                children: [
+                                  (_espejos != null
+                                      ? const Icon(
+                                          Icons.done,
+                                          color: Colors.green,
+                                        )
+                                      : Container()),
+                                  const Text(
+                                    'Espejos',
+                                    style: TextStyle(fontSize: 11),
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                          Radio<Option4>(
-                            value: Option4.Bien,
-                            visualDensity: const VisualDensity(
-                              horizontal: VisualDensity.minimumDensity,
-                              vertical: VisualDensity.minimumDensity,
+                            Radio<Option4>(
+                              value: Option4.Bien,
+                              visualDensity: const VisualDensity(
+                                horizontal: VisualDensity.minimumDensity,
+                                vertical: VisualDensity.minimumDensity,
+                              ),
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              groupValue: _espejos,
+                              onChanged: (Option4? value) {
+                                setState(() {
+                                  _espejos = value;
+                                });
+                              },
                             ),
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                            groupValue: _espejos,
-                            onChanged: (Option4? value) {
-                              setState(() {
-                                _espejos = value;
-                              });
-                            },
-                          ),
-                          Radio<Option4>(
-                            value: Option4.Regular,
-                            visualDensity: const VisualDensity(
-                              horizontal: VisualDensity.minimumDensity,
-                              vertical: VisualDensity.minimumDensity,
+                            Radio<Option4>(
+                              value: Option4.Regular,
+                              visualDensity: const VisualDensity(
+                                horizontal: VisualDensity.minimumDensity,
+                                vertical: VisualDensity.minimumDensity,
+                              ),
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              groupValue: _espejos,
+                              onChanged: (Option4? value) {
+                                setState(() {
+                                  _espejos = value;
+                                });
+                              },
                             ),
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                            groupValue: _espejos,
-                            onChanged: (Option4? value) {
-                              setState(() {
-                                _espejos = value;
-                              });
-                            },
-                          ),
-                          Radio<Option4>(
-                            value: Option4.Malo,
-                            visualDensity: const VisualDensity(
-                              horizontal: VisualDensity.minimumDensity,
-                              vertical: VisualDensity.minimumDensity,
+                            Radio<Option4>(
+                              value: Option4.Malo,
+                              visualDensity: const VisualDensity(
+                                horizontal: VisualDensity.minimumDensity,
+                                vertical: VisualDensity.minimumDensity,
+                              ),
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              groupValue: _espejos,
+                              onChanged: (Option4? value) {
+                                setState(() {
+                                  _espejos = value;
+                                });
+                              },
                             ),
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                            groupValue: _espejos,
-                            onChanged: (Option4? value) {
-                              setState(() {
-                                _espejos = value;
-                              });
-                            },
-                          ),
-                          Radio<Option4>(
-                            value: Option4.NoAplica,
-                            visualDensity: const VisualDensity(
-                              horizontal: VisualDensity.minimumDensity,
-                              vertical: VisualDensity.minimumDensity,
+                            Radio<Option4>(
+                              value: Option4.NoAplica,
+                              visualDensity: const VisualDensity(
+                                horizontal: VisualDensity.minimumDensity,
+                                vertical: VisualDensity.minimumDensity,
+                              ),
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              groupValue: _espejos,
+                              onChanged: (Option4? value) {
+                                setState(() {
+                                  _espejos = value;
+                                });
+                              },
                             ),
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                            groupValue: _espejos,
-                            onChanged: (Option4? value) {
-                              setState(() {
-                                _espejos = value;
-                              });
-                            },
-                          ),
-                        ]),
+                          ],
+                        ),
                         //---------------- IndicadoresDeGiro -----------------------------
-                        TableRow(children: [
-                          Padding(
-                            padding: const EdgeInsets.only(left: 8.0),
-                            child: Row(
-                              children: [
-                                (_indicadoresDeGiro != null
-                                    ? const Icon(
-                                        Icons.done,
-                                        color: Colors.green,
-                                      )
-                                    : Container()),
-                                const Text('Indicad. de giro',
-                                    style: TextStyle(fontSize: 11)),
-                              ],
+                        TableRow(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(left: 8.0),
+                              child: Row(
+                                children: [
+                                  (_indicadoresDeGiro != null
+                                      ? const Icon(
+                                          Icons.done,
+                                          color: Colors.green,
+                                        )
+                                      : Container()),
+                                  const Text(
+                                    'Indicad. de giro',
+                                    style: TextStyle(fontSize: 11),
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                          Radio<Option4>(
-                            value: Option4.Bien,
-                            visualDensity: const VisualDensity(
-                              horizontal: VisualDensity.minimumDensity,
-                              vertical: VisualDensity.minimumDensity,
+                            Radio<Option4>(
+                              value: Option4.Bien,
+                              visualDensity: const VisualDensity(
+                                horizontal: VisualDensity.minimumDensity,
+                                vertical: VisualDensity.minimumDensity,
+                              ),
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              groupValue: _indicadoresDeGiro,
+                              onChanged: (Option4? value) {
+                                setState(() {
+                                  _indicadoresDeGiro = value;
+                                });
+                              },
                             ),
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                            groupValue: _indicadoresDeGiro,
-                            onChanged: (Option4? value) {
-                              setState(() {
-                                _indicadoresDeGiro = value;
-                              });
-                            },
-                          ),
-                          Radio<Option4>(
-                            value: Option4.Regular,
-                            visualDensity: const VisualDensity(
-                              horizontal: VisualDensity.minimumDensity,
-                              vertical: VisualDensity.minimumDensity,
+                            Radio<Option4>(
+                              value: Option4.Regular,
+                              visualDensity: const VisualDensity(
+                                horizontal: VisualDensity.minimumDensity,
+                                vertical: VisualDensity.minimumDensity,
+                              ),
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              groupValue: _indicadoresDeGiro,
+                              onChanged: (Option4? value) {
+                                setState(() {
+                                  _indicadoresDeGiro = value;
+                                });
+                              },
                             ),
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                            groupValue: _indicadoresDeGiro,
-                            onChanged: (Option4? value) {
-                              setState(() {
-                                _indicadoresDeGiro = value;
-                              });
-                            },
-                          ),
-                          Radio<Option4>(
-                            value: Option4.Malo,
-                            visualDensity: const VisualDensity(
-                              horizontal: VisualDensity.minimumDensity,
-                              vertical: VisualDensity.minimumDensity,
+                            Radio<Option4>(
+                              value: Option4.Malo,
+                              visualDensity: const VisualDensity(
+                                horizontal: VisualDensity.minimumDensity,
+                                vertical: VisualDensity.minimumDensity,
+                              ),
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              groupValue: _indicadoresDeGiro,
+                              onChanged: (Option4? value) {
+                                setState(() {
+                                  _indicadoresDeGiro = value;
+                                });
+                              },
                             ),
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                            groupValue: _indicadoresDeGiro,
-                            onChanged: (Option4? value) {
-                              setState(() {
-                                _indicadoresDeGiro = value;
-                              });
-                            },
-                          ),
-                          Radio<Option4>(
-                            value: Option4.NoAplica,
-                            visualDensity: const VisualDensity(
-                              horizontal: VisualDensity.minimumDensity,
-                              vertical: VisualDensity.minimumDensity,
+                            Radio<Option4>(
+                              value: Option4.NoAplica,
+                              visualDensity: const VisualDensity(
+                                horizontal: VisualDensity.minimumDensity,
+                                vertical: VisualDensity.minimumDensity,
+                              ),
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              groupValue: _indicadoresDeGiro,
+                              onChanged: (Option4? value) {
+                                setState(() {
+                                  _indicadoresDeGiro = value;
+                                });
+                              },
                             ),
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                            groupValue: _indicadoresDeGiro,
-                            onChanged: (Option4? value) {
-                              setState(() {
-                                _indicadoresDeGiro = value;
-                              });
-                            },
-                          ),
-                        ]),
+                          ],
+                        ),
                         //---------------- Bocina -----------------------------
-                        TableRow(children: [
-                          Padding(
-                            padding: const EdgeInsets.only(left: 8.0),
-                            child: Row(
-                              children: [
-                                (_bocina != null
-                                    ? const Icon(
-                                        Icons.done,
-                                        color: Colors.green,
-                                      )
-                                    : Container()),
-                                const Text('Bocina',
-                                    style: TextStyle(fontSize: 11)),
-                              ],
+                        TableRow(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(left: 8.0),
+                              child: Row(
+                                children: [
+                                  (_bocina != null
+                                      ? const Icon(
+                                          Icons.done,
+                                          color: Colors.green,
+                                        )
+                                      : Container()),
+                                  const Text(
+                                    'Bocina',
+                                    style: TextStyle(fontSize: 11),
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                          Radio<Option4>(
-                            value: Option4.Bien,
-                            visualDensity: const VisualDensity(
-                              horizontal: VisualDensity.minimumDensity,
-                              vertical: VisualDensity.minimumDensity,
+                            Radio<Option4>(
+                              value: Option4.Bien,
+                              visualDensity: const VisualDensity(
+                                horizontal: VisualDensity.minimumDensity,
+                                vertical: VisualDensity.minimumDensity,
+                              ),
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              groupValue: _bocina,
+                              onChanged: (Option4? value) {
+                                setState(() {
+                                  _bocina = value;
+                                });
+                              },
                             ),
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                            groupValue: _bocina,
-                            onChanged: (Option4? value) {
-                              setState(() {
-                                _bocina = value;
-                              });
-                            },
-                          ),
-                          Radio<Option4>(
-                            value: Option4.Regular,
-                            visualDensity: const VisualDensity(
-                              horizontal: VisualDensity.minimumDensity,
-                              vertical: VisualDensity.minimumDensity,
+                            Radio<Option4>(
+                              value: Option4.Regular,
+                              visualDensity: const VisualDensity(
+                                horizontal: VisualDensity.minimumDensity,
+                                vertical: VisualDensity.minimumDensity,
+                              ),
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              groupValue: _bocina,
+                              onChanged: (Option4? value) {
+                                setState(() {
+                                  _bocina = value;
+                                });
+                              },
                             ),
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                            groupValue: _bocina,
-                            onChanged: (Option4? value) {
-                              setState(() {
-                                _bocina = value;
-                              });
-                            },
-                          ),
-                          Radio<Option4>(
-                            value: Option4.Malo,
-                            visualDensity: const VisualDensity(
-                              horizontal: VisualDensity.minimumDensity,
-                              vertical: VisualDensity.minimumDensity,
+                            Radio<Option4>(
+                              value: Option4.Malo,
+                              visualDensity: const VisualDensity(
+                                horizontal: VisualDensity.minimumDensity,
+                                vertical: VisualDensity.minimumDensity,
+                              ),
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              groupValue: _bocina,
+                              onChanged: (Option4? value) {
+                                setState(() {
+                                  _bocina = value;
+                                });
+                              },
                             ),
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                            groupValue: _bocina,
-                            onChanged: (Option4? value) {
-                              setState(() {
-                                _bocina = value;
-                              });
-                            },
-                          ),
-                          Radio<Option4>(
-                            value: Option4.NoAplica,
-                            visualDensity: const VisualDensity(
-                              horizontal: VisualDensity.minimumDensity,
-                              vertical: VisualDensity.minimumDensity,
+                            Radio<Option4>(
+                              value: Option4.NoAplica,
+                              visualDensity: const VisualDensity(
+                                horizontal: VisualDensity.minimumDensity,
+                                vertical: VisualDensity.minimumDensity,
+                              ),
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              groupValue: _bocina,
+                              onChanged: (Option4? value) {
+                                setState(() {
+                                  _bocina = value;
+                                });
+                              },
                             ),
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                            groupValue: _bocina,
-                            onChanged: (Option4? value) {
-                              setState(() {
-                                _bocina = value;
-                              });
-                            },
-                          ),
-                        ]),
+                          ],
+                        ),
                         //---------------- DispositivoPAT -----------------------------
-                        TableRow(children: [
-                          Padding(
-                            padding: const EdgeInsets.only(left: 8.0),
-                            child: Row(
-                              children: [
-                                (_dispositivoPAT != null
-                                    ? const Icon(
-                                        Icons.done,
-                                        color: Colors.green,
-                                      )
-                                    : Container()),
-                                const Text('Dispositivo PAT',
-                                    style: TextStyle(fontSize: 11)),
-                              ],
+                        TableRow(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(left: 8.0),
+                              child: Row(
+                                children: [
+                                  (_dispositivoPAT != null
+                                      ? const Icon(
+                                          Icons.done,
+                                          color: Colors.green,
+                                        )
+                                      : Container()),
+                                  const Text(
+                                    'Dispositivo PAT',
+                                    style: TextStyle(fontSize: 11),
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                          Radio<Option4>(
-                            value: Option4.Bien,
-                            visualDensity: const VisualDensity(
-                              horizontal: VisualDensity.minimumDensity,
-                              vertical: VisualDensity.minimumDensity,
+                            Radio<Option4>(
+                              value: Option4.Bien,
+                              visualDensity: const VisualDensity(
+                                horizontal: VisualDensity.minimumDensity,
+                                vertical: VisualDensity.minimumDensity,
+                              ),
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              groupValue: _dispositivoPAT,
+                              onChanged: (Option4? value) {
+                                setState(() {
+                                  _dispositivoPAT = value;
+                                });
+                              },
                             ),
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                            groupValue: _dispositivoPAT,
-                            onChanged: (Option4? value) {
-                              setState(() {
-                                _dispositivoPAT = value;
-                              });
-                            },
-                          ),
-                          Radio<Option4>(
-                            value: Option4.Regular,
-                            visualDensity: const VisualDensity(
-                              horizontal: VisualDensity.minimumDensity,
-                              vertical: VisualDensity.minimumDensity,
+                            Radio<Option4>(
+                              value: Option4.Regular,
+                              visualDensity: const VisualDensity(
+                                horizontal: VisualDensity.minimumDensity,
+                                vertical: VisualDensity.minimumDensity,
+                              ),
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              groupValue: _dispositivoPAT,
+                              onChanged: (Option4? value) {
+                                setState(() {
+                                  _dispositivoPAT = value;
+                                });
+                              },
                             ),
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                            groupValue: _dispositivoPAT,
-                            onChanged: (Option4? value) {
-                              setState(() {
-                                _dispositivoPAT = value;
-                              });
-                            },
-                          ),
-                          Radio<Option4>(
-                            value: Option4.Malo,
-                            visualDensity: const VisualDensity(
-                              horizontal: VisualDensity.minimumDensity,
-                              vertical: VisualDensity.minimumDensity,
+                            Radio<Option4>(
+                              value: Option4.Malo,
+                              visualDensity: const VisualDensity(
+                                horizontal: VisualDensity.minimumDensity,
+                                vertical: VisualDensity.minimumDensity,
+                              ),
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              groupValue: _dispositivoPAT,
+                              onChanged: (Option4? value) {
+                                setState(() {
+                                  _dispositivoPAT = value;
+                                });
+                              },
                             ),
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                            groupValue: _dispositivoPAT,
-                            onChanged: (Option4? value) {
-                              setState(() {
-                                _dispositivoPAT = value;
-                              });
-                            },
-                          ),
-                          Radio<Option4>(
-                            value: Option4.NoAplica,
-                            visualDensity: const VisualDensity(
-                              horizontal: VisualDensity.minimumDensity,
-                              vertical: VisualDensity.minimumDensity,
+                            Radio<Option4>(
+                              value: Option4.NoAplica,
+                              visualDensity: const VisualDensity(
+                                horizontal: VisualDensity.minimumDensity,
+                                vertical: VisualDensity.minimumDensity,
+                              ),
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              groupValue: _dispositivoPAT,
+                              onChanged: (Option4? value) {
+                                setState(() {
+                                  _dispositivoPAT = value;
+                                });
+                              },
                             ),
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                            groupValue: _dispositivoPAT,
-                            onChanged: (Option4? value) {
-                              setState(() {
-                                _dispositivoPAT = value;
-                              });
-                            },
-                          ),
-                        ]),
+                          ],
+                        ),
                         //---------------- Ganchos -----------------------------
-                        TableRow(children: [
-                          Padding(
-                            padding: const EdgeInsets.only(left: 8.0),
-                            child: Row(
-                              children: [
-                                (_ganchos != null
-                                    ? const Icon(
-                                        Icons.done,
-                                        color: Colors.green,
-                                      )
-                                    : Container()),
-                                const Text('Ganchos',
-                                    style: TextStyle(fontSize: 11)),
-                              ],
+                        TableRow(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(left: 8.0),
+                              child: Row(
+                                children: [
+                                  (_ganchos != null
+                                      ? const Icon(
+                                          Icons.done,
+                                          color: Colors.green,
+                                        )
+                                      : Container()),
+                                  const Text(
+                                    'Ganchos',
+                                    style: TextStyle(fontSize: 11),
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                          Radio<Option4>(
-                            value: Option4.Bien,
-                            visualDensity: const VisualDensity(
-                              horizontal: VisualDensity.minimumDensity,
-                              vertical: VisualDensity.minimumDensity,
+                            Radio<Option4>(
+                              value: Option4.Bien,
+                              visualDensity: const VisualDensity(
+                                horizontal: VisualDensity.minimumDensity,
+                                vertical: VisualDensity.minimumDensity,
+                              ),
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              groupValue: _ganchos,
+                              onChanged: (Option4? value) {
+                                setState(() {
+                                  _ganchos = value;
+                                });
+                              },
                             ),
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                            groupValue: _ganchos,
-                            onChanged: (Option4? value) {
-                              setState(() {
-                                _ganchos = value;
-                              });
-                            },
-                          ),
-                          Radio<Option4>(
-                            value: Option4.Regular,
-                            visualDensity: const VisualDensity(
-                              horizontal: VisualDensity.minimumDensity,
-                              vertical: VisualDensity.minimumDensity,
+                            Radio<Option4>(
+                              value: Option4.Regular,
+                              visualDensity: const VisualDensity(
+                                horizontal: VisualDensity.minimumDensity,
+                                vertical: VisualDensity.minimumDensity,
+                              ),
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              groupValue: _ganchos,
+                              onChanged: (Option4? value) {
+                                setState(() {
+                                  _ganchos = value;
+                                });
+                              },
                             ),
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                            groupValue: _ganchos,
-                            onChanged: (Option4? value) {
-                              setState(() {
-                                _ganchos = value;
-                              });
-                            },
-                          ),
-                          Radio<Option4>(
-                            value: Option4.Malo,
-                            visualDensity: const VisualDensity(
-                              horizontal: VisualDensity.minimumDensity,
-                              vertical: VisualDensity.minimumDensity,
+                            Radio<Option4>(
+                              value: Option4.Malo,
+                              visualDensity: const VisualDensity(
+                                horizontal: VisualDensity.minimumDensity,
+                                vertical: VisualDensity.minimumDensity,
+                              ),
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              groupValue: _ganchos,
+                              onChanged: (Option4? value) {
+                                setState(() {
+                                  _ganchos = value;
+                                });
+                              },
                             ),
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                            groupValue: _ganchos,
-                            onChanged: (Option4? value) {
-                              setState(() {
-                                _ganchos = value;
-                              });
-                            },
-                          ),
-                          Radio<Option4>(
-                            value: Option4.NoAplica,
-                            visualDensity: const VisualDensity(
-                              horizontal: VisualDensity.minimumDensity,
-                              vertical: VisualDensity.minimumDensity,
+                            Radio<Option4>(
+                              value: Option4.NoAplica,
+                              visualDensity: const VisualDensity(
+                                horizontal: VisualDensity.minimumDensity,
+                                vertical: VisualDensity.minimumDensity,
+                              ),
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              groupValue: _ganchos,
+                              onChanged: (Option4? value) {
+                                setState(() {
+                                  _ganchos = value;
+                                });
+                              },
                             ),
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                            groupValue: _ganchos,
-                            onChanged: (Option4? value) {
-                              setState(() {
-                                _ganchos = value;
-                              });
-                            },
-                          ),
-                        ]),
+                          ],
+                        ),
                         //---------------- Alarma de Retroceso -----------------------------
-                        TableRow(children: [
-                          Padding(
-                            padding: const EdgeInsets.only(left: 8.0),
-                            child: Row(
-                              children: [
-                                (_alarmaRetroceso != null
-                                    ? const Icon(
-                                        Icons.done,
-                                        color: Colors.green,
-                                      )
-                                    : Container()),
-                                const Text('Alarma de retroc.',
-                                    style: TextStyle(fontSize: 11)),
-                              ],
+                        TableRow(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(left: 8.0),
+                              child: Row(
+                                children: [
+                                  (_alarmaRetroceso != null
+                                      ? const Icon(
+                                          Icons.done,
+                                          color: Colors.green,
+                                        )
+                                      : Container()),
+                                  const Text(
+                                    'Alarma de retroc.',
+                                    style: TextStyle(fontSize: 11),
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                          Radio<Option4>(
-                            value: Option4.Bien,
-                            visualDensity: const VisualDensity(
-                              horizontal: VisualDensity.minimumDensity,
-                              vertical: VisualDensity.minimumDensity,
+                            Radio<Option4>(
+                              value: Option4.Bien,
+                              visualDensity: const VisualDensity(
+                                horizontal: VisualDensity.minimumDensity,
+                                vertical: VisualDensity.minimumDensity,
+                              ),
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              groupValue: _alarmaRetroceso,
+                              onChanged: (Option4? value) {
+                                setState(() {
+                                  _alarmaRetroceso = value;
+                                });
+                              },
                             ),
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                            groupValue: _alarmaRetroceso,
-                            onChanged: (Option4? value) {
-                              setState(() {
-                                _alarmaRetroceso = value;
-                              });
-                            },
-                          ),
-                          Radio<Option4>(
-                            value: Option4.Regular,
-                            visualDensity: const VisualDensity(
-                              horizontal: VisualDensity.minimumDensity,
-                              vertical: VisualDensity.minimumDensity,
+                            Radio<Option4>(
+                              value: Option4.Regular,
+                              visualDensity: const VisualDensity(
+                                horizontal: VisualDensity.minimumDensity,
+                                vertical: VisualDensity.minimumDensity,
+                              ),
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              groupValue: _alarmaRetroceso,
+                              onChanged: (Option4? value) {
+                                setState(() {
+                                  _alarmaRetroceso = value;
+                                });
+                              },
                             ),
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                            groupValue: _alarmaRetroceso,
-                            onChanged: (Option4? value) {
-                              setState(() {
-                                _alarmaRetroceso = value;
-                              });
-                            },
-                          ),
-                          Radio<Option4>(
-                            value: Option4.Malo,
-                            visualDensity: const VisualDensity(
-                              horizontal: VisualDensity.minimumDensity,
-                              vertical: VisualDensity.minimumDensity,
+                            Radio<Option4>(
+                              value: Option4.Malo,
+                              visualDensity: const VisualDensity(
+                                horizontal: VisualDensity.minimumDensity,
+                                vertical: VisualDensity.minimumDensity,
+                              ),
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              groupValue: _alarmaRetroceso,
+                              onChanged: (Option4? value) {
+                                setState(() {
+                                  _alarmaRetroceso = value;
+                                });
+                              },
                             ),
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                            groupValue: _alarmaRetroceso,
-                            onChanged: (Option4? value) {
-                              setState(() {
-                                _alarmaRetroceso = value;
-                              });
-                            },
-                          ),
-                          Radio<Option4>(
-                            value: Option4.NoAplica,
-                            visualDensity: const VisualDensity(
-                              horizontal: VisualDensity.minimumDensity,
-                              vertical: VisualDensity.minimumDensity,
+                            Radio<Option4>(
+                              value: Option4.NoAplica,
+                              visualDensity: const VisualDensity(
+                                horizontal: VisualDensity.minimumDensity,
+                                vertical: VisualDensity.minimumDensity,
+                              ),
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              groupValue: _alarmaRetroceso,
+                              onChanged: (Option4? value) {
+                                setState(() {
+                                  _alarmaRetroceso = value;
+                                });
+                              },
                             ),
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                            groupValue: _alarmaRetroceso,
-                            onChanged: (Option4? value) {
-                              setState(() {
-                                _alarmaRetroceso = value;
-                              });
-                            },
-                          ),
-                        ]),
+                          ],
+                        ),
                         //---------------- Mangueras Circuito Hidraulico -----------------------------
-                        TableRow(children: [
-                          Padding(
-                            padding: const EdgeInsets.only(left: 8.0),
-                            child: Row(
-                              children: [
-                                (_manguerasCircuitoHidraulico != null
-                                    ? const Icon(
-                                        Icons.done,
-                                        color: Colors.green,
-                                      )
-                                    : Container()),
-                                const Text('Mang. circ. hidr.',
-                                    style: TextStyle(fontSize: 11)),
-                              ],
+                        TableRow(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(left: 8.0),
+                              child: Row(
+                                children: [
+                                  (_manguerasCircuitoHidraulico != null
+                                      ? const Icon(
+                                          Icons.done,
+                                          color: Colors.green,
+                                        )
+                                      : Container()),
+                                  const Text(
+                                    'Mang. circ. hidr.',
+                                    style: TextStyle(fontSize: 11),
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                          Radio<Option4>(
-                            value: Option4.Bien,
-                            visualDensity: const VisualDensity(
-                              horizontal: VisualDensity.minimumDensity,
-                              vertical: VisualDensity.minimumDensity,
+                            Radio<Option4>(
+                              value: Option4.Bien,
+                              visualDensity: const VisualDensity(
+                                horizontal: VisualDensity.minimumDensity,
+                                vertical: VisualDensity.minimumDensity,
+                              ),
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              groupValue: _manguerasCircuitoHidraulico,
+                              onChanged: (Option4? value) {
+                                setState(() {
+                                  _manguerasCircuitoHidraulico = value;
+                                });
+                              },
                             ),
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                            groupValue: _manguerasCircuitoHidraulico,
-                            onChanged: (Option4? value) {
-                              setState(() {
-                                _manguerasCircuitoHidraulico = value;
-                              });
-                            },
-                          ),
-                          Radio<Option4>(
-                            value: Option4.Regular,
-                            visualDensity: const VisualDensity(
-                              horizontal: VisualDensity.minimumDensity,
-                              vertical: VisualDensity.minimumDensity,
+                            Radio<Option4>(
+                              value: Option4.Regular,
+                              visualDensity: const VisualDensity(
+                                horizontal: VisualDensity.minimumDensity,
+                                vertical: VisualDensity.minimumDensity,
+                              ),
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              groupValue: _manguerasCircuitoHidraulico,
+                              onChanged: (Option4? value) {
+                                setState(() {
+                                  _manguerasCircuitoHidraulico = value;
+                                });
+                              },
                             ),
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                            groupValue: _manguerasCircuitoHidraulico,
-                            onChanged: (Option4? value) {
-                              setState(() {
-                                _manguerasCircuitoHidraulico = value;
-                              });
-                            },
-                          ),
-                          Radio<Option4>(
-                            value: Option4.Malo,
-                            visualDensity: const VisualDensity(
-                              horizontal: VisualDensity.minimumDensity,
-                              vertical: VisualDensity.minimumDensity,
+                            Radio<Option4>(
+                              value: Option4.Malo,
+                              visualDensity: const VisualDensity(
+                                horizontal: VisualDensity.minimumDensity,
+                                vertical: VisualDensity.minimumDensity,
+                              ),
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              groupValue: _manguerasCircuitoHidraulico,
+                              onChanged: (Option4? value) {
+                                setState(() {
+                                  _manguerasCircuitoHidraulico = value;
+                                });
+                              },
                             ),
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                            groupValue: _manguerasCircuitoHidraulico,
-                            onChanged: (Option4? value) {
-                              setState(() {
-                                _manguerasCircuitoHidraulico = value;
-                              });
-                            },
-                          ),
-                          Radio<Option4>(
-                            value: Option4.NoAplica,
-                            visualDensity: const VisualDensity(
-                              horizontal: VisualDensity.minimumDensity,
-                              vertical: VisualDensity.minimumDensity,
+                            Radio<Option4>(
+                              value: Option4.NoAplica,
+                              visualDensity: const VisualDensity(
+                                horizontal: VisualDensity.minimumDensity,
+                                vertical: VisualDensity.minimumDensity,
+                              ),
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              groupValue: _manguerasCircuitoHidraulico,
+                              onChanged: (Option4? value) {
+                                setState(() {
+                                  _manguerasCircuitoHidraulico = value;
+                                });
+                              },
                             ),
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                            groupValue: _manguerasCircuitoHidraulico,
-                            onChanged: (Option4? value) {
-                              setState(() {
-                                _manguerasCircuitoHidraulico = value;
-                              });
-                            },
-                          ),
-                        ]),
+                          ],
+                        ),
                       ],
                     ),
                   ),
                 ),
-                const SizedBox(
-                  height: 20,
-                ),
+                const SizedBox(height: 20),
 
                 //--------------------------------------------------------------------
                 //------------------------- Segunda Tabla ----------------------------
                 //--------------------------------------------------------------------
-
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10),
                   child: Container(
@@ -1442,532 +1514,573 @@ class _GruasCheckListAgregarScreenState
                       border: TableBorder.all(),
                       children: [
                         //---------------- Título -----------------------------
-                        TableRow(children: [
-                          Container(
-                            color: const Color.fromARGB(255, 33, 172, 236),
-                            child: const Padding(
-                              padding: EdgeInsets.only(left: 8.0),
-                              child: Text('Concepto',
+                        TableRow(
+                          children: [
+                            Container(
+                              color: const Color.fromARGB(255, 33, 172, 236),
+                              child: const Padding(
+                                padding: EdgeInsets.only(left: 8.0),
+                                child: Text(
+                                  'Concepto',
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.bold)),
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
                             ),
-                          ),
-                          Container(
-                            color: const Color.fromARGB(255, 33, 172, 236),
-                            child: const Text('Bien',
+                            Container(
+                              color: const Color.fromARGB(255, 33, 172, 236),
+                              child: const Text(
+                                'Bien',
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
-                                    fontSize: 12, fontWeight: FontWeight.bold)),
-                          ),
-                          Container(
-                            color: const Color.fromARGB(255, 33, 172, 236),
-                            child: const Padding(
-                              padding: EdgeInsets.only(left: 8.0),
-                              child: Text('Regular',
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                            Container(
+                              color: const Color.fromARGB(255, 33, 172, 236),
+                              child: const Padding(
+                                padding: EdgeInsets.only(left: 8.0),
+                                child: Text(
+                                  'Regular',
                                   style: TextStyle(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.bold)),
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
                             ),
-                          ),
-                          Container(
-                            color: const Color.fromARGB(255, 33, 172, 236),
-                            child: const Text('Malo',
+                            Container(
+                              color: const Color.fromARGB(255, 33, 172, 236),
+                              child: const Text(
+                                'Malo',
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
-                                    fontSize: 12, fontWeight: FontWeight.bold)),
-                          ),
-                          Container(
-                            color: const Color.fromARGB(255, 33, 172, 236),
-                            child: const Text('No Aplica',
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                            Container(
+                              color: const Color.fromARGB(255, 33, 172, 236),
+                              child: const Text(
+                                'No Aplica',
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
-                                    fontSize: 12, fontWeight: FontWeight.bold)),
-                          ),
-                        ]),
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                         //---------------- FarosDelanteros -----------------------------
-                        TableRow(children: [
-                          Padding(
-                            padding: const EdgeInsets.only(left: 8.0),
-                            child: Row(
-                              children: [
-                                (_farosDelanteros != null
-                                    ? const Icon(
-                                        Icons.done,
-                                        color: Colors.green,
-                                      )
-                                    : Container()),
-                                const Text('Faros delanteros',
-                                    style: TextStyle(fontSize: 11)),
-                              ],
+                        TableRow(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(left: 8.0),
+                              child: Row(
+                                children: [
+                                  (_farosDelanteros != null
+                                      ? const Icon(
+                                          Icons.done,
+                                          color: Colors.green,
+                                        )
+                                      : Container()),
+                                  const Text(
+                                    'Faros delanteros',
+                                    style: TextStyle(fontSize: 11),
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                          Radio<Option4>(
-                            value: Option4.Bien,
-                            visualDensity: const VisualDensity(
-                              horizontal: VisualDensity.minimumDensity,
-                              vertical: VisualDensity.minimumDensity,
+                            Radio<Option4>(
+                              value: Option4.Bien,
+                              visualDensity: const VisualDensity(
+                                horizontal: VisualDensity.minimumDensity,
+                                vertical: VisualDensity.minimumDensity,
+                              ),
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              groupValue: _farosDelanteros,
+                              onChanged: (Option4? value) {
+                                setState(() {
+                                  _farosDelanteros = value;
+                                });
+                              },
                             ),
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                            groupValue: _farosDelanteros,
-                            onChanged: (Option4? value) {
-                              setState(() {
-                                _farosDelanteros = value;
-                              });
-                            },
-                          ),
-                          Radio<Option4>(
-                            value: Option4.Regular,
-                            visualDensity: const VisualDensity(
-                              horizontal: VisualDensity.minimumDensity,
-                              vertical: VisualDensity.minimumDensity,
+                            Radio<Option4>(
+                              value: Option4.Regular,
+                              visualDensity: const VisualDensity(
+                                horizontal: VisualDensity.minimumDensity,
+                                vertical: VisualDensity.minimumDensity,
+                              ),
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              groupValue: _farosDelanteros,
+                              onChanged: (Option4? value) {
+                                setState(() {
+                                  _farosDelanteros = value;
+                                });
+                              },
                             ),
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                            groupValue: _farosDelanteros,
-                            onChanged: (Option4? value) {
-                              setState(() {
-                                _farosDelanteros = value;
-                              });
-                            },
-                          ),
-                          Radio<Option4>(
-                            value: Option4.Malo,
-                            visualDensity: const VisualDensity(
-                              horizontal: VisualDensity.minimumDensity,
-                              vertical: VisualDensity.minimumDensity,
+                            Radio<Option4>(
+                              value: Option4.Malo,
+                              visualDensity: const VisualDensity(
+                                horizontal: VisualDensity.minimumDensity,
+                                vertical: VisualDensity.minimumDensity,
+                              ),
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              groupValue: _farosDelanteros,
+                              onChanged: (Option4? value) {
+                                setState(() {
+                                  _farosDelanteros = value;
+                                });
+                              },
                             ),
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                            groupValue: _farosDelanteros,
-                            onChanged: (Option4? value) {
-                              setState(() {
-                                _farosDelanteros = value;
-                              });
-                            },
-                          ),
-                          Radio<Option4>(
-                            value: Option4.NoAplica,
-                            visualDensity: const VisualDensity(
-                              horizontal: VisualDensity.minimumDensity,
-                              vertical: VisualDensity.minimumDensity,
+                            Radio<Option4>(
+                              value: Option4.NoAplica,
+                              visualDensity: const VisualDensity(
+                                horizontal: VisualDensity.minimumDensity,
+                                vertical: VisualDensity.minimumDensity,
+                              ),
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              groupValue: _farosDelanteros,
+                              onChanged: (Option4? value) {
+                                setState(() {
+                                  _farosDelanteros = value;
+                                });
+                              },
                             ),
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                            groupValue: _farosDelanteros,
-                            onChanged: (Option4? value) {
-                              setState(() {
-                                _farosDelanteros = value;
-                              });
-                            },
-                          ),
-                        ]),
+                          ],
+                        ),
 
                         //---------------- FarosTraseros -----------------------------
-                        TableRow(children: [
-                          Padding(
-                            padding: const EdgeInsets.only(left: 8.0),
-                            child: Row(
-                              children: [
-                                (_farosTraseros != null
-                                    ? const Icon(
-                                        Icons.done,
-                                        color: Colors.green,
-                                      )
-                                    : Container()),
-                                const Text('Faros traseros',
-                                    style: TextStyle(fontSize: 11)),
-                              ],
+                        TableRow(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(left: 8.0),
+                              child: Row(
+                                children: [
+                                  (_farosTraseros != null
+                                      ? const Icon(
+                                          Icons.done,
+                                          color: Colors.green,
+                                        )
+                                      : Container()),
+                                  const Text(
+                                    'Faros traseros',
+                                    style: TextStyle(fontSize: 11),
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                          Radio<Option4>(
-                            value: Option4.Bien,
-                            visualDensity: const VisualDensity(
-                              horizontal: VisualDensity.minimumDensity,
-                              vertical: VisualDensity.minimumDensity,
+                            Radio<Option4>(
+                              value: Option4.Bien,
+                              visualDensity: const VisualDensity(
+                                horizontal: VisualDensity.minimumDensity,
+                                vertical: VisualDensity.minimumDensity,
+                              ),
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              groupValue: _farosTraseros,
+                              onChanged: (Option4? value) {
+                                setState(() {
+                                  _farosTraseros = value;
+                                });
+                              },
                             ),
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                            groupValue: _farosTraseros,
-                            onChanged: (Option4? value) {
-                              setState(() {
-                                _farosTraseros = value;
-                              });
-                            },
-                          ),
-                          Radio<Option4>(
-                            value: Option4.Regular,
-                            visualDensity: const VisualDensity(
-                              horizontal: VisualDensity.minimumDensity,
-                              vertical: VisualDensity.minimumDensity,
+                            Radio<Option4>(
+                              value: Option4.Regular,
+                              visualDensity: const VisualDensity(
+                                horizontal: VisualDensity.minimumDensity,
+                                vertical: VisualDensity.minimumDensity,
+                              ),
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              groupValue: _farosTraseros,
+                              onChanged: (Option4? value) {
+                                setState(() {
+                                  _farosTraseros = value;
+                                });
+                              },
                             ),
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                            groupValue: _farosTraseros,
-                            onChanged: (Option4? value) {
-                              setState(() {
-                                _farosTraseros = value;
-                              });
-                            },
-                          ),
-                          Radio<Option4>(
-                            value: Option4.Malo,
-                            visualDensity: const VisualDensity(
-                              horizontal: VisualDensity.minimumDensity,
-                              vertical: VisualDensity.minimumDensity,
+                            Radio<Option4>(
+                              value: Option4.Malo,
+                              visualDensity: const VisualDensity(
+                                horizontal: VisualDensity.minimumDensity,
+                                vertical: VisualDensity.minimumDensity,
+                              ),
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              groupValue: _farosTraseros,
+                              onChanged: (Option4? value) {
+                                setState(() {
+                                  _farosTraseros = value;
+                                });
+                              },
                             ),
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                            groupValue: _farosTraseros,
-                            onChanged: (Option4? value) {
-                              setState(() {
-                                _farosTraseros = value;
-                              });
-                            },
-                          ),
-                          Radio<Option4>(
-                            value: Option4.NoAplica,
-                            visualDensity: const VisualDensity(
-                              horizontal: VisualDensity.minimumDensity,
-                              vertical: VisualDensity.minimumDensity,
+                            Radio<Option4>(
+                              value: Option4.NoAplica,
+                              visualDensity: const VisualDensity(
+                                horizontal: VisualDensity.minimumDensity,
+                                vertical: VisualDensity.minimumDensity,
+                              ),
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              groupValue: _farosTraseros,
+                              onChanged: (Option4? value) {
+                                setState(() {
+                                  _farosTraseros = value;
+                                });
+                              },
                             ),
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                            groupValue: _farosTraseros,
-                            onChanged: (Option4? value) {
-                              setState(() {
-                                _farosTraseros = value;
-                              });
-                            },
-                          ),
-                        ]),
+                          ],
+                        ),
                         //---------------- Luz de Posicion -----------------------------
-                        TableRow(children: [
-                          Padding(
-                            padding: const EdgeInsets.only(left: 8.0),
-                            child: Row(
-                              children: [
-                                (_luzDePosicion != null
-                                    ? const Icon(
-                                        Icons.done,
-                                        color: Colors.green,
-                                      )
-                                    : Container()),
-                                const Text('Luz de posición',
-                                    style: TextStyle(fontSize: 11)),
-                              ],
+                        TableRow(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(left: 8.0),
+                              child: Row(
+                                children: [
+                                  (_luzDePosicion != null
+                                      ? const Icon(
+                                          Icons.done,
+                                          color: Colors.green,
+                                        )
+                                      : Container()),
+                                  const Text(
+                                    'Luz de posición',
+                                    style: TextStyle(fontSize: 11),
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                          Radio<Option4>(
-                            value: Option4.Bien,
-                            visualDensity: const VisualDensity(
-                              horizontal: VisualDensity.minimumDensity,
-                              vertical: VisualDensity.minimumDensity,
+                            Radio<Option4>(
+                              value: Option4.Bien,
+                              visualDensity: const VisualDensity(
+                                horizontal: VisualDensity.minimumDensity,
+                                vertical: VisualDensity.minimumDensity,
+                              ),
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              groupValue: _luzDePosicion,
+                              onChanged: (Option4? value) {
+                                setState(() {
+                                  _luzDePosicion = value;
+                                });
+                              },
                             ),
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                            groupValue: _luzDePosicion,
-                            onChanged: (Option4? value) {
-                              setState(() {
-                                _luzDePosicion = value;
-                              });
-                            },
-                          ),
-                          Radio<Option4>(
-                            value: Option4.Regular,
-                            visualDensity: const VisualDensity(
-                              horizontal: VisualDensity.minimumDensity,
-                              vertical: VisualDensity.minimumDensity,
+                            Radio<Option4>(
+                              value: Option4.Regular,
+                              visualDensity: const VisualDensity(
+                                horizontal: VisualDensity.minimumDensity,
+                                vertical: VisualDensity.minimumDensity,
+                              ),
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              groupValue: _luzDePosicion,
+                              onChanged: (Option4? value) {
+                                setState(() {
+                                  _luzDePosicion = value;
+                                });
+                              },
                             ),
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                            groupValue: _luzDePosicion,
-                            onChanged: (Option4? value) {
-                              setState(() {
-                                _luzDePosicion = value;
-                              });
-                            },
-                          ),
-                          Radio<Option4>(
-                            value: Option4.Malo,
-                            visualDensity: const VisualDensity(
-                              horizontal: VisualDensity.minimumDensity,
-                              vertical: VisualDensity.minimumDensity,
+                            Radio<Option4>(
+                              value: Option4.Malo,
+                              visualDensity: const VisualDensity(
+                                horizontal: VisualDensity.minimumDensity,
+                                vertical: VisualDensity.minimumDensity,
+                              ),
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              groupValue: _luzDePosicion,
+                              onChanged: (Option4? value) {
+                                setState(() {
+                                  _luzDePosicion = value;
+                                });
+                              },
                             ),
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                            groupValue: _luzDePosicion,
-                            onChanged: (Option4? value) {
-                              setState(() {
-                                _luzDePosicion = value;
-                              });
-                            },
-                          ),
-                          Radio<Option4>(
-                            value: Option4.NoAplica,
-                            visualDensity: const VisualDensity(
-                              horizontal: VisualDensity.minimumDensity,
-                              vertical: VisualDensity.minimumDensity,
+                            Radio<Option4>(
+                              value: Option4.NoAplica,
+                              visualDensity: const VisualDensity(
+                                horizontal: VisualDensity.minimumDensity,
+                                vertical: VisualDensity.minimumDensity,
+                              ),
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              groupValue: _luzDePosicion,
+                              onChanged: (Option4? value) {
+                                setState(() {
+                                  _luzDePosicion = value;
+                                });
+                              },
                             ),
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                            groupValue: _luzDePosicion,
-                            onChanged: (Option4? value) {
-                              setState(() {
-                                _luzDePosicion = value;
-                              });
-                            },
-                          ),
-                        ]),
+                          ],
+                        ),
                         //---------------- Luz de Freno -----------------------------
-                        TableRow(children: [
-                          Padding(
-                            padding: const EdgeInsets.only(left: 8.0),
-                            child: Row(
-                              children: [
-                                (_luzDeFreno != null
-                                    ? const Icon(
-                                        Icons.done,
-                                        color: Colors.green,
-                                      )
-                                    : Container()),
-                                const Text('Luz de freno',
-                                    style: TextStyle(fontSize: 11)),
-                              ],
+                        TableRow(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(left: 8.0),
+                              child: Row(
+                                children: [
+                                  (_luzDeFreno != null
+                                      ? const Icon(
+                                          Icons.done,
+                                          color: Colors.green,
+                                        )
+                                      : Container()),
+                                  const Text(
+                                    'Luz de freno',
+                                    style: TextStyle(fontSize: 11),
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                          Radio<Option4>(
-                            value: Option4.Bien,
-                            visualDensity: const VisualDensity(
-                              horizontal: VisualDensity.minimumDensity,
-                              vertical: VisualDensity.minimumDensity,
+                            Radio<Option4>(
+                              value: Option4.Bien,
+                              visualDensity: const VisualDensity(
+                                horizontal: VisualDensity.minimumDensity,
+                                vertical: VisualDensity.minimumDensity,
+                              ),
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              groupValue: _luzDeFreno,
+                              onChanged: (Option4? value) {
+                                setState(() {
+                                  _luzDeFreno = value;
+                                });
+                              },
                             ),
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                            groupValue: _luzDeFreno,
-                            onChanged: (Option4? value) {
-                              setState(() {
-                                _luzDeFreno = value;
-                              });
-                            },
-                          ),
-                          Radio<Option4>(
-                            value: Option4.Regular,
-                            visualDensity: const VisualDensity(
-                              horizontal: VisualDensity.minimumDensity,
-                              vertical: VisualDensity.minimumDensity,
+                            Radio<Option4>(
+                              value: Option4.Regular,
+                              visualDensity: const VisualDensity(
+                                horizontal: VisualDensity.minimumDensity,
+                                vertical: VisualDensity.minimumDensity,
+                              ),
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              groupValue: _luzDeFreno,
+                              onChanged: (Option4? value) {
+                                setState(() {
+                                  _luzDeFreno = value;
+                                });
+                              },
                             ),
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                            groupValue: _luzDeFreno,
-                            onChanged: (Option4? value) {
-                              setState(() {
-                                _luzDeFreno = value;
-                              });
-                            },
-                          ),
-                          Radio<Option4>(
-                            value: Option4.Malo,
-                            visualDensity: const VisualDensity(
-                              horizontal: VisualDensity.minimumDensity,
-                              vertical: VisualDensity.minimumDensity,
+                            Radio<Option4>(
+                              value: Option4.Malo,
+                              visualDensity: const VisualDensity(
+                                horizontal: VisualDensity.minimumDensity,
+                                vertical: VisualDensity.minimumDensity,
+                              ),
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              groupValue: _luzDeFreno,
+                              onChanged: (Option4? value) {
+                                setState(() {
+                                  _luzDeFreno = value;
+                                });
+                              },
                             ),
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                            groupValue: _luzDeFreno,
-                            onChanged: (Option4? value) {
-                              setState(() {
-                                _luzDeFreno = value;
-                              });
-                            },
-                          ),
-                          Radio<Option4>(
-                            value: Option4.NoAplica,
-                            visualDensity: const VisualDensity(
-                              horizontal: VisualDensity.minimumDensity,
-                              vertical: VisualDensity.minimumDensity,
+                            Radio<Option4>(
+                              value: Option4.NoAplica,
+                              visualDensity: const VisualDensity(
+                                horizontal: VisualDensity.minimumDensity,
+                                vertical: VisualDensity.minimumDensity,
+                              ),
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              groupValue: _luzDeFreno,
+                              onChanged: (Option4? value) {
+                                setState(() {
+                                  _luzDeFreno = value;
+                                });
+                              },
                             ),
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                            groupValue: _luzDeFreno,
-                            onChanged: (Option4? value) {
-                              setState(() {
-                                _luzDeFreno = value;
-                              });
-                            },
-                          ),
-                        ]),
+                          ],
+                        ),
                         //---------------- Luz de retroceso -----------------------------
-                        TableRow(children: [
-                          Padding(
-                            padding: const EdgeInsets.only(left: 8.0),
-                            child: Row(
-                              children: [
-                                (_luzDeRetroceso != null
-                                    ? const Icon(
-                                        Icons.done,
-                                        color: Colors.green,
-                                      )
-                                    : Container()),
-                                const Text('Luz de retroceso',
-                                    style: TextStyle(fontSize: 11)),
-                              ],
+                        TableRow(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(left: 8.0),
+                              child: Row(
+                                children: [
+                                  (_luzDeRetroceso != null
+                                      ? const Icon(
+                                          Icons.done,
+                                          color: Colors.green,
+                                        )
+                                      : Container()),
+                                  const Text(
+                                    'Luz de retroceso',
+                                    style: TextStyle(fontSize: 11),
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                          Radio<Option4>(
-                            value: Option4.Bien,
-                            visualDensity: const VisualDensity(
-                              horizontal: VisualDensity.minimumDensity,
-                              vertical: VisualDensity.minimumDensity,
+                            Radio<Option4>(
+                              value: Option4.Bien,
+                              visualDensity: const VisualDensity(
+                                horizontal: VisualDensity.minimumDensity,
+                                vertical: VisualDensity.minimumDensity,
+                              ),
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              groupValue: _luzDeRetroceso,
+                              onChanged: (Option4? value) {
+                                setState(() {
+                                  _luzDeRetroceso = value;
+                                });
+                              },
                             ),
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                            groupValue: _luzDeRetroceso,
-                            onChanged: (Option4? value) {
-                              setState(() {
-                                _luzDeRetroceso = value;
-                              });
-                            },
-                          ),
-                          Radio<Option4>(
-                            value: Option4.Regular,
-                            visualDensity: const VisualDensity(
-                              horizontal: VisualDensity.minimumDensity,
-                              vertical: VisualDensity.minimumDensity,
+                            Radio<Option4>(
+                              value: Option4.Regular,
+                              visualDensity: const VisualDensity(
+                                horizontal: VisualDensity.minimumDensity,
+                                vertical: VisualDensity.minimumDensity,
+                              ),
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              groupValue: _luzDeRetroceso,
+                              onChanged: (Option4? value) {
+                                setState(() {
+                                  _luzDeRetroceso = value;
+                                });
+                              },
                             ),
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                            groupValue: _luzDeRetroceso,
-                            onChanged: (Option4? value) {
-                              setState(() {
-                                _luzDeRetroceso = value;
-                              });
-                            },
-                          ),
-                          Radio<Option4>(
-                            value: Option4.Malo,
-                            visualDensity: const VisualDensity(
-                              horizontal: VisualDensity.minimumDensity,
-                              vertical: VisualDensity.minimumDensity,
+                            Radio<Option4>(
+                              value: Option4.Malo,
+                              visualDensity: const VisualDensity(
+                                horizontal: VisualDensity.minimumDensity,
+                                vertical: VisualDensity.minimumDensity,
+                              ),
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              groupValue: _luzDeRetroceso,
+                              onChanged: (Option4? value) {
+                                setState(() {
+                                  _luzDeRetroceso = value;
+                                });
+                              },
                             ),
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                            groupValue: _luzDeRetroceso,
-                            onChanged: (Option4? value) {
-                              setState(() {
-                                _luzDeRetroceso = value;
-                              });
-                            },
-                          ),
-                          Radio<Option4>(
-                            value: Option4.NoAplica,
-                            visualDensity: const VisualDensity(
-                              horizontal: VisualDensity.minimumDensity,
-                              vertical: VisualDensity.minimumDensity,
+                            Radio<Option4>(
+                              value: Option4.NoAplica,
+                              visualDensity: const VisualDensity(
+                                horizontal: VisualDensity.minimumDensity,
+                                vertical: VisualDensity.minimumDensity,
+                              ),
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              groupValue: _luzDeRetroceso,
+                              onChanged: (Option4? value) {
+                                setState(() {
+                                  _luzDeRetroceso = value;
+                                });
+                              },
                             ),
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                            groupValue: _luzDeRetroceso,
-                            onChanged: (Option4? value) {
-                              setState(() {
-                                _luzDeRetroceso = value;
-                              });
-                            },
-                          ),
-                        ]),
+                          ],
+                        ),
                         //---------------- Luz Emergencia -----------------------------
-                        TableRow(children: [
-                          Padding(
-                            padding: const EdgeInsets.only(left: 8.0),
-                            child: Row(
-                              children: [
-                                (_luzDeEmergencia != null
-                                    ? const Icon(
-                                        Icons.done,
-                                        color: Colors.green,
-                                      )
-                                    : Container()),
-                                const Text('Luz de emergencia',
-                                    style: TextStyle(fontSize: 11)),
-                              ],
+                        TableRow(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(left: 8.0),
+                              child: Row(
+                                children: [
+                                  (_luzDeEmergencia != null
+                                      ? const Icon(
+                                          Icons.done,
+                                          color: Colors.green,
+                                        )
+                                      : Container()),
+                                  const Text(
+                                    'Luz de emergencia',
+                                    style: TextStyle(fontSize: 11),
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                          Radio<Option4>(
-                            value: Option4.Bien,
-                            visualDensity: const VisualDensity(
-                              horizontal: VisualDensity.minimumDensity,
-                              vertical: VisualDensity.minimumDensity,
+                            Radio<Option4>(
+                              value: Option4.Bien,
+                              visualDensity: const VisualDensity(
+                                horizontal: VisualDensity.minimumDensity,
+                                vertical: VisualDensity.minimumDensity,
+                              ),
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              groupValue: _luzDeEmergencia,
+                              onChanged: (Option4? value) {
+                                setState(() {
+                                  _luzDeEmergencia = value;
+                                });
+                              },
                             ),
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                            groupValue: _luzDeEmergencia,
-                            onChanged: (Option4? value) {
-                              setState(() {
-                                _luzDeEmergencia = value;
-                              });
-                            },
-                          ),
-                          Radio<Option4>(
-                            value: Option4.Regular,
-                            visualDensity: const VisualDensity(
-                              horizontal: VisualDensity.minimumDensity,
-                              vertical: VisualDensity.minimumDensity,
+                            Radio<Option4>(
+                              value: Option4.Regular,
+                              visualDensity: const VisualDensity(
+                                horizontal: VisualDensity.minimumDensity,
+                                vertical: VisualDensity.minimumDensity,
+                              ),
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              groupValue: _luzDeEmergencia,
+                              onChanged: (Option4? value) {
+                                setState(() {
+                                  _luzDeEmergencia = value;
+                                });
+                              },
                             ),
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                            groupValue: _luzDeEmergencia,
-                            onChanged: (Option4? value) {
-                              setState(() {
-                                _luzDeEmergencia = value;
-                              });
-                            },
-                          ),
-                          Radio<Option4>(
-                            value: Option4.Malo,
-                            visualDensity: const VisualDensity(
-                              horizontal: VisualDensity.minimumDensity,
-                              vertical: VisualDensity.minimumDensity,
+                            Radio<Option4>(
+                              value: Option4.Malo,
+                              visualDensity: const VisualDensity(
+                                horizontal: VisualDensity.minimumDensity,
+                                vertical: VisualDensity.minimumDensity,
+                              ),
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              groupValue: _luzDeEmergencia,
+                              onChanged: (Option4? value) {
+                                setState(() {
+                                  _luzDeEmergencia = value;
+                                });
+                              },
                             ),
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                            groupValue: _luzDeEmergencia,
-                            onChanged: (Option4? value) {
-                              setState(() {
-                                _luzDeEmergencia = value;
-                              });
-                            },
-                          ),
-                          Radio<Option4>(
-                            value: Option4.NoAplica,
-                            visualDensity: const VisualDensity(
-                              horizontal: VisualDensity.minimumDensity,
-                              vertical: VisualDensity.minimumDensity,
+                            Radio<Option4>(
+                              value: Option4.NoAplica,
+                              visualDensity: const VisualDensity(
+                                horizontal: VisualDensity.minimumDensity,
+                                vertical: VisualDensity.minimumDensity,
+                              ),
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              groupValue: _luzDeEmergencia,
+                              onChanged: (Option4? value) {
+                                setState(() {
+                                  _luzDeEmergencia = value;
+                                });
+                              },
                             ),
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                            groupValue: _luzDeEmergencia,
-                            onChanged: (Option4? value) {
-                              setState(() {
-                                _luzDeEmergencia = value;
-                              });
-                            },
-                          ),
-                        ]),
+                          ],
+                        ),
                       ],
                     ),
                   ),
                 ),
 
-                const SizedBox(
-                  height: 20,
-                ),
+                const SizedBox(height: 20),
 
                 //--------------------------------------------------------------------
                 //------------------------- Tercera Tabla ----------------------------
                 //--------------------------------------------------------------------
-
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10),
                   child: Container(
@@ -1985,677 +2098,729 @@ class _GruasCheckListAgregarScreenState
                       border: TableBorder.all(),
                       children: [
                         //---------------- Título -----------------------------
-                        TableRow(children: [
-                          Container(
-                            color: const Color.fromARGB(255, 33, 172, 236),
-                            child: const Padding(
-                              padding: EdgeInsets.only(left: 8.0),
-                              child: Text('Concepto',
+                        TableRow(
+                          children: [
+                            Container(
+                              color: const Color.fromARGB(255, 33, 172, 236),
+                              child: const Padding(
+                                padding: EdgeInsets.only(left: 8.0),
+                                child: Text(
+                                  'Concepto',
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.bold)),
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
                             ),
-                          ),
-                          Container(
-                            color: const Color.fromARGB(255, 33, 172, 236),
-                            child: const Text('Bien',
+                            Container(
+                              color: const Color.fromARGB(255, 33, 172, 236),
+                              child: const Text(
+                                'Bien',
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
-                                    fontSize: 12, fontWeight: FontWeight.bold)),
-                          ),
-                          Container(
-                            color: const Color.fromARGB(255, 33, 172, 236),
-                            child: const Padding(
-                              padding: EdgeInsets.only(left: 8.0),
-                              child: Text('Regular',
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                            Container(
+                              color: const Color.fromARGB(255, 33, 172, 236),
+                              child: const Padding(
+                                padding: EdgeInsets.only(left: 8.0),
+                                child: Text(
+                                  'Regular',
                                   style: TextStyle(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.bold)),
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
                             ),
-                          ),
-                          Container(
-                            color: const Color.fromARGB(255, 33, 172, 236),
-                            child: const Text('Malo',
+                            Container(
+                              color: const Color.fromARGB(255, 33, 172, 236),
+                              child: const Text(
+                                'Malo',
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
-                                    fontSize: 12, fontWeight: FontWeight.bold)),
-                          ),
-                          Container(
-                            color: const Color.fromARGB(255, 33, 172, 236),
-                            child: const Text('No Aplica',
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                            Container(
+                              color: const Color.fromARGB(255, 33, 172, 236),
+                              child: const Text(
+                                'No Aplica',
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
-                                    fontSize: 12, fontWeight: FontWeight.bold)),
-                          ),
-                        ]),
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                         //---------------- BalizaPortatil -----------------------------
-                        TableRow(children: [
-                          Padding(
-                            padding: const EdgeInsets.only(left: 8.0),
-                            child: Row(
-                              children: [
-                                (_balizaPortatil != null
-                                    ? const Icon(
-                                        Icons.done,
-                                        color: Colors.green,
-                                      )
-                                    : Container()),
-                                const Text('Baliza portátil',
-                                    style: TextStyle(fontSize: 11)),
-                              ],
+                        TableRow(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(left: 8.0),
+                              child: Row(
+                                children: [
+                                  (_balizaPortatil != null
+                                      ? const Icon(
+                                          Icons.done,
+                                          color: Colors.green,
+                                        )
+                                      : Container()),
+                                  const Text(
+                                    'Baliza portátil',
+                                    style: TextStyle(fontSize: 11),
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                          Radio<Option4>(
-                            value: Option4.Bien,
-                            visualDensity: const VisualDensity(
-                              horizontal: VisualDensity.minimumDensity,
-                              vertical: VisualDensity.minimumDensity,
+                            Radio<Option4>(
+                              value: Option4.Bien,
+                              visualDensity: const VisualDensity(
+                                horizontal: VisualDensity.minimumDensity,
+                                vertical: VisualDensity.minimumDensity,
+                              ),
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              groupValue: _balizaPortatil,
+                              onChanged: (Option4? value) {
+                                setState(() {
+                                  _balizaPortatil = value;
+                                });
+                              },
                             ),
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                            groupValue: _balizaPortatil,
-                            onChanged: (Option4? value) {
-                              setState(() {
-                                _balizaPortatil = value;
-                              });
-                            },
-                          ),
-                          Radio<Option4>(
-                            value: Option4.Regular,
-                            visualDensity: const VisualDensity(
-                              horizontal: VisualDensity.minimumDensity,
-                              vertical: VisualDensity.minimumDensity,
+                            Radio<Option4>(
+                              value: Option4.Regular,
+                              visualDensity: const VisualDensity(
+                                horizontal: VisualDensity.minimumDensity,
+                                vertical: VisualDensity.minimumDensity,
+                              ),
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              groupValue: _balizaPortatil,
+                              onChanged: (Option4? value) {
+                                setState(() {
+                                  _balizaPortatil = value;
+                                });
+                              },
                             ),
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                            groupValue: _balizaPortatil,
-                            onChanged: (Option4? value) {
-                              setState(() {
-                                _balizaPortatil = value;
-                              });
-                            },
-                          ),
-                          Radio<Option4>(
-                            value: Option4.Malo,
-                            visualDensity: const VisualDensity(
-                              horizontal: VisualDensity.minimumDensity,
-                              vertical: VisualDensity.minimumDensity,
+                            Radio<Option4>(
+                              value: Option4.Malo,
+                              visualDensity: const VisualDensity(
+                                horizontal: VisualDensity.minimumDensity,
+                                vertical: VisualDensity.minimumDensity,
+                              ),
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              groupValue: _balizaPortatil,
+                              onChanged: (Option4? value) {
+                                setState(() {
+                                  _balizaPortatil = value;
+                                });
+                              },
                             ),
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                            groupValue: _balizaPortatil,
-                            onChanged: (Option4? value) {
-                              setState(() {
-                                _balizaPortatil = value;
-                              });
-                            },
-                          ),
-                          Radio<Option4>(
-                            value: Option4.NoAplica,
-                            visualDensity: const VisualDensity(
-                              horizontal: VisualDensity.minimumDensity,
-                              vertical: VisualDensity.minimumDensity,
+                            Radio<Option4>(
+                              value: Option4.NoAplica,
+                              visualDensity: const VisualDensity(
+                                horizontal: VisualDensity.minimumDensity,
+                                vertical: VisualDensity.minimumDensity,
+                              ),
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              groupValue: _balizaPortatil,
+                              onChanged: (Option4? value) {
+                                setState(() {
+                                  _balizaPortatil = value;
+                                });
+                              },
                             ),
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                            groupValue: _balizaPortatil,
-                            onChanged: (Option4? value) {
-                              setState(() {
-                                _balizaPortatil = value;
-                              });
-                            },
-                          ),
-                        ]),
+                          ],
+                        ),
                         //---------------- Matafuegos -----------------------------
-                        TableRow(children: [
-                          Padding(
-                            padding: const EdgeInsets.only(left: 8.0),
-                            child: Row(
-                              children: [
-                                (_matafuegos != null
-                                    ? const Icon(
-                                        Icons.done,
-                                        color: Colors.green,
-                                      )
-                                    : Container()),
-                                const Text('Matafuegos',
-                                    style: TextStyle(fontSize: 11)),
-                              ],
+                        TableRow(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(left: 8.0),
+                              child: Row(
+                                children: [
+                                  (_matafuegos != null
+                                      ? const Icon(
+                                          Icons.done,
+                                          color: Colors.green,
+                                        )
+                                      : Container()),
+                                  const Text(
+                                    'Matafuegos',
+                                    style: TextStyle(fontSize: 11),
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                          Radio<Option4>(
-                            value: Option4.Bien,
-                            visualDensity: const VisualDensity(
-                              horizontal: VisualDensity.minimumDensity,
-                              vertical: VisualDensity.minimumDensity,
+                            Radio<Option4>(
+                              value: Option4.Bien,
+                              visualDensity: const VisualDensity(
+                                horizontal: VisualDensity.minimumDensity,
+                                vertical: VisualDensity.minimumDensity,
+                              ),
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              groupValue: _matafuegos,
+                              onChanged: (Option4? value) {
+                                setState(() {
+                                  _matafuegos = value;
+                                });
+                              },
                             ),
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                            groupValue: _matafuegos,
-                            onChanged: (Option4? value) {
-                              setState(() {
-                                _matafuegos = value;
-                              });
-                            },
-                          ),
-                          Radio<Option4>(
-                            value: Option4.Regular,
-                            visualDensity: const VisualDensity(
-                              horizontal: VisualDensity.minimumDensity,
-                              vertical: VisualDensity.minimumDensity,
+                            Radio<Option4>(
+                              value: Option4.Regular,
+                              visualDensity: const VisualDensity(
+                                horizontal: VisualDensity.minimumDensity,
+                                vertical: VisualDensity.minimumDensity,
+                              ),
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              groupValue: _matafuegos,
+                              onChanged: (Option4? value) {
+                                setState(() {
+                                  _matafuegos = value;
+                                });
+                              },
                             ),
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                            groupValue: _matafuegos,
-                            onChanged: (Option4? value) {
-                              setState(() {
-                                _matafuegos = value;
-                              });
-                            },
-                          ),
-                          Radio<Option4>(
-                            value: Option4.Malo,
-                            visualDensity: const VisualDensity(
-                              horizontal: VisualDensity.minimumDensity,
-                              vertical: VisualDensity.minimumDensity,
+                            Radio<Option4>(
+                              value: Option4.Malo,
+                              visualDensity: const VisualDensity(
+                                horizontal: VisualDensity.minimumDensity,
+                                vertical: VisualDensity.minimumDensity,
+                              ),
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              groupValue: _matafuegos,
+                              onChanged: (Option4? value) {
+                                setState(() {
+                                  _matafuegos = value;
+                                });
+                              },
                             ),
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                            groupValue: _matafuegos,
-                            onChanged: (Option4? value) {
-                              setState(() {
-                                _matafuegos = value;
-                              });
-                            },
-                          ),
-                          Radio<Option4>(
-                            value: Option4.NoAplica,
-                            visualDensity: const VisualDensity(
-                              horizontal: VisualDensity.minimumDensity,
-                              vertical: VisualDensity.minimumDensity,
+                            Radio<Option4>(
+                              value: Option4.NoAplica,
+                              visualDensity: const VisualDensity(
+                                horizontal: VisualDensity.minimumDensity,
+                                vertical: VisualDensity.minimumDensity,
+                              ),
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              groupValue: _matafuegos,
+                              onChanged: (Option4? value) {
+                                setState(() {
+                                  _matafuegos = value;
+                                });
+                              },
                             ),
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                            groupValue: _matafuegos,
-                            onChanged: (Option4? value) {
-                              setState(() {
-                                _matafuegos = value;
-                              });
-                            },
-                          ),
-                        ]),
+                          ],
+                        ),
                         //---------------- IdentificadorEmpresa -----------------------------
-                        TableRow(children: [
-                          Padding(
-                            padding: const EdgeInsets.only(left: 8.0),
-                            child: Row(
-                              children: [
-                                (_identificadorEmpresa != null
-                                    ? const Icon(
-                                        Icons.done,
-                                        color: Colors.green,
-                                      )
-                                    : Container()),
-                                const Text('Identif. de Empresa',
-                                    style: TextStyle(fontSize: 11)),
-                              ],
+                        TableRow(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(left: 8.0),
+                              child: Row(
+                                children: [
+                                  (_identificadorEmpresa != null
+                                      ? const Icon(
+                                          Icons.done,
+                                          color: Colors.green,
+                                        )
+                                      : Container()),
+                                  const Text(
+                                    'Identif. de Empresa',
+                                    style: TextStyle(fontSize: 11),
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                          Radio<Option4>(
-                            value: Option4.Bien,
-                            visualDensity: const VisualDensity(
-                              horizontal: VisualDensity.minimumDensity,
-                              vertical: VisualDensity.minimumDensity,
+                            Radio<Option4>(
+                              value: Option4.Bien,
+                              visualDensity: const VisualDensity(
+                                horizontal: VisualDensity.minimumDensity,
+                                vertical: VisualDensity.minimumDensity,
+                              ),
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              groupValue: _identificadorEmpresa,
+                              onChanged: (Option4? value) {
+                                setState(() {
+                                  _identificadorEmpresa = value;
+                                });
+                              },
                             ),
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                            groupValue: _identificadorEmpresa,
-                            onChanged: (Option4? value) {
-                              setState(() {
-                                _identificadorEmpresa = value;
-                              });
-                            },
-                          ),
-                          Radio<Option4>(
-                            value: Option4.Regular,
-                            visualDensity: const VisualDensity(
-                              horizontal: VisualDensity.minimumDensity,
-                              vertical: VisualDensity.minimumDensity,
+                            Radio<Option4>(
+                              value: Option4.Regular,
+                              visualDensity: const VisualDensity(
+                                horizontal: VisualDensity.minimumDensity,
+                                vertical: VisualDensity.minimumDensity,
+                              ),
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              groupValue: _identificadorEmpresa,
+                              onChanged: (Option4? value) {
+                                setState(() {
+                                  _identificadorEmpresa = value;
+                                });
+                              },
                             ),
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                            groupValue: _identificadorEmpresa,
-                            onChanged: (Option4? value) {
-                              setState(() {
-                                _identificadorEmpresa = value;
-                              });
-                            },
-                          ),
-                          Radio<Option4>(
-                            value: Option4.Malo,
-                            visualDensity: const VisualDensity(
-                              horizontal: VisualDensity.minimumDensity,
-                              vertical: VisualDensity.minimumDensity,
+                            Radio<Option4>(
+                              value: Option4.Malo,
+                              visualDensity: const VisualDensity(
+                                horizontal: VisualDensity.minimumDensity,
+                                vertical: VisualDensity.minimumDensity,
+                              ),
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              groupValue: _identificadorEmpresa,
+                              onChanged: (Option4? value) {
+                                setState(() {
+                                  _identificadorEmpresa = value;
+                                });
+                              },
                             ),
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                            groupValue: _identificadorEmpresa,
-                            onChanged: (Option4? value) {
-                              setState(() {
-                                _identificadorEmpresa = value;
-                              });
-                            },
-                          ),
-                          Radio<Option4>(
-                            value: Option4.NoAplica,
-                            visualDensity: const VisualDensity(
-                              horizontal: VisualDensity.minimumDensity,
-                              vertical: VisualDensity.minimumDensity,
+                            Radio<Option4>(
+                              value: Option4.NoAplica,
+                              visualDensity: const VisualDensity(
+                                horizontal: VisualDensity.minimumDensity,
+                                vertical: VisualDensity.minimumDensity,
+                              ),
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              groupValue: _identificadorEmpresa,
+                              onChanged: (Option4? value) {
+                                setState(() {
+                                  _identificadorEmpresa = value;
+                                });
+                              },
                             ),
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                            groupValue: _identificadorEmpresa,
-                            onChanged: (Option4? value) {
-                              setState(() {
-                                _identificadorEmpresa = value;
-                              });
-                            },
-                          ),
-                        ]),
+                          ],
+                        ),
                         //---------------- SobresalientesPeligro -----------------------------
-                        TableRow(children: [
-                          Padding(
-                            padding: const EdgeInsets.only(left: 8.0),
-                            child: Row(
-                              children: [
-                                (_sobresalientesPeligro != null
-                                    ? const Icon(
-                                        Icons.done,
-                                        color: Colors.green,
-                                      )
-                                    : Container()),
-                                const Text('Sobresal. Peligro',
-                                    style: TextStyle(fontSize: 11)),
-                              ],
+                        TableRow(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(left: 8.0),
+                              child: Row(
+                                children: [
+                                  (_sobresalientesPeligro != null
+                                      ? const Icon(
+                                          Icons.done,
+                                          color: Colors.green,
+                                        )
+                                      : Container()),
+                                  const Text(
+                                    'Sobresal. Peligro',
+                                    style: TextStyle(fontSize: 11),
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                          Radio<Option4>(
-                            value: Option4.Bien,
-                            visualDensity: const VisualDensity(
-                              horizontal: VisualDensity.minimumDensity,
-                              vertical: VisualDensity.minimumDensity,
+                            Radio<Option4>(
+                              value: Option4.Bien,
+                              visualDensity: const VisualDensity(
+                                horizontal: VisualDensity.minimumDensity,
+                                vertical: VisualDensity.minimumDensity,
+                              ),
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              groupValue: _sobresalientesPeligro,
+                              onChanged: (Option4? value) {
+                                setState(() {
+                                  _sobresalientesPeligro = value;
+                                });
+                              },
                             ),
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                            groupValue: _sobresalientesPeligro,
-                            onChanged: (Option4? value) {
-                              setState(() {
-                                _sobresalientesPeligro = value;
-                              });
-                            },
-                          ),
-                          Radio<Option4>(
-                            value: Option4.Regular,
-                            visualDensity: const VisualDensity(
-                              horizontal: VisualDensity.minimumDensity,
-                              vertical: VisualDensity.minimumDensity,
+                            Radio<Option4>(
+                              value: Option4.Regular,
+                              visualDensity: const VisualDensity(
+                                horizontal: VisualDensity.minimumDensity,
+                                vertical: VisualDensity.minimumDensity,
+                              ),
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              groupValue: _sobresalientesPeligro,
+                              onChanged: (Option4? value) {
+                                setState(() {
+                                  _sobresalientesPeligro = value;
+                                });
+                              },
                             ),
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                            groupValue: _sobresalientesPeligro,
-                            onChanged: (Option4? value) {
-                              setState(() {
-                                _sobresalientesPeligro = value;
-                              });
-                            },
-                          ),
-                          Radio<Option4>(
-                            value: Option4.Malo,
-                            visualDensity: const VisualDensity(
-                              horizontal: VisualDensity.minimumDensity,
-                              vertical: VisualDensity.minimumDensity,
+                            Radio<Option4>(
+                              value: Option4.Malo,
+                              visualDensity: const VisualDensity(
+                                horizontal: VisualDensity.minimumDensity,
+                                vertical: VisualDensity.minimumDensity,
+                              ),
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              groupValue: _sobresalientesPeligro,
+                              onChanged: (Option4? value) {
+                                setState(() {
+                                  _sobresalientesPeligro = value;
+                                });
+                              },
                             ),
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                            groupValue: _sobresalientesPeligro,
-                            onChanged: (Option4? value) {
-                              setState(() {
-                                _sobresalientesPeligro = value;
-                              });
-                            },
-                          ),
-                          Radio<Option4>(
-                            value: Option4.NoAplica,
-                            visualDensity: const VisualDensity(
-                              horizontal: VisualDensity.minimumDensity,
-                              vertical: VisualDensity.minimumDensity,
+                            Radio<Option4>(
+                              value: Option4.NoAplica,
+                              visualDensity: const VisualDensity(
+                                horizontal: VisualDensity.minimumDensity,
+                                vertical: VisualDensity.minimumDensity,
+                              ),
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              groupValue: _sobresalientesPeligro,
+                              onChanged: (Option4? value) {
+                                setState(() {
+                                  _sobresalientesPeligro = value;
+                                });
+                              },
                             ),
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                            groupValue: _sobresalientesPeligro,
-                            onChanged: (Option4? value) {
-                              setState(() {
-                                _sobresalientesPeligro = value;
-                              });
-                            },
-                          ),
-                        ]),
+                          ],
+                        ),
                         //---------------- Diagrama De Carga -----------------------------
-                        TableRow(children: [
-                          Padding(
-                            padding: const EdgeInsets.only(left: 8.0),
-                            child: Row(
-                              children: [
-                                (_diagramaDeCarga != null
-                                    ? const Icon(
-                                        Icons.done,
-                                        color: Colors.green,
-                                      )
-                                    : Container()),
-                                const Text('Diagrama de carga',
-                                    style: TextStyle(fontSize: 11)),
-                              ],
+                        TableRow(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(left: 8.0),
+                              child: Row(
+                                children: [
+                                  (_diagramaDeCarga != null
+                                      ? const Icon(
+                                          Icons.done,
+                                          color: Colors.green,
+                                        )
+                                      : Container()),
+                                  const Text(
+                                    'Diagrama de carga',
+                                    style: TextStyle(fontSize: 11),
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                          Radio<Option4>(
-                            value: Option4.Bien,
-                            visualDensity: const VisualDensity(
-                              horizontal: VisualDensity.minimumDensity,
-                              vertical: VisualDensity.minimumDensity,
+                            Radio<Option4>(
+                              value: Option4.Bien,
+                              visualDensity: const VisualDensity(
+                                horizontal: VisualDensity.minimumDensity,
+                                vertical: VisualDensity.minimumDensity,
+                              ),
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              groupValue: _diagramaDeCarga,
+                              onChanged: (Option4? value) {
+                                setState(() {
+                                  _diagramaDeCarga = value;
+                                });
+                              },
                             ),
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                            groupValue: _diagramaDeCarga,
-                            onChanged: (Option4? value) {
-                              setState(() {
-                                _diagramaDeCarga = value;
-                              });
-                            },
-                          ),
-                          Radio<Option4>(
-                            value: Option4.Regular,
-                            visualDensity: const VisualDensity(
-                              horizontal: VisualDensity.minimumDensity,
-                              vertical: VisualDensity.minimumDensity,
+                            Radio<Option4>(
+                              value: Option4.Regular,
+                              visualDensity: const VisualDensity(
+                                horizontal: VisualDensity.minimumDensity,
+                                vertical: VisualDensity.minimumDensity,
+                              ),
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              groupValue: _diagramaDeCarga,
+                              onChanged: (Option4? value) {
+                                setState(() {
+                                  _diagramaDeCarga = value;
+                                });
+                              },
                             ),
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                            groupValue: _diagramaDeCarga,
-                            onChanged: (Option4? value) {
-                              setState(() {
-                                _diagramaDeCarga = value;
-                              });
-                            },
-                          ),
-                          Radio<Option4>(
-                            value: Option4.Malo,
-                            visualDensity: const VisualDensity(
-                              horizontal: VisualDensity.minimumDensity,
-                              vertical: VisualDensity.minimumDensity,
+                            Radio<Option4>(
+                              value: Option4.Malo,
+                              visualDensity: const VisualDensity(
+                                horizontal: VisualDensity.minimumDensity,
+                                vertical: VisualDensity.minimumDensity,
+                              ),
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              groupValue: _diagramaDeCarga,
+                              onChanged: (Option4? value) {
+                                setState(() {
+                                  _diagramaDeCarga = value;
+                                });
+                              },
                             ),
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                            groupValue: _diagramaDeCarga,
-                            onChanged: (Option4? value) {
-                              setState(() {
-                                _diagramaDeCarga = value;
-                              });
-                            },
-                          ),
-                          Radio<Option4>(
-                            value: Option4.NoAplica,
-                            visualDensity: const VisualDensity(
-                              horizontal: VisualDensity.minimumDensity,
-                              vertical: VisualDensity.minimumDensity,
+                            Radio<Option4>(
+                              value: Option4.NoAplica,
+                              visualDensity: const VisualDensity(
+                                horizontal: VisualDensity.minimumDensity,
+                                vertical: VisualDensity.minimumDensity,
+                              ),
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              groupValue: _diagramaDeCarga,
+                              onChanged: (Option4? value) {
+                                setState(() {
+                                  _diagramaDeCarga = value;
+                                });
+                              },
                             ),
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                            groupValue: _diagramaDeCarga,
-                            onChanged: (Option4? value) {
-                              setState(() {
-                                _diagramaDeCarga = value;
-                              });
-                            },
-                          ),
-                        ]),
+                          ],
+                        ),
 
                         //---------------- Fajas -----------------------------
-                        TableRow(children: [
-                          Padding(
-                            padding: const EdgeInsets.only(left: 8.0),
-                            child: Row(
-                              children: [
-                                (_fajas != null
-                                    ? const Icon(
-                                        Icons.done,
-                                        color: Colors.green,
-                                      )
-                                    : Container()),
-                                const Text('Fajas',
-                                    style: TextStyle(fontSize: 11)),
-                              ],
+                        TableRow(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(left: 8.0),
+                              child: Row(
+                                children: [
+                                  (_fajas != null
+                                      ? const Icon(
+                                          Icons.done,
+                                          color: Colors.green,
+                                        )
+                                      : Container()),
+                                  const Text(
+                                    'Fajas',
+                                    style: TextStyle(fontSize: 11),
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                          Radio<Option4>(
-                            value: Option4.Bien,
-                            visualDensity: const VisualDensity(
-                              horizontal: VisualDensity.minimumDensity,
-                              vertical: VisualDensity.minimumDensity,
+                            Radio<Option4>(
+                              value: Option4.Bien,
+                              visualDensity: const VisualDensity(
+                                horizontal: VisualDensity.minimumDensity,
+                                vertical: VisualDensity.minimumDensity,
+                              ),
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              groupValue: _fajas,
+                              onChanged: (Option4? value) {
+                                setState(() {
+                                  _fajas = value;
+                                });
+                              },
                             ),
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                            groupValue: _fajas,
-                            onChanged: (Option4? value) {
-                              setState(() {
-                                _fajas = value;
-                              });
-                            },
-                          ),
-                          Radio<Option4>(
-                            value: Option4.Regular,
-                            visualDensity: const VisualDensity(
-                              horizontal: VisualDensity.minimumDensity,
-                              vertical: VisualDensity.minimumDensity,
+                            Radio<Option4>(
+                              value: Option4.Regular,
+                              visualDensity: const VisualDensity(
+                                horizontal: VisualDensity.minimumDensity,
+                                vertical: VisualDensity.minimumDensity,
+                              ),
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              groupValue: _fajas,
+                              onChanged: (Option4? value) {
+                                setState(() {
+                                  _fajas = value;
+                                });
+                              },
                             ),
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                            groupValue: _fajas,
-                            onChanged: (Option4? value) {
-                              setState(() {
-                                _fajas = value;
-                              });
-                            },
-                          ),
-                          Radio<Option4>(
-                            value: Option4.Malo,
-                            visualDensity: const VisualDensity(
-                              horizontal: VisualDensity.minimumDensity,
-                              vertical: VisualDensity.minimumDensity,
+                            Radio<Option4>(
+                              value: Option4.Malo,
+                              visualDensity: const VisualDensity(
+                                horizontal: VisualDensity.minimumDensity,
+                                vertical: VisualDensity.minimumDensity,
+                              ),
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              groupValue: _fajas,
+                              onChanged: (Option4? value) {
+                                setState(() {
+                                  _fajas = value;
+                                });
+                              },
                             ),
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                            groupValue: _fajas,
-                            onChanged: (Option4? value) {
-                              setState(() {
-                                _fajas = value;
-                              });
-                            },
-                          ),
-                          Radio<Option4>(
-                            value: Option4.NoAplica,
-                            visualDensity: const VisualDensity(
-                              horizontal: VisualDensity.minimumDensity,
-                              vertical: VisualDensity.minimumDensity,
+                            Radio<Option4>(
+                              value: Option4.NoAplica,
+                              visualDensity: const VisualDensity(
+                                horizontal: VisualDensity.minimumDensity,
+                                vertical: VisualDensity.minimumDensity,
+                              ),
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              groupValue: _fajas,
+                              onChanged: (Option4? value) {
+                                setState(() {
+                                  _fajas = value;
+                                });
+                              },
                             ),
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                            groupValue: _fajas,
-                            onChanged: (Option4? value) {
-                              setState(() {
-                                _fajas = value;
-                              });
-                            },
-                          ),
-                        ]),
+                          ],
+                        ),
 
                         //---------------- Grilletes -----------------------------
-                        TableRow(children: [
-                          Padding(
-                            padding: const EdgeInsets.only(left: 8.0),
-                            child: Row(
-                              children: [
-                                (_grilletes != null
-                                    ? const Icon(
-                                        Icons.done,
-                                        color: Colors.green,
-                                      )
-                                    : Container()),
-                                const Text('Grilletes',
-                                    style: TextStyle(fontSize: 11)),
-                              ],
+                        TableRow(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(left: 8.0),
+                              child: Row(
+                                children: [
+                                  (_grilletes != null
+                                      ? const Icon(
+                                          Icons.done,
+                                          color: Colors.green,
+                                        )
+                                      : Container()),
+                                  const Text(
+                                    'Grilletes',
+                                    style: TextStyle(fontSize: 11),
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                          Radio<Option4>(
-                            value: Option4.Bien,
-                            visualDensity: const VisualDensity(
-                              horizontal: VisualDensity.minimumDensity,
-                              vertical: VisualDensity.minimumDensity,
+                            Radio<Option4>(
+                              value: Option4.Bien,
+                              visualDensity: const VisualDensity(
+                                horizontal: VisualDensity.minimumDensity,
+                                vertical: VisualDensity.minimumDensity,
+                              ),
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              groupValue: _grilletes,
+                              onChanged: (Option4? value) {
+                                setState(() {
+                                  _grilletes = value;
+                                });
+                              },
                             ),
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                            groupValue: _grilletes,
-                            onChanged: (Option4? value) {
-                              setState(() {
-                                _grilletes = value;
-                              });
-                            },
-                          ),
-                          Radio<Option4>(
-                            value: Option4.Regular,
-                            visualDensity: const VisualDensity(
-                              horizontal: VisualDensity.minimumDensity,
-                              vertical: VisualDensity.minimumDensity,
+                            Radio<Option4>(
+                              value: Option4.Regular,
+                              visualDensity: const VisualDensity(
+                                horizontal: VisualDensity.minimumDensity,
+                                vertical: VisualDensity.minimumDensity,
+                              ),
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              groupValue: _grilletes,
+                              onChanged: (Option4? value) {
+                                setState(() {
+                                  _grilletes = value;
+                                });
+                              },
                             ),
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                            groupValue: _grilletes,
-                            onChanged: (Option4? value) {
-                              setState(() {
-                                _grilletes = value;
-                              });
-                            },
-                          ),
-                          Radio<Option4>(
-                            value: Option4.Malo,
-                            visualDensity: const VisualDensity(
-                              horizontal: VisualDensity.minimumDensity,
-                              vertical: VisualDensity.minimumDensity,
+                            Radio<Option4>(
+                              value: Option4.Malo,
+                              visualDensity: const VisualDensity(
+                                horizontal: VisualDensity.minimumDensity,
+                                vertical: VisualDensity.minimumDensity,
+                              ),
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              groupValue: _grilletes,
+                              onChanged: (Option4? value) {
+                                setState(() {
+                                  _grilletes = value;
+                                });
+                              },
                             ),
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                            groupValue: _grilletes,
-                            onChanged: (Option4? value) {
-                              setState(() {
-                                _grilletes = value;
-                              });
-                            },
-                          ),
-                          Radio<Option4>(
-                            value: Option4.NoAplica,
-                            visualDensity: const VisualDensity(
-                              horizontal: VisualDensity.minimumDensity,
-                              vertical: VisualDensity.minimumDensity,
+                            Radio<Option4>(
+                              value: Option4.NoAplica,
+                              visualDensity: const VisualDensity(
+                                horizontal: VisualDensity.minimumDensity,
+                                vertical: VisualDensity.minimumDensity,
+                              ),
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              groupValue: _grilletes,
+                              onChanged: (Option4? value) {
+                                setState(() {
+                                  _grilletes = value;
+                                });
+                              },
                             ),
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                            groupValue: _grilletes,
-                            onChanged: (Option4? value) {
-                              setState(() {
-                                _grilletes = value;
-                              });
-                            },
-                          ),
-                        ]),
+                          ],
+                        ),
 
                         //---------------- Cinta Sujecion Carga -----------------------------
-                        TableRow(children: [
-                          Padding(
-                            padding: const EdgeInsets.only(left: 8.0),
-                            child: Row(
-                              children: [
-                                (_cintaSujecionCarga != null
-                                    ? const Icon(
-                                        Icons.done,
-                                        color: Colors.green,
-                                      )
-                                    : Container()),
-                                const Text('Cinta suj. de carga',
-                                    style: TextStyle(fontSize: 11)),
-                              ],
+                        TableRow(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(left: 8.0),
+                              child: Row(
+                                children: [
+                                  (_cintaSujecionCarga != null
+                                      ? const Icon(
+                                          Icons.done,
+                                          color: Colors.green,
+                                        )
+                                      : Container()),
+                                  const Text(
+                                    'Cinta suj. de carga',
+                                    style: TextStyle(fontSize: 11),
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                          Radio<Option4>(
-                            value: Option4.Bien,
-                            visualDensity: const VisualDensity(
-                              horizontal: VisualDensity.minimumDensity,
-                              vertical: VisualDensity.minimumDensity,
+                            Radio<Option4>(
+                              value: Option4.Bien,
+                              visualDensity: const VisualDensity(
+                                horizontal: VisualDensity.minimumDensity,
+                                vertical: VisualDensity.minimumDensity,
+                              ),
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              groupValue: _cintaSujecionCarga,
+                              onChanged: (Option4? value) {
+                                setState(() {
+                                  _cintaSujecionCarga = value;
+                                });
+                              },
                             ),
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                            groupValue: _cintaSujecionCarga,
-                            onChanged: (Option4? value) {
-                              setState(() {
-                                _cintaSujecionCarga = value;
-                              });
-                            },
-                          ),
-                          Radio<Option4>(
-                            value: Option4.Regular,
-                            visualDensity: const VisualDensity(
-                              horizontal: VisualDensity.minimumDensity,
-                              vertical: VisualDensity.minimumDensity,
+                            Radio<Option4>(
+                              value: Option4.Regular,
+                              visualDensity: const VisualDensity(
+                                horizontal: VisualDensity.minimumDensity,
+                                vertical: VisualDensity.minimumDensity,
+                              ),
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              groupValue: _cintaSujecionCarga,
+                              onChanged: (Option4? value) {
+                                setState(() {
+                                  _cintaSujecionCarga = value;
+                                });
+                              },
                             ),
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                            groupValue: _cintaSujecionCarga,
-                            onChanged: (Option4? value) {
-                              setState(() {
-                                _cintaSujecionCarga = value;
-                              });
-                            },
-                          ),
-                          Radio<Option4>(
-                            value: Option4.Malo,
-                            visualDensity: const VisualDensity(
-                              horizontal: VisualDensity.minimumDensity,
-                              vertical: VisualDensity.minimumDensity,
+                            Radio<Option4>(
+                              value: Option4.Malo,
+                              visualDensity: const VisualDensity(
+                                horizontal: VisualDensity.minimumDensity,
+                                vertical: VisualDensity.minimumDensity,
+                              ),
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              groupValue: _cintaSujecionCarga,
+                              onChanged: (Option4? value) {
+                                setState(() {
+                                  _cintaSujecionCarga = value;
+                                });
+                              },
                             ),
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                            groupValue: _cintaSujecionCarga,
-                            onChanged: (Option4? value) {
-                              setState(() {
-                                _cintaSujecionCarga = value;
-                              });
-                            },
-                          ),
-                          Radio<Option4>(
-                            value: Option4.NoAplica,
-                            visualDensity: const VisualDensity(
-                              horizontal: VisualDensity.minimumDensity,
-                              vertical: VisualDensity.minimumDensity,
+                            Radio<Option4>(
+                              value: Option4.NoAplica,
+                              visualDensity: const VisualDensity(
+                                horizontal: VisualDensity.minimumDensity,
+                                vertical: VisualDensity.minimumDensity,
+                              ),
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              groupValue: _cintaSujecionCarga,
+                              onChanged: (Option4? value) {
+                                setState(() {
+                                  _cintaSujecionCarga = value;
+                                });
+                              },
                             ),
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                            groupValue: _cintaSujecionCarga,
-                            onChanged: (Option4? value) {
-                              setState(() {
-                                _cintaSujecionCarga = value;
-                              });
-                            },
-                          ),
-                        ]),
+                          ],
+                        ),
                       ],
                     ),
                   ),
@@ -2666,29 +2831,23 @@ class _GruasCheckListAgregarScreenState
                 _showResponsableVehiculo(),
                 _showObservaciones(),
                 const Divider(color: Colors.white),
-                const SizedBox(
-                  height: 5,
-                ),
+                const SizedBox(height: 5),
                 _showButton(),
-                const SizedBox(
-                  height: 15,
-                ),
+                const SizedBox(height: 15),
               ],
             ),
           ),
           _showLoader
-              ? const LoaderComponent(
-                  text: 'Por favor espere...',
-                )
+              ? const LoaderComponent(text: 'Por favor espere...')
               : Container(),
         ],
       ),
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _showNombreApellido -----------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _showNombreApellido -----------------------
+  //-----------------------------------------------------------------
 
   Widget _showNombreApellido() {
     return Container(
@@ -2696,14 +2855,14 @@ class _GruasCheckListAgregarScreenState
       child: TextField(
         controller: _nombreApellidoController,
         decoration: InputDecoration(
-            fillColor: Colors.white,
-            filled: true,
-            hintText: 'Nombre y Apellido...',
-            labelText: 'Nombre y Apellido',
-            errorText: _nombreApellidoShowError ? _nombreApellidoError : null,
-            prefixIcon: const Icon(Icons.person),
-            border:
-                OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
+          fillColor: Colors.white,
+          filled: true,
+          hintText: 'Nombre y Apellido...',
+          labelText: 'Nombre y Apellido',
+          errorText: _nombreApellidoShowError ? _nombreApellidoError : null,
+          prefixIcon: const Icon(Icons.person),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+        ),
         onChanged: (value) {
           _nombreApellido = value;
         },
@@ -2711,9 +2870,9 @@ class _GruasCheckListAgregarScreenState
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _showDocumento ----------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _showDocumento ----------------------------
+  //-----------------------------------------------------------------
 
   Widget _showDocumento() {
     return Container(
@@ -2722,14 +2881,14 @@ class _GruasCheckListAgregarScreenState
         controller: _documentoController,
         keyboardType: TextInputType.number,
         decoration: InputDecoration(
-            fillColor: Colors.white,
-            filled: true,
-            hintText: 'Documento...',
-            labelText: 'Documento',
-            errorText: _documentoShowError ? _documentoError : null,
-            prefixIcon: const Icon(Icons.person),
-            border:
-                OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
+          fillColor: Colors.white,
+          filled: true,
+          hintText: 'Documento...',
+          labelText: 'Documento',
+          errorText: _documentoShowError ? _documentoError : null,
+          prefixIcon: const Icon(Icons.person),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+        ),
         onChanged: (value) {
           _documento = value;
         },
@@ -2737,9 +2896,9 @@ class _GruasCheckListAgregarScreenState
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _showJefeDirecto --------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _showJefeDirecto --------------------------
+  //-----------------------------------------------------------------
 
   Widget _showJefeDirecto() {
     return Container(
@@ -2747,14 +2906,14 @@ class _GruasCheckListAgregarScreenState
       child: TextField(
         controller: _jefeDirectoController,
         decoration: InputDecoration(
-            fillColor: Colors.white,
-            filled: true,
-            hintText: 'Jefe Directo...',
-            labelText: 'Jefe Directo',
-            errorText: _jefeDirectoShowError ? _jefeDirectoError : null,
-            prefixIcon: const Icon(Icons.person),
-            border:
-                OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
+          fillColor: Colors.white,
+          filled: true,
+          hintText: 'Jefe Directo...',
+          labelText: 'Jefe Directo',
+          errorText: _jefeDirectoShowError ? _jefeDirectoError : null,
+          prefixIcon: const Icon(Icons.person),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+        ),
         onChanged: (value) {
           _jefeDirecto = value;
         },
@@ -2762,9 +2921,9 @@ class _GruasCheckListAgregarScreenState
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _showResponsableVehiculo ------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _showResponsableVehiculo ------------------
+  //-----------------------------------------------------------------
 
   Widget _showResponsableVehiculo() {
     return Container(
@@ -2772,16 +2931,16 @@ class _GruasCheckListAgregarScreenState
       child: TextField(
         controller: _responsableVehiculoController,
         decoration: InputDecoration(
-            fillColor: Colors.white,
-            filled: true,
-            hintText: 'Responsable Vehículo...',
-            labelText: 'Responsable Vehículo',
-            errorText: _responsableVehiculoShowError
-                ? _responsableVehiculoError
-                : null,
-            prefixIcon: const Icon(Icons.person),
-            border:
-                OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
+          fillColor: Colors.white,
+          filled: true,
+          hintText: 'Responsable Vehículo...',
+          labelText: 'Responsable Vehículo',
+          errorText: _responsableVehiculoShowError
+              ? _responsableVehiculoError
+              : null,
+          prefixIcon: const Icon(Icons.person),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+        ),
         onChanged: (value) {
           _responsableVehiculo = value;
         },
@@ -2789,9 +2948,9 @@ class _GruasCheckListAgregarScreenState
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _showObservaciones ------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _showObservaciones ------------------------
+  //-----------------------------------------------------------------
 
   Widget _showObservaciones() {
     return Container(
@@ -2800,14 +2959,14 @@ class _GruasCheckListAgregarScreenState
         controller: _observacionesController,
         maxLines: 3,
         decoration: InputDecoration(
-            fillColor: Colors.white,
-            filled: true,
-            hintText: 'Observaciones',
-            labelText: 'Observaciones',
-            errorText: _observacionesShowError ? _observacionesError : null,
-            suffixIcon: const Icon(Icons.notes),
-            border:
-                OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
+          fillColor: Colors.white,
+          filled: true,
+          hintText: 'Observaciones',
+          labelText: 'Observaciones',
+          errorText: _observacionesShowError ? _observacionesError : null,
+          suffixIcon: const Icon(Icons.notes),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+        ),
         onChanged: (value) {
           _observaciones = value;
         },
@@ -2815,9 +2974,9 @@ class _GruasCheckListAgregarScreenState
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _showButton -------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _showButton -------------------------------
+  //-----------------------------------------------------------------
 
   Widget _showButton() {
     return Container(
@@ -2827,16 +2986,6 @@ class _GruasCheckListAgregarScreenState
         children: <Widget>[
           Expanded(
             child: ElevatedButton(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  Icon(Icons.save),
-                  SizedBox(
-                    width: 20,
-                  ),
-                  Text('Guardar Check List'),
-                ],
-              ),
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xFF781f1e),
                 minimumSize: const Size(double.infinity, 50),
@@ -2845,6 +2994,14 @@ class _GruasCheckListAgregarScreenState
                 ),
               ),
               onPressed: _save,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Icon(Icons.save),
+                  SizedBox(width: 20),
+                  Text('Guardar Check List'),
+                ],
+              ),
             ),
           ),
         ],
@@ -2852,11 +3009,11 @@ class _GruasCheckListAgregarScreenState
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _save -------------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _save -------------------------------------
+  //-----------------------------------------------------------------
 
-  _save() {
+  void _save() {
     if (!validateFields()) {
       setState(() {});
       return;
@@ -2865,58 +3022,62 @@ class _GruasCheckListAgregarScreenState
     _addRecord();
   }
 
-//-----------------------------------------------------------------
-//--------------------- validateFields ----------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- validateFields ----------------------------
+  //-----------------------------------------------------------------
 
   bool validateFields() {
     bool isValid = true;
 
     if (_cliente == 0) {
       isValid = false;
-      showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: 'Debe seleccionar un Cliente',
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+      final _ = showAlertDialog(
+        context: context,
+        title: 'Error',
+        message: 'Debe seleccionar un Cliente',
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
       return isValid;
     }
 
     if (_codigo == '' || _vehiculo.numcha == '') {
       isValid = false;
       showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: 'Debe seleccionar un Vehículo',
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message: 'Debe seleccionar un Vehículo',
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
       return isValid;
     }
 
     if (_vehiculo.numcha == '000000  ' && _nombreApellido == '') {
       isValid = false;
       showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: 'Debe completar Nombre y Apellido',
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message: 'Debe completar Nombre y Apellido',
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
       return isValid;
     }
 
     if (_vehiculo.numcha == '000000  ' && _documento == '') {
       isValid = false;
       showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: 'Debe completar Documento',
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message: 'Debe completar Documento',
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
       return isValid;
     }
 
@@ -2924,12 +3085,13 @@ class _GruasCheckListAgregarScreenState
         (_fechaVencVtv == null || _fechaVencVtv == '')) {
       isValid = false;
       showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: 'Debe completar Fecha Vencimiento Vtv',
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message: 'Debe completar Fecha Vencimiento Vtv',
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
       return isValid;
     }
 
@@ -2937,12 +3099,13 @@ class _GruasCheckListAgregarScreenState
         (_fechaVencVth == null || _fechaVencVth == '')) {
       isValid = false;
       showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: 'Debe completar Fecha Vencimiento Vth',
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message: 'Debe completar Fecha Vencimiento Vth',
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
       return isValid;
     }
 
@@ -2950,81 +3113,81 @@ class _GruasCheckListAgregarScreenState
         (_fechaVencSeguro == null || _fechaVencSeguro == '')) {
       isValid = false;
       showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: 'Debe completar Fecha Vencimiento Seguro',
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message: 'Debe completar Fecha Vencimiento Seguro',
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
       return isValid;
     }
 
     if (_jefeDirecto == '') {
       isValid = false;
       showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: 'Debe completar Jefe Directo',
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message: 'Debe completar Jefe Directo',
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
       return isValid;
     }
 
     if (_jefeDirecto.length > 30) {
       isValid = false;
       showAlertDialog(
-          context: context,
-          title: 'Error',
-          message:
-              'Jefe Directo no puede superar los 30 caracteres. Ha escrito ' +
-                  _jefeDirecto.length.toString() +
-                  '.',
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message:
+            'Jefe Directo no puede superar los 30 caracteres. Ha escrito ${_jefeDirecto.length}.',
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
       return isValid;
     }
 
     if (_responsableVehiculo == '') {
       isValid = false;
       showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: 'Debe completar Responsable Vehículo',
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message: 'Debe completar Responsable Vehículo',
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
       return isValid;
     }
 
     if (_responsableVehiculo.length > 30) {
       isValid = false;
       showAlertDialog(
-          context: context,
-          title: 'Error',
-          message:
-              'Responsable Vehiculo no puede superar los 30 caracteres. Ha escrito ' +
-                  _responsableVehiculo.length.toString() +
-                  '.',
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message:
+            'Responsable Vehiculo no puede superar los 30 caracteres. Ha escrito ${_responsableVehiculo.length}.',
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
       return isValid;
     }
 
     if (_observaciones.length > 200) {
       isValid = false;
       showAlertDialog(
-          context: context,
-          title: 'Error',
-          message:
-              'Observaciones no puede superar los 200 caracteres. Ha escrito ' +
-                  _observaciones.length.toString() +
-                  '.',
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message:
+            'Observaciones no puede superar los 200 caracteres. Ha escrito ${_observaciones.length}.',
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
       return isValid;
     }
 
@@ -3057,12 +3220,13 @@ class _GruasCheckListAgregarScreenState
         _cintaSujecionCarga == null) {
       isValid = false;
       showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: 'Debe seleccionar una opción en cada Concepto',
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message: 'Debe seleccionar una opción en cada Concepto',
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
       return isValid;
     }
 
@@ -3070,9 +3234,9 @@ class _GruasCheckListAgregarScreenState
     return isValid;
   }
 
-//-----------------------------------------------------------------
-//--------------------- _addRecord --------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _addRecord --------------------------------
+  //-----------------------------------------------------------------
 
   void _addRecord() async {
     setState(() {
@@ -3086,7 +3250,10 @@ class _GruasCheckListAgregarScreenState
         _showLoader = false;
       });
       showMyDialog(
-          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
+        'Error',
+        'Verifica que estés conectado a Internet',
+        'Aceptar',
+      );
     }
 
     Map<String, dynamic> request = {
@@ -3103,69 +3270,93 @@ class _GruasCheckListAgregarScreenState
       'FechaVencVTH': _fechaVencVth != null
           ? _fechaVencVth.toString().substring(0, 10)
           : '',
-      'Cubiertas':
-          _cubiertas.toString().substring(8, _cubiertas.toString().length),
-      'CorreaCinturon': _correasCinturon
-          .toString()
-          .substring(8, _correasCinturon.toString().length),
-      'ApoyaCabezas': _apoyaCabezas
-          .toString()
-          .substring(8, _apoyaCabezas.toString().length),
-      'Limpiavidrios': _limpiaVidrios
-          .toString()
-          .substring(8, _limpiaVidrios.toString().length),
+      'Cubiertas': _cubiertas.toString().substring(
+        8,
+        _cubiertas.toString().length,
+      ),
+      'CorreaCinturon': _correasCinturon.toString().substring(
+        8,
+        _correasCinturon.toString().length,
+      ),
+      'ApoyaCabezas': _apoyaCabezas.toString().substring(
+        8,
+        _apoyaCabezas.toString().length,
+      ),
+      'Limpiavidrios': _limpiaVidrios.toString().substring(
+        8,
+        _limpiaVidrios.toString().length,
+      ),
       'Espejos': _espejos.toString().substring(8, _espejos.toString().length),
-      'IndicadoresDeGiro': _indicadoresDeGiro
-          .toString()
-          .substring(8, _indicadoresDeGiro.toString().length),
+      'IndicadoresDeGiro': _indicadoresDeGiro.toString().substring(
+        8,
+        _indicadoresDeGiro.toString().length,
+      ),
       'Bocina': _bocina.toString().substring(8, _bocina.toString().length),
-      'DispositivoPAT': _dispositivoPAT
-          .toString()
-          .substring(8, _dispositivoPAT.toString().length),
+      'DispositivoPAT': _dispositivoPAT.toString().substring(
+        8,
+        _dispositivoPAT.toString().length,
+      ),
       'Ganchos': _ganchos.toString().substring(8, _ganchos.toString().length),
-      'AlarmaRetroceso': _alarmaRetroceso
-          .toString()
-          .substring(8, _alarmaRetroceso.toString().length),
+      'AlarmaRetroceso': _alarmaRetroceso.toString().substring(
+        8,
+        _alarmaRetroceso.toString().length,
+      ),
       'ManguerasCircuitoHidraulico': _manguerasCircuitoHidraulico
           .toString()
           .substring(8, _manguerasCircuitoHidraulico.toString().length),
-      'FarosDelanteros': _farosDelanteros
-          .toString()
-          .substring(8, _farosDelanteros.toString().length),
-      'FarosTraseros': _farosTraseros
-          .toString()
-          .substring(8, _farosTraseros.toString().length),
-      'LuzPosicion': _luzDePosicion
-          .toString()
-          .substring(8, _luzDePosicion.toString().length),
-      'LuzFreno':
-          _luzDeFreno.toString().substring(8, _luzDeFreno.toString().length),
-      'LuzRetroceso': _luzDeRetroceso
-          .toString()
-          .substring(8, _luzDeRetroceso.toString().length),
-      'LuzEmergencia': _luzDeEmergencia
-          .toString()
-          .substring(8, _luzDeEmergencia.toString().length),
-      'BalizaPortatil': _balizaPortatil
-          .toString()
-          .substring(8, _balizaPortatil.toString().length),
-      'Matafuegos':
-          _matafuegos.toString().substring(8, _matafuegos.toString().length),
-      'IdentificadorEmpresa': _identificadorEmpresa
-          .toString()
-          .substring(8, _identificadorEmpresa.toString().length),
-      'SobreSalientesPeligro': _sobresalientesPeligro
-          .toString()
-          .substring(8, _sobresalientesPeligro.toString().length),
-      'DiagramaDeCarga': _diagramaDeCarga
-          .toString()
-          .substring(8, _diagramaDeCarga.toString().length),
+      'FarosDelanteros': _farosDelanteros.toString().substring(
+        8,
+        _farosDelanteros.toString().length,
+      ),
+      'FarosTraseros': _farosTraseros.toString().substring(
+        8,
+        _farosTraseros.toString().length,
+      ),
+      'LuzPosicion': _luzDePosicion.toString().substring(
+        8,
+        _luzDePosicion.toString().length,
+      ),
+      'LuzFreno': _luzDeFreno.toString().substring(
+        8,
+        _luzDeFreno.toString().length,
+      ),
+      'LuzRetroceso': _luzDeRetroceso.toString().substring(
+        8,
+        _luzDeRetroceso.toString().length,
+      ),
+      'LuzEmergencia': _luzDeEmergencia.toString().substring(
+        8,
+        _luzDeEmergencia.toString().length,
+      ),
+      'BalizaPortatil': _balizaPortatil.toString().substring(
+        8,
+        _balizaPortatil.toString().length,
+      ),
+      'Matafuegos': _matafuegos.toString().substring(
+        8,
+        _matafuegos.toString().length,
+      ),
+      'IdentificadorEmpresa': _identificadorEmpresa.toString().substring(
+        8,
+        _identificadorEmpresa.toString().length,
+      ),
+      'SobreSalientesPeligro': _sobresalientesPeligro.toString().substring(
+        8,
+        _sobresalientesPeligro.toString().length,
+      ),
+      'DiagramaDeCarga': _diagramaDeCarga.toString().substring(
+        8,
+        _diagramaDeCarga.toString().length,
+      ),
       'Fajas': _fajas.toString().substring(8, _fajas.toString().length),
-      'Grilletes':
-          _grilletes.toString().substring(8, _grilletes.toString().length),
-      'CintaSujecionCarga': _cintaSujecionCarga
-          .toString()
-          .substring(8, _cintaSujecionCarga.toString().length),
+      'Grilletes': _grilletes.toString().substring(
+        8,
+        _grilletes.toString().length,
+      ),
+      'CintaSujecionCarga': _cintaSujecionCarga.toString().substring(
+        8,
+        _cintaSujecionCarga.toString().length,
+      ),
       'JefeDirecto': _jefeDirecto,
       'ResponsableVehiculo': _responsableVehiculo,
       'Observaciones': _observaciones,
@@ -3183,12 +3374,17 @@ class _GruasCheckListAgregarScreenState
 
     if (widget.editMode == false) {
       response = await ApiHelper.postNoToken(
-          '/api/VehiculosCheckLists/PostVehiculosCheckLists', request);
+        '/api/VehiculosCheckLists/PostVehiculosCheckLists',
+        request,
+      );
     }
 
     if (widget.editMode == true) {
-      response = await ApiHelper.put('/api/VehiculosCheckLists/',
-          widget.checkList.idCheckList.toString(), request);
+      response = await ApiHelper.put(
+        '/api/VehiculosCheckLists/',
+        widget.checkList.idCheckList.toString(),
+        request,
+      );
     }
 
     setState(() {
@@ -3197,20 +3393,21 @@ class _GruasCheckListAgregarScreenState
 
     if (!response!.isSuccess) {
       await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: response.message,
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message: response.message,
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
       return;
     }
     Navigator.pop(context, 'yes');
   }
 
-//-----------------------------------------------------------------
-//--------------------- PLMayusc ----------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- PLMayusc ----------------------------------
+  //-----------------------------------------------------------------
 
   String PLMayusc(String string) {
     String name = '';
@@ -3236,9 +3433,9 @@ class _GruasCheckListAgregarScreenState
     return name;
   }
 
-//-----------------------------------------------------------------
-//--------------------- _showFechaVTV -----------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _showFechaVTV -----------------------------
+  //-----------------------------------------------------------------
 
   Widget _showFechaVTV() {
     return InkWell(
@@ -3258,9 +3455,9 @@ class _GruasCheckListAgregarScreenState
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _showFechaVTH -----------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _showFechaVTH -----------------------------
+  //-----------------------------------------------------------------
 
   Widget _showFechaVTH() {
     return InkWell(
@@ -3280,9 +3477,9 @@ class _GruasCheckListAgregarScreenState
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _showFechaSeguro --------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _showFechaSeguro --------------------------
+  //-----------------------------------------------------------------
 
   Widget _showFechaSeguro() {
     return InkWell(
@@ -3302,19 +3499,25 @@ class _GruasCheckListAgregarScreenState
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _elegirFechaVencVtv -----------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _elegirFechaVencVtv -----------------------
+  //-----------------------------------------------------------------
 
-  _elegirFechaVencVtv() async {
+  Future<void> _elegirFechaVencVtv() async {
     FocusScope.of(context).unfocus();
     final DateTime? selected = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
       firstDate: DateTime(
-          DateTime.now().year, DateTime.now().month, DateTime.now().day),
+        DateTime.now().year,
+        DateTime.now().month,
+        DateTime.now().day,
+      ),
       lastDate: DateTime(
-          DateTime.now().year + 5, DateTime.now().month, DateTime.now().day),
+        DateTime.now().year + 5,
+        DateTime.now().month,
+        DateTime.now().day,
+      ),
     );
     if (selected != null && selected != _fechaVencVtv) {
       setState(() {
@@ -3323,19 +3526,25 @@ class _GruasCheckListAgregarScreenState
     }
   }
 
-//-----------------------------------------------------------------
-//--------------------- _elegirFechaVencVth -----------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _elegirFechaVencVth -----------------------
+  //-----------------------------------------------------------------
 
-  _elegirFechaVencVth() async {
+  Future<void> _elegirFechaVencVth() async {
     FocusScope.of(context).unfocus();
     final DateTime? selected = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
       firstDate: DateTime(
-          DateTime.now().year, DateTime.now().month, DateTime.now().day),
+        DateTime.now().year,
+        DateTime.now().month,
+        DateTime.now().day,
+      ),
       lastDate: DateTime(
-          DateTime.now().year + 5, DateTime.now().month, DateTime.now().day),
+        DateTime.now().year + 5,
+        DateTime.now().month,
+        DateTime.now().day,
+      ),
     );
     if (selected != null && selected != _fechaVencVth) {
       setState(() {
@@ -3344,19 +3553,25 @@ class _GruasCheckListAgregarScreenState
     }
   }
 
-//-----------------------------------------------------------------
-//--------------------- _elegirFechaVencSeguro --------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _elegirFechaVencSeguro --------------------
+  //-----------------------------------------------------------------
 
-  _elegirFechaVencSeguro() async {
+  Future<void> _elegirFechaVencSeguro() async {
     FocusScope.of(context).unfocus();
     final DateTime? selected = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
       firstDate: DateTime(
-          DateTime.now().year, DateTime.now().month, DateTime.now().day),
+        DateTime.now().year,
+        DateTime.now().month,
+        DateTime.now().day,
+      ),
       lastDate: DateTime(
-          DateTime.now().year + 5, DateTime.now().month, DateTime.now().day),
+        DateTime.now().year + 5,
+        DateTime.now().month,
+        DateTime.now().day,
+      ),
     );
     if (selected != null && selected != _fechaVencVth) {
       setState(() {
@@ -3365,9 +3580,9 @@ class _GruasCheckListAgregarScreenState
     }
   }
 
-//-----------------------------------------------------------------------------
-//----------------------------- _getClientes ----------------------------------
-//-----------------------------------------------------------------------------
+  //-----------------------------------------------------------------------------
+  //----------------------------- _getClientes ----------------------------------
+  //-----------------------------------------------------------------------------
 
   Future<void> _getClientes() async {
     setState(() {
@@ -3381,7 +3596,10 @@ class _GruasCheckListAgregarScreenState
         _showLoader = false;
       });
       showMyDialog(
-          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
+        'Error',
+        'Verifica que estés conectado a Internet',
+        'Aceptar',
+      );
     }
 
     Response response = Response(isSuccess: false);
@@ -3394,29 +3612,29 @@ class _GruasCheckListAgregarScreenState
 
     if (!response.isSuccess) {
       await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: response.message,
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message: response.message,
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
       return;
     }
 
     setState(() {
       _clientes = response.result;
       _clientes.sort((a, b) {
-        return a.nombre
-            .toString()
-            .toLowerCase()
-            .compareTo(b.nombre.toString().toLowerCase());
+        return a.nombre.toString().toLowerCase().compareTo(
+          b.nombre.toString().toLowerCase(),
+        );
       });
     });
   }
 
-//----------------------------------------------------------------------
-//------------------------------ _showClientes--------------------------
-//----------------------------------------------------------------------
+  //----------------------------------------------------------------------
+  //------------------------------ _showClientes--------------------------
+  //----------------------------------------------------------------------
 
   Widget _showClientes() {
     return Row(
@@ -3428,9 +3646,7 @@ class _GruasCheckListAgregarScreenState
                 ? Row(
                     children: const [
                       CircularProgressIndicator(),
-                      SizedBox(
-                        width: 10,
-                      ),
+                      SizedBox(width: 10),
                       Text('Cargando Clientes...'),
                     ],
                   )
@@ -3438,7 +3654,7 @@ class _GruasCheckListAgregarScreenState
                     width: 200,
                     padding: const EdgeInsets.all(10),
                     child: DropdownButtonFormField(
-                      value: _cliente,
+                      initialValue: _cliente,
                       isExpanded: true,
                       isDense: true,
                       decoration: InputDecoration(
@@ -3448,7 +3664,8 @@ class _GruasCheckListAgregarScreenState
                         labelText: 'Cliente',
                         errorText: _clienteShowError ? _clienteError : null,
                         border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10)),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
                       ),
                       items: _getComboClientes(),
                       onChanged: (value) {
@@ -3462,30 +3679,31 @@ class _GruasCheckListAgregarScreenState
     );
   }
 
-//----------------------------------------------------------------------
-//------------------------------ _getComboClientes----------------------
-//----------------------------------------------------------------------
+  //----------------------------------------------------------------------
+  //------------------------------ _getComboClientes----------------------
+  //----------------------------------------------------------------------
 
   List<DropdownMenuItem<int>> _getComboClientes() {
     List<DropdownMenuItem<int>> list = [];
-    list.add(const DropdownMenuItem(
-      child: Text('Elija un Cliente...'),
-      value: 0,
-    ));
+    list.add(
+      const DropdownMenuItem(value: 0, child: Text('Elija un Cliente...')),
+    );
 
     for (var cliente in _clientes) {
-      list.add(DropdownMenuItem(
-        child: Text(cliente.nombre.toString()),
-        value: cliente.nrocliente,
-      ));
+      list.add(
+        DropdownMenuItem(
+          value: cliente.nrocliente,
+          child: Text(cliente.nombre.toString()),
+        ),
+      );
     }
 
     return list;
   }
 
-//-----------------------------------------------------------------
-//--------------------- _showChapa --------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _showChapa --------------------------------
+  //-----------------------------------------------------------------
 
   Widget _showChapa() {
     return Container(
@@ -3494,14 +3712,14 @@ class _GruasCheckListAgregarScreenState
         keyboardType: TextInputType.emailAddress,
         controller: _codigoController,
         decoration: InputDecoration(
-            fillColor: Colors.white,
-            filled: true,
-            hintText: 'Ingrese Patente...',
-            labelText: 'Patente:',
-            errorText: _codigoShowError ? _codigoError : null,
-            prefixIcon: const Icon(Icons.badge),
-            border:
-                OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
+          fillColor: Colors.white,
+          filled: true,
+          hintText: 'Ingrese Patente...',
+          labelText: 'Patente:',
+          errorText: _codigoShowError ? _codigoError : null,
+          prefixIcon: const Icon(Icons.badge),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+        ),
         onChanged: (value) {
           _codigo = value;
         },
@@ -3509,9 +3727,9 @@ class _GruasCheckListAgregarScreenState
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _showSearchButton -------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _showSearchButton -------------------------
+  //-----------------------------------------------------------------
 
   Widget _showSearchButton() {
     return Container(
@@ -3521,16 +3739,6 @@ class _GruasCheckListAgregarScreenState
         children: <Widget>[
           Expanded(
             child: ElevatedButton(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  Icon(Icons.search),
-                  SizedBox(
-                    width: 5,
-                  ),
-                  Text('Consultar'),
-                ],
-              ),
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xFF781f1e),
                 minimumSize: const Size(double.infinity, 50),
@@ -3539,6 +3747,14 @@ class _GruasCheckListAgregarScreenState
                 ),
               ),
               onPressed: () => _search(),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Icon(Icons.search),
+                  SizedBox(width: 5),
+                  Text('Consultar'),
+                ],
+              ),
             ),
           ),
         ],
@@ -3546,30 +3762,31 @@ class _GruasCheckListAgregarScreenState
     );
   }
 
-//-----------------------------------------------------------------------------
-//--------------------------------- _search -----------------------------------
-//-----------------------------------------------------------------------------
+  //-----------------------------------------------------------------------------
+  //--------------------------------- _search -----------------------------------
+  //-----------------------------------------------------------------------------
 
-  _search() async {
+  Future<void> _search() async {
     FocusScope.of(context).unfocus();
     _codigoController.text = _codigo.toUpperCase();
     if (_codigo.isEmpty) {
       await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: 'Ingrese una Patente.',
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message: 'Ingrese una Patente.',
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
       return;
     }
 
     _getVehiculo();
   }
 
-//-----------------------------------------------------------------------------
-//------------------------------- _getVehiculo --------------------------------
-//-----------------------------------------------------------------------------
+  //-----------------------------------------------------------------------------
+  //------------------------------- _getVehiculo --------------------------------
+  //-----------------------------------------------------------------------------
 
   Future<void> _getVehiculo() async {
     setState(() {
@@ -3582,12 +3799,13 @@ class _GruasCheckListAgregarScreenState
         _showLoader = false;
       });
       await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: 'Verifica que estes conectado a internet.',
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message: 'Verifica que estes conectado a internet.',
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
       return;
     }
 
@@ -3595,12 +3813,13 @@ class _GruasCheckListAgregarScreenState
 
     if (!response.isSuccess) {
       await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: 'Patente no existe en la BD',
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message: 'Patente no existe en la BD',
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
 
       setState(() {
         _showLoader = false;
@@ -3618,12 +3837,13 @@ class _GruasCheckListAgregarScreenState
 
     if (_vehiculoAux.habilitado == 0) {
       await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: 'Vehículo no habilitado',
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message: 'Vehículo no habilitado',
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
       setState(() {
         _vehiculoAux = _vehiculoVacio;
         _vehiculo = _vehiculoVacio;
@@ -3633,12 +3853,13 @@ class _GruasCheckListAgregarScreenState
     }
     if (_vehiculoAux.habilitaChecklist == 0) {
       await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: 'Vehículo no habilitado para CheckList',
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message: 'Vehículo no habilitado para CheckList',
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
       setState(() {
         _vehiculoAux = _vehiculoVacio;
         _vehiculo = _vehiculoVacio;
@@ -3649,9 +3870,9 @@ class _GruasCheckListAgregarScreenState
     _vehiculo = _vehiculoAux;
   }
 
-//-----------------------------------------------------------------
-//--------------------- _showInfo ---------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _showInfo ---------------------------------
+  //-----------------------------------------------------------------
 
   Widget _showInfo() {
     return Padding(
@@ -3697,37 +3918,54 @@ class _GruasCheckListAgregarScreenState
                 icon: Icons.date_range,
                 nombredato: 'Venc. VTV:',
                 dato: _vehiculo.fechaVencITV != 0
-                    ? _gato(DateFormat('dd/MM/yyyy').format(
-                        DateTime(2022, 01, 01).add(
-                            Duration(days: (_vehiculo.fechaVencITV! - 80723)))))
+                    ? _gato(
+                        DateFormat('dd/MM/yyyy').format(
+                          DateTime(2022, 01, 01).add(
+                            Duration(days: (_vehiculo.fechaVencITV! - 80723)),
+                          ),
+                        ),
+                      )
                     : '',
                 alert: _vehiculo.fechaVencITV != 0
                     ? DateTime(2022, 01, 01)
-                                .add(Duration(
-                                    days: (_vehiculo.fechaVencITV! - 80723)))
-                                .difference(DateTime.now()) >=
-                            const Duration(days: 50)
-                        ? false
-                        : true
+                                  .add(
+                                    Duration(
+                                      days: (_vehiculo.fechaVencITV! - 80723),
+                                    ),
+                                  )
+                                  .difference(DateTime.now()) >=
+                              const Duration(days: 50)
+                          ? false
+                          : true
                     : false,
               ),
               CustomRow(
                 icon: Icons.date_range,
                 nombredato: 'Venc. Oblea Gas:',
                 dato: _vehiculo.fechaVencObleaGAS != 0
-                    ? _gato(DateFormat('dd/MM/yyyy').format(
-                        DateTime(2022, 01, 01).add(Duration(
-                            days: (_vehiculo.fechaVencObleaGAS! - 80723)))))
+                    ? _gato(
+                        DateFormat('dd/MM/yyyy').format(
+                          DateTime(2022, 01, 01).add(
+                            Duration(
+                              days: (_vehiculo.fechaVencObleaGAS! - 80723),
+                            ),
+                          ),
+                        ),
+                      )
                     : '',
                 alert: _vehiculo.fechaVencObleaGAS != 0
                     ? DateTime(2022, 01, 01)
-                                .add(Duration(
-                                    days:
-                                        (_vehiculo.fechaVencObleaGAS! - 80723)))
-                                .difference(DateTime.now()) >=
-                            const Duration(days: 30)
-                        ? false
-                        : true
+                                  .add(
+                                    Duration(
+                                      days:
+                                          (_vehiculo.fechaVencObleaGAS! -
+                                          80723),
+                                    ),
+                                  )
+                                  .difference(DateTime.now()) >=
+                              const Duration(days: 30)
+                          ? false
+                          : true
                     : false,
               ),
               CustomRow(
@@ -3754,9 +3992,11 @@ class _GruasCheckListAgregarScreenState
                 icon: Icons.ac_unit,
                 nombredato: _vehiculo.usaHoras == 1 ? 'Horas:' : 'Kilómetros',
                 dato: _vehiculo.kmhsactual != 0
-                    ? _gato(_vehiculo.kmhsactual != null
-                        ? _vehiculo.kmhsactual.toString()
-                        : '')
+                    ? _gato(
+                        _vehiculo.kmhsactual != null
+                            ? _vehiculo.kmhsactual.toString()
+                            : '',
+                      )
                     : '',
               ),
               CustomRow(
@@ -3783,17 +4023,17 @@ class _GruasCheckListAgregarScreenState
     );
   }
 
-//-----------------------------------------------------------------------------
-//---------------------------------- _gato ------------------------------------
-//-----------------------------------------------------------------------------
+  //-----------------------------------------------------------------------------
+  //---------------------------------- _gato ------------------------------------
+  //-----------------------------------------------------------------------------
 
   String _gato(String? dato) {
     return dato != null ? dato.toString() : '';
   }
 
-//-----------------------------------------------------------------
-//--------------------- _showLegajo -------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _showLegajo -------------------------------
+  //-----------------------------------------------------------------
 
   Widget _showLegajo() {
     return Container(
@@ -3823,9 +4063,9 @@ class _GruasCheckListAgregarScreenState
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _showSearch2Button ------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _showSearch2Button ------------------------
+  //-----------------------------------------------------------------
 
   Widget _showSearch2Button() {
     return Container(
@@ -3835,15 +4075,6 @@ class _GruasCheckListAgregarScreenState
         children: <Widget>[
           Expanded(
             child: ElevatedButton(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  Icon(Icons.search),
-                  SizedBox(
-                    width: 5,
-                  ),
-                ],
-              ),
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xFF781f1e),
                 minimumSize: const Size(double.infinity, 50),
@@ -3852,6 +4083,10 @@ class _GruasCheckListAgregarScreenState
                 ),
               ),
               onPressed: () => _searchLegajo(),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [Icon(Icons.search), SizedBox(width: 5)],
+              ),
             ),
           ),
         ],
@@ -3859,28 +4094,29 @@ class _GruasCheckListAgregarScreenState
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _searchLegajo -----------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _searchLegajo -----------------------------
+  //-----------------------------------------------------------------
 
-  _searchLegajo() async {
+  Future<void> _searchLegajo() async {
     FocusScope.of(context).unfocus();
     if (_codigo2.isEmpty) {
       await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: 'Ingrese un Legajo o Documento.',
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message: 'Ingrese un Legajo o Documento.',
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
       return;
     }
     await _getCausante();
   }
 
-//-----------------------------------------------------------------
-//--------------------- _getCausante ------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _getCausante ------------------------------
+  //-----------------------------------------------------------------
 
   Future<void> _getCausante() async {
     setState(() {
@@ -3893,12 +4129,13 @@ class _GruasCheckListAgregarScreenState
         _showLoader = false;
       });
       await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: 'Verifica que estes conectado a internet.',
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message: 'Verifica que estes conectado a internet.',
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
       return;
     }
 
@@ -3906,12 +4143,13 @@ class _GruasCheckListAgregarScreenState
 
     if (!response.isSuccess) {
       await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: 'Legajo o Documento no válido',
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message: 'Legajo o Documento no válido',
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
 
       setState(() {
         _causante = _causanteVacio;
@@ -3930,9 +4168,9 @@ class _GruasCheckListAgregarScreenState
     });
   }
 
-//-----------------------------------------------------------------
-//--------------------- _showInfo2 --------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _showInfo2 --------------------------------
+  //-----------------------------------------------------------------
 
   Widget _showInfo2() {
     return Card(
@@ -3976,9 +4214,9 @@ class _GruasCheckListAgregarScreenState
     );
   }
 
-//-------------------------------------------------------------
-//-------------------- _loadFields ----------------------------
-//-------------------------------------------------------------
+  //-------------------------------------------------------------
+  //-------------------- _loadFields ----------------------------
+  //-------------------------------------------------------------
 
   void _loadFields() async {
     _cliente = widget.checkList.idCliente as int;
@@ -4009,14 +4247,16 @@ class _GruasCheckListAgregarScreenState
     _apoyaCabezas = _option4(widget.checkList.apoyaCabezas.toString());
     _limpiaVidrios = _option4(widget.checkList.limpiavidrios.toString());
     _espejos = _option4(widget.checkList.espejos.toString());
-    _indicadoresDeGiro =
-        _option4(widget.checkList.indicadoresDeGiro.toString());
+    _indicadoresDeGiro = _option4(
+      widget.checkList.indicadoresDeGiro.toString(),
+    );
     _bocina = _option4(widget.checkList.bocina.toString());
     _dispositivoPAT = _option4(widget.checkList.dispositivoPAT.toString());
     _ganchos = _option4(widget.checkList.ganchos.toString());
     _alarmaRetroceso = _option4(widget.checkList.alarmaRetroceso.toString());
-    _manguerasCircuitoHidraulico =
-        _option4(widget.checkList.manguerasCircuitoHidraulico.toString());
+    _manguerasCircuitoHidraulico = _option4(
+      widget.checkList.manguerasCircuitoHidraulico.toString(),
+    );
 
     _farosDelanteros = _option4(widget.checkList.farosDelanteros.toString());
     _farosTraseros = _option4(widget.checkList.farosTraseros.toString());
@@ -4027,21 +4267,24 @@ class _GruasCheckListAgregarScreenState
 
     _balizaPortatil = _option4(widget.checkList.balizaPortatil.toString());
     _matafuegos = _option4(widget.checkList.matafuegos.toString());
-    _identificadorEmpresa =
-        _option4(widget.checkList.identificadorEmpresa.toString());
-    _sobresalientesPeligro =
-        _option4(widget.checkList.sobreSalientesPeligro.toString());
+    _identificadorEmpresa = _option4(
+      widget.checkList.identificadorEmpresa.toString(),
+    );
+    _sobresalientesPeligro = _option4(
+      widget.checkList.sobreSalientesPeligro.toString(),
+    );
     _diagramaDeCarga = _option4(widget.checkList.diagramaDeCarga.toString());
     _fajas = _option4(widget.checkList.fajas.toString());
     _grilletes = _option4(widget.checkList.grilletes.toString());
-    _cintaSujecionCarga =
-        _option4(widget.checkList.cintaSujecionCarga.toString());
+    _cintaSujecionCarga = _option4(
+      widget.checkList.cintaSujecionCarga.toString(),
+    );
 
     _jefeDirecto = widget.checkList.jefeDirecto.toString();
     _jefeDirectoController.text = widget.checkList.jefeDirecto.toString();
     _responsableVehiculo = widget.checkList.responsableVehiculo.toString();
-    _responsableVehiculoController.text =
-        widget.checkList.responsableVehiculo.toString();
+    _responsableVehiculoController.text = widget.checkList.responsableVehiculo
+        .toString();
     _observaciones = widget.checkList.observaciones.toString();
     _observacionesController.text = widget.checkList.observaciones.toString();
 
@@ -4050,9 +4293,9 @@ class _GruasCheckListAgregarScreenState
     setState(() {});
   }
 
-//-------------------------------------------------------------
-//-------------------- _option4 -------------------------------
-//-------------------------------------------------------------
+  //-------------------------------------------------------------
+  //-------------------- _option4 -------------------------------
+  //-------------------------------------------------------------
 
   Option4 _option4(String dato) {
     Option4 option4 = Option4.Bien;

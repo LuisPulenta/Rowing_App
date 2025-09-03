@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:adaptive_dialog/adaptive_dialog.dart';
-import 'package:connectivity/connectivity.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
@@ -19,23 +19,23 @@ class PdfScreen extends StatefulWidget {
   final String imei;
 
   const PdfScreen({
-    Key? key,
+    super.key,
     required this.ruta,
     required this.positionUser,
     required this.recibo,
     required this.token,
     required this.imei,
-  }) : super(key: key);
+  });
 
   @override
   State<PdfScreen> createState() => _PdfScreenState();
 }
 
 class _PdfScreenState extends State<PdfScreen> {
-//---------------------- Variables ---------------------------------
+  //---------------------- Variables ---------------------------------
   bool _showLoader = false;
 
-//----------------------- Pantalla ---------------------------------
+  //----------------------- Pantalla ---------------------------------
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -59,22 +59,10 @@ class _PdfScreenState extends State<PdfScreen> {
               pageFling: false,
             ),
           ),
-          const SizedBox(
-            height: 20,
-          ),
+          const SizedBox(height: 20),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: ElevatedButton(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  Icon(Icons.save),
-                  SizedBox(
-                    width: 35,
-                  ),
-                  Text('Guardar'),
-                ],
-              ),
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color.fromARGB(255, 196, 9, 37),
                 minimumSize: const Size(100, 50),
@@ -85,12 +73,18 @@ class _PdfScreenState extends State<PdfScreen> {
               onPressed: () async {
                 await _guardar();
               },
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Icon(Icons.save),
+                  SizedBox(width: 35),
+                  Text('Guardar'),
+                ],
+              ),
             ),
           ),
           _showLoader
-              ? const LoaderComponent(
-                  text: 'Por favor espere...',
-                )
+              ? const LoaderComponent(text: 'Por favor espere...')
               : Container(),
         ],
       ),
@@ -110,7 +104,10 @@ class _PdfScreenState extends State<PdfScreen> {
         _showLoader = false;
       });
       showMyDialog(
-          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
+        'Error',
+        'Verifica que estés conectado a Internet',
+        'Aceptar',
+      );
     }
 
     Response response = Response(isSuccess: false);
@@ -133,8 +130,12 @@ class _PdfScreenState extends State<PdfScreen> {
       'Imei': widget.imei,
     };
 
-    response = await ApiHelper.put3('/api/CausanteRecibos/FirmarRecibo/',
-        '${widget.recibo.idrecibo}', request, widget.token);
+    response = await ApiHelper.put3(
+      '/api/CausanteRecibos/FirmarRecibo/',
+      '${widget.recibo.idrecibo}',
+      request,
+      widget.token,
+    );
 
     setState(() {
       _showLoader = false;
@@ -142,12 +143,13 @@ class _PdfScreenState extends State<PdfScreen> {
 
     if (!response.isSuccess) {
       await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: response.message,
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message: response.message,
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
       return;
     }
 
@@ -162,9 +164,12 @@ class _PdfScreenState extends State<PdfScreen> {
     Uri myUri = Uri.parse(filePath);
     File file = File.fromUri(myUri);
     Uint8List? bytes;
-    await file.readAsBytes().then((value) {
-      bytes = Uint8List.fromList(value);
-    }).catchError((onError) {});
+    await file
+        .readAsBytes()
+        .then((value) {
+          bytes = Uint8List.fromList(value);
+        })
+        .catchError((onError) {});
     return bytes;
   }
 }

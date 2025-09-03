@@ -4,7 +4,7 @@ import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:camera/camera.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:connectivity/connectivity.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
@@ -19,9 +19,11 @@ class GruasCheckListFotosScreen extends StatefulWidget {
   final User user;
   final VehiculosCheckList vehiculosCheckList;
 
-  const GruasCheckListFotosScreen(
-      {Key? key, required this.user, required this.vehiculosCheckList})
-      : super(key: key);
+  const GruasCheckListFotosScreen({
+    super.key,
+    required this.user,
+    required this.vehiculosCheckList,
+  });
 
   @override
   _GruasCheckListFotosScreenState createState() =>
@@ -29,9 +31,9 @@ class GruasCheckListFotosScreen extends StatefulWidget {
 }
 
 class _GruasCheckListFotosScreenState extends State<GruasCheckListFotosScreen> {
-//---------------------------------------------------------------------
-//-------------------------- Variables --------------------------------
-//---------------------------------------------------------------------
+  //---------------------------------------------------------------------
+  //-------------------------- Variables --------------------------------
+  //---------------------------------------------------------------------
 
   bool _photoChanged = false;
   late XFile _image;
@@ -39,80 +41,82 @@ class _GruasCheckListFotosScreenState extends State<GruasCheckListFotosScreen> {
   bool _showLoader = false;
 
   VehiculosCheckList _vehiculosCheckList = VehiculosCheckList(
-      idCheckList: 0,
-      fecha: '',
-      idUser: 0,
-      idCliente: 0,
-      cliente: '',
-      idVehiculo: 0,
-      numcha: '',
-      nrotar: '',
-      codProducto: '',
-      aniofa: 0,
-      descripcion: '',
-      chasis: '',
-      fechaVencITV: 0,
-      nroPolizaSeguro: '',
-      centroCosto: '',
-      propiedadDe: '',
-      telepase: '',
-      kmhsactual: 0,
-      usaHoras: 0,
-      habilitado: 0,
-      fechaVencObleaGAS: 0,
-      modulo: '',
-      campomemo: '',
-      vtv: '',
-      fechaVencVTV: '',
-      vth: '',
-      fechaVencVTH: '',
-      cubiertas: '',
-      correaCinturon: '',
-      apoyaCabezas: '',
-      limpiavidrios: '',
-      espejos: '',
-      indicadoresDeGiro: '',
-      bocina: '',
-      dispositivoPAT: '',
-      ganchos: '',
-      alarmaRetroceso: '',
-      manguerasCircuitoHidraulico: '',
-      farosDelanteros: '',
-      farosTraseros: '',
-      luzPosicion: '',
-      luzFreno: '',
-      luzRetroceso: '',
-      luzEmergencia: '',
-      balizaPortatil: '',
-      matafuegos: '',
-      identificadorEmpresa: '',
-      sobreSalientesPeligro: '',
-      diagramaDeCarga: '',
-      fajas: '',
-      grilletes: '',
-      cintaSujecionCarga: '',
-      jefeDirecto: '',
-      responsableVehiculo: '',
-      observaciones: '',
-      grupoC: '',
-      causanteC: '',
-      nombre: '',
-      dni: '',
-      apellidoNombre: '',
-      seguro: '',
-      fechaVencSeguro: '');
+    idCheckList: 0,
+    fecha: '',
+    idUser: 0,
+    idCliente: 0,
+    cliente: '',
+    idVehiculo: 0,
+    numcha: '',
+    nrotar: '',
+    codProducto: '',
+    aniofa: 0,
+    descripcion: '',
+    chasis: '',
+    fechaVencITV: 0,
+    nroPolizaSeguro: '',
+    centroCosto: '',
+    propiedadDe: '',
+    telepase: '',
+    kmhsactual: 0,
+    usaHoras: 0,
+    habilitado: 0,
+    fechaVencObleaGAS: 0,
+    modulo: '',
+    campomemo: '',
+    vtv: '',
+    fechaVencVTV: '',
+    vth: '',
+    fechaVencVTH: '',
+    cubiertas: '',
+    correaCinturon: '',
+    apoyaCabezas: '',
+    limpiavidrios: '',
+    espejos: '',
+    indicadoresDeGiro: '',
+    bocina: '',
+    dispositivoPAT: '',
+    ganchos: '',
+    alarmaRetroceso: '',
+    manguerasCircuitoHidraulico: '',
+    farosDelanteros: '',
+    farosTraseros: '',
+    luzPosicion: '',
+    luzFreno: '',
+    luzRetroceso: '',
+    luzEmergencia: '',
+    balizaPortatil: '',
+    matafuegos: '',
+    identificadorEmpresa: '',
+    sobreSalientesPeligro: '',
+    diagramaDeCarga: '',
+    fajas: '',
+    grilletes: '',
+    cintaSujecionCarga: '',
+    jefeDirecto: '',
+    responsableVehiculo: '',
+    observaciones: '',
+    grupoC: '',
+    causanteC: '',
+    nombre: '',
+    dni: '',
+    apellidoNombre: '',
+    seguro: '',
+    fechaVencSeguro: '',
+  );
 
   late Photo _photo;
   int _current = 0;
-  final CarouselController _carouselController = CarouselController();
+  final CarouselSliderController _carouselController =
+      CarouselSliderController();
 
   List<CheckListFoto> _vehiculosCheckListFotos = [];
 
   DateTime selectedDate = DateTime.now();
 
-//---------------------------------------------------------------------
-//-------------------------- initState --------------------------------
-//---------------------------------------------------------------------
+  //---------------------------------------------------------------------
+  //-------------------------- initState --------------------------------
+  //---------------------------------------------------------------------
 
   @override
   void initState() {
@@ -121,42 +125,33 @@ class _GruasCheckListFotosScreenState extends State<GruasCheckListFotosScreen> {
     _getFotos();
   }
 
-//---------------------------------------------------------------------
-//-------------------------- Pantalla ---------------------------------
-//---------------------------------------------------------------------
+  //---------------------------------------------------------------------
+  //-------------------------- Pantalla ---------------------------------
+  //---------------------------------------------------------------------
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFF484848),
-      appBar: AppBar(
-        title: const Text('Check List Fotos'),
-        centerTitle: true,
-      ),
+      appBar: AppBar(title: const Text('Check List Fotos'), centerTitle: true),
       body: Column(
         children: [
           _getInfoObra(),
           Expanded(
             child: SingleChildScrollView(
-              child: Column(
-                children: <Widget>[
-                  _showPhotosCarousel(),
-                ],
-              ),
+              child: Column(children: <Widget>[_showPhotosCarousel()]),
             ),
           ),
           _showImageButtons(),
-          const SizedBox(
-            height: 5,
-          ),
+          const SizedBox(height: 5),
         ],
       ),
     );
   }
 
-//-----------------------------------------------------------------------------
-//-------------------------- _getInfoObra -------------------------------------
-//-----------------------------------------------------------------------------
+  //-----------------------------------------------------------------------------
+  //-------------------------- _getInfoObra -------------------------------------
+  //-----------------------------------------------------------------------------
 
   Widget _getInfoObra() {
     double ancho = MediaQuery.of(context).size.width;
@@ -183,34 +178,42 @@ class _GruasCheckListFotosScreenState extends State<GruasCheckListFotosScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           _RowCustom(
-                              anchoTitulo: anchoTitulo,
-                              titulo: 'Id:',
-                              dato: _vehiculosCheckList.idCheckList.toString()),
+                            anchoTitulo: anchoTitulo,
+                            titulo: 'Id:',
+                            dato: _vehiculosCheckList.idCheckList.toString(),
+                          ),
                           _RowCustom(
-                              anchoTitulo: anchoTitulo,
-                              titulo: 'Fecha:',
-                              dato: DateFormat('dd/MM/yyyy').format(
-                                  DateTime.parse(_vehiculosCheckList.fecha!))),
+                            anchoTitulo: anchoTitulo,
+                            titulo: 'Fecha:',
+                            dato: DateFormat('dd/MM/yyyy').format(
+                              DateTime.parse(_vehiculosCheckList.fecha!),
+                            ),
+                          ),
                           _RowCustom(
-                              anchoTitulo: anchoTitulo,
-                              titulo: 'Patente:',
-                              dato: _vehiculosCheckList.numcha!),
+                            anchoTitulo: anchoTitulo,
+                            titulo: 'Patente:',
+                            dato: _vehiculosCheckList.numcha!,
+                          ),
                           _RowCustom(
-                              anchoTitulo: anchoTitulo,
-                              titulo: 'Descripción:',
-                              dato: _vehiculosCheckList.descripcion!),
+                            anchoTitulo: anchoTitulo,
+                            titulo: 'Descripción:',
+                            dato: _vehiculosCheckList.descripcion!,
+                          ),
                           _RowCustom(
-                              anchoTitulo: anchoTitulo,
-                              titulo: 'Cliente:',
-                              dato: _vehiculosCheckList.cliente!),
+                            anchoTitulo: anchoTitulo,
+                            titulo: 'Cliente:',
+                            dato: _vehiculosCheckList.cliente!,
+                          ),
                           _RowCustom(
-                              anchoTitulo: anchoTitulo,
-                              titulo: 'Descripción:',
-                              dato: _vehiculosCheckList.descripcion!),
+                            anchoTitulo: anchoTitulo,
+                            titulo: 'Descripción:',
+                            dato: _vehiculosCheckList.descripcion!,
+                          ),
                           _RowCustom(
-                              anchoTitulo: anchoTitulo,
-                              titulo: 'Nombre y Apellido:',
-                              dato: _vehiculosCheckList.apellidoNombre!),
+                            anchoTitulo: anchoTitulo,
+                            titulo: 'Nombre y Apellido:',
+                            dato: _vehiculosCheckList.apellidoNombre!,
+                          ),
                         ],
                       ),
                     ],
@@ -224,9 +227,9 @@ class _GruasCheckListFotosScreenState extends State<GruasCheckListFotosScreen> {
     );
   }
 
-//-----------------------------------------------------------------------------
-//-------------------------- _showPhotosCarousel ------------------------------
-//-----------------------------------------------------------------------------
+  //-----------------------------------------------------------------------------
+  //-------------------------- _showPhotosCarousel ------------------------------
+  //-----------------------------------------------------------------------------
 
   Widget _showPhotosCarousel() {
     return Container(
@@ -235,16 +238,17 @@ class _GruasCheckListFotosScreenState extends State<GruasCheckListFotosScreen> {
         children: [
           CarouselSlider(
             options: CarouselOptions(
-                height: 460,
-                autoPlay: false,
-                initialPage: 0,
-                autoPlayInterval: const Duration(seconds: 0),
-                enlargeCenterPage: true,
-                onPageChanged: (index, reason) {
-                  setState(() {
-                    _current = index;
-                  });
-                }),
+              height: 460,
+              autoPlay: false,
+              initialPage: 0,
+              autoPlayInterval: const Duration(seconds: 0),
+              enlargeCenterPage: true,
+              onPageChanged: (index, reason) {
+                setState(() {
+                  _current = index;
+                });
+              },
+            ),
             carouselController: _carouselController,
             items: _vehiculosCheckListFotos.map((i) {
               return Builder(
@@ -253,35 +257,36 @@ class _GruasCheckListFotosScreenState extends State<GruasCheckListFotosScreen> {
                     children: [
                       Expanded(
                         child: Container(
-                            width: MediaQuery.of(context).size.width,
-                            margin: const EdgeInsets.symmetric(horizontal: 5),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(20),
-                              child: CachedNetworkImage(
-                                imageUrl: i.imageFullPath == null
-                                    ? ''
-                                    : i.imageFullPath.toString(),
-                                errorWidget: (context, url, error) =>
-                                    const Icon(Icons.error),
+                          width: MediaQuery.of(context).size.width,
+                          margin: const EdgeInsets.symmetric(horizontal: 5),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(20),
+                            child: CachedNetworkImage(
+                              imageUrl: i.imageFullPath == null
+                                  ? ''
+                                  : i.imageFullPath.toString(),
+                              errorWidget: (context, url, error) =>
+                                  const Icon(Icons.error),
+                              fit: BoxFit.contain,
+                              height: 360,
+                              width: 460,
+                              placeholder: (context, url) => const Image(
+                                image: AssetImage('assets/loading.gif'),
                                 fit: BoxFit.contain,
-                                height: 360,
-                                width: 460,
-                                placeholder: (context, url) => const Image(
-                                  image: AssetImage('assets/loading.gif'),
-                                  fit: BoxFit.contain,
-                                  height: 100,
-                                  width: 100,
-                                ),
+                                height: 100,
+                                width: 100,
                               ),
-                            )),
+                            ),
+                          ),
+                        ),
                       ),
-                      const SizedBox(
-                        height: 5,
-                      ),
+                      const SizedBox(height: 5),
                       Text(
                         i.descripcion.toString(),
                         style: const TextStyle(
-                            color: Colors.white, fontWeight: FontWeight.bold),
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ],
                   );
@@ -298,13 +303,17 @@ class _GruasCheckListFotosScreenState extends State<GruasCheckListFotosScreen> {
                   width: 12.0,
                   height: 12.0,
                   margin: const EdgeInsets.symmetric(
-                      vertical: 8.0, horizontal: 4.0),
+                    vertical: 8.0,
+                    horizontal: 4.0,
+                  ),
                   decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: (Theme.of(context).brightness == Brightness.dark
-                              ? Colors.white
-                              : Colors.black)
-                          .withOpacity(_current == entry.key ? 0.9 : 0.4)),
+                    shape: BoxShape.circle,
+                    color:
+                        (Theme.of(context).brightness == Brightness.dark
+                                ? Colors.white
+                                : Colors.black)
+                            .withOpacity(_current == entry.key ? 0.9 : 0.4),
+                  ),
                 ),
               );
             }).toList(),
@@ -314,9 +323,9 @@ class _GruasCheckListFotosScreenState extends State<GruasCheckListFotosScreen> {
     );
   }
 
-//-----------------------------------------------------------------------------
-//-------------------------- _showImageButtons --------------------------------
-//-----------------------------------------------------------------------------
+  //-----------------------------------------------------------------------------
+  //-------------------------- _showImageButtons --------------------------------
+  //-----------------------------------------------------------------------------
 
   Widget _showImageButtons() {
     return Container(
@@ -328,13 +337,6 @@ class _GruasCheckListFotosScreenState extends State<GruasCheckListFotosScreen> {
             children: <Widget>[
               Expanded(
                 child: ElevatedButton(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: const [
-                      Icon(Icons.add_a_photo),
-                      Text('Adicionar Foto'),
-                    ],
-                  ),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFF120E43),
                     minimumSize: const Size(double.infinity, 50),
@@ -343,20 +345,18 @@ class _GruasCheckListFotosScreenState extends State<GruasCheckListFotosScreen> {
                     ),
                   ),
                   onPressed: () => _goAddPhoto(),
-                ),
-              ),
-              const SizedBox(
-                width: 20,
-              ),
-              Expanded(
-                child: ElevatedButton(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: const [
-                      Icon(Icons.delete),
-                      Text('Eliminar Foto'),
+                      Icon(Icons.add_a_photo),
+                      Text('Adicionar Foto'),
                     ],
                   ),
+                ),
+              ),
+              const SizedBox(width: 20),
+              Expanded(
+                child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFFB4161B),
                     minimumSize: const Size(double.infinity, 50),
@@ -365,43 +365,47 @@ class _GruasCheckListFotosScreenState extends State<GruasCheckListFotosScreen> {
                     ),
                   ),
                   onPressed: () => _confirmDeletePhoto(),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: const [Icon(Icons.delete), Text('Eliminar Foto')],
+                  ),
                 ),
               ),
             ],
           ),
-          const SizedBox(
-            height: 5,
-          ),
+          const SizedBox(height: 5),
         ],
       ),
     );
   }
 
-//-----------------------------------------------------------------------
-//-------------------------- _goAddPhoto --------------------------------
-//-----------------------------------------------------------------------
+  //-----------------------------------------------------------------------
+  //-------------------------- _goAddPhoto --------------------------------
+  //-----------------------------------------------------------------------
 
   void _goAddPhoto() async {
     if (widget.user.habilitaFotos != 1) {
       await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: 'Su usuario no está habilitado para agregar Fotos.',
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message: 'Su usuario no está habilitado para agregar Fotos.',
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
       return;
     }
 
     var response = await showAlertDialog(
-        context: context,
-        title: 'Seleccione una opción',
-        message: '¿De dónde deseas obtener la imagen?',
-        actions: <AlertDialogAction>[
-          const AlertDialogAction(key: 'cancel', label: 'Cancelar'),
-          const AlertDialogAction(key: 'camera', label: 'Cámara'),
-          const AlertDialogAction(key: 'gallery', label: 'Galería'),
-        ]);
+      context: context,
+      title: 'Seleccione una opción',
+      message: '¿De dónde deseas obtener la imagen?',
+      actions: <AlertDialogAction>[
+        const AlertDialogAction(key: 'cancel', label: 'Cancelar'),
+        const AlertDialogAction(key: 'camera', label: 'Cámara'),
+        const AlertDialogAction(key: 'gallery', label: 'Galería'),
+      ],
+    );
 
     if (response == 'cancel') {
       return;
@@ -418,23 +422,24 @@ class _GruasCheckListFotosScreenState extends State<GruasCheckListFotosScreen> {
     }
   }
 
-//-----------------------------------------------------------------------
-//-------------------------- _takePicture -------------------------------
-//-----------------------------------------------------------------------
+  //-----------------------------------------------------------------------
+  //-------------------------- _takePicture -------------------------------
+  //-----------------------------------------------------------------------
 
   Future _takePicture() async {
     WidgetsFlutterBinding.ensureInitialized();
     final cameras = await availableCameras();
     var firstCamera = cameras.first;
     var response1 = await showAlertDialog(
-        context: context,
-        title: 'Seleccionar cámara',
-        message: '¿Qué cámara desea utilizar?',
-        actions: <AlertDialogAction>[
-          const AlertDialogAction(key: 'no', label: 'Trasera'),
-          const AlertDialogAction(key: 'yes', label: 'Delantera'),
-          const AlertDialogAction(key: 'cancel', label: 'Cancelar'),
-        ]);
+      context: context,
+      title: 'Seleccionar cámara',
+      message: '¿Qué cámara desea utilizar?',
+      actions: <AlertDialogAction>[
+        const AlertDialogAction(key: 'no', label: 'Trasera'),
+        const AlertDialogAction(key: 'yes', label: 'Delantera'),
+        const AlertDialogAction(key: 'cancel', label: 'Cancelar'),
+      ],
+    );
     if (response1 == 'yes') {
       firstCamera = cameras.first;
     }
@@ -444,11 +449,11 @@ class _GruasCheckListFotosScreenState extends State<GruasCheckListFotosScreen> {
 
     if (response1 != 'cancel') {
       Response? response = await Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => TakePicture3Screen(
-                    camera: firstCamera,
-                  )));
+        context,
+        MaterialPageRoute(
+          builder: (context) => TakePicture3Screen(camera: firstCamera),
+        ),
+      );
       if (response != null) {
         setState(() {
           _photoChanged = true;
@@ -459,20 +464,21 @@ class _GruasCheckListFotosScreenState extends State<GruasCheckListFotosScreen> {
     }
   }
 
-//-----------------------------------------------------------------------
-//-------------------------- _selectPicture -----------------------------
-//-----------------------------------------------------------------------
+  //-----------------------------------------------------------------------
+  //-------------------------- _selectPicture -----------------------------
+  //-----------------------------------------------------------------------
 
   Future<void> _selectPicture() async {
-    final ImagePicker _picker = ImagePicker();
-    final XFile? _image2 = await _picker.pickImage(source: ImageSource.gallery);
+    final ImagePicker picker = ImagePicker();
+    final XFile? image2 = await picker.pickImage(source: ImageSource.gallery);
 
-    if (_image2 != null) {
+    if (image2 != null) {
       _photoChanged = true;
-      Response? response = await Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => DisplayPictureCScreen(
-                image: _image2,
-              )));
+      Response? response = await Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => DisplayPictureCScreen(image: image2),
+        ),
+      );
 
       _photoChanged = false;
       if (response != null) {
@@ -485,9 +491,9 @@ class _GruasCheckListFotosScreenState extends State<GruasCheckListFotosScreen> {
     }
   }
 
-//-----------------------------------------------------------------------
-//-------------------------- _addPicture --------------------------------
-//-----------------------------------------------------------------------
+  //-----------------------------------------------------------------------
+  //-------------------------- _addPicture --------------------------------
+  //-----------------------------------------------------------------------
 
   void _addPicture() async {
     setState(() {});
@@ -496,12 +502,13 @@ class _GruasCheckListFotosScreenState extends State<GruasCheckListFotosScreen> {
     if (connectivityResult == ConnectivityResult.none) {
       setState(() {});
       await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: 'Verifica que estes conectado a internet.',
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message: 'Verifica que estes conectado a internet.',
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
       return;
     }
 
@@ -519,18 +526,21 @@ class _GruasCheckListFotosScreenState extends State<GruasCheckListFotosScreen> {
     };
 
     Response response = await ApiHelper.post(
-        '/api/VehiculosCheckListsFotos/PostVehiculosCheckListsFoto', request);
+      '/api/VehiculosCheckListsFotos/PostVehiculosCheckListsFoto',
+      request,
+    );
 
     setState(() {});
 
     if (!response.isSuccess) {
       await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: response.message,
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message: response.message,
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
       return;
     }
 
@@ -539,9 +549,9 @@ class _GruasCheckListFotosScreenState extends State<GruasCheckListFotosScreen> {
     setState(() {});
   }
 
-//-----------------------------------------------------------------------
-//-------------------------- _confirmDeletePhoto ------------------------
-//-----------------------------------------------------------------------
+  //-----------------------------------------------------------------------
+  //-------------------------- _confirmDeletePhoto ------------------------
+  //-----------------------------------------------------------------------
 
   void _confirmDeletePhoto() async {
     if (_vehiculosCheckListFotos.isEmpty) {
@@ -549,13 +559,14 @@ class _GruasCheckListFotosScreenState extends State<GruasCheckListFotosScreen> {
     }
 
     var response = await showAlertDialog(
-        context: context,
-        title: 'Confirmación',
-        message: '¿Estas seguro de querer borrar esta foto?',
-        actions: <AlertDialogAction>[
-          const AlertDialogAction(key: 'no', label: 'No'),
-          const AlertDialogAction(key: 'yes', label: 'Sí'),
-        ]);
+      context: context,
+      title: 'Confirmación',
+      message: '¿Estas seguro de querer borrar esta foto?',
+      actions: <AlertDialogAction>[
+        const AlertDialogAction(key: 'no', label: 'No'),
+        const AlertDialogAction(key: 'yes', label: 'Sí'),
+      ],
+    );
 
     if (response == 'yes') {
       await _deletePhoto();
@@ -563,9 +574,9 @@ class _GruasCheckListFotosScreenState extends State<GruasCheckListFotosScreen> {
     }
   }
 
-//-----------------------------------------------------------------------
-//-------------------------- _deletePhoto -------------------------------
-//-----------------------------------------------------------------------
+  //-----------------------------------------------------------------------
+  //-------------------------- _deletePhoto -------------------------------
+  //-----------------------------------------------------------------------
 
   Future<void> _deletePhoto() async {
     setState(() {});
@@ -574,39 +585,42 @@ class _GruasCheckListFotosScreenState extends State<GruasCheckListFotosScreen> {
     if (connectivityResult == ConnectivityResult.none) {
       setState(() {});
       await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: 'Verifica que estes conectado a internet.',
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message: 'Verifica que estes conectado a internet.',
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
       return;
     }
 
     int aa = _vehiculosCheckListFotos[_current].idregistro;
 
     Response response = await ApiHelper.deleteVehiculosCheckListsFoto(
-        _vehiculosCheckListFotos[_current].idregistro.toString());
+      _vehiculosCheckListFotos[_current].idregistro.toString(),
+    );
 
     setState(() {});
 
     if (!response.isSuccess) {
       await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: response.message,
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message: response.message,
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
       return;
     }
 
     setState(() {});
   }
 
-//-------------------------------------------------------------
-//-------------------- _geFotos -------------------------------
-//-------------------------------------------------------------
+  //-------------------------------------------------------------
+  //-------------------- _geFotos -------------------------------
+  //-------------------------------------------------------------
 
   Future<void> _getFotos() async {
     setState(() {
@@ -620,13 +634,17 @@ class _GruasCheckListFotosScreenState extends State<GruasCheckListFotosScreen> {
         _showLoader = false;
       });
       showMyDialog(
-          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
+        'Error',
+        'Verifica que estés conectado a Internet',
+        'Aceptar',
+      );
     }
 
     Response response = Response(isSuccess: false);
 
     response = await ApiHelper.getCheckListFotos(
-        widget.vehiculosCheckList.idCheckList.toString());
+      widget.vehiculosCheckList.idCheckList.toString(),
+    );
 
     setState(() {
       _showLoader = false;
@@ -634,22 +652,22 @@ class _GruasCheckListFotosScreenState extends State<GruasCheckListFotosScreen> {
 
     if (!response.isSuccess) {
       await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: response.message,
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message: response.message,
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
       return;
     }
 
     setState(() {
       _vehiculosCheckListFotos = response.result;
       _vehiculosCheckListFotos.sort((a, b) {
-        return a.idregistro
-            .toString()
-            .toLowerCase()
-            .compareTo(b.idregistro.toString().toLowerCase());
+        return a.idregistro.toString().toLowerCase().compareTo(
+          b.idregistro.toString().toLowerCase(),
+        );
       });
     });
   }
@@ -660,11 +678,11 @@ class _GruasCheckListFotosScreenState extends State<GruasCheckListFotosScreen> {
 //-----------------------------------------------------------------
 class _RowCustom extends StatelessWidget {
   const _RowCustom({
-    Key? key,
+    super.key,
     required this.anchoTitulo,
     required this.titulo,
     required this.dato,
-  }) : super(key: key);
+  });
 
   final double anchoTitulo;
   final String titulo;
@@ -679,19 +697,16 @@ class _RowCustom extends StatelessWidget {
         children: [
           SizedBox(
             width: anchoTitulo,
-            child: Text(titulo,
-                style: const TextStyle(
-                  fontSize: 12,
-                  color: Color(0xFF781f1e),
-                  fontWeight: FontWeight.bold,
-                )),
+            child: Text(
+              titulo,
+              style: const TextStyle(
+                fontSize: 12,
+                color: Color(0xFF781f1e),
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           ),
-          Expanded(
-            child: Text(dato,
-                style: const TextStyle(
-                  fontSize: 12,
-                )),
-          )
+          Expanded(child: Text(dato, style: const TextStyle(fontSize: 12))),
         ],
       ),
     );

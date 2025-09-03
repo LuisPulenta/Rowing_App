@@ -1,5 +1,5 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
-import 'package:connectivity/connectivity.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:custom_info_window/custom_info_window.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
@@ -15,9 +15,11 @@ import '../screens.dart';
 class Elementosencallelistado extends StatefulWidget {
   final User user;
   final Position positionUser;
-  const Elementosencallelistado(
-      {Key? key, required this.user, required this.positionUser})
-      : super(key: key);
+  const Elementosencallelistado({
+    super.key,
+    required this.user,
+    required this.positionUser,
+  });
 
   @override
   State<Elementosencallelistado> createState() =>
@@ -25,9 +27,9 @@ class Elementosencallelistado extends StatefulWidget {
 }
 
 class _ElementosencallelistadoState extends State<Elementosencallelistado> {
-//---------------------------------------------------------------------
-//-------------------------- Variables --------------------------------
-//---------------------------------------------------------------------
+  //---------------------------------------------------------------------
+  //-------------------------- Variables --------------------------------
+  //---------------------------------------------------------------------
 
   List<ElemEnCalleDet> _elemEnCalleDet = [];
 
@@ -39,34 +41,35 @@ class _ElementosencallelistadoState extends State<Elementosencallelistado> {
       CustomInfoWindowController();
 
   ElemEnCalle _elemEnCalleSeleccionada = ElemEnCalle(
-      idelementocab: 0,
-      nroobra: 0,
-      nombreObra: '',
-      idusercarga: 0,
-      nombreCarga: '',
-      apellidoCarga: '',
-      fechaCarga: '',
-      grxx: '',
-      gryy: '',
-      domicilio: '',
-      observacion: '',
-      linkfoto: '',
-      imageFullPath: '',
-      estado: '',
-      cantItems: 0);
+    idelementocab: 0,
+    nroobra: 0,
+    nombreObra: '',
+    idusercarga: 0,
+    nombreCarga: '',
+    apellidoCarga: '',
+    fechaCarga: '',
+    grxx: '',
+    gryy: '',
+    domicilio: '',
+    observacion: '',
+    linkfoto: '',
+    imageFullPath: '',
+    estado: '',
+    cantItems: 0,
+  );
 
-//---------------------------------------------------------------------
-//-------------------------- initState --------------------------------
-//---------------------------------------------------------------------
+  //---------------------------------------------------------------------
+  //-------------------------- initState --------------------------------
+  //---------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
     _getElemEnCalle();
   }
 
-//---------------------------------------------------------------------
-//-------------------------- Pantalla --------------------------------
-//---------------------------------------------------------------------
+  //---------------------------------------------------------------------
+  //-------------------------- Pantalla --------------------------------
+  //---------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -84,34 +87,29 @@ class _ElementosencallelistadoState extends State<Elementosencallelistado> {
             : _getContent(),
       ),
       floatingActionButton: FloatingActionButton(
-        child: const Icon(
-          Icons.add,
-          size: 38,
-        ),
         backgroundColor: const Color(0xFF781f1e),
         onPressed: () => _addReporte(),
+        child: const Icon(Icons.add, size: 38),
       ),
     );
   }
 
-//---------------------------------------------------------------------
-//------------------------------ _getContent --------------------------
-//---------------------------------------------------------------------
+  //---------------------------------------------------------------------
+  //------------------------------ _getContent --------------------------
+  //---------------------------------------------------------------------
 
   Widget _getContent() {
     return Column(
       children: <Widget>[
         _showElemEnCalleCount(),
-        Expanded(
-          child: _elemEnCalle.isEmpty ? _noContent() : _getListView(),
-        )
+        Expanded(child: _elemEnCalle.isEmpty ? _noContent() : _getListView()),
       ],
     );
   }
 
-//-----------------------------------------------------------------------
-//------------------------------ _showObrasCount ------------------------
-//-----------------------------------------------------------------------
+  //-----------------------------------------------------------------------
+  //------------------------------ _showObrasCount ------------------------
+  //-----------------------------------------------------------------------
 
   Widget _showElemEnCalleCount() {
     return Container(
@@ -119,26 +117,30 @@ class _ElementosencallelistadoState extends State<Elementosencallelistado> {
       height: 40,
       child: Row(
         children: [
-          const Text('Cantidad de Obras con Elementos en Calle: ',
-              style: TextStyle(
-                fontSize: 14,
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-              )),
-          Text(_elemEnCalle.length.toString(),
-              style: const TextStyle(
-                fontSize: 14,
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-              )),
+          const Text(
+            'Cantidad de Obras con Elementos en Calle: ',
+            style: TextStyle(
+              fontSize: 14,
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          Text(
+            _elemEnCalle.length.toString(),
+            style: const TextStyle(
+              fontSize: 14,
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ],
       ),
     );
   }
 
-//-----------------------------------------------------------------------
-//------------------------------ _noContent -----------------------------
-//-----------------------------------------------------------------------
+  //-----------------------------------------------------------------------
+  //------------------------------ _noContent -----------------------------
+  //-----------------------------------------------------------------------
 
   Widget _noContent() {
     return Container(
@@ -152,9 +154,9 @@ class _ElementosencallelistadoState extends State<Elementosencallelistado> {
     );
   }
 
-//-----------------------------------------------------------------------
-//------------------------------ _getListView ---------------------------
-//-----------------------------------------------------------------------
+  //-----------------------------------------------------------------------
+  //------------------------------ _getListView ---------------------------
+  //-----------------------------------------------------------------------
 
   Widget _getListView() {
     return RefreshIndicator(
@@ -182,134 +184,125 @@ class _ElementosencallelistadoState extends State<Elementosencallelistado> {
                               children: [
                                 Row(
                                   children: [
-                                    const Text('N° Obra: ',
-                                        style: TextStyle(
-                                          fontSize: 12,
-                                          color: Color(0xFF781f1e),
-                                          fontWeight: FontWeight.bold,
-                                        )),
+                                    const Text(
+                                      'N° Obra: ',
+                                      style: TextStyle(
+                                        fontSize: 12,
+                                        color: Color(0xFF781f1e),
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
                                     Expanded(
                                       flex: 3,
-                                      child: Text(e.nroobra.toString(),
-                                          style: const TextStyle(
-                                            fontSize: 12,
-                                          )),
+                                      child: Text(
+                                        e.nroobra.toString(),
+                                        style: const TextStyle(fontSize: 12),
+                                      ),
                                     ),
                                   ],
                                 ),
-                                const SizedBox(
-                                  height: 5,
-                                ),
+                                const SizedBox(height: 5),
                                 Row(
                                   children: [
-                                    const Text('Nombre: ',
-                                        style: TextStyle(
-                                          fontSize: 12,
-                                          color: Color(0xFF781f1e),
-                                          fontWeight: FontWeight.bold,
-                                        )),
-                                    Expanded(
-                                      child: Text(e.nombreObra,
-                                          style: const TextStyle(
-                                            fontSize: 12,
-                                          )),
+                                    const Text(
+                                      'Nombre: ',
+                                      style: TextStyle(
+                                        fontSize: 12,
+                                        color: Color(0xFF781f1e),
+                                        fontWeight: FontWeight.bold,
+                                      ),
                                     ),
-                                  ],
-                                ),
-                                const SizedBox(
-                                  height: 5,
-                                ),
-                                Row(
-                                  children: [
-                                    const Text('Domicilio: ',
-                                        style: TextStyle(
-                                          fontSize: 12,
-                                          color: Color(0xFF781f1e),
-                                          fontWeight: FontWeight.bold,
-                                        )),
-                                    Expanded(
-                                      child: Text(e.domicilio,
-                                          style: const TextStyle(
-                                            fontSize: 12,
-                                          )),
-                                    ),
-                                    const SizedBox(
-                                      width: 20,
-                                    ),
-                                  ],
-                                ),
-                                const SizedBox(
-                                  height: 5,
-                                ),
-                                Row(
-                                  children: [
-                                    const Text('Items: ',
-                                        style: TextStyle(
-                                          fontSize: 12,
-                                          color: Color(0xFF781f1e),
-                                          fontWeight: FontWeight.bold,
-                                        )),
-                                    Expanded(
-                                      child: Text(e.cantItems.toString(),
-                                          style: const TextStyle(
-                                            fontSize: 12,
-                                          )),
-                                    ),
-                                    const SizedBox(
-                                      width: 20,
-                                    ),
-                                  ],
-                                ),
-                                const SizedBox(
-                                  height: 5,
-                                ),
-                                Row(
-                                  children: [
-                                    const Text('Usuario: ',
-                                        style: TextStyle(
-                                          fontSize: 12,
-                                          color: Color(0xFF781f1e),
-                                          fontWeight: FontWeight.bold,
-                                        )),
                                     Expanded(
                                       child: Text(
-                                          e.nombreCarga + ' ' + e.apellidoCarga,
-                                          style: const TextStyle(
-                                            fontSize: 12,
-                                          )),
-                                    ),
-                                    const SizedBox(
-                                      width: 20,
+                                        e.nombreObra,
+                                        style: const TextStyle(fontSize: 12),
+                                      ),
                                     ),
                                   ],
                                 ),
-                                const SizedBox(
-                                  height: 5,
-                                ),
+                                const SizedBox(height: 5),
                                 Row(
                                   children: [
-                                    const Text('Fecha: ',
-                                        style: TextStyle(
-                                          fontSize: 12,
-                                          color: Color(0xFF781f1e),
-                                          fontWeight: FontWeight.bold,
-                                        )),
+                                    const Text(
+                                      'Domicilio: ',
+                                      style: TextStyle(
+                                        fontSize: 12,
+                                        color: Color(0xFF781f1e),
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
                                     Expanded(
                                       child: Text(
-                                          DateFormat('dd/MM/yyyy').format(
-                                              DateTime.parse(e.fechaCarga)),
-                                          style: const TextStyle(
-                                            fontSize: 12,
-                                          )),
+                                        e.domicilio,
+                                        style: const TextStyle(fontSize: 12),
+                                      ),
                                     ),
-                                    const SizedBox(
-                                      width: 20,
-                                    ),
+                                    const SizedBox(width: 20),
                                   ],
                                 ),
-                                const SizedBox(
-                                  height: 5,
+                                const SizedBox(height: 5),
+                                Row(
+                                  children: [
+                                    const Text(
+                                      'Items: ',
+                                      style: TextStyle(
+                                        fontSize: 12,
+                                        color: Color(0xFF781f1e),
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    Expanded(
+                                      child: Text(
+                                        e.cantItems.toString(),
+                                        style: const TextStyle(fontSize: 12),
+                                      ),
+                                    ),
+                                    const SizedBox(width: 20),
+                                  ],
                                 ),
+                                const SizedBox(height: 5),
+                                Row(
+                                  children: [
+                                    const Text(
+                                      'Usuario: ',
+                                      style: TextStyle(
+                                        fontSize: 12,
+                                        color: Color(0xFF781f1e),
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    Expanded(
+                                      child: Text(
+                                        '${e.nombreCarga} ${e.apellidoCarga}',
+                                        style: const TextStyle(fontSize: 12),
+                                      ),
+                                    ),
+                                    const SizedBox(width: 20),
+                                  ],
+                                ),
+                                const SizedBox(height: 5),
+                                Row(
+                                  children: [
+                                    const Text(
+                                      'Fecha: ',
+                                      style: TextStyle(
+                                        fontSize: 12,
+                                        color: Color(0xFF781f1e),
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    Expanded(
+                                      child: Text(
+                                        DateFormat(
+                                          'dd/MM/yyyy',
+                                        ).format(DateTime.parse(e.fechaCarga)),
+                                        style: const TextStyle(fontSize: 12),
+                                      ),
+                                    ),
+                                    const SizedBox(width: 20),
+                                  ],
+                                ),
+                                const SizedBox(height: 5),
                               ],
                             ),
                           ),
@@ -323,8 +316,11 @@ class _ElementosencallelistadoState extends State<Elementosencallelistado> {
                           ? IconButton(
                               icon: const CircleAvatar(
                                 backgroundColor: Color(0xFF781f1e),
-                                child: Icon(Icons.edit,
-                                    size: 24, color: Colors.white),
+                                child: Icon(
+                                  Icons.edit,
+                                  size: 24,
+                                  color: Colors.white,
+                                ),
                               ),
                               onPressed: () async {
                                 _goElemEnCalle(e);
@@ -335,8 +331,11 @@ class _ElementosencallelistadoState extends State<Elementosencallelistado> {
                           ? IconButton(
                               icon: const CircleAvatar(
                                 backgroundColor: Colors.white,
-                                child: Icon(Icons.delete,
-                                    size: 24, color: Colors.red),
+                                child: Icon(
+                                  Icons.delete,
+                                  size: 24,
+                                  color: Colors.red,
+                                ),
                               ),
                               onPressed: () async {
                                 _goDeleteElemEnCalle(e);
@@ -346,13 +345,16 @@ class _ElementosencallelistadoState extends State<Elementosencallelistado> {
                       IconButton(
                         icon: const CircleAvatar(
                           backgroundColor: Colors.green,
-                          child: Icon(Icons.assignment_return,
-                              size: 24, color: Colors.white),
+                          child: Icon(
+                            Icons.assignment_return,
+                            size: 24,
+                            color: Colors.white,
+                          ),
                         ),
                         onPressed: () async {
                           _goRecElemEnCalle(e);
                         },
-                      )
+                      ),
                     ],
                   ),
                 ],
@@ -364,26 +366,28 @@ class _ElementosencallelistadoState extends State<Elementosencallelistado> {
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _addReporte -------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _addReporte -------------------------------
+  //-----------------------------------------------------------------
 
   void _addReporte() async {
     String? result = await Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => Elementosencalle(
-                  user: widget.user,
-                  positionUser: widget.positionUser,
-                )));
+      context,
+      MaterialPageRoute(
+        builder: (context) => Elementosencalle(
+          user: widget.user,
+          positionUser: widget.positionUser,
+        ),
+      ),
+    );
     if (result != 'xyz') {
       _getElemEnCalle();
     }
   }
 
-//---------------------------------------------------------------
-//----------------------- _getElemEnCalle -----------------------
-//---------------------------------------------------------------
+  //---------------------------------------------------------------
+  //----------------------- _getElemEnCalle -----------------------
+  //---------------------------------------------------------------
 
   Future<void> _getElemEnCalle() async {
     setState(() {
@@ -397,7 +401,10 @@ class _ElementosencallelistadoState extends State<Elementosencallelistado> {
         _showLoader = false;
       });
       showMyDialog(
-          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
+        'Error',
+        'Verifica que estés conectado a Internet',
+        'Aceptar',
+      );
     }
 
     Response response = Response(isSuccess: false);
@@ -405,107 +412,113 @@ class _ElementosencallelistadoState extends State<Elementosencallelistado> {
     response = await ApiHelper.getElemEnCalle();
 
     if (!response.isSuccess) {
-      await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: response.message,
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+      final _ = await showAlertDialog(
+        context: context,
+        title: 'Error',
+        message: response.message,
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
       return;
     }
 
     setState(() {
       _elemEnCalle = response.result;
       _elemEnCalle.sort((a, b) {
-        return a.idelementocab
-            .toString()
-            .toLowerCase()
-            .compareTo(b.idelementocab.toString().toLowerCase());
+        return a.idelementocab.toString().toLowerCase().compareTo(
+          b.idelementocab.toString().toLowerCase(),
+        );
       });
       _showLoader = false;
     });
   }
 
-//---------------------------------------------------------------
-//----------------------- _goElemEnCalle ------------------------
-//---------------------------------------------------------------
+  //---------------------------------------------------------------
+  //----------------------- _goElemEnCalle ------------------------
+  //---------------------------------------------------------------
 
   void _goElemEnCalle(ElemEnCalle elemEnCalle) async {
     String? result = await Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => Elementosencalleedit(
-                  user: widget.user,
-                  positionUser: widget.positionUser,
-                  elemEnCalle: elemEnCalle,
-                )));
+      context,
+      MaterialPageRoute(
+        builder: (context) => Elementosencalleedit(
+          user: widget.user,
+          positionUser: widget.positionUser,
+          elemEnCalle: elemEnCalle,
+        ),
+      ),
+    );
     if (result == 'yes' || result != 'yes') {
       _getElemEnCalle();
       setState(() {});
     }
   }
 
-//---------------------------------------------------------------
-//----------------------- _goRecElemEnCalle ------------------------
-//---------------------------------------------------------------
+  //---------------------------------------------------------------
+  //----------------------- _goRecElemEnCalle ------------------------
+  //---------------------------------------------------------------
 
   void _goRecElemEnCalle(ElemEnCalle elemEnCalle) async {
     String? result = await Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => Elementosencallerec(
-                  user: widget.user,
-                  positionUser: widget.positionUser,
-                  elemEnCalle: elemEnCalle,
-                )));
+      context,
+      MaterialPageRoute(
+        builder: (context) => Elementosencallerec(
+          user: widget.user,
+          positionUser: widget.positionUser,
+          elemEnCalle: elemEnCalle,
+        ),
+      ),
+    );
     if (result == 'yes' || result != 'yes') {
       _getElemEnCalle();
     }
   }
 
-//---------------------------------------------------------------
-//----------------------- _goDeleteElemEnCalle ------------------
-//---------------------------------------------------------------
+  //---------------------------------------------------------------
+  //----------------------- _goDeleteElemEnCalle ------------------
+  //---------------------------------------------------------------
 
   void _goDeleteElemEnCalle(ElemEnCalle elemEnCalle) async {
     var response = await showAlertDialog(
-        context: context,
-        title: 'Aviso',
-        message: '¿Está seguro de borrar este registro?',
-        actions: <AlertDialogAction>[
-          const AlertDialogAction(key: 'si', label: 'SI'),
-          const AlertDialogAction(key: 'no', label: 'NO'),
-        ]);
+      context: context,
+      title: 'Aviso',
+      message: '¿Está seguro de borrar este registro?',
+      actions: <AlertDialogAction>[
+        const AlertDialogAction(key: 'si', label: 'SI'),
+        const AlertDialogAction(key: 'no', label: 'NO'),
+      ],
+    );
     if (response == 'no') {
       return;
     }
     _deleteElemEnCalle(elemEnCalle);
   }
 
-//---------------------------------------------------------------
-//----------------------- _goDeleteElemEnCalle ------------------
-//---------------------------------------------------------------
+  //---------------------------------------------------------------
+  //----------------------- _goDeleteElemEnCalle ------------------
+  //---------------------------------------------------------------
 
   void _deleteElemEnCalle(ElemEnCalle elemEnCalle) async {
     await _loadDetalles(elemEnCalle);
 
-//-----------------Borra Detalle--------------
+    //-----------------Borra Detalle--------------
     for (ElemEnCalleDet _elem in _elemEnCalleDet) {
-      Response response = await ApiHelper.delete(
-          '/api/ElementosEnCalleDet/', _elem.id.toString());
+      await ApiHelper.delete('/api/ElementosEnCalleDet/', _elem.id.toString());
     }
 
-    Response response2 = await ApiHelper.delete(
-        '/api/ElementosEnCalleCab/', elemEnCalle.idelementocab.toString());
+    await ApiHelper.delete(
+      '/api/ElementosEnCalleCab/',
+      elemEnCalle.idelementocab.toString(),
+    );
 
     _getElemEnCalle();
     setState(() {});
   }
 
-//-----------------------------------------------------------------
-//--------------------- _loadDetalles -----------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _loadDetalles -----------------------------
+  //-----------------------------------------------------------------
 
   Future<void> _loadDetalles(ElemEnCalle elemEnCalle) async {
     setState(() {
@@ -519,38 +532,42 @@ class _ElementosencallelistadoState extends State<Elementosencallelistado> {
         _showLoader = false;
       });
       showMyDialog(
-          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
+        'Error',
+        'Verifica que estés conectado a Internet',
+        'Aceptar',
+      );
     }
 
     Response response = Response(isSuccess: false);
 
-    response =
-        await ApiHelper.getElemEnCalleDet(elemEnCalle.idelementocab.toString());
+    response = await ApiHelper.getElemEnCalleDet(
+      elemEnCalle.idelementocab.toString(),
+    );
 
     if (!response.isSuccess) {
-      await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: response.message,
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+      final _ = await showAlertDialog(
+        context: context,
+        title: 'Error',
+        message: response.message,
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
       return;
     }
     setState(() {
       _elemEnCalleDet = response.result;
       _elemEnCalleDet.sort((a, b) {
-        return a.idelementocab
-            .toString()
-            .toLowerCase()
-            .compareTo(b.idelementocab.toString().toLowerCase());
+        return a.idelementocab.toString().toLowerCase().compareTo(
+          b.idelementocab.toString().toLowerCase(),
+        );
       });
     });
   }
 
-//---------------------------------------------------------------
-//----------------------- _showMap ------------------------------
-//---------------------------------------------------------------
+  //---------------------------------------------------------------
+  //----------------------- _showMap ------------------------------
+  //---------------------------------------------------------------
 
   void _showMap() {
     if (_elemEnCalle.isEmpty) {
@@ -563,8 +580,6 @@ class _ElementosencallelistadoState extends State<Elementosencallelistado> {
     double latmax = -180.0;
     double longmin = 180.0;
     double longmax = -180.0;
-    double latcenter = 0.0;
-    double longcenter = 0.0;
 
     for (ElemEnCalle elemEnCalle in _elemEnCalle) {
       var lat = double.tryParse(elemEnCalle.grxx.toString()) ?? 0;
@@ -585,150 +600,151 @@ class _ElementosencallelistadoState extends State<Elementosencallelistado> {
         }
 
         Marker marker = Marker(
-            markerId: MarkerId(elemEnCalle.nroobra.toString()),
-            position: LatLng(lat, long),
-            // infoWindow: InfoWindow(
-            //   title:
-            //       '${obraReparo.direccion.toString()} ${obraReparo.altura.toString()}',
-            //   snippet: obraReparo.direccion.toString(),
-            // ),
-            onTap: () {
-              _customInfoWindowController.addInfoWindow!(
-                  Container(
-                    padding: const EdgeInsets.all(5),
-                    width: 300,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(4),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Icon(Icons.info),
-                        const SizedBox(
-                          width: 8.0,
-                        ),
-                        Expanded(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
+          markerId: MarkerId(elemEnCalle.nroobra.toString()),
+          position: LatLng(lat, long),
+          // infoWindow: InfoWindow(
+          //   title:
+          //       '${obraReparo.direccion.toString()} ${obraReparo.altura.toString()}',
+          //   snippet: obraReparo.direccion.toString(),
+          // ),
+          onTap: () {
+            _customInfoWindowController.addInfoWindow!(
+              Container(
+                padding: const EdgeInsets.all(5),
+                width: 300,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(4),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Icon(Icons.info),
+                    const SizedBox(width: 8.0),
+                    Expanded(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Expanded(
+                            child: Text(
+                              'Obra Nº: ${elemEnCalle.nroobra.toString()}',
+                              style: const TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            flex: 2,
+                            child: Text(
+                              'Nombre Obra: ${elemEnCalle.nombreObra.toString()}',
+                              maxLines: 3,
+                              style: const TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            flex: 2,
+                            child: Text(
+                              'Domicilio: ${elemEnCalle.domicilio.toString()}',
+                              maxLines: 3,
+                              style: const TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            child: Text(
+                              'Items.: ${elemEnCalle.cantItems.toString()}',
+                              style: const TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                          Row(
                             children: [
                               Expanded(
-                                  child: Text(
-                                'Obra Nº: ${elemEnCalle.nroobra.toString()}',
-                                style: const TextStyle(
-                                    fontSize: 12, fontWeight: FontWeight.bold),
-                              )),
-                              Expanded(
-                                  flex: 2,
-                                  child: Text(
-                                    'Nombre Obra: ${elemEnCalle.nombreObra.toString()}',
-                                    maxLines: 3,
-                                    style: const TextStyle(
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.bold),
-                                  )),
-                              Expanded(
-                                  flex: 2,
-                                  child: Text(
-                                    'Domicilio: ${elemEnCalle.domicilio.toString()}',
-                                    maxLines: 3,
-                                    style: const TextStyle(
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.bold),
-                                  )),
-                              Expanded(
-                                  child: Text(
-                                'Items.: ${elemEnCalle.cantItems.toString()}',
-                                style: const TextStyle(
-                                    fontSize: 12, fontWeight: FontWeight.bold),
-                              )),
-                              Row(
-                                children: [
-                                  Expanded(
-                                    child: ElevatedButton(
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: const [
-                                          Icon(Icons.map,
-                                              color: Color(0xff282886)),
-                                          SizedBox(
-                                            width: 5,
-                                          ),
-                                          Text(
-                                            'Navegar',
-                                            style: TextStyle(
-                                                color: Color(0xff282886)),
-                                          ),
-                                        ],
-                                      ),
-                                      style: ElevatedButton.styleFrom(
-                                        backgroundColor:
-                                            const Color(0xFFb3b3b4),
-                                        minimumSize:
-                                            const Size(double.infinity, 30),
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(5),
-                                        ),
-                                      ),
-                                      onPressed: () => _navegar(elemEnCalle),
+                                child: ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: const Color(0xFFb3b3b4),
+                                    minimumSize: const Size(
+                                      double.infinity,
+                                      30,
+                                    ),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(5),
                                     ),
                                   ),
-                                  const SizedBox(
-                                    width: 5,
-                                  ),
-                                  Expanded(
-                                    child: ElevatedButton(
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: const [
-                                          Text(
-                                            'Abrir',
-                                            style: TextStyle(
-                                                color: Color(0xff282886)),
-                                          ),
-                                          SizedBox(
-                                            width: 5,
-                                          ),
-                                          Icon(Icons.arrow_forward_ios,
-                                              color: Color(0xff282886)),
-                                        ],
-                                      ),
-                                      style: ElevatedButton.styleFrom(
-                                        backgroundColor:
-                                            const Color(0xFFb3b3b4),
-                                        minimumSize:
-                                            const Size(double.infinity, 30),
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(5),
+                                  onPressed: () => _navegar(elemEnCalle),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: const [
+                                      Icon(Icons.map, color: Color(0xff282886)),
+                                      SizedBox(width: 5),
+                                      Text(
+                                        'Navegar',
+                                        style: TextStyle(
+                                          color: Color(0xff282886),
                                         ),
                                       ),
-                                      onPressed: () =>
-                                          _goElemEnCalle2(elemEnCalle),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(width: 5),
+                              Expanded(
+                                child: ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: const Color(0xFFb3b3b4),
+                                    minimumSize: const Size(
+                                      double.infinity,
+                                      30,
+                                    ),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(5),
                                     ),
                                   ),
-                                ],
+                                  onPressed: () => _goElemEnCalle2(elemEnCalle),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: const [
+                                      Text(
+                                        'Abrir',
+                                        style: TextStyle(
+                                          color: Color(0xff282886),
+                                        ),
+                                      ),
+                                      SizedBox(width: 5),
+                                      Icon(
+                                        Icons.arrow_forward_ios,
+                                        color: Color(0xff282886),
+                                      ),
+                                    ],
+                                  ),
+                                ),
                               ),
                             ],
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
-                  LatLng(lat, long));
-            },
-            icon:
-                BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed));
+                  ],
+                ),
+              ),
+              LatLng(lat, long),
+            );
+          },
+          icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
+        );
 
         _markers.add(marker);
       }
     }
-    latcenter = (latmin + latmax) / 2;
-    longcenter = (longmin + longmax) / 2;
 
     Navigator.push(
       context,
@@ -738,7 +754,9 @@ class _ElementosencallelistadoState extends State<Elementosencallelistado> {
           positionUser: widget.positionUser,
           //posicion: LatLng(latcenter, longcenter),
           posicion: LatLng(
-              widget.positionUser.latitude, widget.positionUser.longitude),
+            widget.positionUser.latitude,
+            widget.positionUser.longitude,
+          ),
           markers: _markers,
           customInfoWindowController: _customInfoWindowController,
         ),
@@ -746,11 +764,11 @@ class _ElementosencallelistadoState extends State<Elementosencallelistado> {
     );
   }
 
-//-------------------------------------------------------------------------
-//-------------------------- _navegar -------------------------------------
-//-------------------------------------------------------------------------
+  //-------------------------------------------------------------------------
+  //-------------------------- _navegar -------------------------------------
+  //-------------------------------------------------------------------------
 
-  _navegar(ElemEnCalle elemEnCalle) async {
+  Future<void> _navegar(ElemEnCalle elemEnCalle) async {
     var connectivityResult = await Connectivity().checkConnectivity();
 
     if (connectivityResult != ConnectivityResult.none) {
@@ -763,19 +781,20 @@ class _ElementosencallelistadoState extends State<Elementosencallelistado> {
         throw 'Could not launch ${uri.toString()}';
       }
     } else {
-      await showAlertDialog(
-          context: context,
-          title: 'Aviso!',
-          message: 'Necesita estar conectado a Internet para acceder al mapa',
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+      final _ = await showAlertDialog(
+        context: context,
+        title: 'Aviso!',
+        message: 'Necesita estar conectado a Internet para acceder al mapa',
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
     }
   }
 
-//-------------------------------------------------------------------
-//-------------------------- _goElemEnCalle -------------------------
-//-------------------------------------------------------------------
+  //-------------------------------------------------------------------
+  //-------------------------- _goElemEnCalle -------------------------
+  //-------------------------------------------------------------------
 
   void _goElemEnCalle2(ElemEnCalle elementoEnCalle) async {
     for (ElemEnCalle elem in _elemEnCalle) {
@@ -785,13 +804,15 @@ class _ElementosencallelistadoState extends State<Elementosencallelistado> {
     }
 
     String? result = await Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => Elementosencallerec(
-                  user: widget.user,
-                  elemEnCalle: _elemEnCalleSeleccionada,
-                  positionUser: widget.positionUser,
-                )));
+      context,
+      MaterialPageRoute(
+        builder: (context) => Elementosencallerec(
+          user: widget.user,
+          elemEnCalle: _elemEnCalleSeleccionada,
+          positionUser: widget.positionUser,
+        ),
+      ),
+    );
     if (result == 'Yes' || result != 'Yes') {
       _getElemEnCalle();
       setState(() {});

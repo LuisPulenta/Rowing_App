@@ -3,7 +3,7 @@ import 'dart:io';
 
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:camera/camera.dart';
-import 'package:connectivity/connectivity.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:geocoding/geocoding.dart';
@@ -21,17 +21,20 @@ class VeredaAgregarScreen extends StatefulWidget {
   final User user;
   final Obra obra;
 
-  const VeredaAgregarScreen({Key? key, required this.user, required this.obra})
-      : super(key: key);
+  const VeredaAgregarScreen({
+    super.key,
+    required this.user,
+    required this.obra,
+  });
 
   @override
   State<VeredaAgregarScreen> createState() => _VeredaAgregarScreenState();
 }
 
 class _VeredaAgregarScreenState extends State<VeredaAgregarScreen> {
-//---------------------------------------------------------------
-//----------------------- Variables -----------------------------
-//---------------------------------------------------------------
+  //---------------------------------------------------------------
+  //----------------------- Variables -----------------------------
+  //---------------------------------------------------------------
 
   String _observaciones = '';
   final String _observacionesError = '';
@@ -48,15 +51,18 @@ class _VeredaAgregarScreenState extends State<VeredaAgregarScreen> {
   bool _showLoader = false;
   int _nroReg = 0;
 
-  Position _positionUser = const Position(
-      longitude: 0,
-      latitude: 0,
-      timestamp: null,
-      accuracy: 0,
-      altitude: 0,
-      heading: 0,
-      speed: 0,
-      speedAccuracy: 0);
+  Position _positionUser = Position(
+    longitude: 0,
+    latitude: 0,
+    timestamp: DateTime.now(),
+    altitudeAccuracy: 0,
+    headingAccuracy: 0,
+    accuracy: 0,
+    altitude: 0,
+    heading: 0,
+    speed: 0,
+    speedAccuracy: 0,
+  );
 
   bool _habilitaPosicion = false;
 
@@ -106,9 +112,9 @@ class _VeredaAgregarScreenState extends State<VeredaAgregarScreen> {
   bool _photoChanged = false;
   late XFile _image;
 
-//---------------------------------------------------------------
-//----------------------- initState -----------------------------
-//---------------------------------------------------------------
+  //---------------------------------------------------------------
+  //----------------------- initState -----------------------------
+  //---------------------------------------------------------------
 
   @override
   void initState() {
@@ -120,22 +126,20 @@ class _VeredaAgregarScreenState extends State<VeredaAgregarScreen> {
 
   void _loadPositionUser() async {
     _positionUser = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high);
+      desiredAccuracy: LocationAccuracy.high,
+    );
     _center = LatLng(_positionUser.latitude, _positionUser.longitude);
   }
 
-//---------------------------------------------------------------
-//----------------------- Pantalla ------------------------------
-//---------------------------------------------------------------
+  //---------------------------------------------------------------
+  //----------------------- Pantalla ------------------------------
+  //---------------------------------------------------------------
 
   @override
   Widget build(BuildContext context) {
     double ancho = MediaQuery.of(context).size.width;
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Agregar Vereda'),
-        centerTitle: true,
-      ),
+      appBar: AppBar(title: const Text('Agregar Vereda'), centerTitle: true),
       backgroundColor: const Color(0xff8c8c94),
       body: Stack(
         children: [
@@ -149,23 +153,21 @@ class _VeredaAgregarScreenState extends State<VeredaAgregarScreen> {
                 _showClase(),
                 _showFotos(ancho),
                 _showObservaciones(),
-                _showButtons()
+                _showButtons(),
               ],
             ),
           ),
           _showLoader
-              ? const LoaderComponent(
-                  text: 'Por favor espere...',
-                )
+              ? const LoaderComponent(text: 'Por favor espere...')
               : Container(),
         ],
       ),
     );
   }
 
-//----------------------------------------------------------------------
-//------------------------------ _showAddress --------------------------
-//----------------------------------------------------------------------
+  //----------------------------------------------------------------------
+  //------------------------------ _showAddress --------------------------
+  //----------------------------------------------------------------------
 
   Widget _showAddress() {
     return Container(
@@ -180,14 +182,16 @@ class _VeredaAgregarScreenState extends State<VeredaAgregarScreen> {
                   controller: _direccionController,
                   keyboardType: TextInputType.streetAddress,
                   decoration: InputDecoration(
-                      fillColor: Colors.white,
-                      filled: true,
-                      hintText: 'Ingrese dirección...',
-                      labelText: 'Dirección',
-                      errorText: _direccionShowError ? _direccionError : null,
-                      suffixIcon: const Icon(Icons.home),
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10))),
+                    fillColor: Colors.white,
+                    filled: true,
+                    hintText: 'Ingrese dirección...',
+                    labelText: 'Dirección',
+                    errorText: _direccionShowError ? _direccionError : null,
+                    suffixIcon: const Icon(Icons.home),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
                   onChanged: (value) {
                     _direccion = value;
                   },
@@ -195,9 +199,7 @@ class _VeredaAgregarScreenState extends State<VeredaAgregarScreen> {
               ),
             ],
           ),
-          const SizedBox(
-            height: 10,
-          ),
+          const SizedBox(height: 10),
           Row(
             children: [
               Expanded(
@@ -206,84 +208,83 @@ class _VeredaAgregarScreenState extends State<VeredaAgregarScreen> {
                   controller: _numeroController,
                   keyboardType: TextInputType.streetAddress,
                   decoration: InputDecoration(
-                      fillColor: Colors.white,
-                      filled: true,
-                      hintText: 'Ingrese N°...',
-                      labelText: 'N°',
-                      errorText: _numeroShowError ? _numeroError : null,
-                      suffixIcon: const Icon(Icons.home),
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10))),
+                    fillColor: Colors.white,
+                    filled: true,
+                    hintText: 'Ingrese N°...',
+                    labelText: 'N°',
+                    errorText: _numeroShowError ? _numeroError : null,
+                    suffixIcon: const Icon(Icons.home),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
                   onChanged: (value) {
                     _numero = value;
                   },
                 ),
               ),
-              const SizedBox(
-                width: 10,
-              ),
+              const SizedBox(width: 10),
               CircleAvatar(
                 backgroundColor: const Color(0xFF781f1e),
                 child: Center(
                   child: IconButton(
-                      onPressed: () {
-                        _address();
-                      },
-                      color: Colors.white,
-                      icon: const Icon(Icons.location_on, size: 20)),
+                    onPressed: () {
+                      _address();
+                    },
+                    color: Colors.white,
+                    icon: const Icon(Icons.location_on, size: 20),
+                  ),
                 ),
               ),
-              const SizedBox(
-                width: 10,
-              ),
+              const SizedBox(width: 10),
             ],
           ),
-          const SizedBox(
-            height: 10,
-          ),
+          const SizedBox(height: 10),
           Row(
             children: [
               Text('Latitud: $latitud'),
               const SizedBox(width: 10),
               Text('Longitud: $longitud'),
             ],
-          )
+          ),
         ],
       ),
     );
   }
 
-//--------------------------------------------------------------------
-//------------------------------ _showTipoVereda ---------------------
-//--------------------------------------------------------------------
+  //--------------------------------------------------------------------
+  //------------------------------ _showTipoVereda ---------------------
+  //--------------------------------------------------------------------
 
   Widget _showTipoVereda() {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
       child: Row(
         children: [
-          const SizedBox(width: 90, child: Text('Tipo de Vereda:  ')),
+          const SizedBox(width: 70, child: Text('Tipo de Vereda:  ')),
           Expanded(
             child: Container(
               padding: const EdgeInsets.all(10),
               child: DropdownButtonFormField(
-                  items: _itemsTipoVereda,
-                  value: _optionTipoVereda,
-                  onChanged: (option2) {
-                    setState(() {
-                      _optionTipoVereda = option2.toString();
-                      _tipoVereda = option2.toString();
-                    });
-                  },
-                  decoration: InputDecoration(
-                    hintText: 'Seleccione Tipo de Vereda...',
-                    labelText: '',
-                    fillColor: Colors.white,
-                    filled: true,
-                    errorText: _tipoVeredaShowError ? _tipoVeredaError : null,
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10)),
-                  )),
+                items: _itemsTipoVereda,
+                initialValue: _optionTipoVereda,
+                onChanged: (option2) {
+                  setState(() {
+                    _optionTipoVereda = option2.toString();
+                    _tipoVereda = option2.toString();
+                  });
+                },
+                decoration: InputDecoration(
+                  hintText: 'Seleccione Tipo de Vereda...',
+                  labelText: '',
+                  fillColor: Colors.white,
+                  filled: true,
+                  errorText: _tipoVeredaShowError ? _tipoVeredaError : null,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+              ),
             ),
           ),
         ],
@@ -291,24 +292,22 @@ class _VeredaAgregarScreenState extends State<VeredaAgregarScreen> {
     );
   }
 
-//----------------------------------------------------------------
-//------------------------------ _showClase ----------------------
-//----------------------------------------------------------------
+  //----------------------------------------------------------------
+  //------------------------------ _showClase ----------------------
+  //----------------------------------------------------------------
 
   Widget _showClase() {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
       child: Row(
         children: [
-          const SizedBox(width: 90, child: Text('Clase de Vereda: ')),
+          const SizedBox(width: 70, child: Text('Clase de Vereda: ')),
           Expanded(
             child: _clases.isEmpty
                 ? Row(
                     children: const [
                       CircularProgressIndicator(),
-                      SizedBox(
-                        width: 10,
-                      ),
+                      SizedBox(width: 10),
                       Text('Cargando Clases de Vereda...'),
                     ],
                   )
@@ -316,7 +315,7 @@ class _VeredaAgregarScreenState extends State<VeredaAgregarScreen> {
                     padding: const EdgeInsets.all(10),
                     child: DropdownButtonFormField(
                       items: _getComboClasesVereda(),
-                      value: _clase,
+                      initialValue: _clase,
                       onChanged: (value) {
                         setState(() {
                           _clase = value as int;
@@ -329,7 +328,8 @@ class _VeredaAgregarScreenState extends State<VeredaAgregarScreen> {
                         labelText: 'Clase de Vereda',
                         errorText: _claseShowError ? _claseError : null,
                         border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10)),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
                       ),
                     ),
                   ),
@@ -339,30 +339,34 @@ class _VeredaAgregarScreenState extends State<VeredaAgregarScreen> {
     );
   }
 
-//---------------------------------------------------------------
-//----------------------- _getComboClasesVereda -----------------
-//---------------------------------------------------------------
+  //---------------------------------------------------------------
+  //----------------------- _getComboClasesVereda -----------------
+  //---------------------------------------------------------------
 
   List<DropdownMenuItem<int>> _getComboClasesVereda() {
     List<DropdownMenuItem<int>> list = [];
-    list.add(const DropdownMenuItem(
-      child: Text('Elija una Clase de Vereda...'),
-      value: 0,
-    ));
+    list.add(
+      const DropdownMenuItem(
+        value: 0,
+        child: Text('Elija una Clase de Vereda...'),
+      ),
+    );
 
     for (var clase in _clases) {
-      list.add(DropdownMenuItem(
-        child: Text(clase.descripciontarea.toString()),
-        value: clase.codigostd,
-      ));
+      list.add(
+        DropdownMenuItem(
+          value: clase.codigostd,
+          child: Text(clase.descripciontarea.toString()),
+        ),
+      );
     }
 
     return list;
   }
 
-//--------------------------------------------------------------
-//------------------------------ _showZanja --------------------
-//--------------------------------------------------------------
+  //--------------------------------------------------------------
+  //------------------------------ _showZanja --------------------
+  //--------------------------------------------------------------
 
   Widget _showZanja() {
     return Container(
@@ -377,14 +381,15 @@ class _VeredaAgregarScreenState extends State<VeredaAgregarScreen> {
                   controller: _cantidadMTLController,
                   keyboardType: TextInputType.number,
                   decoration: InputDecoration(
-                      fillColor: Colors.white,
-                      filled: true,
-                      hintText: 'Mts',
-                      labelText: 'Mt. lineales',
-                      errorText:
-                          _cantidadMTLShowError ? _cantidadMTLError : null,
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10))),
+                    fillColor: Colors.white,
+                    filled: true,
+                    hintText: 'Mts',
+                    labelText: 'Mt. lineales',
+                    errorText: _cantidadMTLShowError ? _cantidadMTLError : null,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
                   onChanged: (value) {
                     _cantidadMTL = value;
                   },
@@ -397,13 +402,15 @@ class _VeredaAgregarScreenState extends State<VeredaAgregarScreen> {
                   controller: _anchoController,
                   keyboardType: TextInputType.number,
                   decoration: InputDecoration(
-                      fillColor: Colors.white,
-                      filled: true,
-                      hintText: 'Cm',
-                      labelText: 'Ancho en cm',
-                      errorText: _anchoShowError ? _anchoError : null,
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10))),
+                    fillColor: Colors.white,
+                    filled: true,
+                    hintText: 'Cm',
+                    labelText: 'Ancho en cm',
+                    errorText: _anchoShowError ? _anchoError : null,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
                   onChanged: (value) {
                     _ancho = value;
                   },
@@ -416,14 +423,15 @@ class _VeredaAgregarScreenState extends State<VeredaAgregarScreen> {
                   controller: _profundidadController,
                   keyboardType: TextInputType.number,
                   decoration: InputDecoration(
-                      fillColor: Colors.white,
-                      filled: true,
-                      hintText: 'Cm',
-                      labelText: 'Profund. en cm',
-                      errorText:
-                          _profundidadShowError ? _profundidadError : null,
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10))),
+                    fillColor: Colors.white,
+                    filled: true,
+                    hintText: 'Cm',
+                    labelText: 'Profund. en cm',
+                    errorText: _profundidadShowError ? _profundidadError : null,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
                   onChanged: (value) {
                     _profundidad = value;
                   },
@@ -436,9 +444,9 @@ class _VeredaAgregarScreenState extends State<VeredaAgregarScreen> {
     );
   }
 
-//--------------------------------------------------------------
-//-------------------------- _showFotos ------------------------
-//--------------------------------------------------------------
+  //--------------------------------------------------------------
+  //-------------------------- _showFotos ------------------------
+  //--------------------------------------------------------------
 
   Widget _showFotos(double ancho) {
     return Column(
@@ -448,26 +456,28 @@ class _VeredaAgregarScreenState extends State<VeredaAgregarScreen> {
           children: <Widget>[
             Expanded(
               child: InkWell(
-                child: Stack(children: <Widget>[
-                  Container(
-                    child: !_photoChanged
-                        ? Center(
-                            child: Image(
+                child: Stack(
+                  children: <Widget>[
+                    Container(
+                      child: !_photoChanged
+                          ? Center(
+                              child: Image(
                                 image: const AssetImage('assets/noimage.png'),
                                 width: ancho * 0.6,
                                 height: ancho * 0.6,
-                                fit: BoxFit.contain),
-                          )
-                        : Center(
-                            child: Image.file(
-                              File(_image.path),
-                              width: ancho * 0.6,
-                              height: ancho * 0.6,
-                              fit: BoxFit.contain,
+                                fit: BoxFit.contain,
+                              ),
+                            )
+                          : Center(
+                              child: Image.file(
+                                File(_image.path),
+                                width: ancho * 0.6,
+                                height: ancho * 0.6,
+                                fit: BoxFit.contain,
+                              ),
                             ),
-                          ),
-                  ),
-                  Positioned(
+                    ),
+                    Positioned(
                       bottom: 0,
                       left: ancho * 0.8,
                       child: InkWell(
@@ -485,8 +495,9 @@ class _VeredaAgregarScreenState extends State<VeredaAgregarScreen> {
                             ),
                           ),
                         ),
-                      )),
-                  Positioned(
+                      ),
+                    ),
+                    Positioned(
                       bottom: 0,
                       left: ancho * 0.1,
                       child: InkWell(
@@ -504,8 +515,10 @@ class _VeredaAgregarScreenState extends State<VeredaAgregarScreen> {
                             ),
                           ),
                         ),
-                      )),
-                ]),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ],
@@ -513,33 +526,34 @@ class _VeredaAgregarScreenState extends State<VeredaAgregarScreen> {
       ],
     );
   }
-//----------------------------------------------------------------------------
-//------------------------------ _showObservaciones --------------------------
-//----------------------------------------------------------------------------
+  //----------------------------------------------------------------------------
+  //------------------------------ _showObservaciones --------------------------
+  //----------------------------------------------------------------------------
 
   Widget _showObservaciones() {
     return Container(
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-        child: TextField(
-          controller: _observacionesController,
-          decoration: InputDecoration(
-              fillColor: Colors.white,
-              filled: true,
-              hintText: 'Ingrese Observaciones...',
-              labelText: 'Observaciones:',
-              errorText: _observacionesShowError ? _observacionesError : null,
-              prefixIcon: const Icon(Icons.chat),
-              border:
-                  OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
-          onChanged: (value) {
-            _observaciones = value;
-          },
-        ));
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+      child: TextField(
+        controller: _observacionesController,
+        decoration: InputDecoration(
+          fillColor: Colors.white,
+          filled: true,
+          hintText: 'Ingrese Observaciones...',
+          labelText: 'Observaciones:',
+          errorText: _observacionesShowError ? _observacionesError : null,
+          prefixIcon: const Icon(Icons.chat),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+        ),
+        onChanged: (value) {
+          _observaciones = value;
+        },
+      ),
+    );
   }
 
-//------------------------------------------------------------------
-//------------------------------ _address --------------------------
-//------------------------------------------------------------------
+  //------------------------------------------------------------------
+  //------------------------------ _address --------------------------
+  //------------------------------------------------------------------
 
   void _address() async {
     setState(() {
@@ -554,8 +568,10 @@ class _VeredaAgregarScreenState extends State<VeredaAgregarScreen> {
     }
 
     if (_habilitaPosicion) {
-      List<Placemark> placemarks =
-          await placemarkFromCoordinates(_center.latitude, _center.longitude);
+      List<Placemark> placemarks = await placemarkFromCoordinates(
+        _center.latitude,
+        _center.longitude,
+      );
       latitud = _center.latitude;
       longitud = _center.longitude;
       _direccionController.text = placemarks[0].thoroughfare.toString();
@@ -566,9 +582,9 @@ class _VeredaAgregarScreenState extends State<VeredaAgregarScreen> {
     }
   }
 
-//------------------------------------------------------------------
-//------------------------------ _getPosition ----------------------
-//------------------------------------------------------------------
+  //------------------------------------------------------------------
+  //------------------------------ _getPosition ----------------------
+  //------------------------------------------------------------------
 
   Future _getPosition() async {
     bool serviceEnabled;
@@ -579,34 +595,6 @@ class _VeredaAgregarScreenState extends State<VeredaAgregarScreen> {
       permission = await Geolocator.requestPermission();
       if (permission == LocationPermission.denied) {
         showDialog(
-            context: context,
-            builder: (context) {
-              return AlertDialog(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                title: const Text('Aviso'),
-                content: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: const <Widget>[
-                      Text('El permiso de localización está negado.'),
-                      SizedBox(
-                        height: 10,
-                      ),
-                    ]),
-                actions: <Widget>[
-                  TextButton(
-                      onPressed: () => Navigator.of(context).pop(),
-                      child: const Text('Ok')),
-                ],
-              );
-            });
-        return;
-      }
-    }
-
-    if (permission == LocationPermission.deniedForever) {
-      showDialog(
           context: context,
           builder: (context) {
             return AlertDialog(
@@ -615,32 +603,64 @@ class _VeredaAgregarScreenState extends State<VeredaAgregarScreen> {
               ),
               title: const Text('Aviso'),
               content: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: const <Widget>[
-                    Text(
-                        'El permiso de localización está negado permanentemente. No se puede requerir este permiso.'),
-                    SizedBox(
-                      height: 10,
-                    ),
-                  ]),
+                mainAxisSize: MainAxisSize.min,
+                children: const <Widget>[
+                  Text('El permiso de localización está negado.'),
+                  SizedBox(height: 10),
+                ],
+              ),
               actions: <Widget>[
                 TextButton(
-                    onPressed: () => Navigator.of(context).pop(),
-                    child: const Text('Ok')),
+                  onPressed: () => Navigator.of(context).pop(),
+                  child: const Text('Ok'),
+                ),
               ],
             );
-          });
+          },
+        );
+        return;
+      }
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+            title: const Text('Aviso'),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: const <Widget>[
+                Text(
+                  'El permiso de localización está negado permanentemente. No se puede requerir este permiso.',
+                ),
+                SizedBox(height: 10),
+              ],
+            ),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(),
+                child: const Text('Ok'),
+              ),
+            ],
+          );
+        },
+      );
       return;
     }
 
     _habilitaPosicion = true;
     _positionUser = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high);
+      desiredAccuracy: LocationAccuracy.high,
+    );
   }
 
-//--------------------------------------------------------------
-//-------------------------- _getlistOptionsTipoVereda ---------
-//--------------------------------------------------------------
+  //--------------------------------------------------------------
+  //-------------------------- _getlistOptionsTipoVereda ---------
+  //--------------------------------------------------------------
 
   void _getlistOptionsTipoVereda() {
     _itemsTipoVereda = [];
@@ -658,24 +678,28 @@ class _VeredaAgregarScreenState extends State<VeredaAgregarScreen> {
     _getComboTipoVereda();
   }
 
-//--------------------------------------------------------------
-//----------------------- _getComboTipoVereda ------------------
-//--------------------------------------------------------------
+  //--------------------------------------------------------------
+  //----------------------- _getComboTipoVereda ------------------
+  //--------------------------------------------------------------
 
   List<DropdownMenuItem<String>> _getComboTipoVereda() {
     _itemsTipoVereda = [];
 
     List<DropdownMenuItem<String>> list = [];
-    list.add(const DropdownMenuItem(
-      child: Text('Seleccione Tipo de Vereda...'),
-      value: 'Seleccione Tipo de Vereda...',
-    ));
+    list.add(
+      const DropdownMenuItem(
+        value: 'Seleccione Tipo de Vereda...',
+        child: Text('Seleccione Tipo de Vereda...'),
+      ),
+    );
 
     for (var _listoption in _listoptionsTipoVereda) {
-      list.add(DropdownMenuItem(
-        child: Text(_listoption.description),
-        value: _listoption.id,
-      ));
+      list.add(
+        DropdownMenuItem(
+          value: _listoption.id,
+          child: Text(_listoption.description),
+        ),
+      );
     }
 
     _itemsTipoVereda = list;
@@ -683,23 +707,24 @@ class _VeredaAgregarScreenState extends State<VeredaAgregarScreen> {
     return list;
   }
 
-//--------------------------------------------------------------
-//-------------------------- _takePicture ----------------------
-//--------------------------------------------------------------
+  //--------------------------------------------------------------
+  //-------------------------- _takePicture ----------------------
+  //--------------------------------------------------------------
 
   void _takePicture(int opcion) async {
     WidgetsFlutterBinding.ensureInitialized();
     final cameras = await availableCameras();
     var firstCamera = cameras.first;
     var response1 = await showAlertDialog(
-        context: context,
-        title: 'Seleccionar cámara',
-        message: '¿Qué cámara desea utilizar?',
-        actions: <AlertDialogAction>[
-          const AlertDialogAction(key: 'no', label: 'Trasera'),
-          const AlertDialogAction(key: 'yes', label: 'Delantera'),
-          const AlertDialogAction(key: 'cancel', label: 'Cancelar'),
-        ]);
+      context: context,
+      title: 'Seleccionar cámara',
+      message: '¿Qué cámara desea utilizar?',
+      actions: <AlertDialogAction>[
+        const AlertDialogAction(key: 'no', label: 'Trasera'),
+        const AlertDialogAction(key: 'yes', label: 'Delantera'),
+        const AlertDialogAction(key: 'cancel', label: 'Cancelar'),
+      ],
+    );
     if (response1 == 'yes') {
       firstCamera = cameras.first;
     }
@@ -709,11 +734,11 @@ class _VeredaAgregarScreenState extends State<VeredaAgregarScreen> {
 
     if (response1 != 'cancel') {
       Response? response = await Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => SacarFotoScreen(
-                    camera: firstCamera,
-                  )));
+        context,
+        MaterialPageRoute(
+          builder: (context) => SacarFotoScreen(camera: firstCamera),
+        ),
+      );
       if (response != null) {
         _photoChanged = true;
         _image = response.result;
@@ -723,14 +748,14 @@ class _VeredaAgregarScreenState extends State<VeredaAgregarScreen> {
     }
   }
 
-//--------------------------------------------------------------
-//-------------------------- _selectPicture --------------------
-//--------------------------------------------------------------
+  //--------------------------------------------------------------
+  //-------------------------- _selectPicture --------------------
+  //--------------------------------------------------------------
 
   void _selectPicture(int opcion) async {
-    final ImagePicker _picker = ImagePicker();
+    final ImagePicker picker = ImagePicker();
 
-    final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+    final XFile? image = await picker.pickImage(source: ImageSource.gallery);
 
     if (image != null) {
       _photoChanged = true;
@@ -740,9 +765,9 @@ class _VeredaAgregarScreenState extends State<VeredaAgregarScreen> {
     }
   }
 
-//--------------------------------------------------------------
-//-------------------------- _showButtons ----------------------
-//--------------------------------------------------------------
+  //--------------------------------------------------------------
+  //-------------------------- _showButtons ----------------------
+  //--------------------------------------------------------------
 
   Widget _showButtons() {
     return Container(
@@ -752,16 +777,6 @@ class _VeredaAgregarScreenState extends State<VeredaAgregarScreen> {
         children: <Widget>[
           Expanded(
             child: ElevatedButton(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  Icon(Icons.save),
-                  SizedBox(
-                    width: 15,
-                  ),
-                  Text('Guardar'),
-                ],
-              ),
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xFF120E43),
                 minimumSize: const Size(100, 50),
@@ -770,6 +785,14 @@ class _VeredaAgregarScreenState extends State<VeredaAgregarScreen> {
                 ),
               ),
               onPressed: _save,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Icon(Icons.save),
+                  SizedBox(width: 15),
+                  Text('Guardar'),
+                ],
+              ),
             ),
           ),
         ],
@@ -777,11 +800,11 @@ class _VeredaAgregarScreenState extends State<VeredaAgregarScreen> {
     );
   }
 
-//-----------------------------------------------------------
-//-------------------------- _save --------------------------
-//-----------------------------------------------------------
+  //-----------------------------------------------------------
+  //-------------------------- _save --------------------------
+  //-----------------------------------------------------------
 
-  _save() {
+  void _save() {
     if (!validateFields()) {
       setState(() {});
       return;
@@ -789,9 +812,9 @@ class _VeredaAgregarScreenState extends State<VeredaAgregarScreen> {
     _addRecord();
   }
 
-//-----------------------------------------------------------
-//-------------------------- validateFields -----------------
-//-----------------------------------------------------------
+  //-----------------------------------------------------------
+  //-------------------------- validateFields -----------------
+  //-----------------------------------------------------------
 
   bool validateFields() {
     bool isValid = true;
@@ -815,28 +838,29 @@ class _VeredaAgregarScreenState extends State<VeredaAgregarScreen> {
     if (latitud == 0 || longitud == 0) {
       isValid = false;
       showDialog(
-          context: context,
-          builder: (context) {
-            return AlertDialog(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
-              ),
-              title: const Text('Aviso'),
-              content: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: const <Widget>[
-                    Text('Debe haber Geolocalización (Latitud y Longitud)'),
-                    SizedBox(
-                      height: 10,
-                    ),
-                  ]),
-              actions: <Widget>[
-                TextButton(
-                    onPressed: () => Navigator.of(context).pop(),
-                    child: const Text('Ok')),
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+            title: const Text('Aviso'),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: const <Widget>[
+                Text('Debe haber Geolocalización (Latitud y Longitud)'),
+                SizedBox(height: 10),
               ],
-            );
-          });
+            ),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(),
+                child: const Text('Ok'),
+              ),
+            ],
+          );
+        },
+      );
     }
 
     if (_cantidadMTL == '') {
@@ -882,28 +906,29 @@ class _VeredaAgregarScreenState extends State<VeredaAgregarScreen> {
     if (!_photoChanged) {
       isValid = false;
       showDialog(
-          context: context,
-          builder: (context) {
-            return AlertDialog(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
-              ),
-              title: const Text('Aviso'),
-              content: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: const <Widget>[
-                    Text('Debe cargar una foto'),
-                    SizedBox(
-                      height: 10,
-                    ),
-                  ]),
-              actions: <Widget>[
-                TextButton(
-                    onPressed: () => Navigator.of(context).pop(),
-                    child: const Text('Ok')),
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+            title: const Text('Aviso'),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: const <Widget>[
+                Text('Debe cargar una foto'),
+                SizedBox(height: 10),
               ],
-            );
-          });
+            ),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(),
+                child: const Text('Ok'),
+              ),
+            ],
+          );
+        },
+      );
     }
 
     setState(() {});
@@ -911,9 +936,9 @@ class _VeredaAgregarScreenState extends State<VeredaAgregarScreen> {
     return isValid;
   }
 
-//-----------------------------------------------------------
-//-------------------------- _addRecord ---------------------
-//-----------------------------------------------------------
+  //-----------------------------------------------------------
+  //-------------------------- _addRecord ---------------------
+  //-----------------------------------------------------------
 
   void _addRecord() async {
     setState(() {
@@ -927,7 +952,10 @@ class _VeredaAgregarScreenState extends State<VeredaAgregarScreen> {
         _showLoader = false;
       });
       showMyDialog(
-          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
+        'Error',
+        'Verifica que estés conectado a Internet',
+        'Aceptar',
+      );
     }
 
     String base64Image = '';
@@ -936,8 +964,11 @@ class _VeredaAgregarScreenState extends State<VeredaAgregarScreen> {
       Uint8List imageBytes = await _image.readAsBytes();
       int maxWidth = 800; // Ancho máximo
       int maxHeight = 600; // Alto máximo
-      Uint8List resizedBytes =
-          await resizeImage(imageBytes, maxWidth, maxHeight);
+      Uint8List resizedBytes = await resizeImage(
+        imageBytes,
+        maxWidth,
+        maxHeight,
+      );
       base64Image = base64Encode(resizedBytes);
     }
 
@@ -959,9 +990,10 @@ class _VeredaAgregarScreenState extends State<VeredaAgregarScreen> {
       'cantidadmtl': _cantidadMTL,
       'ancho': _ancho,
       'profundidad': _profundidad,
-      'fechacierreelectrico': widget.obra.fechaCierreElectrico != null
-          ? widget.obra.fechaCierreElectrico!.substring(0, 10)
-          : null,
+      'fechacierreelectrico': widget.obra.fechaCierreElectrico?.substring(
+        0,
+        10,
+      ),
       'imagearray': base64Image,
       'codtipostdrparo': _clase,
       'ancho2': 0,
@@ -970,7 +1002,9 @@ class _VeredaAgregarScreenState extends State<VeredaAgregarScreen> {
     };
 
     Response response = await ApiHelper.postNoToken(
-        '/api/ObrasReparos/PostObrasReparos', request);
+      '/api/ObrasReparos/PostObrasReparos',
+      request,
+    );
 
     setState(() {
       _showLoader = false;
@@ -978,35 +1012,39 @@ class _VeredaAgregarScreenState extends State<VeredaAgregarScreen> {
 
     if (!response.isSuccess) {
       await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: response.message,
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message: response.message,
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
       return;
     }
     Navigator.pop(context, 'yes');
   }
 
-//-----------------------------------------------------------
-//-------------------------- _loadData ----------------------
-//-----------------------------------------------------------
+  //-----------------------------------------------------------
+  //-------------------------- _loadData ----------------------
+  //-----------------------------------------------------------
 
   void _loadData() async {
     await _getClases();
   }
 
-//-----------------------------------------------------------
-//-------------------------- _getClases ---------------------
-//-----------------------------------------------------------
+  //-----------------------------------------------------------
+  //-------------------------- _getClases ---------------------
+  //-----------------------------------------------------------
 
   Future<void> _getClases() async {
     var connectivityResult = await Connectivity().checkConnectivity();
 
     if (connectivityResult == ConnectivityResult.none) {
       showMyDialog(
-          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
+        'Error',
+        'Verifica que estés conectado a Internet',
+        'Aceptar',
+      );
     }
 
     Response response = Response(isSuccess: false);

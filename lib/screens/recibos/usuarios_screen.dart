@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:adaptive_dialog/adaptive_dialog.dart';
-import 'package:connectivity/connectivity.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
@@ -14,26 +14,25 @@ class UsuariosScreen extends StatefulWidget {
   final Token token;
   final User2 user2;
 
-  const UsuariosScreen({Key? key, required this.token, required this.user2})
-      : super(key: key);
+  const UsuariosScreen({super.key, required this.token, required this.user2});
 
   @override
   _UsuariosScreenState createState() => _UsuariosScreenState();
 }
 
 class _UsuariosScreenState extends State<UsuariosScreen> {
-//---------------------------------------------------------------
-//----------------------- Variables -----------------------------
-//---------------------------------------------------------------
+  //---------------------------------------------------------------
+  //----------------------- Variables -----------------------------
+  //---------------------------------------------------------------
 
   List<User2> _users = [];
   bool _showLoader = false;
   bool _isFiltered = false;
   String _search = '';
 
-//---------------------------------------------------------------
-//----------------------- initState -----------------------------
-//---------------------------------------------------------------
+  //---------------------------------------------------------------
+  //----------------------- initState -----------------------------
+  //---------------------------------------------------------------
 
   @override
   void initState() {
@@ -41,9 +40,9 @@ class _UsuariosScreenState extends State<UsuariosScreen> {
     _getUsers();
   }
 
-//---------------------------------------------------------------
-//----------------------- Pantalla -----------------------------
-//---------------------------------------------------------------
+  //---------------------------------------------------------------
+  //----------------------- Pantalla -----------------------------
+  //---------------------------------------------------------------
 
   @override
   Widget build(BuildContext context) {
@@ -55,9 +54,13 @@ class _UsuariosScreenState extends State<UsuariosScreen> {
         actions: <Widget>[
           _isFiltered
               ? IconButton(
-                  onPressed: _removeFilter, icon: const Icon(Icons.filter_none))
+                  onPressed: _removeFilter,
+                  icon: const Icon(Icons.filter_none),
+                )
               : IconButton(
-                  onPressed: _showFilter, icon: const Icon(Icons.filter_alt)),
+                  onPressed: _showFilter,
+                  icon: const Icon(Icons.filter_alt),
+                ),
         ],
       ),
       body: Center(
@@ -69,16 +72,6 @@ class _UsuariosScreenState extends State<UsuariosScreen> {
       floatingActionButton: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 90),
         child: ElevatedButton(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
-              Icon(Icons.supervised_user_circle_rounded),
-              SizedBox(
-                width: 15,
-              ),
-              Text('Actualizar Usuarios'),
-            ],
-          ),
           style: ElevatedButton.styleFrom(
             backgroundColor: const Color(0xFF781f1e),
             minimumSize: const Size(double.infinity, 50),
@@ -89,16 +82,24 @@ class _UsuariosScreenState extends State<UsuariosScreen> {
           onPressed: () {
             _actualizarUsuarios();
           },
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: const [
+              Icon(Icons.supervised_user_circle_rounded),
+              SizedBox(width: 15),
+              Text('Actualizar Usuarios'),
+            ],
+          ),
         ),
       ),
     );
   }
 
-//-----------------------------------------------------------------
-//------------------------------ _filter --------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //------------------------------ _filter --------------------------
+  //-----------------------------------------------------------------
 
-  _filter() {
+  void _filter() {
     if (_search.isEmpty) {
       return;
     }
@@ -117,9 +118,9 @@ class _UsuariosScreenState extends State<UsuariosScreen> {
     Navigator.of(context).pop();
   }
 
-//-----------------------------------------------------------------------
-//------------------------------ _removeFilter --------------------------
-//-----------------------------------------------------------------------
+  //-----------------------------------------------------------------------
+  //------------------------------ _removeFilter --------------------------
+  //-----------------------------------------------------------------------
 
   void _removeFilter() {
     setState(() {
@@ -128,69 +129,74 @@ class _UsuariosScreenState extends State<UsuariosScreen> {
     _getUsers();
   }
 
-//---------------------------------------------------------------------
-//------------------------------ _showFilter --------------------------
-//---------------------------------------------------------------------
+  //---------------------------------------------------------------------
+  //------------------------------ _showFilter --------------------------
+  //---------------------------------------------------------------------
 
   void _showFilter() {
     showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
-            title: const Text('Filtrar Usuarios'),
-            content: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+          title: const Text('Filtrar Usuarios'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
               const Text(
                 'Escriba texto a buscar en Nombre de Usuario: ',
                 style: TextStyle(fontSize: 12),
               ),
-              const SizedBox(
-                height: 10,
-              ),
+              const SizedBox(height: 10),
               TextField(
                 autofocus: true,
                 decoration: InputDecoration(
-                    hintText: 'Criterio de búsqueda...',
-                    labelText: 'Buscar',
-                    suffixIcon: const Icon(Icons.search),
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10))),
+                  hintText: 'Criterio de búsqueda...',
+                  labelText: 'Buscar',
+                  suffixIcon: const Icon(Icons.search),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
                 onChanged: (value) {
                   _search = value;
                 },
               ),
-            ]),
-            actions: <Widget>[
-              TextButton(
-                  onPressed: () => Navigator.of(context).pop(),
-                  child: const Text('Cancelar')),
-              TextButton(
-                  onPressed: () => _filter(), child: const Text('Filtrar')),
             ],
-          );
-        });
+          ),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text('Cancelar'),
+            ),
+            TextButton(
+              onPressed: () => _filter(),
+              child: const Text('Filtrar'),
+            ),
+          ],
+        );
+      },
+    );
   }
 
-//---------------------------------------------------------------------
-//------------------------------ _getContent --------------------------
-//---------------------------------------------------------------------
+  //---------------------------------------------------------------------
+  //------------------------------ _getContent --------------------------
+  //---------------------------------------------------------------------
 
   Widget _getContent() {
     return Column(
       children: <Widget>[
         _showUsersCount(),
-        Expanded(
-          child: _users.isEmpty ? _noContent() : _getListView(),
-        )
+        Expanded(child: _users.isEmpty ? _noContent() : _getListView()),
       ],
     );
   }
 
-//-----------------------------------------------------------------------
-//------------------------------ _showUsersCount ------------------------
-//-----------------------------------------------------------------------
+  //-----------------------------------------------------------------------
+  //------------------------------ _showUsersCount ------------------------
+  //-----------------------------------------------------------------------
 
   Widget _showUsersCount() {
     return Container(
@@ -198,26 +204,30 @@ class _UsuariosScreenState extends State<UsuariosScreen> {
       height: 40,
       child: Row(
         children: [
-          const Text('Cantidad de Usuarios: ',
-              style: TextStyle(
-                fontSize: 14,
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-              )),
-          Text(_users.length.toString(),
-              style: const TextStyle(
-                fontSize: 14,
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-              )),
+          const Text(
+            'Cantidad de Usuarios: ',
+            style: TextStyle(
+              fontSize: 14,
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          Text(
+            _users.length.toString(),
+            style: const TextStyle(
+              fontSize: 14,
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ],
       ),
     );
   }
 
-//-----------------------------------------------------------------------
-//------------------------------ _noContent -----------------------------
-//-----------------------------------------------------------------------
+  //-----------------------------------------------------------------------
+  //------------------------------ _noContent -----------------------------
+  //-----------------------------------------------------------------------
 
   Widget _noContent() {
     return Container(
@@ -228,15 +238,18 @@ class _UsuariosScreenState extends State<UsuariosScreen> {
               ? 'No hay Usuarios con ese criterio de búsqueda'
               : 'No hay Usuarios registrados',
           style: const TextStyle(
-              color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
+            color: Colors.white,
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ),
     );
   }
 
-//-----------------------------------------------------------------------
-//------------------------------ _getListView ---------------------------
-//-----------------------------------------------------------------------
+  //-----------------------------------------------------------------------
+  //------------------------------ _getListView ---------------------------
+  //-----------------------------------------------------------------------
 
   Widget _getListView() {
     return RefreshIndicator(
@@ -269,66 +282,76 @@ class _UsuariosScreenState extends State<UsuariosScreen> {
                                 children: [
                                   Row(
                                     children: [
-                                      const Text('Usuario: ',
-                                          style: TextStyle(
-                                            fontSize: 12,
-                                            color: Color(0xFF781f1e),
-                                            fontWeight: FontWeight.bold,
-                                          )),
+                                      const Text(
+                                        'Usuario: ',
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                          color: Color(0xFF781f1e),
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
                                       Expanded(
                                         flex: 3,
-                                        child: Text(e.firstName.toString(),
-                                            style: const TextStyle(
-                                                fontSize: 12,
-                                                fontWeight: FontWeight.bold)),
+                                        child: Text(
+                                          e.firstName.toString(),
+                                          style: const TextStyle(
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
                                       ),
                                     ],
                                   ),
-                                  const SizedBox(
-                                    height: 5,
-                                  ),
+                                  const SizedBox(height: 5),
                                   Row(
                                     children: [
-                                      const Text('Ult. login: ',
-                                          style: TextStyle(
-                                            fontSize: 12,
-                                            color: Color(0xFF781f1e),
-                                            fontWeight: FontWeight.bold,
-                                          )),
+                                      const Text(
+                                        'Ult. login: ',
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                          color: Color(0xFF781f1e),
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
                                       Expanded(
                                         flex: 4,
                                         child: e.lastLogin != null
                                             ? Text(
                                                 DateFormat('dd/MM/yyyy').format(
-                                                    DateTime.parse(e.lastLogin
-                                                        .toString())),
+                                                  DateTime.parse(
+                                                    e.lastLogin.toString(),
+                                                  ),
+                                                ),
                                                 style: const TextStyle(
                                                   fontSize: 12,
-                                                ))
+                                                ),
+                                              )
                                             : Container(),
                                       ),
-                                      const Text('Camb. Passw.: ',
-                                          style: TextStyle(
-                                            fontSize: 12,
-                                            color: Color(0xFF781f1e),
-                                            fontWeight: FontWeight.bold,
-                                          )),
+                                      const Text(
+                                        'Camb. Passw.: ',
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                          color: Color(0xFF781f1e),
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
                                       Expanded(
                                         flex: 4,
                                         child: e.changePassword != null
                                             ? Text(
                                                 DateFormat('dd/MM/yyyy').format(
-                                                    DateTime.parse(e
-                                                        .changePassword
-                                                        .toString())),
+                                                  DateTime.parse(
+                                                    e.changePassword.toString(),
+                                                  ),
+                                                ),
                                                 style: const TextStyle(
                                                   fontSize: 12,
-                                                ))
+                                                ),
+                                              )
                                             : Container(),
                                       ),
-                                      const SizedBox(
-                                        height: 5,
-                                      ),
+                                      const SizedBox(height: 5),
                                     ],
                                   ),
                                 ],
@@ -339,14 +362,15 @@ class _UsuariosScreenState extends State<UsuariosScreen> {
                       ),
                     ),
                     IconButton(
-                        onPressed: () {
-                          _resetPassword(e);
-                        },
-                        icon: const Icon(
-                          Icons.lock_reset,
-                          size: 40,
-                          color: Colors.red,
-                        ))
+                      onPressed: () {
+                        _resetPassword(e);
+                      },
+                      icon: const Icon(
+                        Icons.lock_reset,
+                        size: 40,
+                        color: Colors.red,
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -357,9 +381,9 @@ class _UsuariosScreenState extends State<UsuariosScreen> {
     );
   }
 
-//---------------------------------------------------------------
-//----------------------- _getUsers -----------------------------
-//---------------------------------------------------------------
+  //---------------------------------------------------------------
+  //----------------------- _getUsers -----------------------------
+  //---------------------------------------------------------------
 
   Future<void> _getUsers() async {
     setState(() {
@@ -373,7 +397,10 @@ class _UsuariosScreenState extends State<UsuariosScreen> {
         _showLoader = false;
       });
       showMyDialog(
-          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
+        'Error',
+        'Verifica que estés conectado a Internet',
+        'Aceptar',
+      );
     }
 
     Response response = Response(isSuccess: false);
@@ -382,30 +409,30 @@ class _UsuariosScreenState extends State<UsuariosScreen> {
 
     if (!response.isSuccess) {
       await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: response.message,
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message: response.message,
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
       return;
     }
 
     setState(() {
       _users = response.result;
       _users.sort((a, b) {
-        return a.firstName
-            .toString()
-            .toLowerCase()
-            .compareTo(b.firstName.toString().toLowerCase());
+        return a.firstName.toString().toLowerCase().compareTo(
+          b.firstName.toString().toLowerCase(),
+        );
       });
       _showLoader = false;
     });
   }
 
-//---------------------------------------------------------------
-//----------------------- _actualizarUsuarios -------------------
-//---------------------------------------------------------------
+  //---------------------------------------------------------------
+  //----------------------- _actualizarUsuarios -------------------
+  //---------------------------------------------------------------
 
   Future<void> _actualizarUsuarios() async {
     setState(() {
@@ -419,7 +446,10 @@ class _UsuariosScreenState extends State<UsuariosScreen> {
         _showLoader = false;
       });
       showMyDialog(
-          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
+        'Error',
+        'Verifica que estés conectado a Internet',
+        'Aceptar',
+      );
     }
 
     Response response = Response(isSuccess: false);
@@ -428,12 +458,13 @@ class _UsuariosScreenState extends State<UsuariosScreen> {
 
     if (!response.isSuccess) {
       await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: response.message,
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message: response.message,
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
       return;
     }
 
@@ -442,68 +473,75 @@ class _UsuariosScreenState extends State<UsuariosScreen> {
     setState(() {});
   }
 
-//---------------------------------------------------------------
-//----------------------- _goInfoUser ---------------------------
-//---------------------------------------------------------------
+  //---------------------------------------------------------------
+  //----------------------- _goInfoUser ---------------------------
+  //---------------------------------------------------------------
 
   void _goInfoUser(User2 user) async {}
 
-//---------------------------------------------------------------
-//----------------------- _resetPassword ---------------------------
-//---------------------------------------------------------------
+  //---------------------------------------------------------------
+  //----------------------- _resetPassword ---------------------------
+  //---------------------------------------------------------------
 
   void _resetPassword(User2 user) async {
     await showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
-            title: const Text(''),
-            content: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+          title: const Text(''),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
               Text(
-                  '¿Está seguro de resetear el Password para el Usuario ${user.firstName} ?'),
-              const SizedBox(
-                height: 10,
+                '¿Está seguro de resetear el Password para el Usuario ${user.firstName} ?',
               ),
-            ]),
-            actions: <Widget>[
-              TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: const Text('NO')),
-              TextButton(
-                  onPressed: () async {
-                    Map<String, dynamic> request = {
-                      'Email': user.email,
-                    };
-
-                    await ApiHelper.post3(
-                        '/api/Account/ResetPassword', request, widget.token);
-
-                    //-------------- Actualiza fecha ChangePassword ---------------------
-                    var url = Uri.parse(
-                        '${Constants.apiUrl}/Api/Account/UpdateChangePasswordDate');
-
-                    await http.put(
-                      url,
-                      headers: {
-                        'content-type': 'application/json',
-                        'accept': 'application/json',
-                        'authorization': 'bearer ${widget.token.token}',
-                      },
-                      body: jsonEncode(user.email!),
-                    );
-
-                    Navigator.of(context).pop();
-                    _getUsers();
-                    setState(() {});
-                  },
-                  child: const Text('SI')),
+              const SizedBox(height: 10),
             ],
-          );
-        });
+          ),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('NO'),
+            ),
+            TextButton(
+              onPressed: () async {
+                Map<String, dynamic> request = {'Email': user.email};
+
+                await ApiHelper.post3(
+                  '/api/Account/ResetPassword',
+                  request,
+                  widget.token,
+                );
+
+                //-------------- Actualiza fecha ChangePassword ---------------------
+                var url = Uri.parse(
+                  '${Constants.apiUrl}/Api/Account/UpdateChangePasswordDate',
+                );
+
+                await http.put(
+                  url,
+                  headers: {
+                    'content-type': 'application/json',
+                    'accept': 'application/json',
+                    'authorization': 'bearer ${widget.token.token}',
+                  },
+                  body: jsonEncode(user.email!),
+                );
+
+                Navigator.of(context).pop();
+                _getUsers();
+                setState(() {});
+              },
+              child: const Text('SI'),
+            ),
+          ],
+        );
+      },
+    );
   }
 }

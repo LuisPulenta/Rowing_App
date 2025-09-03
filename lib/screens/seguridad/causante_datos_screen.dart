@@ -1,5 +1,5 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
-import 'package:connectivity/connectivity.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 
 import '../../components/loader_component.dart';
@@ -9,17 +9,16 @@ import '../../models/models.dart';
 class CausanteDatosScreen extends StatefulWidget {
   final Causante causante;
 
-  const CausanteDatosScreen({Key? key, required this.causante})
-      : super(key: key);
+  const CausanteDatosScreen({super.key, required this.causante});
 
   @override
   State<CausanteDatosScreen> createState() => _CausanteDatosScreenState();
 }
 
 class _CausanteDatosScreenState extends State<CausanteDatosScreen> {
-//---------------------------------------------------------------
-//----------------------- Variables -----------------------------
-//---------------------------------------------------------------
+  //---------------------------------------------------------------
+  //----------------------- Variables -----------------------------
+  //---------------------------------------------------------------
 
   late Causante _causante;
 
@@ -79,9 +78,9 @@ class _CausanteDatosScreenState extends State<CausanteDatosScreen> {
   bool _cecoShowError = false;
   final TextEditingController _cecoController = TextEditingController();
 
-//---------------------------------------------------------------
-//----------------------- initState -----------------------------
-//---------------------------------------------------------------
+  //---------------------------------------------------------------
+  //----------------------- initState -----------------------------
+  //---------------------------------------------------------------
 
   @override
   void initState() {
@@ -97,8 +96,10 @@ class _CausanteDatosScreenState extends State<CausanteDatosScreen> {
 
     _phoneNumberController.text = (widget.causante.telefono ?? '');
 
-    _phoneNumberController.text =
-        _phoneNumberController.text.replaceAll(' ', '');
+    _phoneNumberController.text = _phoneNumberController.text.replaceAll(
+      ' ',
+      '',
+    );
 
     _direccion = (widget.causante.direccion ?? '');
     _direccion = _direccion.replaceAll('  ', '');
@@ -126,8 +127,8 @@ class _CausanteDatosScreenState extends State<CausanteDatosScreen> {
 
     _optionContactoController.text =
         widget.causante.telefonoContacto2.toString() != ''
-            ? widget.causante.telefonoContacto2.toString()
-            : 'Seleccione un Contacto...';
+        ? widget.causante.telefonoContacto2.toString()
+        : 'Seleccione un Contacto...';
 
     _nombreContacto = widget.causante.telefonoContacto3 != null
         ? (widget.causante.telefonoContacto3.toString())
@@ -135,16 +136,18 @@ class _CausanteDatosScreenState extends State<CausanteDatosScreen> {
 
     _nombreContacto = _nombreContacto.replaceAll('  ', '');
     _nombreContactoController.text = _nombreContacto;
-    _nombreContactoController.text =
-        _nombreContactoController.text.replaceAll('  ', '');
+    _nombreContactoController.text = _nombreContactoController.text.replaceAll(
+      '  ',
+      '',
+    );
 
     _telefonoContacto = widget.causante.telefonoContacto1 != null
         ? (widget.causante.telefonoContacto1.toString())
         : '';
     _telefonoContacto = _telefonoContacto.replaceAll(' ', '');
     _telefonoContactoController.text = _telefonoContacto;
-    _telefonoContactoController.text =
-        _telefonoContactoController.text.replaceAll(' ', '');
+    _telefonoContactoController.text = _telefonoContactoController.text
+        .replaceAll(' ', '');
 
     _ceco = (widget.causante.notasCausantes.toString());
     _ceco = _ceco.replaceAll('  ', '');
@@ -156,17 +159,19 @@ class _CausanteDatosScreenState extends State<CausanteDatosScreen> {
     setState(() {});
   }
 
-//---------------------------------------------------------------
-//----------------------- Pantalla ------------------------------
-//---------------------------------------------------------------
+  //---------------------------------------------------------------
+  //----------------------- Pantalla ------------------------------
+  //---------------------------------------------------------------
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 192, 190, 190),
       appBar: AppBar(
-        title: Text('Datos de ' + widget.causante.nombre,
-            style: const TextStyle(fontSize: 14)),
+        title: Text(
+          'Datos de ${widget.causante.nombre}',
+          style: const TextStyle(fontSize: 14),
+        ),
         centerTitle: true,
         backgroundColor: const Color(0xFF484848),
       ),
@@ -175,9 +180,7 @@ class _CausanteDatosScreenState extends State<CausanteDatosScreen> {
           SingleChildScrollView(
             child: Column(
               children: <Widget>[
-                const SizedBox(
-                  height: 20,
-                ),
+                const SizedBox(height: 20),
                 _showPhoneNumber(),
                 _showDireccion(),
                 _showNumero(),
@@ -189,25 +192,21 @@ class _CausanteDatosScreenState extends State<CausanteDatosScreen> {
                 _showCentroCosto(),
                 _showFecha(),
                 _showButtons(),
-                const SizedBox(
-                  height: 10,
-                ),
+                const SizedBox(height: 10),
               ],
             ),
           ),
           _showLoader
-              ? const LoaderComponent(
-                  text: 'Por favor espere...',
-                )
+              ? const LoaderComponent(text: 'Por favor espere...')
               : Container(),
         ],
       ),
     );
   }
 
-//---------------------------------------------------------------
-//----------------------- _showPhoneNumber ----------------------
-//---------------------------------------------------------------
+  //---------------------------------------------------------------
+  //----------------------- _showPhoneNumber ----------------------
+  //---------------------------------------------------------------
 
   Widget _showPhoneNumber() {
     return Container(
@@ -216,14 +215,14 @@ class _CausanteDatosScreenState extends State<CausanteDatosScreen> {
         controller: _phoneNumberController,
         keyboardType: TextInputType.phone,
         decoration: InputDecoration(
-            fillColor: Colors.white,
-            filled: true,
-            hintText: 'Ingresa Teléfono...',
-            labelText: 'Teléfono',
-            errorText: _phoneNumberShowError ? _phoneNumberError : null,
-            suffixIcon: const Icon(Icons.phone),
-            border:
-                OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
+          fillColor: Colors.white,
+          filled: true,
+          hintText: 'Ingresa Teléfono...',
+          labelText: 'Teléfono',
+          errorText: _phoneNumberShowError ? _phoneNumberError : null,
+          suffixIcon: const Icon(Icons.phone),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+        ),
         onChanged: (value) {
           _phoneNumber = value;
         },
@@ -231,9 +230,9 @@ class _CausanteDatosScreenState extends State<CausanteDatosScreen> {
     );
   }
 
-//---------------------------------------------------------------
-//----------------------- _showDireccion ------------------------
-//---------------------------------------------------------------
+  //---------------------------------------------------------------
+  //----------------------- _showDireccion ------------------------
+  //---------------------------------------------------------------
 
   Widget _showDireccion() {
     return Container(
@@ -241,14 +240,14 @@ class _CausanteDatosScreenState extends State<CausanteDatosScreen> {
       child: TextField(
         controller: _direccionController,
         decoration: InputDecoration(
-            fillColor: Colors.white,
-            filled: true,
-            hintText: 'Ingrese Calle...',
-            labelText: 'Calle',
-            errorText: _direccionShowError ? _direccionError : null,
-            suffixIcon: const Icon(Icons.home),
-            border:
-                OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
+          fillColor: Colors.white,
+          filled: true,
+          hintText: 'Ingrese Calle...',
+          labelText: 'Calle',
+          errorText: _direccionShowError ? _direccionError : null,
+          suffixIcon: const Icon(Icons.home),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+        ),
         onChanged: (value) {
           _direccion = value;
         },
@@ -256,9 +255,9 @@ class _CausanteDatosScreenState extends State<CausanteDatosScreen> {
     );
   }
 
-//---------------------------------------------------------------
-//----------------------- _showNumero ---------------------------
-//---------------------------------------------------------------
+  //---------------------------------------------------------------
+  //----------------------- _showNumero ---------------------------
+  //---------------------------------------------------------------
 
   Widget _showNumero() {
     return Container(
@@ -267,14 +266,14 @@ class _CausanteDatosScreenState extends State<CausanteDatosScreen> {
         controller: _numeroController,
         keyboardType: TextInputType.number,
         decoration: InputDecoration(
-            fillColor: Colors.white,
-            filled: true,
-            hintText: 'N°...',
-            labelText: 'N°',
-            errorText: _numeroShowError ? _numeroError : null,
-            suffixIcon: const Icon(Icons.numbers),
-            border:
-                OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
+          fillColor: Colors.white,
+          filled: true,
+          hintText: 'N°...',
+          labelText: 'N°',
+          errorText: _numeroShowError ? _numeroError : null,
+          suffixIcon: const Icon(Icons.numbers),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+        ),
         onChanged: (value) {
           _numero = value;
         },
@@ -282,9 +281,9 @@ class _CausanteDatosScreenState extends State<CausanteDatosScreen> {
     );
   }
 
-//---------------------------------------------------------------
-//----------------------- _showCiudad ---------------------------
-//---------------------------------------------------------------
+  //---------------------------------------------------------------
+  //----------------------- _showCiudad ---------------------------
+  //---------------------------------------------------------------
 
   Widget _showCiudad() {
     return Container(
@@ -292,14 +291,14 @@ class _CausanteDatosScreenState extends State<CausanteDatosScreen> {
       child: TextField(
         controller: _ciudadController,
         decoration: InputDecoration(
-            fillColor: Colors.white,
-            filled: true,
-            hintText: 'Ingrese Ciudad...',
-            labelText: 'Ciudad',
-            errorText: _ciudadShowError ? _ciudadError : null,
-            suffixIcon: const Icon(Icons.location_city),
-            border:
-                OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
+          fillColor: Colors.white,
+          filled: true,
+          hintText: 'Ingrese Ciudad...',
+          labelText: 'Ciudad',
+          errorText: _ciudadShowError ? _ciudadError : null,
+          suffixIcon: const Icon(Icons.location_city),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+        ),
         onChanged: (value) {
           _ciudad = value;
         },
@@ -307,9 +306,9 @@ class _CausanteDatosScreenState extends State<CausanteDatosScreen> {
     );
   }
 
-//---------------------------------------------------------------
-//----------------------- _showProvincia ------------------------
-//---------------------------------------------------------------
+  //---------------------------------------------------------------
+  //----------------------- _showProvincia ------------------------
+  //---------------------------------------------------------------
 
   Widget _showProvincia() {
     return Container(
@@ -317,14 +316,14 @@ class _CausanteDatosScreenState extends State<CausanteDatosScreen> {
       child: TextField(
         controller: _provinciaController,
         decoration: InputDecoration(
-            fillColor: Colors.white,
-            filled: true,
-            hintText: 'Ingrese Provincia...',
-            labelText: 'Provincia',
-            errorText: _provinciaShowError ? _provinciaError : null,
-            suffixIcon: const Icon(Icons.south_america),
-            border:
-                OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
+          fillColor: Colors.white,
+          filled: true,
+          hintText: 'Ingrese Provincia...',
+          labelText: 'Provincia',
+          errorText: _provinciaShowError ? _provinciaError : null,
+          suffixIcon: const Icon(Icons.south_america),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+        ),
         onChanged: (value) {
           _provincia = value;
         },
@@ -332,38 +331,39 @@ class _CausanteDatosScreenState extends State<CausanteDatosScreen> {
     );
   }
 
-//---------------------------------------------------------------
-//----------------------- _showContacto -------------------------
-//---------------------------------------------------------------
+  //---------------------------------------------------------------
+  //----------------------- _showContacto -------------------------
+  //---------------------------------------------------------------
 
   Widget _showContacto() {
     return Padding(
       padding: const EdgeInsets.all(10),
       child: DropdownButtonFormField(
-          items: _items,
-          value: _optionContacto == ''
-              ? 'Seleccione un Contacto...'
-              : _optionContacto,
-          onChanged: (option) {
-            setState(() {
-              _optionContacto = option as String;
-              _contacto = option.toString();
-            });
-          },
-          decoration: InputDecoration(
-            hintText: 'Seleccione un Contacto...',
-            labelText: '',
-            fillColor: Colors.white,
-            filled: true,
-            errorText: _optionContactoShowError ? _optionContactoError : null,
-            border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
-          )),
+        items: _items,
+        initialValue: _optionContacto == ''
+            ? 'Seleccione un Contacto...'
+            : _optionContacto,
+        onChanged: (option) {
+          setState(() {
+            _optionContacto = option as String;
+            _contacto = option.toString();
+          });
+        },
+        decoration: InputDecoration(
+          hintText: 'Seleccione un Contacto...',
+          labelText: '',
+          fillColor: Colors.white,
+          filled: true,
+          errorText: _optionContactoShowError ? _optionContactoError : null,
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+        ),
+      ),
     );
   }
 
-//---------------------------------------------------------------
-//----------------------- _showNombreContacto -------------------
-//---------------------------------------------------------------
+  //---------------------------------------------------------------
+  //----------------------- _showNombreContacto -------------------
+  //---------------------------------------------------------------
 
   Widget _showNombreContacto() {
     return Container(
@@ -371,14 +371,14 @@ class _CausanteDatosScreenState extends State<CausanteDatosScreen> {
       child: TextField(
         controller: _nombreContactoController,
         decoration: InputDecoration(
-            fillColor: Colors.white,
-            filled: true,
-            hintText: 'Nombre Contacto',
-            labelText: 'Nombre Contacto',
-            errorText: _nombreContactoShowError ? _nombreContactoError : null,
-            suffixIcon: const Icon(Icons.person),
-            border:
-                OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
+          fillColor: Colors.white,
+          filled: true,
+          hintText: 'Nombre Contacto',
+          labelText: 'Nombre Contacto',
+          errorText: _nombreContactoShowError ? _nombreContactoError : null,
+          suffixIcon: const Icon(Icons.person),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+        ),
         onChanged: (value) {
           _nombreContacto = value;
         },
@@ -386,9 +386,9 @@ class _CausanteDatosScreenState extends State<CausanteDatosScreen> {
     );
   }
 
-//---------------------------------------------------------------
-//----------------------- _showTelefonoContacto -----------------
-//---------------------------------------------------------------
+  //---------------------------------------------------------------
+  //----------------------- _showTelefonoContacto -----------------
+  //---------------------------------------------------------------
 
   Widget _showTelefonoContacto() {
     return Container(
@@ -397,15 +397,14 @@ class _CausanteDatosScreenState extends State<CausanteDatosScreen> {
         controller: _telefonoContactoController,
         keyboardType: TextInputType.phone,
         decoration: InputDecoration(
-            fillColor: Colors.white,
-            filled: true,
-            hintText: 'Telefono Contacto',
-            labelText: 'Telefono Contacto',
-            errorText:
-                _telefonoContactoShowError ? _telefonoContactoError : null,
-            suffixIcon: const Icon(Icons.phone),
-            border:
-                OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
+          fillColor: Colors.white,
+          filled: true,
+          hintText: 'Telefono Contacto',
+          labelText: 'Telefono Contacto',
+          errorText: _telefonoContactoShowError ? _telefonoContactoError : null,
+          suffixIcon: const Icon(Icons.phone),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+        ),
         onChanged: (value) {
           _telefonoContacto = value;
         },
@@ -413,9 +412,9 @@ class _CausanteDatosScreenState extends State<CausanteDatosScreen> {
     );
   }
 
-//---------------------------------------------------------------
-//----------------------- _showCentroCosto ----------------------
-//---------------------------------------------------------------
+  //---------------------------------------------------------------
+  //----------------------- _showCentroCosto ----------------------
+  //---------------------------------------------------------------
 
   Widget _showCentroCosto() {
     return Container(
@@ -423,14 +422,14 @@ class _CausanteDatosScreenState extends State<CausanteDatosScreen> {
       child: TextField(
         controller: _cecoController,
         decoration: InputDecoration(
-            fillColor: Colors.white,
-            filled: true,
-            hintText: 'Centro de Costo',
-            labelText: 'Centro de Costo',
-            errorText: _cecoShowError ? _cecoError : null,
-            suffixIcon: const Icon(Icons.abc),
-            border:
-                OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
+          fillColor: Colors.white,
+          filled: true,
+          hintText: 'Centro de Costo',
+          labelText: 'Centro de Costo',
+          errorText: _cecoShowError ? _cecoError : null,
+          suffixIcon: const Icon(Icons.abc),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+        ),
         onChanged: (value) {
           _ceco = value;
         },
@@ -438,9 +437,9 @@ class _CausanteDatosScreenState extends State<CausanteDatosScreen> {
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _showFecha --------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _showFecha --------------------------------
+  //-----------------------------------------------------------------
 
   Widget _showFecha() {
     return Container(
@@ -448,18 +447,9 @@ class _CausanteDatosScreenState extends State<CausanteDatosScreen> {
       child: Column(
         children: [
           Row(
-            children: [
-              Expanded(
-                flex: 2,
-                child: Row(
-                  children: const [],
-                ),
-              ),
-            ],
+            children: [Expanded(flex: 2, child: Row(children: const []))],
           ),
-          const SizedBox(
-            height: 10,
-          ),
+          const SizedBox(height: 10),
           Row(
             children: [
               Expanded(
@@ -474,7 +464,9 @@ class _CausanteDatosScreenState extends State<CausanteDatosScreen> {
                       child: const Text(
                         '  Fecha Ingreso:',
                         style: TextStyle(
-                            fontWeight: FontWeight.bold, color: Colors.white),
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
                     Expanded(
@@ -492,18 +484,10 @@ class _CausanteDatosScreenState extends State<CausanteDatosScreen> {
                         ),
                       ),
                     ),
-                    const SizedBox(
-                      width: 10,
-                    ),
+                    const SizedBox(width: 10),
                     Expanded(
                       flex: 1,
                       child: ElevatedButton(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: const [
-                            Icon(Icons.calendar_month),
-                          ],
-                        ),
                         style: ElevatedButton.styleFrom(
                           backgroundColor: const Color(0xFF781f1e),
                           minimumSize: const Size(double.infinity, 50),
@@ -512,6 +496,10 @@ class _CausanteDatosScreenState extends State<CausanteDatosScreen> {
                           ),
                         ),
                         onPressed: () => _fechaIngreso(),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: const [Icon(Icons.calendar_month)],
+                        ),
                       ),
                     ),
                   ],
@@ -524,11 +512,11 @@ class _CausanteDatosScreenState extends State<CausanteDatosScreen> {
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _fechaIngreso -----------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _fechaIngreso -----------------------------
+  //-----------------------------------------------------------------
 
-  _fechaIngreso() async {
+  Future<void> _fechaIngreso() async {
     FocusScope.of(context).unfocus();
     final DateTime? selected = await showDatePicker(
       context: context,
@@ -543,9 +531,9 @@ class _CausanteDatosScreenState extends State<CausanteDatosScreen> {
     }
   }
 
-//-----------------------------------------------------------------
-//--------------------- _showButtons ------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _showButtons ------------------------------
+  //-----------------------------------------------------------------
 
   Widget _showButtons() {
     return Container(
@@ -555,16 +543,6 @@ class _CausanteDatosScreenState extends State<CausanteDatosScreen> {
         children: <Widget>[
           Expanded(
             child: ElevatedButton(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  Icon(Icons.save),
-                  SizedBox(
-                    width: 15,
-                  ),
-                  Text('Guardar'),
-                ],
-              ),
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xFF120E43),
                 minimumSize: const Size(100, 50),
@@ -573,6 +551,14 @@ class _CausanteDatosScreenState extends State<CausanteDatosScreen> {
                 ),
               ),
               onPressed: () => _save(),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Icon(Icons.save),
+                  SizedBox(width: 15),
+                  Text('Guardar'),
+                ],
+              ),
             ),
           ),
         ],
@@ -580,9 +566,9 @@ class _CausanteDatosScreenState extends State<CausanteDatosScreen> {
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _save -------------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _save -------------------------------------
+  //-----------------------------------------------------------------
 
   void _save() {
     if (!validateFields()) {
@@ -591,9 +577,9 @@ class _CausanteDatosScreenState extends State<CausanteDatosScreen> {
     _saveRecord();
   }
 
-//-----------------------------------------------------------------
-//--------------------- validateFields ----------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- validateFields ----------------------------
+  //-----------------------------------------------------------------
 
   bool validateFields() {
     bool isValid = true;
@@ -675,11 +661,11 @@ class _CausanteDatosScreenState extends State<CausanteDatosScreen> {
     return isValid;
   }
 
-//-----------------------------------------------------------------
-//--------------------- _saveRecord -------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _saveRecord -------------------------------
+  //-----------------------------------------------------------------
 
-  _saveRecord() async {
+  Future<void> _saveRecord() async {
     FocusScope.of(context).unfocus();
     setState(() {
       _showLoader = true;
@@ -692,7 +678,10 @@ class _CausanteDatosScreenState extends State<CausanteDatosScreen> {
         _showLoader = false;
       });
       showMyDialog(
-          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
+        'Error',
+        'Verifica que estés conectado a Internet',
+        'Aceptar',
+      );
     }
 
     Map<String, dynamic> request = {
@@ -712,7 +701,10 @@ class _CausanteDatosScreenState extends State<CausanteDatosScreen> {
     };
 
     Response response = await ApiHelper.put(
-        '/api/Causantes/', widget.causante.nroCausante.toString(), request);
+      '/api/Causantes/',
+      widget.causante.nroCausante.toString(),
+      request,
+    );
 
     setState(() {
       _showLoader = false;
@@ -720,28 +712,30 @@ class _CausanteDatosScreenState extends State<CausanteDatosScreen> {
 
     if (!response.isSuccess) {
       await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: response.message,
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message: response.message,
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
       return;
     } else {
       await showAlertDialog(
-          context: context,
-          title: 'Aviso',
-          message: 'Guardado con éxito!',
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Aviso',
+        message: 'Guardado con éxito!',
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
       Navigator.pop(context, 'yes');
     }
   }
 
-//-----------------------------------------------------------------
-//--------------------- _getlistOptions ---------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _getlistOptions ---------------------------
+  //-----------------------------------------------------------------
 
   void _getlistOptions() {
     _items = [];
@@ -761,24 +755,28 @@ class _CausanteDatosScreenState extends State<CausanteDatosScreen> {
     _getComboContactos();
   }
 
-//-----------------------------------------------------------------
-//--------------------- _getComboContactos ------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _getComboContactos ------------------------
+  //-----------------------------------------------------------------
 
   List<DropdownMenuItem<String>> _getComboContactos() {
     _items = [];
 
     List<DropdownMenuItem<String>> list = [];
-    list.add(const DropdownMenuItem(
-      child: Text('Seleccione un Contacto...'),
-      value: 'Seleccione un Contacto...',
-    ));
+    list.add(
+      const DropdownMenuItem(
+        value: 'Seleccione un Contacto...',
+        child: Text('Seleccione un Contacto...'),
+      ),
+    );
 
     for (var _listoption in _listoptions) {
-      list.add(DropdownMenuItem(
-        child: Text(_listoption.description),
-        value: _listoption.id,
-      ));
+      list.add(
+        DropdownMenuItem(
+          value: _listoption.id,
+          child: Text(_listoption.description),
+        ),
+      );
     }
 
     _items = list;

@@ -4,7 +4,7 @@ import 'dart:math';
 
 import 'package:battery_plus/battery_plus.dart';
 import 'package:bloc/bloc.dart';
-import 'package:connectivity/connectivity.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:equatable/equatable.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
@@ -31,55 +31,56 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
   DateTime ultimaFechaGrabada = DateTime.now();
 
   BatteryState? _batteryState;
-  StreamSubscription<BatteryState>? _batteryStateSubscription;
 
   User _user = User(
-      idUsuario: 0,
-      codigoCausante: '',
-      login: '',
-      contrasena: '',
-      nombre: '',
-      apellido: '',
-      autorWOM: 0,
-      estado: 0,
-      habilitaAPP: 0,
-      habilitaFotos: 0,
-      habilitaReclamos: 0,
-      habilitaSSHH: 0,
-      habilitaRRHH: 0,
-      modulo: '',
-      habilitaMedidores: 0,
-      habilitaFlotas: '',
-      reHabilitaUsuarios: 0,
-      codigogrupo: '',
-      codigocausante: '',
-      fullName: '',
-      fechaCaduca: 0,
-      intentosInvDiario: 0,
-      opeAutorizo: 0,
-      habilitaNuevoSuministro: 0,
-      habilitaVeredas: 0,
-      habilitaJuicios: 0,
-      habilitaPresentismo: 0,
-      habilitaSeguimientoUsuarios: 0,
-      habilitaVerObrasCerradas: 0,
-      habilitaElementosCalle: 0,
-      habilitaCertificacion: 0,
-      conceptomov: 0,
-      conceptomova: 0,
-      limitarGrupo: 0,
-      rubro: 0,
-      firmaUsuario: '',
-      firmaUsuarioImageFullPath: '',
-      appIMEI: '');
+    idUsuario: 0,
+    codigoCausante: '',
+    login: '',
+    contrasena: '',
+    nombre: '',
+    apellido: '',
+    autorWOM: 0,
+    estado: 0,
+    habilitaAPP: 0,
+    habilitaFotos: 0,
+    habilitaReclamos: 0,
+    habilitaSSHH: 0,
+    habilitaRRHH: 0,
+    modulo: '',
+    habilitaMedidores: 0,
+    habilitaFlotas: '',
+    reHabilitaUsuarios: 0,
+    codigogrupo: '',
+    codigocausante: '',
+    fullName: '',
+    fechaCaduca: 0,
+    intentosInvDiario: 0,
+    opeAutorizo: 0,
+    habilitaNuevoSuministro: 0,
+    habilitaVeredas: 0,
+    habilitaJuicios: 0,
+    habilitaPresentismo: 0,
+    habilitaSeguimientoUsuarios: 0,
+    habilitaVerObrasCerradas: 0,
+    habilitaElementosCalle: 0,
+    habilitaCertificacion: 0,
+    conceptomov: 0,
+    conceptomova: 0,
+    limitarGrupo: 0,
+    rubro: 0,
+    firmaUsuario: '',
+    firmaUsuarioImageFullPath: '',
+    appIMEI: '',
+  );
 
   Parametro parametro = Parametro(
-      id: 0,
-      bloqueaactas: 0,
-      ipServ: '',
-      metros: 0,
-      tiempo: 0,
-      appBloqueada: 0);
+    id: 0,
+    bloqueaactas: 0,
+    ipServ: '',
+    metros: 0,
+    tiempo: 0,
+    appBloqueada: 0,
+  );
 
   Future<void> _init() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -107,38 +108,37 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
   }
 
   LocationBloc(
-      this.lastSavedLocation,
-      this.lastSavedDateLocation,
-      this.latitudActual,
-      this.longitudActual,
-      this.latitudUltima,
-      this.longitudUltima)
-      : super(const LocationState()) {
+    this.lastSavedLocation,
+    this.lastSavedDateLocation,
+    this.latitudActual,
+    this.longitudActual,
+    this.latitudUltima,
+    this.longitudUltima,
+  ) : super(const LocationState()) {
     on<OnStartFollowingUser>(
-      (event, emit) => emit(
-        state.copyWith(followingUser: true),
-      ),
+      (event, emit) => emit(state.copyWith(followingUser: true)),
     );
 
     on<OnStopFollowingUser>(
-      (event, emit) => emit(
-        state.copyWith(followingUser: false),
-      ),
+      (event, emit) => emit(state.copyWith(followingUser: false)),
     );
 
     on<OnNewUserLocationEvent>((event, emit) async {
-      emit(state.copyWith(
-        lastKnownLocation: event.newLocation,
-      ));
+      emit(state.copyWith(lastKnownLocation: event.newLocation));
 
       latitudActual = event.newLocation.latitude;
       longitudActual = event.newLocation.longitude;
 
-      bool diff = DateTime.now().difference(ultimaFechaGrabada) >
+      bool diff =
+          DateTime.now().difference(ultimaFechaGrabada) >
           Duration(seconds: parametro.tiempo);
 
       double distancia = _distanciaEntrePuntos(
-          latitudActual, longitudActual, latitudUltima, longitudUltima);
+        latitudActual,
+        longitudActual,
+        latitudUltima,
+        longitudUltima,
+      );
       //+Random().nextInt(50).toDouble();
 
       //print("Distancia: $distancia - Diferencia: ${DateTime.now().difference(ultimaFechaGrabada)}");
@@ -157,11 +157,7 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
     latitudUltima = position.latitude;
     longitudUltima = position.longitude;
 
-    add(
-      OnNewUserLocationEvent(
-        LatLng(position.latitude, position.longitude),
-      ),
-    );
+    add(OnNewUserLocationEvent(LatLng(position.latitude, position.longitude)));
   }
 
   void startFollowingUser() {
@@ -169,9 +165,7 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
     positionStream = Geolocator.getPositionStream().listen((event) {
       final position = event;
       add(
-        OnNewUserLocationEvent(
-          LatLng(position.latitude, position.longitude),
-        ),
+        OnNewUserLocationEvent(LatLng(position.latitude, position.longitude)),
       );
       _init();
     });
@@ -188,11 +182,15 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
     return super.close();
   }
 
-//-----------------------------------------------------------------
-//--------------------- METODO handleTimeout ----------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- METODO handleTimeout ----------------------
+  //-----------------------------------------------------------------
 
-  handleTimeout(double latitud, double longitud, double distancia) async {
+  Future<void> handleTimeout(
+    double latitud,
+    double longitud,
+    double distancia,
+  ) async {
     var connectivityResult = Connectivity().checkConnectivity();
     if (connectivityResult == ConnectivityResult.none) {
       return;
@@ -202,13 +200,12 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
       return;
     }
 
-    List<Placemark> placemarks =
-        await placemarkFromCoordinates(latitud, longitud);
-    String direccion = placemarks[0].street.toString() +
-        ' - ' +
-        placemarks[0].locality.toString() +
-        ' - ' +
-        placemarks[0].country.toString();
+    List<Placemark> placemarks = await placemarkFromCoordinates(
+      latitud,
+      longitud,
+    );
+    String direccion =
+        '${placemarks[0].street} - ${placemarks[0].locality} - ${placemarks[0].country}';
 
     _battery.batteryState.then(_updateBatteryState);
     int batnivel = await _battery.batteryLevel;
@@ -239,17 +236,17 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
     return;
   }
 
-//------------------------------------------------------------------
-//----------------------- _updateBatteryState ----------------------
-//------------------------------------------------------------------
+  //------------------------------------------------------------------
+  //----------------------- _updateBatteryState ----------------------
+  //------------------------------------------------------------------
   void _updateBatteryState(BatteryState state) {
     if (_batteryState == state) return;
     _batteryState = state;
   }
 
-//--------------------------------------------------------
-//----------------- _distanciaEntrePuntos ----------------
-//--------------------------------------------------------
+  //--------------------------------------------------------
+  //----------------- _distanciaEntrePuntos ----------------
+  //--------------------------------------------------------
 
   double _distanciaEntrePuntos(
     double latitudUltima,
@@ -263,16 +260,17 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
     latitudUltima = _toRadians(latitudUltima);
     latitudActual = _toRadians(latitudActual);
 
-    double a = pow(sin(dLat / 2), 2) +
+    double a =
+        pow(sin(dLat / 2), 2) +
         pow(sin(dLon / 2), 2) * cos(latitudActual) * cos(latitudUltima);
     double c = 2 * asin(sqrt(a));
 
     return R * c;
   }
 
-//---------------------------------------------
-//----------------- _toRadians ----------------
-//---------------------------------------------
+  //---------------------------------------------
+  //----------------- _toRadians ----------------
+  //---------------------------------------------
 
   static double _toRadians(double degree) {
     return degree * pi / 180;

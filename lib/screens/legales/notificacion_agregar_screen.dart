@@ -4,7 +4,7 @@ import 'dart:typed_data';
 
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:camera/camera.dart';
-import 'package:connectivity/connectivity.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -17,9 +17,11 @@ import '../screens.dart';
 class NotificacionAgregarScreen extends StatefulWidget {
   final User user;
   final Juicio juicio;
-  const NotificacionAgregarScreen(
-      {Key? key, required this.user, required this.juicio})
-      : super(key: key);
+  const NotificacionAgregarScreen({
+    super.key,
+    required this.user,
+    required this.juicio,
+  });
 
   @override
   State<NotificacionAgregarScreen> createState() =>
@@ -27,9 +29,9 @@ class NotificacionAgregarScreen extends StatefulWidget {
 }
 
 class _NotificacionAgregarScreenState extends State<NotificacionAgregarScreen> {
-//---------------------------------------------------------------------
-//-------------------------- Variables --------------------------------
-//---------------------------------------------------------------------
+  //---------------------------------------------------------------------
+  //-------------------------- Variables --------------------------------
+  //---------------------------------------------------------------------
   bool _showLoader = false;
   bool _photoChanged = false;
 
@@ -86,63 +88,64 @@ class _NotificacionAgregarScreenState extends State<NotificacionAgregarScreen> {
   DateTime? _fechaNotificacionOferta;
   DateTime? _fechaVencimientoOferta;
 
-//---------------------------------------------------------------------
-//-------------------------- InitState --------------------------------
-//---------------------------------------------------------------------
+  //---------------------------------------------------------------------
+  //-------------------------- InitState --------------------------------
+  //---------------------------------------------------------------------
 
-//---------------------------------------------------------------------
-//-------------------------- Pantalla ---------------------------------
-//---------------------------------------------------------------------
+  //---------------------------------------------------------------------
+  //-------------------------- Pantalla ---------------------------------
+  //---------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        //backgroundColor: const Color(0xFF484848),
-        backgroundColor: const Color(0xff8c8c94),
-        appBar: AppBar(
-          title: const Text('Nueva Notificación'),
-          centerTitle: true,
+      //backgroundColor: const Color(0xFF484848),
+      backgroundColor: const Color(0xff8c8c94),
+      appBar: AppBar(
+        title: const Text('Nueva Notificación'),
+        centerTitle: true,
+      ),
+      body: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
+        child: Column(
+          children: [
+            _showTitulo(),
+            _showObservaciones(),
+            _showMonto(),
+            _showMoneda(),
+            _showTipoTransaccion(),
+            _showCondicionPago(),
+            _showNroFactura(),
+            _showLugar(),
+            _showParticipantes(),
+            _showFechaNotificacionOferta(),
+            _showFechaVencimientoOferta(),
+            _showPhoto(),
+            const SizedBox(height: 15),
+            _showButton(),
+            const SizedBox(height: 50),
+          ],
         ),
-        body: SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
-          child: Column(
-            children: [
-              _showTitulo(),
-              _showObservaciones(),
-              _showMonto(),
-              _showMoneda(),
-              _showTipoTransaccion(),
-              _showCondicionPago(),
-              _showNroFactura(),
-              _showLugar(),
-              _showParticipantes(),
-              _showFechaNotificacionOferta(),
-              _showFechaVencimientoOferta(),
-              _showPhoto(),
-              const SizedBox(height: 15),
-              _showButton(),
-              const SizedBox(height: 50),
-            ],
-          ),
-        ));
+      ),
+    );
   }
 
-//---------------------------------------------------------------------
-//-------------------------- _showTitulo ------------------------------
-//---------------------------------------------------------------------
+  //---------------------------------------------------------------------
+  //-------------------------- _showTitulo ------------------------------
+  //---------------------------------------------------------------------
   Widget _showTitulo() {
     return Container(
       padding: const EdgeInsets.all(10),
       child: TextField(
         controller: _tituloController,
         decoration: InputDecoration(
-            fillColor: Colors.white,
-            filled: true,
-            hintText: 'Ingresa Título...',
-            labelText: 'Título',
-            errorText: _tituloShowError ? _tituloError : null,
-            suffixIcon: const Icon(Icons.title),
-            border:
-                OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
+          fillColor: Colors.white,
+          filled: true,
+          hintText: 'Ingresa Título...',
+          labelText: 'Título',
+          errorText: _tituloShowError ? _tituloError : null,
+          suffixIcon: const Icon(Icons.title),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+        ),
         onChanged: (value) {
           _titulo = value;
         },
@@ -150,9 +153,9 @@ class _NotificacionAgregarScreenState extends State<NotificacionAgregarScreen> {
     );
   }
 
-//-----------------------------------------------------------
-//--------------------- _showObservaciones ------------------
-//-----------------------------------------------------------
+  //-----------------------------------------------------------
+  //--------------------- _showObservaciones ------------------
+  //-----------------------------------------------------------
 
   Widget _showObservaciones() {
     return Container(
@@ -161,14 +164,14 @@ class _NotificacionAgregarScreenState extends State<NotificacionAgregarScreen> {
         controller: _observacionesController,
         maxLines: 3,
         decoration: InputDecoration(
-            fillColor: Colors.white,
-            filled: true,
-            hintText: 'Ingresa Observaciones...',
-            labelText: 'Observaciones',
-            errorText: _observacionesShowError ? _observacionesError : null,
-            suffixIcon: const Icon(Icons.notes),
-            border:
-                OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
+          fillColor: Colors.white,
+          filled: true,
+          hintText: 'Ingresa Observaciones...',
+          labelText: 'Observaciones',
+          errorText: _observacionesShowError ? _observacionesError : null,
+          suffixIcon: const Icon(Icons.notes),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+        ),
         onChanged: (value) {
           _observaciones = value;
         },
@@ -176,9 +179,9 @@ class _NotificacionAgregarScreenState extends State<NotificacionAgregarScreen> {
     );
   }
 
-//---------------------------------------------------------------------
-//-------------------------- _showMonto -------------------------------
-//---------------------------------------------------------------------
+  //---------------------------------------------------------------------
+  //-------------------------- _showMonto -------------------------------
+  //---------------------------------------------------------------------
   Widget _showMonto() {
     return Container(
       padding: const EdgeInsets.all(10),
@@ -186,14 +189,14 @@ class _NotificacionAgregarScreenState extends State<NotificacionAgregarScreen> {
         controller: _montoController,
         keyboardType: TextInputType.number,
         decoration: InputDecoration(
-            fillColor: Colors.white,
-            filled: true,
-            hintText: 'Ingresa Monto...',
-            labelText: 'Monto',
-            errorText: _montoShowError ? _montoError : null,
-            suffixIcon: const Icon(Icons.monetization_on),
-            border:
-                OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
+          fillColor: Colors.white,
+          filled: true,
+          hintText: 'Ingresa Monto...',
+          labelText: 'Monto',
+          errorText: _montoShowError ? _montoError : null,
+          suffixIcon: const Icon(Icons.monetization_on),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+        ),
         onChanged: (value) {
           _monto = value;
         },
@@ -201,58 +204,63 @@ class _NotificacionAgregarScreenState extends State<NotificacionAgregarScreen> {
     );
   }
 
-//---------------------------------------------------------------------
-//-------------------------- _showMoneda -------------------------------
-//---------------------------------------------------------------------
+  //---------------------------------------------------------------------
+  //-------------------------- _showMoneda -------------------------------
+  //---------------------------------------------------------------------
   Widget _showMoneda() {
     return Container(
-        padding: const EdgeInsets.all(10),
-        margin: const EdgeInsets.all(10),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(5),
-        ),
-        child: Row(
-          children: [
-            const Text(' Moneda: ',
-                style: TextStyle(color: Colors.black, fontSize: 15)),
-            Expanded(
-              flex: 1,
-              child: RadioListTile<String>(
-                  activeColor: const Color(0xFF781f1e),
-                  value: 'ARG',
-                  groupValue: _moneda,
-                  title: const Text('ARG'),
-                  onChanged: (value) {
-                    _moneda = value ?? 'ARG';
-                    setState(() {});
-                  }),
+      padding: const EdgeInsets.all(10),
+      margin: const EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(5),
+      ),
+      child: Row(
+        children: [
+          const Text(
+            ' Moneda: ',
+            style: TextStyle(color: Colors.black, fontSize: 15),
+          ),
+          Expanded(
+            flex: 1,
+            child: RadioListTile<String>(
+              activeColor: const Color(0xFF781f1e),
+              value: 'ARG',
+              groupValue: _moneda,
+              title: const Text('ARG'),
+              onChanged: (value) {
+                _moneda = value ?? 'ARG';
+                setState(() {});
+              },
             ),
-            Expanded(
-              flex: 1,
-              child: RadioListTile<String>(
-                  activeColor: const Color(0xFF781f1e),
-                  value: 'USD',
-                  groupValue: _moneda,
-                  title: const Text('USD'),
-                  onChanged: (value) {
-                    _moneda = value ?? 'USD';
-                    setState(() {});
-                  }),
+          ),
+          Expanded(
+            flex: 1,
+            child: RadioListTile<String>(
+              activeColor: const Color(0xFF781f1e),
+              value: 'USD',
+              groupValue: _moneda,
+              title: const Text('USD'),
+              onChanged: (value) {
+                _moneda = value ?? 'USD';
+                setState(() {});
+              },
             ),
-          ],
-        ));
+          ),
+        ],
+      ),
+    );
   }
 
-//---------------------------------------------------------------------
-//-------------------------- _showTipoTransaccion ---------------------
-//---------------------------------------------------------------------
+  //---------------------------------------------------------------------
+  //-------------------------- _showTipoTransaccion ---------------------
+  //---------------------------------------------------------------------
 
   Widget _showTipoTransaccion() {
     return Container(
       padding: const EdgeInsets.all(10),
       child: DropdownButtonFormField(
-        value: _tipoTransaccion,
+        initialValue: _tipoTransaccion,
         decoration: InputDecoration(
           fillColor: Colors.white,
           filled: true,
@@ -266,22 +274,13 @@ class _NotificacionAgregarScreenState extends State<NotificacionAgregarScreen> {
             value: 'Elija un tipo de transacción...',
             child: Text('Elija un tipo de transacción...'),
           ),
-          DropdownMenuItem(
-            value: 'Efectivo',
-            child: Text('Efectivo'),
-          ),
-          DropdownMenuItem(
-            value: 'E-Cheq',
-            child: Text('E-Cheq'),
-          ),
+          DropdownMenuItem(value: 'Efectivo', child: Text('Efectivo')),
+          DropdownMenuItem(value: 'E-Cheq', child: Text('E-Cheq')),
           DropdownMenuItem(
             value: 'Transferencia',
             child: Text('Transferencia'),
           ),
-          DropdownMenuItem(
-            value: 'Otro',
-            child: Text('Otro'),
-          ),
+          DropdownMenuItem(value: 'Otro', child: Text('Otro')),
         ],
         onChanged: (value) {
           _tipoTransaccion = value.toString();
@@ -290,23 +289,23 @@ class _NotificacionAgregarScreenState extends State<NotificacionAgregarScreen> {
     );
   }
 
-//---------------------------------------------------------------------
-//-------------------------- _showCondicionPago --------------------------
-//---------------------------------------------------------------------
+  //---------------------------------------------------------------------
+  //-------------------------- _showCondicionPago --------------------------
+  //---------------------------------------------------------------------
   Widget _showCondicionPago() {
     return Container(
       padding: const EdgeInsets.all(10),
       child: TextField(
         controller: _condicionPagoController,
         decoration: InputDecoration(
-            fillColor: Colors.white,
-            filled: true,
-            hintText: 'Ingresa Condición de Pago...',
-            labelText: 'Condición de Pago',
-            errorText: _condicionPagoShowError ? _condicionPagoError : null,
-            suffixIcon: const Icon(Icons.title),
-            border:
-                OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
+          fillColor: Colors.white,
+          filled: true,
+          hintText: 'Ingresa Condición de Pago...',
+          labelText: 'Condición de Pago',
+          errorText: _condicionPagoShowError ? _condicionPagoError : null,
+          suffixIcon: const Icon(Icons.title),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+        ),
         onChanged: (value) {
           _condicionPago = value;
         },
@@ -314,23 +313,23 @@ class _NotificacionAgregarScreenState extends State<NotificacionAgregarScreen> {
     );
   }
 
-//---------------------------------------------------------------------
-//-------------------------- _showNroFactura --------------------------
-//---------------------------------------------------------------------
+  //---------------------------------------------------------------------
+  //-------------------------- _showNroFactura --------------------------
+  //---------------------------------------------------------------------
   Widget _showNroFactura() {
     return Container(
       padding: const EdgeInsets.all(10),
       child: TextField(
         controller: _nroFacturaController,
         decoration: InputDecoration(
-            fillColor: Colors.white,
-            filled: true,
-            hintText: 'Ingresa N° de Factura...',
-            labelText: 'N° de Factura',
-            errorText: _nroFacturaShowError ? _nroFacturaError : null,
-            suffixIcon: const Icon(Icons.title),
-            border:
-                OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
+          fillColor: Colors.white,
+          filled: true,
+          hintText: 'Ingresa N° de Factura...',
+          labelText: 'N° de Factura',
+          errorText: _nroFacturaShowError ? _nroFacturaError : null,
+          suffixIcon: const Icon(Icons.title),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+        ),
         onChanged: (value) {
           _nroFactura = value;
         },
@@ -338,23 +337,23 @@ class _NotificacionAgregarScreenState extends State<NotificacionAgregarScreen> {
     );
   }
 
-//---------------------------------------------------------------------
-//-------------------------- _showLugar -------------------------------
-//---------------------------------------------------------------------
+  //---------------------------------------------------------------------
+  //-------------------------- _showLugar -------------------------------
+  //---------------------------------------------------------------------
   Widget _showLugar() {
     return Container(
       padding: const EdgeInsets.all(10),
       child: TextField(
         controller: _lugarController,
         decoration: InputDecoration(
-            fillColor: Colors.white,
-            filled: true,
-            hintText: 'Ingresa Lugar...',
-            labelText: 'Lugar',
-            errorText: _lugarShowError ? _lugarError : null,
-            suffixIcon: const Icon(Icons.title),
-            border:
-                OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
+          fillColor: Colors.white,
+          filled: true,
+          hintText: 'Ingresa Lugar...',
+          labelText: 'Lugar',
+          errorText: _lugarShowError ? _lugarError : null,
+          suffixIcon: const Icon(Icons.title),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+        ),
         onChanged: (value) {
           _lugar = value;
         },
@@ -362,23 +361,23 @@ class _NotificacionAgregarScreenState extends State<NotificacionAgregarScreen> {
     );
   }
 
-//---------------------------------------------------------------------
-//-------------------------- _showParticipantes -----------------------
-//---------------------------------------------------------------------
+  //---------------------------------------------------------------------
+  //-------------------------- _showParticipantes -----------------------
+  //---------------------------------------------------------------------
   Widget _showParticipantes() {
     return Container(
       padding: const EdgeInsets.all(10),
       child: TextField(
         controller: _participantesController,
         decoration: InputDecoration(
-            fillColor: Colors.white,
-            filled: true,
-            hintText: 'Ingresa Participantes...',
-            labelText: 'Participantes',
-            errorText: _participantesShowError ? _participantesError : null,
-            suffixIcon: const Icon(Icons.title),
-            border:
-                OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
+          fillColor: Colors.white,
+          filled: true,
+          hintText: 'Ingresa Participantes...',
+          labelText: 'Participantes',
+          errorText: _participantesShowError ? _participantesError : null,
+          suffixIcon: const Icon(Icons.title),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+        ),
         onChanged: (value) {
           _participantes = value;
         },
@@ -386,9 +385,9 @@ class _NotificacionAgregarScreenState extends State<NotificacionAgregarScreen> {
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _showFechaNotificacionOferta --------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _showFechaNotificacionOferta --------------------
+  //-----------------------------------------------------------------
 
   Widget _showFechaNotificacionOferta() {
     double ancho = MediaQuery.of(context).size.width;
@@ -397,18 +396,9 @@ class _NotificacionAgregarScreenState extends State<NotificacionAgregarScreen> {
       child: Column(
         children: [
           Row(
-            children: [
-              Expanded(
-                flex: 2,
-                child: Row(
-                  children: const [],
-                ),
-              ),
-            ],
+            children: [Expanded(flex: 2, child: Row(children: const []))],
           ),
-          const SizedBox(
-            height: 10,
-          ),
+          const SizedBox(height: 10),
           Row(
             children: [
               Expanded(
@@ -424,35 +414,31 @@ class _NotificacionAgregarScreenState extends State<NotificacionAgregarScreen> {
                       width: ancho * 0.75,
                       height: 60,
                       child: Text(
-                        '  Fecha Notificación: ' +
-                            ((_fechaNotificacionOferta != null)
-                                ? '    ${_fechaNotificacionOferta!.day}/${_fechaNotificacionOferta!.month}/${_fechaNotificacionOferta!.year}'
-                                : ''),
-                        style:
-                            const TextStyle(color: Colors.black, fontSize: 15),
+                        '  Fecha Notificación: ${(_fechaNotificacionOferta != null) ? '    ${_fechaNotificacionOferta!.day}/${_fechaNotificacionOferta!.month}/${_fechaNotificacionOferta!.year}' : ''}',
+                        style: const TextStyle(
+                          color: Colors.black,
+                          fontSize: 15,
+                        ),
                       ),
                     ),
-                    const SizedBox(
-                      width: 10,
-                    ),
+                    const SizedBox(width: 10),
                     Expanded(
                       flex: 1,
                       child: ElevatedButton(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: const [
-                              Icon(Icons.calendar_month),
-                            ],
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFF781f1e),
+                          minimumSize: const Size(double.infinity, 60),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(5),
                           ),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color(0xFF781f1e),
-                            minimumSize: const Size(double.infinity, 60),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                          ),
-                          onPressed: () =>
-                              _elegirFechaNotificacionOferta(context)),
+                        ),
+                        onPressed: () =>
+                            _elegirFechaNotificacionOferta(context),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: const [Icon(Icons.calendar_month)],
+                        ),
+                      ),
                     ),
                   ],
                 ),
@@ -464,20 +450,24 @@ class _NotificacionAgregarScreenState extends State<NotificacionAgregarScreen> {
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _elegirFechaNotificacionOferta ------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _elegirFechaNotificacionOferta ------------
+  //-----------------------------------------------------------------
 
   void _elegirFechaNotificacionOferta(BuildContext context) async {
     final DateTime? selected = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
       firstDate: DateTime(
-          DateTime.now().add(const Duration(days: -60)).year,
-          DateTime.now().add(const Duration(days: -60)).month,
-          DateTime.now().add(const Duration(days: -60)).day),
+        DateTime.now().add(const Duration(days: -60)).year,
+        DateTime.now().add(const Duration(days: -60)).month,
+        DateTime.now().add(const Duration(days: -60)).day,
+      ),
       lastDate: DateTime(
-          DateTime.now().year, DateTime.now().month, DateTime.now().day),
+        DateTime.now().year,
+        DateTime.now().month,
+        DateTime.now().day,
+      ),
     );
     if (selected != null && selected != _fechaNotificacionOferta) {
       setState(() {
@@ -486,9 +476,9 @@ class _NotificacionAgregarScreenState extends State<NotificacionAgregarScreen> {
     }
   }
 
-//-----------------------------------------------------------------
-//--------------------- _showFechaVencimientoOferta --------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _showFechaVencimientoOferta --------------------
+  //-----------------------------------------------------------------
 
   Widget _showFechaVencimientoOferta() {
     double ancho = MediaQuery.of(context).size.width;
@@ -497,18 +487,9 @@ class _NotificacionAgregarScreenState extends State<NotificacionAgregarScreen> {
       child: Column(
         children: [
           Row(
-            children: [
-              Expanded(
-                flex: 2,
-                child: Row(
-                  children: const [],
-                ),
-              ),
-            ],
+            children: [Expanded(flex: 2, child: Row(children: const []))],
           ),
-          const SizedBox(
-            height: 10,
-          ),
+          const SizedBox(height: 10),
           Row(
             children: [
               Expanded(
@@ -524,35 +505,30 @@ class _NotificacionAgregarScreenState extends State<NotificacionAgregarScreen> {
                       width: ancho * 0.75,
                       height: 60,
                       child: Text(
-                        '  Fecha Vencimiento Oferta: ' +
-                            ((_fechaVencimientoOferta != null)
-                                ? '    ${_fechaVencimientoOferta!.day}/${_fechaVencimientoOferta!.month}/${_fechaVencimientoOferta!.year}'
-                                : ''),
-                        style:
-                            const TextStyle(color: Colors.black, fontSize: 15),
+                        '  Fecha Vencimiento Oferta: ${(_fechaVencimientoOferta != null) ? '    ${_fechaVencimientoOferta!.day}/${_fechaVencimientoOferta!.month}/${_fechaVencimientoOferta!.year}' : ''}',
+                        style: const TextStyle(
+                          color: Colors.black,
+                          fontSize: 15,
+                        ),
                       ),
                     ),
-                    const SizedBox(
-                      width: 10,
-                    ),
+                    const SizedBox(width: 10),
                     Expanded(
                       flex: 1,
                       child: ElevatedButton(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: const [
-                              Icon(Icons.calendar_month),
-                            ],
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFF781f1e),
+                          minimumSize: const Size(double.infinity, 60),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(5),
                           ),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color(0xFF781f1e),
-                            minimumSize: const Size(double.infinity, 60),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                          ),
-                          onPressed: () =>
-                              _elegirFechaVencimientoOferta(context)),
+                        ),
+                        onPressed: () => _elegirFechaVencimientoOferta(context),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: const [Icon(Icons.calendar_month)],
+                        ),
+                      ),
                     ),
                   ],
                 ),
@@ -564,22 +540,24 @@ class _NotificacionAgregarScreenState extends State<NotificacionAgregarScreen> {
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _elegirFechaVencimientoOferta -------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _elegirFechaVencimientoOferta -------------
+  //-----------------------------------------------------------------
 
   void _elegirFechaVencimientoOferta(BuildContext context) async {
     final DateTime? selected = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
       firstDate: DateTime(
-          DateTime.now().add(const Duration(days: -30)).year,
-          DateTime.now().add(const Duration(days: -30)).month,
-          DateTime.now().add(const Duration(days: -30)).day),
+        DateTime.now().add(const Duration(days: -30)).year,
+        DateTime.now().add(const Duration(days: -30)).month,
+        DateTime.now().add(const Duration(days: -30)).day,
+      ),
       lastDate: DateTime(
-          DateTime.now().add(const Duration(days: 180)).year,
-          DateTime.now().add(const Duration(days: 180)).month,
-          DateTime.now().add(const Duration(days: 180)).day),
+        DateTime.now().add(const Duration(days: 180)).year,
+        DateTime.now().add(const Duration(days: 180)).month,
+        DateTime.now().add(const Duration(days: 180)).day,
+      ),
     );
     if (selected != null && selected != _fechaVencimientoOferta) {
       setState(() {
@@ -588,36 +566,39 @@ class _NotificacionAgregarScreenState extends State<NotificacionAgregarScreen> {
     }
   }
 
-//-----------------------------------------------------------------
-//--------------------- _showPhoto --------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _showPhoto --------------------------------
+  //-----------------------------------------------------------------
 
   Widget _showPhoto() {
-    return Stack(children: <Widget>[
-      Container(
-        padding: const EdgeInsets.symmetric(horizontal: 10),
-        width: double.infinity,
-        height: 240,
-        margin: const EdgeInsets.only(top: 10),
-        child: base64ImagePdf == ''
-            ? !_photoChanged
-                ? const Image(
-                    image: AssetImage('assets/noimage.png'),
-                    width: double.infinity,
-                    height: 160,
-                    fit: BoxFit.contain)
-                : Image.file(
-                    File(_image.path),
-                    width: 160,
-                    fit: BoxFit.contain,
-                  )
-            : const Image(
-                image: AssetImage('assets/pdf.png'),
-                width: double.infinity,
-                height: 160,
-                fit: BoxFit.contain),
-      ),
-      Positioned(
+    return Stack(
+      children: <Widget>[
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+          width: double.infinity,
+          height: 240,
+          margin: const EdgeInsets.only(top: 10),
+          child: base64ImagePdf == ''
+              ? !_photoChanged
+                    ? const Image(
+                        image: AssetImage('assets/noimage.png'),
+                        width: double.infinity,
+                        height: 160,
+                        fit: BoxFit.contain,
+                      )
+                    : Image.file(
+                        File(_image.path),
+                        width: 160,
+                        fit: BoxFit.contain,
+                      )
+              : const Image(
+                  image: AssetImage('assets/pdf.png'),
+                  width: double.infinity,
+                  height: 160,
+                  fit: BoxFit.contain,
+                ),
+        ),
+        Positioned(
           top: 15,
           left: 30,
           child: InkWell(
@@ -635,8 +616,9 @@ class _NotificacionAgregarScreenState extends State<NotificacionAgregarScreen> {
                 ),
               ),
             ),
-          )),
-      Positioned(
+          ),
+        ),
+        Positioned(
           bottom: 15,
           left: 30,
           child: InkWell(
@@ -654,8 +636,9 @@ class _NotificacionAgregarScreenState extends State<NotificacionAgregarScreen> {
                 ),
               ),
             ),
-          )),
-      Positioned(
+          ),
+        ),
+        Positioned(
           top: 90,
           right: 30,
           child: InkWell(
@@ -673,27 +656,30 @@ class _NotificacionAgregarScreenState extends State<NotificacionAgregarScreen> {
                 ),
               ),
             ),
-          )),
-    ]);
+          ),
+        ),
+      ],
+    );
   }
 
-//-------------------------------------------------------------------------
-//----------------------------- _takePicture ------------------------------
-//-------------------------------------------------------------------------
+  //-------------------------------------------------------------------------
+  //----------------------------- _takePicture ------------------------------
+  //-------------------------------------------------------------------------
 
   void _takePicture() async {
     WidgetsFlutterBinding.ensureInitialized();
     final cameras = await availableCameras();
     var firstCamera = cameras.first;
     var response = await showAlertDialog(
-        context: context,
-        title: 'Seleccionar cámara',
-        message: '¿Qué cámara desea utilizar?',
-        actions: <AlertDialogAction>[
-          const AlertDialogAction(key: 'no', label: 'Trasera'),
-          const AlertDialogAction(key: 'yes', label: 'Delantera'),
-          const AlertDialogAction(key: 'cancel', label: 'Cancelar'),
-        ]);
+      context: context,
+      title: 'Seleccionar cámara',
+      message: '¿Qué cámara desea utilizar?',
+      actions: <AlertDialogAction>[
+        const AlertDialogAction(key: 'no', label: 'Trasera'),
+        const AlertDialogAction(key: 'yes', label: 'Delantera'),
+        const AlertDialogAction(key: 'cancel', label: 'Cancelar'),
+      ],
+    );
     if (response == 'yes') {
       firstCamera = cameras.first;
     }
@@ -703,11 +689,11 @@ class _NotificacionAgregarScreenState extends State<NotificacionAgregarScreen> {
 
     if (response != 'cancel') {
       Response? response = await Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => TakePictureaScreen(
-                    camera: firstCamera,
-                  )));
+        context,
+        MaterialPageRoute(
+          builder: (context) => TakePictureaScreen(camera: firstCamera),
+        ),
+      );
       if (response != null) {
         setState(() {
           _photoChanged = true;
@@ -719,13 +705,13 @@ class _NotificacionAgregarScreenState extends State<NotificacionAgregarScreen> {
     }
   }
 
-//-------------------------------------------------------------------------
-//----------------------------- _selectPicture ----------------------------
-//-------------------------------------------------------------------------
+  //-------------------------------------------------------------------------
+  //----------------------------- _selectPicture ----------------------------
+  //-------------------------------------------------------------------------
 
   void _selectPicture() async {
-    final ImagePicker _picker = ImagePicker();
-    final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+    final ImagePicker picker = ImagePicker();
+    final XFile? image = await picker.pickImage(source: ImageSource.gallery);
     if (image != null) {
       setState(() {
         _photoChanged = true;
@@ -736,9 +722,9 @@ class _NotificacionAgregarScreenState extends State<NotificacionAgregarScreen> {
     }
   }
 
-//-----------------------------------------------------------------
-//--------------------- _showButton -------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _showButton -------------------------------
+  //-----------------------------------------------------------------
 
   Widget _showButton() {
     return Container(
@@ -748,16 +734,6 @@ class _NotificacionAgregarScreenState extends State<NotificacionAgregarScreen> {
         children: <Widget>[
           Expanded(
             child: ElevatedButton(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  Icon(Icons.save),
-                  SizedBox(
-                    width: 20,
-                  ),
-                  Text('Guardar Notificación'),
-                ],
-              ),
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xFF781f1e),
                 minimumSize: const Size(double.infinity, 50),
@@ -766,6 +742,14 @@ class _NotificacionAgregarScreenState extends State<NotificacionAgregarScreen> {
                 ),
               ),
               onPressed: _save,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Icon(Icons.save),
+                  SizedBox(width: 20),
+                  Text('Guardar Notificación'),
+                ],
+              ),
             ),
           ),
         ],
@@ -773,11 +757,11 @@ class _NotificacionAgregarScreenState extends State<NotificacionAgregarScreen> {
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _save -------------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _save -------------------------------------
+  //-----------------------------------------------------------------
 
-  _save() {
+  void _save() {
     if (!validateFields()) {
       setState(() {});
       return;
@@ -785,14 +769,14 @@ class _NotificacionAgregarScreenState extends State<NotificacionAgregarScreen> {
     _addRecord();
   }
 
-//-----------------------------------------------------------------
-//--------------------- validateFields ----------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- validateFields ----------------------------
+  //-----------------------------------------------------------------
 
   bool validateFields() {
     bool isValid = true;
 
-//--------- Titulo ----------
+    //--------- Titulo ----------
     if (_titulo == '') {
       isValid = false;
       _tituloShowError = true;
@@ -811,7 +795,7 @@ class _NotificacionAgregarScreenState extends State<NotificacionAgregarScreen> {
       _tituloShowError = false;
     }
 
-//--------- Observaciones ----------
+    //--------- Observaciones ----------
     if (_observaciones.length > 299) {
       isValid = false;
       _observacionesShowError = true;
@@ -823,7 +807,7 @@ class _NotificacionAgregarScreenState extends State<NotificacionAgregarScreen> {
       _observacionesShowError = false;
     }
 
-//--------- TipoTransaccion ----------
+    //--------- TipoTransaccion ----------
     if (_tipoTransaccion == 'Elija un tipo de transacción...' && _monto != '') {
       isValid = false;
       _tipoTransaccionShowError = true;
@@ -835,7 +819,7 @@ class _NotificacionAgregarScreenState extends State<NotificacionAgregarScreen> {
       _tipoTransaccionShowError = false;
     }
 
-//--------- CondicionPago ----------
+    //--------- CondicionPago ----------
     if (_condicionPago == '' && _monto != '') {
       isValid = false;
       _condicionPagoShowError = true;
@@ -854,7 +838,7 @@ class _NotificacionAgregarScreenState extends State<NotificacionAgregarScreen> {
       _condicionPagoShowError = false;
     }
 
-//--------- N° de Factura ----------
+    //--------- N° de Factura ----------
     if (_nroFactura == '' && _monto != '') {
       isValid = false;
       _nroFacturaShowError = true;
@@ -909,9 +893,9 @@ class _NotificacionAgregarScreenState extends State<NotificacionAgregarScreen> {
     return isValid;
   }
 
-//-----------------------------------------------------------------
-//--------------------- _addRecord ----------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _addRecord ----------------------------
+  //-----------------------------------------------------------------
 
   void _addRecord() async {
     setState(() {
@@ -925,7 +909,10 @@ class _NotificacionAgregarScreenState extends State<NotificacionAgregarScreen> {
         _showLoader = false;
       });
       showMyDialog(
-          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
+        'Error',
+        'Verifica que estés conectado a Internet',
+        'Aceptar',
+      );
     }
 
     String base64Image = '';
@@ -934,8 +921,11 @@ class _NotificacionAgregarScreenState extends State<NotificacionAgregarScreen> {
       Uint8List imageBytes = await _image.readAsBytes();
       int maxWidth = 800; // Ancho máximo
       int maxHeight = 600; // Alto máximo
-      Uint8List resizedBytes =
-          await resizeImage(imageBytes, maxWidth, maxHeight);
+      Uint8List resizedBytes = await resizeImage(
+        imageBytes,
+        maxWidth,
+        maxHeight,
+      );
       base64Image = base64Encode(resizedBytes);
     }
 
@@ -972,7 +962,9 @@ class _NotificacionAgregarScreenState extends State<NotificacionAgregarScreen> {
     };
 
     Response response = await ApiHelper.postNoToken(
-        '/api/CausantesJuicios/PostNotificacion', request);
+      '/api/CausantesJuicios/PostNotificacion',
+      request,
+    );
 
     setState(() {
       _showLoader = false;
@@ -980,20 +972,21 @@ class _NotificacionAgregarScreenState extends State<NotificacionAgregarScreen> {
 
     if (!response.isSuccess) {
       await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: response.message,
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message: response.message,
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
       return;
     }
     Navigator.pop(context, 'yes');
   }
 
-//-----------------------------------------------------------------
-//------------------------- _loadPdf ------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //------------------------- _loadPdf ------------------------------
+  //-----------------------------------------------------------------
 
   Future<void> _loadPdf() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles(

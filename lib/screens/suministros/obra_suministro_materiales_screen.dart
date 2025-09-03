@@ -9,9 +9,11 @@ import 'package:rowing_app/models/models.dart';
 class ObraSuministroMaterialesScreen extends StatefulWidget {
   final User user;
   final ObrasNuevoSuministro suministro;
-  const ObraSuministroMaterialesScreen(
-      {Key? key, required this.user, required this.suministro})
-      : super(key: key);
+  const ObraSuministroMaterialesScreen({
+    super.key,
+    required this.user,
+    required this.suministro,
+  });
 
   @override
   _ObraSuministroMaterialesScreenState createState() =>
@@ -20,14 +22,14 @@ class ObraSuministroMaterialesScreen extends StatefulWidget {
 
 class _ObraSuministroMaterialesScreenState
     extends State<ObraSuministroMaterialesScreen> {
-//-----------------------------------------------------------------
-//--------------------- Variables ---------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- Variables ---------------------------------
+  //-----------------------------------------------------------------
 
-  bool _showLoader = false;
+  final bool _showLoader = false;
   List<Catalogo> _catalogos = [];
   List<ObraNuevoSuministroDet> _materialestodos = [];
-  List<ObraNuevoSuministroDet> _materiales = [];
+  final List<ObraNuevoSuministroDet> _materiales = [];
 
   String _cantidad = '';
   final String _cantidadError = '';
@@ -36,9 +38,9 @@ class _ObraSuministroMaterialesScreenState
 
   List<TextEditingController> controllers = [];
 
-//-----------------------------------------------------------------
-//--------------------- initState ---------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- initState ---------------------------------
+  //-----------------------------------------------------------------
 
   @override
   void initState() {
@@ -46,9 +48,9 @@ class _ObraSuministroMaterialesScreenState
     _loadData();
   }
 
-//-----------------------------------------------------------------
-//--------------------- Pantalla ----------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- Pantalla ----------------------------------
+  //-----------------------------------------------------------------
 
   @override
   Widget build(BuildContext context) {
@@ -60,24 +62,20 @@ class _ObraSuministroMaterialesScreenState
       ),
       body: Center(
         child: _showLoader
-            ? const LoaderComponent(
-                text: 'Por favor espere...',
-              )
+            ? const LoaderComponent(text: 'Por favor espere...')
             : _getContent(),
       ),
     );
   }
 
-//--------------------------------------------------------------
-//--------------------- _getContent ----------------------------
-//--------------------------------------------------------------
+  //--------------------------------------------------------------
+  //--------------------- _getContent ----------------------------
+  //--------------------------------------------------------------
   Widget _getContent() {
     return _catalogos.isNotEmpty
         ? Column(
             children: <Widget>[
-              const SizedBox(
-                height: 10,
-              ),
+              const SizedBox(height: 10),
               _showSuministroInfo(),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -86,37 +84,33 @@ class _ObraSuministroMaterialesScreenState
                     "Material         ",
                     style: TextStyle(color: Colors.white),
                   ),
-                  Text(
-                    "   ",
-                    style: TextStyle(color: Colors.white),
-                  ),
+                  Text("   ", style: TextStyle(color: Colors.white)),
                   Text(
                     "Cantidad                 ",
                     style: TextStyle(color: Colors.white),
                   ),
                 ],
               ),
-              Expanded(
-                child: _getListView(),
-              ),
+              Expanded(child: _getListView()),
               _showButtons(),
-              const SizedBox(
-                height: 10,
-              ),
+              const SizedBox(height: 10),
             ],
           )
         : Center(
             child: Text(
-                widget.user.modulo + " no tiene materiales para Suministros.",
-                style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold)));
+              "${widget.user.modulo} no tiene materiales para Suministros.",
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          );
   }
 
-//----------------------------------------------------------
-//--------------------- _showSuministroInfo ----------------
-//----------------------------------------------------------
+  //----------------------------------------------------------
+  //--------------------- _showSuministroInfo ----------------
+  //----------------------------------------------------------
 
   Widget _showSuministroInfo() {
     double ancho = MediaQuery.of(context).size.width;
@@ -143,47 +137,56 @@ class _ObraSuministroMaterialesScreenState
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         _RowCustom(
-                            anchoTitulo: anchoTitulo,
-                            titulo: 'Fecha:',
-                            dato: DateFormat('dd/MM/yyyy').format(
-                                DateTime.parse(widget.suministro.fecha!))),
+                          anchoTitulo: anchoTitulo,
+                          titulo: 'Fecha:',
+                          dato: DateFormat(
+                            'dd/MM/yyyy',
+                          ).format(DateTime.parse(widget.suministro.fecha!)),
+                        ),
                         _RowCustom(
-                            anchoTitulo: anchoTitulo,
-                            titulo: 'Cliente:',
-                            dato: widget.suministro.apellidonombre!),
+                          anchoTitulo: anchoTitulo,
+                          titulo: 'Cliente:',
+                          dato: widget.suministro.apellidonombre!,
+                        ),
                         _RowCustom(
-                            anchoTitulo: anchoTitulo,
-                            titulo: 'DNI:',
-                            dato: widget.suministro.dni!),
+                          anchoTitulo: anchoTitulo,
+                          titulo: 'DNI:',
+                          dato: widget.suministro.dni!,
+                        ),
                         _RowCustom(
-                            anchoTitulo: anchoTitulo,
-                            titulo: 'Domicilio:',
-                            dato: widget.suministro.domicilio!),
+                          anchoTitulo: anchoTitulo,
+                          titulo: 'Domicilio:',
+                          dato: widget.suministro.domicilio!,
+                        ),
                         _RowCustom(
-                            anchoTitulo: anchoTitulo,
-                            titulo: 'Barrio:',
-                            dato: widget.suministro.barrio!),
+                          anchoTitulo: anchoTitulo,
+                          titulo: 'Barrio:',
+                          dato: widget.suministro.barrio!,
+                        ),
                         _RowCustom(
-                            anchoTitulo: anchoTitulo,
-                            titulo: 'Localidad:',
-                            dato: widget.suministro.localidad!),
+                          anchoTitulo: anchoTitulo,
+                          titulo: 'Localidad:',
+                          dato: widget.suministro.localidad!,
+                        ),
                         _RowCustom(
-                            anchoTitulo: anchoTitulo,
-                            titulo: 'Partido:',
-                            dato: widget.suministro.partido!),
+                          anchoTitulo: anchoTitulo,
+                          titulo: 'Partido:',
+                          dato: widget.suministro.partido!,
+                        ),
                         _RowCustom(
-                            anchoTitulo: anchoTitulo,
-                            titulo: 'Entre calles:',
-                            dato: (widget.suministro.entrecalleS1 != '' &&
-                                    widget.suministro.entrecalleS2! != "")
-                                ? widget.suministro.entrecalleS1! +
-                                    ' y ' +
-                                    widget.suministro.entrecalleS2!
-                                : ""),
+                          anchoTitulo: anchoTitulo,
+                          titulo: 'Entre calles:',
+                          dato:
+                              (widget.suministro.entrecalleS1 != '' &&
+                                  widget.suministro.entrecalleS2! != "")
+                              ? '${widget.suministro.entrecalleS1!} y ${widget.suministro.entrecalleS2!}'
+                              : "",
+                        ),
                         _RowCustom(
-                            anchoTitulo: anchoTitulo,
-                            titulo: 'Teléfono:',
-                            dato: widget.suministro.telefono!),
+                          anchoTitulo: anchoTitulo,
+                          titulo: 'Teléfono:',
+                          dato: widget.suministro.telefono!,
+                        ),
                       ],
                     ),
                   ],
@@ -196,9 +199,9 @@ class _ObraSuministroMaterialesScreenState
     );
   }
 
-//-----------------------------------------------------------
-//--------------------- _getListView ------------------------
-//-----------------------------------------------------------
+  //-----------------------------------------------------------
+  //--------------------- _getListView ------------------------
+  //-----------------------------------------------------------
 
   Widget _getListView() {
     return ListView(
@@ -226,167 +229,159 @@ class _ObraSuministroMaterialesScreenState
                                 children: [
                                   Expanded(
                                     flex: 4,
-                                    child: Text(e.catCatalogo.toString(),
-                                        style: const TextStyle(
-                                          fontSize: 12,
-                                        )),
+                                    child: Text(
+                                      e.catCatalogo.toString(),
+                                      style: const TextStyle(fontSize: 12),
+                                    ),
                                   ),
-                                  const SizedBox(
-                                    width: 5,
-                                  ),
+                                  const SizedBox(width: 5),
                                   Expanded(
                                     flex: 1,
-                                    child: Text(e.cantidad.toString(),
-                                        style: const TextStyle(
-                                          fontSize: 14,
-                                          color: Colors.blue,
-                                          fontWeight: FontWeight.bold,
-                                        )),
+                                    child: Text(
+                                      e.cantidad.toString(),
+                                      style: const TextStyle(
+                                        fontSize: 14,
+                                        color: Colors.blue,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
                                   ),
-                                  const SizedBox(
-                                    width: 10,
-                                  ),
+                                  const SizedBox(width: 10),
                                   IconButton(
-                                      onPressed: () {
-                                        _cantidadController.text =
-                                            e.cantidad == 0.0
-                                                ? ''
-                                                : e.cantidad.toString();
-                                        showDialog(
-                                            context: context,
-                                            builder: (BuildContext context) {
-                                              return AlertDialog(
-                                                backgroundColor:
-                                                    Colors.grey[300],
-                                                title: const Text(
-                                                    "Ingrese la cantidad"),
-                                                content: TextField(
-                                                  autofocus: true,
-                                                  controller:
-                                                      _cantidadController,
-                                                  decoration: InputDecoration(
-                                                      fillColor: Colors.white,
-                                                      filled: true,
-                                                      hintText: '',
-                                                      labelText: '',
-                                                      errorText:
-                                                          _cantidadShowError
-                                                              ? _cantidadError
-                                                              : null,
-                                                      prefixIcon:
-                                                          const Icon(Icons.tag),
-                                                      border:
-                                                          OutlineInputBorder(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          10))),
-                                                  onChanged: (value) {
-                                                    _cantidad = value;
-                                                  },
+                                    onPressed: () {
+                                      _cantidadController.text =
+                                          e.cantidad == 0.0
+                                          ? ''
+                                          : e.cantidad.toString();
+                                      showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          return AlertDialog(
+                                            backgroundColor: Colors.grey[300],
+                                            title: const Text(
+                                              "Ingrese la cantidad",
+                                            ),
+                                            content: TextField(
+                                              autofocus: true,
+                                              controller: _cantidadController,
+                                              decoration: InputDecoration(
+                                                fillColor: Colors.white,
+                                                filled: true,
+                                                hintText: '',
+                                                labelText: '',
+                                                errorText: _cantidadShowError
+                                                    ? _cantidadError
+                                                    : null,
+                                                prefixIcon: const Icon(
+                                                  Icons.tag,
                                                 ),
-                                                actions: [
-                                                  Row(
-                                                    children: [
-                                                      Expanded(
-                                                        child: ElevatedButton(
-                                                          child: Row(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .spaceAround,
-                                                            children: const [
-                                                              Icon(
-                                                                  Icons.cancel),
-                                                              Text('Cancelar'),
-                                                            ],
-                                                          ),
-                                                          style: ElevatedButton
-                                                              .styleFrom(
-                                                            backgroundColor:
-                                                                const Color(
-                                                                    0xFFB4161B),
-                                                            minimumSize:
-                                                                const Size(
-                                                                    double
-                                                                        .infinity,
-                                                                    50),
-                                                            shape:
-                                                                RoundedRectangleBorder(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          5),
+                                                border: OutlineInputBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                ),
+                                              ),
+                                              onChanged: (value) {
+                                                _cantidad = value;
+                                              },
+                                            ),
+                                            actions: [
+                                              Row(
+                                                children: [
+                                                  Expanded(
+                                                    child: ElevatedButton(
+                                                      style: ElevatedButton.styleFrom(
+                                                        backgroundColor:
+                                                            const Color(
+                                                              0xFFB4161B,
                                                             ),
-                                                          ),
-                                                          onPressed: () {
-                                                            Navigator.pop(
-                                                                context);
-                                                          },
+                                                        minimumSize: const Size(
+                                                          double.infinity,
+                                                          50,
+                                                        ),
+                                                        shape: RoundedRectangleBorder(
+                                                          borderRadius:
+                                                              BorderRadius.circular(
+                                                                5,
+                                                              ),
                                                         ),
                                                       ),
-                                                      const SizedBox(
-                                                        width: 10,
+                                                      onPressed: () {
+                                                        Navigator.pop(context);
+                                                      },
+                                                      child: Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceAround,
+                                                        children: const [
+                                                          Icon(Icons.cancel),
+                                                          Text('Cancelar'),
+                                                        ],
                                                       ),
-                                                      Expanded(
-                                                        child: ElevatedButton(
-                                                          child: Row(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .spaceAround,
-                                                            children: const [
-                                                              Icon(Icons.save),
-                                                              Text('Aceptar'),
-                                                            ],
-                                                          ),
-                                                          style: ElevatedButton
-                                                              .styleFrom(
-                                                            backgroundColor:
-                                                                const Color(
-                                                                    0xFF120E43),
-                                                            minimumSize:
-                                                                const Size(
-                                                                    double
-                                                                        .infinity,
-                                                                    50),
-                                                            shape:
-                                                                RoundedRectangleBorder(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          5),
+                                                    ),
+                                                  ),
+                                                  const SizedBox(width: 10),
+                                                  Expanded(
+                                                    child: ElevatedButton(
+                                                      style: ElevatedButton.styleFrom(
+                                                        backgroundColor:
+                                                            const Color(
+                                                              0xFF120E43,
                                                             ),
-                                                          ),
-                                                          onPressed: () {
-                                                            for (Catalogo catalogo
-                                                                in _catalogos) {
-                                                              if (catalogo
-                                                                      .catCodigo ==
-                                                                  e.catCodigo) {
-                                                                catalogo.cantidad =
-                                                                    double.parse(
-                                                                        _cantidad);
-                                                              }
-                                                            }
+                                                        minimumSize: const Size(
+                                                          double.infinity,
+                                                          50,
+                                                        ),
+                                                        shape: RoundedRectangleBorder(
+                                                          borderRadius:
+                                                              BorderRadius.circular(
+                                                                5,
+                                                              ),
+                                                        ),
+                                                      ),
+                                                      onPressed: () {
+                                                        for (Catalogo catalogo
+                                                            in _catalogos) {
+                                                          if (catalogo
+                                                                  .catCodigo ==
+                                                              e.catCodigo) {
+                                                            catalogo.cantidad =
+                                                                double.parse(
+                                                                  _cantidad,
+                                                                );
+                                                          }
+                                                        }
 
-                                                            Navigator.pop(
-                                                                context);
-                                                            setState(() {});
-                                                          },
-                                                        ),
+                                                        Navigator.pop(context);
+                                                        setState(() {});
+                                                      },
+                                                      child: Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceAround,
+                                                        children: const [
+                                                          Icon(Icons.save),
+                                                          Text('Aceptar'),
+                                                        ],
                                                       ),
-                                                    ],
+                                                    ),
                                                   ),
                                                 ],
-                                                shape: RoundedRectangleBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            10)),
-                                              );
-                                            },
-                                            barrierDismissible: false);
-                                      },
-                                      icon: const Icon(Icons.loop,
-                                          color: Colors.blue)),
+                                              ),
+                                            ],
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                            ),
+                                          );
+                                        },
+                                        barrierDismissible: false,
+                                      );
+                                    },
+                                    icon: const Icon(
+                                      Icons.loop,
+                                      color: Colors.blue,
+                                    ),
+                                  ),
                                 ],
                               ),
                             ],
@@ -404,54 +399,48 @@ class _ObraSuministroMaterialesScreenState
     );
   }
 
-//-----------------------------------------------------------
-//--------------------- _showButtons ------------------------
-//-----------------------------------------------------------
+  //-----------------------------------------------------------
+  //--------------------- _showButtons ------------------------
+  //-----------------------------------------------------------
 
   Widget _showButtons() {
     return Container(
       margin: const EdgeInsets.only(left: 10, right: 10),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: <Widget>[
-          _showSaveButton(),
-        ],
+        children: <Widget>[_showSaveButton()],
       ),
     );
   }
 
-//-----------------------------------------------------------
-//--------------------- _showSaveButton ---------------------
-//-----------------------------------------------------------
+  //-----------------------------------------------------------
+  //--------------------- _showSaveButton ---------------------
+  //-----------------------------------------------------------
 
   Widget _showSaveButton() {
     return Expanded(
       child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: const Color(0xFF781f1e),
+          minimumSize: const Size(double.infinity, 50),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+        ),
+        onPressed: () => _save(),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: const [
             Icon(Icons.save),
-            SizedBox(
-              width: 15,
-            ),
+            SizedBox(width: 15),
             Text('Guardar'),
           ],
         ),
-        style: ElevatedButton.styleFrom(
-          backgroundColor: const Color(0xFF781f1e),
-          minimumSize: const Size(double.infinity, 50),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(5),
-          ),
-        ),
-        onPressed: () => _save(),
       ),
     );
   }
 
-//-----------------------------------------------------------
-//--------------------- _loadData ---------------------------
-//-----------------------------------------------------------
+  //-----------------------------------------------------------
+  //--------------------- _loadData ---------------------------
+  //-----------------------------------------------------------
 
   void _loadData() async {
     await _getCatalogos();
@@ -461,60 +450,62 @@ class _ObraSuministroMaterialesScreenState
 
     _materialestodos = await DBSuministrosdet.suministrosdet();
 
-    _materialestodos.forEach((material) {
+    for (var material in _materialestodos) {
       if (material.nrosuministrocab == widget.suministro.nrosuministro) {
         _materiales.add(material);
       }
-    });
+    }
 
-    if (_materiales.length > 0) {
-      _catalogos.forEach((catalogo) {
-        _materiales.forEach((material) {
+    if (_materiales.isNotEmpty) {
+      for (var catalogo in _catalogos) {
+        for (var material in _materiales) {
           if (catalogo.catCodigo == material.catcodigo) {
             catalogo.cantidad = material.cantidad;
           }
-        });
-      });
+        }
+      }
     }
 
     setState(() {});
   }
 
-//-----------------------------------------------------------
-//--------------------- _getCatalogos -----------------------
-//-----------------------------------------------------------
+  //-----------------------------------------------------------
+  //--------------------- _getCatalogos -----------------------
+  //-----------------------------------------------------------
 
   Future<void> _getCatalogos() async {
     _catalogos = await DBSuministroscatalogos.catalogos();
   }
 
-//-----------------------------------------------------------
-//--------------------- _save -------------------------------
-//-----------------------------------------------------------
+  //-----------------------------------------------------------
+  //--------------------- _save -------------------------------
+  //-----------------------------------------------------------
 
-  _save() async {
+  Future<void> _save() async {
     _materiales.forEach((material) async {
       await DBSuministrosdet.delete(material);
     });
 
     for (Catalogo catalogo in _catalogos) {
       ObraNuevoSuministroDet request = ObraNuevoSuministroDet(
-          nroregistrod: 0,
-          nrosuministrocab: widget.suministro.nrosuministro,
-          catcodigo: catalogo.catCodigo!,
-          codigosap: catalogo.codigoSap!,
-          cantidad: catalogo.cantidad!);
+        nroregistrod: 0,
+        nrosuministrocab: widget.suministro.nrosuministro,
+        catcodigo: catalogo.catCodigo!,
+        codigosap: catalogo.codigoSap!,
+        cantidad: catalogo.cantidad!,
+      );
 
       await DBSuministrosdet.insertSuministrodet(request);
     }
 
     await showAlertDialog(
-        context: context,
-        title: 'Aviso',
-        message: 'Materiales guardados con éxito!',
-        actions: <AlertDialogAction>[
-          const AlertDialogAction(key: null, label: 'Aceptar'),
-        ]);
+      context: context,
+      title: 'Aviso',
+      message: 'Materiales guardados con éxito!',
+      actions: <AlertDialogAction>[
+        const AlertDialogAction(key: null, label: 'Aceptar'),
+      ],
+    );
     Navigator.pop(context);
   }
 }
@@ -525,11 +516,11 @@ class _ObraSuministroMaterialesScreenState
 
 class _RowCustom extends StatelessWidget {
   const _RowCustom({
-    Key? key,
+    super.key,
     required this.anchoTitulo,
     required this.titulo,
     required this.dato,
-  }) : super(key: key);
+  });
 
   final double anchoTitulo;
   final String titulo;
@@ -544,19 +535,16 @@ class _RowCustom extends StatelessWidget {
         children: [
           SizedBox(
             width: anchoTitulo,
-            child: Text(titulo,
-                style: const TextStyle(
-                  fontSize: 12,
-                  color: Color(0xFF781f1e),
-                  fontWeight: FontWeight.bold,
-                )),
+            child: Text(
+              titulo,
+              style: const TextStyle(
+                fontSize: 12,
+                color: Color(0xFF781f1e),
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           ),
-          Expanded(
-            child: Text(dato,
-                style: const TextStyle(
-                  fontSize: 12,
-                )),
-          )
+          Expanded(child: Text(dato, style: const TextStyle(fontSize: 12))),
         ],
       ),
     );

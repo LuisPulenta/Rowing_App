@@ -1,5 +1,5 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
-import 'package:connectivity/connectivity.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -10,24 +10,24 @@ import '../screens.dart';
 
 class TurnosScreen extends StatefulWidget {
   final User user;
-  const TurnosScreen({Key? key, required this.user}) : super(key: key);
+  const TurnosScreen({super.key, required this.user});
 
   @override
   State<TurnosScreen> createState() => _TurnosScreenState();
 }
 
 class _TurnosScreenState extends State<TurnosScreen> {
-//---------------------------------------------------------------------
-//-------------------------- Variables --------------------------------
-//---------------------------------------------------------------------
+  //---------------------------------------------------------------------
+  //-------------------------- Variables --------------------------------
+  //---------------------------------------------------------------------
 
   List<Turno> _turnos = [];
   bool _showLoader = false;
   List<Causante> _talleres = [];
 
-//---------------------------------------------------------------------
-//-------------------------- InitState --------------------------------
-//---------------------------------------------------------------------
+  //---------------------------------------------------------------------
+  //-------------------------- InitState --------------------------------
+  //---------------------------------------------------------------------
 
   @override
   void initState() {
@@ -35,18 +35,15 @@ class _TurnosScreenState extends State<TurnosScreen> {
     _getTalleres();
   }
 
-//---------------------------------------------------------------------
-//-------------------------- Pantalla ---------------------------------
-//---------------------------------------------------------------------
+  //---------------------------------------------------------------------
+  //-------------------------- Pantalla ---------------------------------
+  //---------------------------------------------------------------------
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFF484848),
-      appBar: AppBar(
-        title: const Text('Turnos Taller'),
-        centerTitle: true,
-      ),
+      appBar: AppBar(title: const Text('Turnos Taller'), centerTitle: true),
       body: Center(
         child: _showLoader
             ? const LoaderComponent(text: 'Por favor espere...')
@@ -57,11 +54,11 @@ class _TurnosScreenState extends State<TurnosScreen> {
         child: const Icon(Icons.add),
         onPressed: () async {
           String? result = await Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => TurnosAgregarScreen(
-                        user: widget.user,
-                      )));
+            context,
+            MaterialPageRoute(
+              builder: (context) => TurnosAgregarScreen(user: widget.user),
+            ),
+          );
           if (result == 'yes') {
             _getTurnos();
             setState(() {});
@@ -71,24 +68,22 @@ class _TurnosScreenState extends State<TurnosScreen> {
     );
   }
 
-//---------------------------------------------------------------------
-//------------------------------ _getContent --------------------------
-//---------------------------------------------------------------------
+  //---------------------------------------------------------------------
+  //------------------------------ _getContent --------------------------
+  //---------------------------------------------------------------------
 
   Widget _getContent() {
     return Column(
       children: <Widget>[
         _showTurnosCount(),
-        Expanded(
-          child: _turnos.isEmpty ? _noContent() : _getListView(),
-        )
+        Expanded(child: _turnos.isEmpty ? _noContent() : _getListView()),
       ],
     );
   }
 
-//--------------------------------------------------------------------------
-//------------------------------  _showTurnosCount -------------------------
-//--------------------------------------------------------------------------
+  //--------------------------------------------------------------------------
+  //------------------------------  _showTurnosCount -------------------------
+  //--------------------------------------------------------------------------
 
   Widget _showTurnosCount() {
     return Container(
@@ -96,26 +91,30 @@ class _TurnosScreenState extends State<TurnosScreen> {
       height: 40,
       child: Row(
         children: [
-          const Text('Cantidad de Turnos: ',
-              style: TextStyle(
-                fontSize: 14,
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-              )),
-          Text(_turnos.length.toString(),
-              style: const TextStyle(
-                fontSize: 14,
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-              )),
+          const Text(
+            'Cantidad de Turnos: ',
+            style: TextStyle(
+              fontSize: 14,
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          Text(
+            _turnos.length.toString(),
+            style: const TextStyle(
+              fontSize: 14,
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ],
       ),
     );
   }
 
-//-----------------------------------------------------------------------
-//------------------------------ _noContent -----------------------------
-//-----------------------------------------------------------------------
+  //-----------------------------------------------------------------------
+  //------------------------------ _noContent -----------------------------
+  //-----------------------------------------------------------------------
 
   Widget _noContent() {
     return Container(
@@ -129,9 +128,9 @@ class _TurnosScreenState extends State<TurnosScreen> {
     );
   }
 
-//-----------------------------------------------------------------------
-//------------------------------ _getListView ---------------------------
-//-----------------------------------------------------------------------
+  //-----------------------------------------------------------------------
+  //------------------------------ _getListView ---------------------------
+  //-----------------------------------------------------------------------
 
   Widget _getListView() {
     double ancho = 80.0;
@@ -162,18 +161,20 @@ class _TurnosScreenState extends State<TurnosScreen> {
                                   children: [
                                     SizedBox(
                                       width: ancho,
-                                      child: const Text('Turno: ',
-                                          style: TextStyle(
-                                            fontSize: 12,
-                                            color: Color(0xFF781f1e),
-                                            fontWeight: FontWeight.bold,
-                                          )),
+                                      child: const Text(
+                                        'Turno: ',
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                          color: Color(0xFF781f1e),
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
                                     ),
                                     Expanded(
-                                      child: Text(e.idTurno.toString(),
-                                          style: const TextStyle(
-                                            fontSize: 12,
-                                          )),
+                                      child: Text(
+                                        e.idTurno.toString(),
+                                        style: const TextStyle(fontSize: 12),
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -191,10 +192,10 @@ class _TurnosScreenState extends State<TurnosScreen> {
                                       ),
                                     ),
                                     Expanded(
-                                      child: Text(e.numcha.toString(),
-                                          style: const TextStyle(
-                                            fontSize: 12,
-                                          )),
+                                      child: Text(
+                                        e.numcha.toString(),
+                                        style: const TextStyle(fontSize: 12),
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -212,10 +213,10 @@ class _TurnosScreenState extends State<TurnosScreen> {
                                       ),
                                     ),
                                     Expanded(
-                                      child: Text(e.asignadoActual.toString(),
-                                          style: const TextStyle(
-                                            fontSize: 12,
-                                          )),
+                                      child: Text(
+                                        e.asignadoActual.toString(),
+                                        style: const TextStyle(fontSize: 12),
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -233,16 +234,14 @@ class _TurnosScreenState extends State<TurnosScreen> {
                                       ),
                                     ),
                                     Expanded(
-                                      child: Text(e.taller.toString(),
-                                          style: const TextStyle(
-                                            fontSize: 12,
-                                          )),
+                                      child: Text(
+                                        e.taller.toString(),
+                                        style: const TextStyle(fontSize: 12),
+                                      ),
                                     ),
                                   ],
                                 ),
-                                const Divider(
-                                  color: Color(0xFF781f1e),
-                                ),
+                                const Divider(color: Color(0xFF781f1e)),
                                 Row(
                                   children: const [
                                     Text(
@@ -274,31 +273,34 @@ class _TurnosScreenState extends State<TurnosScreen> {
                                       child: e.fechaTurno != null
                                           ? Text(
                                               DateFormat('dd/MM/yyyy').format(
-                                                  DateTime.parse(
-                                                      e.fechaTurno.toString())),
+                                                DateTime.parse(
+                                                  e.fechaTurno.toString(),
+                                                ),
+                                              ),
                                               style: const TextStyle(
                                                 fontSize: 12,
-                                              ))
+                                              ),
+                                            )
                                           : Container(),
                                     ),
-                                    const Text('Hora: ',
-                                        style: TextStyle(
-                                          fontSize: 12,
-                                          color: Color(0xFF781f1e),
-                                          fontWeight: FontWeight.bold,
-                                        )),
+                                    const Text(
+                                      'Hora: ',
+                                      style: TextStyle(
+                                        fontSize: 12,
+                                        color: Color(0xFF781f1e),
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
                                     Expanded(
                                       flex: 2,
-                                      child: Text(_horaMinuto(e.horaTurno!),
-                                          style: const TextStyle(
-                                            fontSize: 12,
-                                          )),
+                                      child: Text(
+                                        _horaMinuto(e.horaTurno!),
+                                        style: const TextStyle(fontSize: 12),
+                                      ),
                                     ),
                                   ],
                                 ),
-                                const Divider(
-                                  color: Color(0xFF781f1e),
-                                ),
+                                const Divider(color: Color(0xFF781f1e)),
                                 Row(
                                   children: const [
                                     Text(
@@ -330,29 +332,36 @@ class _TurnosScreenState extends State<TurnosScreen> {
                                       child: e.fechaTurnoConfirmado != null
                                           ? Text(
                                               DateFormat('dd/MM/yyyy').format(
-                                                  DateTime.parse(e
-                                                      .fechaTurnoConfirmado
-                                                      .toString())),
+                                                DateTime.parse(
+                                                  e.fechaTurnoConfirmado
+                                                      .toString(),
+                                                ),
+                                              ),
                                               style: const TextStyle(
                                                 fontSize: 12,
-                                              ))
+                                              ),
+                                            )
                                           : Container(),
                                     ),
-                                    const Text('Hora: ',
-                                        style: TextStyle(
-                                          fontSize: 12,
-                                          color: Color(0xFF781f1e),
-                                          fontWeight: FontWeight.bold,
-                                        )),
+                                    const Text(
+                                      'Hora: ',
+                                      style: TextStyle(
+                                        fontSize: 12,
+                                        color: Color(0xFF781f1e),
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
                                     Expanded(
                                       flex: 2,
                                       child: e.horaTurnoConfirmado != 0
                                           ? Text(
                                               _horaMinuto(
-                                                  e.horaTurnoConfirmado!),
+                                                e.horaTurnoConfirmado!,
+                                              ),
                                               style: const TextStyle(
                                                 fontSize: 12,
-                                              ))
+                                              ),
+                                            )
                                           : Container(),
                                     ),
                                   ],
@@ -373,16 +382,19 @@ class _TurnosScreenState extends State<TurnosScreen> {
     );
   }
 
-//-------------------------------------------------------------
-//------------------------- _getTalleres ----------------------
-//-------------------------------------------------------------
+  //-------------------------------------------------------------
+  //------------------------- _getTalleres ----------------------
+  //-------------------------------------------------------------
 
   Future<void> _getTalleres() async {
     var connectivityResult = await Connectivity().checkConnectivity();
 
     if (connectivityResult == ConnectivityResult.none) {
       showMyDialog(
-          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
+        'Error',
+        'Verifica que estés conectado a Internet',
+        'Aceptar',
+      );
     }
 
     Response response = Response(isSuccess: false);
@@ -395,9 +407,9 @@ class _TurnosScreenState extends State<TurnosScreen> {
     await _getTurnos();
   }
 
-//---------------------------------------------------------------------
-//-------------------------- _getTurnos -------------------------------
-//---------------------------------------------------------------------
+  //---------------------------------------------------------------------
+  //-------------------------- _getTurnos -------------------------------
+  //---------------------------------------------------------------------
 
   Future<void> _getTurnos() async {
     setState(() {
@@ -411,7 +423,10 @@ class _TurnosScreenState extends State<TurnosScreen> {
         _showLoader = false;
       });
       showMyDialog(
-          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
+        'Error',
+        'Verifica que estés conectado a Internet',
+        'Aceptar',
+      );
     }
 
     Response response = Response(isSuccess: false);
@@ -424,12 +439,13 @@ class _TurnosScreenState extends State<TurnosScreen> {
 
     if (!response.isSuccess) {
       await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: response.message,
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message: response.message,
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
       return;
     }
 
@@ -449,18 +465,19 @@ class _TurnosScreenState extends State<TurnosScreen> {
     }
   }
 
-//----------------------------------------------------------------------------
-//----------------------------- _HoraMinuto ----------------------------------
-//----------------------------------------------------------------------------
+  //----------------------------------------------------------------------------
+  //----------------------------- _HoraMinuto ----------------------------------
+  //----------------------------------------------------------------------------
 
   String _horaMinuto(int valor) {
     String hora = (valor / 3600).floor().toString();
-    String minutos =
-        ((valor - ((valor / 3600).floor()) * 3600) / 60).round().toString();
+    String minutos = ((valor - ((valor / 3600).floor()) * 3600) / 60)
+        .round()
+        .toString();
 
     if (minutos.length == 1) {
-      minutos = '0' + minutos;
+      minutos = '0$minutos';
     }
-    return hora.toString() + ':' + minutos.toString();
+    return '$hora:$minutos';
   }
 }

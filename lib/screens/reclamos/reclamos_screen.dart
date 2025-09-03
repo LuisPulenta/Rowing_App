@@ -1,7 +1,7 @@
 // ignore_for_file: unnecessary_const
 
 import 'package:adaptive_dialog/adaptive_dialog.dart';
-import 'package:connectivity/connectivity.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 
 import '../../components/loader_component.dart';
@@ -13,25 +13,25 @@ import '../screens.dart';
 
 class ReclamosScreen extends StatefulWidget {
   final User user;
-  const ReclamosScreen({Key? key, required this.user}) : super(key: key);
+  const ReclamosScreen({super.key, required this.user});
 
   @override
   _ReclamosScreenState createState() => _ReclamosScreenState();
 }
 
 class _ReclamosScreenState extends State<ReclamosScreen> {
-//-----------------------------------------------------------------
-//--------------------- Variables ---------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- Variables ---------------------------------
+  //-----------------------------------------------------------------
 
   List<Reclamo> _reclamos = [];
   bool _showLoader = false;
   bool _isFiltered = false;
   String _search = '';
 
-//-----------------------------------------------------------------
-//--------------------- initState ---------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- initState ---------------------------------
+  //-----------------------------------------------------------------
 
   @override
   void initState() {
@@ -39,9 +39,9 @@ class _ReclamosScreenState extends State<ReclamosScreen> {
     _getReclamos();
   }
 
-//-----------------------------------------------------------------
-//--------------------- Pantallas ---------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- Pantallas ---------------------------------
+  //-----------------------------------------------------------------
 
   @override
   Widget build(BuildContext context) {
@@ -53,9 +53,13 @@ class _ReclamosScreenState extends State<ReclamosScreen> {
         actions: <Widget>[
           _isFiltered
               ? IconButton(
-                  onPressed: _removeFilter, icon: const Icon(Icons.filter_none))
+                  onPressed: _removeFilter,
+                  icon: const Icon(Icons.filter_none),
+                )
               : IconButton(
-                  onPressed: _showFilter, icon: const Icon(Icons.filter_alt)),
+                  onPressed: _showFilter,
+                  icon: const Icon(Icons.filter_alt),
+                ),
           // IconButton(onPressed: _addReclamo, icon: Icon(Icons.add_circle))
         ],
       ),
@@ -65,19 +69,16 @@ class _ReclamosScreenState extends State<ReclamosScreen> {
             : _getContent(),
       ),
       floatingActionButton: FloatingActionButton(
-        child: const Icon(
-          Icons.add,
-          size: 38,
-        ),
         backgroundColor: const Color(0xFF781f1e),
         onPressed: () => _addReclamo(),
+        child: const Icon(Icons.add, size: 38),
       ),
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _getReclamos ------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _getReclamos ------------------------------
+  //-----------------------------------------------------------------
 
   Future<void> _getReclamos() async {
     setState(() {
@@ -91,7 +92,10 @@ class _ReclamosScreenState extends State<ReclamosScreen> {
         _showLoader = false;
       });
       showMyDialog(
-          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
+        'Error',
+        'Verifica que estés conectado a Internet',
+        'Aceptar',
+      );
     }
 
     Response response = Response(isSuccess: false);
@@ -104,29 +108,29 @@ class _ReclamosScreenState extends State<ReclamosScreen> {
 
     if (!response.isSuccess) {
       await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: response.message,
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message: response.message,
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
       return;
     }
 
     setState(() {
       _reclamos = response.result;
       _reclamos.sort((a, b) {
-        return a.asticket
-            .toString()
-            .toLowerCase()
-            .compareTo(b.asticket.toString().toLowerCase());
+        return a.asticket.toString().toLowerCase().compareTo(
+          b.asticket.toString().toLowerCase(),
+        );
       });
     });
   }
 
-//-----------------------------------------------------------------
-//--------------------- _removeFilter -----------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _removeFilter -----------------------------
+  //-----------------------------------------------------------------
 
   void _removeFilter() {
     setState(() {
@@ -135,69 +139,74 @@ class _ReclamosScreenState extends State<ReclamosScreen> {
     _getReclamos();
   }
 
-//-----------------------------------------------------------------
-//--------------------- _showFilter -------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _showFilter -------------------------------
+  //-----------------------------------------------------------------
 
   void _showFilter() {
     showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
-            title: const Text('Filtrar Reclamos'),
-            content: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+          title: const Text('Filtrar Reclamos'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
               const Text(
                 'Escriba texto o números a buscar en Dirección o Número del Reclamo: ',
                 style: const TextStyle(fontSize: 12),
               ),
-              const SizedBox(
-                height: 10,
-              ),
+              const SizedBox(height: 10),
               TextField(
                 autofocus: true,
                 decoration: InputDecoration(
-                    hintText: 'Criterio de búsqueda...',
-                    labelText: 'Buscar',
-                    suffixIcon: const Icon(Icons.search),
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10))),
+                  hintText: 'Criterio de búsqueda...',
+                  labelText: 'Buscar',
+                  suffixIcon: const Icon(Icons.search),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
                 onChanged: (value) {
                   _search = value;
                 },
               ),
-            ]),
-            actions: <Widget>[
-              TextButton(
-                  onPressed: () => Navigator.of(context).pop(),
-                  child: const Text('Cancelar')),
-              TextButton(
-                  onPressed: () => _filter(), child: const Text('Filtrar')),
             ],
-          );
-        });
+          ),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text('Cancelar'),
+            ),
+            TextButton(
+              onPressed: () => _filter(),
+              child: const Text('Filtrar'),
+            ),
+          ],
+        );
+      },
+    );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _filter -----------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _filter -----------------------------------
+  //-----------------------------------------------------------------
 
-  _filter() {
+  void _filter() {
     if (_search.isEmpty) {
       return;
     }
     List<Reclamo> filteredList = [];
     for (var reclamo in _reclamos) {
-      if (reclamo.asticket
-              .toString()
-              .toLowerCase()
-              .contains(_search.toLowerCase()) ||
-          reclamo.direccion
-              .toString()
-              .toLowerCase()
-              .contains(_search.toLowerCase())) {
+      if (reclamo.asticket.toString().toLowerCase().contains(
+            _search.toLowerCase(),
+          ) ||
+          reclamo.direccion.toString().toLowerCase().contains(
+            _search.toLowerCase(),
+          )) {
         filteredList.add(reclamo);
       }
     }
@@ -210,24 +219,22 @@ class _ReclamosScreenState extends State<ReclamosScreen> {
     Navigator.of(context).pop();
   }
 
-//-----------------------------------------------------------------
-//--------------------- _getContent -------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _getContent -------------------------------
+  //-----------------------------------------------------------------
 
   Widget _getContent() {
     return Column(
       children: <Widget>[
         _showReclamosCount(),
-        Expanded(
-          child: _reclamos.isEmpty ? _noContent() : _getListView(),
-        )
+        Expanded(child: _reclamos.isEmpty ? _noContent() : _getListView()),
       ],
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _noContent --------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _noContent --------------------------------
+  //-----------------------------------------------------------------
 
   Widget _noContent() {
     return Container(
@@ -243,9 +250,9 @@ class _ReclamosScreenState extends State<ReclamosScreen> {
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _getListView ------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _getListView ------------------------------
+  //-----------------------------------------------------------------
 
   Widget _getListView() {
     return RefreshIndicator(
@@ -279,102 +286,113 @@ class _ReclamosScreenState extends State<ReclamosScreen> {
                               children: [
                                 Row(
                                   children: const [
-                                    Text('AS/N° Reclamo: ',
-                                        style: TextStyle(
-                                          fontSize: 12,
-                                          color: Color(0xFF781f1e),
-                                          fontWeight: FontWeight.bold,
-                                        )),
+                                    Text(
+                                      'AS/N° Reclamo: ',
+                                      style: TextStyle(
+                                        fontSize: 12,
+                                        color: Color(0xFF781f1e),
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
                                   ],
                                 ),
                                 Row(
                                   children: const [
-                                    Text('Zona: ',
-                                        style: TextStyle(
-                                          fontSize: 12,
-                                          color: Color(0xFF781f1e),
-                                          fontWeight: FontWeight.bold,
-                                        )),
+                                    Text(
+                                      'Zona: ',
+                                      style: TextStyle(
+                                        fontSize: 12,
+                                        color: Color(0xFF781f1e),
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
                                   ],
                                 ),
                                 Row(
                                   children: const [
-                                    Text('Dirección: ',
-                                        style: TextStyle(
-                                          fontSize: 12,
-                                          color: Color(0xFF781f1e),
-                                          fontWeight: FontWeight.bold,
-                                        )),
+                                    Text(
+                                      'Dirección: ',
+                                      style: TextStyle(
+                                        fontSize: 12,
+                                        color: Color(0xFF781f1e),
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
                                   ],
                                 ),
                                 Row(
                                   children: const [
-                                    Text('N°: ',
-                                        style: TextStyle(
-                                          fontSize: 12,
-                                          color: Color(0xFF781f1e),
-                                          fontWeight: FontWeight.bold,
-                                        )),
+                                    Text(
+                                      'N°: ',
+                                      style: TextStyle(
+                                        fontSize: 12,
+                                        color: Color(0xFF781f1e),
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
                                   ],
                                 ),
                                 Row(
                                   children: const [
-                                    Text('Descr./Nombre: ',
-                                        style: TextStyle(
-                                          fontSize: 12,
-                                          color: Color(0xFF781f1e),
-                                          fontWeight: FontWeight.bold,
-                                        )),
+                                    Text(
+                                      'Descr./Nombre: ',
+                                      style: TextStyle(
+                                        fontSize: 12,
+                                        color: Color(0xFF781f1e),
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
                                   ],
                                 ),
                               ],
                             ),
                             Expanded(
                               child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: <Widget>[
-                                    Row(
-                                      children: [
-                                        Text(e.asticket.toString(),
-                                            style: const TextStyle(
-                                              fontSize: 12,
-                                            )),
-                                      ],
-                                    ),
-                                    Row(
-                                      children: [
-                                        Text(e.zona.toString(),
-                                            style: const TextStyle(
-                                              fontSize: 12,
-                                            )),
-                                      ],
-                                    ),
-                                    Row(
-                                      children: [
-                                        Text(e.direccion.toString(),
-                                            style: const TextStyle(
-                                              fontSize: 12,
-                                            )),
-                                      ],
-                                    ),
-                                    Row(
-                                      children: [
-                                        Text(e.numeracion.toString(),
-                                            style: const TextStyle(
-                                              fontSize: 12,
-                                            )),
-                                      ],
-                                    ),
-                                    Row(
-                                      children: [
-                                        Text(e.terminal.toString(),
-                                            style: const TextStyle(
-                                              fontSize: 12,
-                                            )),
-                                      ],
-                                    ),
-                                  ]),
-                            )
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: <Widget>[
+                                  Row(
+                                    children: [
+                                      Text(
+                                        e.asticket.toString(),
+                                        style: const TextStyle(fontSize: 12),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        e.zona.toString(),
+                                        style: const TextStyle(fontSize: 12),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        e.direccion.toString(),
+                                        style: const TextStyle(fontSize: 12),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        e.numeracion.toString(),
+                                        style: const TextStyle(fontSize: 12),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        e.terminal.toString(),
+                                        style: const TextStyle(fontSize: 12),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
                           ],
                         ),
                       ),
@@ -390,27 +408,27 @@ class _ReclamosScreenState extends State<ReclamosScreen> {
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _goInfoReclamo ----------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _goInfoReclamo ----------------------------
+  //-----------------------------------------------------------------
 
   void _goInfoReclamo(Reclamo reclamo) async {
     String? result = await Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => ReclamoInfoScreen(
-                  user: widget.user,
-                  reclamo: reclamo,
-                )));
+      context,
+      MaterialPageRoute(
+        builder: (context) =>
+            ReclamoInfoScreen(user: widget.user, reclamo: reclamo),
+      ),
+    );
     if (result == 'yes') {
       _getReclamos();
       setState(() {});
     }
   }
 
-//-----------------------------------------------------------------
-//--------------------- _showReclamosCount ------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _showReclamosCount ------------------------
+  //-----------------------------------------------------------------
 
   Widget _showReclamosCount() {
     return Container(
@@ -418,34 +436,38 @@ class _ReclamosScreenState extends State<ReclamosScreen> {
       height: 40,
       child: Row(
         children: [
-          const Text('Cantidad de Reclamos: ',
-              style: TextStyle(
-                fontSize: 14,
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-              )),
-          Text(_reclamos.length.toString(),
-              style: const TextStyle(
-                fontSize: 14,
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-              )),
+          const Text(
+            'Cantidad de Reclamos: ',
+            style: TextStyle(
+              fontSize: 14,
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          Text(
+            _reclamos.length.toString(),
+            style: const TextStyle(
+              fontSize: 14,
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ],
       ),
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _addReclamo -------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _addReclamo -------------------------------
+  //-----------------------------------------------------------------
 
   void _addReclamo() async {
     String? result = await Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => ReclamoAgregarScreen(
-                  user: widget.user,
-                )));
+      context,
+      MaterialPageRoute(
+        builder: (context) => ReclamoAgregarScreen(user: widget.user),
+      ),
+    );
     if (result == 'yes') {
       _getReclamos();
     }

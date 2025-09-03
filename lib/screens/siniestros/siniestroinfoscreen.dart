@@ -5,7 +5,7 @@ import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:camera/camera.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:connectivity/connectivity.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -21,18 +21,20 @@ class SiniestroInfoScreen extends StatefulWidget {
   final User user;
   final VehiculosSiniestro siniestro;
 
-  const SiniestroInfoScreen(
-      {Key? key, required this.user, required this.siniestro})
-      : super(key: key);
+  const SiniestroInfoScreen({
+    super.key,
+    required this.user,
+    required this.siniestro,
+  });
 
   @override
   _SiniestroInfoScreenState createState() => _SiniestroInfoScreenState();
 }
 
 class _SiniestroInfoScreenState extends State<SiniestroInfoScreen> {
-//---------------------------------------------------------------
-//----------------------- Variables -----------------------------
-//---------------------------------------------------------------
+  //---------------------------------------------------------------
+  //----------------------- Variables -----------------------------
+  //---------------------------------------------------------------
 
   bool _photoChanged = false;
   late XFile _image;
@@ -42,7 +44,8 @@ class _SiniestroInfoScreenState extends State<SiniestroInfoScreen> {
 
   late PhotoSiniestro _photo;
   int _current = 0;
-  final CarouselController _carouselController = CarouselController();
+  final CarouselSliderController _carouselController =
+      CarouselSliderController();
 
   List<VehiculosSiniestrosFoto> _fotos = [];
   List<VehiculosSiniestrosFoto> _fotosSinPdf = [];
@@ -71,9 +74,9 @@ class _SiniestroInfoScreenState extends State<SiniestroInfoScreen> {
   int fotostercerosegurodorso = 0;
   int formulariodenunciapropio = 0;
 
-//---------------------------------------------------------------
-//----------------------- initState -----------------------------
-//---------------------------------------------------------------
+  //---------------------------------------------------------------
+  //----------------------- initState -----------------------------
+  //---------------------------------------------------------------
 
   @override
   void initState() {
@@ -81,42 +84,34 @@ class _SiniestroInfoScreenState extends State<SiniestroInfoScreen> {
     _getFotosSiniestro();
   }
 
-//---------------------------------------------------------------
-//----------------------- Pantalla ------------------------------
-//---------------------------------------------------------------
+  //---------------------------------------------------------------
+  //----------------------- Pantalla ------------------------------
+  //---------------------------------------------------------------
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFF484848),
-      appBar: AppBar(
-        title: const Text('Siniestro'),
-        centerTitle: true,
-      ),
+      appBar: AppBar(title: const Text('Siniestro'), centerTitle: true),
       body: Column(
         children: [
           Expanded(
             child: SingleChildScrollView(
               child: Column(
-                children: <Widget>[
-                  _getInfoSiniestro(),
-                  _showPhotosCarousel(),
-                ],
+                children: <Widget>[_getInfoSiniestro(), _showPhotosCarousel()],
               ),
             ),
           ),
           _showImageButtons(),
-          const SizedBox(
-            height: 5,
-          ),
+          const SizedBox(height: 5),
         ],
       ),
     );
   }
 
-//----------------------------------------------------------------------
-//-------------------------- _getInfoSiniestro -------------------------
-//----------------------------------------------------------------------
+  //----------------------------------------------------------------------
+  //-------------------------- _getInfoSiniestro -------------------------
+  //----------------------------------------------------------------------
 
   Widget _getInfoSiniestro() {
     return Card(
@@ -143,165 +138,164 @@ class _SiniestroInfoScreenState extends State<SiniestroInfoScreen> {
                             children: [
                               const SizedBox(
                                 width: 70,
-                                child: Text('Fecha: ',
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      color: Color(0xFF0e4888),
-                                      fontWeight: FontWeight.bold,
-                                    )),
+                                child: Text(
+                                  'Fecha: ',
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: Color(0xFF0e4888),
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
                               ),
                               SizedBox(
                                 width: 100,
                                 child: Text(
-                                    DateFormat('dd/MM/yyyy').format(
-                                        DateTime.parse(widget
-                                            .siniestro.fechacarga
-                                            .toString())),
-                                    style: const TextStyle(
-                                      fontSize: 12,
-                                    )),
+                                  DateFormat('dd/MM/yyyy').format(
+                                    DateTime.parse(
+                                      widget.siniestro.fechacarga.toString(),
+                                    ),
+                                  ),
+                                  style: const TextStyle(fontSize: 12),
+                                ),
                               ),
                               const SizedBox(
                                 width: 40,
-                                child: Text('Hora: ',
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      color: Color(0xFF0e4888),
-                                      fontWeight: FontWeight.bold,
-                                    )),
+                                child: Text(
+                                  'Hora: ',
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: Color(0xFF0e4888),
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
                               ),
                               Expanded(
                                 child: Text(
-                                    _horaMinuto(widget.siniestro.horasiniestro),
-                                    style: const TextStyle(
-                                      fontSize: 12,
-                                    )),
+                                  _horaMinuto(widget.siniestro.horasiniestro),
+                                  style: const TextStyle(fontSize: 12),
+                                ),
                               ),
                             ],
                           ),
-                          const SizedBox(
-                            height: 1,
-                          ),
+                          const SizedBox(height: 1),
                           Row(
                             children: [
                               const SizedBox(
                                 width: 70,
-                                child: Text('Patente: ',
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      color: Color(0xFF0e4888),
-                                      fontWeight: FontWeight.bold,
-                                    )),
-                              ),
-                              Expanded(
-                                child: Text(widget.siniestro.numcha,
-                                    style: const TextStyle(
-                                      fontSize: 12,
-                                    )),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 1,
-                          ),
-                          Row(
-                            children: [
-                              const SizedBox(
-                                width: 70,
-                                child: Text('Tercero: ',
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      color: Color(0xFF0e4888),
-                                      fontWeight: FontWeight.bold,
-                                    )),
-                              ),
-                              Expanded(
-                                child:
-                                    Text(widget.siniestro.apellidonombretercero,
-                                        style: const TextStyle(
-                                          fontSize: 12,
-                                        )),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 1,
-                          ),
-                          Row(
-                            children: [
-                              const SizedBox(
-                                width: 70,
-                                child: Text('Dirección: ',
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      color: Color(0xFF0e4888),
-                                      fontWeight: FontWeight.bold,
-                                    )),
+                                child: Text(
+                                  'Patente: ',
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: Color(0xFF0e4888),
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
                               ),
                               Expanded(
                                 child: Text(
-                                    widget.siniestro.direccionsiniestro +
-                                        ' ' +
-                                        widget.siniestro.altura,
-                                    style: const TextStyle(
-                                      fontSize: 12,
-                                    )),
+                                  widget.siniestro.numcha,
+                                  style: const TextStyle(fontSize: 12),
+                                ),
                               ),
                             ],
                           ),
-                          const SizedBox(
-                            height: 1,
-                          ),
+                          const SizedBox(height: 1),
                           Row(
                             children: [
                               const SizedBox(
                                 width: 70,
-                                child: Text('Ciudad: ',
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      color: Color(0xFF0e4888),
-                                      fontWeight: FontWeight.bold,
-                                    )),
+                                child: Text(
+                                  'Tercero: ',
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: Color(0xFF0e4888),
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
                               ),
                               Expanded(
-                                child: Text(widget.siniestro.ciudad,
-                                    style: const TextStyle(
-                                      fontSize: 12,
-                                    )),
+                                child: Text(
+                                  widget.siniestro.apellidonombretercero,
+                                  style: const TextStyle(fontSize: 12),
+                                ),
                               ),
                             ],
                           ),
-                          const SizedBox(
-                            height: 1,
-                          ),
+                          const SizedBox(height: 1),
                           Row(
                             children: [
                               const SizedBox(
                                 width: 70,
-                                child: Text('Provincia: ',
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      color: Color(0xFF0e4888),
-                                      fontWeight: FontWeight.bold,
-                                    )),
+                                child: Text(
+                                  'Dirección: ',
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: Color(0xFF0e4888),
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
                               ),
                               Expanded(
-                                child: Text(widget.siniestro.provincia,
-                                    style: const TextStyle(
-                                      fontSize: 12,
-                                    )),
+                                child: Text(
+                                  '${widget.siniestro.direccionsiniestro} ${widget.siniestro.altura}',
+                                  style: const TextStyle(fontSize: 12),
+                                ),
                               ),
                             ],
                           ),
-                          const Divider(
-                            height: 2,
-                            color: Colors.black,
+                          const SizedBox(height: 1),
+                          Row(
+                            children: [
+                              const SizedBox(
+                                width: 70,
+                                child: Text(
+                                  'Ciudad: ',
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: Color(0xFF0e4888),
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                child: Text(
+                                  widget.siniestro.ciudad,
+                                  style: const TextStyle(fontSize: 12),
+                                ),
+                              ),
+                            ],
                           ),
-                          const Text('FOTOS',
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold)),
+                          const SizedBox(height: 1),
+                          Row(
+                            children: [
+                              const SizedBox(
+                                width: 70,
+                                child: Text(
+                                  'Provincia: ',
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: Color(0xFF0e4888),
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                child: Text(
+                                  widget.siniestro.provincia,
+                                  style: const TextStyle(fontSize: 12),
+                                ),
+                              ),
+                            ],
+                          ),
+                          const Divider(height: 2, color: Colors.black),
+                          const Text(
+                            'FOTOS',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
                           Table(
                             defaultVerticalAlignment:
                                 TableCellVerticalAlignment.middle,
@@ -312,18 +306,26 @@ class _SiniestroInfoScreenState extends State<SiniestroInfoScreen> {
                             },
                             border: TableBorder.all(),
                             children: const [
-                              TableRow(children: [
-                                Text('PROPIO',
+                              TableRow(
+                                children: [
+                                  Text(
+                                    'PROPIO',
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.bold)),
-                                Text('TERCERO',
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  Text(
+                                    'TERCERO',
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.bold)),
-                              ]),
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ],
                           ),
                           Table(
@@ -338,332 +340,465 @@ class _SiniestroInfoScreenState extends State<SiniestroInfoScreen> {
                             },
                             border: TableBorder.all(),
                             children: [
-                              TableRow(children: [
-                                const Padding(
-                                  padding: EdgeInsets.only(left: 8.0),
-                                  child: Text('DNI Frente:',
-                                      style: TextStyle(fontSize: 12)),
-                                ),
-                                Text(fotospropiodnifrente.toString(),
+                              TableRow(
+                                children: [
+                                  const Padding(
+                                    padding: EdgeInsets.only(left: 8.0),
+                                    child: Text(
+                                      'DNI Frente:',
+                                      style: TextStyle(fontSize: 12),
+                                    ),
+                                  ),
+                                  Text(
+                                    fotospropiodnifrente.toString(),
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
-                                        fontSize: 12,
-                                        color: fotospropiodnifrente == 0
-                                            ? Colors.red
-                                            : Colors.blue)),
-                                const Padding(
-                                  padding: EdgeInsets.only(left: 8.0),
-                                  child: Text('DNI Frente:',
-                                      style: TextStyle(fontSize: 12)),
-                                ),
-                                Text(fotostercerodnifrente.toString(),
+                                      fontSize: 12,
+                                      color: fotospropiodnifrente == 0
+                                          ? Colors.red
+                                          : Colors.blue,
+                                    ),
+                                  ),
+                                  const Padding(
+                                    padding: EdgeInsets.only(left: 8.0),
+                                    child: Text(
+                                      'DNI Frente:',
+                                      style: TextStyle(fontSize: 12),
+                                    ),
+                                  ),
+                                  Text(
+                                    fotostercerodnifrente.toString(),
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
-                                        fontSize: 12,
-                                        color: fotostercerodnifrente == 0
-                                            ? Colors.red
-                                            : Colors.blue)),
-                              ]),
-                              TableRow(children: [
-                                const Padding(
-                                  padding: EdgeInsets.only(left: 8.0),
-                                  child: Text('DNI Dorso:',
-                                      style: TextStyle(fontSize: 12)),
-                                ),
-                                Text(fotospropiodnidorso.toString(),
+                                      fontSize: 12,
+                                      color: fotostercerodnifrente == 0
+                                          ? Colors.red
+                                          : Colors.blue,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              TableRow(
+                                children: [
+                                  const Padding(
+                                    padding: EdgeInsets.only(left: 8.0),
+                                    child: Text(
+                                      'DNI Dorso:',
+                                      style: TextStyle(fontSize: 12),
+                                    ),
+                                  ),
+                                  Text(
+                                    fotospropiodnidorso.toString(),
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
-                                        fontSize: 12,
-                                        color: fotospropiodnidorso == 0
-                                            ? Colors.red
-                                            : Colors.blue)),
-                                const Padding(
-                                  padding: EdgeInsets.only(left: 8.0),
-                                  child: Text('DNI Dorso:',
-                                      style: TextStyle(fontSize: 12)),
-                                ),
-                                Text(fotostercerodnidorso.toString(),
+                                      fontSize: 12,
+                                      color: fotospropiodnidorso == 0
+                                          ? Colors.red
+                                          : Colors.blue,
+                                    ),
+                                  ),
+                                  const Padding(
+                                    padding: EdgeInsets.only(left: 8.0),
+                                    child: Text(
+                                      'DNI Dorso:',
+                                      style: TextStyle(fontSize: 12),
+                                    ),
+                                  ),
+                                  Text(
+                                    fotostercerodnidorso.toString(),
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
-                                        fontSize: 12,
-                                        color: fotostercerodnidorso == 0
-                                            ? Colors.red
-                                            : Colors.blue)),
-                              ]),
-                              TableRow(children: [
-                                const Padding(
-                                  padding: EdgeInsets.only(left: 8.0),
-                                  child: Text('Carnet Frente:',
-                                      style: TextStyle(fontSize: 12)),
-                                ),
-                                Text(fotospropiocarnetfrente.toString(),
+                                      fontSize: 12,
+                                      color: fotostercerodnidorso == 0
+                                          ? Colors.red
+                                          : Colors.blue,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              TableRow(
+                                children: [
+                                  const Padding(
+                                    padding: EdgeInsets.only(left: 8.0),
+                                    child: Text(
+                                      'Carnet Frente:',
+                                      style: TextStyle(fontSize: 12),
+                                    ),
+                                  ),
+                                  Text(
+                                    fotospropiocarnetfrente.toString(),
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
-                                        fontSize: 12,
-                                        color: fotospropiocarnetfrente == 0
-                                            ? Colors.red
-                                            : Colors.blue)),
-                                const Padding(
-                                  padding: EdgeInsets.only(left: 8.0),
-                                  child: Text('Carnet Frente:',
-                                      style: TextStyle(fontSize: 12)),
-                                ),
-                                Text(fotostercerocarnetfrente.toString(),
+                                      fontSize: 12,
+                                      color: fotospropiocarnetfrente == 0
+                                          ? Colors.red
+                                          : Colors.blue,
+                                    ),
+                                  ),
+                                  const Padding(
+                                    padding: EdgeInsets.only(left: 8.0),
+                                    child: Text(
+                                      'Carnet Frente:',
+                                      style: TextStyle(fontSize: 12),
+                                    ),
+                                  ),
+                                  Text(
+                                    fotostercerocarnetfrente.toString(),
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
-                                        fontSize: 12,
-                                        color: fotostercerocarnetfrente == 0
-                                            ? Colors.red
-                                            : Colors.blue)),
-                              ]),
-                              TableRow(children: [
-                                const Padding(
-                                  padding: EdgeInsets.only(left: 8.0),
-                                  child: Text('Carnet Dorso:',
-                                      style: TextStyle(fontSize: 12)),
-                                ),
-                                Text(fotospropiocarnetdorso.toString(),
+                                      fontSize: 12,
+                                      color: fotostercerocarnetfrente == 0
+                                          ? Colors.red
+                                          : Colors.blue,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              TableRow(
+                                children: [
+                                  const Padding(
+                                    padding: EdgeInsets.only(left: 8.0),
+                                    child: Text(
+                                      'Carnet Dorso:',
+                                      style: TextStyle(fontSize: 12),
+                                    ),
+                                  ),
+                                  Text(
+                                    fotospropiocarnetdorso.toString(),
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
-                                        fontSize: 12,
-                                        color: fotospropiocarnetdorso == 0
-                                            ? Colors.red
-                                            : Colors.blue)),
-                                const Padding(
-                                  padding: EdgeInsets.only(left: 8.0),
-                                  child: Text('Carnet Dorso:',
-                                      style: TextStyle(fontSize: 12)),
-                                ),
-                                Text(fotostercerocarnetdorso.toString(),
+                                      fontSize: 12,
+                                      color: fotospropiocarnetdorso == 0
+                                          ? Colors.red
+                                          : Colors.blue,
+                                    ),
+                                  ),
+                                  const Padding(
+                                    padding: EdgeInsets.only(left: 8.0),
+                                    child: Text(
+                                      'Carnet Dorso:',
+                                      style: TextStyle(fontSize: 12),
+                                    ),
+                                  ),
+                                  Text(
+                                    fotostercerocarnetdorso.toString(),
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
-                                        fontSize: 12,
-                                        color: fotostercerocarnetdorso == 0
-                                            ? Colors.red
-                                            : Colors.blue)),
-                              ]),
-                              TableRow(children: [
-                                const Padding(
-                                  padding: EdgeInsets.only(left: 8.0),
-                                  child: Text('Cédula Frente:',
-                                      style: TextStyle(fontSize: 12)),
-                                ),
-                                Text(fotospropiocedulafrente.toString(),
+                                      fontSize: 12,
+                                      color: fotostercerocarnetdorso == 0
+                                          ? Colors.red
+                                          : Colors.blue,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              TableRow(
+                                children: [
+                                  const Padding(
+                                    padding: EdgeInsets.only(left: 8.0),
+                                    child: Text(
+                                      'Cédula Frente:',
+                                      style: TextStyle(fontSize: 12),
+                                    ),
+                                  ),
+                                  Text(
+                                    fotospropiocedulafrente.toString(),
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
-                                        fontSize: 12,
-                                        color: fotospropiocedulafrente == 0
-                                            ? Colors.red
-                                            : Colors.blue)),
-                                const Padding(
-                                  padding: EdgeInsets.only(left: 8.0),
-                                  child: Text('Cédula Frente:',
-                                      style: TextStyle(fontSize: 12)),
-                                ),
-                                Text(fotostercerocedulafrente.toString(),
+                                      fontSize: 12,
+                                      color: fotospropiocedulafrente == 0
+                                          ? Colors.red
+                                          : Colors.blue,
+                                    ),
+                                  ),
+                                  const Padding(
+                                    padding: EdgeInsets.only(left: 8.0),
+                                    child: Text(
+                                      'Cédula Frente:',
+                                      style: TextStyle(fontSize: 12),
+                                    ),
+                                  ),
+                                  Text(
+                                    fotostercerocedulafrente.toString(),
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
-                                        fontSize: 12,
-                                        color: fotostercerocedulafrente == 0
-                                            ? Colors.red
-                                            : Colors.blue)),
-                              ]),
-                              TableRow(children: [
-                                const Padding(
-                                  padding: EdgeInsets.only(left: 8.0),
-                                  child: Text('Cédula Dorso:',
-                                      style: TextStyle(fontSize: 12)),
-                                ),
-                                Text(fotospropioceduladorso.toString(),
+                                      fontSize: 12,
+                                      color: fotostercerocedulafrente == 0
+                                          ? Colors.red
+                                          : Colors.blue,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              TableRow(
+                                children: [
+                                  const Padding(
+                                    padding: EdgeInsets.only(left: 8.0),
+                                    child: Text(
+                                      'Cédula Dorso:',
+                                      style: TextStyle(fontSize: 12),
+                                    ),
+                                  ),
+                                  Text(
+                                    fotospropioceduladorso.toString(),
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
-                                        fontSize: 12,
-                                        color: fotospropioceduladorso == 0
-                                            ? Colors.red
-                                            : Colors.blue)),
-                                const Padding(
-                                  padding: EdgeInsets.only(left: 8.0),
-                                  child: Text('Cédula Dorso:',
-                                      style: TextStyle(fontSize: 12)),
-                                ),
-                                Text(fotosterceroceduladorso.toString(),
+                                      fontSize: 12,
+                                      color: fotospropioceduladorso == 0
+                                          ? Colors.red
+                                          : Colors.blue,
+                                    ),
+                                  ),
+                                  const Padding(
+                                    padding: EdgeInsets.only(left: 8.0),
+                                    child: Text(
+                                      'Cédula Dorso:',
+                                      style: TextStyle(fontSize: 12),
+                                    ),
+                                  ),
+                                  Text(
+                                    fotosterceroceduladorso.toString(),
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
-                                        fontSize: 12,
-                                        color: fotosterceroceduladorso == 0
-                                            ? Colors.red
-                                            : Colors.blue)),
-                              ]),
-                              TableRow(children: [
-                                const Padding(
-                                  padding: EdgeInsets.only(left: 8.0),
-                                  child: Text('Sin. Lateral Derecho:',
-                                      style: TextStyle(fontSize: 12)),
-                                ),
-                                Text(
+                                      fontSize: 12,
+                                      color: fotosterceroceduladorso == 0
+                                          ? Colors.red
+                                          : Colors.blue,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              TableRow(
+                                children: [
+                                  const Padding(
+                                    padding: EdgeInsets.only(left: 8.0),
+                                    child: Text(
+                                      'Sin. Lateral Derecho:',
+                                      style: TextStyle(fontSize: 12),
+                                    ),
+                                  ),
+                                  Text(
                                     fotospropiosiniestrolateralderecho
                                         .toString(),
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
-                                        fontSize: 12,
-                                        color:
-                                            fotospropiosiniestrolateralderecho ==
-                                                    0
-                                                ? Colors.red
-                                                : Colors.blue)),
-                                const Padding(
-                                  padding: EdgeInsets.only(left: 8.0),
-                                  child: Text('Sin. Lateral Derecho:',
-                                      style: TextStyle(fontSize: 12)),
-                                ),
-                                Text(
+                                      fontSize: 12,
+                                      color:
+                                          fotospropiosiniestrolateralderecho ==
+                                              0
+                                          ? Colors.red
+                                          : Colors.blue,
+                                    ),
+                                  ),
+                                  const Padding(
+                                    padding: EdgeInsets.only(left: 8.0),
+                                    child: Text(
+                                      'Sin. Lateral Derecho:',
+                                      style: TextStyle(fontSize: 12),
+                                    ),
+                                  ),
+                                  Text(
                                     fotostercerosiniestrolateralderecho
                                         .toString(),
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
-                                        fontSize: 12,
-                                        color:
-                                            fotostercerosiniestrolateralderecho ==
-                                                    0
-                                                ? Colors.red
-                                                : Colors.blue)),
-                              ]),
-                              TableRow(children: [
-                                const Padding(
-                                  padding: EdgeInsets.only(left: 8.0),
-                                  child: Text('Sin. Lateral Izquierdo:',
-                                      style: TextStyle(fontSize: 12)),
-                                ),
-                                Text(
+                                      fontSize: 12,
+                                      color:
+                                          fotostercerosiniestrolateralderecho ==
+                                              0
+                                          ? Colors.red
+                                          : Colors.blue,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              TableRow(
+                                children: [
+                                  const Padding(
+                                    padding: EdgeInsets.only(left: 8.0),
+                                    child: Text(
+                                      'Sin. Lateral Izquierdo:',
+                                      style: TextStyle(fontSize: 12),
+                                    ),
+                                  ),
+                                  Text(
                                     fotospropiosiniestrolateralizquierdo
                                         .toString(),
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
-                                        fontSize: 12,
-                                        color:
-                                            fotospropiosiniestrolateralizquierdo ==
-                                                    0
-                                                ? Colors.red
-                                                : Colors.blue)),
-                                const Padding(
-                                  padding: EdgeInsets.only(left: 8.0),
-                                  child: Text('Sin. Lateral Izquierdo:',
-                                      style: TextStyle(fontSize: 12)),
-                                ),
-                                Text(
+                                      fontSize: 12,
+                                      color:
+                                          fotospropiosiniestrolateralizquierdo ==
+                                              0
+                                          ? Colors.red
+                                          : Colors.blue,
+                                    ),
+                                  ),
+                                  const Padding(
+                                    padding: EdgeInsets.only(left: 8.0),
+                                    child: Text(
+                                      'Sin. Lateral Izquierdo:',
+                                      style: TextStyle(fontSize: 12),
+                                    ),
+                                  ),
+                                  Text(
                                     fotostercerosiniestrolateralizquierdo
                                         .toString(),
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
-                                        fontSize: 12,
-                                        color:
-                                            fotostercerosiniestrolateralizquierdo ==
-                                                    0
-                                                ? Colors.red
-                                                : Colors.blue)),
-                              ]),
-                              TableRow(children: [
-                                const Padding(
-                                  padding: EdgeInsets.only(left: 8.0),
-                                  child: Text('Sin. Frente:',
-                                      style: TextStyle(fontSize: 12)),
-                                ),
-                                Text(fotospropiosiniestrofrente.toString(),
+                                      fontSize: 12,
+                                      color:
+                                          fotostercerosiniestrolateralizquierdo ==
+                                              0
+                                          ? Colors.red
+                                          : Colors.blue,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              TableRow(
+                                children: [
+                                  const Padding(
+                                    padding: EdgeInsets.only(left: 8.0),
+                                    child: Text(
+                                      'Sin. Frente:',
+                                      style: TextStyle(fontSize: 12),
+                                    ),
+                                  ),
+                                  Text(
+                                    fotospropiosiniestrofrente.toString(),
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
-                                        fontSize: 12,
-                                        color: fotospropiosiniestrofrente == 0
-                                            ? Colors.red
-                                            : Colors.blue)),
-                                const Padding(
-                                  padding: EdgeInsets.only(left: 8.0),
-                                  child: Text('Sin. Frente:',
-                                      style: TextStyle(fontSize: 12)),
-                                ),
-                                Text(fotostercerosiniestrofrente.toString(),
+                                      fontSize: 12,
+                                      color: fotospropiosiniestrofrente == 0
+                                          ? Colors.red
+                                          : Colors.blue,
+                                    ),
+                                  ),
+                                  const Padding(
+                                    padding: EdgeInsets.only(left: 8.0),
+                                    child: Text(
+                                      'Sin. Frente:',
+                                      style: TextStyle(fontSize: 12),
+                                    ),
+                                  ),
+                                  Text(
+                                    fotostercerosiniestrofrente.toString(),
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
-                                        fontSize: 12,
-                                        color: fotostercerosiniestrofrente == 0
-                                            ? Colors.red
-                                            : Colors.blue)),
-                              ]),
-                              TableRow(children: [
-                                const Padding(
-                                  padding: EdgeInsets.only(left: 8.0),
-                                  child: Text('Sin. Trasero:',
-                                      style: TextStyle(fontSize: 12)),
-                                ),
-                                Text(fotospropiosiniestrotrasero.toString(),
+                                      fontSize: 12,
+                                      color: fotostercerosiniestrofrente == 0
+                                          ? Colors.red
+                                          : Colors.blue,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              TableRow(
+                                children: [
+                                  const Padding(
+                                    padding: EdgeInsets.only(left: 8.0),
+                                    child: Text(
+                                      'Sin. Trasero:',
+                                      style: TextStyle(fontSize: 12),
+                                    ),
+                                  ),
+                                  Text(
+                                    fotospropiosiniestrotrasero.toString(),
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
-                                        fontSize: 12,
-                                        color: fotospropiosiniestrotrasero == 0
-                                            ? Colors.red
-                                            : Colors.blue)),
-                                const Padding(
-                                  padding: EdgeInsets.only(left: 8.0),
-                                  child: Text('Sin. Trasero:',
-                                      style: TextStyle(fontSize: 12)),
-                                ),
-                                Text(fotostercerosiniestrotrasero.toString(),
+                                      fontSize: 12,
+                                      color: fotospropiosiniestrotrasero == 0
+                                          ? Colors.red
+                                          : Colors.blue,
+                                    ),
+                                  ),
+                                  const Padding(
+                                    padding: EdgeInsets.only(left: 8.0),
+                                    child: Text(
+                                      'Sin. Trasero:',
+                                      style: TextStyle(fontSize: 12),
+                                    ),
+                                  ),
+                                  Text(
+                                    fotostercerosiniestrotrasero.toString(),
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
-                                        fontSize: 12,
-                                        color: fotostercerosiniestrotrasero == 0
-                                            ? Colors.red
-                                            : Colors.blue)),
-                              ]),
-                              TableRow(children: [
-                                const Padding(
-                                  padding: EdgeInsets.only(left: 8.0),
-                                  child: Text('Form. Denuncia:',
-                                      style: TextStyle(fontSize: 12)),
-                                ),
-                                Text(formulariodenunciapropio.toString(),
+                                      fontSize: 12,
+                                      color: fotostercerosiniestrotrasero == 0
+                                          ? Colors.red
+                                          : Colors.blue,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              TableRow(
+                                children: [
+                                  const Padding(
+                                    padding: EdgeInsets.only(left: 8.0),
+                                    child: Text(
+                                      'Form. Denuncia:',
+                                      style: TextStyle(fontSize: 12),
+                                    ),
+                                  ),
+                                  Text(
+                                    formulariodenunciapropio.toString(),
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
-                                        fontSize: 12,
-                                        color: formulariodenunciapropio == 0
-                                            ? Colors.red
-                                            : Colors.blue)),
-                                const Padding(
-                                  padding: EdgeInsets.only(left: 8.0),
-                                  child: Text('Seguro Frente:',
-                                      style: TextStyle(fontSize: 12)),
-                                ),
-                                Text(fotostercerosegurofrente.toString(),
+                                      fontSize: 12,
+                                      color: formulariodenunciapropio == 0
+                                          ? Colors.red
+                                          : Colors.blue,
+                                    ),
+                                  ),
+                                  const Padding(
+                                    padding: EdgeInsets.only(left: 8.0),
+                                    child: Text(
+                                      'Seguro Frente:',
+                                      style: TextStyle(fontSize: 12),
+                                    ),
+                                  ),
+                                  Text(
+                                    fotostercerosegurofrente.toString(),
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
-                                        fontSize: 12,
-                                        color: fotostercerosegurofrente == 0
-                                            ? Colors.red
-                                            : Colors.blue)),
-                              ]),
-                              TableRow(children: [
-                                const Padding(
-                                  padding: EdgeInsets.only(left: 8.0),
-                                  child: Text(''),
-                                ),
-                                const Text(''),
-                                const Padding(
-                                  padding: EdgeInsets.only(left: 8.0),
-                                  child: Text('Seguro Dorso:',
-                                      style: TextStyle(fontSize: 12)),
-                                ),
-                                Text(fotostercerosegurodorso.toString(),
+                                      fontSize: 12,
+                                      color: fotostercerosegurofrente == 0
+                                          ? Colors.red
+                                          : Colors.blue,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              TableRow(
+                                children: [
+                                  const Padding(
+                                    padding: EdgeInsets.only(left: 8.0),
+                                    child: Text(''),
+                                  ),
+                                  const Text(''),
+                                  const Padding(
+                                    padding: EdgeInsets.only(left: 8.0),
+                                    child: Text(
+                                      'Seguro Dorso:',
+                                      style: TextStyle(fontSize: 12),
+                                    ),
+                                  ),
+                                  Text(
+                                    fotostercerosegurodorso.toString(),
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
-                                        fontSize: 12,
-                                        color: fotostercerosegurodorso == 0
-                                            ? Colors.red
-                                            : Colors.blue)),
-                              ]),
+                                      fontSize: 12,
+                                      color: fotostercerosegurodorso == 0
+                                          ? Colors.red
+                                          : Colors.blue,
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ],
                           ),
-                          const SizedBox(
-                            height: 1,
-                          ),
+                          const SizedBox(height: 1),
                         ],
                       ),
                     ),
@@ -677,9 +812,9 @@ class _SiniestroInfoScreenState extends State<SiniestroInfoScreen> {
     );
   }
 
-//-----------------------------------------------------------------------
-//-------------------------- _showPhotosCarousel ------------------------
-//-----------------------------------------------------------------------
+  //-----------------------------------------------------------------------
+  //-------------------------- _showPhotosCarousel ------------------------
+  //-----------------------------------------------------------------------
 
   Widget _showPhotosCarousel() {
     return Container(
@@ -688,16 +823,17 @@ class _SiniestroInfoScreenState extends State<SiniestroInfoScreen> {
         children: [
           CarouselSlider(
             options: CarouselOptions(
-                height: 460,
-                autoPlay: false,
-                initialPage: 0,
-                autoPlayInterval: const Duration(seconds: 0),
-                enlargeCenterPage: true,
-                onPageChanged: (index, reason) {
-                  setState(() {
-                    _current = index;
-                  });
-                }),
+              height: 460,
+              autoPlay: false,
+              initialPage: 0,
+              autoPlayInterval: const Duration(seconds: 0),
+              enlargeCenterPage: true,
+              onPageChanged: (index, reason) {
+                setState(() {
+                  _current = index;
+                });
+              },
+            ),
             carouselController: _carouselController,
             items: _fotosSinPdf.map((i) {
               return Builder(
@@ -706,41 +842,39 @@ class _SiniestroInfoScreenState extends State<SiniestroInfoScreen> {
                     children: [
                       Expanded(
                         child: Container(
-                            width: MediaQuery.of(context).size.width,
-                            margin: const EdgeInsets.symmetric(horizontal: 5),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(20),
-                              child: CachedNetworkImage(
-                                imageUrl: i.imageFullPath != null
-                                    ? i.imageFullPath.toString()
-                                    : '',
-                                errorWidget: (context, url, error) =>
-                                    const Icon(Icons.error),
+                          width: MediaQuery.of(context).size.width,
+                          margin: const EdgeInsets.symmetric(horizontal: 5),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(20),
+                            child: CachedNetworkImage(
+                              imageUrl: i.imageFullPath != null
+                                  ? i.imageFullPath.toString()
+                                  : '',
+                              errorWidget: (context, url, error) =>
+                                  const Icon(Icons.error),
+                              fit: BoxFit.contain,
+                              height: 360,
+                              width: 460,
+                              placeholder: (context, url) => const Image(
+                                image: AssetImage('assets/loading.gif'),
                                 fit: BoxFit.contain,
-                                height: 360,
-                                width: 460,
-                                placeholder: (context, url) => const Image(
-                                  image: AssetImage('assets/loading.gif'),
-                                  fit: BoxFit.contain,
-                                  height: 100,
-                                  width: 100,
-                                ),
+                                height: 100,
+                                width: 100,
                               ),
-                            )),
+                            ),
+                          ),
+                        ),
                       ),
-                      const SizedBox(
-                        height: 5,
-                      ),
+                      const SizedBox(height: 5),
                       Text(
                         i.correspondea,
                         style: const TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16),
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                        ),
                       ),
-                      const SizedBox(
-                        height: 5,
-                      ),
+                      const SizedBox(height: 5),
                       Text(
                         i.observacion,
                         style: const TextStyle(color: Colors.white),
@@ -760,11 +894,14 @@ class _SiniestroInfoScreenState extends State<SiniestroInfoScreen> {
                   child: const Text('←'),
                 ),
               ),
-              Text('Fotos: ${_fotosSinPdf.length.toString()}',
-                  style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold)),
+              Text(
+                'Fotos: ${_fotosSinPdf.length.toString()}',
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
               Flexible(
                 child: ElevatedButton(
                   onPressed: () => _carouselController.nextPage(),
@@ -778,9 +915,9 @@ class _SiniestroInfoScreenState extends State<SiniestroInfoScreen> {
     );
   }
 
-//-----------------------------------------------------------------------
-//-------------------------- _showImageButtons --------------------------
-//-----------------------------------------------------------------------
+  //-----------------------------------------------------------------------
+  //-------------------------- _showImageButtons --------------------------
+  //-----------------------------------------------------------------------
 
   Widget _showImageButtons() {
     return Container(
@@ -792,13 +929,6 @@ class _SiniestroInfoScreenState extends State<SiniestroInfoScreen> {
             children: <Widget>[
               Expanded(
                 child: ElevatedButton(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: const [
-                      Icon(Icons.add_a_photo),
-                      Text('Adicionar Foto'),
-                    ],
-                  ),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFF120E43),
                     minimumSize: const Size(double.infinity, 50),
@@ -807,20 +937,18 @@ class _SiniestroInfoScreenState extends State<SiniestroInfoScreen> {
                     ),
                   ),
                   onPressed: () => _goAddPhoto(),
-                ),
-              ),
-              const SizedBox(
-                width: 20,
-              ),
-              Expanded(
-                child: ElevatedButton(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: const [
-                      Icon(Icons.delete),
-                      Text('Eliminar Foto'),
+                      Icon(Icons.add_a_photo),
+                      Text('Adicionar Foto'),
                     ],
                   ),
+                ),
+              ),
+              const SizedBox(width: 20),
+              Expanded(
+                child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFFB4161B),
                     minimumSize: const Size(double.infinity, 50),
@@ -829,37 +957,41 @@ class _SiniestroInfoScreenState extends State<SiniestroInfoScreen> {
                     ),
                   ),
                   onPressed: () => _confirmDeletePhoto(),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: const [Icon(Icons.delete), Text('Eliminar Foto')],
+                  ),
                 ),
               ),
             ],
           ),
-          const SizedBox(
-            height: 10,
-          ),
+          const SizedBox(height: 10),
           formulariodenunciapropio == 0
               ? Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: <Widget>[
                     ElevatedButton(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: const [
-                          Icon(Icons.picture_as_pdf),
-                          SizedBox(
-                            width: 15,
-                          ),
-                          Text('Cargar Denuncia'),
-                        ],
-                      ),
                       style: ElevatedButton.styleFrom(
-                        backgroundColor:
-                            const Color.fromARGB(255, 180, 22, 219),
+                        backgroundColor: const Color.fromARGB(
+                          255,
+                          180,
+                          22,
+                          219,
+                        ),
                         minimumSize: const Size(220, 50),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(5),
                         ),
                       ),
                       onPressed: () => _loadPdf(),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: const [
+                          Icon(Icons.picture_as_pdf),
+                          SizedBox(width: 15),
+                          Text('Cargar Denuncia'),
+                        ],
+                      ),
                     ),
                   ],
                 )
@@ -870,16 +1002,13 @@ class _SiniestroInfoScreenState extends State<SiniestroInfoScreen> {
                   children: <Widget>[
                     Expanded(
                       child: ElevatedButton(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: const [
-                            Icon(Icons.picture_as_pdf),
-                            Text('Ver Denuncia'),
-                          ],
-                        ),
                         style: ElevatedButton.styleFrom(
-                          backgroundColor:
-                              const Color.fromARGB(255, 200, 14, 241),
+                          backgroundColor: const Color.fromARGB(
+                            255,
+                            200,
+                            14,
+                            241,
+                          ),
                           minimumSize: const Size(double.infinity, 50),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(5),
@@ -890,20 +1019,18 @@ class _SiniestroInfoScreenState extends State<SiniestroInfoScreen> {
                             throw 'No se puede conectar al Servidor';
                           }
                         },
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 20,
-                    ),
-                    Expanded(
-                      child: ElevatedButton(
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: const [
-                            Icon(Icons.delete),
-                            Text('Eliminar Denuncia'),
+                            Icon(Icons.picture_as_pdf),
+                            Text('Ver Denuncia'),
                           ],
                         ),
+                      ),
+                    ),
+                    const SizedBox(width: 20),
+                    Expanded(
+                      child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           backgroundColor: const Color(0xFFB4161B),
                           minimumSize: const Size(double.infinity, 50),
@@ -912,6 +1039,13 @@ class _SiniestroInfoScreenState extends State<SiniestroInfoScreen> {
                           ),
                         ),
                         onPressed: () => _confirmDeleteDenuncia(),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: const [
+                            Icon(Icons.delete),
+                            Text('Eliminar Denuncia'),
+                          ],
+                        ),
                       ),
                     ),
                   ],
@@ -922,20 +1056,21 @@ class _SiniestroInfoScreenState extends State<SiniestroInfoScreen> {
     );
   }
 
-//-----------------------------------------------------------------
-//-------------------------- _goAddPhoto --------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //-------------------------- _goAddPhoto --------------------------
+  //-----------------------------------------------------------------
 
   void _goAddPhoto() async {
     var response = await showAlertDialog(
-        context: context,
-        title: 'Confirmación',
-        message: '¿De donde deseas obtener la imagen?',
-        actions: <AlertDialogAction>[
-          const AlertDialogAction(key: 'cancel', label: 'Cancelar'),
-          const AlertDialogAction(key: 'camera', label: 'Cámara'),
-          const AlertDialogAction(key: 'gallery', label: 'Galería'),
-        ]);
+      context: context,
+      title: 'Confirmación',
+      message: '¿De donde deseas obtener la imagen?',
+      actions: <AlertDialogAction>[
+        const AlertDialogAction(key: 'cancel', label: 'Cancelar'),
+        const AlertDialogAction(key: 'camera', label: 'Cámara'),
+        const AlertDialogAction(key: 'gallery', label: 'Galería'),
+      ],
+    );
 
     if (response == 'cancel') {
       return;
@@ -952,23 +1087,24 @@ class _SiniestroInfoScreenState extends State<SiniestroInfoScreen> {
     }
   }
 
-//-----------------------------------------------------------------
-//-------------------------- _takePicture -------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //-------------------------- _takePicture -------------------------
+  //-----------------------------------------------------------------
 
   Future _takePicture() async {
     WidgetsFlutterBinding.ensureInitialized();
     final cameras = await availableCameras();
     var firstCamera = cameras.first;
     var response1 = await showAlertDialog(
-        context: context,
-        title: 'Seleccionar cámara',
-        message: '¿Qué cámara desea utilizar?',
-        actions: <AlertDialogAction>[
-          const AlertDialogAction(key: 'no', label: 'Trasera'),
-          const AlertDialogAction(key: 'yes', label: 'Delantera'),
-          const AlertDialogAction(key: 'cancel', label: 'Cancelar'),
-        ]);
+      context: context,
+      title: 'Seleccionar cámara',
+      message: '¿Qué cámara desea utilizar?',
+      actions: <AlertDialogAction>[
+        const AlertDialogAction(key: 'no', label: 'Trasera'),
+        const AlertDialogAction(key: 'yes', label: 'Delantera'),
+        const AlertDialogAction(key: 'cancel', label: 'Cancelar'),
+      ],
+    );
     if (response1 == 'yes') {
       firstCamera = cameras.first;
     }
@@ -978,11 +1114,11 @@ class _SiniestroInfoScreenState extends State<SiniestroInfoScreen> {
 
     if (response1 != 'cancel') {
       Response? response = await Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => TakePicture4Screen(
-                    camera: firstCamera,
-                  )));
+        context,
+        MaterialPageRoute(
+          builder: (context) => TakePicture4Screen(camera: firstCamera),
+        ),
+      );
       if (response != null) {
         setState(() {
           _photoChanged = true;
@@ -993,20 +1129,21 @@ class _SiniestroInfoScreenState extends State<SiniestroInfoScreen> {
     }
   }
 
-//-----------------------------------------------------------------
-//-------------------------- _selectPicture -----------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //-------------------------- _selectPicture -----------------------
+  //-----------------------------------------------------------------
 
   Future<void> _selectPicture() async {
-    final ImagePicker _picker = ImagePicker();
-    final XFile? _image2 = await _picker.pickImage(source: ImageSource.gallery);
+    final ImagePicker picker = ImagePicker();
+    final XFile? image2 = await picker.pickImage(source: ImageSource.gallery);
 
-    if (_image2 != null) {
+    if (image2 != null) {
       _photoChanged = true;
-      Response? response = await Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => DisplayPicture4Screen(
-                image: _image2,
-              )));
+      Response? response = await Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => DisplayPicture4Screen(image: image2),
+        ),
+      );
       if (response != null) {
         setState(() {
           _photoChanged = true;
@@ -1017,9 +1154,9 @@ class _SiniestroInfoScreenState extends State<SiniestroInfoScreen> {
     }
   }
 
-//-----------------------------------------------------------------
-//-------------------------- _loadPdf -----------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //-------------------------- _loadPdf -----------------------------
+  //-----------------------------------------------------------------
 
   Future<void> _loadPdf() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
@@ -1042,12 +1179,13 @@ class _SiniestroInfoScreenState extends State<SiniestroInfoScreen> {
       if (connectivityResult == ConnectivityResult.none) {
         setState(() {});
         await showAlertDialog(
-            context: context,
-            title: 'Error',
-            message: 'Verifica que estes conectado a internet.',
-            actions: <AlertDialogAction>[
-              const AlertDialogAction(key: null, label: 'Aceptar'),
-            ]);
+          context: context,
+          title: 'Error',
+          message: 'Verifica que estes conectado a internet.',
+          actions: <AlertDialogAction>[
+            const AlertDialogAction(key: null, label: 'Aceptar'),
+          ],
+        );
         return;
       }
 
@@ -1060,18 +1198,21 @@ class _SiniestroInfoScreenState extends State<SiniestroInfoScreen> {
       };
 
       Response response = await ApiHelper.post(
-          '/api/VehiculosSiniestrosFotos/VehiculosSiniestrosPdf', request);
+        '/api/VehiculosSiniestrosFotos/VehiculosSiniestrosPdf',
+        request,
+      );
 
       setState(() {});
 
       if (!response.isSuccess) {
         await showAlertDialog(
-            context: context,
-            title: 'Error',
-            message: response.message,
-            actions: <AlertDialogAction>[
-              const AlertDialogAction(key: null, label: 'Aceptar'),
-            ]);
+          context: context,
+          title: 'Error',
+          message: response.message,
+          actions: <AlertDialogAction>[
+            const AlertDialogAction(key: null, label: 'Aceptar'),
+          ],
+        );
         return;
       }
 
@@ -1080,9 +1221,9 @@ class _SiniestroInfoScreenState extends State<SiniestroInfoScreen> {
     }
   }
 
-//-----------------------------------------------------------------
-//-------------------------- _addPicture --------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //-------------------------- _addPicture --------------------------
+  //-----------------------------------------------------------------
 
   void _addPicture() async {
     setState(() {});
@@ -1091,12 +1232,13 @@ class _SiniestroInfoScreenState extends State<SiniestroInfoScreen> {
     if (connectivityResult == ConnectivityResult.none) {
       setState(() {});
       await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: 'Verifica que estes conectado a internet.',
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message: 'Verifica que estes conectado a internet.',
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
       return;
     }
 
@@ -1115,18 +1257,21 @@ class _SiniestroInfoScreenState extends State<SiniestroInfoScreen> {
     };
 
     Response response = await ApiHelper.post(
-        '/api/VehiculosSiniestrosFotos/VehiculosSiniestrosFoto', request);
+      '/api/VehiculosSiniestrosFotos/VehiculosSiniestrosFoto',
+      request,
+    );
 
     setState(() {});
 
     if (!response.isSuccess) {
       await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: response.message,
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message: response.message,
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
       return;
     }
 
@@ -1134,9 +1279,9 @@ class _SiniestroInfoScreenState extends State<SiniestroInfoScreen> {
     setState(() {});
   }
 
-//-----------------------------------------------------------------
-//-------------------------- _confirmDeletePhoto ------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //-------------------------- _confirmDeletePhoto ------------------
+  //-----------------------------------------------------------------
 
   void _confirmDeletePhoto() async {
     if (_fotosSinPdf.isEmpty) {
@@ -1145,23 +1290,25 @@ class _SiniestroInfoScreenState extends State<SiniestroInfoScreen> {
 
     if (widget.user.habilitaFotos != 1) {
       await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: 'Su usuario no está habilitado para eliminar Fotos.',
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message: 'Su usuario no está habilitado para eliminar Fotos.',
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
       return;
     }
 
     var response = await showAlertDialog(
-        context: context,
-        title: 'Confirmación',
-        message: '¿Estas seguro de querer borrar esta foto?',
-        actions: <AlertDialogAction>[
-          const AlertDialogAction(key: 'no', label: 'No'),
-          const AlertDialogAction(key: 'yes', label: 'Sí'),
-        ]);
+      context: context,
+      title: 'Confirmación',
+      message: '¿Estas seguro de querer borrar esta foto?',
+      actions: <AlertDialogAction>[
+        const AlertDialogAction(key: 'no', label: 'No'),
+        const AlertDialogAction(key: 'yes', label: 'Sí'),
+      ],
+    );
 
     if (response == 'yes') {
       await _deletePhoto();
@@ -1170,9 +1317,9 @@ class _SiniestroInfoScreenState extends State<SiniestroInfoScreen> {
     setState(() {});
   }
 
-//-----------------------------------------------------------------
-//----------------------- _confirmDeleteDenuncia ------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //----------------------- _confirmDeleteDenuncia ------------------
+  //-----------------------------------------------------------------
 
   void _confirmDeleteDenuncia() async {
     if (_fotos.isEmpty) {
@@ -1181,23 +1328,25 @@ class _SiniestroInfoScreenState extends State<SiniestroInfoScreen> {
 
     if (widget.user.habilitaFotos != 1) {
       await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: 'Su usuario no está habilitado para eliminar Denuncias.',
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message: 'Su usuario no está habilitado para eliminar Denuncias.',
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
       return;
     }
 
     var response = await showAlertDialog(
-        context: context,
-        title: 'Confirmación',
-        message: '¿Estas seguro de querer borrar esta denuncia?',
-        actions: <AlertDialogAction>[
-          const AlertDialogAction(key: 'no', label: 'No'),
-          const AlertDialogAction(key: 'yes', label: 'Sí'),
-        ]);
+      context: context,
+      title: 'Confirmación',
+      message: '¿Estas seguro de querer borrar esta denuncia?',
+      actions: <AlertDialogAction>[
+        const AlertDialogAction(key: 'no', label: 'No'),
+        const AlertDialogAction(key: 'yes', label: 'Sí'),
+      ],
+    );
 
     if (response == 'yes') {
       await _deleteDenuncia();
@@ -1206,9 +1355,9 @@ class _SiniestroInfoScreenState extends State<SiniestroInfoScreen> {
     setState(() {});
   }
 
-//-----------------------------------------------------------------
-//----------------------- _deletePhoto ----------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //----------------------- _deletePhoto ----------------------------
+  //-----------------------------------------------------------------
 
   Future<void> _deletePhoto() async {
     setState(() {});
@@ -1217,35 +1366,39 @@ class _SiniestroInfoScreenState extends State<SiniestroInfoScreen> {
     if (connectivityResult == ConnectivityResult.none) {
       setState(() {});
       await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: 'Verifica que estes conectado a internet.',
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message: 'Verifica que estes conectado a internet.',
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
       return;
     }
 
-    Response response = await ApiHelper.delete('/api/VehiculosSiniestrosFotos/',
-        _fotosSinPdf[_current].idfotosiniestro.toString());
+    Response response = await ApiHelper.delete(
+      '/api/VehiculosSiniestrosFotos/',
+      _fotosSinPdf[_current].idfotosiniestro.toString(),
+    );
 
     setState(() {});
 
     if (!response.isSuccess) {
       await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: response.message,
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message: response.message,
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
       return;
     }
   }
 
-//-----------------------------------------------------------------
-//----------------------- _deleteDenuncia -------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //----------------------- _deleteDenuncia -------------------------
+  //-----------------------------------------------------------------
 
   Future<void> _deleteDenuncia() async {
     setState(() {});
@@ -1254,35 +1407,39 @@ class _SiniestroInfoScreenState extends State<SiniestroInfoScreen> {
     if (connectivityResult == ConnectivityResult.none) {
       setState(() {});
       await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: 'Verifica que estes conectado a internet.',
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message: 'Verifica que estes conectado a internet.',
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
       return;
     }
 
     Response response = await ApiHelper.delete(
-        '/api/VehiculosSiniestrosFotos/', _idDenuncia.toString());
+      '/api/VehiculosSiniestrosFotos/',
+      _idDenuncia.toString(),
+    );
 
     setState(() {});
 
     if (!response.isSuccess) {
       await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: response.message,
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message: response.message,
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
       return;
     }
   }
 
-//-----------------------------------------------------------------
-//-------------------- _getFotosSiniestro -------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //-------------------- _getFotosSiniestro -------------------------
+  //-----------------------------------------------------------------
 
   Future<void> _getFotosSiniestro() async {
     setState(() {});
@@ -1291,26 +1448,29 @@ class _SiniestroInfoScreenState extends State<SiniestroInfoScreen> {
     if (connectivityResult == ConnectivityResult.none) {
       setState(() {});
       await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: 'Verifica que estes conectado a internet.',
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message: 'Verifica que estes conectado a internet.',
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
       return;
     }
 
     Response response = await ApiHelper.getFotosSiniestro(
-        widget.siniestro.nrosiniestro.toString());
+      widget.siniestro.nrosiniestro.toString(),
+    );
 
     if (!response.isSuccess) {
       await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: 'N° de Siniestro no válido',
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message: 'N° de Siniestro no válido',
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
 
       setState(() {});
       return;
@@ -1435,18 +1595,19 @@ class _SiniestroInfoScreenState extends State<SiniestroInfoScreen> {
     });
   }
 
-//-----------------------------------------------------------------
-//-------------------- _horaMinuto --------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //-------------------- _horaMinuto --------------------------------
+  //-----------------------------------------------------------------
 
   String _horaMinuto(int valor) {
     String hora = (valor / 3600).floor().toString();
-    String minutos =
-        ((valor - ((valor / 3600).floor()) * 3600) / 60).round().toString();
+    String minutos = ((valor - ((valor / 3600).floor()) * 3600) / 60)
+        .round()
+        .toString();
 
     if (minutos.length == 1) {
-      minutos = '0' + minutos;
+      minutos = '0$minutos';
     }
-    return hora.toString() + ':' + minutos.toString();
+    return '$hora:$minutos';
   }
 }

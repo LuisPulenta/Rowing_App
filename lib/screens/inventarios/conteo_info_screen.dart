@@ -1,5 +1,5 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
-import 'package:connectivity/connectivity.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 
 import '../../components/loader_component.dart';
@@ -9,17 +9,16 @@ import '../../models/models.dart';
 class ConteoInfoScreen extends StatefulWidget {
   final User user;
   final Conteo conteo;
-  const ConteoInfoScreen({Key? key, required this.user, required this.conteo})
-      : super(key: key);
+  const ConteoInfoScreen({super.key, required this.user, required this.conteo});
 
   @override
   State<ConteoInfoScreen> createState() => _ConteoInfoScreenState();
 }
 
 class _ConteoInfoScreenState extends State<ConteoInfoScreen> {
-//---------------------------------------------------------------------
-//-------------------------- Variables --------------------------------
-//---------------------------------------------------------------------
+  //---------------------------------------------------------------------
+  //-------------------------- Variables --------------------------------
+  //---------------------------------------------------------------------
   List<ConteoDet> _conteoDetalles = [];
   bool _showLoader = false;
 
@@ -28,18 +27,18 @@ class _ConteoInfoScreenState extends State<ConteoInfoScreen> {
   final bool _cantidadShowError = false;
   final TextEditingController _cantidadController = TextEditingController();
 
-//---------------------------------------------------------------------
-//-------------------------- InitState --------------------------------
-//---------------------------------------------------------------------
+  //---------------------------------------------------------------------
+  //-------------------------- InitState --------------------------------
+  //---------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
     _getConteoDetalles();
   }
 
-//---------------------------------------------------------------------
-//-------------------------- Pantalla ---------------------------------
-//---------------------------------------------------------------------
+  //---------------------------------------------------------------------
+  //-------------------------- Pantalla ---------------------------------
+  //---------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,9 +55,9 @@ class _ConteoInfoScreenState extends State<ConteoInfoScreen> {
     );
   }
 
-//---------------------------------------------------------------------
-//------------------------------ _getContent --------------------------
-//---------------------------------------------------------------------
+  //---------------------------------------------------------------------
+  //------------------------------ _getContent --------------------------
+  //---------------------------------------------------------------------
 
   Widget _getContent() {
     return Column(
@@ -72,65 +71,60 @@ class _ConteoInfoScreenState extends State<ConteoInfoScreen> {
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _showButton -------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _showButton -------------------------------
+  //-----------------------------------------------------------------
 
   Widget _showButton() {
     return Container(
       margin: const EdgeInsets.only(left: 10, right: 10, bottom: 15),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: <Widget>[
-          _showSaveButton(),
-        ],
+        children: <Widget>[_showSaveButton()],
       ),
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _showSaveButton ---------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _showSaveButton ---------------------------
+  //-----------------------------------------------------------------
 
   Widget _showSaveButton() {
     return Expanded(
       child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: const Color(0xFF781f1e),
+          minimumSize: const Size(double.infinity, 50),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+        ),
+        onPressed: () => _save(),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: const [
             Icon(Icons.save),
-            SizedBox(
-              width: 15,
-            ),
+            SizedBox(width: 15),
             Text('Guardar'),
           ],
         ),
-        style: ElevatedButton.styleFrom(
-          backgroundColor: const Color(0xFF781f1e),
-          minimumSize: const Size(double.infinity, 50),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(5),
-          ),
-        ),
-        onPressed: () => _save(),
       ),
     );
   }
 
-//-------------------------------------------------------
-//--------------------- _save ---------------------------
-//-------------------------------------------------------
+  //-------------------------------------------------------
+  //--------------------- _save ---------------------------
+  //-------------------------------------------------------
 
-  _save() async {
+  Future<void> _save() async {
     for (ConteoDet conteoDet in _conteoDetalles) {
       if (conteoDet.conteoactual < 0) {
         await showAlertDialog(
-            context: context,
-            title: 'Error',
-            message: 'No puede guardar números menores a cero.',
-            actions: <AlertDialogAction>[
-              const AlertDialogAction(key: null, label: 'Aceptar'),
-            ]);
+          context: context,
+          title: 'Error',
+          message: 'No puede guardar números menores a cero.',
+          actions: <AlertDialogAction>[
+            const AlertDialogAction(key: null, label: 'Aceptar'),
+          ],
+        );
         return;
       }
     }
@@ -148,32 +142,37 @@ class _ConteoInfoScreenState extends State<ConteoInfoScreen> {
       };
 
       Response response = await ApiHelper.put(
-          '/api/ConteoCiclicoCab/', conteoDet.idconteodet.toString(), request);
+        '/api/ConteoCiclicoCab/',
+        conteoDet.idconteodet.toString(),
+        request,
+      );
 
       if (!response.isSuccess) {
         await showAlertDialog(
-            context: context,
-            title: 'Error',
-            message: response.message,
-            actions: <AlertDialogAction>[
-              const AlertDialogAction(key: null, label: 'Aceptar'),
-            ]);
+          context: context,
+          title: 'Error',
+          message: response.message,
+          actions: <AlertDialogAction>[
+            const AlertDialogAction(key: null, label: 'Aceptar'),
+          ],
+        );
         return;
       }
     }
 
     await showAlertDialog(
-        context: context,
-        title: 'Aviso',
-        message: 'Conteo de Materiales guardado con éxito!',
-        actions: <AlertDialogAction>[
-          const AlertDialogAction(key: null, label: 'Aceptar'),
-        ]);
+      context: context,
+      title: 'Aviso',
+      message: 'Conteo de Materiales guardado con éxito!',
+      actions: <AlertDialogAction>[
+        const AlertDialogAction(key: null, label: 'Aceptar'),
+      ],
+    );
     Navigator.pop(context);
   }
 
-//-------------------------------------------------------------------------
-//----------------------  _showConteosDetalleCount ------------------------//--------------------------------------------------------------------------
+  //-------------------------------------------------------------------------
+  //----------------------  _showConteosDetalleCount ------------------------//--------------------------------------------------------------------------
 
   Widget _showConteosDetalleCount() {
     double ancho = MediaQuery.of(context).size.width * 0.9;
@@ -184,70 +183,63 @@ class _ConteoInfoScreenState extends State<ConteoInfoScreen> {
           height: 40,
           child: Row(
             children: [
-              const Text('Cantidad de Items: ',
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                  )),
-              Text(_conteoDetalles.length.toString(),
-                  style: const TextStyle(
-                    fontSize: 14,
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                  )),
+              const Text(
+                'Cantidad de Items: ',
+                style: TextStyle(
+                  fontSize: 14,
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              Text(
+                _conteoDetalles.length.toString(),
+                style: const TextStyle(
+                  fontSize: 14,
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ],
           ),
         ),
-        const Divider(
-          height: 3,
-          color: Colors.white,
-        ),
+        const Divider(height: 3, color: Colors.white),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
           child: Row(
             children: [
               SizedBox(
                 width: ancho * 0.2,
-                child: const Text('SIAG/SAP',
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: Colors.white,
-                    )),
+                child: const Text(
+                  'SIAG/SAP',
+                  style: TextStyle(fontSize: 12, color: Colors.white),
+                ),
               ),
-              const SizedBox(
-                width: 15,
-              ),
+              const SizedBox(width: 15),
               SizedBox(
                 width: ancho * 0.48,
-                child: const Text('Descripción',
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: Colors.white,
-                    )),
+                child: const Text(
+                  'Descripción',
+                  style: TextStyle(fontSize: 12, color: Colors.white),
+                ),
               ),
               SizedBox(
                 width: ancho * 0.15,
-                child: const Text('Cantidad',
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: Colors.white,
-                    )),
+                child: const Text(
+                  'Cantidad',
+                  style: TextStyle(fontSize: 12, color: Colors.white),
+                ),
               ),
             ],
           ),
         ),
-        const Divider(
-          height: 6,
-          color: Colors.white,
-        ),
+        const Divider(height: 6, color: Colors.white),
       ],
     );
   }
 
-//-----------------------------------------------------------------------
-//------------------------------ _noContent -----------------------------
-//-----------------------------------------------------------------------
+  //-----------------------------------------------------------------------
+  //------------------------------ _noContent -----------------------------
+  //-----------------------------------------------------------------------
 
   Widget _noContent() {
     return Container(
@@ -261,9 +253,9 @@ class _ConteoInfoScreenState extends State<ConteoInfoScreen> {
     );
   }
 
-//-----------------------------------------------------------------------
-//------------------------------ _getListView ---------------------------
-//-----------------------------------------------------------------------
+  //-----------------------------------------------------------------------
+  //------------------------------ _getListView ---------------------------
+  //-----------------------------------------------------------------------
 
   Widget _getListView() {
     double ancho = MediaQuery.of(context).size.width * 0.9;
@@ -281,8 +273,10 @@ class _ConteoInfoScreenState extends State<ConteoInfoScreen> {
                 margin: const EdgeInsets.fromLTRB(10, 0, 5, 10),
                 child: InkWell(
                   child: Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 0, vertical: 5),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 0,
+                      vertical: 5,
+                    ),
                     child: Row(
                       children: [
                         Expanded(
@@ -296,181 +290,177 @@ class _ConteoInfoScreenState extends State<ConteoInfoScreen> {
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      Text(e.codigosiag,
-                                          textAlign: TextAlign.center,
-                                          style: const TextStyle(
-                                            fontSize: 10,
-                                          )),
+                                      Text(
+                                        e.codigosiag,
+                                        textAlign: TextAlign.center,
+                                        style: const TextStyle(fontSize: 10),
+                                      ),
                                       e.codigosap.replaceAll(' ', '') !=
                                               e.codigosiag.replaceAll(' ', '')
-                                          ? Text(e.codigosap,
+                                          ? Text(
+                                              e.codigosap,
                                               textAlign: TextAlign.center,
                                               style: const TextStyle(
                                                 fontSize: 10,
-                                              ))
+                                              ),
+                                            )
                                           : Container(),
                                     ],
                                   ),
                                 ),
-                                const SizedBox(
-                                  width: 15,
-                                ),
+                                const SizedBox(width: 15),
                                 SizedBox(
                                   width: ancho * 0.48,
-                                  child: Text(e.descripcion,
-                                      style: const TextStyle(
-                                        fontSize: 10,
-                                      )),
+                                  child: Text(
+                                    e.descripcion,
+                                    style: const TextStyle(fontSize: 10),
+                                  ),
                                 ),
                                 SizedBox(
                                   width: ancho * 0.15,
-                                  child: Text(e.conteoactual.toString(),
-                                      textAlign: TextAlign.center,
-                                      style: const TextStyle(
-                                        fontSize: 10,
-                                      )),
+                                  child: Text(
+                                    e.conteoactual.toString(),
+                                    textAlign: TextAlign.center,
+                                    style: const TextStyle(fontSize: 10),
+                                  ),
                                 ),
                                 IconButton(
-                                    onPressed: () {
-                                      _cantidadController.text =
-                                          e.conteoactual == 0.0
-                                              ? ''
-                                              : e.conteoactual.toString();
-                                      showDialog(
-                                          context: context,
-                                          builder: (BuildContext context) {
-                                            _cantidad =
-                                                _cantidadController.text;
-                                            return AlertDialog(
-                                              backgroundColor: Colors.grey[300],
-                                              title: const Text(
-                                                  'Ingrese la cantidad'),
-                                              content: TextField(
-                                                autofocus: true,
-                                                keyboardType:
-                                                    TextInputType.number,
-                                                controller: _cantidadController,
-                                                decoration: InputDecoration(
-                                                    fillColor: Colors.white,
-                                                    filled: true,
-                                                    hintText: '',
-                                                    labelText: '',
-                                                    errorText:
-                                                        _cantidadShowError
-                                                            ? _cantidadError
-                                                            : null,
-                                                    prefixIcon:
-                                                        const Icon(Icons.tag),
-                                                    border: OutlineInputBorder(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(10))),
-                                                onChanged: (value) {
-                                                  _cantidad = value;
-                                                },
+                                  onPressed: () {
+                                    _cantidadController.text =
+                                        e.conteoactual == 0.0
+                                        ? ''
+                                        : e.conteoactual.toString();
+                                    showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        _cantidad = _cantidadController.text;
+                                        return AlertDialog(
+                                          backgroundColor: Colors.grey[300],
+                                          title: const Text(
+                                            'Ingrese la cantidad',
+                                          ),
+                                          content: TextField(
+                                            autofocus: true,
+                                            keyboardType: TextInputType.number,
+                                            controller: _cantidadController,
+                                            decoration: InputDecoration(
+                                              fillColor: Colors.white,
+                                              filled: true,
+                                              hintText: '',
+                                              labelText: '',
+                                              errorText: _cantidadShowError
+                                                  ? _cantidadError
+                                                  : null,
+                                              prefixIcon: const Icon(Icons.tag),
+                                              border: OutlineInputBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
                                               ),
-                                              actions: [
-                                                Row(
-                                                  children: [
-                                                    Expanded(
-                                                      child: ElevatedButton(
-                                                        child: Row(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .spaceAround,
-                                                          children: const [
-                                                            Icon(Icons.cancel),
-                                                            Text('Cancelar'),
-                                                          ],
-                                                        ),
-                                                        style: ElevatedButton
-                                                            .styleFrom(
-                                                          backgroundColor:
-                                                              const Color(
-                                                                  0xFFB4161B),
-                                                          minimumSize:
-                                                              const Size(
-                                                                  double
-                                                                      .infinity,
-                                                                  50),
-                                                          shape:
-                                                              RoundedRectangleBorder(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        5),
+                                            ),
+                                            onChanged: (value) {
+                                              _cantidad = value;
+                                            },
+                                          ),
+                                          actions: [
+                                            Row(
+                                              children: [
+                                                Expanded(
+                                                  child: ElevatedButton(
+                                                    style: ElevatedButton.styleFrom(
+                                                      backgroundColor:
+                                                          const Color(
+                                                            0xFFB4161B,
                                                           ),
-                                                        ),
-                                                        onPressed: () {
-                                                          Navigator.pop(
-                                                              context);
-                                                        },
+                                                      minimumSize: const Size(
+                                                        double.infinity,
+                                                        50,
+                                                      ),
+                                                      shape: RoundedRectangleBorder(
+                                                        borderRadius:
+                                                            BorderRadius.circular(
+                                                              5,
+                                                            ),
                                                       ),
                                                     ),
-                                                    const SizedBox(
-                                                      width: 10,
+                                                    onPressed: () {
+                                                      Navigator.pop(context);
+                                                    },
+                                                    child: Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceAround,
+                                                      children: const [
+                                                        Icon(Icons.cancel),
+                                                        Text('Cancelar'),
+                                                      ],
                                                     ),
-                                                    Expanded(
-                                                      child: ElevatedButton(
-                                                        child: Row(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .spaceAround,
-                                                          children: const [
-                                                            Icon(Icons.save),
-                                                            Text('Aceptar'),
-                                                          ],
-                                                        ),
-                                                        style: ElevatedButton
-                                                            .styleFrom(
-                                                          backgroundColor:
-                                                              const Color(
-                                                                  0xFF120E43),
-                                                          minimumSize:
-                                                              const Size(
-                                                                  double
-                                                                      .infinity,
-                                                                  50),
-                                                          shape:
-                                                              RoundedRectangleBorder(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        5),
+                                                  ),
+                                                ),
+                                                const SizedBox(width: 10),
+                                                Expanded(
+                                                  child: ElevatedButton(
+                                                    style: ElevatedButton.styleFrom(
+                                                      backgroundColor:
+                                                          const Color(
+                                                            0xFF120E43,
                                                           ),
-                                                        ),
-                                                        onPressed: () {
-                                                          for (ConteoDet conteoDet
-                                                              in _conteoDetalles) {
-                                                            if (conteoDet
-                                                                    .codigosiag ==
-                                                                e.codigosiag) {
-                                                              conteoDet
-                                                                      .conteoactual =
-                                                                  double.parse(
-                                                                      _cantidad);
-                                                            }
-                                                          }
+                                                      minimumSize: const Size(
+                                                        double.infinity,
+                                                        50,
+                                                      ),
+                                                      shape: RoundedRectangleBorder(
+                                                        borderRadius:
+                                                            BorderRadius.circular(
+                                                              5,
+                                                            ),
+                                                      ),
+                                                    ),
+                                                    onPressed: () {
+                                                      for (ConteoDet conteoDet
+                                                          in _conteoDetalles) {
+                                                        if (conteoDet
+                                                                .codigosiag ==
+                                                            e.codigosiag) {
+                                                          conteoDet
+                                                                  .conteoactual =
+                                                              double.parse(
+                                                                _cantidad,
+                                                              );
+                                                        }
+                                                      }
 
-                                                          Navigator.pop(
-                                                              context);
-                                                          setState(() {});
-                                                        },
-                                                      ),
+                                                      Navigator.pop(context);
+                                                      setState(() {});
+                                                    },
+                                                    child: Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceAround,
+                                                      children: const [
+                                                        Icon(Icons.save),
+                                                        Text('Aceptar'),
+                                                      ],
                                                     ),
-                                                  ],
+                                                  ),
                                                 ),
                                               ],
-                                              shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          10)),
-                                            );
-                                          },
-                                          barrierDismissible: false);
-                                    },
-                                    icon: const Icon(Icons.loop,
-                                        color: Colors.blue)),
+                                            ),
+                                          ],
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(
+                                              10,
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                      barrierDismissible: false,
+                                    );
+                                  },
+                                  icon: const Icon(
+                                    Icons.loop,
+                                    color: Colors.blue,
+                                  ),
+                                ),
                               ],
                             ),
                           ),
@@ -487,9 +477,9 @@ class _ConteoInfoScreenState extends State<ConteoInfoScreen> {
     );
   }
 
-//---------------------------------------------------------------------
-//-------------------------- _getConteoDetalles -----------------------
-//---------------------------------------------------------------------
+  //---------------------------------------------------------------------
+  //-------------------------- _getConteoDetalles -----------------------
+  //---------------------------------------------------------------------
 
   Future<void> _getConteoDetalles() async {
     setState(() {
@@ -503,7 +493,10 @@ class _ConteoInfoScreenState extends State<ConteoInfoScreen> {
         _showLoader = false;
       });
       showMyDialog(
-          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
+        'Error',
+        'Verifica que estés conectado a Internet',
+        'Aceptar',
+      );
     }
 
     Response response = Response(isSuccess: false);
@@ -516,12 +509,13 @@ class _ConteoInfoScreenState extends State<ConteoInfoScreen> {
 
     if (!response.isSuccess) {
       await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: response.message,
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message: response.message,
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
       return;
     }
 

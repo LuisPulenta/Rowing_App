@@ -1,9 +1,9 @@
 import 'dart:io';
 
 import 'package:adaptive_dialog/adaptive_dialog.dart';
-import 'package:device_information/device_information.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_device_imei/flutter_device_imei.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
@@ -26,21 +26,21 @@ class PdfViewScreen extends StatefulWidget {
   final User user;
 
   const PdfViewScreen({
-    Key? key,
+    super.key,
     required this.url,
     required this.firma,
     required this.positionUser,
     required this.recibo,
     required this.token,
     required this.user,
-  }) : super(key: key);
+  });
 
   @override
   State<PdfViewScreen> createState() => _PdfViewScreenState();
 }
 
 class _PdfViewScreenState extends State<PdfViewScreen> {
-//---------------------- Variables ---------------------------------
+  //---------------------- Variables ---------------------------------
   bool _showLoader = false;
   String urlPDFPath = '';
   bool exists = true;
@@ -54,33 +54,22 @@ class _PdfViewScreenState extends State<PdfViewScreen> {
   String imei = '';
   String _email = '';
 
-  String _platformVersion = 'Unknown',
-      _imeiNo = '',
-      _modelName = '',
-      _manufacturerName = '',
-      _deviceName = '',
-      _productName = '',
-      _cpuType = '',
-      _hardware = '';
+  String _imeiNo = '';
   var _apiLevel;
 
-//---------------------------------------------------------------
-//----------------------- initState -----------------------------
-//---------------------------------------------------------------
+  //---------------------------------------------------------------
+  //----------------------- initState -----------------------------
+  //---------------------------------------------------------------
 
   @override
   void initState() {
     getFileFromUrl(widget.url).then(
       (value) => {
         setState(() {
-          if (value != null) {
-            urlPDFPath = value.path;
-            loaded = true;
-            exists = true;
-          } else {
-            exists = false;
-          }
-        })
+          urlPDFPath = value.path;
+          loaded = true;
+          exists = true;
+        }),
       },
     );
     initPlatformState();
@@ -89,81 +78,54 @@ class _PdfViewScreenState extends State<PdfViewScreen> {
   }
 
   //--------------------- initPlatformState -------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
 
   Future<void> initPlatformState() async {
-    late String platformVersion,
-        imeiNo = '',
-        modelName = '',
-        manufacturer = '',
-        deviceName = '',
-        productName = '',
-        cpuType = '',
-        hardware = '';
+    late String imeiNo = '';
     var apiLevel;
-    // Platform messages may fail,
-    // so we use a try/catch PlatformException.
 
     var status = await Permission.phone.status;
 
     if (status.isDenied) {
       await showDialog(
-          context: context,
-          builder: (context) {
-            return AlertDialog(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
-              ),
-              title: const Text('Aviso'),
-              content: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: const <Widget>[
-                    Text(
-                        'La App necesita que habilite el Permiso de acceso al teléfono para utilizar el IMEI del celular con que se loguea.'),
-                    SizedBox(
-                      height: 10,
-                    ),
-                  ]),
-              actions: <Widget>[
-                TextButton(
-                    onPressed: () => Navigator.of(context).pop(),
-                    child: const Text('Ok')),
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+            title: const Text('Aviso'),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: const <Widget>[
+                Text(
+                  'La App necesita que habilite el Permiso de acceso al teléfono para utilizar el IMEI del celular con que se loguea.',
+                ),
+                SizedBox(height: 10),
               ],
-            );
-          });
+            ),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(),
+                child: const Text('Ok'),
+              ),
+            ],
+          );
+        },
+      );
       openAppSettings();
       //exit(0);
     }
 
     try {
-      platformVersion = await DeviceInformation.platformVersion;
-      imeiNo = await DeviceInformation.deviceIMEINumber;
+      imeiNo = await FlutterDeviceImei.instance.getIMEI() ?? '';
       imei = imeiNo;
-      modelName = await DeviceInformation.deviceModel;
-      manufacturer = await DeviceInformation.deviceManufacturer;
-      apiLevel = await DeviceInformation.apiLevel;
-      deviceName = await DeviceInformation.deviceName;
-      productName = await DeviceInformation.productName;
-      cpuType = await DeviceInformation.cpuName;
-      hardware = await DeviceInformation.hardware;
-    } on PlatformException catch (e) {
-      platformVersion = '${e.message}';
-    }
+    } on PlatformException catch (e) {}
 
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
     if (!mounted) return;
 
-    _platformVersion = 'Running on :$platformVersion';
     _imeiNo = imeiNo;
-    _modelName = modelName;
-    _manufacturerName = manufacturer;
     _apiLevel = apiLevel;
-    _deviceName = deviceName;
-    _productName = productName;
-    _cpuType = cpuType;
-    _hardware = hardware;
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
@@ -172,18 +134,15 @@ class _PdfViewScreenState extends State<PdfViewScreen> {
     setState(() {});
   }
 
-//---------------------------------------------------------------
-//----------------------- Pantalla ------------------------------
-//---------------------------------------------------------------
+  //---------------------------------------------------------------
+  //----------------------- Pantalla ------------------------------
+  //---------------------------------------------------------------
 
   @override
   Widget build(BuildContext context) {
     if (loaded) {
       return Scaffold(
-        appBar: AppBar(
-          title: const Text('Ver Recibo'),
-          centerTitle: true,
-        ),
+        appBar: AppBar(title: const Text('Ver Recibo'), centerTitle: true),
         body: Stack(
           children: [
             PDFView(
@@ -200,7 +159,8 @@ class _PdfViewScreenState extends State<PdfViewScreen> {
                   builder: (context) => AlertDialog(
                     title: const Text('Error'),
                     content: const Text(
-                        'Hubo un error al obtener tu Recibo. Por favor reintenta mas tarde.'),
+                      'Hubo un error al obtener tu Recibo. Por favor reintenta mas tarde.',
+                    ),
                     actions: [
                       TextButton(
                         onPressed: () {
@@ -213,9 +173,9 @@ class _PdfViewScreenState extends State<PdfViewScreen> {
                   ),
                 );
               },
-              onRender: (_pages) {
+              onRender: (pages) {
                 setState(() {
-                  _totalPages = _pages!;
+                  _totalPages = pages!;
                   pdfReady = true;
                 });
               },
@@ -232,9 +192,7 @@ class _PdfViewScreenState extends State<PdfViewScreen> {
               onPageError: (page, e) {},
             ),
             _showLoader
-                ? const LoaderComponent(
-                    text: 'Por favor espere...',
-                  )
+                ? const LoaderComponent(text: 'Por favor espere...')
                 : Container(),
           ],
         ),
@@ -274,70 +232,69 @@ class _PdfViewScreenState extends State<PdfViewScreen> {
             const Spacer(),
             if (widget.recibo.firmado == 0)
               FloatingActionButton(
-                  backgroundColor: const Color(0xFF781f1e),
-                  child: const Icon(
-                    Icons.draw,
-                    color: Colors.white,
-                    size: 40,
-                  ),
-                  onPressed: () async {
-                    _showLoader = true;
-                    setState(() {});
-                    final PdfDocument document = PdfDocument(
-                        inputBytes: File(urlPDFPath).readAsBytesSync());
+                backgroundColor: const Color(0xFF781f1e),
+                child: const Icon(Icons.draw, color: Colors.white, size: 40),
+                onPressed: () async {
+                  _showLoader = true;
+                  setState(() {});
+                  final PdfDocument document = PdfDocument(
+                    inputBytes: File(urlPDFPath).readAsBytesSync(),
+                  );
 
-                    final PdfPage page = document.pages[0];
+                  final PdfPage page = document.pages[0];
 
-                    page.graphics.drawImage(
-                        //PdfBitmap(await _readImageData('firma.png')),
-                        PdfBitmap((await networkImageToBase64(widget.firma))
-                            as List<int>),
-                        const Rect.fromLTWH(300, 460, 56, 35));
-                    //const Rect.fromLTWH(390, 685, 80, 50));
+                  page.graphics.drawImage(
+                    //PdfBitmap(await _readImageData('firma.png')),
+                    PdfBitmap(
+                      (await networkImageToBase64(widget.firma)) as List<int>,
+                    ),
+                    const Rect.fromLTWH(300, 460, 56, 35),
+                  );
+                  //const Rect.fromLTWH(390, 685, 80, 50));
 
-                    List<int> bytes = document.save();
-                    document.dispose();
+                  List<int> bytes = await document.save();
+                  document.dispose();
 
-                    await _saveAndLaunchFile(bytes, 'ReciboConFirma.pdf');
-                    _showLoader = false;
-                    setState(() {});
-                  }),
+                  await _saveAndLaunchFile(bytes, 'ReciboConFirma.pdf');
+                  _showLoader = false;
+                  setState(() {});
+                },
+              ),
             if (widget.recibo.firmado != 0)
               FloatingActionButton(
-                  backgroundColor: const Color(0xFF781f1e),
-                  child: const Icon(
-                    Icons.mail,
-                    color: Colors.white,
-                    size: 40,
-                  ),
-                  onPressed: () async {
-                    Response response = Response(isSuccess: false);
-                    Map<String, dynamic> request = {
-                      'to': _email,
-                      'subject':
-                          'Recibo Mes: ${widget.recibo.mes}-${widget.recibo.anio} Secuencia: ${widget.recibo.nroSecuencia}',
-                      'body':
-                          'Se adjunta recibo del Mes ${widget.recibo.mes}-${widget.recibo.anio} Secuencia: ${widget.recibo.nroSecuencia}',
-                      'fileUrl': widget.url,
-                      'fileName':
-                          'Recibo Mes ${widget.recibo.mes}-${widget.recibo.anio} Secuencia ${widget.recibo.nroSecuencia}.pdf'
-                    };
-                    response = await ApiHelper.sendMail(request, widget.token);
-                    if (!response.isSuccess) {
-                      await showAlertDialog(
-                          context: context,
-                          title: 'Error',
-                          message: response.message,
-                          actions: <AlertDialogAction>[
-                            const AlertDialogAction(
-                                key: null, label: 'Aceptar'),
-                          ]);
-                      return;
-                    }
-                    _showSnackbar('Se le ha enviado el Recibo por mail',
-                        Colors.lightGreen);
-                    Navigator.pop(context, 'yes');
-                  }),
+                backgroundColor: const Color(0xFF781f1e),
+                child: const Icon(Icons.mail, color: Colors.white, size: 40),
+                onPressed: () async {
+                  Response response = Response(isSuccess: false);
+                  Map<String, dynamic> request = {
+                    'to': _email,
+                    'subject':
+                        'Recibo Mes: ${widget.recibo.mes}-${widget.recibo.anio} Secuencia: ${widget.recibo.nroSecuencia}',
+                    'body':
+                        'Se adjunta recibo del Mes ${widget.recibo.mes}-${widget.recibo.anio} Secuencia: ${widget.recibo.nroSecuencia}',
+                    'fileUrl': widget.url,
+                    'fileName':
+                        'Recibo Mes ${widget.recibo.mes}-${widget.recibo.anio} Secuencia ${widget.recibo.nroSecuencia}.pdf',
+                  };
+                  response = await ApiHelper.sendMail(request, widget.token);
+                  if (!response.isSuccess) {
+                    await showAlertDialog(
+                      context: context,
+                      title: 'Error',
+                      message: response.message,
+                      actions: <AlertDialogAction>[
+                        const AlertDialogAction(key: null, label: 'Aceptar'),
+                      ],
+                    );
+                    return;
+                  }
+                  _showSnackbar(
+                    'Se le ha enviado el Recibo por mail',
+                    Colors.lightGreen,
+                  );
+                  Navigator.pop(context, 'yes');
+                },
+              ),
           ],
         ),
       );
@@ -345,34 +302,22 @@ class _PdfViewScreenState extends State<PdfViewScreen> {
       if (exists) {
         //Replace with your loading UI
         return Scaffold(
-          appBar: AppBar(
-            title: const Text('Ver Recibo'),
-            centerTitle: true,
-          ),
-          body: const Text(
-            'Loading..',
-            style: TextStyle(fontSize: 20),
-          ),
+          appBar: AppBar(title: const Text('Ver Recibo'), centerTitle: true),
+          body: const Text('Loading..', style: TextStyle(fontSize: 20)),
         );
       } else {
         //Replace Error UI
         return Scaffold(
-          appBar: AppBar(
-            title: const Text('Ver Recibo'),
-            centerTitle: true,
-          ),
-          body: const Text(
-            'PDF no disponible',
-            style: TextStyle(fontSize: 20),
-          ),
+          appBar: AppBar(title: const Text('Ver Recibo'), centerTitle: true),
+          body: const Text('PDF no disponible', style: TextStyle(fontSize: 20)),
         );
       }
     }
   }
 
-//--------------------------------------------------------
-//--------------------- requestPermission ----------------
-//--------------------------------------------------------
+  //--------------------------------------------------------
+  //--------------------- requestPermission ----------------
+  //--------------------------------------------------------
 
   Future<bool> requestPermission() async {
     bool storagePermission = await Permission.storage.isGranted;
@@ -384,13 +329,15 @@ class _PdfViewScreenState extends State<PdfViewScreen> {
     }
 
     if (!mediaPermission) {
-      mediaPermission =
-          await Permission.accessMediaLocation.request().isGranted;
+      mediaPermission = await Permission.accessMediaLocation
+          .request()
+          .isGranted;
     }
 
     if (!manageExternal) {
-      manageExternal =
-          await Permission.manageExternalStorage.request().isGranted;
+      manageExternal = await Permission.manageExternalStorage
+          .request()
+          .isGranted;
     }
 
     bool isPermissionGranted =
@@ -403,9 +350,9 @@ class _PdfViewScreenState extends State<PdfViewScreen> {
     }
   }
 
-//--------------------------------------------------------
-//--------------------- initRecorder ---------------------
-//--------------------------------------------------------
+  //--------------------------------------------------------
+  //--------------------- initRecorder ---------------------
+  //--------------------------------------------------------
 
   Future initRecorder() async {
     bool permission = await requestPermission();
@@ -418,12 +365,12 @@ class _PdfViewScreenState extends State<PdfViewScreen> {
         for (int x = 1; x < convertedDirectoryPath.length; x++) {
           String folder = paths[x];
           if (folder != 'Android') {
-            newPath += '/' + folder;
+            newPath += '/$folder';
           } else {
             break;
           }
         }
-        newPath = newPath + '/rowingApp/Pdf';
+        newPath = '$newPath/rowingApp/Pdf';
 
         directory = Directory(newPath);
         if (!await directory.exists()) {
@@ -433,9 +380,9 @@ class _PdfViewScreenState extends State<PdfViewScreen> {
     }
   }
 
-//--------------------------------------------------------
-//--------------------- _saveAndLaunchFile ---------------
-//--------------------------------------------------------
+  //--------------------------------------------------------
+  //--------------------- _saveAndLaunchFile ---------------
+  //--------------------------------------------------------
 
   Future<void> _saveAndLaunchFile(List<int> bytes, String fileName) async {
     await initRecorder();
@@ -457,23 +404,24 @@ class _PdfViewScreenState extends State<PdfViewScreen> {
         context,
         MaterialPageRoute(
           builder: (context) => PdfScreen(
-              ruta: ruta,
-              recibo: widget.recibo,
-              positionUser: widget.positionUser,
-              imei: imei,
-              token: widget.token),
+            ruta: ruta,
+            recibo: widget.recibo,
+            positionUser: widget.positionUser,
+            imei: imei,
+            token: widget.token,
+          ),
         ),
       );
     }
   }
 
-//--------------------- _readImageData -------------------
+  //--------------------- _readImageData -------------------
   Future<Uint8List> _readImageData(String name) async {
     final data = await rootBundle.load('assets/$name');
     return data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
   }
 
-//-------------------- _showSnackbar --------------------------
+  //-------------------- _showSnackbar --------------------------
   void _showSnackbar(String message, Color color) {
     SnackBar snackbar = SnackBar(
       content: Text(message),
@@ -495,7 +443,7 @@ Future<File> getFileFromUrl(String url, {name}) async {
     var data = await http.get(Uri.parse(url));
     var bytes = data.bodyBytes;
     var dir = await getApplicationDocumentsDirectory();
-    File file = File('${dir.path}/' + fileName + '.pdf');
+    File file = File('${dir.path}/$fileName.pdf');
     print(dir.path);
     File urlFile = await file.writeAsBytes(bytes);
     return urlFile;
@@ -505,9 +453,8 @@ Future<File> getFileFromUrl(String url, {name}) async {
 }
 
 Future<Uint8List?> networkImageToBase64(String imageUrl) async {
-  Uint8List bytes =
-      (await NetworkAssetBundle(Uri.parse(imageUrl)).load(imageUrl))
-          .buffer
-          .asUint8List();
+  Uint8List bytes = (await NetworkAssetBundle(
+    Uri.parse(imageUrl),
+  ).load(imageUrl)).buffer.asUint8List();
   return bytes;
 }

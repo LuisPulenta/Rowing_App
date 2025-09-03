@@ -1,5 +1,5 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
-import 'package:connectivity/connectivity.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 
 import '../../components/loader_component.dart';
@@ -8,8 +8,7 @@ import '../../models/models.dart';
 
 class Elementosencallereporte extends StatefulWidget {
   final User user;
-  const Elementosencallereporte({Key? key, required this.user})
-      : super(key: key);
+  const Elementosencallereporte({super.key, required this.user});
 
   @override
   State<Elementosencallereporte> createState() =>
@@ -17,25 +16,25 @@ class Elementosencallereporte extends StatefulWidget {
 }
 
 class _ElementosencallereporteState extends State<Elementosencallereporte> {
-//---------------------------------------------------------------------
-//-------------------------- Variables --------------------------------
-//---------------------------------------------------------------------
+  //---------------------------------------------------------------------
+  //-------------------------- Variables --------------------------------
+  //---------------------------------------------------------------------
 
   bool _showLoader = false;
   List<ElemEnCalleTotales> _elemEnCalleTotales = [];
 
-//---------------------------------------------------------------------
-//-------------------------- initState --------------------------------
-//---------------------------------------------------------------------
+  //---------------------------------------------------------------------
+  //-------------------------- initState --------------------------------
+  //---------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
     _getElemEnCalle();
   }
 
-//---------------------------------------------------------------------
-//-------------------------- Pantalla --------------------------------
-//---------------------------------------------------------------------
+  //---------------------------------------------------------------------
+  //-------------------------- Pantalla --------------------------------
+  //---------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,9 +51,9 @@ class _ElementosencallereporteState extends State<Elementosencallereporte> {
     );
   }
 
-//---------------------------------------------------------------------
-//------------------------------ _getContent --------------------------
-//---------------------------------------------------------------------
+  //---------------------------------------------------------------------
+  //------------------------------ _getContent --------------------------
+  //---------------------------------------------------------------------
 
   Widget _getContent() {
     return Column(
@@ -83,20 +82,18 @@ class _ElementosencallereporteState extends State<Elementosencallereporte> {
                         ),
                       ],
                     ),
-                    const SizedBox(
-                      height: 3,
-                    ),
+                    const SizedBox(height: 3),
                     Expanded(child: _getListView()),
                   ],
                 ),
-        )
+        ),
       ],
     );
   }
 
-//-----------------------------------------------------------------------
-//------------------------------ _showItemsCount ------------------------
-//-----------------------------------------------------------------------
+  //-----------------------------------------------------------------------
+  //------------------------------ _showItemsCount ------------------------
+  //-----------------------------------------------------------------------
 
   Widget _showItemsCount() {
     return Container(
@@ -104,26 +101,30 @@ class _ElementosencallereporteState extends State<Elementosencallereporte> {
       height: 40,
       child: Row(
         children: [
-          const Text('Cantidad de Items: ',
-              style: TextStyle(
-                fontSize: 14,
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-              )),
-          Text(_elemEnCalleTotales.length.toString(),
-              style: const TextStyle(
-                fontSize: 14,
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-              )),
+          const Text(
+            'Cantidad de Items: ',
+            style: TextStyle(
+              fontSize: 14,
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          Text(
+            _elemEnCalleTotales.length.toString(),
+            style: const TextStyle(
+              fontSize: 14,
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ],
       ),
     );
   }
 
-//-----------------------------------------------------------------------
-//------------------------------ _noContent -----------------------------
-//-----------------------------------------------------------------------
+  //-----------------------------------------------------------------------
+  //------------------------------ _noContent -----------------------------
+  //-----------------------------------------------------------------------
 
   Widget _noContent() {
     return Container(
@@ -137,9 +138,9 @@ class _ElementosencallereporteState extends State<Elementosencallereporte> {
     );
   }
 
-//-----------------------------------------------------------------------
-//------------------------------ _getListView ---------------------------
-//-----------------------------------------------------------------------
+  //-----------------------------------------------------------------------
+  //------------------------------ _getListView ---------------------------
+  //-----------------------------------------------------------------------
 
   Widget _getListView() {
     return RefreshIndicator(
@@ -170,27 +171,24 @@ class _ElementosencallereporteState extends State<Elementosencallereporte> {
                                     Expanded(
                                       flex: 3,
                                       child: Text(
-                                          e.catsiag.toString() +
-                                              '/' +
-                                              e.catsap.toString(),
-                                          style: const TextStyle(
-                                            fontSize: 12,
-                                          )),
+                                        '${e.catsiag}/${e.catsap}',
+                                        style: const TextStyle(fontSize: 12),
+                                      ),
                                     ),
                                     Expanded(
                                       flex: 3,
-                                      child: Text(e.elemento.toString(),
-                                          style: const TextStyle(
-                                            fontSize: 12,
-                                          )),
+                                      child: Text(
+                                        e.elemento.toString(),
+                                        style: const TextStyle(fontSize: 12),
+                                      ),
                                     ),
                                     Expanded(
                                       flex: 3,
-                                      child: Text(e.cantdejada.toString(),
-                                          textAlign: TextAlign.end,
-                                          style: const TextStyle(
-                                            fontSize: 12,
-                                          )),
+                                      child: Text(
+                                        e.cantdejada.toString(),
+                                        textAlign: TextAlign.end,
+                                        style: const TextStyle(fontSize: 12),
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -210,9 +208,9 @@ class _ElementosencallereporteState extends State<Elementosencallereporte> {
     );
   }
 
-//---------------------------------------------------------------
-//----------------------- _getElemEnCalle -----------------------
-//---------------------------------------------------------------
+  //---------------------------------------------------------------
+  //----------------------- _getElemEnCalle -----------------------
+  //---------------------------------------------------------------
 
   Future<void> _getElemEnCalle() async {
     setState(() {
@@ -226,7 +224,10 @@ class _ElementosencallereporteState extends State<Elementosencallereporte> {
         _showLoader = false;
       });
       showMyDialog(
-          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
+        'Error',
+        'Verifica que estés conectado a Internet',
+        'Aceptar',
+      );
     }
 
     Response response = Response(isSuccess: false);
@@ -234,23 +235,23 @@ class _ElementosencallereporteState extends State<Elementosencallereporte> {
     response = await ApiHelper.getElemEnCalleTotales();
 
     if (!response.isSuccess) {
-      await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: response.message,
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+      final _ = await showAlertDialog(
+        context: context,
+        title: 'Error',
+        message: response.message,
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
       return;
     }
 
     setState(() {
       _elemEnCalleTotales = response.result;
       _elemEnCalleTotales.sort((a, b) {
-        return a.elemento
-            .toString()
-            .toLowerCase()
-            .compareTo(b.elemento.toString().toLowerCase());
+        return a.elemento.toString().toLowerCase().compareTo(
+          b.elemento.toString().toLowerCase(),
+        );
       });
     });
 

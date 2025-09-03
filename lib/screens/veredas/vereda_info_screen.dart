@@ -4,7 +4,7 @@ import 'dart:io';
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:camera/camera.dart';
-import 'package:connectivity/connectivity.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
@@ -22,21 +22,21 @@ class VeredaInfoScreen extends StatefulWidget {
   final ObrasReparo obra;
   final Position positionUser;
 
-  const VeredaInfoScreen(
-      {Key? key,
-      required this.user,
-      required this.obra,
-      required this.positionUser})
-      : super(key: key);
+  const VeredaInfoScreen({
+    super.key,
+    required this.user,
+    required this.obra,
+    required this.positionUser,
+  });
 
   @override
   _VeredaInfoScreenState createState() => _VeredaInfoScreenState();
 }
 
 class _VeredaInfoScreenState extends State<VeredaInfoScreen> {
-//-------------------------------------------------------------
-//-------------------------- Variables ------------------------
-//-------------------------------------------------------------
+  //-------------------------------------------------------------
+  //-------------------------- Variables ------------------------
+  //-------------------------------------------------------------
 
   String _largo2 = '';
   String _largo2Error = '';
@@ -73,9 +73,9 @@ class _VeredaInfoScreenState extends State<VeredaInfoScreen> {
 
   DateTime selectedDate = DateTime.now();
 
-//-------------------------------------------------------------
-//-------------------------- initState ------------------------
-//-------------------------------------------------------------
+  //-------------------------------------------------------------
+  //-------------------------- initState ------------------------
+  //-------------------------------------------------------------
 
   @override
   void initState() {
@@ -84,28 +84,23 @@ class _VeredaInfoScreenState extends State<VeredaInfoScreen> {
     // _getObra();
   }
 
-//-------------------------------------------------------------
-//-------------------------- Pantalla -------------------------
-//-------------------------------------------------------------
+  //-------------------------------------------------------------
+  //-------------------------- Pantalla -------------------------
+  //-------------------------------------------------------------
 
   @override
   Widget build(BuildContext context) {
     double ancho = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: const Color(0xFFC7C7C8),
-      appBar: AppBar(
-        title: const Text('Vereda Info'),
-        centerTitle: true,
-      ),
+      appBar: AppBar(title: const Text('Vereda Info'), centerTitle: true),
       body: Stack(
         children: [
           SingleChildScrollView(
             physics: const BouncingScrollPhysics(),
             child: Column(
               children: <Widget>[
-                const SizedBox(
-                  height: 5,
-                ),
+                const SizedBox(height: 5),
                 _getInfoVereda(),
                 _titulo('FOTO RELEVAMIENTO'),
                 _getFoto1(ancho),
@@ -116,32 +111,24 @@ class _VeredaInfoScreenState extends State<VeredaInfoScreen> {
                 _titulo('FOTO FIN'),
                 _getFotoFin(ancho),
                 _showObservacionesFotoFin(),
-                const SizedBox(
-                  height: 5,
-                ),
+                const SizedBox(height: 5),
                 _showButtons(),
-                const SizedBox(
-                  height: 5,
-                ),
+                const SizedBox(height: 5),
               ],
             ),
           ),
-          const SizedBox(
-            height: 5,
-          ),
+          const SizedBox(height: 5),
           _showLoader
-              ? const LoaderComponent(
-                  text: 'Por favor espere...',
-                )
+              ? const LoaderComponent(text: 'Por favor espere...')
               : Container(),
         ],
       ),
     );
   }
 
-//-----------------------------------------------------------------
-//----------------- _showObservacionesFotoInicio ------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //----------------- _showObservacionesFotoInicio ------------------
+  //-----------------------------------------------------------------
 
   Widget _showObservacionesFotoInicio() {
     return Container(
@@ -150,16 +137,16 @@ class _VeredaInfoScreenState extends State<VeredaInfoScreen> {
         keyboardType: TextInputType.emailAddress,
         controller: _observacionesFotoInicioController,
         decoration: InputDecoration(
-            fillColor: Colors.white,
-            filled: true,
-            hintText: 'Observaciones Foto Inicio...',
-            labelText: 'Observaciones Foto Inicio',
-            errorText: _observacionesFotoInicioShowError
-                ? _observacionesFotoInicioError
-                : null,
-            prefixIcon: const Icon(Icons.start),
-            border:
-                OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
+          fillColor: Colors.white,
+          filled: true,
+          hintText: 'Observaciones Foto Inicio...',
+          labelText: 'Observaciones Foto Inicio',
+          errorText: _observacionesFotoInicioShowError
+              ? _observacionesFotoInicioError
+              : null,
+          prefixIcon: const Icon(Icons.start),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+        ),
         onChanged: (value) {
           _observacionesFotoInicio = value;
         },
@@ -167,9 +154,9 @@ class _VeredaInfoScreenState extends State<VeredaInfoScreen> {
     );
   }
 
-//--------------------------------------------------------------------
-//------------------------------ _showZanja --------------------------
-//--------------------------------------------------------------------
+  //--------------------------------------------------------------------
+  //------------------------------ _showZanja --------------------------
+  //--------------------------------------------------------------------
 
   Widget _showZanja() {
     return Container(
@@ -184,13 +171,15 @@ class _VeredaInfoScreenState extends State<VeredaInfoScreen> {
                   controller: _largo2Controller,
                   keyboardType: TextInputType.number,
                   decoration: InputDecoration(
-                      fillColor: Colors.white,
-                      filled: true,
-                      hintText: 'Largo',
-                      labelText: 'Largo',
-                      errorText: _largo2ShowError ? _largo2Error : null,
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10))),
+                    fillColor: Colors.white,
+                    filled: true,
+                    hintText: 'Largo',
+                    labelText: 'Largo',
+                    errorText: _largo2ShowError ? _largo2Error : null,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
                   onChanged: (value) {
                     _largo2 = value;
                   },
@@ -203,13 +192,15 @@ class _VeredaInfoScreenState extends State<VeredaInfoScreen> {
                   controller: _ancho2Controller,
                   keyboardType: TextInputType.number,
                   decoration: InputDecoration(
-                      fillColor: Colors.white,
-                      filled: true,
-                      hintText: 'Cm',
-                      labelText: 'Ancho en cm',
-                      errorText: _ancho2ShowError ? _ancho2Error : null,
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10))),
+                    fillColor: Colors.white,
+                    filled: true,
+                    hintText: 'Cm',
+                    labelText: 'Ancho en cm',
+                    errorText: _ancho2ShowError ? _ancho2Error : null,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
                   onChanged: (value) {
                     _ancho2 = value;
                   },
@@ -222,9 +213,9 @@ class _VeredaInfoScreenState extends State<VeredaInfoScreen> {
     );
   }
 
-//------------------------------------------------------------------
-//------------------ _showObservacionesFotoFin ---------------------
-//------------------------------------------------------------------
+  //------------------------------------------------------------------
+  //------------------ _showObservacionesFotoFin ---------------------
+  //------------------------------------------------------------------
 
   Widget _showObservacionesFotoFin() {
     return Container(
@@ -233,16 +224,16 @@ class _VeredaInfoScreenState extends State<VeredaInfoScreen> {
         keyboardType: TextInputType.emailAddress,
         controller: _observacionesFotoFinController,
         decoration: InputDecoration(
-            fillColor: Colors.white,
-            filled: true,
-            hintText: 'Observaciones Foto Fin...',
-            labelText: 'Observaciones Foto Fin',
-            errorText: _observacionesFotoFinShowError
-                ? _observacionesFotoFinError
-                : null,
-            prefixIcon: const Icon(Icons.keyboard_tab),
-            border:
-                OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
+          fillColor: Colors.white,
+          filled: true,
+          hintText: 'Observaciones Foto Fin...',
+          labelText: 'Observaciones Foto Fin',
+          errorText: _observacionesFotoFinShowError
+              ? _observacionesFotoFinError
+              : null,
+          prefixIcon: const Icon(Icons.keyboard_tab),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+        ),
         onChanged: (value) {
           _observacionesFotoFin = value;
         },
@@ -250,35 +241,36 @@ class _VeredaInfoScreenState extends State<VeredaInfoScreen> {
     );
   }
 
-//------------------------------------------------------------------
-//-------------------------- _titulo -------------------------------
-//------------------------------------------------------------------
+  //------------------------------------------------------------------
+  //-------------------------- _titulo -------------------------------
+  //------------------------------------------------------------------
 
   Container _titulo(String texto) {
     return Container(
       margin: const EdgeInsets.fromLTRB(5, 10, 5, 5),
       width: double.infinity,
       height: 50,
-      child: Center(
-          child: Text(texto,
-              style: const TextStyle(
-                  color: Color(0xFF781f1e),
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold))),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(10),
-        border: Border.all(
-          color: const Color(0xFF781f1e),
-          width: 4,
+        border: Border.all(color: const Color(0xFF781f1e), width: 4),
+      ),
+      child: Center(
+        child: Text(
+          texto,
+          style: const TextStyle(
+            color: Color(0xFF781f1e),
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ),
     );
   }
 
-//---------------------------------------------------------------
-//-------------------------- _getInfoVereda ---------------------
-//---------------------------------------------------------------
+  //---------------------------------------------------------------
+  //-------------------------- _getInfoVereda ---------------------
+  //---------------------------------------------------------------
 
   Widget _getInfoVereda() {
     return Card(
@@ -304,54 +296,36 @@ class _VeredaInfoScreenState extends State<VeredaInfoScreen> {
                             children: [
                               const SizedBox(
                                 width: 110,
-                                child: Text('N° Obra: ',
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      color: Color(0xFF781f1e),
-                                      fontWeight: FontWeight.bold,
-                                    )),
-                              ),
-                              Expanded(
-                                flex: 5,
-                                child: Text(widget.obra.nroobra.toString(),
-                                    style: const TextStyle(
-                                      fontSize: 12,
-                                    )),
-                              ),
-                              const Text('Módulo: ',
+                                child: Text(
+                                  'N° Obra: ',
                                   style: TextStyle(
                                     fontSize: 12,
                                     color: Color(0xFF781f1e),
                                     fontWeight: FontWeight.bold,
-                                  )),
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                flex: 5,
+                                child: Text(
+                                  widget.obra.nroobra.toString(),
+                                  style: const TextStyle(fontSize: 12),
+                                ),
+                              ),
+                              const Text(
+                                'Módulo: ',
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  color: Color(0xFF781f1e),
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
                               Expanded(
                                 flex: 2,
-                                child: Text(widget.obra.modulo.toString(),
-                                    style: const TextStyle(
-                                      fontSize: 12,
-                                    )),
-                              ),
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              const SizedBox(
-                                width: 110,
-                                child: Text('Dirección: ',
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      color: Color(0xFF0e4888),
-                                      fontWeight: FontWeight.bold,
-                                    )),
-                              ),
-                              Expanded(
                                 child: Text(
-                                    widget.obra.direccion! +
-                                        ' ' +
-                                        widget.obra.altura.toString(),
-                                    style: const TextStyle(
-                                      fontSize: 12,
-                                    )),
+                                  widget.obra.modulo.toString(),
+                                  style: const TextStyle(fontSize: 12),
+                                ),
                               ),
                             ],
                           ),
@@ -359,109 +333,135 @@ class _VeredaInfoScreenState extends State<VeredaInfoScreen> {
                             children: [
                               const SizedBox(
                                 width: 110,
-                                child: Text('Tipo Vereda: ',
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      color: Color(0xFF0e4888),
-                                      fontWeight: FontWeight.bold,
-                                    )),
-                              ),
-                              Expanded(
-                                child: Text(widget.obra.tipoVereda!,
-                                    style: const TextStyle(
-                                      fontSize: 12,
-                                    )),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 1,
-                          ),
-                          Row(
-                            children: [
-                              const SizedBox(
-                                width: 110,
-                                child: Text('Mts. lineales: ',
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      color: Color(0xFF0e4888),
-                                      fontWeight: FontWeight.bold,
-                                    )),
-                              ),
-                              Expanded(
-                                child: Text(widget.obra.cantidadMTL.toString(),
-                                    style: const TextStyle(
-                                      fontSize: 12,
-                                    )),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 1,
-                          ),
-                          Row(
-                            children: [
-                              const SizedBox(
-                                width: 110,
-                                child: Text('Ancho [cm]: ',
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      color: Color(0xFF0e4888),
-                                      fontWeight: FontWeight.bold,
-                                    )),
-                              ),
-                              Expanded(
-                                child: Text(widget.obra.ancho.toString(),
-                                    style: const TextStyle(
-                                      fontSize: 12,
-                                    )),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 1,
-                          ),
-                          Row(
-                            children: [
-                              const SizedBox(
-                                width: 110,
-                                child: Text('Profundidad [cm]: ',
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      color: Color(0xFF0e4888),
-                                      fontWeight: FontWeight.bold,
-                                    )),
-                              ),
-                              Expanded(
-                                child: Text(widget.obra.profundidad.toString(),
-                                    style: const TextStyle(
-                                      fontSize: 12,
-                                    )),
-                              ),
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              const Text('Fecha Cierre Eléctrico: ',
+                                child: Text(
+                                  'Dirección: ',
                                   style: TextStyle(
                                     fontSize: 12,
                                     color: Color(0xFF0e4888),
                                     fontWeight: FontWeight.bold,
-                                  )),
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                child: Text(
+                                  '${widget.obra.direccion!} ${widget.obra.altura}',
+                                  style: const TextStyle(fontSize: 12),
+                                ),
+                              ),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              const SizedBox(
+                                width: 110,
+                                child: Text(
+                                  'Tipo Vereda: ',
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: Color(0xFF0e4888),
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                child: Text(
+                                  widget.obra.tipoVereda!,
+                                  style: const TextStyle(fontSize: 12),
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 1),
+                          Row(
+                            children: [
+                              const SizedBox(
+                                width: 110,
+                                child: Text(
+                                  'Mts. lineales: ',
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: Color(0xFF0e4888),
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                child: Text(
+                                  widget.obra.cantidadMTL.toString(),
+                                  style: const TextStyle(fontSize: 12),
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 1),
+                          Row(
+                            children: [
+                              const SizedBox(
+                                width: 110,
+                                child: Text(
+                                  'Ancho [cm]: ',
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: Color(0xFF0e4888),
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                child: Text(
+                                  widget.obra.ancho.toString(),
+                                  style: const TextStyle(fontSize: 12),
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 1),
+                          Row(
+                            children: [
+                              const SizedBox(
+                                width: 110,
+                                child: Text(
+                                  'Profundidad [cm]: ',
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: Color(0xFF0e4888),
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                child: Text(
+                                  widget.obra.profundidad.toString(),
+                                  style: const TextStyle(fontSize: 12),
+                                ),
+                              ),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              const Text(
+                                'Fecha Cierre Eléctrico: ',
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  color: Color(0xFF0e4888),
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
                               Expanded(
                                 child: widget.obra.fechaCierreElectrico != null
                                     ? Text(
                                         DateFormat('dd/MM/yyyy').format(
-                                            DateTime.parse(widget
-                                                .obra.fechaCierreElectrico
-                                                .toString())),
-                                        style: const TextStyle(
-                                          fontSize: 12,
-                                        ))
+                                          DateTime.parse(
+                                            widget.obra.fechaCierreElectrico
+                                                .toString(),
+                                          ),
+                                        ),
+                                        style: const TextStyle(fontSize: 12),
+                                      )
                                     : Container(),
                               ),
                             ],
-                          )
+                          ),
                         ],
                       ),
                     ),
@@ -475,62 +475,67 @@ class _VeredaInfoScreenState extends State<VeredaInfoScreen> {
     );
   }
 
-//--------------------------------------------------------------------
-//-------------------------- _getFoto1 -------------------------------
-//--------------------------------------------------------------------
+  //--------------------------------------------------------------------
+  //-------------------------- _getFoto1 -------------------------------
+  //--------------------------------------------------------------------
 
   Widget _getFoto1(double ancho) {
-    return Stack(children: <Widget>[
-      Container(
-        margin: const EdgeInsets.only(top: 10),
-        child: _photoChanged
-            ? Image.file(File(_image.path),
-                width: ancho * 0.6, height: ancho * 0.6, fit: BoxFit.contain)
-            : CachedNetworkImage(
-                imageUrl: widget.obra.imageFullPath!,
-                errorWidget: (context, url, error) => const Icon(Icons.error),
-                fit: BoxFit.contain,
-                width: ancho * 0.6,
-                height: ancho * 0.6,
-                placeholder: (context, url) => Image(
-                  image: const AssetImage('assets/logo.png'),
+    return Stack(
+      children: <Widget>[
+        Container(
+          margin: const EdgeInsets.only(top: 10),
+          child: _photoChanged
+              ? Image.file(
+                  File(_image.path),
+                  width: ancho * 0.6,
+                  height: ancho * 0.6,
+                  fit: BoxFit.contain,
+                )
+              : CachedNetworkImage(
+                  imageUrl: widget.obra.imageFullPath!,
+                  errorWidget: (context, url, error) => const Icon(Icons.error),
                   fit: BoxFit.contain,
                   width: ancho * 0.6,
                   height: ancho * 0.6,
-                ),
-              ),
-      ),
-    ]);
-  }
-
-//-----------------------------------------------------------------------
-//-------------------------- _getFotoInicio -----------------------------
-//-----------------------------------------------------------------------
-
-  Widget _getFotoInicio(double ancho) {
-    return Stack(children: <Widget>[
-      Container(
-        width: double.infinity,
-      ),
-      Center(
-        child: SizedBox(
-          width: ancho * 0.6,
-          height: ancho * 0.6,
-          child: !_photoInicioChanged
-              ? FadeInImage(
-                  fit: BoxFit.contain,
-                  placeholder: const AssetImage('assets/loading.gif'),
-                  image: NetworkImage(widget.obra.fotoInicioFullPath!),
-                )
-              : Center(
-                  child: Image.file(
-                    File(_imageInicio.path),
+                  placeholder: (context, url) => Image(
+                    image: const AssetImage('assets/logo.png'),
                     fit: BoxFit.contain,
+                    width: ancho * 0.6,
+                    height: ancho * 0.6,
                   ),
                 ),
         ),
-      ),
-      Positioned(
+      ],
+    );
+  }
+
+  //-----------------------------------------------------------------------
+  //-------------------------- _getFotoInicio -----------------------------
+  //-----------------------------------------------------------------------
+
+  Widget _getFotoInicio(double ancho) {
+    return Stack(
+      children: <Widget>[
+        Container(width: double.infinity),
+        Center(
+          child: SizedBox(
+            width: ancho * 0.6,
+            height: ancho * 0.6,
+            child: !_photoInicioChanged
+                ? FadeInImage(
+                    fit: BoxFit.contain,
+                    placeholder: const AssetImage('assets/loading.gif'),
+                    image: NetworkImage(widget.obra.fotoInicioFullPath!),
+                  )
+                : Center(
+                    child: Image.file(
+                      File(_imageInicio.path),
+                      fit: BoxFit.contain,
+                    ),
+                  ),
+          ),
+        ),
+        Positioned(
           bottom: 0,
           left: ancho * 0.8,
           child: InkWell(
@@ -548,8 +553,9 @@ class _VeredaInfoScreenState extends State<VeredaInfoScreen> {
                 ),
               ),
             ),
-          )),
-      Positioned(
+          ),
+        ),
+        Positioned(
           bottom: 0,
           left: ancho * 0.1,
           child: InkWell(
@@ -567,38 +573,39 @@ class _VeredaInfoScreenState extends State<VeredaInfoScreen> {
                 ),
               ),
             ),
-          )),
-    ]);
+          ),
+        ),
+      ],
+    );
   }
 
-//----------------------------------------------------------------------
-//-------------------------- _getFotoFin -------------------------------
-//----------------------------------------------------------------------
+  //----------------------------------------------------------------------
+  //-------------------------- _getFotoFin -------------------------------
+  //----------------------------------------------------------------------
 
   Widget _getFotoFin(double ancho) {
-    return Stack(children: <Widget>[
-      Container(
-        width: double.infinity,
-      ),
-      Center(
-        child: SizedBox(
-          width: ancho * 0.6,
-          height: ancho * 0.6,
-          child: !_photoFinChanged
-              ? FadeInImage(
-                  fit: BoxFit.contain,
-                  placeholder: const AssetImage('assets/loading.gif'),
-                  image: NetworkImage(widget.obra.fotoFinFullPath!),
-                )
-              : Center(
-                  child: Image.file(
-                    File(_imageFin.path),
+    return Stack(
+      children: <Widget>[
+        Container(width: double.infinity),
+        Center(
+          child: SizedBox(
+            width: ancho * 0.6,
+            height: ancho * 0.6,
+            child: !_photoFinChanged
+                ? FadeInImage(
                     fit: BoxFit.contain,
+                    placeholder: const AssetImage('assets/loading.gif'),
+                    image: NetworkImage(widget.obra.fotoFinFullPath!),
+                  )
+                : Center(
+                    child: Image.file(
+                      File(_imageFin.path),
+                      fit: BoxFit.contain,
+                    ),
                   ),
-                ),
+          ),
         ),
-      ),
-      Positioned(
+        Positioned(
           bottom: 0,
           left: ancho * 0.8,
           child: InkWell(
@@ -616,8 +623,9 @@ class _VeredaInfoScreenState extends State<VeredaInfoScreen> {
                 ),
               ),
             ),
-          )),
-      Positioned(
+          ),
+        ),
+        Positioned(
           bottom: 0,
           left: ancho * 0.1,
           child: InkWell(
@@ -635,27 +643,30 @@ class _VeredaInfoScreenState extends State<VeredaInfoScreen> {
                 ),
               ),
             ),
-          )),
-    ]);
+          ),
+        ),
+      ],
+    );
   }
 
-//--------------------------------------------------------------
-//-------------------------- _takePicture ----------------------
-//--------------------------------------------------------------
+  //--------------------------------------------------------------
+  //-------------------------- _takePicture ----------------------
+  //--------------------------------------------------------------
 
   void _takePicture(int opcion) async {
     WidgetsFlutterBinding.ensureInitialized();
     final cameras = await availableCameras();
     var firstCamera = cameras.first;
     var response1 = await showAlertDialog(
-        context: context,
-        title: 'Seleccionar cámara',
-        message: '¿Qué cámara desea utilizar?',
-        actions: <AlertDialogAction>[
-          const AlertDialogAction(key: 'no', label: 'Trasera'),
-          const AlertDialogAction(key: 'yes', label: 'Delantera'),
-          const AlertDialogAction(key: 'cancel', label: 'Cancelar'),
-        ]);
+      context: context,
+      title: 'Seleccionar cámara',
+      message: '¿Qué cámara desea utilizar?',
+      actions: <AlertDialogAction>[
+        const AlertDialogAction(key: 'no', label: 'Trasera'),
+        const AlertDialogAction(key: 'yes', label: 'Delantera'),
+        const AlertDialogAction(key: 'cancel', label: 'Cancelar'),
+      ],
+    );
     if (response1 == 'yes') {
       firstCamera = cameras.first;
     }
@@ -665,11 +676,11 @@ class _VeredaInfoScreenState extends State<VeredaInfoScreen> {
 
     if (response1 != 'cancel') {
       Response? response = await Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => SacarFotoScreen(
-                    camera: firstCamera,
-                  )));
+        context,
+        MaterialPageRoute(
+          builder: (context) => SacarFotoScreen(camera: firstCamera),
+        ),
+      );
       if (response != null && opcion == 4) {
         _photoInicioChanged = true;
         _imageInicio = response.result;
@@ -686,14 +697,14 @@ class _VeredaInfoScreenState extends State<VeredaInfoScreen> {
     }
   }
 
-//--------------------------------------------------------------
-//-------------------------- _selectPicture --------------------
-//--------------------------------------------------------------
+  //--------------------------------------------------------------
+  //-------------------------- _selectPicture --------------------
+  //--------------------------------------------------------------
 
   void _selectPicture(int opcion) async {
-    final ImagePicker _picker = ImagePicker();
+    final ImagePicker picker = ImagePicker();
 
-    final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+    final XFile? image = await picker.pickImage(source: ImageSource.gallery);
 
     if (image != null && opcion == 4) {
       _photoInicioChanged = true;
@@ -710,9 +721,9 @@ class _VeredaInfoScreenState extends State<VeredaInfoScreen> {
     }
   }
 
-//---------------------------------------------------------
-//----------------------- _showButtons --------------------
-//---------------------------------------------------------
+  //---------------------------------------------------------
+  //----------------------- _showButtons --------------------
+  //---------------------------------------------------------
 
   Widget _showButtons() {
     return Container(
@@ -722,16 +733,6 @@ class _VeredaInfoScreenState extends State<VeredaInfoScreen> {
         children: <Widget>[
           Expanded(
             child: ElevatedButton(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  Icon(Icons.save),
-                  SizedBox(
-                    width: 15,
-                  ),
-                  Text('Guardar'),
-                ],
-              ),
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xFF120E43),
                 minimumSize: const Size(100, 50),
@@ -740,6 +741,14 @@ class _VeredaInfoScreenState extends State<VeredaInfoScreen> {
                 ),
               ),
               onPressed: () => _save(),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Icon(Icons.save),
+                  SizedBox(width: 15),
+                  Text('Guardar'),
+                ],
+              ),
             ),
           ),
         ],
@@ -747,9 +756,9 @@ class _VeredaInfoScreenState extends State<VeredaInfoScreen> {
     );
   }
 
-//---------------------------------------------------------
-//----------------------- _save ---------------------------
-//---------------------------------------------------------
+  //---------------------------------------------------------
+  //----------------------- _save ---------------------------
+  //---------------------------------------------------------
 
   void _save() {
     if (!validateFields()) {
@@ -758,9 +767,9 @@ class _VeredaInfoScreenState extends State<VeredaInfoScreen> {
     _saveRecord();
   }
 
-//---------------------------------------------------------
-//----------------------- validateFields ------------------
-//---------------------------------------------------------
+  //---------------------------------------------------------
+  //----------------------- validateFields ------------------
+  //---------------------------------------------------------
 
   bool validateFields() {
     bool isValid = true;
@@ -786,11 +795,11 @@ class _VeredaInfoScreenState extends State<VeredaInfoScreen> {
     return isValid;
   }
 
-//---------------------------------------------------------
-//--------------------- _saveRecord -----------------------
-//---------------------------------------------------------
+  //---------------------------------------------------------
+  //--------------------- _saveRecord -----------------------
+  //---------------------------------------------------------
 
-  _saveRecord() async {
+  Future<void> _saveRecord() async {
     FocusScope.of(context).unfocus();
     setState(() {
       _showLoader = true;
@@ -803,7 +812,10 @@ class _VeredaInfoScreenState extends State<VeredaInfoScreen> {
         _showLoader = false;
       });
       showMyDialog(
-          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
+        'Error',
+        'Verifica que estés conectado a Internet',
+        'Aceptar',
+      );
     }
 
     String base64ImageInicio = '';
@@ -812,8 +824,11 @@ class _VeredaInfoScreenState extends State<VeredaInfoScreen> {
       Uint8List imageInicioBytes = await _imageInicio.readAsBytes();
       int maxWidth = 800; // Ancho máximo
       int maxHeight = 600; // Alto máximo
-      Uint8List resizedBytes =
-          await resizeImage(imageInicioBytes, maxWidth, maxHeight);
+      Uint8List resizedBytes = await resizeImage(
+        imageInicioBytes,
+        maxWidth,
+        maxHeight,
+      );
       base64ImageInicio = base64Encode(resizedBytes);
     }
 
@@ -823,8 +838,11 @@ class _VeredaInfoScreenState extends State<VeredaInfoScreen> {
       Uint8List imageFinBytes = await _imageFin.readAsBytes();
       int maxWidth = 800; // Ancho máximo
       int maxHeight = 600; // Alto máximo
-      Uint8List resizedBytes =
-          await resizeImage(imageFinBytes, maxWidth, maxHeight);
+      Uint8List resizedBytes = await resizeImage(
+        imageFinBytes,
+        maxWidth,
+        maxHeight,
+      );
       base64ImageFin = base64Encode(resizedBytes);
     }
 
@@ -839,7 +857,10 @@ class _VeredaInfoScreenState extends State<VeredaInfoScreen> {
     };
 
     Response response = await ApiHelper.put(
-        '/api/ObrasReparos/', widget.obra.nroregistro.toString(), request);
+      '/api/ObrasReparos/',
+      widget.obra.nroregistro.toString(),
+      request,
+    );
 
     setState(() {
       _showLoader = false;
@@ -847,28 +868,30 @@ class _VeredaInfoScreenState extends State<VeredaInfoScreen> {
 
     if (!response.isSuccess) {
       await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: response.message,
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message: response.message,
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
       return;
     } else {
       await showAlertDialog(
-          context: context,
-          title: 'Aviso',
-          message: 'Guardado con éxito!',
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Aviso',
+        message: 'Guardado con éxito!',
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
       Navigator.pop(context, 'yes');
     }
   }
 
-//---------------------------------------------------------
-//--------------------- _loadFieldValues ------------------
-//---------------------------------------------------------
+  //---------------------------------------------------------
+  //--------------------- _loadFieldValues ------------------
+  //---------------------------------------------------------
 
   void _loadFieldValues() {
     _observacionesFotoInicio = widget.obra.observacionesFotoInicio;
@@ -877,8 +900,8 @@ class _VeredaInfoScreenState extends State<VeredaInfoScreen> {
     _observacionesFotoInicio ??= '';
     _observacionesFotoFin ??= '';
 
-    _observacionesFotoInicioController.text =
-        _observacionesFotoInicio.toString();
+    _observacionesFotoInicioController.text = _observacionesFotoInicio
+        .toString();
     _observacionesFotoFinController.text = _observacionesFotoFin.toString();
   }
 }

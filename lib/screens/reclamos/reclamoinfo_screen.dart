@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_collection_literals
 
 import 'package:adaptive_dialog/adaptive_dialog.dart';
-import 'package:connectivity/connectivity.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 
 import '../../components/loader_component.dart';
@@ -14,17 +14,20 @@ import '../../models/user.dart';
 class ReclamoInfoScreen extends StatefulWidget {
   final User user;
   final Reclamo reclamo;
-  const ReclamoInfoScreen({Key? key, required this.user, required this.reclamo})
-      : super(key: key);
+  const ReclamoInfoScreen({
+    super.key,
+    required this.user,
+    required this.reclamo,
+  });
 
   @override
   _ReclamoInfoScreenState createState() => _ReclamoInfoScreenState();
 }
 
 class _ReclamoInfoScreenState extends State<ReclamoInfoScreen> {
-//---------------------------------------------------------------
-//----------------------- Variables -----------------------------
-//---------------------------------------------------------------
+  //---------------------------------------------------------------
+  //----------------------- Variables -----------------------------
+  //---------------------------------------------------------------
 
   bool _showLoader = false;
   List<Catalogo> _catalogos = [];
@@ -36,9 +39,9 @@ class _ReclamoInfoScreenState extends State<ReclamoInfoScreen> {
 
   List<TextEditingController> controllers = [];
 
-//---------------------------------------------------------------
-//----------------------- initState -----------------------------
-//---------------------------------------------------------------
+  //---------------------------------------------------------------
+  //----------------------- initState -----------------------------
+  //---------------------------------------------------------------
 
   @override
   void initState() {
@@ -46,9 +49,9 @@ class _ReclamoInfoScreenState extends State<ReclamoInfoScreen> {
     _loadData();
   }
 
-//---------------------------------------------------------------
-//----------------------- Pantalla ------------------------------
-//---------------------------------------------------------------
+  //---------------------------------------------------------------
+  //----------------------- Pantalla ------------------------------
+  //---------------------------------------------------------------
 
   @override
   Widget build(BuildContext context) {
@@ -60,56 +63,42 @@ class _ReclamoInfoScreenState extends State<ReclamoInfoScreen> {
       ),
       body: Center(
         child: _showLoader
-            ? const LoaderComponent(
-                text: 'Por favor espere...',
-              )
+            ? const LoaderComponent(text: 'Por favor espere...')
             : _getContent(),
       ),
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _getContent -------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _getContent -------------------------------
+  //-----------------------------------------------------------------
 
   Widget _getContent() {
     return Column(
       children: <Widget>[
-        const SizedBox(
-          height: 10,
-        ),
+        const SizedBox(height: 10),
         _showReclamoInfo(),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: const [
-            Text(
-              'Material         ',
-              style: TextStyle(color: Colors.white),
-            ),
-            Text(
-              '   ',
-              style: TextStyle(color: Colors.white),
-            ),
+            Text('Material         ', style: TextStyle(color: Colors.white)),
+            Text('   ', style: TextStyle(color: Colors.white)),
             Text(
               'Cantidad                 ',
               style: TextStyle(color: Colors.white),
             ),
           ],
         ),
-        Expanded(
-          child: _getListView(),
-        ),
+        Expanded(child: _getListView()),
         _showButtons(),
-        const SizedBox(
-          height: 10,
-        ),
+        const SizedBox(height: 10),
       ],
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _showReclamoInfo --------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _showReclamoInfo --------------------------
+  //-----------------------------------------------------------------
 
   Widget _showReclamoInfo() {
     return Card(
@@ -135,102 +124,113 @@ class _ReclamoInfoScreenState extends State<ReclamoInfoScreen> {
                       children: [
                         Row(
                           children: const [
-                            Text('AS/N° Reclamo: ',
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  color: Color(0xFF781f1e),
-                                  fontWeight: FontWeight.bold,
-                                )),
+                            Text(
+                              'AS/N° Reclamo: ',
+                              style: TextStyle(
+                                fontSize: 12,
+                                color: Color(0xFF781f1e),
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
                           ],
                         ),
                         Row(
                           children: const [
-                            Text('Zona: ',
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  color: Color(0xFF781f1e),
-                                  fontWeight: FontWeight.bold,
-                                )),
+                            Text(
+                              'Zona: ',
+                              style: TextStyle(
+                                fontSize: 12,
+                                color: Color(0xFF781f1e),
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
                           ],
                         ),
                         Row(
                           children: const [
-                            Text('Dirección: ',
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  color: Color(0xFF781f1e),
-                                  fontWeight: FontWeight.bold,
-                                )),
+                            Text(
+                              'Dirección: ',
+                              style: TextStyle(
+                                fontSize: 12,
+                                color: Color(0xFF781f1e),
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
                           ],
                         ),
                         Row(
                           children: const [
-                            Text('N°: ',
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  color: Color(0xFF781f1e),
-                                  fontWeight: FontWeight.bold,
-                                )),
+                            Text(
+                              'N°: ',
+                              style: TextStyle(
+                                fontSize: 12,
+                                color: Color(0xFF781f1e),
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
                           ],
                         ),
                         Row(
                           children: const [
-                            Text('Descr./Nombre: ',
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  color: Color(0xFF781f1e),
-                                  fontWeight: FontWeight.bold,
-                                )),
+                            Text(
+                              'Descr./Nombre: ',
+                              style: TextStyle(
+                                fontSize: 12,
+                                color: Color(0xFF781f1e),
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
                           ],
                         ),
                       ],
                     ),
                     Expanded(
                       child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: <Widget>[
-                            Row(
-                              children: [
-                                Text(widget.reclamo.asticket.toString(),
-                                    style: const TextStyle(
-                                      fontSize: 12,
-                                    )),
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                Text(widget.reclamo.zona.toString(),
-                                    style: const TextStyle(
-                                      fontSize: 12,
-                                    )),
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                Text(widget.reclamo.direccion.toString(),
-                                    style: const TextStyle(
-                                      fontSize: 12,
-                                    )),
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                Text(widget.reclamo.numeracion.toString(),
-                                    style: const TextStyle(
-                                      fontSize: 12,
-                                    )),
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                Text(widget.reclamo.terminal.toString(),
-                                    style: const TextStyle(
-                                      fontSize: 12,
-                                    )),
-                              ],
-                            ),
-                          ]),
-                    )
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: <Widget>[
+                          Row(
+                            children: [
+                              Text(
+                                widget.reclamo.asticket.toString(),
+                                style: const TextStyle(fontSize: 12),
+                              ),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Text(
+                                widget.reclamo.zona.toString(),
+                                style: const TextStyle(fontSize: 12),
+                              ),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Text(
+                                widget.reclamo.direccion.toString(),
+                                style: const TextStyle(fontSize: 12),
+                              ),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Text(
+                                widget.reclamo.numeracion.toString(),
+                                style: const TextStyle(fontSize: 12),
+                              ),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Text(
+                                widget.reclamo.terminal.toString(),
+                                style: const TextStyle(fontSize: 12),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -241,9 +241,9 @@ class _ReclamoInfoScreenState extends State<ReclamoInfoScreen> {
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _getListView ------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _getListView ------------------------------
+  //-----------------------------------------------------------------
 
   Widget _getListView() {
     return ListView(
@@ -271,167 +271,159 @@ class _ReclamoInfoScreenState extends State<ReclamoInfoScreen> {
                                 children: [
                                   Expanded(
                                     flex: 4,
-                                    child: Text(e.catCatalogo.toString(),
-                                        style: const TextStyle(
-                                          fontSize: 12,
-                                        )),
+                                    child: Text(
+                                      e.catCatalogo.toString(),
+                                      style: const TextStyle(fontSize: 12),
+                                    ),
                                   ),
-                                  const SizedBox(
-                                    width: 5,
-                                  ),
+                                  const SizedBox(width: 5),
                                   Expanded(
                                     flex: 1,
-                                    child: Text(e.cantidad.toString(),
-                                        style: const TextStyle(
-                                          fontSize: 14,
-                                          color: Colors.blue,
-                                          fontWeight: FontWeight.bold,
-                                        )),
+                                    child: Text(
+                                      e.cantidad.toString(),
+                                      style: const TextStyle(
+                                        fontSize: 14,
+                                        color: Colors.blue,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
                                   ),
-                                  const SizedBox(
-                                    width: 10,
-                                  ),
+                                  const SizedBox(width: 10),
                                   IconButton(
-                                      onPressed: () {
-                                        _cantidadController.text =
-                                            e.cantidad == 0.0
-                                                ? ''
-                                                : e.cantidad.toString();
-                                        showDialog(
-                                            context: context,
-                                            builder: (BuildContext context) {
-                                              return AlertDialog(
-                                                backgroundColor:
-                                                    Colors.grey[300],
-                                                title: const Text(
-                                                    'Ingrese la cantidad'),
-                                                content: TextField(
-                                                  autofocus: true,
-                                                  controller:
-                                                      _cantidadController,
-                                                  decoration: InputDecoration(
-                                                      fillColor: Colors.white,
-                                                      filled: true,
-                                                      hintText: '',
-                                                      labelText: '',
-                                                      errorText:
-                                                          _cantidadShowError
-                                                              ? _cantidadError
-                                                              : null,
-                                                      prefixIcon:
-                                                          const Icon(Icons.tag),
-                                                      border:
-                                                          OutlineInputBorder(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          10))),
-                                                  onChanged: (value) {
-                                                    _cantidad = value;
-                                                  },
+                                    onPressed: () {
+                                      _cantidadController.text =
+                                          e.cantidad == 0.0
+                                          ? ''
+                                          : e.cantidad.toString();
+                                      showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          return AlertDialog(
+                                            backgroundColor: Colors.grey[300],
+                                            title: const Text(
+                                              'Ingrese la cantidad',
+                                            ),
+                                            content: TextField(
+                                              autofocus: true,
+                                              controller: _cantidadController,
+                                              decoration: InputDecoration(
+                                                fillColor: Colors.white,
+                                                filled: true,
+                                                hintText: '',
+                                                labelText: '',
+                                                errorText: _cantidadShowError
+                                                    ? _cantidadError
+                                                    : null,
+                                                prefixIcon: const Icon(
+                                                  Icons.tag,
                                                 ),
-                                                actions: [
-                                                  Row(
-                                                    children: [
-                                                      Expanded(
-                                                        child: ElevatedButton(
-                                                          child: Row(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .spaceAround,
-                                                            children: const [
-                                                              Icon(
-                                                                  Icons.cancel),
-                                                              Text('Cancelar'),
-                                                            ],
-                                                          ),
-                                                          style: ElevatedButton
-                                                              .styleFrom(
-                                                            backgroundColor:
-                                                                const Color(
-                                                                    0xFFB4161B),
-                                                            minimumSize:
-                                                                const Size(
-                                                                    double
-                                                                        .infinity,
-                                                                    50),
-                                                            shape:
-                                                                RoundedRectangleBorder(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          5),
+                                                border: OutlineInputBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                ),
+                                              ),
+                                              onChanged: (value) {
+                                                _cantidad = value;
+                                              },
+                                            ),
+                                            actions: [
+                                              Row(
+                                                children: [
+                                                  Expanded(
+                                                    child: ElevatedButton(
+                                                      style: ElevatedButton.styleFrom(
+                                                        backgroundColor:
+                                                            const Color(
+                                                              0xFFB4161B,
                                                             ),
-                                                          ),
-                                                          onPressed: () {
-                                                            Navigator.pop(
-                                                                context);
-                                                          },
+                                                        minimumSize: const Size(
+                                                          double.infinity,
+                                                          50,
+                                                        ),
+                                                        shape: RoundedRectangleBorder(
+                                                          borderRadius:
+                                                              BorderRadius.circular(
+                                                                5,
+                                                              ),
                                                         ),
                                                       ),
-                                                      const SizedBox(
-                                                        width: 10,
+                                                      onPressed: () {
+                                                        Navigator.pop(context);
+                                                      },
+                                                      child: Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceAround,
+                                                        children: const [
+                                                          Icon(Icons.cancel),
+                                                          Text('Cancelar'),
+                                                        ],
                                                       ),
-                                                      Expanded(
-                                                        child: ElevatedButton(
-                                                          child: Row(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .spaceAround,
-                                                            children: const [
-                                                              Icon(Icons.save),
-                                                              Text('Aceptar'),
-                                                            ],
-                                                          ),
-                                                          style: ElevatedButton
-                                                              .styleFrom(
-                                                            backgroundColor:
-                                                                const Color(
-                                                                    0xFF120E43),
-                                                            minimumSize:
-                                                                const Size(
-                                                                    double
-                                                                        .infinity,
-                                                                    50),
-                                                            shape:
-                                                                RoundedRectangleBorder(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          5),
+                                                    ),
+                                                  ),
+                                                  const SizedBox(width: 10),
+                                                  Expanded(
+                                                    child: ElevatedButton(
+                                                      style: ElevatedButton.styleFrom(
+                                                        backgroundColor:
+                                                            const Color(
+                                                              0xFF120E43,
                                                             ),
-                                                          ),
-                                                          onPressed: () {
-                                                            for (Catalogo catalogo
-                                                                in _catalogos) {
-                                                              if (catalogo
-                                                                      .catCodigo ==
-                                                                  e.catCodigo) {
-                                                                catalogo.cantidad =
-                                                                    double.parse(
-                                                                        _cantidad);
-                                                              }
-                                                            }
+                                                        minimumSize: const Size(
+                                                          double.infinity,
+                                                          50,
+                                                        ),
+                                                        shape: RoundedRectangleBorder(
+                                                          borderRadius:
+                                                              BorderRadius.circular(
+                                                                5,
+                                                              ),
+                                                        ),
+                                                      ),
+                                                      onPressed: () {
+                                                        for (Catalogo catalogo
+                                                            in _catalogos) {
+                                                          if (catalogo
+                                                                  .catCodigo ==
+                                                              e.catCodigo) {
+                                                            catalogo.cantidad =
+                                                                double.parse(
+                                                                  _cantidad,
+                                                                );
+                                                          }
+                                                        }
 
-                                                            Navigator.pop(
-                                                                context);
-                                                            setState(() {});
-                                                          },
-                                                        ),
+                                                        Navigator.pop(context);
+                                                        setState(() {});
+                                                      },
+                                                      child: Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceAround,
+                                                        children: const [
+                                                          Icon(Icons.save),
+                                                          Text('Aceptar'),
+                                                        ],
                                                       ),
-                                                    ],
+                                                    ),
                                                   ),
                                                 ],
-                                                shape: RoundedRectangleBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            10)),
-                                              );
-                                            },
-                                            barrierDismissible: false);
-                                      },
-                                      icon: const Icon(Icons.loop,
-                                          color: Colors.blue)),
+                                              ),
+                                            ],
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                            ),
+                                          );
+                                        },
+                                        barrierDismissible: false,
+                                      );
+                                    },
+                                    icon: const Icon(
+                                      Icons.loop,
+                                      color: Colors.blue,
+                                    ),
+                                  ),
                                 ],
                               ),
                             ],
@@ -449,54 +441,48 @@ class _ReclamoInfoScreenState extends State<ReclamoInfoScreen> {
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _showButtons ------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _showButtons ------------------------------
+  //-----------------------------------------------------------------
 
   Widget _showButtons() {
     return Container(
       margin: const EdgeInsets.only(left: 10, right: 10),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: <Widget>[
-          _showSaveButton(),
-        ],
+        children: <Widget>[_showSaveButton()],
       ),
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _showSaveButton ---------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _showSaveButton ---------------------------
+  //-----------------------------------------------------------------
 
   Widget _showSaveButton() {
     return Expanded(
       child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: const Color(0xFF781f1e),
+          minimumSize: const Size(double.infinity, 50),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+        ),
+        onPressed: () => _save(),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: const [
             Icon(Icons.save),
-            SizedBox(
-              width: 15,
-            ),
+            SizedBox(width: 15),
             Text('Guardar'),
           ],
         ),
-        style: ElevatedButton.styleFrom(
-          backgroundColor: const Color(0xFF781f1e),
-          minimumSize: const Size(double.infinity, 50),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(5),
-          ),
-        ),
-        onPressed: () => _save(),
       ),
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _loadData ---------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _loadData ---------------------------------
+  //-----------------------------------------------------------------
 
   void _loadData() async {
     await _getCatalogos();
@@ -505,9 +491,9 @@ class _ReclamoInfoScreenState extends State<ReclamoInfoScreen> {
     }
   }
 
-//-----------------------------------------------------------------
-//--------------------- _getCatalogos -----------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _getCatalogos -----------------------------
+  //-----------------------------------------------------------------
 
   Future<void> _getCatalogos() async {
     setState(() {
@@ -521,7 +507,10 @@ class _ReclamoInfoScreenState extends State<ReclamoInfoScreen> {
         _showLoader = false;
       });
       showMyDialog(
-          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
+        'Error',
+        'Verifica que estés conectado a Internet',
+        'Aceptar',
+      );
     }
 
     Response response = Response(isSuccess: false);
@@ -534,12 +523,13 @@ class _ReclamoInfoScreenState extends State<ReclamoInfoScreen> {
 
     if (!response.isSuccess) {
       await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: response.message,
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message: response.message,
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
       return;
     }
 
@@ -548,11 +538,11 @@ class _ReclamoInfoScreenState extends State<ReclamoInfoScreen> {
     });
   }
 
-//-----------------------------------------------------------------
-//--------------------- _save -------------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _save -------------------------------------
+  //-----------------------------------------------------------------
 
-  _save() async {
+  Future<void> _save() async {
     bool bandera = false;
     for (Catalogo catalogo in _catalogos) {
       if (catalogo.cantidad != 0) {
@@ -565,37 +555,41 @@ class _ReclamoInfoScreenState extends State<ReclamoInfoScreen> {
         };
 
         Response response = await ApiHelper.post(
-            '/api/ObrasPostesCajasDetalle/PostObrasPostesCajasDetalle',
-            request);
+          '/api/ObrasPostesCajasDetalle/PostObrasPostesCajasDetalle',
+          request,
+        );
 
         if (!response.isSuccess) {
           await showAlertDialog(
-              context: context,
-              title: 'Error',
-              message: response.message,
-              actions: <AlertDialogAction>[
-                const AlertDialogAction(key: null, label: 'Aceptar'),
-              ]);
+            context: context,
+            title: 'Error',
+            message: response.message,
+            actions: <AlertDialogAction>[
+              const AlertDialogAction(key: null, label: 'Aceptar'),
+            ],
+          );
         }
       }
     }
     if (bandera == false) {
       await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: 'No hay materiales que tengan cantidades',
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message: 'No hay materiales que tengan cantidades',
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
       return;
     }
     await showAlertDialog(
-        context: context,
-        title: 'Aviso',
-        message: 'Materiales guardados con éxito!',
-        actions: <AlertDialogAction>[
-          const AlertDialogAction(key: null, label: 'Aceptar'),
-        ]);
+      context: context,
+      title: 'Aviso',
+      message: 'Materiales guardados con éxito!',
+      actions: <AlertDialogAction>[
+        const AlertDialogAction(key: null, label: 'Aceptar'),
+      ],
+    );
     Navigator.pop(context);
   }
 }

@@ -1,5 +1,5 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
-import 'package:connectivity/connectivity.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 
@@ -15,14 +15,14 @@ class CertificacionNuevaScreen extends StatefulWidget {
   final bool editMode;
   final CabeceraCertificacion cabeceraCertificacion;
 
-  const CertificacionNuevaScreen(
-      {Key? key,
-      required this.user,
-      required this.positionUser,
-      required this.imei,
-      required this.editMode,
-      required this.cabeceraCertificacion})
-      : super(key: key);
+  const CertificacionNuevaScreen({
+    super.key,
+    required this.user,
+    required this.positionUser,
+    required this.imei,
+    required this.editMode,
+    required this.cabeceraCertificacion,
+  });
 
   @override
   _CertificacionNuevaScreenState createState() =>
@@ -30,44 +30,45 @@ class CertificacionNuevaScreen extends StatefulWidget {
 }
 
 class _CertificacionNuevaScreenState extends State<CertificacionNuevaScreen> {
-//---------------------------------------------------------------
-//----------------------- Variables -----------------------------
-//---------------------------------------------------------------
+  //---------------------------------------------------------------
+  //----------------------- Variables -----------------------------
+  //---------------------------------------------------------------
 
   int _nroReg = 0;
   bool _showLoader = false;
 
   Obra obra = Obra(
-      nroObra: 0,
-      nombreObra: '',
-      nroOE: '',
-      defProy: '',
-      central: '',
-      elempep: '',
-      observaciones: '',
-      finalizada: 0,
-      supervisore: '',
-      codigoEstado: '',
-      codigoSubEstado: '',
-      modulo: '',
-      grupoAlmacen: '',
-      obrasDocumentos: [],
-      fechaCierreElectrico: '',
-      fechaUltimoMovimiento: '',
-      photos: 0,
-      audios: 0,
-      videos: 0,
-      posx: '',
-      posy: '',
-      direccion: '',
-      textoLocalizacion: '',
-      textoClase: '',
-      textoTipo: '',
-      textoComponente: '',
-      codigoDiametro: '',
-      motivo: '',
-      planos: '',
-      grupoCausante: '');
+    nroObra: 0,
+    nombreObra: '',
+    nroOE: '',
+    defProy: '',
+    central: '',
+    elempep: '',
+    observaciones: '',
+    finalizada: 0,
+    supervisore: '',
+    codigoEstado: '',
+    codigoSubEstado: '',
+    modulo: '',
+    grupoAlmacen: '',
+    obrasDocumentos: [],
+    fechaCierreElectrico: '',
+    fechaUltimoMovimiento: '',
+    photos: 0,
+    audios: 0,
+    videos: 0,
+    posx: '',
+    posy: '',
+    direccion: '',
+    textoLocalizacion: '',
+    textoClase: '',
+    textoTipo: '',
+    textoComponente: '',
+    codigoDiametro: '',
+    motivo: '',
+    planos: '',
+    grupoCausante: '',
+  );
 
   String _montoC = '';
   String _montoCError = '';
@@ -136,9 +137,9 @@ class _CertificacionNuevaScreenState extends State<CertificacionNuevaScreen> {
   String _codigoProduccionError = '';
   bool _codigoProduccionShowError = false;
 
-//---------------------------------------------------------------
-//----------------------- initState -----------------------------
-//---------------------------------------------------------------
+  //---------------------------------------------------------------
+  //----------------------- initState -----------------------------
+  //---------------------------------------------------------------
 
   @override
   void initState() {
@@ -146,26 +147,21 @@ class _CertificacionNuevaScreenState extends State<CertificacionNuevaScreen> {
     _loadData();
   }
 
-//---------------------------------------------------------------
-//----------------------- Pantalla ------------------------------
-//---------------------------------------------------------------
+  //---------------------------------------------------------------
+  //----------------------- Pantalla ------------------------------
+  //---------------------------------------------------------------
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        title: const Text('Nuevo Certificado'),
-        centerTitle: true,
-      ),
+      appBar: AppBar(title: const Text('Nuevo Certificado'), centerTitle: true),
       body: Stack(
         children: [
           SingleChildScrollView(
             child: Column(
               children: <Widget>[
-                const SizedBox(
-                  height: 5,
-                ),
+                const SizedBox(height: 5),
                 _showObra(),
                 _showContratistas(),
                 _showCausantes(),
@@ -178,40 +174,37 @@ class _CertificacionNuevaScreenState extends State<CertificacionNuevaScreen> {
                 _showCodigosProduccion(),
                 _showMesImputacion(),
                 _showButton(),
-                const SizedBox(
-                  height: 10,
-                ),
+                const SizedBox(height: 10),
               ],
             ),
           ),
           _showLoader
-              ? const LoaderComponent(
-                  text: 'Por favor espere...',
-                )
+              ? const LoaderComponent(text: 'Por favor espere...')
               : Container(),
         ],
       ),
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _showContratistas ----------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _showContratistas ----------------------------
+  //-----------------------------------------------------------------
   Widget _showContratistas() {
     return Container(
       padding: const EdgeInsets.all(10),
       child: _contratistas.isEmpty
           ? const Text('Cargando SubContratistas...')
           : DropdownButtonFormField(
-              value: _contratista,
+              initialValue: _contratista,
               decoration: InputDecoration(
                 fillColor: Colors.white,
                 filled: true,
                 hintText: 'Elija una SubContratista...',
                 labelText: 'SubContratista',
                 errorText: _contratistaShowError ? _contratistaError : null,
-                border:
-                    OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
               ),
               items: _getComboContratistas(),
               onChanged: (value) async {
@@ -227,24 +220,25 @@ class _CertificacionNuevaScreenState extends State<CertificacionNuevaScreen> {
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _showCausantes ----------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _showCausantes ----------------------------
+  //-----------------------------------------------------------------
   Widget _showCausantes() {
     return Container(
       padding: const EdgeInsets.all(10),
       child: _causantes.isEmpty
           ? Container() //const Text('Cargando Causantes...')
           : DropdownButtonFormField(
-              value: _causante,
+              initialValue: _causante,
               decoration: InputDecoration(
                 fillColor: Colors.white,
                 filled: true,
                 hintText: 'Elija un Causante...',
                 labelText: 'Causante',
                 errorText: _causanteShowError ? _causanteError : null,
-                border:
-                    OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
               ),
               items: _getComboCausantes(),
               onChanged: (value) {
@@ -255,53 +249,63 @@ class _CertificacionNuevaScreenState extends State<CertificacionNuevaScreen> {
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _getComboContratistas ---------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _getComboContratistas ---------------------
+  //-----------------------------------------------------------------
 
   List<DropdownMenuItem<String>> _getComboContratistas() {
     List<DropdownMenuItem<String>> list = [];
-    list.add(const DropdownMenuItem(
-      child: Text('Elija una SubContratista...'),
-      value: 'Elija una SubContratista...',
-    ));
+    list.add(
+      const DropdownMenuItem(
+        value: 'Elija una SubContratista...',
+        child: Text('Elija una SubContratista...'),
+      ),
+    );
 
     for (var contratista in _contratistas) {
-      list.add(DropdownMenuItem(
-        child: Text(contratista.subSubcontratista),
-        value: contratista.subCodigo,
-      ));
+      list.add(
+        DropdownMenuItem(
+          value: contratista.subCodigo,
+          child: Text(contratista.subSubcontratista),
+        ),
+      );
     }
 
     return list;
   }
 
-//-----------------------------------------------------------------
-//--------------------- _getComboCausantes ------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _getComboCausantes ------------------------
+  //-----------------------------------------------------------------
 
   List<DropdownMenuItem<String>> _getComboCausantes() {
     List<DropdownMenuItem<String>> list = [];
-    list.add(const DropdownMenuItem(
-      child: Text('Elija un Causante...'),
-      value: 'Elija un Causante...',
-    ));
+    list.add(
+      const DropdownMenuItem(
+        value: 'Elija un Causante...',
+        child: Text('Elija un Causante...'),
+      ),
+    );
 
     for (var causante in _causantes) {
-      list.add(DropdownMenuItem(
-        child: Text(causante.nombre.length > 30
-            ? (causante.nombre.substring(0, 29))
-            : (causante.nombre)),
-        value: causante.codigo,
-      ));
+      list.add(
+        DropdownMenuItem(
+          value: causante.codigo,
+          child: Text(
+            causante.nombre.length > 30
+                ? (causante.nombre.substring(0, 29))
+                : (causante.nombre),
+          ),
+        ),
+      );
     }
 
     return list;
   }
 
-//---------------------------------------------------------------
-//--------------------- _showObjetos ----------------------------
-//---------------------------------------------------------------
+  //---------------------------------------------------------------
+  //--------------------- _showObjetos ----------------------------
+  //---------------------------------------------------------------
 
   Widget _showObjetos() {
     return Container(
@@ -309,15 +313,16 @@ class _CertificacionNuevaScreenState extends State<CertificacionNuevaScreen> {
       child: _contratistas.isEmpty
           ? const Text('Cargando Objetos...')
           : DropdownButtonFormField(
-              value: _objeto,
+              initialValue: _objeto,
               decoration: InputDecoration(
                 fillColor: Colors.white,
                 filled: true,
                 hintText: 'Elija un Objeto...',
                 labelText: 'Objeto',
                 errorText: _objetoShowError ? _objetoError : null,
-                border:
-                    OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
               ),
               items: _getComboObjetos(),
               onChanged: (value) {
@@ -327,30 +332,31 @@ class _CertificacionNuevaScreenState extends State<CertificacionNuevaScreen> {
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _getComboObjetos ------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _getComboObjetos ------------------------
+  //-----------------------------------------------------------------
 
   List<DropdownMenuItem<String>> _getComboObjetos() {
     List<DropdownMenuItem<String>> list = [];
-    list.add(const DropdownMenuItem(
-      child: Text('Elija un Objeto...'),
-      value: 'Elija un Objeto...',
-    ));
+    list.add(
+      const DropdownMenuItem(
+        value: 'Elija un Objeto...',
+        child: Text('Elija un Objeto...'),
+      ),
+    );
 
     for (var objeto in _objetos) {
-      list.add(DropdownMenuItem(
-        child: Text(objeto.objetos),
-        value: objeto.objetos,
-      ));
+      list.add(
+        DropdownMenuItem(value: objeto.objetos, child: Text(objeto.objetos)),
+      );
     }
 
     return list;
   }
 
-//---------------------------------------------------------------
-//--------------------- _showCodigosProduccion ------------------
-//---------------------------------------------------------------
+  //---------------------------------------------------------------
+  //--------------------- _showCodigosProduccion ------------------
+  //---------------------------------------------------------------
 
   Widget _showCodigosProduccion() {
     return Container(
@@ -358,16 +364,18 @@ class _CertificacionNuevaScreenState extends State<CertificacionNuevaScreen> {
       child: fechaCorrespondencia == null
           ? Container()
           : DropdownButtonFormField(
-              value: _codigoProduccion,
+              initialValue: _codigoProduccion,
               decoration: InputDecoration(
                 fillColor: Colors.white,
                 filled: true,
                 hintText: 'Elija un Código de Producción...',
                 labelText: 'Código de Producción',
-                errorText:
-                    _codigoProduccionShowError ? _codigoProduccionError : null,
-                border:
-                    OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                errorText: _codigoProduccionShowError
+                    ? _codigoProduccionError
+                    : null,
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
               ),
               items: _getComboCodigosProduccion(),
               onChanged: (value) {
@@ -377,30 +385,31 @@ class _CertificacionNuevaScreenState extends State<CertificacionNuevaScreen> {
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _getComboCodigosProduccion ----------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _getComboCodigosProduccion ----------------
+  //-----------------------------------------------------------------
 
   List<DropdownMenuItem<String>> _getComboCodigosProduccion() {
     List<DropdownMenuItem<String>> list = [];
-    list.add(const DropdownMenuItem(
-      child: Text('Elija un Código de Producción...'),
-      value: 'Elija un Código de Producción...',
-    ));
+    list.add(
+      const DropdownMenuItem(
+        value: 'Elija un Código de Producción...',
+        child: Text('Elija un Código de Producción...'),
+      ),
+    );
 
     for (var codigo in _codigosProduccion) {
-      list.add(DropdownMenuItem(
-        child: Text(codigo.codigo),
-        value: codigo.codigo,
-      ));
+      list.add(
+        DropdownMenuItem(value: codigo.codigo, child: Text(codigo.codigo)),
+      );
     }
 
     return list;
   }
 
-//---------------------------------------------------------------
-//--------------------- _showMesImputacion ----------------------
-//---------------------------------------------------------------
+  //---------------------------------------------------------------
+  //--------------------- _showMesImputacion ----------------------
+  //---------------------------------------------------------------
 
   Widget _showMesImputacion() {
     return Container(
@@ -408,15 +417,16 @@ class _CertificacionNuevaScreenState extends State<CertificacionNuevaScreen> {
       child: _meses.isEmpty
           ? const Text('Cargando Meses...')
           : DropdownButtonFormField(
-              value: _mesImputacion,
+              initialValue: _mesImputacion,
               decoration: InputDecoration(
                 fillColor: Colors.white,
                 filled: true,
                 hintText: 'Elija un Mes de Imputación...',
                 labelText: 'Mes de Imputación',
                 errorText: _mesImputacionShowError ? _mesImputacionError : null,
-                border:
-                    OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
               ),
               items: _getComboMesImputacion(),
               onChanged: (value) {
@@ -426,16 +436,18 @@ class _CertificacionNuevaScreenState extends State<CertificacionNuevaScreen> {
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _getComboMesImputacion --------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _getComboMesImputacion --------------------
+  //-----------------------------------------------------------------
 
   List<DropdownMenuItem<int>> _getComboMesImputacion() {
     List<DropdownMenuItem<int>> list = [];
-    list.add(const DropdownMenuItem(
-      child: Text('Elija un Mes de Imputación...'),
-      value: 0,
-    ));
+    list.add(
+      const DropdownMenuItem(
+        value: 0,
+        child: Text('Elija un Mes de Imputación...'),
+      ),
+    );
 
     int mesActual = DateTime.now().month;
 
@@ -445,19 +457,18 @@ class _CertificacionNuevaScreenState extends State<CertificacionNuevaScreen> {
           (mes.nroMes == (mesActual - 2)) ||
           (mes.nroMes == (mesActual + 10)) ||
           (mes.nroMes == (mesActual + 11))) {
-        list.add(DropdownMenuItem(
-          child: Text(mes.nombreMes),
-          value: mes.nroMes,
-        ));
+        list.add(
+          DropdownMenuItem(value: mes.nroMes, child: Text(mes.nombreMes)),
+        );
       }
     }
 
     return list;
   }
 
-//-----------------------------------------------------------------
-//--------------------- _showFechas -------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _showFechas -------------------------------
+  //-----------------------------------------------------------------
 
   Widget _showFechas() {
     return Container(
@@ -478,7 +489,9 @@ class _CertificacionNuevaScreenState extends State<CertificacionNuevaScreen> {
                       child: const Text(
                         '  Fecha Corresp.:',
                         style: TextStyle(
-                            fontWeight: FontWeight.bold, color: Colors.white),
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
                     Expanded(
@@ -496,29 +509,26 @@ class _CertificacionNuevaScreenState extends State<CertificacionNuevaScreen> {
                         ),
                       ),
                     ),
-                    const SizedBox(
-                      width: 10,
-                    ),
+                    const SizedBox(width: 10),
                     Expanded(
                       flex: 1,
                       child: ElevatedButton(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: const [
-                              Icon(Icons.calendar_month),
-                            ],
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFF781f1e),
+                          minimumSize: const Size(double.infinity, 50),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(5),
                           ),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color(0xFF781f1e),
-                            minimumSize: const Size(double.infinity, 50),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                          ),
-                          onPressed: () async {
-                            await _fechaCorrespondencia();
-                            setState(() {});
-                          }),
+                        ),
+                        onPressed: () async {
+                          await _fechaCorrespondencia();
+                          setState(() {});
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: const [Icon(Icons.calendar_month)],
+                        ),
+                      ),
                     ),
                   ],
                 ),
@@ -530,9 +540,9 @@ class _CertificacionNuevaScreenState extends State<CertificacionNuevaScreen> {
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _showObservaciones ------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _showObservaciones ------------------------
+  //-----------------------------------------------------------------
 
   Widget _showObservaciones() {
     return Container(
@@ -541,12 +551,12 @@ class _CertificacionNuevaScreenState extends State<CertificacionNuevaScreen> {
         controller: _observacionesController,
         maxLines: 3,
         decoration: InputDecoration(
-            hintText: 'Ingresa Observaciones...',
-            labelText: 'Observaciones',
-            errorText: _observacionesShowError ? _observacionesError : null,
-            suffixIcon: const Icon(Icons.notes),
-            border:
-                OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
+          hintText: 'Ingresa Observaciones...',
+          labelText: 'Observaciones',
+          errorText: _observacionesShowError ? _observacionesError : null,
+          suffixIcon: const Icon(Icons.notes),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+        ),
         onChanged: (value) {
           _observaciones = value;
         },
@@ -554,9 +564,9 @@ class _CertificacionNuevaScreenState extends State<CertificacionNuevaScreen> {
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _showButton -------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _showButton -------------------------------
+  //-----------------------------------------------------------------
 
   Widget _showButton() {
     return Container(
@@ -566,16 +576,6 @@ class _CertificacionNuevaScreenState extends State<CertificacionNuevaScreen> {
         children: <Widget>[
           Expanded(
             child: ElevatedButton(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  Icon(Icons.save),
-                  SizedBox(
-                    width: 20,
-                  ),
-                  Text('Guardar Certificado'),
-                ],
-              ),
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xFF781f1e),
                 minimumSize: const Size(double.infinity, 50),
@@ -584,6 +584,14 @@ class _CertificacionNuevaScreenState extends State<CertificacionNuevaScreen> {
                 ),
               ),
               onPressed: _save,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Icon(Icons.save),
+                  SizedBox(width: 20),
+                  Text('Guardar Certificado'),
+                ],
+              ),
             ),
           ),
         ],
@@ -591,11 +599,11 @@ class _CertificacionNuevaScreenState extends State<CertificacionNuevaScreen> {
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _save -------------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _save -------------------------------------
+  //-----------------------------------------------------------------
 
-  _save() {
+  void _save() {
     if (!validateFields()) {
       setState(() {});
       return;
@@ -603,9 +611,9 @@ class _CertificacionNuevaScreenState extends State<CertificacionNuevaScreen> {
     _addRecord();
   }
 
-//-----------------------------------------------------------------
-//--------------------- validateFields ----------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- validateFields ----------------------------
+  //-----------------------------------------------------------------
 
   bool validateFields() {
     bool isValid = true;
@@ -614,12 +622,13 @@ class _CertificacionNuevaScreenState extends State<CertificacionNuevaScreen> {
     if (obra.nroObra == 0) {
       isValid = false;
       showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: 'Debe seleccionar una Obra',
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message: 'Debe seleccionar una Obra',
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
       return isValid;
     }
 
@@ -651,12 +660,13 @@ class _CertificacionNuevaScreenState extends State<CertificacionNuevaScreen> {
     if (fechaCorrespondencia == null) {
       isValid = false;
       showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: 'Debe seleccionar una Fecha de Correspondencia',
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message: 'Debe seleccionar una Fecha de Correspondencia',
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
       return isValid;
     }
 
@@ -729,9 +739,9 @@ class _CertificacionNuevaScreenState extends State<CertificacionNuevaScreen> {
     return isValid;
   }
 
-//-----------------------------------------------------------------
-//--------------------- _addRecord --------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _addRecord --------------------------------
+  //-----------------------------------------------------------------
 
   void _addRecord() async {
     setState(() {
@@ -745,7 +755,10 @@ class _CertificacionNuevaScreenState extends State<CertificacionNuevaScreen> {
         _showLoader = false;
       });
       showMyDialog(
-          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
+        'Error',
+        'Verifica que estés conectado a Internet',
+        'Aceptar',
+      );
     }
 
     Response response2 = await ApiHelper.getNroRegistroMaxCertificaciones();
@@ -765,8 +778,9 @@ class _CertificacionNuevaScreenState extends State<CertificacionNuevaScreen> {
       'NombreObra': obra.nombreObra,
       'NroOE': obra.nroOE,
       'subCodigo': _contratista,
-      'CENTRAL':
-          obra.central.length >= 3 ? obra.central.substring(0, 3) : 'xxx',
+      'CENTRAL': obra.central.length >= 3
+          ? obra.central.substring(0, 3)
+          : 'xxx',
       'NroPre': !widget.editMode ? _nroReg : widget.cabeceraCertificacion.id,
       'OBSERVACION': _observaciones,
       'FECHACORRESPONDENCIA':
@@ -785,35 +799,40 @@ class _CertificacionNuevaScreenState extends State<CertificacionNuevaScreen> {
       'Terminal': widget.imei,
       'MesImputacion': _mesImputacion,
       'Objeto': _objeto,
-      'PorcActa': double.tryParse(
-        _porcActa,
-      )
+      'PorcActa': double.tryParse(_porcActa),
     };
 
     if (!widget.editMode) {
       Response response = await ApiHelper.postNoToken(
-          '/api/CabeceraCertificacion/PostCabeceraCertificacion', request);
+        '/api/CabeceraCertificacion/PostCabeceraCertificacion',
+        request,
+      );
       if (!response.isSuccess) {
         await showAlertDialog(
-            context: context,
-            title: 'Error',
-            message: response.message,
-            actions: <AlertDialogAction>[
-              const AlertDialogAction(key: null, label: 'Aceptar'),
-            ]);
+          context: context,
+          title: 'Error',
+          message: response.message,
+          actions: <AlertDialogAction>[
+            const AlertDialogAction(key: null, label: 'Aceptar'),
+          ],
+        );
         return;
       }
     } else {
-      Response response = await ApiHelper.put('/api/CabeceraCertificacion/',
-          widget.cabeceraCertificacion.id.toString(), request);
+      Response response = await ApiHelper.put(
+        '/api/CabeceraCertificacion/',
+        widget.cabeceraCertificacion.id.toString(),
+        request,
+      );
       if (!response.isSuccess) {
         await showAlertDialog(
-            context: context,
-            title: 'Error',
-            message: response.message,
-            actions: <AlertDialogAction>[
-              const AlertDialogAction(key: null, label: 'Aceptar'),
-            ]);
+          context: context,
+          title: 'Error',
+          message: response.message,
+          actions: <AlertDialogAction>[
+            const AlertDialogAction(key: null, label: 'Aceptar'),
+          ],
+        );
         return;
       }
     }
@@ -824,24 +843,27 @@ class _CertificacionNuevaScreenState extends State<CertificacionNuevaScreen> {
     Navigator.pop(context, 'yes');
   }
 
-//-----------------------------------------------------------------
-//--------------------- _loadData ---------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _loadData ---------------------------------
+  //-----------------------------------------------------------------
 
   void _loadData() async {
     await _getSubcontratistas();
   }
 
-//-----------------------------------------------------------------
-//--------------------- _getSubcontratistas -----------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _getSubcontratistas -----------------------
+  //-----------------------------------------------------------------
 
   Future<void> _getSubcontratistas() async {
     var connectivityResult = await Connectivity().checkConnectivity();
 
     if (connectivityResult == ConnectivityResult.none) {
       showMyDialog(
-          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
+        'Error',
+        'Verifica que estés conectado a Internet',
+        'Aceptar',
+      );
     }
 
     bandera = false;
@@ -862,16 +884,19 @@ class _CertificacionNuevaScreenState extends State<CertificacionNuevaScreen> {
     await _getObjetos();
   }
 
-//-----------------------------------------------------------------
-//--------------------- _getObjetos -------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _getObjetos -------------------------------
+  //-----------------------------------------------------------------
 
   Future<void> _getObjetos() async {
     var connectivityResult = await Connectivity().checkConnectivity();
 
     if (connectivityResult == ConnectivityResult.none) {
       showMyDialog(
-          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
+        'Error',
+        'Verifica que estés conectado a Internet',
+        'Aceptar',
+      );
     }
 
     bandera = false;
@@ -894,16 +919,19 @@ class _CertificacionNuevaScreenState extends State<CertificacionNuevaScreen> {
     }
   }
 
-//-----------------------------------------------------------------
-//--------------------- _getCodigosProduccion ---------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _getCodigosProduccion ---------------------
+  //-----------------------------------------------------------------
 
   Future<void> _getCodigosProduccion() async {
     var connectivityResult = await Connectivity().checkConnectivity();
 
     if (connectivityResult == ConnectivityResult.none) {
       showMyDialog(
-          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
+        'Error',
+        'Verifica que estés conectado a Internet',
+        'Aceptar',
+      );
     }
 
     bandera = false;
@@ -916,8 +944,10 @@ class _CertificacionNuevaScreenState extends State<CertificacionNuevaScreen> {
     if (fechaCorrespondencia != null) {
       do {
         Response response = Response(isSuccess: false);
-        response =
-            await ApiHelper.post2('/api/CodigosProduccion/GetCodigos', request);
+        response = await ApiHelper.post2(
+          '/api/CodigosProduccion/GetCodigos',
+          request,
+        );
         intentos++;
         if (response.isSuccess) {
           bandera = true;
@@ -927,16 +957,19 @@ class _CertificacionNuevaScreenState extends State<CertificacionNuevaScreen> {
     }
   }
 
-//-----------------------------------------------------------------
-//--------------------- _getCausantes -----------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _getCausantes -----------------------------
+  //-----------------------------------------------------------------
 
   Future<void> _getCausantes() async {
     var connectivityResult = await Connectivity().checkConnectivity();
 
     if (connectivityResult == ConnectivityResult.none) {
       showMyDialog(
-          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
+        'Error',
+        'Verifica que estés conectado a Internet',
+        'Aceptar',
+      );
     }
 
     bandera = false;
@@ -953,11 +986,11 @@ class _CertificacionNuevaScreenState extends State<CertificacionNuevaScreen> {
     } while (bandera == false);
   }
 
-//-----------------------------------------------------------------
-//--------------------- _fechaCorrespondencia ---------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _fechaCorrespondencia ---------------------
+  //-----------------------------------------------------------------
 
-  _fechaCorrespondencia() async {
+  Future<void> _fechaCorrespondencia() async {
     FocusScope.of(context).unfocus();
     final DateTime? selected = await showDatePicker(
       context: context,
@@ -974,118 +1007,114 @@ class _CertificacionNuevaScreenState extends State<CertificacionNuevaScreen> {
     await _getCodigosProduccion();
   }
 
-//-----------------------------------------------------------
-//--------------------- _showObra ---------------------------
-//-----------------------------------------------------------
+  //-----------------------------------------------------------
+  //--------------------- _showObra ---------------------------
+  //-----------------------------------------------------------
 
   Widget _showObra() {
     return Container(
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
-        child: Row(
-          children: [
-            Expanded(
-              child: Container(
-                height: 60,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border.all(
-                    color: Colors.black,
-                    width: 1,
-                  ),
-                  color: Colors.white,
-                ),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Row(
-                        children: [
-                          const SizedBox(
-                            width: 10,
-                          ),
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: const [
-                              Text('Obra: ',
-                                  style:
-                                      TextStyle(fontWeight: FontWeight.bold)),
-                              Text('Def.Proy.: ',
-                                  style:
-                                      TextStyle(fontWeight: FontWeight.bold)),
-                              Text('Central: ',
-                                  style:
-                                      TextStyle(fontWeight: FontWeight.bold)),
-                            ],
-                          ),
-                          Expanded(
-                            child: obra.nroObra != 0
-                                ? Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        obra.nroObra.toString() +
-                                            ' - ' +
-                                            obra.nombreObra,
-                                        maxLines: 1,
-                                        style: TextStyle(
-                                            overflow: TextOverflow.ellipsis),
-                                      ),
-                                      Text(
-                                        obra.defProy.toString(),
-                                        maxLines: 1,
-                                        style: TextStyle(
-                                            overflow: TextOverflow.ellipsis),
-                                      ),
-                                      Text(obra.central.toString()),
-                                    ],
-                                  )
-                                : Container(),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
+      child: Row(
+        children: [
+          Expanded(
+            child: Container(
+              height: 60,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                border: Border.all(color: Colors.black, width: 1),
+                color: Colors.white,
               ),
-            ),
-            const SizedBox(
-              width: 10,
-            ),
-            ElevatedButton(
-              child: const Icon(Icons.search),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFF781f1e),
-                minimumSize: const Size(50, 50),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(5),
-                ),
-              ),
-              onPressed: () async {
-                Obra? obra2 = await Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => ObrasScreen(
-                      user: widget.user,
-                      opcion: 2,
-                      positionUser: widget.positionUser,
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Row(
+                      children: [
+                        const SizedBox(width: 10),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: const [
+                            Text(
+                              'Obra: ',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            Text(
+                              'Def.Proy.: ',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            Text(
+                              'Central: ',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        ),
+                        Expanded(
+                          child: obra.nroObra != 0
+                              ? Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      '${obra.nroObra} - ${obra.nombreObra}',
+                                      maxLines: 1,
+                                      style: TextStyle(
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    ),
+                                    Text(
+                                      obra.defProy.toString(),
+                                      maxLines: 1,
+                                      style: TextStyle(
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    ),
+                                    Text(obra.central.toString()),
+                                  ],
+                                )
+                              : Container(),
+                        ),
+                      ],
                     ),
                   ),
-                );
-                if (obra2 != null) {
-                  obra = obra2;
-                }
-                setState(() {});
-              },
+                ],
+              ),
             ),
-          ],
-        ));
+          ),
+          const SizedBox(width: 10),
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: const Color(0xFF781f1e),
+              minimumSize: const Size(50, 50),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(5),
+              ),
+            ),
+            onPressed: () async {
+              Obra? obra2 = await Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ObrasScreen(
+                    user: widget.user,
+                    opcion: 2,
+                    positionUser: widget.positionUser,
+                  ),
+                ),
+              );
+              if (obra2 != null) {
+                obra = obra2;
+              }
+              setState(() {});
+            },
+            child: const Icon(Icons.search),
+          ),
+        ],
+      ),
+    );
   }
 
-//-------------------------------------------------------------------
-//-------------------------- _showMontoC ----------------------------
-//-------------------------------------------------------------------
+  //-------------------------------------------------------------------
+  //-------------------------- _showMontoC ----------------------------
+  //-------------------------------------------------------------------
   Widget _showMontoC() {
     return Container(
       padding: const EdgeInsets.all(10),
@@ -1093,14 +1122,14 @@ class _CertificacionNuevaScreenState extends State<CertificacionNuevaScreen> {
         controller: _montoCController,
         keyboardType: TextInputType.number,
         decoration: InputDecoration(
-            fillColor: Colors.white,
-            filled: true,
-            hintText: 'Ingresa MontoC...',
-            labelText: 'MontoC',
-            errorText: _montoCShowError ? _montoCError : null,
-            suffixIcon: const Icon(Icons.monetization_on),
-            border:
-                OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
+          fillColor: Colors.white,
+          filled: true,
+          hintText: 'Ingresa MontoC...',
+          labelText: 'MontoC',
+          errorText: _montoCShowError ? _montoCError : null,
+          suffixIcon: const Icon(Icons.monetization_on),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+        ),
         onChanged: (value) {
           _montoC = value;
         },
@@ -1108,9 +1137,9 @@ class _CertificacionNuevaScreenState extends State<CertificacionNuevaScreen> {
     );
   }
 
-//-------------------------------------------------------------------
-//-------------------------- _showMontoT ----------------------------
-//-------------------------------------------------------------------
+  //-------------------------------------------------------------------
+  //-------------------------- _showMontoT ----------------------------
+  //-------------------------------------------------------------------
   Widget _showMontoT() {
     return Container(
       padding: const EdgeInsets.all(10),
@@ -1118,14 +1147,14 @@ class _CertificacionNuevaScreenState extends State<CertificacionNuevaScreen> {
         controller: _montoTController,
         keyboardType: TextInputType.number,
         decoration: InputDecoration(
-            fillColor: Colors.white,
-            filled: true,
-            hintText: 'Ingresa MontoT...',
-            labelText: 'MontoT',
-            errorText: _montoTShowError ? _montoTError : null,
-            suffixIcon: const Icon(Icons.monetization_on),
-            border:
-                OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
+          fillColor: Colors.white,
+          filled: true,
+          hintText: 'Ingresa MontoT...',
+          labelText: 'MontoT',
+          errorText: _montoTShowError ? _montoTError : null,
+          suffixIcon: const Icon(Icons.monetization_on),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+        ),
         onChanged: (value) {
           _montoT = value;
         },
@@ -1133,9 +1162,9 @@ class _CertificacionNuevaScreenState extends State<CertificacionNuevaScreen> {
     );
   }
 
-//-------------------------------------------------------------------
-//-------------------------- _showPorcActa ----------------------------
-//-------------------------------------------------------------------
+  //-------------------------------------------------------------------
+  //-------------------------- _showPorcActa ----------------------------
+  //-------------------------------------------------------------------
   Widget _showPorcActa() {
     return Container(
       padding: const EdgeInsets.all(10),
@@ -1143,14 +1172,14 @@ class _CertificacionNuevaScreenState extends State<CertificacionNuevaScreen> {
         controller: _porcActaController,
         keyboardType: TextInputType.number,
         decoration: InputDecoration(
-            fillColor: Colors.white,
-            filled: true,
-            hintText: 'Ingresa Porc. Acta...',
-            labelText: 'Porc. Acta',
-            errorText: _porcActaShowError ? _porcActaError : null,
-            suffixIcon: const Icon(Icons.percent),
-            border:
-                OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
+          fillColor: Colors.white,
+          filled: true,
+          hintText: 'Ingresa Porc. Acta...',
+          labelText: 'Porc. Acta',
+          errorText: _porcActaShowError ? _porcActaError : null,
+          suffixIcon: const Icon(Icons.percent),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+        ),
         onChanged: (value) {
           _porcActa = value;
         },
@@ -1159,10 +1188,10 @@ class _CertificacionNuevaScreenState extends State<CertificacionNuevaScreen> {
   }
 
   //-------------------------------------------------------------
-//-------------------- _loadFields ----------------------------
-//-------------------------------------------------------------
+  //-------------------- _loadFields ----------------------------
+  //-------------------------------------------------------------
 
-  _loadFields() async {
+  Future<void> _loadFields() async {
     obra.nroObra = widget.cabeceraCertificacion.nroobra;
     obra.nombreObra = widget.cabeceraCertificacion.nombreObra!;
     obra.central = widget.cabeceraCertificacion.central!;
@@ -1172,23 +1201,26 @@ class _CertificacionNuevaScreenState extends State<CertificacionNuevaScreen> {
     _contratista = widget.cabeceraCertificacion.subCodigo!;
     _causante = widget.cabeceraCertificacion.codCausanteC!;
 
-    fechaCorrespondencia = DateTime(1900, 1, 1).add(Duration(
-        days: widget.cabeceraCertificacion.fechacorrespondencia! - 36163));
+    fechaCorrespondencia = DateTime(1900, 1, 1).add(
+      Duration(
+        days: widget.cabeceraCertificacion.fechacorrespondencia! - 36163,
+      ),
+    );
 
     _observaciones = widget.cabeceraCertificacion.observacion!;
     _observacionesController.text = widget.cabeceraCertificacion.observacion!;
 
     _montoC = widget.cabeceraCertificacion.valortotalc!.toString();
-    _montoCController.text =
-        widget.cabeceraCertificacion.valortotalc!.toString();
+    _montoCController.text = widget.cabeceraCertificacion.valortotalc!
+        .toString();
 
     _montoT = widget.cabeceraCertificacion.valortotalt!.toString();
-    _montoTController.text =
-        widget.cabeceraCertificacion.valortotalt!.toString();
+    _montoTController.text = widget.cabeceraCertificacion.valortotalt!
+        .toString();
 
     _porcActa = widget.cabeceraCertificacion.porcActa!.toString();
-    _porcActaController.text =
-        widget.cabeceraCertificacion.porcActa!.toString();
+    _porcActaController.text = widget.cabeceraCertificacion.porcActa!
+        .toString();
 
     _objeto = widget.cabeceraCertificacion.objeto!;
 
@@ -1197,8 +1229,8 @@ class _CertificacionNuevaScreenState extends State<CertificacionNuevaScreen> {
     _mesImputacion = widget.cabeceraCertificacion.mesImputacion!;
 
     _observaciones = widget.cabeceraCertificacion.observacion.toString();
-    _observacionesController.text =
-        widget.cabeceraCertificacion.observacion.toString();
+    _observacionesController.text = widget.cabeceraCertificacion.observacion
+        .toString();
 
     await _getCodigosProduccion();
     await _getCausantes();

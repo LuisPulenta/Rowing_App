@@ -10,22 +10,22 @@ import '../../models/models.dart';
 
 class FirmaCausanteScreen extends StatefulWidget {
   final User user;
-  const FirmaCausanteScreen({Key? key, required this.user}) : super(key: key);
+  const FirmaCausanteScreen({super.key, required this.user});
 
   @override
   _FirmaCausanteScreenState createState() => _FirmaCausanteScreenState();
 }
 
 class _FirmaCausanteScreenState extends State<FirmaCausanteScreen> {
-//---------------------------------------------------------------
-//----------------------- Variables -----------------------------
-//---------------------------------------------------------------
+  //---------------------------------------------------------------
+  //----------------------- Variables -----------------------------
+  //---------------------------------------------------------------
 
   final GlobalKey<SfSignaturePadState> signatureGlobalKey = GlobalKey();
 
-//---------------------------------------------------------------
-//----------------------- initState -----------------------------
-//---------------------------------------------------------------
+  //---------------------------------------------------------------
+  //----------------------- initState -----------------------------
+  //---------------------------------------------------------------
 
   @override
   void initState() {
@@ -37,96 +37,94 @@ class _FirmaCausanteScreenState extends State<FirmaCausanteScreen> {
   }
 
   void _handleSaveButtonPressed() async {
-    ui.Image image =
-        await signatureGlobalKey.currentState!.toImage(pixelRatio: 3.0);
+    ui.Image image = await signatureGlobalKey.currentState!.toImage(
+      pixelRatio: 3.0,
+    );
     ByteData? bytes = await image.toByteData(format: ui.ImageByteFormat.png);
 
     Response response = Response(isSuccess: true, result: bytes);
     Navigator.pop(context, response);
   }
 
-//----------------------- Pantalla ------------------------------
+  //----------------------- Pantalla ------------------------------
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('Firma'),
-          centerTitle: true,
-        ),
-        body: Container(
-          padding: const EdgeInsets.all(5),
-          color: const Color(0xFFC7C7C8),
-          child: Column(
-              children: [
-                Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: Container(
-                        child: SfSignaturePad(
-                            key: signatureGlobalKey,
-                            backgroundColor: Colors.white,
-                            strokeColor: Colors.black,
-                            minimumStrokeWidth: 1.0,
-                            maximumStrokeWidth: 4.0),
-                        decoration: BoxDecoration(
-                            border: Border.all(color: Colors.grey)))),
-                const SizedBox(height: 10),
-                Row(children: <Widget>[
-                  const SizedBox(
-                    width: 15,
-                  ),
-                  Expanded(
-                    child: ElevatedButton(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: const [
-                            Icon(Icons.save),
-                            SizedBox(
-                              width: 12,
-                            ),
-                            Text('Usar Firma', style: TextStyle(fontSize: 12)),
-                          ],
-                        ),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFF120E43),
-                          minimumSize: const Size(double.infinity, 40),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5),
-                          ),
-                        ),
-                        onPressed: _handleSaveButtonPressed),
-                  ),
-                  const SizedBox(
-                    width: 5,
-                  ),
-                  Expanded(
-                    child: ElevatedButton(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: const [
-                          Icon(Icons.delete),
-                          SizedBox(
-                            width: 12,
-                          ),
-                          Text('Borrar', style: TextStyle(fontSize: 12)),
-                        ],
+      appBar: AppBar(title: const Text('Firma'), centerTitle: true),
+      body: Container(
+        padding: const EdgeInsets.all(5),
+        color: const Color(0xFFC7C7C8),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(10),
+              child: Container(
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.grey),
+                ),
+                child: SfSignaturePad(
+                  key: signatureGlobalKey,
+                  backgroundColor: Colors.white,
+                  strokeColor: Colors.black,
+                  minimumStrokeWidth: 1.0,
+                  maximumStrokeWidth: 4.0,
+                ),
+              ),
+            ),
+            const SizedBox(height: 10),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                const SizedBox(width: 15),
+                Expanded(
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFF120E43),
+                      minimumSize: const Size(double.infinity, 40),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5),
                       ),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFFE03B8B),
-                        minimumSize: const Size(double.infinity, 40),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                      ),
-                      onPressed: _handleClearButtonPressed,
+                    ),
+                    onPressed: _handleSaveButtonPressed,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: const [
+                        Icon(Icons.save),
+                        SizedBox(width: 12),
+                        Text('Usar Firma', style: TextStyle(fontSize: 12)),
+                      ],
                     ),
                   ),
-                  const SizedBox(
-                    width: 15,
+                ),
+                const SizedBox(width: 5),
+                Expanded(
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFFE03B8B),
+                      minimumSize: const Size(double.infinity, 40),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                    ),
+                    onPressed: _handleClearButtonPressed,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: const [
+                        Icon(Icons.delete),
+                        SizedBox(width: 12),
+                        Text('Borrar', style: TextStyle(fontSize: 12)),
+                      ],
+                    ),
                   ),
-                ], mainAxisAlignment: MainAxisAlignment.spaceEvenly)
+                ),
+                const SizedBox(width: 15),
               ],
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center),
-        ));
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }

@@ -1,5 +1,5 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
-import 'package:connectivity/connectivity.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -9,8 +9,7 @@ import '../../models/models.dart';
 
 class PresentismoTurnoNocheScreen extends StatefulWidget {
   final User user;
-  const PresentismoTurnoNocheScreen({Key? key, required this.user})
-      : super(key: key);
+  const PresentismoTurnoNocheScreen({super.key, required this.user});
 
   @override
   State<PresentismoTurnoNocheScreen> createState() =>
@@ -19,9 +18,9 @@ class PresentismoTurnoNocheScreen extends StatefulWidget {
 
 class _PresentismoTurnoNocheScreenState
     extends State<PresentismoTurnoNocheScreen> {
-//---------------------------------------------------------------------
-//-------------------------- Variables --------------------------------
-//---------------------------------------------------------------------
+  //---------------------------------------------------------------------
+  //-------------------------- Variables --------------------------------
+  //---------------------------------------------------------------------
 
   final bool _permitidoGrabar = true;
 
@@ -56,49 +55,50 @@ class _PresentismoTurnoNocheScreenState
   final List<CausantesPresentismoTurnoNoche> _presentismosHoy = [];
 
   final Causante _empleadoSeleccionado = Causante(
-      nroCausante: 0,
-      codigo: '',
-      nombre: '',
-      encargado: '',
-      telefono: '',
-      grupo: '',
-      nroSAP: '',
-      estado: false,
-      razonSocial: '',
-      linkFoto: '',
-      imageFullPath: '',
-      image: null,
-      direccion: '',
-      numero: 0,
-      telefonoContacto1: '',
-      telefonoContacto2: '',
-      telefonoContacto3: '',
-      fecha: '',
-      notasCausantes: '',
-      ciudad: '',
-      provincia: '',
-      codigoSupervisorObras: 0,
-      zonaTrabajo: '',
-      nombreActividad: '',
-      notas: '',
-      presentismo: '',
-      perteneceCuadrilla: '',
-      firma: null,
-      firmaDigitalAPP: '',
-      firmaFullPath: '');
+    nroCausante: 0,
+    codigo: '',
+    nombre: '',
+    encargado: '',
+    telefono: '',
+    grupo: '',
+    nroSAP: '',
+    estado: false,
+    razonSocial: '',
+    linkFoto: '',
+    imageFullPath: '',
+    image: null,
+    direccion: '',
+    numero: 0,
+    telefonoContacto1: '',
+    telefonoContacto2: '',
+    telefonoContacto3: '',
+    fecha: '',
+    notasCausantes: '',
+    ciudad: '',
+    provincia: '',
+    codigoSupervisorObras: 0,
+    zonaTrabajo: '',
+    nombreActividad: '',
+    notas: '',
+    presentismo: '',
+    perteneceCuadrilla: '',
+    firma: null,
+    firmaDigitalAPP: '',
+    firmaFullPath: '',
+  );
 
-//---------------------------------------------------------------------
-//-------------------------- InitState --------------------------------
-//---------------------------------------------------------------------
+  //---------------------------------------------------------------------
+  //-------------------------- InitState --------------------------------
+  //---------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
     _getTurnosNoche();
   }
 
-//---------------------------------------------------------------------
-//-------------------------- Pantalla ---------------------------------
-//---------------------------------------------------------------------
+  //---------------------------------------------------------------------
+  //-------------------------- Pantalla ---------------------------------
+  //---------------------------------------------------------------------
 
   @override
   Widget build(BuildContext context) {
@@ -116,9 +116,9 @@ class _PresentismoTurnoNocheScreenState
     );
   }
 
-//---------------------------------------------------------------------
-//------------------------------ _getContent --------------------------
-//---------------------------------------------------------------------
+  //---------------------------------------------------------------------
+  //------------------------------ _getContent --------------------------
+  //---------------------------------------------------------------------
 
   Widget _getContent() {
     return _permitidoGrabar
@@ -133,7 +133,8 @@ class _PresentismoTurnoNocheScreenState
                           _getListView(),
                           _showLoader2
                               ? const LoaderComponent(
-                                  text: 'Grabando Presentismos...')
+                                  text: 'Grabando Presentismos...',
+                                )
                               : Container(),
                         ],
                       ),
@@ -147,16 +148,18 @@ class _PresentismoTurnoNocheScreenState
                 margin: const EdgeInsets.symmetric(horizontal: 10),
                 height: 60,
                 decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border.all(width: 2, color: Colors.red)),
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(width: 2, color: Colors.red),
+                ),
                 child: const Center(
                   child: Text(
                     'Ya hay Presentismos registrados en el día de hoy',
                     style: TextStyle(
-                        color: Colors.red,
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold),
+                      color: Colors.red,
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                    ),
                     maxLines: 2,
                   ),
                 ),
@@ -165,11 +168,11 @@ class _PresentismoTurnoNocheScreenState
           );
   }
 
-//-------------------------------------------------------
-//--------------------- _save ---------------------------
-//-------------------------------------------------------
+  //-------------------------------------------------------
+  //--------------------- _save ---------------------------
+  //-------------------------------------------------------
 
-  _save(CausantesPresentismoTurnoNoche empleado) async {
+  Future<void> _save(CausantesPresentismoTurnoNoche empleado) async {
     setState(() {
       _showLoader2 = true;
     });
@@ -186,20 +189,24 @@ class _PresentismoTurnoNocheScreenState
       'ACTIVIDAD': empleado.actividad,
       'CECO': empleado.ceco,
       'OBSERVACIONES': empleado.observaciones,
-      'PerteneceCuadrilla': empleado.perteneceCuadrilla
+      'PerteneceCuadrilla': empleado.perteneceCuadrilla,
     };
 
-    Response response = await ApiHelper.put('/api/Causantes/PutPresentismo/',
-        empleado.idpresentismo.toString(), request);
+    Response response = await ApiHelper.put(
+      '/api/Causantes/PutPresentismo/',
+      empleado.idpresentismo.toString(),
+      request,
+    );
 
     if (!response.isSuccess) {
       await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: response.message,
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message: response.message,
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
       return;
     }
     _getTurnosNoche();
@@ -208,17 +215,18 @@ class _PresentismoTurnoNocheScreenState
     });
 
     await showAlertDialog(
-        context: context,
-        title: 'Aviso',
-        message: 'Presentismo guardado con éxito!',
-        actions: <AlertDialogAction>[
-          const AlertDialogAction(key: null, label: 'Aceptar'),
-        ]);
+      context: context,
+      title: 'Aviso',
+      message: 'Presentismo guardado con éxito!',
+      actions: <AlertDialogAction>[
+        const AlertDialogAction(key: null, label: 'Aceptar'),
+      ],
+    );
   }
 
-//--------------------------------------------------------------------------
-//------------------------------  _showEmpleadosCount ----------------------
-//--------------------------------------------------------------------------
+  //--------------------------------------------------------------------------
+  //------------------------------  _showEmpleadosCount ----------------------
+  //--------------------------------------------------------------------------
 
   Widget _showEmpleadosCount() {
     double ancho = MediaQuery.of(context).size.width * 0.9;
@@ -229,81 +237,71 @@ class _PresentismoTurnoNocheScreenState
           height: 40,
           child: Row(
             children: [
-              const Text('Cantidad de Empleados: ',
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                  )),
-              Text(_empleados.length.toString(),
-                  style: const TextStyle(
-                    fontSize: 14,
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                  )),
+              const Text(
+                'Cantidad de Empleados: ',
+                style: TextStyle(
+                  fontSize: 14,
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              Text(
+                _empleados.length.toString(),
+                style: const TextStyle(
+                  fontSize: 14,
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ],
           ),
         ),
-        const Divider(
-          height: 3,
-          color: Colors.white,
-        ),
+        const Divider(height: 3, color: Colors.white),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
           child: Row(
             children: [
               SizedBox(
                 width: ancho * 0.35,
-                child: const Text('Empleado',
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: Colors.white,
-                    )),
+                child: const Text(
+                  'Empleado',
+                  style: TextStyle(fontSize: 12, color: Colors.white),
+                ),
               ),
-              const SizedBox(
-                width: 15,
-              ),
+              const SizedBox(width: 15),
               SizedBox(
                 width: ancho * 0.21,
-                child: const Text('Zona de Trabajo',
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: Colors.white,
-                    )),
+                child: const Text(
+                  'Zona de Trabajo',
+                  style: TextStyle(fontSize: 12, color: Colors.white),
+                ),
               ),
-              const SizedBox(
-                width: 15,
-              ),
+              const SizedBox(width: 15),
               SizedBox(
                 width: ancho * 0.21,
-                child: const Text('Actividad',
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: Colors.white,
-                    )),
+                child: const Text(
+                  'Actividad',
+                  style: TextStyle(fontSize: 12, color: Colors.white),
+                ),
               ),
               SizedBox(
                 width: ancho * 0.13,
-                child: const Text('Estado',
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: Colors.white,
-                    )),
+                child: const Text(
+                  'Estado',
+                  style: TextStyle(fontSize: 12, color: Colors.white),
+                ),
               ),
             ],
           ),
         ),
-        const Divider(
-          height: 6,
-          color: Colors.white,
-        ),
+        const Divider(height: 6, color: Colors.white),
       ],
     );
   }
 
-//-----------------------------------------------------------------------
-//------------------------------ _noContent -----------------------------
-//-----------------------------------------------------------------------
+  //-----------------------------------------------------------------------
+  //------------------------------ _noContent -----------------------------
+  //-----------------------------------------------------------------------
 
   Widget _noContent() {
     return Container(
@@ -317,9 +315,9 @@ class _PresentismoTurnoNocheScreenState
     );
   }
 
-//-----------------------------------------------------------------------
-//------------------------------ _getListView ---------------------------
-//-----------------------------------------------------------------------
+  //-----------------------------------------------------------------------
+  //------------------------------ _getListView ---------------------------
+  //-----------------------------------------------------------------------
 
   Widget _getListView() {
     double ancho = MediaQuery.of(context).size.width * 0.9;
@@ -329,122 +327,121 @@ class _PresentismoTurnoNocheScreenState
         children: _empleados.map((e) {
           return InkWell(
             onTap: () {
-              _actividadController.text =
-                  e.actividad != null ? e.actividad! : '';
+              _actividadController.text = e.actividad != null
+                  ? e.actividad!
+                  : '';
 
               _estadoController.text = e.estado;
 
-              _zonaController.text =
-                  e.zonatrabajo != null ? e.zonatrabajo! : '';
+              _zonaController.text = e.zonatrabajo != null
+                  ? e.zonatrabajo!
+                  : '';
 
               showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                      backgroundColor: Colors.grey[300],
-                      title: Text(e.nombre.toString()),
-                      content: SingleChildScrollView(
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            SizedBox(
-                              width: double.infinity,
-                              child: Text(
-                                e.perteneceCuadrilla != ''
-                                    ? 'Pertenece a Cuadrilla: ' +
-                                        e.perteneceCuadrilla.toString()
-                                    : 'Pertenece a Cuadrilla: Sin Datos',
-                                textAlign: TextAlign.start,
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    backgroundColor: Colors.grey[300],
+                    title: Text(e.nombre.toString()),
+                    content: SingleChildScrollView(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          SizedBox(
+                            width: double.infinity,
+                            child: Text(
+                              e.perteneceCuadrilla != ''
+                                  ? 'Pertenece a Cuadrilla: ${e.perteneceCuadrilla}'
+                                  : 'Pertenece a Cuadrilla: Sin Datos',
+                              textAlign: TextAlign.start,
+                            ),
+                          ),
+                          const SizedBox(height: 20),
+                          DropdownButtonFormField(
+                            autofocus: true,
+                            initialValue: e.estado,
+                            isExpanded: true,
+                            isDense: true,
+                            decoration: InputDecoration(
+                              fillColor: Colors.white,
+                              filled: true,
+                              hintText: 'Elija un Estado...',
+                              labelText: 'Estado',
+                              errorText: _estadoShowError ? _estadoError : null,
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
                               ),
                             ),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            DropdownButtonFormField(
-                              autofocus: true,
-                              value: e.estado,
-                              isExpanded: true,
-                              isDense: true,
-                              decoration: InputDecoration(
-                                fillColor: Colors.white,
-                                filled: true,
-                                hintText: 'Elija un Estado...',
-                                labelText: 'Estado',
-                                errorText:
-                                    _estadoShowError ? _estadoError : null,
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10)),
-                              ),
-                              items: _getComboEstados(),
-                              onChanged: (value) {
-                                e.estado = value.toString();
-                              },
-                            ),
-                          ],
-                        ),
+                            items: _getComboEstados(),
+                            onChanged: (value) {
+                              e.estado = value.toString();
+                            },
+                          ),
+                        ],
                       ),
-                      actions: [
-                        Row(
-                          children: [
-                            Expanded(
-                              child: ElevatedButton(
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
-                                  children: const [
-                                    Icon(Icons.cancel),
-                                    Text('Cancelar'),
-                                  ],
+                    ),
+                    actions: [
+                      Row(
+                        children: [
+                          Expanded(
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: const Color(0xFFB4161B),
+                                minimumSize: const Size(double.infinity, 50),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(5),
                                 ),
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: const Color(0xFFB4161B),
-                                  minimumSize: const Size(double.infinity, 50),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(5),
-                                  ),
-                                ),
-                                onPressed: () {
-                                  _observaciones = '';
-                                  _observacionesController.text = '';
-                                  Navigator.pop(context);
-                                },
+                              ),
+                              onPressed: () {
+                                _observaciones = '';
+                                _observacionesController.text = '';
+                                Navigator.pop(context);
+                              },
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: const [
+                                  Icon(Icons.cancel),
+                                  Text('Cancelar'),
+                                ],
                               ),
                             ),
-                            const SizedBox(
-                              width: 10,
-                            ),
-                            Expanded(
-                              child: ElevatedButton(
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
-                                  children: const [
-                                    Icon(Icons.save),
-                                    Text('Aceptar'),
-                                  ],
+                          ),
+                          const SizedBox(width: 10),
+                          Expanded(
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: const Color(0xFF120E43),
+                                minimumSize: const Size(double.infinity, 50),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(5),
                                 ),
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: const Color(0xFF120E43),
-                                  minimumSize: const Size(double.infinity, 50),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(5),
-                                  ),
-                                ),
-                                onPressed: () {
-                                  _save(e);
-                                  Navigator.pop(context);
-                                  setState(() {});
-                                },
+                              ),
+                              onPressed: () {
+                                _save(e);
+                                Navigator.pop(context);
+                                setState(() {});
+                              },
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: const [
+                                  Icon(Icons.save),
+                                  Text('Aceptar'),
+                                ],
                               ),
                             ),
-                          ],
-                        ),
-                      ],
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10)),
-                    );
-                  },
-                  barrierDismissible: false);
+                          ),
+                        ],
+                      ),
+                    ],
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  );
+                },
+                barrierDismissible: false,
+              );
             },
             child: SizedBox(
               height: 60,
@@ -459,25 +456,26 @@ class _PresentismoTurnoNocheScreenState
                     children: [
                       Padding(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 0, vertical: 5),
+                          horizontal: 0,
+                          vertical: 5,
+                        ),
                         child: Row(
                           children: [
                             Expanded(
                               child: Container(
-                                margin:
-                                    const EdgeInsets.symmetric(horizontal: 10),
+                                margin: const EdgeInsets.symmetric(
+                                  horizontal: 10,
+                                ),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                        DateFormat('dd/MM/yyyy').format(
-                                                DateTime.parse(
-                                                    e.fecha.toString())) +
-                                            ' - ' +
-                                            e.perteneceCuadrilla.toString(),
-                                        style: const TextStyle(
-                                            fontSize: 10,
-                                            color: Colors.purple)),
+                                      '${DateFormat('dd/MM/yyyy').format(DateTime.parse(e.fecha.toString()))} - ${e.perteneceCuadrilla}',
+                                      style: const TextStyle(
+                                        fontSize: 10,
+                                        color: Colors.purple,
+                                      ),
+                                    ),
                                     Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.start,
@@ -490,47 +488,49 @@ class _PresentismoTurnoNocheScreenState
                                                   SizedBox(
                                                     width: ancho * 0.35,
                                                     child: Text(
-                                                        e.nombre.toString(),
-                                                        style: const TextStyle(
-                                                            fontSize: 10,
-                                                            color: Color(
-                                                                0xFF781f1e),
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .bold)),
+                                                      e.nombre.toString(),
+                                                      style: const TextStyle(
+                                                        fontSize: 10,
+                                                        color: Color(
+                                                          0xFF781f1e,
+                                                        ),
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                      ),
+                                                    ),
                                                   ),
-                                                  const SizedBox(
-                                                    width: 15,
-                                                  ),
+                                                  const SizedBox(width: 15),
                                                   SizedBox(
                                                     width: ancho * 0.21,
                                                     child: Text(
-                                                        e.zonatrabajo != null
-                                                            ? e.zonatrabajo!
-                                                            : '',
-                                                        style: const TextStyle(
-                                                          fontSize: 10,
-                                                        )),
+                                                      e.zonatrabajo != null
+                                                          ? e.zonatrabajo!
+                                                          : '',
+                                                      style: const TextStyle(
+                                                        fontSize: 10,
+                                                      ),
+                                                    ),
                                                   ),
-                                                  const SizedBox(
-                                                    width: 15,
-                                                  ),
+                                                  const SizedBox(width: 15),
                                                   SizedBox(
                                                     width: ancho * 0.21,
                                                     child: Text(
-                                                        e.actividad != null
-                                                            ? e.actividad!
-                                                            : '',
-                                                        style: const TextStyle(
-                                                          fontSize: 10,
-                                                        )),
+                                                      e.actividad != null
+                                                          ? e.actividad!
+                                                          : '',
+                                                      style: const TextStyle(
+                                                        fontSize: 10,
+                                                      ),
+                                                    ),
                                                   ),
                                                   SizedBox(
                                                     width: ancho * 0.13,
-                                                    child: Text(e.estado,
-                                                        style: const TextStyle(
-                                                          fontSize: 10,
-                                                        )),
+                                                    child: Text(
+                                                      e.estado,
+                                                      style: const TextStyle(
+                                                        fontSize: 10,
+                                                      ),
+                                                    ),
                                                   ),
                                                 ],
                                               ),
@@ -557,9 +557,9 @@ class _PresentismoTurnoNocheScreenState
     );
   }
 
-//---------------------------------------------------------------------
-//-------------------------- _getTurnosNoche ----------------------------
-//---------------------------------------------------------------------
+  //---------------------------------------------------------------------
+  //-------------------------- _getTurnosNoche ----------------------------
+  //---------------------------------------------------------------------
 
   Future<void> _getTurnosNoche() async {
     setState(() {
@@ -573,7 +573,10 @@ class _PresentismoTurnoNocheScreenState
         _showLoader = false;
       });
       showMyDialog(
-          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
+        'Error',
+        'Verifica que estés conectado a Internet',
+        'Aceptar',
+      );
     }
 
     Response response = Response(isSuccess: false);
@@ -586,12 +589,13 @@ class _PresentismoTurnoNocheScreenState
 
     if (!response.isSuccess) {
       await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: response.message,
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message: response.message,
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
       return;
     }
 
@@ -610,9 +614,9 @@ class _PresentismoTurnoNocheScreenState
     });
   }
 
-//---------------------------------------------------------------------
-//-------------------------- _getEstados ------------------------------
-//---------------------------------------------------------------------
+  //---------------------------------------------------------------------
+  //-------------------------- _getEstados ------------------------------
+  //---------------------------------------------------------------------
 
   Future<void> _getEstados() async {
     setState(() {
@@ -626,7 +630,10 @@ class _PresentismoTurnoNocheScreenState
         _showLoader = false;
       });
       showMyDialog(
-          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
+        'Error',
+        'Verifica que estés conectado a Internet',
+        'Aceptar',
+      );
     }
 
     Response response = Response(isSuccess: false);
@@ -639,12 +646,13 @@ class _PresentismoTurnoNocheScreenState
 
     if (!response.isSuccess) {
       await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: response.message,
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message: response.message,
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
       return;
     }
 
@@ -659,9 +667,9 @@ class _PresentismoTurnoNocheScreenState
     _getZonas();
   }
 
-//---------------------------------------------------------------------
-//-------------------------- _getZonas --------------------------------
-//---------------------------------------------------------------------
+  //---------------------------------------------------------------------
+  //-------------------------- _getZonas --------------------------------
+  //---------------------------------------------------------------------
 
   Future<void> _getZonas() async {
     setState(() {
@@ -675,7 +683,10 @@ class _PresentismoTurnoNocheScreenState
         _showLoader = false;
       });
       showMyDialog(
-          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
+        'Error',
+        'Verifica que estés conectado a Internet',
+        'Aceptar',
+      );
     }
 
     Response response = Response(isSuccess: false);
@@ -688,12 +699,13 @@ class _PresentismoTurnoNocheScreenState
 
     if (!response.isSuccess) {
       await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: response.message,
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message: response.message,
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
       return;
     }
 
@@ -708,9 +720,9 @@ class _PresentismoTurnoNocheScreenState
     });
   }
 
-//---------------------------------------------------------------------
-//-------------------------- _getActividades --------------------------
-//---------------------------------------------------------------------
+  //---------------------------------------------------------------------
+  //-------------------------- _getActividades --------------------------
+  //---------------------------------------------------------------------
 
   Future<void> _getActividades() async {
     setState(() {
@@ -724,7 +736,10 @@ class _PresentismoTurnoNocheScreenState
         _showLoader = false;
       });
       showMyDialog(
-          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
+        'Error',
+        'Verifica que estés conectado a Internet',
+        'Aceptar',
+      );
     }
 
     Response response = Response(isSuccess: false);
@@ -737,12 +752,13 @@ class _PresentismoTurnoNocheScreenState
 
     if (!response.isSuccess) {
       await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: response.message,
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message: response.message,
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
       return;
     }
 
@@ -755,22 +771,26 @@ class _PresentismoTurnoNocheScreenState
     });
   }
 
-//---------------------------------------------------------------------
-//-------------------------- _getComboEstados -------------------------
-//---------------------------------------------------------------------
+  //---------------------------------------------------------------------
+  //-------------------------- _getComboEstados -------------------------
+  //---------------------------------------------------------------------
 
   List<DropdownMenuItem<String>> _getComboEstados() {
     List<DropdownMenuItem<String>> list = [];
-    list.add(const DropdownMenuItem(
-      child: Text('Elija un Estado...'),
-      value: 'Elija un Estado...',
-    ));
+    list.add(
+      const DropdownMenuItem(
+        value: 'Elija un Estado...',
+        child: Text('Elija un Estado...'),
+      ),
+    );
 
     for (var estado in _estados) {
-      list.add(DropdownMenuItem(
-        child: Text(estado.nomencladorestado.toString()),
-        value: estado.nomencladorestado.toString(),
-      ));
+      list.add(
+        DropdownMenuItem(
+          value: estado.nomencladorestado.toString(),
+          child: Text(estado.nomencladorestado.toString()),
+        ),
+      );
     }
 
     return list;

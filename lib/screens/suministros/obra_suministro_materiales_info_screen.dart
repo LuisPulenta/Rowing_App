@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_collection_literals
 
 import 'package:adaptive_dialog/adaptive_dialog.dart';
-import 'package:connectivity/connectivity.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 
 import '../../components/loader_component.dart';
@@ -11,8 +11,7 @@ import '../../models/models.dart';
 class ObraSuministroMaterialesInfoScreen extends StatefulWidget {
   final User user;
 
-  const ObraSuministroMaterialesInfoScreen({Key? key, required this.user})
-      : super(key: key);
+  const ObraSuministroMaterialesInfoScreen({super.key, required this.user});
 
   @override
   _ObraSuministroMaterialesInfoScreenState createState() =>
@@ -21,17 +20,17 @@ class ObraSuministroMaterialesInfoScreen extends StatefulWidget {
 
 class _ObraSuministroMaterialesInfoScreenState
     extends State<ObraSuministroMaterialesInfoScreen> {
-//--------------------------------------------------------------
-//-------------------------- Variables -------------------------
-//--------------------------------------------------------------
+  //--------------------------------------------------------------
+  //-------------------------- Variables -------------------------
+  //--------------------------------------------------------------
 
   final bool _showLoader = false;
   List<Catalogo> _catalogosBD = [];
   List<Catalogo> _catalogos = [];
 
-//--------------------------------------------------------------
-//-------------------------- initState -------------------------
-//--------------------------------------------------------------
+  //--------------------------------------------------------------
+  //-------------------------- initState -------------------------
+  //--------------------------------------------------------------
 
   @override
   void initState() {
@@ -39,9 +38,9 @@ class _ObraSuministroMaterialesInfoScreenState
     _getCatalogosBD();
   }
 
-//--------------------------------------------------------------
-//-------------------------- Pantalla --------------------------
-//--------------------------------------------------------------
+  //--------------------------------------------------------------
+  //-------------------------- Pantalla --------------------------
+  //--------------------------------------------------------------
 
   @override
   Widget build(BuildContext context) {
@@ -53,43 +52,40 @@ class _ObraSuministroMaterialesInfoScreenState
       ),
       body: Center(
         child: _showLoader
-            ? const LoaderComponent(
-                text: 'Por favor espere...',
-              )
+            ? const LoaderComponent(text: 'Por favor espere...')
             : _getContent(),
       ),
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _getContent -------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _getContent -------------------------------
+  //-----------------------------------------------------------------
   Widget _getContent() {
     return _catalogosBD.isNotEmpty || _catalogos.isNotEmpty
         ? Column(
             children: <Widget>[
-              const SizedBox(
-                height: 10,
-              ),
+              const SizedBox(height: 10),
               _showSuministroInfo(),
-              const SizedBox(
-                height: 10,
-              ),
-              _showButton()
+              const SizedBox(height: 10),
+              _showButton(),
             ],
           )
         : Center(
             child: Text(
-                widget.user.modulo + ' no tiene materiales para Suministros.',
-                style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold)));
+              '${widget.user.modulo} no tiene materiales para Suministros.',
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          );
   }
 
-//----------------------------------------------------------
-//--------------------- _showSuministroInfo ----------------
-//----------------------------------------------------------
+  //----------------------------------------------------------
+  //--------------------- _showSuministroInfo ----------------
+  //----------------------------------------------------------
 
   Widget _showSuministroInfo() {
     double ancho = MediaQuery.of(context).size.width;
@@ -119,9 +115,10 @@ class _ObraSuministroMaterialesInfoScreenState
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             _RowCustom(
-                                anchoTitulo: anchoTitulo,
-                                titulo: 'Materiales en BD Local:',
-                                dato: _catalogosBD.length.toString()),
+                              anchoTitulo: anchoTitulo,
+                              titulo: 'Materiales en BD Local:',
+                              dato: _catalogosBD.length.toString(),
+                            ),
                           ],
                         ),
                       ],
@@ -143,11 +140,12 @@ class _ObraSuministroMaterialesInfoScreenState
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             _RowCustom(
-                                anchoTitulo: anchoTitulo,
-                                titulo: 'Materiales en Servidor:',
-                                dato: _catalogos.isNotEmpty
-                                    ? _catalogos.length.toString()
-                                    : 'No se pudo conectar al Servidor'),
+                              anchoTitulo: anchoTitulo,
+                              titulo: 'Materiales en Servidor:',
+                              dato: _catalogos.isNotEmpty
+                                  ? _catalogos.length.toString()
+                                  : 'No se pudo conectar al Servidor',
+                            ),
                           ],
                         ),
                       ],
@@ -162,9 +160,9 @@ class _ObraSuministroMaterialesInfoScreenState
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _getCatalogosBD ---------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _getCatalogosBD ---------------------------
+  //-----------------------------------------------------------------
 
   Future<void> _getCatalogosBD() async {
     _catalogosBD = await DBSuministroscatalogos.catalogos();
@@ -172,16 +170,19 @@ class _ObraSuministroMaterialesInfoScreenState
     _getCatalogos(widget.user.modulo);
   }
 
-//-----------------------------------------------------------------
-//--------------------- _getCatalogos -----------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _getCatalogos -----------------------------
+  //-----------------------------------------------------------------
 
   Future<void> _getCatalogos(String modulo) async {
     var connectivityResult = await Connectivity().checkConnectivity();
 
     if (connectivityResult == ConnectivityResult.none) {
       showMyDialog(
-          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
+        'Error',
+        'Verifica que estés conectado a Internet',
+        'Aceptar',
+      );
     }
 
     Response response = Response(isSuccess: false);
@@ -190,12 +191,13 @@ class _ObraSuministroMaterialesInfoScreenState
 
     if (!response.isSuccess) {
       await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: response.message,
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message: response.message,
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
       return;
     }
 
@@ -206,31 +208,32 @@ class _ObraSuministroMaterialesInfoScreenState
 
   Widget _showButton() {
     return Container(
-        margin: const EdgeInsets.all(10),
-        child: Row(
-          children: <Widget>[
-            Expanded(
-              child: ElevatedButton(
-                child: const Text('Actualizar Catálogos'),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF120E43),
-                  minimumSize: const Size(double.infinity, 50),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5),
-                  ),
+      margin: const EdgeInsets.all(10),
+      child: Row(
+        children: <Widget>[
+          Expanded(
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFF120E43),
+                minimumSize: const Size(double.infinity, 50),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(5),
                 ),
-                onPressed: () async {
-                  DBSuministroscatalogos.deleteall();
-                  for (var catalogo in _catalogos) {
-                    DBSuministroscatalogos.insertSuministrocatalogos(catalogo);
-                  }
-                  _catalogosBD = await DBSuministroscatalogos.catalogos();
-                  setState(() {});
-                },
               ),
+              onPressed: () async {
+                DBSuministroscatalogos.deleteall();
+                for (var catalogo in _catalogos) {
+                  DBSuministroscatalogos.insertSuministrocatalogos(catalogo);
+                }
+                _catalogosBD = await DBSuministroscatalogos.catalogos();
+                setState(() {});
+              },
+              child: const Text('Actualizar Catálogos'),
             ),
-          ],
-        ));
+          ),
+        ],
+      ),
+    );
   }
 }
 
@@ -239,11 +242,11 @@ class _ObraSuministroMaterialesInfoScreenState
 //-----------------------------------------------------------------
 class _RowCustom extends StatelessWidget {
   const _RowCustom({
-    Key? key,
+    super.key,
     required this.anchoTitulo,
     required this.titulo,
     required this.dato,
-  }) : super(key: key);
+  });
 
   final double anchoTitulo;
   final String titulo;
@@ -258,19 +261,16 @@ class _RowCustom extends StatelessWidget {
         children: [
           SizedBox(
             width: anchoTitulo,
-            child: Text(titulo,
-                style: const TextStyle(
-                  fontSize: 14,
-                  color: Color(0xFF781f1e),
-                  fontWeight: FontWeight.bold,
-                )),
+            child: Text(
+              titulo,
+              style: const TextStyle(
+                fontSize: 14,
+                color: Color(0xFF781f1e),
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           ),
-          Expanded(
-            child: Text(dato,
-                style: const TextStyle(
-                  fontSize: 14,
-                )),
-          )
+          Expanded(child: Text(dato, style: const TextStyle(fontSize: 14))),
         ],
       ),
     );

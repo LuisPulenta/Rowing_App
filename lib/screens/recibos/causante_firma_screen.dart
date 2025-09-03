@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:adaptive_dialog/adaptive_dialog.dart';
-import 'package:connectivity/connectivity.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -14,26 +14,26 @@ import '../screens.dart';
 
 class CausanteFirmaScreen extends StatefulWidget {
   final User user;
-  const CausanteFirmaScreen({Key? key, required this.user}) : super(key: key);
+  const CausanteFirmaScreen({super.key, required this.user});
 
   @override
   State<CausanteFirmaScreen> createState() => _CausanteFirmaScreenState();
 }
 
 class _CausanteFirmaScreenState extends State<CausanteFirmaScreen> {
-//-------------------------- Variables --------------------------
+  //-------------------------- Variables --------------------------
   bool _signatureChanged = false;
   late ByteData? _signature;
 
   bool _showLoader = false;
 
-//-------------------------- initState --------------------------
+  //-------------------------- initState --------------------------
   @override
   void initState() {
     super.initState();
   }
 
-//----------------------- _checkImageUrl ----------------------------
+  //----------------------- _checkImageUrl ----------------------------
   Future<Image> _checkImageUrl(String url) async {
     try {
       final response = await http.get(Uri.parse(url));
@@ -51,7 +51,7 @@ class _CausanteFirmaScreenState extends State<CausanteFirmaScreen> {
     }
   }
 
-//-------------------------- Pantalla --------------------------
+  //-------------------------- Pantalla --------------------------
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -61,17 +61,14 @@ class _CausanteFirmaScreenState extends State<CausanteFirmaScreen> {
         title: const Text('Mi Firma'),
         centerTitle: true,
         actions: [
-          IconButton(onPressed: _guardar, icon: const Icon(Icons.save))
+          IconButton(onPressed: _guardar, icon: const Icon(Icons.save)),
         ],
       ),
       floatingActionButton: FloatingActionButton(
         heroTag: 2,
-        child: const Icon(
-          Icons.draw,
-          size: 38,
-        ),
         backgroundColor: const Color(0xFF781f1e),
         onPressed: _takeSignature,
+        child: const Icon(Icons.draw, size: 38),
       ),
       body: Container(
         margin: const EdgeInsets.only(left: 20, right: 20),
@@ -86,49 +83,55 @@ class _CausanteFirmaScreenState extends State<CausanteFirmaScreen> {
                     Container(),
                     (widget.user.firmaUsuario == null ||
                             widget.user.firmaUsuario!.isEmpty)
-                        ? const Text('No tiene firma registrada',
+                        ? const Text(
+                            'No tiene firma registrada',
                             style: TextStyle(
-                                color: Colors.red,
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold))
+                              color: Colors.red,
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          )
                         : const Text(''),
-                    const SizedBox(
-                      height: 10,
-                    ),
+                    const SizedBox(height: 10),
                     Container(
                       child: !_signatureChanged
                           ? widget.user.firmaUsuario == null
-                              ? Image(
-                                  image: const AssetImage('assets/firma.png'),
-                                  width: size.width * 0.8,
-                                  height: size.width * 0.8,
-                                  fit: BoxFit.contain)
-                              : FutureBuilder<Image>(
-                                  future: _checkImageUrl(
-                                      widget.user.firmaUsuarioImageFullPath!),
-                                  builder: (context, snapshot) {
-                                    if (snapshot.connectionState ==
-                                        ConnectionState.waiting) {
-                                      // Muestra un indicador de carga mientras se espera la imagen
-                                      return const FadeInImage(
-                                        placeholder:
-                                            AssetImage('assets/loading.gif'),
-                                        image: AssetImage('assets/firma.png'),
-                                      );
-                                    } else if (snapshot.hasError ||
-                                        !snapshot.hasData) {
-                                      // Si la URL no es válida o no está disponible, muestra la imagen predeterminada
-                                      return const FadeInImage(
-                                        placeholder:
-                                            AssetImage('assets/loading.gif'),
-                                        image:
-                                            AssetImage('assets/errorfirma.png'),
-                                      );
-                                    } else {
-                                      return snapshot.data!;
-                                    }
-                                  },
-                                )
+                                ? Image(
+                                    image: const AssetImage('assets/firma.png'),
+                                    width: size.width * 0.8,
+                                    height: size.width * 0.8,
+                                    fit: BoxFit.contain,
+                                  )
+                                : FutureBuilder<Image>(
+                                    future: _checkImageUrl(
+                                      widget.user.firmaUsuarioImageFullPath!,
+                                    ),
+                                    builder: (context, snapshot) {
+                                      if (snapshot.connectionState ==
+                                          ConnectionState.waiting) {
+                                        // Muestra un indicador de carga mientras se espera la imagen
+                                        return const FadeInImage(
+                                          placeholder: AssetImage(
+                                            'assets/loading.gif',
+                                          ),
+                                          image: AssetImage('assets/firma.png'),
+                                        );
+                                      } else if (snapshot.hasError ||
+                                          !snapshot.hasData) {
+                                        // Si la URL no es válida o no está disponible, muestra la imagen predeterminada
+                                        return const FadeInImage(
+                                          placeholder: AssetImage(
+                                            'assets/loading.gif',
+                                          ),
+                                          image: AssetImage(
+                                            'assets/errorfirma.png',
+                                          ),
+                                        );
+                                      } else {
+                                        return snapshot.data!;
+                                      }
+                                    },
+                                  )
                           : Image.memory(
                               _signature!.buffer.asUint8List(),
                               width: size.width * 0.8,
@@ -138,25 +141,21 @@ class _CausanteFirmaScreenState extends State<CausanteFirmaScreen> {
                   ],
                 ),
                 _showLoader
-                    ? const LoaderComponent(
-                        text: 'Por favor espere...',
-                      )
+                    ? const LoaderComponent(text: 'Por favor espere...')
                     : Container(),
               ],
-            )
+            ),
           ],
         ),
       ),
     );
   }
 
-//-------------------------- _takeSignature --------------------
+  //-------------------------- _takeSignature --------------------
   void _takeSignature() async {
     Response? response = await Navigator.push(
       context,
-      MaterialPageRoute(
-        builder: (context) => const FirmaScreen(),
-      ),
+      MaterialPageRoute(builder: (context) => const FirmaScreen()),
     );
     if (response != null) {
       setState(() {
@@ -168,7 +167,7 @@ class _CausanteFirmaScreenState extends State<CausanteFirmaScreen> {
     }
   }
 
-//-------------------- _guardar ------------------------
+  //-------------------- _guardar ------------------------
 
   void _guardar() async {
     var connectivityResult = await Connectivity().checkConnectivity();
@@ -178,12 +177,13 @@ class _CausanteFirmaScreenState extends State<CausanteFirmaScreen> {
         _showLoader = false;
       });
       await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: 'Verifica que estes conectado a internet.',
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message: 'Verifica que estes conectado a internet.',
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
       return;
     }
 
@@ -199,17 +199,20 @@ class _CausanteFirmaScreenState extends State<CausanteFirmaScreen> {
       'ImageArrayFirmaUsuario': base64ImageUsuarioFirma,
     };
 
-    Response response = await ApiHelper.put('/api/Account3/',
-        widget.user.idUsuario.toString(), requestUsuarioFirma);
+    Response response = await ApiHelper.put(
+      '/api/Account3/',
+      widget.user.idUsuario.toString(),
+      requestUsuarioFirma,
+    );
 
     if (response.isSuccess) {
       _showSnackbar();
     }
   }
 
-//-------------------------------------------------------------
-//-------------------- _showSnackbar --------------------------
-//-------------------------------------------------------------
+  //-------------------------------------------------------------
+  //-------------------- _showSnackbar --------------------------
+  //-------------------------------------------------------------
 
   void _showSnackbar() {
     SnackBar snackbar = const SnackBar(

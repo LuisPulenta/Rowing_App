@@ -3,7 +3,7 @@ import 'dart:io';
 
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:camera/camera.dart';
-import 'package:connectivity/connectivity.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:geocoding/geocoding.dart';
@@ -20,18 +20,20 @@ import '../screens.dart';
 class Elementosencalle extends StatefulWidget {
   final User user;
   final Position positionUser;
-  const Elementosencalle(
-      {Key? key, required this.user, required this.positionUser})
-      : super(key: key);
+  const Elementosencalle({
+    super.key,
+    required this.user,
+    required this.positionUser,
+  });
 
   @override
   State<Elementosencalle> createState() => _ElementosencalleState();
 }
 
 class _ElementosencalleState extends State<Elementosencalle> {
-//---------------------------------------------------------------------
-//-------------------------- Variables --------------------------------
-//---------------------------------------------------------------------
+  //---------------------------------------------------------------------
+  //-------------------------- Variables --------------------------------
+  //---------------------------------------------------------------------
 
   int _nroReg = 0;
 
@@ -53,15 +55,18 @@ class _ElementosencalleState extends State<Elementosencalle> {
   final TextEditingController _observacionesController =
       TextEditingController();
 
-  Position _positionUser = const Position(
-      longitude: 0,
-      latitude: 0,
-      timestamp: null,
-      accuracy: 0,
-      altitude: 0,
-      heading: 0,
-      speed: 0,
-      speedAccuracy: 0);
+  Position _positionUser =  Position(
+    longitude: 0,
+    latitude: 0,
+    timestamp: DateTime.now(),
+    altitudeAccuracy: 0,
+    headingAccuracy: 0,
+    accuracy: 0,
+    altitude: 0,
+    heading: 0,
+    speed: 0,
+    speedAccuracy: 0,
+  );
 
   bool _habilitaPosicion = false;
 
@@ -78,40 +83,41 @@ class _ElementosencalleState extends State<Elementosencalle> {
   final TextEditingController _direccionController = TextEditingController();
 
   Obra obra = Obra(
-      nroObra: 0,
-      nombreObra: '',
-      nroOE: '',
-      defProy: '',
-      central: '',
-      elempep: '',
-      observaciones: '',
-      finalizada: 0,
-      supervisore: '',
-      codigoEstado: '',
-      codigoSubEstado: '',
-      modulo: '',
-      grupoAlmacen: '',
-      obrasDocumentos: [],
-      fechaCierreElectrico: '',
-      fechaUltimoMovimiento: '',
-      photos: 0,
-      audios: 0,
-      videos: 0,
-      posx: '',
-      posy: '',
-      direccion: '',
-      textoLocalizacion: '',
-      textoClase: '',
-      textoTipo: '',
-      textoComponente: '',
-      codigoDiametro: '',
-      motivo: '',
-      planos: '',
-      grupoCausante: '');
+    nroObra: 0,
+    nombreObra: '',
+    nroOE: '',
+    defProy: '',
+    central: '',
+    elempep: '',
+    observaciones: '',
+    finalizada: 0,
+    supervisore: '',
+    codigoEstado: '',
+    codigoSubEstado: '',
+    modulo: '',
+    grupoAlmacen: '',
+    obrasDocumentos: [],
+    fechaCierreElectrico: '',
+    fechaUltimoMovimiento: '',
+    photos: 0,
+    audios: 0,
+    videos: 0,
+    posx: '',
+    posy: '',
+    direccion: '',
+    textoLocalizacion: '',
+    textoClase: '',
+    textoTipo: '',
+    textoComponente: '',
+    codigoDiametro: '',
+    motivo: '',
+    planos: '',
+    grupoCausante: '',
+  );
 
-//---------------------------------------------------------------------
-//-------------------------- initState --------------------------------
-//---------------------------------------------------------------------
+  //---------------------------------------------------------------------
+  //-------------------------- initState --------------------------------
+  //---------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
@@ -121,13 +127,14 @@ class _ElementosencalleState extends State<Elementosencalle> {
 
   void _loadPositionUser() async {
     _positionUser = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high);
+      desiredAccuracy: LocationAccuracy.high,
+    );
     _center = LatLng(_positionUser.latitude, _positionUser.longitude);
   }
 
-//---------------------------------------------------------------------
-//-------------------------- Pantalla --------------------------------
-//---------------------------------------------------------------------
+  //---------------------------------------------------------------------
+  //-------------------------- Pantalla --------------------------------
+  //---------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     double ancho = MediaQuery.of(context).size.width;
@@ -145,12 +152,8 @@ class _ElementosencalleState extends State<Elementosencalle> {
               _showAddress(),
               _showObservaciones(),
               _showPhoto(ancho),
-              const SizedBox(
-                height: 3,
-              ),
-              const Divider(
-                color: Colors.black,
-              ),
+              const SizedBox(height: 3),
+              const Divider(color: Colors.black),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: const [
@@ -158,26 +161,17 @@ class _ElementosencalleState extends State<Elementosencalle> {
                     'Material         ',
                     style: TextStyle(color: Colors.black),
                   ),
-                  Text(
-                    '   ',
-                    style: TextStyle(color: Colors.black),
-                  ),
+                  Text('   ', style: TextStyle(color: Colors.black)),
                   Text(
                     'Cantidad                 ',
                     style: TextStyle(color: Colors.black),
                   ),
                 ],
               ),
-              const SizedBox(
-                height: 3,
-              ),
-              Expanded(
-                child: _getListView(),
-              ),
+              const SizedBox(height: 3),
+              Expanded(child: _getListView()),
               _showButtons(),
-              const SizedBox(
-                height: 10,
-              ),
+              const SizedBox(height: 10),
             ],
           ),
           _showLoader
@@ -187,82 +181,76 @@ class _ElementosencalleState extends State<Elementosencalle> {
       ),
     );
   }
-//-----------------------------------------------------------
-//--------------------- _showObra ---------------------------
-//-----------------------------------------------------------
+  //-----------------------------------------------------------
+  //--------------------- _showObra ---------------------------
+  //-----------------------------------------------------------
 
   Widget _showObra() {
     return Container(
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
-        child: Row(
-          children: [
-            Expanded(
-              child: Container(
-                height: 60,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border.all(
-                    color: Colors.black,
-                    width: 1,
-                  ),
-                  color: Colors.white,
-                ),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Row(
-                        children: [
-                          const SizedBox(
-                            width: 10,
-                          ),
-                          const Text('Obra: ',
-                              style: TextStyle(fontWeight: FontWeight.bold)),
-                          Expanded(
-                            child: Text(obra.nombreObra),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
+      child: Row(
+        children: [
+          Expanded(
+            child: Container(
+              height: 60,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                border: Border.all(color: Colors.black, width: 1),
+                color: Colors.white,
               ),
-            ),
-            const SizedBox(
-              width: 10,
-            ),
-            ElevatedButton(
-              child: const Icon(Icons.search),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFF781f1e),
-                minimumSize: const Size(50, 50),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(5),
-                ),
-              ),
-              onPressed: () async {
-                Obra? obra2 = await Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => ObrasScreen(
-                      user: widget.user,
-                      opcion: 2,
-                      positionUser: widget.positionUser,
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Row(
+                      children: [
+                        const SizedBox(width: 10),
+                        const Text(
+                          'Obra: ',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        Expanded(child: Text(obra.nombreObra)),
+                      ],
                     ),
                   ),
-                );
-                if (obra2 != null) {
-                  obra = obra2;
-                }
-                setState(() {});
-              },
+                ],
+              ),
             ),
-          ],
-        ));
+          ),
+          const SizedBox(width: 10),
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: const Color(0xFF781f1e),
+              minimumSize: const Size(50, 50),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(5),
+              ),
+            ),
+            onPressed: () async {
+              Obra? obra2 = await Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ObrasScreen(
+                    user: widget.user,
+                    opcion: 2,
+                    positionUser: widget.positionUser,
+                  ),
+                ),
+              );
+              if (obra2 != null) {
+                obra = obra2;
+              }
+              setState(() {});
+            },
+            child: const Icon(Icons.search),
+          ),
+        ],
+      ),
+    );
   }
 
-//----------------------------------------------------------------------
-//------------------------------ _showAddress --------------------------
-//----------------------------------------------------------------------
+  //----------------------------------------------------------------------
+  //------------------------------ _showAddress --------------------------
+  //----------------------------------------------------------------------
 
   Widget _showAddress() {
     return Container(
@@ -277,54 +265,53 @@ class _ElementosencalleState extends State<Elementosencalle> {
                   controller: _direccionController,
                   keyboardType: TextInputType.streetAddress,
                   decoration: InputDecoration(
-                      fillColor: Colors.white,
-                      filled: true,
-                      isDense: true,
-                      hintText: 'Ingrese dirección...',
-                      labelText: 'Dirección',
-                      errorText: _direccionShowError ? _direccionError : null,
-                      suffixIcon: const Icon(Icons.home),
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10))),
+                    fillColor: Colors.white,
+                    filled: true,
+                    isDense: true,
+                    hintText: 'Ingrese dirección...',
+                    labelText: 'Dirección',
+                    errorText: _direccionShowError ? _direccionError : null,
+                    suffixIcon: const Icon(Icons.home),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
                   onChanged: (value) {
                     _direccion = value;
                   },
                 ),
               ),
-              const SizedBox(
-                width: 10,
-              ),
+              const SizedBox(width: 10),
               CircleAvatar(
                 backgroundColor: const Color(0xFF781f1e),
                 child: Center(
                   child: IconButton(
-                      onPressed: () {
-                        _address();
-                      },
-                      color: Colors.white,
-                      icon: const Icon(Icons.location_on, size: 20)),
+                    onPressed: () {
+                      _address();
+                    },
+                    color: Colors.white,
+                    icon: const Icon(Icons.location_on, size: 20),
+                  ),
                 ),
               ),
             ],
           ),
-          const SizedBox(
-            height: 3,
-          ),
+          const SizedBox(height: 3),
           Row(
             children: [
               Text('Latitud: $latitud'),
               const SizedBox(width: 10),
               Text('Longitud: $longitud'),
             ],
-          )
+          ),
         ],
       ),
     );
   }
 
   //------------------------------------------------------------------
-//------------------------------ _address --------------------------
-//------------------------------------------------------------------
+  //------------------------------ _address --------------------------
+  //------------------------------------------------------------------
 
   void _address() async {
     setState(() {
@@ -339,15 +326,14 @@ class _ElementosencalleState extends State<Elementosencalle> {
     }
 
     if (_habilitaPosicion) {
-      List<Placemark> placemarks =
-          await placemarkFromCoordinates(_center.latitude, _center.longitude);
+      List<Placemark> placemarks = await placemarkFromCoordinates(
+        _center.latitude,
+        _center.longitude,
+      );
       latitud = _center.latitude;
       longitud = _center.longitude;
-      _direccionController.text = placemarks[0].thoroughfare.toString() +
-          ' ' +
-          placemarks[0].name.toString() +
-          ' ' +
-          placemarks[0].locality.toString();
+      _direccionController.text =
+          '${placemarks[0].thoroughfare} ${placemarks[0].name} ${placemarks[0].locality}';
       _direccion = _direccionController.text;
       setState(() {
         _showLoader = false;
@@ -356,8 +342,8 @@ class _ElementosencalleState extends State<Elementosencalle> {
   }
 
   //------------------------------------------------------------------
-//------------------------------ _getPosition ----------------------
-//------------------------------------------------------------------
+  //------------------------------ _getPosition ----------------------
+  //------------------------------------------------------------------
 
   Future _getPosition() async {
     bool serviceEnabled;
@@ -368,34 +354,6 @@ class _ElementosencalleState extends State<Elementosencalle> {
       permission = await Geolocator.requestPermission();
       if (permission == LocationPermission.denied) {
         showDialog(
-            context: context,
-            builder: (context) {
-              return AlertDialog(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                title: const Text('Aviso'),
-                content: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: const <Widget>[
-                      Text('El permiso de localización está negado.'),
-                      SizedBox(
-                        height: 10,
-                      ),
-                    ]),
-                actions: <Widget>[
-                  TextButton(
-                      onPressed: () => Navigator.of(context).pop(),
-                      child: const Text('Ok')),
-                ],
-              );
-            });
-        return;
-      }
-    }
-
-    if (permission == LocationPermission.deniedForever) {
-      showDialog(
           context: context,
           builder: (context) {
             return AlertDialog(
@@ -404,57 +362,90 @@ class _ElementosencalleState extends State<Elementosencalle> {
               ),
               title: const Text('Aviso'),
               content: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: const <Widget>[
-                    Text(
-                        'El permiso de localización está negado permanentemente. No se puede requerir este permiso.'),
-                    SizedBox(
-                      height: 10,
-                    ),
-                  ]),
+                mainAxisSize: MainAxisSize.min,
+                children: const <Widget>[
+                  Text('El permiso de localización está negado.'),
+                  SizedBox(height: 10),
+                ],
+              ),
               actions: <Widget>[
                 TextButton(
-                    onPressed: () => Navigator.of(context).pop(),
-                    child: const Text('Ok')),
+                  onPressed: () => Navigator.of(context).pop(),
+                  child: const Text('Ok'),
+                ),
               ],
             );
-          });
+          },
+        );
+        return;
+      }
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+            title: const Text('Aviso'),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: const <Widget>[
+                Text(
+                  'El permiso de localización está negado permanentemente. No se puede requerir este permiso.',
+                ),
+                SizedBox(height: 10),
+              ],
+            ),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(),
+                child: const Text('Ok'),
+              ),
+            ],
+          );
+        },
+      );
       return;
     }
 
     _habilitaPosicion = true;
     _positionUser = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high);
+      desiredAccuracy: LocationAccuracy.high,
+    );
   }
 
   //----------------------------------------------------------------------------
-//------------------------------ _showObservaciones --------------------------
-//----------------------------------------------------------------------------
+  //------------------------------ _showObservaciones --------------------------
+  //----------------------------------------------------------------------------
 
   Widget _showObservaciones() {
     return Container(
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
-        child: TextField(
-          controller: _observacionesController,
-          decoration: InputDecoration(
-              fillColor: Colors.white,
-              filled: true,
-              isDense: true,
-              hintText: 'Ingrese Observaciones...',
-              labelText: 'Observaciones:',
-              errorText: _observacionesShowError ? _observacionesError : null,
-              prefixIcon: const Icon(Icons.chat),
-              border:
-                  OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
-          onChanged: (value) {
-            _observaciones = value;
-          },
-        ));
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
+      child: TextField(
+        controller: _observacionesController,
+        decoration: InputDecoration(
+          fillColor: Colors.white,
+          filled: true,
+          isDense: true,
+          hintText: 'Ingrese Observaciones...',
+          labelText: 'Observaciones:',
+          errorText: _observacionesShowError ? _observacionesError : null,
+          prefixIcon: const Icon(Icons.chat),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+        ),
+        onChanged: (value) {
+          _observaciones = value;
+        },
+      ),
+    );
   }
 
-//--------------------------------------------------------------
-//-------------------------- _showPhoto ------------------------
-//--------------------------------------------------------------
+  //--------------------------------------------------------------
+  //-------------------------- _showPhoto ------------------------
+  //--------------------------------------------------------------
 
   Widget _showPhoto(double ancho) {
     return Container(
@@ -464,26 +455,28 @@ class _ElementosencalleState extends State<Elementosencalle> {
         children: <Widget>[
           Expanded(
             child: InkWell(
-              child: Stack(children: <Widget>[
-                Container(
-                  child: !_photoChanged
-                      ? Center(
-                          child: Image(
+              child: Stack(
+                children: <Widget>[
+                  Container(
+                    child: !_photoChanged
+                        ? Center(
+                            child: Image(
                               image: const AssetImage('assets/noimage.png'),
                               width: ancho * 0.3,
                               height: 120,
-                              fit: BoxFit.contain),
-                        )
-                      : Center(
-                          child: Image.file(
-                            File(_image.path),
-                            width: 160,
-                            height: 120,
-                            fit: BoxFit.contain,
+                              fit: BoxFit.contain,
+                            ),
+                          )
+                        : Center(
+                            child: Image.file(
+                              File(_image.path),
+                              width: 160,
+                              height: 120,
+                              fit: BoxFit.contain,
+                            ),
                           ),
-                        ),
-                ),
-                Positioned(
+                  ),
+                  Positioned(
                     bottom: 20,
                     right: 20,
                     child: InkWell(
@@ -501,8 +494,9 @@ class _ElementosencalleState extends State<Elementosencalle> {
                           ),
                         ),
                       ),
-                    )),
-                Positioned(
+                    ),
+                  ),
+                  Positioned(
                     bottom: 20,
                     left: 20,
                     child: InkWell(
@@ -520,8 +514,10 @@ class _ElementosencalleState extends State<Elementosencalle> {
                           ),
                         ),
                       ),
-                    )),
-              ]),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ],
@@ -529,23 +525,24 @@ class _ElementosencalleState extends State<Elementosencalle> {
     );
   }
 
-//--------------------------------------------------------------
-//-------------------------- _takePicture ----------------------
-//--------------------------------------------------------------
+  //--------------------------------------------------------------
+  //-------------------------- _takePicture ----------------------
+  //--------------------------------------------------------------
 
   void _takePicture(int opcion) async {
     WidgetsFlutterBinding.ensureInitialized();
     final cameras = await availableCameras();
     var firstCamera = cameras.first;
     var response1 = await showAlertDialog(
-        context: context,
-        title: 'Seleccionar cámara',
-        message: '¿Qué cámara desea utilizar?',
-        actions: <AlertDialogAction>[
-          const AlertDialogAction(key: 'no', label: 'Trasera'),
-          const AlertDialogAction(key: 'yes', label: 'Delantera'),
-          const AlertDialogAction(key: 'cancel', label: 'Cancelar'),
-        ]);
+      context: context,
+      title: 'Seleccionar cámara',
+      message: '¿Qué cámara desea utilizar?',
+      actions: <AlertDialogAction>[
+        const AlertDialogAction(key: 'no', label: 'Trasera'),
+        const AlertDialogAction(key: 'yes', label: 'Delantera'),
+        const AlertDialogAction(key: 'cancel', label: 'Cancelar'),
+      ],
+    );
     if (response1 == 'yes') {
       firstCamera = cameras.first;
     }
@@ -555,11 +552,11 @@ class _ElementosencalleState extends State<Elementosencalle> {
 
     if (response1 != 'cancel') {
       Response? response = await Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => SacarFotoScreen(
-                    camera: firstCamera,
-                  )));
+        context,
+        MaterialPageRoute(
+          builder: (context) => SacarFotoScreen(camera: firstCamera),
+        ),
+      );
       if (response != null) {
         if (opcion == 1) {
           _photoChanged = true;
@@ -570,14 +567,14 @@ class _ElementosencalleState extends State<Elementosencalle> {
     }
   }
 
-//--------------------------------------------------------------
-//-------------------------- _selectPicture --------------------
-//--------------------------------------------------------------
+  //--------------------------------------------------------------
+  //-------------------------- _selectPicture --------------------
+  //--------------------------------------------------------------
 
   void _selectPicture(int opcion) async {
-    final ImagePicker _picker = ImagePicker();
+    final ImagePicker picker = ImagePicker();
 
-    final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+    final XFile? image = await picker.pickImage(source: ImageSource.gallery);
 
     if (image != null) {
       if (opcion == 1) {
@@ -588,9 +585,9 @@ class _ElementosencalleState extends State<Elementosencalle> {
     }
   }
 
-//-----------------------------------------------------------------
-//--------------------- _getCatalogos -----------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _getCatalogos -----------------------------
+  //-----------------------------------------------------------------
 
   Future<void> _getCatalogos() async {
     setState(() {
@@ -604,7 +601,10 @@ class _ElementosencalleState extends State<Elementosencalle> {
         _showLoader = false;
       });
       showMyDialog(
-          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
+        'Error',
+        'Verifica que estés conectado a Internet',
+        'Aceptar',
+      );
     }
 
     Response response = Response(isSuccess: false);
@@ -617,12 +617,13 @@ class _ElementosencalleState extends State<Elementosencalle> {
 
     if (!response.isSuccess) {
       await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: response.message,
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message: response.message,
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
       return;
     }
 
@@ -631,9 +632,9 @@ class _ElementosencalleState extends State<Elementosencalle> {
     });
   }
 
-//-----------------------------------------------------------------
-//--------------------- _getListView ------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _getListView ------------------------------
+  //-----------------------------------------------------------------
 
   Widget _getListView() {
     return ListView(
@@ -661,170 +662,162 @@ class _ElementosencalleState extends State<Elementosencalle> {
                                 children: [
                                   Expanded(
                                     flex: 4,
-                                    child: Text(e.catCatalogo.toString(),
-                                        style: const TextStyle(
-                                          fontSize: 12,
-                                        )),
+                                    child: Text(
+                                      e.catCatalogo.toString(),
+                                      style: const TextStyle(fontSize: 12),
+                                    ),
                                   ),
-                                  const SizedBox(
-                                    width: 5,
-                                  ),
+                                  const SizedBox(width: 5),
                                   Expanded(
                                     flex: 1,
-                                    child: Text(e.cantidad.toString(),
-                                        style: const TextStyle(
-                                          fontSize: 14,
-                                          color: Colors.blue,
-                                          fontWeight: FontWeight.bold,
-                                        )),
+                                    child: Text(
+                                      e.cantidad.toString(),
+                                      style: const TextStyle(
+                                        fontSize: 14,
+                                        color: Colors.blue,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
                                   ),
-                                  const SizedBox(
-                                    width: 10,
-                                  ),
+                                  const SizedBox(width: 10),
                                   IconButton(
-                                      onPressed: () {
-                                        _cantidadController.text =
-                                            e.cantidad == 0.0
-                                                ? ''
-                                                : e.cantidad.toString();
-                                        showDialog(
-                                            context: context,
-                                            builder: (BuildContext context) {
-                                              return AlertDialog(
-                                                backgroundColor:
-                                                    Colors.grey[300],
-                                                title: const Text(
-                                                    'Ingrese la cantidad'),
-                                                content: TextField(
-                                                  autofocus: true,
-                                                  keyboardType:
-                                                      TextInputType.number,
-                                                  controller:
-                                                      _cantidadController,
-                                                  decoration: InputDecoration(
-                                                      fillColor: Colors.white,
-                                                      filled: true,
-                                                      hintText: '',
-                                                      labelText: '',
-                                                      isDense: true,
-                                                      errorText:
-                                                          _cantidadShowError
-                                                              ? _cantidadError
-                                                              : null,
-                                                      prefixIcon:
-                                                          const Icon(Icons.tag),
-                                                      border:
-                                                          OutlineInputBorder(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          10))),
-                                                  onChanged: (value) {
-                                                    _cantidad = value;
-                                                  },
+                                    onPressed: () {
+                                      _cantidadController.text =
+                                          e.cantidad == 0.0
+                                          ? ''
+                                          : e.cantidad.toString();
+                                      showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          return AlertDialog(
+                                            backgroundColor: Colors.grey[300],
+                                            title: const Text(
+                                              'Ingrese la cantidad',
+                                            ),
+                                            content: TextField(
+                                              autofocus: true,
+                                              keyboardType:
+                                                  TextInputType.number,
+                                              controller: _cantidadController,
+                                              decoration: InputDecoration(
+                                                fillColor: Colors.white,
+                                                filled: true,
+                                                hintText: '',
+                                                labelText: '',
+                                                isDense: true,
+                                                errorText: _cantidadShowError
+                                                    ? _cantidadError
+                                                    : null,
+                                                prefixIcon: const Icon(
+                                                  Icons.tag,
                                                 ),
-                                                actions: [
-                                                  Row(
-                                                    children: [
-                                                      Expanded(
-                                                        child: ElevatedButton(
-                                                          child: Row(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .spaceAround,
-                                                            children: const [
-                                                              Icon(
-                                                                  Icons.cancel),
-                                                              Text('Cancelar'),
-                                                            ],
-                                                          ),
-                                                          style: ElevatedButton
-                                                              .styleFrom(
-                                                            backgroundColor:
-                                                                const Color(
-                                                                    0xFFB4161B),
-                                                            minimumSize:
-                                                                const Size(
-                                                                    double
-                                                                        .infinity,
-                                                                    30),
-                                                            shape:
-                                                                RoundedRectangleBorder(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          5),
+                                                border: OutlineInputBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                ),
+                                              ),
+                                              onChanged: (value) {
+                                                _cantidad = value;
+                                              },
+                                            ),
+                                            actions: [
+                                              Row(
+                                                children: [
+                                                  Expanded(
+                                                    child: ElevatedButton(
+                                                      style: ElevatedButton.styleFrom(
+                                                        backgroundColor:
+                                                            const Color(
+                                                              0xFFB4161B,
                                                             ),
-                                                          ),
-                                                          onPressed: () {
-                                                            Navigator.pop(
-                                                                context);
-                                                          },
+                                                        minimumSize: const Size(
+                                                          double.infinity,
+                                                          30,
+                                                        ),
+                                                        shape: RoundedRectangleBorder(
+                                                          borderRadius:
+                                                              BorderRadius.circular(
+                                                                5,
+                                                              ),
                                                         ),
                                                       ),
-                                                      const SizedBox(
-                                                        width: 10,
+                                                      onPressed: () {
+                                                        Navigator.pop(context);
+                                                      },
+                                                      child: Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceAround,
+                                                        children: const [
+                                                          Icon(Icons.cancel),
+                                                          Text('Cancelar'),
+                                                        ],
                                                       ),
-                                                      Expanded(
-                                                        child: ElevatedButton(
-                                                          child: Row(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .spaceAround,
-                                                            children: const [
-                                                              Icon(Icons.save),
-                                                              Text('Aceptar'),
-                                                            ],
-                                                          ),
-                                                          style: ElevatedButton
-                                                              .styleFrom(
-                                                            backgroundColor:
-                                                                const Color(
-                                                                    0xFF120E43),
-                                                            minimumSize:
-                                                                const Size(
-                                                                    double
-                                                                        .infinity,
-                                                                    30),
-                                                            shape:
-                                                                RoundedRectangleBorder(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          5),
+                                                    ),
+                                                  ),
+                                                  const SizedBox(width: 10),
+                                                  Expanded(
+                                                    child: ElevatedButton(
+                                                      style: ElevatedButton.styleFrom(
+                                                        backgroundColor:
+                                                            const Color(
+                                                              0xFF120E43,
                                                             ),
-                                                          ),
-                                                          onPressed: () {
-                                                            for (Catalogo catalogo
-                                                                in _catalogos) {
-                                                              if (catalogo
-                                                                      .catCodigo ==
-                                                                  e.catCodigo) {
-                                                                catalogo.cantidad =
-                                                                    double.parse(
-                                                                        _cantidad);
-                                                              }
-                                                            }
+                                                        minimumSize: const Size(
+                                                          double.infinity,
+                                                          30,
+                                                        ),
+                                                        shape: RoundedRectangleBorder(
+                                                          borderRadius:
+                                                              BorderRadius.circular(
+                                                                5,
+                                                              ),
+                                                        ),
+                                                      ),
+                                                      onPressed: () {
+                                                        for (Catalogo catalogo
+                                                            in _catalogos) {
+                                                          if (catalogo
+                                                                  .catCodigo ==
+                                                              e.catCodigo) {
+                                                            catalogo.cantidad =
+                                                                double.parse(
+                                                                  _cantidad,
+                                                                );
+                                                          }
+                                                        }
 
-                                                            Navigator.pop(
-                                                                context);
-                                                            setState(() {});
-                                                          },
-                                                        ),
+                                                        Navigator.pop(context);
+                                                        setState(() {});
+                                                      },
+                                                      child: Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceAround,
+                                                        children: const [
+                                                          Icon(Icons.save),
+                                                          Text('Aceptar'),
+                                                        ],
                                                       ),
-                                                    ],
+                                                    ),
                                                   ),
                                                 ],
-                                                shape: RoundedRectangleBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            10)),
-                                              );
-                                            },
-                                            barrierDismissible: false);
-                                      },
-                                      icon: const Icon(Icons.loop,
-                                          color: Colors.blue)),
+                                              ),
+                                            ],
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                            ),
+                                          );
+                                        },
+                                        barrierDismissible: false,
+                                      );
+                                    },
+                                    icon: const Icon(
+                                      Icons.loop,
+                                      color: Colors.blue,
+                                    ),
+                                  ),
                                 ],
                               ),
                             ],
@@ -843,53 +836,47 @@ class _ElementosencalleState extends State<Elementosencalle> {
   }
 
   //-----------------------------------------------------------------
-//--------------------- _showButtons ------------------------------
-//-----------------------------------------------------------------
+  //--------------------- _showButtons ------------------------------
+  //-----------------------------------------------------------------
 
   Widget _showButtons() {
     return Container(
       margin: const EdgeInsets.only(left: 10, right: 10),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: <Widget>[
-          _showSaveButton(),
-        ],
+        children: <Widget>[_showSaveButton()],
       ),
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _showSaveButton ---------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _showSaveButton ---------------------------
+  //-----------------------------------------------------------------
 
   Widget _showSaveButton() {
     return Expanded(
       child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: const Color(0xFF781f1e),
+          minimumSize: const Size(double.infinity, 50),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+        ),
+        onPressed: () => _save(),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: const [
             Icon(Icons.save),
-            SizedBox(
-              width: 15,
-            ),
+            SizedBox(width: 15),
             Text('Guardar'),
           ],
         ),
-        style: ElevatedButton.styleFrom(
-          backgroundColor: const Color(0xFF781f1e),
-          minimumSize: const Size(double.infinity, 50),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(5),
-          ),
-        ),
-        onPressed: () => _save(),
       ),
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _loadData ---------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _loadData ---------------------------------
+  //-----------------------------------------------------------------
 
   void _loadData() async {
     await _getCatalogos();
@@ -898,20 +885,20 @@ class _ElementosencalleState extends State<Elementosencalle> {
     }
   }
 
-//-----------------------------------------------------------------
-//--------------------- _save -------------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _save -------------------------------------
+  //-----------------------------------------------------------------
 
-  _save() {
+  void _save() {
     if (!validateFields()) {
       return;
     }
     _addRecord();
   }
 
-//-----------------------------------------------------------------
-//--------------------- validateFields ----------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- validateFields ----------------------------
+  //-----------------------------------------------------------------
 
   bool validateFields() {
     bool isValid = true;
@@ -920,46 +907,49 @@ class _ElementosencalleState extends State<Elementosencalle> {
     if (obra.nroObra == 0) {
       isValid = false;
       showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: 'Debe seleccionar una Obra',
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message: 'Debe seleccionar una Obra',
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
     }
 
     if (_direccion == '') {
       isValid = false;
       showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: 'Debe cargar la dirección',
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message: 'Debe cargar la dirección',
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
     }
 
     if (latitud == 0 || longitud == 0) {
       isValid = false;
       showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: 'Debe geolocalizar la dirección',
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message: 'Debe geolocalizar la dirección',
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
     }
 
     setState(() {});
     return isValid;
   }
 
-//-----------------------------------------------------------------
-//--------------------- _addRecord --------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _addRecord --------------------------------
+  //-----------------------------------------------------------------
 
-  _addRecord() async {
-//-----------------Controlo que haya catálogos con cantidades--------------
+  Future<void> _addRecord() async {
+    //-----------------Controlo que haya catálogos con cantidades--------------
     bool bandera = false;
     for (Catalogo catalogo in _catalogos) {
       if (catalogo.cantidad != 0) {
@@ -967,9 +957,9 @@ class _ElementosencalleState extends State<Elementosencalle> {
       }
     }
 
-//-----------------Grabar Cabecera y Detalle--------------
+    //-----------------Grabar Cabecera y Detalle--------------
     if (bandera) {
-//-----------------Chequea Internet--------------
+      //-----------------Chequea Internet--------------
       setState(() {
         _showLoader = true;
       });
@@ -981,12 +971,13 @@ class _ElementosencalleState extends State<Elementosencalle> {
           _showLoader = false;
         });
         await showAlertDialog(
-            context: context,
-            title: 'Error',
-            message: 'Verifica que estés conectado a Internet',
-            actions: <AlertDialogAction>[
-              const AlertDialogAction(key: null, label: 'Aceptar'),
-            ]);
+          context: context,
+          title: 'Error',
+          message: 'Verifica que estés conectado a Internet',
+          actions: <AlertDialogAction>[
+            const AlertDialogAction(key: null, label: 'Aceptar'),
+          ],
+        );
         return;
       }
 
@@ -996,8 +987,11 @@ class _ElementosencalleState extends State<Elementosencalle> {
         Uint8List imageBytes = await _image.readAsBytes();
         int maxWidth = 800; // Ancho máximo
         int maxHeight = 600; // Alto máximo
-        Uint8List resizedBytes =
-            await resizeImage(imageBytes, maxWidth, maxHeight);
+        Uint8List resizedBytes = await resizeImage(
+          imageBytes,
+          maxWidth,
+          maxHeight,
+        );
         base64Image = base64Encode(resizedBytes);
       }
 
@@ -1017,7 +1011,9 @@ class _ElementosencalleState extends State<Elementosencalle> {
       };
 
       Response response = await ApiHelper.post(
-          '/api/ElementosEnCalleCab/PostElementosEnCalleCab', request);
+        '/api/ElementosEnCalleCab/PostElementosEnCalleCab',
+        request,
+      );
 
       setState(() {
         _showLoader = false;
@@ -1025,19 +1021,20 @@ class _ElementosencalleState extends State<Elementosencalle> {
 
       if (!response.isSuccess) {
         await showAlertDialog(
-            context: context,
-            title: 'Error',
-            message: response.message,
-            actions: <AlertDialogAction>[
-              const AlertDialogAction(key: null, label: 'Aceptar'),
-            ]);
+          context: context,
+          title: 'Error',
+          message: response.message,
+          actions: <AlertDialogAction>[
+            const AlertDialogAction(key: null, label: 'Aceptar'),
+          ],
+        );
       }
 
       if (response.isSuccess) {
         _nroReg = int.parse(response.result.toString());
       }
 
-//-----------------Graba Detalle--------------
+      //-----------------Graba Detalle--------------
       for (Catalogo catalogo in _catalogos) {
         if (catalogo.cantidad != 0) {
           bandera = true;
@@ -1050,36 +1047,41 @@ class _ElementosencalleState extends State<Elementosencalle> {
           };
 
           Response response = await ApiHelper.post(
-              '/api/ElementosEnCalleDet/PostElementosEnCalleDet', request);
+            '/api/ElementosEnCalleDet/PostElementosEnCalleDet',
+            request,
+          );
 
           if (!response.isSuccess) {
             await showAlertDialog(
-                context: context,
-                title: 'Error',
-                message: response.message,
-                actions: <AlertDialogAction>[
-                  const AlertDialogAction(key: null, label: 'Aceptar'),
-                ]);
+              context: context,
+              title: 'Error',
+              message: response.message,
+              actions: <AlertDialogAction>[
+                const AlertDialogAction(key: null, label: 'Aceptar'),
+              ],
+            );
           }
         }
       }
 
       await showAlertDialog(
-          context: context,
-          title: 'Aviso',
-          message: 'Elementos en Calle guardado con éxito!',
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Aviso',
+        message: 'Elementos en Calle guardado con éxito!',
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
       Navigator.pop(context);
     } else {
       await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: 'No hay materiales que tengan cantidades',
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message: 'No hay materiales que tengan cantidades',
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
       return;
     } //Termina Bandera
   }

@@ -1,5 +1,5 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
-import 'package:connectivity/connectivity.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -12,59 +12,55 @@ import '../screens.dart';
 class JuicioInfoScreen extends StatefulWidget {
   final User user;
   final Juicio juicio;
-  const JuicioInfoScreen({Key? key, required this.user, required this.juicio})
-      : super(key: key);
+  const JuicioInfoScreen({super.key, required this.user, required this.juicio});
 
   @override
   State<JuicioInfoScreen> createState() => _JuicioInfoScreenState();
 }
 
 class _JuicioInfoScreenState extends State<JuicioInfoScreen> {
-//---------------------------------------------------------------------
-//-------------------------- Variables --------------------------------
-//---------------------------------------------------------------------
+  //---------------------------------------------------------------------
+  //-------------------------- Variables --------------------------------
+  //---------------------------------------------------------------------
   List<Contraparte> _contrapartes = [];
   bool _showLoader = false;
 
-//---------------------------------------------------------------------
-//-------------------------- InitState --------------------------------
-//---------------------------------------------------------------------
+  //---------------------------------------------------------------------
+  //-------------------------- InitState --------------------------------
+  //---------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
     _getContrapartes();
   }
 
-//---------------------------------------------------------------------
-//-------------------------- Pantalla ---------------------------------
-//---------------------------------------------------------------------
+  //---------------------------------------------------------------------
+  //-------------------------- Pantalla ---------------------------------
+  //---------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: const Color(0xFF484848),
-        appBar: AppBar(
-          title: Text('Caso N°: ${widget.juicio.iDCASO.toString()}'),
-          centerTitle: true,
-        ),
-        body: Column(
-          children: [
-            const SizedBox(
-              height: 15,
-            ),
-            _getInfoJuicio(),
-            _showTelefonos(),
-            const Spacer(),
-            _showButtons(),
-            const SizedBox(
-              height: 15,
-            ),
-          ],
-        ));
+      backgroundColor: const Color(0xFF484848),
+      appBar: AppBar(
+        title: Text('Caso N°: ${widget.juicio.iDCASO.toString()}'),
+        centerTitle: true,
+      ),
+      body: Column(
+        children: [
+          const SizedBox(height: 15),
+          _getInfoJuicio(),
+          _showTelefonos(),
+          const Spacer(),
+          _showButtons(),
+          const SizedBox(height: 15),
+        ],
+      ),
+    );
   }
 
-//---------------------------------------------------------------------
-//-------------------------- _getInfoJuicio ---------------------------
-//---------------------------------------------------------------------
+  //---------------------------------------------------------------------
+  //-------------------------- _getInfoJuicio ---------------------------
+  //---------------------------------------------------------------------
   Widget _getInfoJuicio() {
     return Card(
       color: Colors.white, //const Color(0xFFC7C7C8),
@@ -100,52 +96,51 @@ class _JuicioInfoScreenState extends State<JuicioInfoScreen> {
                               ),
                               Expanded(
                                 flex: 2,
-                                child: Text(widget.juicio.iDCASO.toString(),
-                                    style: const TextStyle(
-                                      fontSize: 12,
-                                    )),
+                                child: Text(
+                                  widget.juicio.iDCASO.toString(),
+                                  style: const TextStyle(fontSize: 12),
+                                ),
                               ),
-                              const Text('N° Expediente: ',
-                                  style: TextStyle(
-                                    fontSize: 12,
-                                    color: Color(0xFF781f1e),
-                                    fontWeight: FontWeight.bold,
-                                  )),
+                              const Text(
+                                'N° Expediente: ',
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  color: Color(0xFF781f1e),
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
                               Expanded(
                                 flex: 2,
-                                child:
-                                    Text(widget.juicio.nroExpediente.toString(),
-                                        style: const TextStyle(
-                                          fontSize: 12,
-                                        )),
+                                child: Text(
+                                  widget.juicio.nroExpediente.toString(),
+                                  style: const TextStyle(fontSize: 12),
+                                ),
                               ),
                             ],
                           ),
-                          const SizedBox(
-                            height: 5,
-                          ),
+                          const SizedBox(height: 5),
                           Row(
                             children: [
                               const SizedBox(
                                 width: 70,
-                                child: Text('Tipo Caso: ',
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      color: Color(0xFF781f1e),
-                                      fontWeight: FontWeight.bold,
-                                    )),
+                                child: Text(
+                                  'Tipo Caso: ',
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: Color(0xFF781f1e),
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
                               ),
                               Expanded(
-                                child: Text(widget.juicio.tipocaso.toString(),
-                                    style: const TextStyle(
-                                      fontSize: 12,
-                                    )),
+                                child: Text(
+                                  widget.juicio.tipocaso.toString(),
+                                  style: const TextStyle(fontSize: 12),
+                                ),
                               ),
                             ],
                           ),
-                          const SizedBox(
-                            height: 5,
-                          ),
+                          const SizedBox(height: 5),
                           Row(
                             children: [
                               const SizedBox(
@@ -160,16 +155,14 @@ class _JuicioInfoScreenState extends State<JuicioInfoScreen> {
                                 ),
                               ),
                               Expanded(
-                                child: Text(widget.juicio.estado.toString(),
-                                    style: const TextStyle(
-                                      fontSize: 12,
-                                    )),
+                                child: Text(
+                                  widget.juicio.estado.toString(),
+                                  style: const TextStyle(fontSize: 12),
+                                ),
                               ),
                             ],
                           ),
-                          const SizedBox(
-                            height: 5,
-                          ),
+                          const SizedBox(height: 5),
                           Row(
                             children: [
                               const SizedBox(
@@ -187,19 +180,17 @@ class _JuicioInfoScreenState extends State<JuicioInfoScreen> {
                                 child: widget.juicio.fEULTMOV != null
                                     ? Text(
                                         DateFormat('dd/MM/yyyy').format(
-                                            DateTime.parse(widget
-                                                .juicio.fEULTMOV
-                                                .toString())),
-                                        style: const TextStyle(
-                                          fontSize: 12,
-                                        ))
+                                          DateTime.parse(
+                                            widget.juicio.fEULTMOV.toString(),
+                                          ),
+                                        ),
+                                        style: const TextStyle(fontSize: 12),
+                                      )
                                     : Container(),
                               ),
                             ],
                           ),
-                          const SizedBox(
-                            height: 5,
-                          ),
+                          const SizedBox(height: 5),
                           Row(
                             children: [
                               const SizedBox(
@@ -214,16 +205,14 @@ class _JuicioInfoScreenState extends State<JuicioInfoScreen> {
                                 ),
                               ),
                               Expanded(
-                                child: Text(widget.juicio.caratula.toString(),
-                                    style: const TextStyle(
-                                      fontSize: 12,
-                                    )),
+                                child: Text(
+                                  widget.juicio.caratula.toString(),
+                                  style: const TextStyle(fontSize: 12),
+                                ),
                               ),
                             ],
                           ),
-                          const SizedBox(
-                            height: 5,
-                          ),
+                          const SizedBox(height: 5),
                           Row(
                             children: [
                               const SizedBox(
@@ -239,18 +228,15 @@ class _JuicioInfoScreenState extends State<JuicioInfoScreen> {
                               ),
                               Expanded(
                                 child: Text(
-                                    widget.juicio.abogado != null
-                                        ? widget.juicio.abogado.toString()
-                                        : '',
-                                    style: const TextStyle(
-                                      fontSize: 12,
-                                    )),
+                                  widget.juicio.abogado != null
+                                      ? widget.juicio.abogado.toString()
+                                      : '',
+                                  style: const TextStyle(fontSize: 12),
+                                ),
                               ),
                             ],
                           ),
-                          const Divider(
-                            color: Colors.black,
-                          ),
+                          const Divider(color: Colors.black),
                           Row(
                             children: [
                               const SizedBox(
@@ -266,19 +252,17 @@ class _JuicioInfoScreenState extends State<JuicioInfoScreen> {
                               ),
                               Expanded(
                                 child: Text(
-                                    widget.juicio.importejuicio != null
-                                        ? NumberFormat.currency(symbol: '\$')
-                                            .format(widget.juicio.importejuicio)
-                                        : '',
-                                    style: const TextStyle(
-                                      fontSize: 12,
-                                    )),
+                                  widget.juicio.importejuicio != null
+                                      ? NumberFormat.currency(
+                                          symbol: '\$',
+                                        ).format(widget.juicio.importejuicio)
+                                      : '',
+                                  style: const TextStyle(fontSize: 12),
+                                ),
                               ),
                             ],
                           ),
-                          const SizedBox(
-                            height: 5,
-                          ),
+                          const SizedBox(height: 5),
                           Row(
                             children: [
                               const SizedBox(
@@ -294,21 +278,19 @@ class _JuicioInfoScreenState extends State<JuicioInfoScreen> {
                               ),
                               Expanded(
                                 child: Text(
-                                    widget.juicio.importeinteres != null
-                                        ? NumberFormat.currency(symbol: '\$')
+                                  widget.juicio.importeinteres != null
+                                      ? NumberFormat.currency(symbol: '\$')
                                             .format(
-                                                widget.juicio.importeinteres)
+                                              widget.juicio.importeinteres,
+                                            )
                                             .toString()
-                                        : '',
-                                    style: const TextStyle(
-                                      fontSize: 12,
-                                    )),
+                                      : '',
+                                  style: const TextStyle(fontSize: 12),
+                                ),
                               ),
                             ],
                           ),
-                          const SizedBox(
-                            height: 5,
-                          ),
+                          const SizedBox(height: 5),
                           Row(
                             children: [
                               const SizedBox(
@@ -324,18 +306,15 @@ class _JuicioInfoScreenState extends State<JuicioInfoScreen> {
                               ),
                               Expanded(
                                 child: Text(
-                                    widget.juicio.moneda != null
-                                        ? widget.juicio.moneda.toString()
-                                        : '',
-                                    style: const TextStyle(
-                                      fontSize: 12,
-                                    )),
+                                  widget.juicio.moneda != null
+                                      ? widget.juicio.moneda.toString()
+                                      : '',
+                                  style: const TextStyle(fontSize: 12),
+                                ),
                               ),
                             ],
                           ),
-                          const SizedBox(
-                            height: 5,
-                          ),
+                          const SizedBox(height: 5),
                         ],
                       ),
                     ),
@@ -349,9 +328,9 @@ class _JuicioInfoScreenState extends State<JuicioInfoScreen> {
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _showTelefonos ----------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _showTelefonos ----------------------------
+  //-----------------------------------------------------------------
 
   Widget _showTelefonos() {
     return _contrapartes.isNotEmpty
@@ -379,146 +358,70 @@ class _JuicioInfoScreenState extends State<JuicioInfoScreen> {
                                   children: [
                                     const SizedBox(
                                       width: 86,
-                                      child: Text('Contraparte: ',
-                                          style: TextStyle(
-                                            fontSize: 12,
-                                            color: Color(0xFF0e4888),
-                                            fontWeight: FontWeight.bold,
-                                          )),
+                                      child: Text(
+                                        'Contraparte: ',
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                          color: Color(0xFF0e4888),
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
                                     ),
                                     Expanded(
-                                      child:
-                                          Text(_contrapartes[0].apellidonombre,
-                                              style: const TextStyle(
-                                                fontSize: 12,
-                                              )),
+                                      child: Text(
+                                        _contrapartes[0].apellidonombre,
+                                        style: const TextStyle(fontSize: 12),
+                                      ),
                                     ),
                                   ],
                                 ),
-                                const SizedBox(
-                                  height: 1,
-                                ),
+                                const SizedBox(height: 1),
                                 Row(
                                   children: [
                                     const SizedBox(
                                       width: 86,
-                                      child: Text('Domicilio: ',
-                                          style: TextStyle(
-                                            fontSize: 12,
-                                            color: Color(0xFF0e4888),
-                                            fontWeight: FontWeight.bold,
-                                          )),
+                                      child: Text(
+                                        'Domicilio: ',
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                          color: Color(0xFF0e4888),
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
                                     ),
                                     Expanded(
                                       child: Text(
-                                          _contrapartes[0].domicilioestudio !=
-                                                  null
-                                              ? _contrapartes[0]
-                                                  .domicilioestudio!
-                                              : '',
-                                          style: const TextStyle(
-                                            fontSize: 12,
-                                          )),
+                                        _contrapartes[0].domicilioestudio !=
+                                                null
+                                            ? _contrapartes[0].domicilioestudio!
+                                            : '',
+                                        style: const TextStyle(fontSize: 12),
+                                      ),
                                     ),
                                   ],
                                 ),
-                                const Divider(
-                                  color: Colors.black,
-                                ),
-                                const SizedBox(
-                                  height: 10,
-                                ),
+                                const Divider(color: Colors.black),
+                                const SizedBox(height: 10),
                                 _contrapartes[0].telefono.toString().isNotEmpty
                                     ? Row(
                                         children: [
                                           const SizedBox(
                                             width: 90,
-                                            child: Text('Teléfono fijo: ',
-                                                style: TextStyle(
-                                                  fontSize: 12,
-                                                  color: Color(0xFF0e4888),
-                                                  fontWeight: FontWeight.bold,
-                                                )),
-                                          ),
-                                          Expanded(
                                             child: Text(
-                                                _contrapartes[0]
-                                                    .telefono
-                                                    .toString(),
-                                                style: const TextStyle(
-                                                  fontSize: 12,
-                                                )),
-                                          ),
-                                          IconButton(
-                                            icon: const Icon(
-                                              Icons.phone_forwarded,
-                                              size: 34,
+                                              'Teléfono fijo: ',
+                                              style: TextStyle(
+                                                fontSize: 12,
+                                                color: Color(0xFF0e4888),
+                                                fontWeight: FontWeight.bold,
+                                              ),
                                             ),
-                                            color: Colors.green,
-                                            onPressed: () {
-                                              if (_contrapartes[
-                                                              0]
-                                                          .telefono
-                                                          .toString() !=
-                                                      'Sin Dato' &&
-                                                  _contrapartes[0]
-                                                          .telefono
-                                                          .toString() !=
-                                                      'xxx' &&
-                                                  _contrapartes[0]
-                                                          .telefono
-                                                          .toString() !=
-                                                      'XXX') {
-                                                launch(
-                                                    'tel://${_contrapartes[0].telefono.toString()}');
-                                              }
-                                            },
-                                          ),
-                                        ],
-                                      )
-                                    : Container(),
-                                _contrapartes[0].telefono.toString().isNotEmpty
-                                    ? const Divider(
-                                        color: Colors.black,
-                                      )
-                                    : Container(),
-                                _contrapartes[0].celular.toString().isNotEmpty
-                                    ? Row(
-                                        children: [
-                                          const SizedBox(
-                                            width: 90,
-                                            child: Text('Celular: ',
-                                                style: TextStyle(
-                                                  fontSize: 12,
-                                                  color: Color(0xFF0e4888),
-                                                  fontWeight: FontWeight.bold,
-                                                )),
                                           ),
                                           Expanded(
                                             child: Text(
-                                                _contrapartes[0]
-                                                    .celular
-                                                    .toString(),
-                                                style: const TextStyle(
-                                                  fontSize: 12,
-                                                )),
-                                          ),
-                                          ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(20),
-                                            child: Container(
-                                              height: 40,
-                                              width: 40,
-                                              color: Colors.green,
-                                              child: IconButton(
-                                                icon: const Icon(
-                                                  Icons.insert_comment,
-                                                  color: Colors.white,
-                                                ),
-                                                onPressed: () => _sendMessage(
-                                                    _contrapartes[0]
-                                                        .celular
-                                                        .toString()),
+                                              _contrapartes[0].telefono
+                                                  .toString(),
+                                              style: const TextStyle(
+                                                fontSize: 12,
                                               ),
                                             ),
                                           ),
@@ -529,20 +432,89 @@ class _JuicioInfoScreenState extends State<JuicioInfoScreen> {
                                             ),
                                             color: Colors.green,
                                             onPressed: () {
-                                              if (_contrapartes[0]
-                                                          .celular
+                                              if (_contrapartes[0].telefono
                                                           .toString() !=
                                                       'Sin Dato' &&
-                                                  _contrapartes[0]
-                                                          .celular
+                                                  _contrapartes[0].telefono
                                                           .toString() !=
                                                       'xxx' &&
-                                                  _contrapartes[0]
-                                                          .celular
+                                                  _contrapartes[0].telefono
                                                           .toString() !=
                                                       'XXX') {
                                                 launch(
-                                                    'tel://${_contrapartes[0].celular.toString()}');
+                                                  'tel://${_contrapartes[0].telefono.toString()}',
+                                                );
+                                              }
+                                            },
+                                          ),
+                                        ],
+                                      )
+                                    : Container(),
+                                _contrapartes[0].telefono.toString().isNotEmpty
+                                    ? const Divider(color: Colors.black)
+                                    : Container(),
+                                _contrapartes[0].celular.toString().isNotEmpty
+                                    ? Row(
+                                        children: [
+                                          const SizedBox(
+                                            width: 90,
+                                            child: Text(
+                                              'Celular: ',
+                                              style: TextStyle(
+                                                fontSize: 12,
+                                                color: Color(0xFF0e4888),
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                          ),
+                                          Expanded(
+                                            child: Text(
+                                              _contrapartes[0].celular
+                                                  .toString(),
+                                              style: const TextStyle(
+                                                fontSize: 12,
+                                              ),
+                                            ),
+                                          ),
+                                          ClipRRect(
+                                            borderRadius: BorderRadius.circular(
+                                              20,
+                                            ),
+                                            child: Container(
+                                              height: 40,
+                                              width: 40,
+                                              color: Colors.green,
+                                              child: IconButton(
+                                                icon: const Icon(
+                                                  Icons.insert_comment,
+                                                  color: Colors.white,
+                                                ),
+                                                onPressed: () => _sendMessage(
+                                                  _contrapartes[0].celular
+                                                      .toString(),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          IconButton(
+                                            icon: const Icon(
+                                              Icons.phone_forwarded,
+                                              size: 34,
+                                            ),
+                                            color: Colors.green,
+                                            onPressed: () {
+                                              if (_contrapartes[0].celular
+                                                          .toString() !=
+                                                      'Sin Dato' &&
+                                                  _contrapartes[0].celular
+                                                          .toString() !=
+                                                      'xxx' &&
+                                                  _contrapartes[0].celular
+                                                          .toString() !=
+                                                      'XXX') {
+                                                launch(
+                                                  'tel://${_contrapartes[0].celular.toString()}',
+                                                );
                                               }
                                             },
                                           ),
@@ -550,9 +522,7 @@ class _JuicioInfoScreenState extends State<JuicioInfoScreen> {
                                       )
                                     : Container(),
                                 _contrapartes[0].celular.toString().isNotEmpty
-                                    ? const Divider(
-                                        color: Colors.black,
-                                      )
+                                    ? const Divider(color: Colors.black)
                                     : Container(),
                               ],
                             ),
@@ -570,16 +540,21 @@ class _JuicioInfoScreenState extends State<JuicioInfoScreen> {
             color: Colors.white,
             height: 50,
             child: const Center(
-                child: Text('No hay datos de Contraparte',
-                    style: TextStyle(
-                        color: Colors.red,
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold))));
+              child: Text(
+                'No hay datos de Contraparte',
+                style: TextStyle(
+                  color: Colors.red,
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _showButtons ------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _showButtons ------------------------------
+  //-----------------------------------------------------------------
 
   Widget _showButtons() {
     return Container(
@@ -589,16 +564,6 @@ class _JuicioInfoScreenState extends State<JuicioInfoScreen> {
         children: <Widget>[
           Expanded(
             child: ElevatedButton(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  Icon(Icons.notifications),
-                  SizedBox(
-                    width: 20,
-                  ),
-                  Text('Notificaciones'),
-                ],
-              ),
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xFF781f1e),
                 minimumSize: const Size(double.infinity, 50),
@@ -617,23 +582,19 @@ class _JuicioInfoScreenState extends State<JuicioInfoScreen> {
                   ),
                 );
               },
-            ),
-          ),
-          const SizedBox(
-            width: 15,
-          ),
-          Expanded(
-            child: ElevatedButton(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: const [
-                  Icon(Icons.hourglass_bottom),
-                  SizedBox(
-                    width: 20,
-                  ),
-                  Text('Mediaciones'),
+                  Icon(Icons.notifications),
+                  SizedBox(width: 10),
+                  Text('Notificaciones'),
                 ],
               ),
+            ),
+          ),
+          const SizedBox(width: 15),
+          Expanded(
+            child: ElevatedButton(
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xFF781f1e),
                 minimumSize: const Size(double.infinity, 50),
@@ -652,6 +613,14 @@ class _JuicioInfoScreenState extends State<JuicioInfoScreen> {
                   ),
                 );
               },
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Icon(Icons.hourglass_bottom),
+                  SizedBox(width: 10),
+                  Text('Mediaciones'),
+                ],
+              ),
             ),
           ),
         ],
@@ -659,9 +628,9 @@ class _JuicioInfoScreenState extends State<JuicioInfoScreen> {
     );
   }
 
-//---------------------------------------------------------------------
-//-------------------------- _getContrapartes -------------------------
-//---------------------------------------------------------------------
+  //---------------------------------------------------------------------
+  //-------------------------- _getContrapartes -------------------------
+  //---------------------------------------------------------------------
 
   Future<void> _getContrapartes() async {
     if (widget.juicio.idContraparte == null) return;
@@ -677,7 +646,10 @@ class _JuicioInfoScreenState extends State<JuicioInfoScreen> {
         _showLoader = false;
       });
       showMyDialog(
-          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
+        'Error',
+        'Verifica que estés conectado a Internet',
+        'Aceptar',
+      );
     }
 
     Response response = Response(isSuccess: false);
@@ -690,12 +662,13 @@ class _JuicioInfoScreenState extends State<JuicioInfoScreen> {
 
     if (!response.isSuccess) {
       await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: response.message,
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message: response.message,
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
       return;
     }
 
@@ -704,133 +677,131 @@ class _JuicioInfoScreenState extends State<JuicioInfoScreen> {
     });
   }
 
-//------------------------------------------------------------------------
-//------------------------ _sendMessage ----------------------------------
-//------------------------------------------------------------------------
+  //------------------------------------------------------------------------
+  //------------------------ _sendMessage ----------------------------------
+  //------------------------------------------------------------------------
 
   void _sendMessage(String number) async {
-    String _number2 = number;
-    TextEditingController _phoneController = TextEditingController();
-    _phoneController.text = number;
+    String number2 = number;
+    TextEditingController phoneController = TextEditingController();
+    phoneController.text = number;
 
     if (number == 'xxx' || number == 'XXX') return;
 
     await showDialog(
-        barrierDismissible: false,
-        context: context,
-        builder: (BuildContext context) {
-          return StatefulBuilder(
-            builder: (context, setState) {
-              return AlertDialog(
-                title: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: const [
-                    Text(
-                      'Atención!!',
-                      style: TextStyle(color: Colors.green, fontSize: 20),
+      barrierDismissible: false,
+      context: context,
+      builder: (BuildContext context) {
+        return StatefulBuilder(
+          builder: (context, setState) {
+            return AlertDialog(
+              title: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: const [
+                  Text(
+                    'Atención!!',
+                    style: TextStyle(color: Colors.green, fontSize: 20),
+                  ),
+                ],
+              ),
+              content: SizedBox(
+                height: 170,
+                child: Column(
+                  children: [
+                    const Text(
+                      'Verifique si el N° de teléfono tiene el formato correcto para WhatsApp',
+                      style: TextStyle(fontSize: 14),
+                    ),
+                    const Text(''),
+                    TextField(
+                      controller: phoneController,
+                      decoration: InputDecoration(
+                        fillColor: Colors.white,
+                        filled: true,
+                        hintText: 'Teléfono...',
+                        labelText: 'Teléfono',
+                        prefixIcon: const Icon(Icons.phone),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                      onChanged: (value) {
+                        number2 = value;
+                      },
+                    ),
+                    const SizedBox(height: 10),
+                    Expanded(
+                      flex: 1,
+                      child: ElevatedButton(
+                        child: const Text('+549'),
+                        onPressed: () async {
+                          phoneController.text = '549${phoneController.text}';
+                        },
+                      ),
                     ),
                   ],
                 ),
-                content: SizedBox(
-                  height: 170,
-                  child: Column(
-                    children: [
-                      const Text(
-                        'Verifique si el N° de teléfono tiene el formato correcto para WhatsApp',
-                        style: TextStyle(fontSize: 14),
-                      ),
-                      const Text(''),
-                      TextField(
-                        controller: _phoneController,
-                        decoration: InputDecoration(
-                            fillColor: Colors.white,
-                            filled: true,
-                            hintText: 'Teléfono...',
-                            labelText: 'Teléfono',
-                            prefixIcon: const Icon(Icons.phone),
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10))),
-                        onChanged: (value) {
-                          _number2 = value;
-                        },
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Expanded(
-                        flex: 1,
-                        child: ElevatedButton(
-                            child: const Text('+549'),
-                            onPressed: () async {
-                              _phoneController.text =
-                                  '549' + _phoneController.text;
-                            }),
-                      ),
+              ),
+              actions: <Widget>[
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.green,
+                    minimumSize: const Size(double.infinity, 50),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                  ),
+                  onPressed: () async {
+                    final link = WhatsAppUnilink(
+                      phoneNumber: number2,
+                      //***** MENSAJE DE CONTACTO *****
+                      text:
+                          'Hola mi nombre es ${widget.user.fullName} de la Empresa Rowing. ',
+                    );
+                    await launch('$link');
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: const [
+                      Icon(Icons.insert_comment),
+                      SizedBox(width: 15),
+                      Text('Continuar'),
                     ],
                   ),
                 ),
-                actions: <Widget>[
-                  ElevatedButton(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [
-                        Icon(Icons.insert_comment),
-                        SizedBox(
-                          width: 15,
-                        ),
-                        Text('Continuar'),
-                      ],
+                const SizedBox(height: 10),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.red,
+                    minimumSize: const Size(double.infinity, 50),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5),
                     ),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.green,
-                      minimumSize: const Size(double.infinity, 50),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                    ),
-                    onPressed: () async {
-                      final link = WhatsAppUnilink(
-                        phoneNumber: _number2,
-                        //***** MENSAJE DE CONTACTO *****
-                        text:
-                            'Hola mi nombre es ${widget.user.fullName} de la Empresa Rowing. ',
-                      );
-                      await launch('$link');
-                    },
                   ),
-                  const SizedBox(
-                    height: 10,
+                  onPressed: () {
+                    Navigator.pop(context);
+                    return;
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: const [
+                      Icon(Icons.cancel),
+                      SizedBox(width: 15),
+                      Text('Cancelar'),
+                    ],
                   ),
-                  ElevatedButton(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [
-                        Icon(Icons.cancel),
-                        SizedBox(
-                          width: 15,
-                        ),
-                        Text('Cancelar'),
-                      ],
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.red,
-                      minimumSize: const Size(double.infinity, 50),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                    ),
-                    onPressed: () {
-                      Navigator.pop(context);
-                      return;
-                    },
-                  ),
-                ],
-                shape: Border.all(
-                    color: Colors.green, width: 5, style: BorderStyle.solid),
-                backgroundColor: Colors.white,
-              );
-            },
-          );
-        });
+                ),
+              ],
+              shape: Border.all(
+                color: Colors.green,
+                width: 5,
+                style: BorderStyle.solid,
+              ),
+              backgroundColor: Colors.white,
+            );
+          },
+        );
+      },
+    );
   }
 }

@@ -1,5 +1,5 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
-import 'package:connectivity/connectivity.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -17,64 +17,65 @@ class LegalesScreen extends StatefulWidget {
 }
 
 class _LegalesScreenState extends State<LegalesScreen> {
-//---------------------------------------------------------------------
-//-------------------------- Variables --------------------------------
-//---------------------------------------------------------------------
+  //---------------------------------------------------------------------
+  //-------------------------- Variables --------------------------------
+  //---------------------------------------------------------------------
   List<Juicio> _juicios = [];
   bool _showLoader = false;
   bool _isFiltered = false;
   String _search = '';
 
   Juicio _juicioSeleccionado = Juicio(
-      iDCASO: 0,
-      tipocaso: '',
-      estado: '',
-      fechAINICIO: '',
-      fEULTMOV: '',
-      cerrado: 0,
-      fechACIERRE: '',
-      caratula: '',
-      cliente: '',
-      abogado: '',
-      juzgado: '',
-      escribano: '',
-      juez: '',
-      importejuicio: 0,
-      moneda: '',
-      importerealdeuda: 0,
-      fechAVENCIMIENTO: '',
-      fechacalculo: '',
-      diasatraso: 0,
-      intereseSMORATORIOS: 0,
-      importeinteres: 0,
-      intereseSPUNITORIOS: 0,
-      importepunitorio: 0,
-      gastoSJUDICIALES: 0,
-      importegastos: 0,
-      cobroscliente: 0,
-      pagosdemandado: 0,
-      honorarios: 0,
-      importehonorarios: 0,
-      varios: 0,
-      importevarios: 0,
-      periodo: 0,
-      grupo: '',
-      causante: '',
-      iduserimput: 0,
-      nroExpediente: '',
-      idContraparte: 0);
+    iDCASO: 0,
+    tipocaso: '',
+    estado: '',
+    fechAINICIO: '',
+    fEULTMOV: '',
+    cerrado: 0,
+    fechACIERRE: '',
+    caratula: '',
+    cliente: '',
+    abogado: '',
+    juzgado: '',
+    escribano: '',
+    juez: '',
+    importejuicio: 0,
+    moneda: '',
+    importerealdeuda: 0,
+    fechAVENCIMIENTO: '',
+    fechacalculo: '',
+    diasatraso: 0,
+    intereseSMORATORIOS: 0,
+    importeinteres: 0,
+    intereseSPUNITORIOS: 0,
+    importepunitorio: 0,
+    gastoSJUDICIALES: 0,
+    importegastos: 0,
+    cobroscliente: 0,
+    pagosdemandado: 0,
+    honorarios: 0,
+    importehonorarios: 0,
+    varios: 0,
+    importevarios: 0,
+    periodo: 0,
+    grupo: '',
+    causante: '',
+    iduserimput: 0,
+    nroExpediente: '',
+    idContraparte: 0,
+  );
 
-//---------------------------------------------------------------------
-//-------------------------- InitState --------------------------------
-//---------------------------------------------------------------------
+  //---------------------------------------------------------------------
+  //-------------------------- InitState --------------------------------
+  //---------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
     _getJuicios();
   }
-//---------------------------------------------------------------------
-//-------------------------- Pantalla ---------------------------------
-//---------------------------------------------------------------------
+  //---------------------------------------------------------------------
+  //-------------------------- Pantalla ---------------------------------
+  //---------------------------------------------------------------------
 
   @override
   Widget build(BuildContext context) {
@@ -86,9 +87,13 @@ class _LegalesScreenState extends State<LegalesScreen> {
         actions: <Widget>[
           _isFiltered
               ? IconButton(
-                  onPressed: _removeFilter, icon: const Icon(Icons.filter_none))
+                  onPressed: _removeFilter,
+                  icon: const Icon(Icons.filter_none),
+                )
               : IconButton(
-                  onPressed: _showFilter, icon: const Icon(Icons.filter_alt)),
+                  onPressed: _showFilter,
+                  icon: const Icon(Icons.filter_alt),
+                ),
         ],
       ),
       body: Center(
@@ -99,24 +104,22 @@ class _LegalesScreenState extends State<LegalesScreen> {
     );
   }
 
-//---------------------------------------------------------------------
-//------------------------------ _getContent --------------------------
-//---------------------------------------------------------------------
+  //---------------------------------------------------------------------
+  //------------------------------ _getContent --------------------------
+  //---------------------------------------------------------------------
 
   Widget _getContent() {
     return Column(
       children: <Widget>[
         _showJuiciosCount(),
-        Expanded(
-          child: _juicios.isEmpty ? _noContent() : _getListView(),
-        )
+        Expanded(child: _juicios.isEmpty ? _noContent() : _getListView()),
       ],
     );
   }
 
-//--------------------------------------------------------------------------
-//------------------------------  _showJuiciosCount ------------------------
-//--------------------------------------------------------------------------
+  //--------------------------------------------------------------------------
+  //------------------------------  _showJuiciosCount ------------------------
+  //--------------------------------------------------------------------------
 
   Widget _showJuiciosCount() {
     return Container(
@@ -124,26 +127,30 @@ class _LegalesScreenState extends State<LegalesScreen> {
       height: 40,
       child: Row(
         children: [
-          const Text('Cantidad de Juicios: ',
-              style: TextStyle(
-                fontSize: 14,
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-              )),
-          Text(_juicios.length.toString(),
-              style: const TextStyle(
-                fontSize: 14,
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-              )),
+          const Text(
+            'Cantidad de Juicios: ',
+            style: TextStyle(
+              fontSize: 14,
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          Text(
+            _juicios.length.toString(),
+            style: const TextStyle(
+              fontSize: 14,
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ],
       ),
     );
   }
 
-//-----------------------------------------------------------------------
-//------------------------------ _noContent -----------------------------
-//-----------------------------------------------------------------------
+  //-----------------------------------------------------------------------
+  //------------------------------ _noContent -----------------------------
+  //-----------------------------------------------------------------------
 
   Widget _noContent() {
     return Container(
@@ -159,9 +166,9 @@ class _LegalesScreenState extends State<LegalesScreen> {
     );
   }
 
-//-----------------------------------------------------------------------
-//------------------------------ _getListView ---------------------------
-//-----------------------------------------------------------------------
+  //-----------------------------------------------------------------------
+  //------------------------------ _getListView ---------------------------
+  //-----------------------------------------------------------------------
 
   Widget _getListView() {
     return RefreshIndicator(
@@ -207,51 +214,51 @@ class _LegalesScreenState extends State<LegalesScreen> {
                                       ),
                                       Expanded(
                                         flex: 2,
-                                        child: Text(e.iDCASO.toString(),
-                                            style: const TextStyle(
-                                              fontSize: 12,
-                                            )),
+                                        child: Text(
+                                          e.iDCASO.toString(),
+                                          style: const TextStyle(fontSize: 12),
+                                        ),
                                       ),
-                                      const Text('N° Expediente: ',
-                                          style: TextStyle(
-                                            fontSize: 12,
-                                            color: Color(0xFF781f1e),
-                                            fontWeight: FontWeight.bold,
-                                          )),
+                                      const Text(
+                                        'N° Expediente: ',
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                          color: Color(0xFF781f1e),
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
                                       Expanded(
                                         flex: 2,
-                                        child: Text(e.nroExpediente.toString(),
-                                            style: const TextStyle(
-                                              fontSize: 12,
-                                            )),
+                                        child: Text(
+                                          e.nroExpediente.toString(),
+                                          style: const TextStyle(fontSize: 12),
+                                        ),
                                       ),
                                     ],
                                   ),
-                                  const SizedBox(
-                                    height: 5,
-                                  ),
+                                  const SizedBox(height: 5),
                                   Row(
                                     children: [
                                       const SizedBox(
                                         width: 70,
-                                        child: Text('Tipo Caso: ',
-                                            style: TextStyle(
-                                              fontSize: 12,
-                                              color: Color(0xFF781f1e),
-                                              fontWeight: FontWeight.bold,
-                                            )),
+                                        child: Text(
+                                          'Tipo Caso: ',
+                                          style: TextStyle(
+                                            fontSize: 12,
+                                            color: Color(0xFF781f1e),
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
                                       ),
                                       Expanded(
-                                        child: Text(e.tipocaso.toString(),
-                                            style: const TextStyle(
-                                              fontSize: 12,
-                                            )),
+                                        child: Text(
+                                          e.tipocaso.toString(),
+                                          style: const TextStyle(fontSize: 12),
+                                        ),
                                       ),
                                     ],
                                   ),
-                                  const SizedBox(
-                                    height: 5,
-                                  ),
+                                  const SizedBox(height: 5),
                                   Row(
                                     children: [
                                       const SizedBox(
@@ -266,16 +273,14 @@ class _LegalesScreenState extends State<LegalesScreen> {
                                         ),
                                       ),
                                       Expanded(
-                                        child: Text(e.estado.toString(),
-                                            style: const TextStyle(
-                                              fontSize: 12,
-                                            )),
+                                        child: Text(
+                                          e.estado.toString(),
+                                          style: const TextStyle(fontSize: 12),
+                                        ),
                                       ),
                                     ],
                                   ),
-                                  const SizedBox(
-                                    height: 5,
-                                  ),
+                                  const SizedBox(height: 5),
                                   Row(
                                     children: [
                                       const SizedBox(
@@ -293,18 +298,19 @@ class _LegalesScreenState extends State<LegalesScreen> {
                                         child: e.fEULTMOV != null
                                             ? Text(
                                                 DateFormat('dd/MM/yyyy').format(
-                                                    DateTime.parse(
-                                                        e.fEULTMOV.toString())),
+                                                  DateTime.parse(
+                                                    e.fEULTMOV.toString(),
+                                                  ),
+                                                ),
                                                 style: const TextStyle(
                                                   fontSize: 12,
-                                                ))
+                                                ),
+                                              )
                                             : Container(),
                                       ),
                                     ],
                                   ),
-                                  const SizedBox(
-                                    height: 5,
-                                  ),
+                                  const SizedBox(height: 5),
                                   Row(
                                     children: [
                                       const SizedBox(
@@ -319,16 +325,14 @@ class _LegalesScreenState extends State<LegalesScreen> {
                                         ),
                                       ),
                                       Expanded(
-                                        child: Text(e.caratula.toString(),
-                                            style: const TextStyle(
-                                              fontSize: 12,
-                                            )),
+                                        child: Text(
+                                          e.caratula.toString(),
+                                          style: const TextStyle(fontSize: 12),
+                                        ),
                                       ),
                                     ],
                                   ),
-                                  const SizedBox(
-                                    height: 5,
-                                  ),
+                                  const SizedBox(height: 5),
                                   Row(
                                     children: [
                                       const SizedBox(
@@ -343,10 +347,10 @@ class _LegalesScreenState extends State<LegalesScreen> {
                                         ),
                                       ),
                                       Expanded(
-                                        child: Text(e.abogado.toString(),
-                                            style: const TextStyle(
-                                              fontSize: 12,
-                                            )),
+                                        child: Text(
+                                          e.abogado.toString(),
+                                          style: const TextStyle(fontSize: 12),
+                                        ),
                                       ),
                                     ],
                                   ),
@@ -368,9 +372,9 @@ class _LegalesScreenState extends State<LegalesScreen> {
     );
   }
 
-//---------------------------------------------------------------------
-//-------------------------- _getJuicios ------------------------------
-//---------------------------------------------------------------------
+  //---------------------------------------------------------------------
+  //-------------------------- _getJuicios ------------------------------
+  //---------------------------------------------------------------------
 
   Future<void> _getJuicios() async {
     setState(() {
@@ -384,7 +388,10 @@ class _LegalesScreenState extends State<LegalesScreen> {
         _showLoader = false;
       });
       showMyDialog(
-          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
+        'Error',
+        'Verifica que estés conectado a Internet',
+        'Aceptar',
+      );
     }
 
     Response response = Response(isSuccess: false);
@@ -397,12 +404,13 @@ class _LegalesScreenState extends State<LegalesScreen> {
 
     if (!response.isSuccess) {
       await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: response.message,
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message: response.message,
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
       return;
     }
 
@@ -414,9 +422,9 @@ class _LegalesScreenState extends State<LegalesScreen> {
     });
   }
 
-//-----------------------------------------------------------------
-//------------------------------ _filter --------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //------------------------------ _filter --------------------------
+  //-----------------------------------------------------------------
 
   _filter() {
     if (_search.isEmpty) {
@@ -443,9 +451,9 @@ class _LegalesScreenState extends State<LegalesScreen> {
     Navigator.of(context).pop();
   }
 
-//-----------------------------------------------------------------------
-//------------------------------ _removeFilter --------------------------
-//-----------------------------------------------------------------------
+  //-----------------------------------------------------------------------
+  //------------------------------ _removeFilter --------------------------
+  //-----------------------------------------------------------------------
 
   void _removeFilter() {
     setState(() {
@@ -454,63 +462,70 @@ class _LegalesScreenState extends State<LegalesScreen> {
     _getJuicios();
   }
 
-//---------------------------------------------------------------------
-//------------------------------ _showFilter --------------------------
-//---------------------------------------------------------------------
+  //---------------------------------------------------------------------
+  //------------------------------ _showFilter --------------------------
+  //---------------------------------------------------------------------
 
   void _showFilter() {
     showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
-            title: const Text('Filtrar Juicios'),
-            content: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+          title: const Text('Filtrar Juicios'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
               const Text(
                 'Escriba texto o números a buscar en Abogado o Carátula o en N° de Expediente: ',
                 style: TextStyle(fontSize: 12),
               ),
-              const SizedBox(
-                height: 10,
-              ),
+              const SizedBox(height: 10),
               TextField(
                 autofocus: true,
                 decoration: InputDecoration(
-                    hintText: 'Criterio de búsqueda...',
-                    labelText: 'Buscar',
-                    suffixIcon: const Icon(Icons.search),
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10))),
+                  hintText: 'Criterio de búsqueda...',
+                  labelText: 'Buscar',
+                  suffixIcon: const Icon(Icons.search),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
                 onChanged: (value) {
                   _search = value;
                 },
               ),
-            ]),
-            actions: <Widget>[
-              TextButton(
-                  onPressed: () => Navigator.of(context).pop(),
-                  child: const Text('Cancelar')),
-              TextButton(
-                  onPressed: () => _filter(), child: const Text('Filtrar')),
             ],
-          );
-        });
+          ),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text('Cancelar'),
+            ),
+            TextButton(
+              onPressed: () => _filter(),
+              child: const Text('Filtrar'),
+            ),
+          ],
+        );
+      },
+    );
   }
 
-//---------------------------------------------------------------------------
-//------------------------------ _goInfoJuicio ------------------------------
-//---------------------------------------------------------------------------
+  //---------------------------------------------------------------------------
+  //------------------------------ _goInfoJuicio ------------------------------
+  //---------------------------------------------------------------------------
 
   void _goInfoJuicio(Juicio juicio) async {
     String? result = await Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => JuicioInfoScreen(
-                  user: widget.user,
-                  juicio: juicio,
-                )));
+      context,
+      MaterialPageRoute(
+        builder: (context) =>
+            JuicioInfoScreen(user: widget.user, juicio: juicio),
+      ),
+    );
     if (result == 'yes' || result != 'yes') {
       //_getJuicios();
       setState(() {});

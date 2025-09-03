@@ -3,7 +3,7 @@ import 'dart:io';
 
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:camera/camera.dart';
-import 'package:connectivity/connectivity.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 
 import '../../helpers/helpers.dart';
@@ -13,25 +13,25 @@ class DisplayPictureDScreen extends StatefulWidget {
   final XFile image;
   final Causante causante;
 
-  const DisplayPictureDScreen(
-      {Key? key, required this.image, required this.causante})
-      : super(key: key);
+  const DisplayPictureDScreen({
+    super.key,
+    required this.image,
+    required this.causante,
+  });
 
   @override
   _DisplayPictureDScreenState createState() => _DisplayPictureDScreenState();
 }
 
 class _DisplayPictureDScreenState extends State<DisplayPictureDScreen> {
-//---------------------------------------------------------------
-//----------------------- Pantalla -----------------------------
-//---------------------------------------------------------------
+  //---------------------------------------------------------------
+  //----------------------- Pantalla -----------------------------
+  //---------------------------------------------------------------
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Vista previa de la foto'),
-      ),
+      appBar: AppBar(title: const Text('Vista previa de la foto')),
       body: Column(
         children: [
           Image.file(
@@ -40,55 +40,54 @@ class _DisplayPictureDScreenState extends State<DisplayPictureDScreen> {
             fit: BoxFit.cover,
           ),
           Container(
-              margin: const EdgeInsets.all(10),
-              child: Row(
-                children: <Widget>[
-                  Expanded(
-                    child: ElevatedButton(
-                      child: const Text('Usar Foto'),
-                      style: ButtonStyle(
-                        backgroundColor:
-                            MaterialStateProperty.resolveWith<Color>(
-                                (Set<MaterialState> states) {
-                          return const Color(0xFF120E43);
-                        }),
-                      ),
-                      onPressed: () {
-                        _saveRecord();
-                        //Navigator.pop(context, response);
-                      },
+            margin: const EdgeInsets.all(10),
+            child: Row(
+              children: <Widget>[
+                Expanded(
+                  child: ElevatedButton(
+                    style: ButtonStyle(
+                      backgroundColor: WidgetStateProperty.resolveWith<Color>((
+                        Set<WidgetState> states,
+                      ) {
+                        return const Color(0xFF120E43);
+                      }),
                     ),
+                    onPressed: () {
+                      _saveRecord();
+                      //Navigator.pop(context, response);
+                    },
+                    child: const Text('Usar Foto'),
                   ),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  Expanded(
-                    child: ElevatedButton(
-                      child: const Text('Volver a tomar'),
-                      style: ButtonStyle(
-                        backgroundColor:
-                            MaterialStateProperty.resolveWith<Color>(
-                                (Set<MaterialState> states) {
-                          return const Color(0xFFE03B8B);
-                        }),
-                      ),
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
+                ),
+                const SizedBox(width: 10),
+                Expanded(
+                  child: ElevatedButton(
+                    style: ButtonStyle(
+                      backgroundColor: WidgetStateProperty.resolveWith<Color>((
+                        Set<WidgetState> states,
+                      ) {
+                        return const Color(0xFFE03B8B);
+                      }),
                     ),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: const Text('Volver a tomar'),
                   ),
-                ],
-              )),
+                ),
+              ],
+            ),
+          ),
         ],
       ),
     );
   }
 
-//---------------------------------------------------------------
-//----------------------- _saveRecord ---------------------------
-//---------------------------------------------------------------
+  //---------------------------------------------------------------
+  //----------------------- _saveRecord ---------------------------
+  //---------------------------------------------------------------
 
-  _saveRecord() async {
+  Future<void> _saveRecord() async {
     String base64Image = '';
 
     List<int> imageBytes = await widget.image.readAsBytes();
@@ -98,7 +97,10 @@ class _DisplayPictureDScreenState extends State<DisplayPictureDScreen> {
 
     if (connectivityResult == ConnectivityResult.none) {
       showMyDialog(
-          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
+        'Error',
+        'Verifica que estés conectado a Internet',
+        'Aceptar',
+      );
     }
 
     Map<String, dynamic> request = {
@@ -109,9 +111,7 @@ class _DisplayPictureDScreenState extends State<DisplayPictureDScreen> {
       'TelefonoContacto1': widget.causante.telefonoContacto1,
       'TelefonoContacto2': widget.causante.telefonoContacto2,
       'TelefonoContacto3': widget.causante.telefonoContacto3,
-      'fecha': widget.causante.fecha != null
-          ? widget.causante.fecha!.toString().substring(0, 10)
-          : null,
+      'fecha': widget.causante.fecha?.toString().substring(0, 10),
       'NotasCausantes': widget.causante.notasCausantes,
       'ciudad': widget.causante.ciudad,
       'Provincia': widget.causante.provincia,
@@ -121,25 +121,30 @@ class _DisplayPictureDScreenState extends State<DisplayPictureDScreen> {
     };
 
     Response response = await ApiHelper.put(
-        '/api/Causantes/', widget.causante.nroCausante.toString(), request);
+      '/api/Causantes/',
+      widget.causante.nroCausante.toString(),
+      request,
+    );
 
     if (!response.isSuccess) {
       await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: response.message,
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message: response.message,
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
       return;
     } else {
       await showAlertDialog(
-          context: context,
-          title: 'Aviso',
-          message: 'Guardado con éxito!',
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Aviso',
+        message: 'Guardado con éxito!',
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
       Navigator.pop(context, 'yes');
     }
   }

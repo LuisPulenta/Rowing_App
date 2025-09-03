@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:camera/camera.dart';
-import 'package:connectivity/connectivity.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
@@ -17,33 +17,36 @@ import '../screens.dart';
 class MovimientoInfoScreen extends StatefulWidget {
   final User user;
   final Movimiento movimiento;
-  const MovimientoInfoScreen(
-      {Key? key, required this.user, required this.movimiento})
-      : super(key: key);
+  const MovimientoInfoScreen({
+    super.key,
+    required this.user,
+    required this.movimiento,
+  });
 
   @override
   State<MovimientoInfoScreen> createState() => _MovimientoInfoScreenState();
 }
 
 class _MovimientoInfoScreenState extends State<MovimientoInfoScreen> {
-//---------------------------------------------------------------
-//----------------------- Variables -----------------------------
-//---------------------------------------------------------------
+  //---------------------------------------------------------------
+  //----------------------- Variables -----------------------------
+  //---------------------------------------------------------------
 
   Movimiento _movimiento = Movimiento(
-      nroMovimiento: 0,
-      fechaCarga: '',
-      codigoConcepto: '',
-      codigoGrupo: '',
-      codigoCausante: '',
-      codigoGrupoRec: '',
-      codigoCausanteRec: '',
-      nroRemitoR: 0,
-      docSAP: '',
-      nroLote: 0,
-      usrAlta: 0,
-      linkRemito: '',
-      imageFullPath: '');
+    nroMovimiento: 0,
+    fechaCarga: '',
+    codigoConcepto: '',
+    codigoGrupo: '',
+    codigoCausante: '',
+    codigoGrupoRec: '',
+    codigoCausanteRec: '',
+    nroRemitoR: 0,
+    docSAP: '',
+    nroLote: 0,
+    usrAlta: 0,
+    linkRemito: '',
+    imageFullPath: '',
+  );
 
   final bool _showLoader = false;
 
@@ -51,9 +54,9 @@ class _MovimientoInfoScreenState extends State<MovimientoInfoScreen> {
   late Photo _photo;
   late XFile _image;
 
-//---------------------------------------------------------------
-//----------------------- initState -----------------------------
-//---------------------------------------------------------------
+  //---------------------------------------------------------------
+  //----------------------- initState -----------------------------
+  //---------------------------------------------------------------
 
   @override
   void initState() {
@@ -61,9 +64,9 @@ class _MovimientoInfoScreenState extends State<MovimientoInfoScreen> {
     _movimiento = widget.movimiento;
   }
 
-//---------------------------------------------------------------
-//----------------------- Pantalla -----------------------------
-//---------------------------------------------------------------
+  //---------------------------------------------------------------
+  //----------------------- Pantalla -----------------------------
+  //---------------------------------------------------------------
 
   @override
   Widget build(BuildContext context) {
@@ -87,20 +90,19 @@ class _MovimientoInfoScreenState extends State<MovimientoInfoScreen> {
                           ? Center(
                               child: FadeInImage(
                                 width: ancho * 0.9,
-                                placeholder:
-                                    const AssetImage('assets/loading.gif'),
+                                placeholder: const AssetImage(
+                                  'assets/loading.gif',
+                                ),
                                 image: NetworkImage(_movimiento.imageFullPath!),
                               ),
                             )
-                          : Container()
+                          : Container(),
                     ],
                   ),
                 ),
               ),
               _showImageButtons(),
-              const SizedBox(
-                height: 5,
-              ),
+              const SizedBox(height: 5),
             ],
           ),
           _showLoader
@@ -111,9 +113,9 @@ class _MovimientoInfoScreenState extends State<MovimientoInfoScreen> {
     );
   }
 
-//-----------------------------------------------------------------------
-//-------------------------- _getInfoMovimiento -------------------------
-//-----------------------------------------------------------------------
+  //-----------------------------------------------------------------------
+  //-------------------------- _getInfoMovimiento -------------------------
+  //-----------------------------------------------------------------------
 
   Widget _getInfoMovimiento() {
     return Card(
@@ -140,171 +142,179 @@ class _MovimientoInfoScreenState extends State<MovimientoInfoScreen> {
                           children: [
                             Row(
                               children: [
-                                const Text('N°: ',
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      color: Color(0xFF781f1e),
-                                      fontWeight: FontWeight.bold,
-                                    )),
+                                const Text(
+                                  'N°: ',
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: Color(0xFF781f1e),
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
                                 Expanded(
                                   flex: 3,
-                                  child:
-                                      Text(_movimiento.nroMovimiento.toString(),
-                                          style: const TextStyle(
-                                            fontSize: 12,
-                                          )),
+                                  child: Text(
+                                    _movimiento.nroMovimiento.toString(),
+                                    style: const TextStyle(fontSize: 12),
+                                  ),
                                 ),
-                                const Text('Fecha: ',
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      color: Color(0xFF781f1e),
-                                      fontWeight: FontWeight.bold,
-                                    )),
+                                const Text(
+                                  'Fecha: ',
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: Color(0xFF781f1e),
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
                                 Expanded(
                                   flex: 4,
                                   child: _movimiento.fechaCarga != null
                                       ? Text(
                                           DateFormat('dd/MM/yyyy').format(
-                                              DateTime.parse(_movimiento
-                                                  .fechaCarga
-                                                  .toString())),
-                                          style: const TextStyle(
-                                            fontSize: 12,
-                                          ))
+                                            DateTime.parse(
+                                              _movimiento.fechaCarga.toString(),
+                                            ),
+                                          ),
+                                          style: const TextStyle(fontSize: 12),
+                                        )
                                       : Container(),
                                 ),
-                                const Text('C.Conc.: ',
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      color: Color(0xFF781f1e),
-                                      fontWeight: FontWeight.bold,
-                                    )),
+                                const Text(
+                                  'C.Conc.: ',
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: Color(0xFF781f1e),
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
                                 Expanded(
                                   flex: 4,
                                   child: Text(
-                                      _movimiento.codigoConcepto.toString(),
-                                      style: const TextStyle(
-                                        fontSize: 12,
-                                      )),
+                                    _movimiento.codigoConcepto.toString(),
+                                    style: const TextStyle(fontSize: 12),
+                                  ),
                                 ),
                               ],
                             ),
-                            const SizedBox(
-                              height: 5,
-                            ),
+                            const SizedBox(height: 5),
                             Row(
                               children: [
-                                const Text('Grupo Desde: ',
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      color: Color(0xFF781f1e),
-                                      fontWeight: FontWeight.bold,
-                                    )),
-                                Expanded(
-                                  child: Text(_movimiento.codigoGrupo!,
-                                      style: const TextStyle(
-                                        fontSize: 12,
-                                      )),
+                                const Text(
+                                  'Grupo Desde: ',
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: Color(0xFF781f1e),
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
-                                const Text('Causante Desde: ',
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      color: Color(0xFF781f1e),
-                                      fontWeight: FontWeight.bold,
-                                    )),
                                 Expanded(
-                                  child: Text(_movimiento.codigoCausante!,
-                                      style: const TextStyle(
-                                        fontSize: 12,
-                                      )),
+                                  child: Text(
+                                    _movimiento.codigoGrupo!,
+                                    style: const TextStyle(fontSize: 12),
+                                  ),
+                                ),
+                                const Text(
+                                  'Causante Desde: ',
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: Color(0xFF781f1e),
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                Expanded(
+                                  child: Text(
+                                    _movimiento.codigoCausante!,
+                                    style: const TextStyle(fontSize: 12),
+                                  ),
                                 ),
                               ],
                             ),
-                            const SizedBox(
-                              height: 5,
-                            ),
-                            const SizedBox(
-                              height: 5,
-                            ),
+                            const SizedBox(height: 5),
+                            const SizedBox(height: 5),
                             Row(
                               children: [
-                                const Text('Grupo Recibe: ',
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      color: Color(0xFF781f1e),
-                                      fontWeight: FontWeight.bold,
-                                    )),
-                                Expanded(
-                                  child: Text(_movimiento.codigoGrupoRec!,
-                                      style: const TextStyle(
-                                        fontSize: 12,
-                                      )),
+                                const Text(
+                                  'Grupo Recibe: ',
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: Color(0xFF781f1e),
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
-                                const Text('Causante Recibe: ',
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      color: Color(0xFF781f1e),
-                                      fontWeight: FontWeight.bold,
-                                    )),
                                 Expanded(
-                                  child: Text(_movimiento.codigoCausanteRec!,
-                                      style: const TextStyle(
-                                        fontSize: 12,
-                                      )),
+                                  child: Text(
+                                    _movimiento.codigoGrupoRec!,
+                                    style: const TextStyle(fontSize: 12),
+                                  ),
+                                ),
+                                const Text(
+                                  'Causante Recibe: ',
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: Color(0xFF781f1e),
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                Expanded(
+                                  child: Text(
+                                    _movimiento.codigoCausanteRec!,
+                                    style: const TextStyle(fontSize: 12),
+                                  ),
                                 ),
                               ],
                             ),
-                            const SizedBox(
-                              height: 5,
-                            ),
+                            const SizedBox(height: 5),
                             Row(
                               children: [
-                                const Text('N° Remito: ',
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      color: Color(0xFF781f1e),
-                                      fontWeight: FontWeight.bold,
-                                    )),
-                                Expanded(
-                                  child: Text(_movimiento.nroRemitoR.toString(),
-                                      style: const TextStyle(
-                                        fontSize: 12,
-                                      )),
+                                const Text(
+                                  'N° Remito: ',
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: Color(0xFF781f1e),
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
-                                const Text('N° Lote: ',
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      color: Color(0xFF781f1e),
-                                      fontWeight: FontWeight.bold,
-                                    )),
                                 Expanded(
-                                  child: Text(_movimiento.nroLote.toString(),
-                                      style: const TextStyle(
-                                        fontSize: 12,
-                                      )),
+                                  child: Text(
+                                    _movimiento.nroRemitoR.toString(),
+                                    style: const TextStyle(fontSize: 12),
+                                  ),
                                 ),
-                                const Text('Foto: ',
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      color: Color(0xFF781f1e),
-                                      fontWeight: FontWeight.bold,
-                                    )),
+                                const Text(
+                                  'N° Lote: ',
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: Color(0xFF781f1e),
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                Expanded(
+                                  child: Text(
+                                    _movimiento.nroLote.toString(),
+                                    style: const TextStyle(fontSize: 12),
+                                  ),
+                                ),
+                                const Text(
+                                  'Foto: ',
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: Color(0xFF781f1e),
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
                                 Expanded(
                                   child: _movimiento.linkRemito != null
-                                      ? const Text('SI',
-                                          style: TextStyle(
-                                            fontSize: 12,
-                                          ))
-                                      : const Text('NO',
-                                          style: TextStyle(
-                                            fontSize: 12,
-                                          )),
+                                      ? const Text(
+                                          'SI',
+                                          style: TextStyle(fontSize: 12),
+                                        )
+                                      : const Text(
+                                          'NO',
+                                          style: TextStyle(fontSize: 12),
+                                        ),
                                 ),
                               ],
                             ),
-                            const SizedBox(
-                              height: 5,
-                            ),
+                            const SizedBox(height: 5),
                           ],
                         ),
                       ),
@@ -319,9 +329,9 @@ class _MovimientoInfoScreenState extends State<MovimientoInfoScreen> {
     );
   }
 
-//-----------------------------------------------------------------------
-//-------------------------- _showImageButtons --------------------------
-//-----------------------------------------------------------------------
+  //-----------------------------------------------------------------------
+  //-------------------------- _showImageButtons --------------------------
+  //-----------------------------------------------------------------------
 
   Widget _showImageButtons() {
     return Container(
@@ -333,13 +343,6 @@ class _MovimientoInfoScreenState extends State<MovimientoInfoScreen> {
             children: <Widget>[
               Expanded(
                 child: ElevatedButton(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: const [
-                      Icon(Icons.add_a_photo),
-                      Text('Adic. Foto'),
-                    ],
-                  ),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFF120E43),
                     minimumSize: const Size(double.infinity, 40),
@@ -348,6 +351,13 @@ class _MovimientoInfoScreenState extends State<MovimientoInfoScreen> {
                     ),
                   ),
                   onPressed: () => _goAddPhoto(),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: const [
+                      Icon(Icons.add_a_photo),
+                      Text('Adic. Foto'),
+                    ],
+                  ),
                 ),
               ),
             ],
@@ -358,19 +368,20 @@ class _MovimientoInfoScreenState extends State<MovimientoInfoScreen> {
   }
 
   //-----------------------------------------------------------------
-//-------------------------- _goAddPhoto --------------------------
-//-----------------------------------------------------------------
+  //-------------------------- _goAddPhoto --------------------------
+  //-----------------------------------------------------------------
 
   void _goAddPhoto() async {
     var response = await showAlertDialog(
-        context: context,
-        title: 'Confirmación',
-        message: '¿De donde deseas obtener la imagen?',
-        actions: <AlertDialogAction>[
-          const AlertDialogAction(key: 'cancel', label: 'Cancelar'),
-          const AlertDialogAction(key: 'camera', label: 'Cámara'),
-          const AlertDialogAction(key: 'gallery', label: 'Galería'),
-        ]);
+      context: context,
+      title: 'Confirmación',
+      message: '¿De donde deseas obtener la imagen?',
+      actions: <AlertDialogAction>[
+        const AlertDialogAction(key: 'cancel', label: 'Cancelar'),
+        const AlertDialogAction(key: 'camera', label: 'Cámara'),
+        const AlertDialogAction(key: 'gallery', label: 'Galería'),
+      ],
+    );
 
     if (response == 'cancel') {
       return;
@@ -387,23 +398,24 @@ class _MovimientoInfoScreenState extends State<MovimientoInfoScreen> {
     }
   }
 
-//-----------------------------------------------------------------------
-//-------------------------- _takePicture -------------------------------
-//-----------------------------------------------------------------------
+  //-----------------------------------------------------------------------
+  //-------------------------- _takePicture -------------------------------
+  //-----------------------------------------------------------------------
 
   Future _takePicture() async {
     WidgetsFlutterBinding.ensureInitialized();
     final cameras = await availableCameras();
     var firstCamera = cameras.first;
     var response1 = await showAlertDialog(
-        context: context,
-        title: 'Seleccionar cámara',
-        message: '¿Qué cámara desea utilizar?',
-        actions: <AlertDialogAction>[
-          const AlertDialogAction(key: 'no', label: 'Trasera'),
-          const AlertDialogAction(key: 'yes', label: 'Delantera'),
-          const AlertDialogAction(key: 'cancel', label: 'Cancelar'),
-        ]);
+      context: context,
+      title: 'Seleccionar cámara',
+      message: '¿Qué cámara desea utilizar?',
+      actions: <AlertDialogAction>[
+        const AlertDialogAction(key: 'no', label: 'Trasera'),
+        const AlertDialogAction(key: 'yes', label: 'Delantera'),
+        const AlertDialogAction(key: 'cancel', label: 'Cancelar'),
+      ],
+    );
     if (response1 == 'yes') {
       firstCamera = cameras.first;
     }
@@ -413,11 +425,11 @@ class _MovimientoInfoScreenState extends State<MovimientoInfoScreen> {
 
     if (response1 != 'cancel') {
       Response? response = await Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => TakePictureMovScreen(
-                    camera: firstCamera,
-                  )));
+        context,
+        MaterialPageRoute(
+          builder: (context) => TakePictureMovScreen(camera: firstCamera),
+        ),
+      );
       if (response != null) {
         setState(() {
           _photoChanged = true;
@@ -428,20 +440,21 @@ class _MovimientoInfoScreenState extends State<MovimientoInfoScreen> {
     }
   }
 
-//-----------------------------------------------------------------------------
-//------------------------------ _selectPicture -------------------------------
-//-----------------------------------------------------------------------------
+  //-----------------------------------------------------------------------------
+  //------------------------------ _selectPicture -------------------------------
+  //-----------------------------------------------------------------------------
 
   Future<void> _selectPicture() async {
-    final ImagePicker _picker = ImagePicker();
-    final XFile? _image2 = await _picker.pickImage(source: ImageSource.gallery);
+    final ImagePicker picker = ImagePicker();
+    final XFile? image2 = await picker.pickImage(source: ImageSource.gallery);
 
-    if (_image2 != null) {
+    if (image2 != null) {
       _photoChanged = true;
-      Response? response = await Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => DisplayPictureMovScreen(
-                image: _image2,
-              )));
+      Response? response = await Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => DisplayPictureMovScreen(image: image2),
+        ),
+      );
 
       _photoChanged = false;
       if (response != null) {
@@ -454,9 +467,9 @@ class _MovimientoInfoScreenState extends State<MovimientoInfoScreen> {
     }
   }
 
-//-----------------------------------------------------------------------------
-//------------------------------ _addPicture ----------------------------------
-//-----------------------------------------------------------------------------
+  //-----------------------------------------------------------------------------
+  //------------------------------ _addPicture ----------------------------------
+  //-----------------------------------------------------------------------------
 
   void _addPicture() async {
     setState(() {});
@@ -465,12 +478,13 @@ class _MovimientoInfoScreenState extends State<MovimientoInfoScreen> {
     if (connectivityResult == ConnectivityResult.none) {
       setState(() {});
       await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: 'Verifica que estes conectado a internet.',
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message: 'Verifica que estes conectado a internet.',
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
       return;
     }
 
@@ -485,19 +499,22 @@ class _MovimientoInfoScreenState extends State<MovimientoInfoScreen> {
       'NroMovimiento': _movimiento.nroMovimiento,
     };
 
-    Response response =
-        await ApiHelper.postNoToken('/api/Movimientos/PostMovimiento', request);
+    Response response = await ApiHelper.postNoToken(
+      '/api/Movimientos/PostMovimiento',
+      request,
+    );
 
     setState(() {});
 
     if (!response.isSuccess) {
       await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: response.message,
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message: response.message,
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
       return;
     }
 
@@ -506,35 +523,38 @@ class _MovimientoInfoScreenState extends State<MovimientoInfoScreen> {
     });
   }
 
-//------------------------------------------------------------------
-//------------------------------ _getMovimiento --------------------
-//------------------------------------------------------------------
+  //------------------------------------------------------------------
+  //------------------------------ _getMovimiento --------------------
+  //------------------------------------------------------------------
 
   Future<void> _getMovimiento() async {
     var connectivityResult = await Connectivity().checkConnectivity();
     if (connectivityResult == ConnectivityResult.none) {
       setState(() {});
       await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: 'Verifica que estes conectado a internet.',
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message: 'Verifica que estes conectado a internet.',
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
       return;
     }
 
-    Response response =
-        await ApiHelper.getMovimiento(_movimiento.nroMovimiento.toString());
+    Response response = await ApiHelper.getMovimiento(
+      _movimiento.nroMovimiento.toString(),
+    );
 
     if (!response.isSuccess) {
       await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: 'N° de Movimiento no válido',
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message: 'N° de Movimiento no válido',
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
       return;
     }
     _movimiento = response.result;

@@ -1,5 +1,5 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
-import 'package:connectivity/connectivity.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -13,39 +13,36 @@ class MediacionesScreen extends StatefulWidget {
   final Juicio juicio;
 
   const MediacionesScreen({Key? key, required this.user, required this.juicio})
-      : super(key: key);
+    : super(key: key);
 
   @override
   State<MediacionesScreen> createState() => _MediacionesScreenState();
 }
 
 class _MediacionesScreenState extends State<MediacionesScreen> {
-//---------------------------------------------------------------------
-//-------------------------- Variables --------------------------------
-//---------------------------------------------------------------------
+  //---------------------------------------------------------------------
+  //-------------------------- Variables --------------------------------
+  //---------------------------------------------------------------------
   List<Mediacion> _mediaciones = [];
   bool _showLoader = false;
 
-//---------------------------------------------------------------------
-//-------------------------- InitState --------------------------------
-//---------------------------------------------------------------------
+  //---------------------------------------------------------------------
+  //-------------------------- InitState --------------------------------
+  //---------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
     _getMediaciones();
   }
 
-//---------------------------------------------------------------------
-//-------------------------- Pantalla ---------------------------------
-//---------------------------------------------------------------------
+  //---------------------------------------------------------------------
+  //-------------------------- Pantalla ---------------------------------
+  //---------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFF484848),
-      appBar: AppBar(
-        title: const Text('Mediaciones'),
-        centerTitle: true,
-      ),
+      appBar: AppBar(title: const Text('Mediaciones'), centerTitle: true),
       body: Center(
         child: _showLoader
             ? const LoaderComponent(text: 'Por favor espere...')
@@ -56,12 +53,14 @@ class _MediacionesScreenState extends State<MediacionesScreen> {
         child: const Icon(Icons.add),
         onPressed: () async {
           String? result = await Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => MediacionAgregarScreen(
-                        user: widget.user,
-                        juicio: widget.juicio,
-                      )));
+            context,
+            MaterialPageRoute(
+              builder: (context) => MediacionAgregarScreen(
+                user: widget.user,
+                juicio: widget.juicio,
+              ),
+            ),
+          );
           if (result == 'yes' || result != 'yes') {
             _getMediaciones();
             setState(() {});
@@ -71,24 +70,22 @@ class _MediacionesScreenState extends State<MediacionesScreen> {
     );
   }
 
-//---------------------------------------------------------------------
-//------------------------------ _getContent --------------------------
-//---------------------------------------------------------------------
+  //---------------------------------------------------------------------
+  //------------------------------ _getContent --------------------------
+  //---------------------------------------------------------------------
 
   Widget _getContent() {
     return Column(
       children: <Widget>[
         _showMediacionesCount(),
-        Expanded(
-          child: _mediaciones.isEmpty ? _noContent() : _getListView(),
-        )
+        Expanded(child: _mediaciones.isEmpty ? _noContent() : _getListView()),
       ],
     );
   }
 
-//----------------------------------------------------------------
-//--------------------  _showMediacionesCount --------------------
-//----------------------------------------------------------------
+  //----------------------------------------------------------------
+  //--------------------  _showMediacionesCount --------------------
+  //----------------------------------------------------------------
 
   Widget _showMediacionesCount() {
     return Container(
@@ -96,26 +93,30 @@ class _MediacionesScreenState extends State<MediacionesScreen> {
       height: 40,
       child: Row(
         children: [
-          const Text('Cantidad de Mediaciones: ',
-              style: TextStyle(
-                fontSize: 14,
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-              )),
-          Text(_mediaciones.length.toString(),
-              style: const TextStyle(
-                fontSize: 14,
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-              )),
+          const Text(
+            'Cantidad de Mediaciones: ',
+            style: TextStyle(
+              fontSize: 14,
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          Text(
+            _mediaciones.length.toString(),
+            style: const TextStyle(
+              fontSize: 14,
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ],
       ),
     );
   }
 
-//---------------------------------------------------------------
-//---------------------- _noContent -----------------------------
-//---------------------------------------------------------------
+  //---------------------------------------------------------------
+  //---------------------- _noContent -----------------------------
+  //---------------------------------------------------------------
 
   Widget _noContent() {
     return Container(
@@ -129,9 +130,9 @@ class _MediacionesScreenState extends State<MediacionesScreen> {
     );
   }
 
-//----------------------------------------------------------------
-//----------------------- _getListView ---------------------------
-//----------------------------------------------------------------
+  //----------------------------------------------------------------
+  //----------------------- _getListView ---------------------------
+  //----------------------------------------------------------------
 
   Widget _getListView() {
     double ancho = 130.0;
@@ -173,27 +174,32 @@ class _MediacionesScreenState extends State<MediacionesScreen> {
                                     ),
                                     Expanded(
                                       flex: 2,
-                                      child: Text(e.idmediacion.toString(),
-                                          style: const TextStyle(
-                                            fontSize: 12,
-                                          )),
+                                      child: Text(
+                                        e.idmediacion.toString(),
+                                        style: const TextStyle(fontSize: 12),
+                                      ),
                                     ),
-                                    const Text('Fecha: ',
-                                        style: TextStyle(
-                                          fontSize: 12,
-                                          color: Color(0xFF781f1e),
-                                          fontWeight: FontWeight.bold,
-                                        )),
+                                    const Text(
+                                      'Fecha: ',
+                                      style: TextStyle(
+                                        fontSize: 12,
+                                        color: Color(0xFF781f1e),
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
                                     Expanded(
                                       flex: 2,
                                       child: e.fecha != null
                                           ? Text(
                                               DateFormat('dd/MM/yyyy').format(
-                                                  DateTime.parse(
-                                                      e.fecha.toString())),
+                                                DateTime.parse(
+                                                  e.fecha.toString(),
+                                                ),
+                                              ),
                                               style: const TextStyle(
                                                 fontSize: 12,
-                                              ))
+                                              ),
+                                            )
                                           : Container(),
                                     ),
                                   ],
@@ -202,18 +208,20 @@ class _MediacionesScreenState extends State<MediacionesScreen> {
                                   children: [
                                     SizedBox(
                                       width: ancho,
-                                      child: const Text('Moneda: ',
-                                          style: TextStyle(
-                                            fontSize: 12,
-                                            color: Color(0xFF781f1e),
-                                            fontWeight: FontWeight.bold,
-                                          )),
+                                      child: const Text(
+                                        'Moneda: ',
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                          color: Color(0xFF781f1e),
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
                                     ),
                                     Expanded(
-                                      child: Text(e.moneda.toString(),
-                                          style: const TextStyle(
-                                            fontSize: 12,
-                                          )),
+                                      child: Text(
+                                        e.moneda.toString(),
+                                        style: const TextStyle(fontSize: 12),
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -232,14 +240,13 @@ class _MediacionesScreenState extends State<MediacionesScreen> {
                                     ),
                                     Expanded(
                                       child: Text(
-                                          e.ofrecimiento != null
-                                              ? NumberFormat.currency(
-                                                      symbol: '\$')
-                                                  .format(e.ofrecimiento)
-                                              : '',
-                                          style: const TextStyle(
-                                            fontSize: 12,
-                                          )),
+                                        e.ofrecimiento != null
+                                            ? NumberFormat.currency(
+                                                symbol: '\$',
+                                              ).format(e.ofrecimiento)
+                                            : '',
+                                        style: const TextStyle(fontSize: 12),
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -257,10 +264,10 @@ class _MediacionesScreenState extends State<MediacionesScreen> {
                                       ),
                                     ),
                                     Expanded(
-                                      child: Text(e.tipotransaccion.toString(),
-                                          style: const TextStyle(
-                                            fontSize: 12,
-                                          )),
+                                      child: Text(
+                                        e.tipotransaccion.toString(),
+                                        style: const TextStyle(fontSize: 12),
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -278,10 +285,10 @@ class _MediacionesScreenState extends State<MediacionesScreen> {
                                       ),
                                     ),
                                     Expanded(
-                                      child: Text(e.condicionpago.toString(),
-                                          style: const TextStyle(
-                                            fontSize: 12,
-                                          )),
+                                      child: Text(
+                                        e.condicionpago.toString(),
+                                        style: const TextStyle(fontSize: 12),
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -302,12 +309,15 @@ class _MediacionesScreenState extends State<MediacionesScreen> {
                                       child: e.vencimientooferta != null
                                           ? Text(
                                               DateFormat('dd/MM/yyyy').format(
-                                                  DateTime.parse(e
-                                                      .vencimientooferta
-                                                      .toString())),
+                                                DateTime.parse(
+                                                  e.vencimientooferta
+                                                      .toString(),
+                                                ),
+                                              ),
                                               style: const TextStyle(
                                                 fontSize: 12,
-                                              ))
+                                              ),
+                                            )
                                           : Container(),
                                     ),
                                   ],
@@ -326,10 +336,10 @@ class _MediacionesScreenState extends State<MediacionesScreen> {
                                       ),
                                     ),
                                     Expanded(
-                                      child: Text(e.resultadooferta.toString(),
-                                          style: const TextStyle(
-                                            fontSize: 12,
-                                          )),
+                                      child: Text(
+                                        e.resultadooferta.toString(),
+                                        style: const TextStyle(fontSize: 12),
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -348,14 +358,13 @@ class _MediacionesScreenState extends State<MediacionesScreen> {
                                     ),
                                     Expanded(
                                       child: Text(
-                                          e.montocontraoferta != null
-                                              ? NumberFormat.currency(
-                                                      symbol: '\$')
-                                                  .format(e.montocontraoferta)
-                                              : '',
-                                          style: const TextStyle(
-                                            fontSize: 12,
-                                          )),
+                                        e.montocontraoferta != null
+                                            ? NumberFormat.currency(
+                                                symbol: '\$',
+                                              ).format(e.montocontraoferta)
+                                            : '',
+                                        style: const TextStyle(fontSize: 12),
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -374,10 +383,9 @@ class _MediacionesScreenState extends State<MediacionesScreen> {
                                     ),
                                     Expanded(
                                       child: Text(
-                                          e.aceptacioncontraoferta.toString(),
-                                          style: const TextStyle(
-                                            fontSize: 12,
-                                          )),
+                                        e.aceptacioncontraoferta.toString(),
+                                        style: const TextStyle(fontSize: 12),
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -397,9 +405,9 @@ class _MediacionesScreenState extends State<MediacionesScreen> {
     );
   }
 
-//---------------------------------------------------------------------
-//-------------------------- _getMediaciones --------------------------
-//---------------------------------------------------------------------
+  //---------------------------------------------------------------------
+  //-------------------------- _getMediaciones --------------------------
+  //---------------------------------------------------------------------
 
   Future<void> _getMediaciones() async {
     setState(() {
@@ -413,7 +421,10 @@ class _MediacionesScreenState extends State<MediacionesScreen> {
         _showLoader = false;
       });
       showMyDialog(
-          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
+        'Error',
+        'Verifica que estés conectado a Internet',
+        'Aceptar',
+      );
     }
 
     Response response = Response(isSuccess: false);
@@ -426,12 +437,13 @@ class _MediacionesScreenState extends State<MediacionesScreen> {
 
     if (!response.isSuccess) {
       await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: response.message,
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message: response.message,
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
       return;
     }
 

@@ -1,5 +1,5 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
-import 'package:connectivity/connectivity.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 
 import '../../components/loader_component.dart';
@@ -9,18 +9,20 @@ import '../../models/models.dart';
 class SiniestroAgregarScreen extends StatefulWidget {
   final User user;
   final Causante causante;
-  const SiniestroAgregarScreen(
-      {Key? key, required this.user, required this.causante})
-      : super(key: key);
+  const SiniestroAgregarScreen({
+    super.key,
+    required this.user,
+    required this.causante,
+  });
 
   @override
   _SiniestroAgregarScreenState createState() => _SiniestroAgregarScreenState();
 }
 
 class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
-//---------------------------------------------------------------
-//----------------------- Variables -----------------------------
-//---------------------------------------------------------------
+  //---------------------------------------------------------------
+  //----------------------- Variables -----------------------------
+  //---------------------------------------------------------------
 
   bool _showLoader = false;
   bool bandera = false;
@@ -122,18 +124,18 @@ class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
   bool _notificadoaShowError = false;
   final TextEditingController _notificadoaController = TextEditingController();
 
-//---------------------------------------------------------------
-//----------------------- initState -----------------------------
-//---------------------------------------------------------------
+  //---------------------------------------------------------------
+  //----------------------- initState -----------------------------
+  //---------------------------------------------------------------
 
   @override
   void initState() {
     super.initState();
   }
 
-//---------------------------------------------------------------
-//----------------------- Pantalla ------------------------------
-//---------------------------------------------------------------
+  //---------------------------------------------------------------
+  //----------------------- Pantalla ------------------------------
+  //---------------------------------------------------------------
 
   @override
   Widget build(BuildContext context) {
@@ -148,13 +150,9 @@ class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
           SingleChildScrollView(
             child: Column(
               children: <Widget>[
-                const SizedBox(
-                  height: 1,
-                ),
+                const SizedBox(height: 1),
                 _showFecha(),
-                const SizedBox(
-                  height: 5,
-                ),
+                const SizedBox(height: 5),
                 _showNumcha(),
                 const Divider(
                   height: 5,
@@ -189,29 +187,23 @@ class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
                 _showDetallesDanosPropio(),
                 _showNotificado(),
                 _showNotificadoa(),
-                const SizedBox(
-                  height: 5,
-                ),
+                const SizedBox(height: 5),
                 _showButton(),
-                const SizedBox(
-                  height: 10,
-                ),
+                const SizedBox(height: 10),
               ],
             ),
           ),
           _showLoader
-              ? const LoaderComponent(
-                  text: 'Por favor espere...',
-                )
+              ? const LoaderComponent(text: 'Por favor espere...')
               : Container(),
         ],
       ),
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _showNumcha -------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _showNumcha -------------------------------
+  //-----------------------------------------------------------------
 
   Widget _showNumcha() {
     return Container(
@@ -219,14 +211,14 @@ class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
       child: TextField(
         controller: _numchaController,
         decoration: InputDecoration(
-            fillColor: Colors.white,
-            filled: true,
-            hintText: 'Patente Propia',
-            labelText: 'Patente Propia',
-            errorText: _numchaShowError ? _numchaError : null,
-            suffixIcon: const Icon(Icons.abc),
-            border:
-                OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
+          fillColor: Colors.white,
+          filled: true,
+          hintText: 'Patente Propia',
+          labelText: 'Patente Propia',
+          errorText: _numchaShowError ? _numchaError : null,
+          suffixIcon: const Icon(Icons.abc),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+        ),
         onChanged: (value) {
           _numcha = value;
         },
@@ -234,9 +226,9 @@ class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _showNumchaTercero ------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _showNumchaTercero ------------------------
+  //-----------------------------------------------------------------
 
   Widget _showNumchaTercero() {
     return Container(
@@ -244,14 +236,14 @@ class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
       child: TextField(
         controller: _numchaterceroController,
         decoration: InputDecoration(
-            fillColor: Colors.white,
-            filled: true,
-            hintText: 'Patente Tercero',
-            labelText: 'Patente Tercero',
-            errorText: _numchaterceroShowError ? _numchaterceroError : null,
-            suffixIcon: const Icon(Icons.abc),
-            border:
-                OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
+          fillColor: Colors.white,
+          filled: true,
+          hintText: 'Patente Tercero',
+          labelText: 'Patente Tercero',
+          errorText: _numchaterceroShowError ? _numchaterceroError : null,
+          suffixIcon: const Icon(Icons.abc),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+        ),
         onChanged: (value) {
           _numchatercero = value;
         },
@@ -259,9 +251,9 @@ class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _showCalle --------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _showCalle --------------------------------
+  //-----------------------------------------------------------------
 
   Widget _showCalle() {
     return Container(
@@ -269,14 +261,14 @@ class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
       child: TextField(
         controller: _calleController,
         decoration: InputDecoration(
-            fillColor: Colors.white,
-            filled: true,
-            hintText: 'Calle',
-            labelText: 'Calle',
-            errorText: _calleShowError ? _calleError : null,
-            suffixIcon: const Icon(Icons.place),
-            border:
-                OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
+          fillColor: Colors.white,
+          filled: true,
+          hintText: 'Calle',
+          labelText: 'Calle',
+          errorText: _calleShowError ? _calleError : null,
+          suffixIcon: const Icon(Icons.place),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+        ),
         onChanged: (value) {
           _calle = value;
         },
@@ -284,9 +276,9 @@ class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _showNumero -------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _showNumero -------------------------------
+  //-----------------------------------------------------------------
 
   Widget _showNumero() {
     return Container(
@@ -295,14 +287,14 @@ class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
         controller: _numeroController,
         keyboardType: TextInputType.number,
         decoration: InputDecoration(
-            fillColor: Colors.white,
-            filled: true,
-            hintText: 'N°',
-            labelText: 'N°',
-            errorText: _numeroShowError ? _numeroError : null,
-            suffixIcon: const Icon(Icons.pin),
-            border:
-                OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
+          fillColor: Colors.white,
+          filled: true,
+          hintText: 'N°',
+          labelText: 'N°',
+          errorText: _numeroShowError ? _numeroError : null,
+          suffixIcon: const Icon(Icons.pin),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+        ),
         onChanged: (value) {
           _numero = value;
         },
@@ -310,9 +302,9 @@ class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _showCiudad -------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _showCiudad -------------------------------
+  //-----------------------------------------------------------------
 
   Widget _showCiudad() {
     return Container(
@@ -320,14 +312,14 @@ class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
       child: TextField(
         controller: _ciudadController,
         decoration: InputDecoration(
-            fillColor: Colors.white,
-            filled: true,
-            hintText: 'Ciudad',
-            labelText: 'Ciudad',
-            errorText: _ciudadShowError ? _ciudadError : null,
-            suffixIcon: const Icon(Icons.apartment),
-            border:
-                OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
+          fillColor: Colors.white,
+          filled: true,
+          hintText: 'Ciudad',
+          labelText: 'Ciudad',
+          errorText: _ciudadShowError ? _ciudadError : null,
+          suffixIcon: const Icon(Icons.apartment),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+        ),
         onChanged: (value) {
           _ciudad = value;
         },
@@ -335,9 +327,9 @@ class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _showProvincia ----------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _showProvincia ----------------------------
+  //-----------------------------------------------------------------
 
   Widget _showProvincia() {
     return Container(
@@ -345,14 +337,14 @@ class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
       child: TextField(
         controller: _provinciaController,
         decoration: InputDecoration(
-            fillColor: Colors.white,
-            filled: true,
-            hintText: 'Provincia',
-            labelText: 'Provincia',
-            errorText: _provinciaShowError ? _provinciaError : null,
-            suffixIcon: const Icon(Icons.public),
-            border:
-                OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
+          fillColor: Colors.white,
+          filled: true,
+          hintText: 'Provincia',
+          labelText: 'Provincia',
+          errorText: _provinciaShowError ? _provinciaError : null,
+          suffixIcon: const Icon(Icons.public),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+        ),
         onChanged: (value) {
           _provincia = value;
         },
@@ -360,9 +352,9 @@ class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _showTercero ------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _showTercero ------------------------------
+  //-----------------------------------------------------------------
 
   Widget _showTercero() {
     return Container(
@@ -370,14 +362,14 @@ class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
       child: TextField(
         controller: _terceroController,
         decoration: InputDecoration(
-            fillColor: Colors.white,
-            filled: true,
-            hintText: 'Nombre y Apellido del Tercero',
-            labelText: 'Nombre y Apellido del Tercero',
-            errorText: _terceroShowError ? _terceroError : null,
-            suffixIcon: const Icon(Icons.person),
-            border:
-                OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
+          fillColor: Colors.white,
+          filled: true,
+          hintText: 'Nombre y Apellido del Tercero',
+          labelText: 'Nombre y Apellido del Tercero',
+          errorText: _terceroShowError ? _terceroError : null,
+          suffixIcon: const Icon(Icons.person),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+        ),
         onChanged: (value) {
           _tercero = value;
         },
@@ -385,9 +377,9 @@ class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _showTelefonoTercero ----------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _showTelefonoTercero ----------------------
+  //-----------------------------------------------------------------
 
   Widget _showTelefonoTercero() {
     return Container(
@@ -396,14 +388,14 @@ class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
         controller: _telefonoterceroController,
         keyboardType: TextInputType.phone,
         decoration: InputDecoration(
-            fillColor: Colors.white,
-            filled: true,
-            hintText: 'Teléfono',
-            labelText: 'Teléfono',
-            errorText: _telefonoterceroShowError ? _telefonoterceroError : null,
-            suffixIcon: const Icon(Icons.phone),
-            border:
-                OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
+          fillColor: Colors.white,
+          filled: true,
+          hintText: 'Teléfono',
+          labelText: 'Teléfono',
+          errorText: _telefonoterceroShowError ? _telefonoterceroError : null,
+          suffixIcon: const Icon(Icons.phone),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+        ),
         onChanged: (value) {
           _telefonotercero = value;
         },
@@ -411,9 +403,9 @@ class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _showEmailTercero -------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _showEmailTercero -------------------------
+  //-----------------------------------------------------------------
 
   Widget _showEmailTercero() {
     return Container(
@@ -422,14 +414,14 @@ class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
         controller: _emailterceroController,
         keyboardType: TextInputType.emailAddress,
         decoration: InputDecoration(
-            fillColor: Colors.white,
-            filled: true,
-            hintText: 'Mail',
-            labelText: 'Mail',
-            errorText: _emailterceroShowError ? _emailterceroError : null,
-            suffixIcon: const Icon(Icons.mail),
-            border:
-                OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
+          fillColor: Colors.white,
+          filled: true,
+          hintText: 'Mail',
+          labelText: 'Mail',
+          errorText: _emailterceroShowError ? _emailterceroError : null,
+          suffixIcon: const Icon(Icons.mail),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+        ),
         onChanged: (value) {
           _emailtercero = value;
         },
@@ -437,9 +429,9 @@ class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _showCompaniaSeguro -----------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _showCompaniaSeguro -----------------------
+  //-----------------------------------------------------------------
 
   Widget _showCompaniaSeguro() {
     return Container(
@@ -447,14 +439,14 @@ class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
       child: TextField(
         controller: _companiaseguroController,
         decoration: InputDecoration(
-            fillColor: Colors.white,
-            filled: true,
-            hintText: 'Compañía de Seguros',
-            labelText: 'Compañía de Seguros',
-            errorText: _companiaseguroShowError ? _companiaseguroError : null,
-            suffixIcon: const Icon(Icons.factory),
-            border:
-                OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
+          fillColor: Colors.white,
+          filled: true,
+          hintText: 'Compañía de Seguros',
+          labelText: 'Compañía de Seguros',
+          errorText: _companiaseguroShowError ? _companiaseguroError : null,
+          suffixIcon: const Icon(Icons.factory),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+        ),
         onChanged: (value) {
           _companiaseguro = value;
         },
@@ -462,9 +454,9 @@ class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _showNroPoliza ----------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _showNroPoliza ----------------------------
+  //-----------------------------------------------------------------
 
   Widget _showNroPoliza() {
     return Container(
@@ -472,14 +464,14 @@ class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
       child: TextField(
         controller: _nropolizaController,
         decoration: InputDecoration(
-            fillColor: Colors.white,
-            filled: true,
-            hintText: 'N° de Póliza',
-            labelText: 'N° de Póliza',
-            errorText: _nropolizaShowError ? _nropolizaError : null,
-            suffixIcon: const Icon(Icons.tag),
-            border:
-                OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
+          fillColor: Colors.white,
+          filled: true,
+          hintText: 'N° de Póliza',
+          labelText: 'N° de Póliza',
+          errorText: _nropolizaShowError ? _nropolizaError : null,
+          suffixIcon: const Icon(Icons.tag),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+        ),
         onChanged: (value) {
           _nropoliza = value;
         },
@@ -487,9 +479,9 @@ class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _showLesionados ---------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _showLesionados ---------------------------
+  //-----------------------------------------------------------------
 
   Widget _showLesionados() {
     return Padding(
@@ -498,11 +490,10 @@ class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
         children: [
           const SizedBox(
             width: 160,
-            child: Text('Hubo lesionados: ',
-                style: TextStyle(
-                  fontSize: 15,
-                  color: Colors.black,
-                )),
+            child: Text(
+              'Hubo lesionados: ',
+              style: TextStyle(fontSize: 15, color: Colors.black),
+            ),
           ),
           Checkbox(
             value: _huboLesionados,
@@ -522,16 +513,18 @@ class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
                     controller: _numlesionadosController,
                     keyboardType: TextInputType.number,
                     decoration: InputDecoration(
-                        fillColor: Colors.white,
-                        filled: true,
-                        hintText: 'N° Lesion.',
-                        labelText: 'N° Lesion.',
-                        errorText: _numlesionadosShowError
-                            ? _numlesionadosError
-                            : null,
-                        suffixIcon: const Icon(Icons.tag),
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10))),
+                      fillColor: Colors.white,
+                      filled: true,
+                      hintText: 'N° Lesion.',
+                      labelText: 'N° Lesion.',
+                      errorText: _numlesionadosShowError
+                          ? _numlesionadosError
+                          : null,
+                      suffixIcon: const Icon(Icons.tag),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
                     onChanged: (value) {
                       _numlesionados = value;
                     },
@@ -543,9 +536,9 @@ class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _showPolicia ------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _showPolicia ------------------------------
+  //-----------------------------------------------------------------
 
   Widget _showPolicia() {
     return Padding(
@@ -554,11 +547,10 @@ class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
         children: [
           const SizedBox(
             width: 160,
-            child: Text('Intervino la Policía: ',
-                style: TextStyle(
-                  fontSize: 15,
-                  color: Colors.black,
-                )),
+            child: Text(
+              'Intervino la Policía: ',
+              style: TextStyle(fontSize: 15, color: Colors.black),
+            ),
           ),
           Checkbox(
             value: _intervinoPolicia,
@@ -576,9 +568,9 @@ class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _showAmbulancia ---------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _showAmbulancia ---------------------------
+  //-----------------------------------------------------------------
 
   Widget _showAmbulancia() {
     return Padding(
@@ -587,11 +579,10 @@ class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
         children: [
           const SizedBox(
             width: 160,
-            child: Text('Intervino Ambulancia: ',
-                style: TextStyle(
-                  fontSize: 15,
-                  color: Colors.black,
-                )),
+            child: Text(
+              'Intervino Ambulancia: ',
+              style: TextStyle(fontSize: 15, color: Colors.black),
+            ),
           ),
           Checkbox(
             value: _intervinoAmbulancia,
@@ -609,9 +600,9 @@ class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _showObservaciones ------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _showObservaciones ------------------------
+  //-----------------------------------------------------------------
 
   Widget _showObservaciones() {
     return Container(
@@ -619,13 +610,16 @@ class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
       child: TextField(
         controller: _observacionesController,
         maxLines: 3,
+
         decoration: InputDecoration(
-            hintText: 'Relato del Siniestro',
-            labelText: 'Relato del Siniestro',
-            errorText: _observacionesShowError ? _observacionesError : null,
-            suffixIcon: const Icon(Icons.notes),
-            border:
-                OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
+          fillColor: Colors.white,
+          filled: true,
+          hintText: 'Relato del Siniestro',
+          labelText: 'Relato del Siniestro',
+          errorText: _observacionesShowError ? _observacionesError : null,
+          suffixIcon: const Icon(Icons.notes),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+        ),
         onChanged: (value) {
           _observaciones = value;
         },
@@ -633,9 +627,9 @@ class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _showDetallesDanosTercero -----------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _showDetallesDanosTercero -----------------
+  //-----------------------------------------------------------------
 
   Widget _showDetallesDanosTercero() {
     return Container(
@@ -644,14 +638,16 @@ class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
         controller: _detalleDanosTerceroController,
         maxLines: 3,
         decoration: InputDecoration(
-            hintText: 'Detalle daños Tercero',
-            labelText: 'Detalle daños Tercero',
-            errorText: _detalleDanosTerceroShowError
-                ? _detalleDanosTerceroError
-                : null,
-            suffixIcon: const Icon(Icons.notes),
-            border:
-                OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
+          fillColor: Colors.white,
+          filled: true,
+          hintText: 'Detalle daños Tercero',
+          labelText: 'Detalle daños Tercero',
+          errorText: _detalleDanosTerceroShowError
+              ? _detalleDanosTerceroError
+              : null,
+          suffixIcon: const Icon(Icons.notes),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+        ),
         onChanged: (value) {
           _detalleDanosTercero = value;
         },
@@ -660,8 +656,8 @@ class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
   }
 
   //---------------------------------------------------------------
-//--------------------- _showDetallesDanosPropio ------------------
-//-----------------------------------------------------------------
+  //--------------------- _showDetallesDanosPropio ------------------
+  //-----------------------------------------------------------------
 
   Widget _showDetallesDanosPropio() {
     return Container(
@@ -670,13 +666,16 @@ class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
         controller: _detalleDanosPropioController,
         maxLines: 3,
         decoration: InputDecoration(
-            hintText: 'Detalle daños Propios',
-            labelText: 'Detalle daños Propio',
-            errorText:
-                _detalleDanosPropioShowError ? _detalleDanosPropioError : null,
-            suffixIcon: const Icon(Icons.notes),
-            border:
-                OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
+          fillColor: Colors.white,
+          filled: true,
+          hintText: 'Detalle daños Propios',
+          labelText: 'Detalle daños Propio',
+          errorText: _detalleDanosPropioShowError
+              ? _detalleDanosPropioError
+              : null,
+          suffixIcon: const Icon(Icons.notes),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+        ),
         onChanged: (value) {
           _detalleDanosPropio = value;
         },
@@ -684,9 +683,9 @@ class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _showNotificado ---------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _showNotificado ---------------------------
+  //-----------------------------------------------------------------
 
   Widget _showNotificado() {
     return Padding(
@@ -695,11 +694,10 @@ class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
         children: [
           const SizedBox(
             width: 160,
-            child: Text('Notif. a la Empresa: ',
-                style: TextStyle(
-                  fontSize: 15,
-                  color: Colors.black,
-                )),
+            child: Text(
+              'Notif. a la Empresa: ',
+              style: TextStyle(fontSize: 15, color: Colors.black),
+            ),
           ),
           Checkbox(
             value: _notifico,
@@ -717,9 +715,9 @@ class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _showNotificadoa --------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _showNotificadoa --------------------------
+  //-----------------------------------------------------------------
 
   Widget _showNotificadoa() {
     return Container(
@@ -727,14 +725,14 @@ class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
       child: TextField(
         controller: _notificadoaController,
         decoration: InputDecoration(
-            fillColor: Colors.white,
-            filled: true,
-            hintText: 'Notificado a...',
-            labelText: 'Notificado a...',
-            errorText: _notificadoaShowError ? _notificadoaError : null,
-            suffixIcon: const Icon(Icons.support_agent),
-            border:
-                OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
+          fillColor: Colors.white,
+          filled: true,
+          hintText: 'Notificado a...',
+          labelText: 'Notificado a...',
+          errorText: _notificadoaShowError ? _notificadoaError : null,
+          suffixIcon: const Icon(Icons.support_agent),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+        ),
         onChanged: (value) {
           _notificadoa = value;
         },
@@ -742,26 +740,28 @@ class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _showFecha --------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _showFecha --------------------------------
+  //-----------------------------------------------------------------
 
   Widget _showFecha() {
     return Stack(
       children: <Widget>[
-        Container(
-          height: 80,
-        ),
+        Container(height: 80),
         Positioned(
           bottom: 0,
           left: 20,
           child: Row(
             children: [
               const Icon(Icons.calendar_today),
-              const SizedBox(
-                width: 20,
-              ),
+              const SizedBox(width: 20),
               Container(
+                width: 110,
+                height: 50,
+                decoration: BoxDecoration(
+                  borderRadius: const BorderRadius.all(Radius.circular(5)),
+                  border: Border.all(color: Colors.black, width: 1.0),
+                ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -771,26 +771,23 @@ class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
                       },
                       child: InkWell(
                         child: Text(
-                            '    ${selectedDate.day}/${selectedDate.month}/${selectedDate.year}'),
+                          '    ${selectedDate.day}/${selectedDate.month}/${selectedDate.year}',
+                        ),
                       ),
                     ),
                   ],
                 ),
+              ),
+              const SizedBox(width: 40),
+              const Icon(Icons.schedule),
+              const SizedBox(width: 20),
+              Container(
                 width: 110,
                 height: 50,
                 decoration: BoxDecoration(
                   borderRadius: const BorderRadius.all(Radius.circular(5)),
                   border: Border.all(color: Colors.black, width: 1.0),
                 ),
-              ),
-              const SizedBox(
-                width: 40,
-              ),
-              const Icon(Icons.schedule),
-              const SizedBox(
-                width: 20,
-              ),
-              Container(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -800,16 +797,11 @@ class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
                       },
                       child: InkWell(
                         child: Text(
-                            '        ${selectedTime.hour}:${selectedTime.minute}'),
+                          '        ${selectedTime.hour}:${selectedTime.minute}',
+                        ),
                       ),
                     ),
                   ],
-                ),
-                width: 110,
-                height: 50,
-                decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.all(Radius.circular(5)),
-                  border: Border.all(color: Colors.black, width: 1.0),
                 ),
               ),
             ],
@@ -819,29 +811,25 @@ class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
           left: 70,
           bottom: 40,
           child: Container(
-              color: Colors.white,
-              child: const Text(
-                ' Fecha: ',
-                style: TextStyle(fontSize: 12),
-              )),
+            color: Colors.white,
+            child: const Text(' Fecha: ', style: TextStyle(fontSize: 12)),
+          ),
         ),
         Positioned(
           left: 264,
           bottom: 40,
           child: Container(
-              color: Colors.white,
-              child: const Text(
-                ' Hora: ',
-                style: TextStyle(fontSize: 12),
-              )),
-        )
+            color: Colors.white,
+            child: const Text(' Hora: ', style: TextStyle(fontSize: 12)),
+          ),
+        ),
       ],
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _selectDate -------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _selectDate -------------------------------
+  //-----------------------------------------------------------------
 
   void _selectDate(BuildContext context) async {
     final DateTime? selected = await showDatePicker(
@@ -857,9 +845,9 @@ class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
     }
   }
 
-//-----------------------------------------------------------------
-//--------------------- _selectTime -------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _selectTime -------------------------------
+  //-----------------------------------------------------------------
 
   void _selectTime(BuildContext context) async {
     final TimeOfDay? selected = await showTimePicker(
@@ -873,9 +861,9 @@ class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
     }
   }
 
-//-----------------------------------------------------------------
-//--------------------- _showButton -------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _showButton -------------------------------
+  //-----------------------------------------------------------------
 
   Widget _showButton() {
     return Container(
@@ -885,16 +873,6 @@ class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
         children: <Widget>[
           Expanded(
             child: ElevatedButton(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  Icon(Icons.save),
-                  SizedBox(
-                    width: 20,
-                  ),
-                  Text('Guardar siniestro'),
-                ],
-              ),
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xFF781f1e),
                 minimumSize: const Size(double.infinity, 50),
@@ -903,6 +881,14 @@ class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
                 ),
               ),
               onPressed: _save,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Icon(Icons.save),
+                  SizedBox(width: 20),
+                  Text('Guardar siniestro'),
+                ],
+              ),
             ),
           ),
         ],
@@ -910,11 +896,11 @@ class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _save -------------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _save -------------------------------------
+  //-----------------------------------------------------------------
 
-  _save() {
+  void _save() {
     if (!validateFields()) {
       setState(() {});
       return;
@@ -922,9 +908,9 @@ class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
     _addRecord();
   }
 
-//-----------------------------------------------------------------
-//--------------------- validateFields ----------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- validateFields ----------------------------
+  //-----------------------------------------------------------------
 
   bool validateFields() {
     bool isValid = true;
@@ -1087,9 +1073,9 @@ class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
     return isValid;
   }
 
-//-----------------------------------------------------------------
-//--------------------- _addRecord --------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _addRecord --------------------------------
+  //-----------------------------------------------------------------
 
   void _addRecord() async {
     setState(() {
@@ -1103,7 +1089,10 @@ class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
         _showLoader = false;
       });
       showMyDialog(
-          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
+        'Error',
+        'Verifica que estés conectado a Internet',
+        'Aceptar',
+      );
     }
 
     Map<String, dynamic> request = {
@@ -1138,7 +1127,9 @@ class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
     };
 
     Response response = await ApiHelper.postNoToken(
-        '/api/VehiculosSiniestros/PostSiniestros', request);
+      '/api/VehiculosSiniestros/PostSiniestros',
+      request,
+    );
 
     setState(() {
       _showLoader = false;
@@ -1146,20 +1137,21 @@ class _SiniestroAgregarScreenState extends State<SiniestroAgregarScreen> {
 
     if (!response.isSuccess) {
       await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: response.message,
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message: response.message,
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
       return;
     }
     Navigator.pop(context, 'yes');
   }
 
-//-----------------------------------------------------------------
-//--------------------- pLMayusc ----------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- pLMayusc ----------------------------------
+  //-----------------------------------------------------------------
 
   String pLMayusc(String string) {
     String name = '';

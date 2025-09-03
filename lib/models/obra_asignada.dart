@@ -1,5 +1,3 @@
-import 'package:rowing_app/models/obras_documento.dart';
-
 class ObraAsignada {
   int nroregistro = 0;
   int nroobra = 0;
@@ -15,20 +13,21 @@ class ObraAsignada {
   String? modulo = '';
   String? elempep = '';
 
-  ObraAsignada(
-      {required this.nroregistro,
-      required this.nroobra,
-      required this.subcontratista,
-      required this.causante,
-      required this.tareaquerealiza,
-      required this.observacion,
-      required this.fechaalta,
-      required this.fechafinasignacion,
-      required this.idusr,
-      required this.fechaCierre,
-      required this.nombreObra,
-      required this.modulo,
-      required this.elempep});
+  ObraAsignada({
+    required this.nroregistro,
+    required this.nroobra,
+    required this.subcontratista,
+    required this.causante,
+    required this.tareaquerealiza,
+    required this.observacion,
+    required this.fechaalta,
+    required this.fechafinasignacion,
+    required this.idusr,
+    required this.fechaCierre,
+    required this.nombreObra,
+    required this.modulo,
+    required this.elempep,
+  });
 
   ObraAsignada.fromJson(Map<String, dynamic> json) {
     nroregistro = json['nroregistro'];

@@ -1,5 +1,5 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
-import 'package:connectivity/connectivity.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:intl/intl.dart';
@@ -14,53 +14,54 @@ class ObraAsignadaInfoScreen extends StatefulWidget {
   final ObraAsignada obra;
   final Position positionUser;
 
-  const ObraAsignadaInfoScreen(
-      {Key? key,
-      required this.user,
-      required this.obra,
-      required this.positionUser})
-      : super(key: key);
+  const ObraAsignadaInfoScreen({
+    super.key,
+    required this.user,
+    required this.obra,
+    required this.positionUser,
+  });
 
   @override
   _ObraAsignadaInfoScreenState createState() => _ObraAsignadaInfoScreenState();
 }
 
 class _ObraAsignadaInfoScreenState extends State<ObraAsignadaInfoScreen> {
-//---------------------------------------------------------------
-//----------------------- Variables -----------------------------
-//---------------------------------------------------------------
+  //---------------------------------------------------------------
+  //----------------------- Variables -----------------------------
+  //---------------------------------------------------------------
 
   Obra _obra2 = Obra(
-      nroObra: 0,
-      nombreObra: '',
-      nroOE: '',
-      defProy: '',
-      central: '',
-      elempep: '',
-      observaciones: '',
-      finalizada: 0,
-      supervisore: '',
-      codigoEstado: '',
-      codigoSubEstado: '',
-      modulo: '',
-      grupoAlmacen: '',
-      obrasDocumentos: [],
-      fechaCierreElectrico: '',
-      fechaUltimoMovimiento: '',
-      photos: 0,
-      audios: 0,
-      videos: 0,
-      posx: '',
-      posy: '',
-      direccion: '',
-      textoLocalizacion: '',
-      textoClase: '',
-      textoTipo: '',
-      textoComponente: '',
-      codigoDiametro: '',
-      motivo: '',
-      planos: '',
-      grupoCausante: '');
+    nroObra: 0,
+    nombreObra: '',
+    nroOE: '',
+    defProy: '',
+    central: '',
+    elempep: '',
+    observaciones: '',
+    finalizada: 0,
+    supervisore: '',
+    codigoEstado: '',
+    codigoSubEstado: '',
+    modulo: '',
+    grupoAlmacen: '',
+    obrasDocumentos: [],
+    fechaCierreElectrico: '',
+    fechaUltimoMovimiento: '',
+    photos: 0,
+    audios: 0,
+    videos: 0,
+    posx: '',
+    posy: '',
+    direccion: '',
+    textoLocalizacion: '',
+    textoClase: '',
+    textoTipo: '',
+    textoComponente: '',
+    codigoDiametro: '',
+    motivo: '',
+    planos: '',
+    grupoCausante: '',
+  );
 
   List<ObraEstado> _estados = [];
   List<ObraSubestado> _subestados = [];
@@ -76,41 +77,44 @@ class _ObraAsignadaInfoScreenState extends State<ObraAsignadaInfoScreen> {
   bool _showLoader = false;
 
   ObraAsignada _obra = ObraAsignada(
-      nroregistro: 0,
-      nroobra: 0,
-      subcontratista: '',
-      causante: '',
-      tareaquerealiza: '',
-      observacion: '',
-      fechaalta: '',
-      fechafinasignacion: '',
-      idusr: 0,
-      fechaCierre: '',
-      nombreObra: '',
-      modulo: '',
-      elempep: '');
+    nroregistro: 0,
+    nroobra: 0,
+    subcontratista: '',
+    causante: '',
+    tareaquerealiza: '',
+    observacion: '',
+    fechaalta: '',
+    fechafinasignacion: '',
+    idusr: 0,
+    fechaCierre: '',
+    nombreObra: '',
+    modulo: '',
+    elempep: '',
+  );
 
   DateTime selectedDate = DateTime.now();
 
-//---------------------------------------------------------------
-//----------------------- initState -----------------------------
-//---------------------------------------------------------------
+  //---------------------------------------------------------------
+  //----------------------- initState -----------------------------
+  //---------------------------------------------------------------
 
   @override
   void initState() {
     super.initState();
     _obra = widget.obra;
-    _fechaCierreSelected =
-        _obra.fechaCierre != null ? _obra.fechaCierre.toString() : '';
-    _observaciones =
-        widget.obra.observacion != null ? widget.obra.observacion! : '';
+    _fechaCierreSelected = _obra.fechaCierre != null
+        ? _obra.fechaCierre.toString()
+        : '';
+    _observaciones = widget.obra.observacion != null
+        ? widget.obra.observacion!
+        : '';
     _observacionesController.text = _observaciones;
     _getEstados();
   }
 
-//---------------------------------------------------------------
-//----------------------- Pantalla -----------------------------
-//---------------------------------------------------------------
+  //---------------------------------------------------------------
+  //----------------------- Pantalla -----------------------------
+  //---------------------------------------------------------------
 
   @override
   Widget build(BuildContext context) {
@@ -124,21 +128,13 @@ class _ObraAsignadaInfoScreenState extends State<ObraAsignadaInfoScreen> {
         children: [
           Column(
             children: [
-              const SizedBox(
-                height: 10,
-              ),
+              const SizedBox(height: 10),
               _getInfoObra(),
-              const SizedBox(
-                height: 10,
-              ),
+              const SizedBox(height: 10),
               _showObservaciones(),
-              const SizedBox(
-                height: 10,
-              ),
+              const SizedBox(height: 10),
               _showButton(),
-              const SizedBox(
-                height: 10,
-              ),
+              const SizedBox(height: 10),
             ],
           ),
           _showLoader
@@ -149,35 +145,36 @@ class _ObraAsignadaInfoScreenState extends State<ObraAsignadaInfoScreen> {
     );
   }
 
-//----------------------------------------------------------------------------
-//------------------------------ _showObservaciones --------------------------
-//----------------------------------------------------------------------------
+  //----------------------------------------------------------------------------
+  //------------------------------ _showObservaciones --------------------------
+  //----------------------------------------------------------------------------
 
   Widget _showObservaciones() {
     return Container(
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
-        child: TextField(
-          controller: _observacionesController,
-          maxLines: 3,
-          decoration: InputDecoration(
-              fillColor: Colors.white,
-              filled: true,
-              isDense: true,
-              hintText: 'Ingrese Observaciones...',
-              labelText: 'Observaciones:',
-              errorText: _observacionesShowError ? _observacionesError : null,
-              prefixIcon: const Icon(Icons.chat),
-              border:
-                  OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
-          onChanged: (value) {
-            _observaciones = value;
-          },
-        ));
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
+      child: TextField(
+        controller: _observacionesController,
+        maxLines: 3,
+        decoration: InputDecoration(
+          fillColor: Colors.white,
+          filled: true,
+          isDense: true,
+          hintText: 'Ingrese Observaciones...',
+          labelText: 'Observaciones:',
+          errorText: _observacionesShowError ? _observacionesError : null,
+          prefixIcon: const Icon(Icons.chat),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+        ),
+        onChanged: (value) {
+          _observaciones = value;
+        },
+      ),
+    );
   }
 
   //-------------------------------------------------------------
-//--------------------- _showButton ---------------------------
-//-------------------------------------------------------------
+  //--------------------- _showButton ---------------------------
+  //-------------------------------------------------------------
 
   Widget _showButton() {
     return Container(
@@ -187,16 +184,6 @@ class _ObraAsignadaInfoScreenState extends State<ObraAsignadaInfoScreen> {
         children: <Widget>[
           Expanded(
             child: ElevatedButton(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  Icon(Icons.save),
-                  SizedBox(
-                    width: 5,
-                  ),
-                  Text('Guardar'),
-                ],
-              ),
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xFF781f1e),
                 minimumSize: const Size(double.infinity, 50),
@@ -205,6 +192,14 @@ class _ObraAsignadaInfoScreenState extends State<ObraAsignadaInfoScreen> {
                 ),
               ),
               onPressed: () => _grabar(),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Icon(Icons.save),
+                  SizedBox(width: 5),
+                  Text('Guardar'),
+                ],
+              ),
             ),
           ),
         ],
@@ -212,9 +207,9 @@ class _ObraAsignadaInfoScreenState extends State<ObraAsignadaInfoScreen> {
     );
   }
 
-//-----------------------------------------------------------------------
-//-------------------------- _getInfoObra -------------------------------
-//-----------------------------------------------------------------------
+  //-----------------------------------------------------------------------
+  //-------------------------- _getInfoObra -------------------------------
+  //-----------------------------------------------------------------------
 
   Widget _getInfoObra() {
     return Card(
@@ -228,113 +223,119 @@ class _ObraAsignadaInfoScreenState extends State<ObraAsignadaInfoScreen> {
           children: [
             Row(
               children: [
-                const Text('N° Obra: ',
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: Color(0xFF781f1e),
-                      fontWeight: FontWeight.bold,
-                    )),
+                const Text(
+                  'N° Obra: ',
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: Color(0xFF781f1e),
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
                 Expanded(
                   flex: 3,
-                  child: Text(_obra.nroobra.toString(),
-                      style: const TextStyle(
-                        fontSize: 12,
-                      )),
+                  child: Text(
+                    _obra.nroobra.toString(),
+                    style: const TextStyle(fontSize: 12),
+                  ),
                 ),
-                const Text('Módulo: ',
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: Color(0xFF781f1e),
-                      fontWeight: FontWeight.bold,
-                    )),
+                const Text(
+                  'Módulo: ',
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: Color(0xFF781f1e),
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
                 Expanded(
                   flex: 4,
-                  child: Text(_obra.modulo.toString(),
-                      style: const TextStyle(
-                        fontSize: 12,
-                      )),
+                  child: Text(
+                    _obra.modulo.toString(),
+                    style: const TextStyle(fontSize: 12),
+                  ),
                 ),
               ],
             ),
-            const SizedBox(
-              height: 5,
-            ),
+            const SizedBox(height: 5),
             Row(
               children: [
-                const Text('Nombre: ',
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: Color(0xFF781f1e),
-                      fontWeight: FontWeight.bold,
-                    )),
+                const Text(
+                  'Nombre: ',
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: Color(0xFF781f1e),
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
                 Expanded(
-                  child: Text(_obra.nombreObra!,
-                      style: const TextStyle(
-                        fontSize: 12,
-                      )),
+                  child: Text(
+                    _obra.nombreObra!,
+                    style: const TextStyle(fontSize: 12),
+                  ),
                 ),
               ],
             ),
-            const SizedBox(
-              height: 5,
-            ),
+            const SizedBox(height: 5),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 _fechaCierreSelected == ''
                     ? MaterialButton(
                         color: const Color(0xFF781f1e),
-                        child: const Text('Fec. Cierre .',
-                            style: TextStyle(color: Colors.white)),
+                        child: const Text(
+                          'Fec. Cierre .',
+                          style: TextStyle(color: Colors.white),
+                        ),
                         onPressed: () {
                           _selectDate(context);
                           setState(() {});
-                        })
+                        },
+                      )
                     : Container(),
                 MaterialButton(
-                    color: const Color(0xFF781f1e),
-                    child: const Text('Datos de la Obra',
-                        style: TextStyle(color: Colors.white)),
-                    onPressed: () {
-                      _goInfoObra(widget.obra.nroobra);
-                    })
+                  color: const Color(0xFF781f1e),
+                  child: const Text(
+                    'Datos de la Obra',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  onPressed: () {
+                    _goInfoObra(widget.obra.nroobra);
+                  },
+                ),
               ],
             ),
-            SizedBox(
-              height: (_fechaCierreSelected != '') ? 5 : 0,
-            ),
+            SizedBox(height: (_fechaCierreSelected != '') ? 5 : 0),
             _fechaCierreSelected != '' && _fechaCierreSelected != 'null'
                 ? Row(
                     children: [
-                      const Text('Fecha Cierre: ',
-                          style: TextStyle(
-                            fontSize: 12,
-                            color: Color(0xFF781f1e),
-                            fontWeight: FontWeight.bold,
-                          )),
+                      const Text(
+                        'Fecha Cierre: ',
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: Color(0xFF781f1e),
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                       Expanded(
                         child: Text(
-                            DateFormat('dd/MM/yyyy')
-                                .format(DateTime.parse(_fechaCierreSelected)),
-                            style: const TextStyle(
-                              fontSize: 12,
-                            )),
+                          DateFormat(
+                            'dd/MM/yyyy',
+                          ).format(DateTime.parse(_fechaCierreSelected)),
+                          style: const TextStyle(fontSize: 12),
+                        ),
                       ),
                     ],
                   )
                 : Container(),
-            const SizedBox(
-              height: 15,
-            ),
+            const SizedBox(height: 15),
           ],
         ),
       ),
     );
   }
 
-//-----------------------------------------------------
-//-------------------- _selectDate --------------------
-//-----------------------------------------------------
+  //-----------------------------------------------------
+  //-------------------- _selectDate --------------------
+  //-----------------------------------------------------
 
   void _selectDate(BuildContext context) async {
     final DateTime? selected = await showDatePicker(
@@ -352,11 +353,11 @@ class _ObraAsignadaInfoScreenState extends State<ObraAsignadaInfoScreen> {
     }
   }
 
-//-------------------------------------------------
-//-------------------- _grabar --------------------
-//-------------------------------------------------
+  //-------------------------------------------------
+  //-------------------- _grabar --------------------
+  //-------------------------------------------------
 
-  _grabar() async {
+  Future<void> _grabar() async {
     FocusScope.of(context).unfocus(); //Oculta el teclado
 
     _obra.fechaCierre = selectedDate.toString().substring(0, 10);
@@ -376,8 +377,11 @@ class _ObraAsignadaInfoScreenState extends State<ObraAsignadaInfoScreen> {
       'FechaCierre': selectedDate.toString().substring(0, 10),
     };
 
-    Response response = await ApiHelper.put('/api/Obras/PutObrasAsignacion/',
-        widget.obra.nroregistro.toString(), request);
+    Response response = await ApiHelper.put(
+      '/api/Obras/PutObrasAsignacion/',
+      widget.obra.nroregistro.toString(),
+      request,
+    );
 
     if (response.isSuccess) {
       _showSnackbar('Datos guardados con éxito');
@@ -386,9 +390,9 @@ class _ObraAsignadaInfoScreenState extends State<ObraAsignadaInfoScreen> {
     }
   }
 
-//-------------------------------------------------------------
-//-------------------- _showSnackbar --------------------------
-//-------------------------------------------------------------
+  //-------------------------------------------------------------
+  //-------------------- _showSnackbar --------------------------
+  //-------------------------------------------------------------
 
   void _showSnackbar(String text) {
     SnackBar snackbar = SnackBar(
@@ -400,9 +404,9 @@ class _ObraAsignadaInfoScreenState extends State<ObraAsignadaInfoScreen> {
     //ScaffoldMessenger.of(context).hideCurrentSnackBar();
   }
 
-//----------------------------------------------------------------
-//-------------------------- _getEstados -------------------------
-//----------------------------------------------------------------
+  //----------------------------------------------------------------
+  //-------------------------- _getEstados -------------------------
+  //----------------------------------------------------------------
 
   Future<void> _getEstados() async {
     var connectivityResult = await Connectivity().checkConnectivity();
@@ -412,7 +416,10 @@ class _ObraAsignadaInfoScreenState extends State<ObraAsignadaInfoScreen> {
         _showLoader = false;
       });
       showMyDialog(
-          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
+        'Error',
+        'Verifica que estés conectado a Internet',
+        'Aceptar',
+      );
     }
 
     Response response = Response(isSuccess: false);
@@ -421,12 +428,13 @@ class _ObraAsignadaInfoScreenState extends State<ObraAsignadaInfoScreen> {
 
     if (!response.isSuccess) {
       await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: response.message,
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message: response.message,
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
       return;
     }
 
@@ -437,9 +445,9 @@ class _ObraAsignadaInfoScreenState extends State<ObraAsignadaInfoScreen> {
     _getSubestados();
   }
 
-//----------------------------------------------------------------
-//-------------------------- _getSubestados -------------------------
-//----------------------------------------------------------------
+  //----------------------------------------------------------------
+  //-------------------------- _getSubestados -------------------------
+  //----------------------------------------------------------------
 
   Future<void> _getSubestados() async {
     var connectivityResult = await Connectivity().checkConnectivity();
@@ -449,7 +457,10 @@ class _ObraAsignadaInfoScreenState extends State<ObraAsignadaInfoScreen> {
         _showLoader = false;
       });
       showMyDialog(
-          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
+        'Error',
+        'Verifica que estés conectado a Internet',
+        'Aceptar',
+      );
     }
 
     Response response = Response(isSuccess: false);
@@ -462,12 +473,13 @@ class _ObraAsignadaInfoScreenState extends State<ObraAsignadaInfoScreen> {
 
     if (!response.isSuccess) {
       await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: response.message,
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message: response.message,
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
       return;
     }
 
@@ -476,9 +488,9 @@ class _ObraAsignadaInfoScreenState extends State<ObraAsignadaInfoScreen> {
     });
   }
 
-//---------------------------------------------------------------
-//----------------------- _goInfoObra ---------------------------
-//---------------------------------------------------------------
+  //---------------------------------------------------------------
+  //----------------------- _goInfoObra ---------------------------
+  //---------------------------------------------------------------
 
   void _goInfoObra(int obraId) async {
     Response response = await ApiHelper.getObra(obraId.toString());
@@ -489,11 +501,12 @@ class _ObraAsignadaInfoScreenState extends State<ObraAsignadaInfoScreen> {
       context,
       MaterialPageRoute(
         builder: (context) => ObraInfoScreen(
-            user: widget.user,
-            obra: _obra2,
-            positionUser: widget.positionUser,
-            estados: _estados,
-            subestados: _subestados),
+          user: widget.user,
+          obra: _obra2,
+          positionUser: widget.positionUser,
+          estados: _estados,
+          subestados: _subestados,
+        ),
       ),
     );
   }

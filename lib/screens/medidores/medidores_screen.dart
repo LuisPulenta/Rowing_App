@@ -4,7 +4,7 @@ import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:camera/camera.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:connectivity/connectivity.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
@@ -17,16 +17,16 @@ import '../screens.dart';
 
 class MedidoresScreen extends StatefulWidget {
   final User user;
-  const MedidoresScreen({Key? key, required this.user}) : super(key: key);
+  const MedidoresScreen({super.key, required this.user});
 
   @override
   _MedidoresScreenState createState() => _MedidoresScreenState();
 }
 
 class _MedidoresScreenState extends State<MedidoresScreen> {
-//---------------------------------------------------------------
-//----------------------- Variables -----------------------------
-//---------------------------------------------------------------
+  //---------------------------------------------------------------
+  //----------------------- Variables -----------------------------
+  //---------------------------------------------------------------
 
   bool _showLoader = false;
   bool _photoChanged = false;
@@ -47,7 +47,8 @@ class _MedidoresScreenState extends State<MedidoresScreen> {
 
   List<ObrasDocumento> _obrasDocumentos = [];
 
-  final CarouselController _carouselController = CarouselController();
+  final CarouselSliderController _carouselController =
+      CarouselSliderController();
 
   String _medidor = '';
   String _medidorError = '';
@@ -80,59 +81,57 @@ class _MedidoresScreenState extends State<MedidoresScreen> {
   final TextEditingController _observacionesController =
       TextEditingController();
 
-//---------------------------------------------------------------
-//----------------------- initState -----------------------------
-//---------------------------------------------------------------
+  //---------------------------------------------------------------
+  //----------------------- initState -----------------------------
+  //---------------------------------------------------------------
 
   @override
   void initState() {
     super.initState();
     _ticket = Ticket(
-        nroregistro: 0,
-        nroobra: 0,
-        asticket: '',
-        cliente: '',
-        direccion: '',
-        numeracion: '',
-        localidad: '',
-        telefono: '',
-        tipoImput: '',
-        certificado: '',
-        serieMedidorColocado: '',
-        precinto: '',
-        cajaDAE: '',
-        idActaCertif: 0,
-        observaciones: '',
-        lindero1: '',
-        lindero2: '',
-        zona: '',
-        terminal: '',
-        subcontratista: '',
-        causanteC: '',
-        grxx: '',
-        gryy: '',
-        idUsrIn: 0,
-        observacionAdicional: '',
-        fechaCarga: '',
-        riesgoElectrico: '',
-        fechaasignacion: '',
-        mes: 0);
+      nroregistro: 0,
+      nroobra: 0,
+      asticket: '',
+      cliente: '',
+      direccion: '',
+      numeracion: '',
+      localidad: '',
+      telefono: '',
+      tipoImput: '',
+      certificado: '',
+      serieMedidorColocado: '',
+      precinto: '',
+      cajaDAE: '',
+      idActaCertif: 0,
+      observaciones: '',
+      lindero1: '',
+      lindero2: '',
+      zona: '',
+      terminal: '',
+      subcontratista: '',
+      causanteC: '',
+      grxx: '',
+      gryy: '',
+      idUsrIn: 0,
+      observacionAdicional: '',
+      fechaCarga: '',
+      riesgoElectrico: '',
+      fechaasignacion: '',
+      mes: 0,
+    );
 
     _ticketVacio = _ticket;
   }
 
-//---------------------------------------------------------------
-//----------------------- Pantalla ------------------------------
-//---------------------------------------------------------------
+  //---------------------------------------------------------------
+  //----------------------- Pantalla ------------------------------
+  //---------------------------------------------------------------
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFF484848),
-      appBar: AppBar(
-        title: const Text('Medidores'),
-        centerTitle: true,
-      ),
+      appBar: AppBar(title: const Text('Medidores'), centerTitle: true),
       body: Stack(
         children: [
           SingleChildScrollView(
@@ -141,63 +140,48 @@ class _MedidoresScreenState extends State<MedidoresScreen> {
                 Center(
                   child: Card(
                     shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20)),
+                      borderRadius: BorderRadius.circular(20),
+                    ),
                     elevation: 15,
                     margin: const EdgeInsets.all(5),
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 15, vertical: 10),
+                        horizontal: 15,
+                        vertical: 10,
+                      ),
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          _showConsultaTicket(),
-                        ],
+                        children: <Widget>[_showConsultaTicket()],
                       ),
                     ),
                   ),
                 ),
                 _showInfoTicket(),
-                const Divider(
-                  height: 3,
-                  color: Colors.white,
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
+                const Divider(height: 3, color: Colors.white),
+                const SizedBox(height: 10),
                 _showCampos(),
-                const SizedBox(
-                  height: 10,
-                ),
+                const SizedBox(height: 10),
                 _showButton(),
-                const SizedBox(
-                  height: 10,
-                ),
-                const Divider(
-                  height: 3,
-                  color: Colors.white,
-                ),
+                const SizedBox(height: 10),
+                const Divider(height: 3, color: Colors.white),
                 _showPhotosCarousel(),
                 _showImageButtons(),
-                const SizedBox(
-                  height: 10,
-                ),
+                const SizedBox(height: 10),
               ],
             ),
           ),
           _showLoader
-              ? const LoaderComponent(
-                  text: 'Por favor espere...',
-                )
+              ? const LoaderComponent(text: 'Por favor espere...')
               : Container(),
         ],
       ),
     );
   }
 
-//-----------------------------------------------------------------------
-//-------------------------- _showConsultaTicket ------------------------
-//-----------------------------------------------------------------------
+  //-----------------------------------------------------------------------
+  //-------------------------- _showConsultaTicket ------------------------
+  //-----------------------------------------------------------------------
 
   Widget _showConsultaTicket() {
     return Row(
@@ -206,24 +190,23 @@ class _MedidoresScreenState extends State<MedidoresScreen> {
           child: TextField(
             controller: _codigoController,
             decoration: InputDecoration(
-                fillColor: Colors.white,
-                filled: true,
-                hintText: 'Ingrese N° de Ticket...',
-                labelText: 'N° de Ticket:',
-                errorText: _codigoShowError ? _codigoError : null,
-                prefixIcon: const Icon(Icons.confirmation_number),
-                border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10))),
+              fillColor: Colors.white,
+              filled: true,
+              hintText: 'Ingrese N° de Ticket...',
+              labelText: 'N° de Ticket:',
+              errorText: _codigoShowError ? _codigoError : null,
+              prefixIcon: const Icon(Icons.confirmation_number),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+            ),
             onChanged: (value) {
               _codigo = value;
             },
           ),
         ),
-        const SizedBox(
-          width: 10,
-        ),
+        const SizedBox(width: 10),
         ElevatedButton(
-          child: const Icon(Icons.search),
           style: ElevatedButton.styleFrom(
             backgroundColor: const Color(0xFF781f1e),
             minimumSize: const Size(50, 50),
@@ -232,14 +215,15 @@ class _MedidoresScreenState extends State<MedidoresScreen> {
             ),
           ),
           onPressed: () => _search(),
+          child: const Icon(Icons.search),
         ),
       ],
     );
   }
 
-//--------------------------------------------------------------------------
-//-------------------------- _showInfoTicket -------------------------------
-//--------------------------------------------------------------------------
+  //--------------------------------------------------------------------------
+  //-------------------------- _showInfoTicket -------------------------------
+  //--------------------------------------------------------------------------
 
   Widget _showInfoTicket() {
     return Card(
@@ -253,74 +237,62 @@ class _MedidoresScreenState extends State<MedidoresScreen> {
           children: [
             Row(
               children: [
-                const Icon(
-                  Icons.person,
-                  color: Colors.blue,
+                const Icon(Icons.person, color: Colors.blue),
+                const Text(
+                  'Cliente: ',
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: Color(0xFF781f1e),
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-                const Text('Cliente: ',
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: Color(0xFF781f1e),
-                      fontWeight: FontWeight.bold,
-                    )),
                 Expanded(
                   child: Text(
-                      _ticket.cliente == null ? '' : _ticket.cliente.toString(),
-                      style: const TextStyle(
-                        fontSize: 14,
-                      )),
+                    _ticket.cliente == null ? '' : _ticket.cliente.toString(),
+                    style: const TextStyle(fontSize: 14),
+                  ),
                 ),
               ],
             ),
-            const SizedBox(
-              height: 5,
-            ),
+            const SizedBox(height: 5),
             Row(
               children: [
-                const Icon(
-                  Icons.directions,
-                  color: Colors.blue,
+                const Icon(Icons.directions, color: Colors.blue),
+                const Text(
+                  'Dirección: ',
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: Color(0xFF781f1e),
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-                const Text('Dirección: ',
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: Color(0xFF781f1e),
-                      fontWeight: FontWeight.bold,
-                    )),
                 Expanded(
                   child: Text(
-                      _ticket.direccion == null
-                          ? ''
-                          : _ticket.direccion.toString(),
-                      style: const TextStyle(
-                        fontSize: 14,
-                      )),
+                    _ticket.direccion == null
+                        ? ''
+                        : _ticket.direccion.toString(),
+                    style: const TextStyle(fontSize: 14),
+                  ),
                 ),
               ],
             ),
-            const SizedBox(
-              height: 5,
-            ),
+            const SizedBox(height: 5),
             Row(
               children: [
-                const Icon(
-                  Icons.phone,
-                  color: Colors.blue,
+                const Icon(Icons.phone, color: Colors.blue),
+                const Text(
+                  'Teléfono: ',
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: Color(0xFF781f1e),
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-                const Text('Teléfono: ',
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: Color(0xFF781f1e),
-                      fontWeight: FontWeight.bold,
-                    )),
                 Expanded(
                   child: Text(
-                      _ticket.telefono == null
-                          ? ''
-                          : _ticket.telefono.toString(),
-                      style: const TextStyle(
-                        fontSize: 14,
-                      )),
+                    _ticket.telefono == null ? '' : _ticket.telefono.toString(),
+                    style: const TextStyle(fontSize: 14),
+                  ),
                 ),
               ],
             ),
@@ -330,148 +302,156 @@ class _MedidoresScreenState extends State<MedidoresScreen> {
     );
   }
 
-//-----------------------------------------------------------------------
-//-------------------------- _showCampos --------------------------------
-//-----------------------------------------------------------------------
+  //-----------------------------------------------------------------------
+  //-------------------------- _showCampos --------------------------------
+  //-----------------------------------------------------------------------
 
   Widget _showCampos() {
     return Card(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        elevation: 15,
-        margin: const EdgeInsets.all(5),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 0),
-          child: Column(
-            children: [
-              Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                child: TextField(
-                  controller: _medidorController,
-                  decoration: InputDecoration(
-                      fillColor: Colors.white,
-                      filled: true,
-                      hintText: 'Ingrese Serie Medidor colocado:...',
-                      labelText: 'Serie Medidor colocado:',
-                      errorText: _medidorShowError ? _medidorError : null,
-                      prefixIcon: const Icon(Icons.pin),
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10))),
-                  onChanged: (value) {
-                    _medidor = value;
-                  },
-                  enabled: _enabled,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+      elevation: 15,
+      margin: const EdgeInsets.all(5),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 0),
+        child: Column(
+          children: [
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+              child: TextField(
+                controller: _medidorController,
+                decoration: InputDecoration(
+                  fillColor: Colors.white,
+                  filled: true,
+                  hintText: 'Ingrese Serie Medidor colocado:...',
+                  labelText: 'Serie Medidor colocado:',
+                  errorText: _medidorShowError ? _medidorError : null,
+                  prefixIcon: const Icon(Icons.pin),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
                 ),
+                onChanged: (value) {
+                  _medidor = value;
+                },
+                enabled: _enabled,
               ),
-              Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                child: TextField(
-                  controller: _precintoController,
-                  decoration: InputDecoration(
-                      fillColor: Colors.white,
-                      filled: true,
-                      hintText: 'Ingrese Precinto...',
-                      labelText: 'Precinto:',
-                      errorText: _precintoShowError ? _precintoError : null,
-                      prefixIcon: const Icon(Icons.tag),
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10))),
-                  onChanged: (value) {
-                    _precinto = value;
-                  },
-                  enabled: _enabled,
+            ),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+              child: TextField(
+                controller: _precintoController,
+                decoration: InputDecoration(
+                  fillColor: Colors.white,
+                  filled: true,
+                  hintText: 'Ingrese Precinto...',
+                  labelText: 'Precinto:',
+                  errorText: _precintoShowError ? _precintoError : null,
+                  prefixIcon: const Icon(Icons.tag),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
                 ),
+                onChanged: (value) {
+                  _precinto = value;
+                },
+                enabled: _enabled,
               ),
-              Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                child: TextField(
-                  controller: _cajaDAEController,
-                  decoration: InputDecoration(
-                      fillColor: Colors.white,
-                      filled: true,
-                      hintText: 'Ingrese Caja DAE...',
-                      labelText: 'Caja DAE:',
-                      errorText: _cajaDAEShowError ? _cajaDAEError : null,
-                      prefixIcon: const Icon(Icons.inbox),
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10))),
-                  onChanged: (value) {
-                    _cajaDAE = value;
-                  },
-                  enabled: _enabled,
+            ),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+              child: TextField(
+                controller: _cajaDAEController,
+                decoration: InputDecoration(
+                  fillColor: Colors.white,
+                  filled: true,
+                  hintText: 'Ingrese Caja DAE...',
+                  labelText: 'Caja DAE:',
+                  errorText: _cajaDAEShowError ? _cajaDAEError : null,
+                  prefixIcon: const Icon(Icons.inbox),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
                 ),
+                onChanged: (value) {
+                  _cajaDAE = value;
+                },
+                enabled: _enabled,
               ),
-              Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                child: TextField(
-                  controller: _lindero1Controller,
-                  decoration: InputDecoration(
-                      fillColor: Colors.white,
-                      filled: true,
-                      hintText: 'Ingrese Lindero 1...',
-                      labelText: 'Lindero 1:',
-                      errorText: _lindero1ShowError ? _lindero1Error : null,
-                      prefixIcon: const Icon(Icons.looks_one),
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10))),
-                  onChanged: (value) {
-                    _lindero1 = value;
-                  },
-                  enabled: _enabled,
+            ),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+              child: TextField(
+                controller: _lindero1Controller,
+                decoration: InputDecoration(
+                  fillColor: Colors.white,
+                  filled: true,
+                  hintText: 'Ingrese Lindero 1...',
+                  labelText: 'Lindero 1:',
+                  errorText: _lindero1ShowError ? _lindero1Error : null,
+                  prefixIcon: const Icon(Icons.looks_one),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
                 ),
+                onChanged: (value) {
+                  _lindero1 = value;
+                },
+                enabled: _enabled,
               ),
-              Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                child: TextField(
-                  controller: _lindero2Controller,
-                  decoration: InputDecoration(
-                      fillColor: Colors.white,
-                      filled: true,
-                      hintText: 'Ingrese Lindero 2...',
-                      labelText: 'Lindero 2:',
-                      errorText: _lindero2ShowError ? _lindero2Error : null,
-                      prefixIcon: const Icon(Icons.looks_two),
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10))),
-                  onChanged: (value) {
-                    _lindero2 = value;
-                  },
-                  enabled: _enabled,
+            ),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+              child: TextField(
+                controller: _lindero2Controller,
+                decoration: InputDecoration(
+                  fillColor: Colors.white,
+                  filled: true,
+                  hintText: 'Ingrese Lindero 2...',
+                  labelText: 'Lindero 2:',
+                  errorText: _lindero2ShowError ? _lindero2Error : null,
+                  prefixIcon: const Icon(Icons.looks_two),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
                 ),
+                onChanged: (value) {
+                  _lindero2 = value;
+                },
+                enabled: _enabled,
               ),
-              Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                child: TextField(
-                  controller: _observacionesController,
-                  decoration: InputDecoration(
-                      fillColor: Colors.white,
-                      filled: true,
-                      hintText: 'Ingrese Observaciones...',
-                      labelText: 'Observaciones:',
-                      errorText:
-                          _observacionesShowError ? _observacionesError : null,
-                      prefixIcon: const Icon(Icons.chat),
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10))),
-                  onChanged: (value) {
-                    _observaciones = value;
-                  },
-                  enabled: _enabled,
+            ),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+              child: TextField(
+                controller: _observacionesController,
+                decoration: InputDecoration(
+                  fillColor: Colors.white,
+                  filled: true,
+                  hintText: 'Ingrese Observaciones...',
+                  labelText: 'Observaciones:',
+                  errorText: _observacionesShowError
+                      ? _observacionesError
+                      : null,
+                  prefixIcon: const Icon(Icons.chat),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
                 ),
+                onChanged: (value) {
+                  _observaciones = value;
+                },
+                enabled: _enabled,
               ),
-            ],
-          ),
-        ));
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
-//-----------------------------------------------------------------------
-//-------------------------- _showButton --------------------------------
-//-----------------------------------------------------------------------
+  //-----------------------------------------------------------------------
+  //-------------------------- _showButton --------------------------------
+  //-----------------------------------------------------------------------
 
   Widget _showButton() {
     return Container(
@@ -481,16 +461,6 @@ class _MedidoresScreenState extends State<MedidoresScreen> {
         children: <Widget>[
           Expanded(
             child: ElevatedButton(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  Icon(Icons.save),
-                  SizedBox(
-                    width: 20,
-                  ),
-                  Text('Guardar cambios'),
-                ],
-              ),
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xFF781f1e),
                 minimumSize: const Size(double.infinity, 50),
@@ -499,6 +469,14 @@ class _MedidoresScreenState extends State<MedidoresScreen> {
                 ),
               ),
               onPressed: _enabled ? _save : null,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Icon(Icons.save),
+                  SizedBox(width: 20),
+                  Text('Guardar cambios'),
+                ],
+              ),
             ),
           ),
         ],
@@ -506,9 +484,9 @@ class _MedidoresScreenState extends State<MedidoresScreen> {
     );
   }
 
-//----------------------------------------------------------------------
-//-------------------------- _showPhotosCarousel -----------------------
-//----------------------------------------------------------------------
+  //----------------------------------------------------------------------
+  //-------------------------- _showPhotosCarousel -----------------------
+  //----------------------------------------------------------------------
 
   Widget _showPhotosCarousel() {
     return Container(
@@ -517,16 +495,17 @@ class _MedidoresScreenState extends State<MedidoresScreen> {
         children: [
           CarouselSlider(
             options: CarouselOptions(
-                height: 460,
-                autoPlay: false,
-                initialPage: 0,
-                autoPlayInterval: const Duration(seconds: 0),
-                enlargeCenterPage: true,
-                onPageChanged: (index, reason) {
-                  setState(() {
-                    _current = index;
-                  });
-                }),
+              height: 460,
+              autoPlay: false,
+              initialPage: 0,
+              autoPlayInterval: const Duration(seconds: 0),
+              enlargeCenterPage: true,
+              onPageChanged: (index, reason) {
+                setState(() {
+                  _current = index;
+                });
+              },
+            ),
             carouselController: _carouselController,
             items: _obrasDocumentos.map((i) {
               return Builder(
@@ -535,47 +514,48 @@ class _MedidoresScreenState extends State<MedidoresScreen> {
                     children: [
                       Expanded(
                         child: Container(
-                            width: MediaQuery.of(context).size.width,
-                            margin: const EdgeInsets.symmetric(horizontal: 5),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(20),
-                              child: CachedNetworkImage(
-                                imageUrl: i.imageFullPath == null
-                                    ? ''
-                                    : i.imageFullPath.toString(),
-                                errorWidget: (context, url, error) =>
-                                    const Icon(Icons.error),
+                          width: MediaQuery.of(context).size.width,
+                          margin: const EdgeInsets.symmetric(horizontal: 5),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(20),
+                            child: CachedNetworkImage(
+                              imageUrl: i.imageFullPath == null
+                                  ? ''
+                                  : i.imageFullPath.toString(),
+                              errorWidget: (context, url, error) =>
+                                  const Icon(Icons.error),
+                              fit: BoxFit.contain,
+                              height: 360,
+                              width: 460,
+                              placeholder: (context, url) => const Image(
+                                image: AssetImage('assets/loading.gif'),
                                 fit: BoxFit.contain,
-                                height: 360,
-                                width: 460,
-                                placeholder: (context, url) => const Image(
-                                  image: AssetImage('assets/loading.gif'),
-                                  fit: BoxFit.contain,
-                                  height: 100,
-                                  width: 100,
-                                ),
+                                height: 100,
+                                width: 100,
                               ),
-                            )),
+                            ),
+                          ),
+                        ),
                       ),
-                      const SizedBox(
-                        height: 5,
-                      ),
+                      const SizedBox(height: 5),
                       Text(
                         i.tipoDeFoto == 4
                             ? 'N° Medidor Colocado'
                             : i.tipoDeFoto == 5
-                                ? 'Estado de medidor retirado'
-                                : i.tipoDeFoto == 6
-                                    ? 'N° de precinto'
-                                    : i.tipoDeFoto == 7
-                                        ? 'N° de tapa o caja'
-                                        : i.tipoDeFoto == 8
-                                            ? 'Lindero 1'
-                                            : i.tipoDeFoto == 9
-                                                ? 'Lindero 2'
-                                                : '',
+                            ? 'Estado de medidor retirado'
+                            : i.tipoDeFoto == 6
+                            ? 'N° de precinto'
+                            : i.tipoDeFoto == 7
+                            ? 'N° de tapa o caja'
+                            : i.tipoDeFoto == 8
+                            ? 'Lindero 1'
+                            : i.tipoDeFoto == 9
+                            ? 'Lindero 2'
+                            : '',
                         style: const TextStyle(
-                            color: Colors.white, fontWeight: FontWeight.bold),
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ],
                   );
@@ -592,13 +572,17 @@ class _MedidoresScreenState extends State<MedidoresScreen> {
                   width: 12.0,
                   height: 12.0,
                   margin: const EdgeInsets.symmetric(
-                      vertical: 8.0, horizontal: 4.0),
+                    vertical: 8.0,
+                    horizontal: 4.0,
+                  ),
                   decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: (Theme.of(context).brightness == Brightness.dark
-                              ? Colors.white
-                              : Colors.black)
-                          .withOpacity(_current == entry.key ? 0.9 : 0.4)),
+                    shape: BoxShape.circle,
+                    color:
+                        (Theme.of(context).brightness == Brightness.dark
+                                ? Colors.white
+                                : Colors.black)
+                            .withOpacity(_current == entry.key ? 0.9 : 0.4),
+                  ),
                 ),
               );
             }).toList(),
@@ -608,9 +592,9 @@ class _MedidoresScreenState extends State<MedidoresScreen> {
     );
   }
 
-//---------------------------------------------------------------------------
-//-------------------------- _showImageButtons ------------------------------
-//---------------------------------------------------------------------------
+  //---------------------------------------------------------------------------
+  //-------------------------- _showImageButtons ------------------------------
+  //---------------------------------------------------------------------------
 
   Widget _showImageButtons() {
     return Container(
@@ -620,13 +604,6 @@ class _MedidoresScreenState extends State<MedidoresScreen> {
         children: <Widget>[
           Expanded(
             child: ElevatedButton(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: const [
-                  Icon(Icons.add_a_photo),
-                  Text('Adicionar Foto'),
-                ],
-              ),
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xFF120E43),
                 minimumSize: const Size(double.infinity, 50),
@@ -635,20 +612,18 @@ class _MedidoresScreenState extends State<MedidoresScreen> {
                 ),
               ),
               onPressed: _enabled ? _goAddPhoto : null,
-            ),
-          ),
-          const SizedBox(
-            width: 20,
-          ),
-          Expanded(
-            child: ElevatedButton(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: const [
-                  Icon(Icons.delete),
-                  Text('Eliminar Foto'),
+                  Icon(Icons.add_a_photo),
+                  Text('Adicionar Foto'),
                 ],
               ),
+            ),
+          ),
+          const SizedBox(width: 20),
+          Expanded(
+            child: ElevatedButton(
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xFFB4161B),
                 minimumSize: const Size(double.infinity, 50),
@@ -657,6 +632,10 @@ class _MedidoresScreenState extends State<MedidoresScreen> {
                 ),
               ),
               onPressed: _enabled ? _confirmDeletePhoto : null,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: const [Icon(Icons.delete), Text('Eliminar Foto')],
+              ),
             ),
           ),
         ],
@@ -664,30 +643,32 @@ class _MedidoresScreenState extends State<MedidoresScreen> {
     );
   }
 
-//---------------------------------------------------------------------
-//-------------------------- _goAddPhoto ------------------------------
-//---------------------------------------------------------------------
+  //---------------------------------------------------------------------
+  //-------------------------- _goAddPhoto ------------------------------
+  //---------------------------------------------------------------------
 
   void _goAddPhoto() async {
     if (widget.user.habilitaFotos != 1) {
       await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: 'Su usuario no está habilitado para agregar Fotos.',
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message: 'Su usuario no está habilitado para agregar Fotos.',
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
       return;
     }
     var response = await showAlertDialog(
-        context: context,
-        title: 'Confirmación',
-        message: '¿De donde deseas obtener la imagen?',
-        actions: <AlertDialogAction>[
-          const AlertDialogAction(key: 'cancel', label: 'Cancelar'),
-          const AlertDialogAction(key: 'camera', label: 'Cámara'),
-          const AlertDialogAction(key: 'gallery', label: 'Galería'),
-        ]);
+      context: context,
+      title: 'Confirmación',
+      message: '¿De donde deseas obtener la imagen?',
+      actions: <AlertDialogAction>[
+        const AlertDialogAction(key: 'cancel', label: 'Cancelar'),
+        const AlertDialogAction(key: 'camera', label: 'Cámara'),
+        const AlertDialogAction(key: 'gallery', label: 'Galería'),
+      ],
+    );
 
     if (response == 'cancel') {
       return;
@@ -704,23 +685,24 @@ class _MedidoresScreenState extends State<MedidoresScreen> {
     }
   }
 
-//---------------------------------------------------------------------
-//-------------------------- _takePicture -----------------------------
-//---------------------------------------------------------------------
+  //---------------------------------------------------------------------
+  //-------------------------- _takePicture -----------------------------
+  //---------------------------------------------------------------------
 
   Future _takePicture() async {
     WidgetsFlutterBinding.ensureInitialized();
     final cameras = await availableCameras();
     var firstCamera = cameras.first;
     var response1 = await showAlertDialog(
-        context: context,
-        title: 'Seleccionar cámara',
-        message: '¿Qué cámara desea utilizar?',
-        actions: <AlertDialogAction>[
-          const AlertDialogAction(key: 'no', label: 'Trasera'),
-          const AlertDialogAction(key: 'yes', label: 'Delantera'),
-          const AlertDialogAction(key: 'cancel', label: 'Cancelar'),
-        ]);
+      context: context,
+      title: 'Seleccionar cámara',
+      message: '¿Qué cámara desea utilizar?',
+      actions: <AlertDialogAction>[
+        const AlertDialogAction(key: 'no', label: 'Trasera'),
+        const AlertDialogAction(key: 'yes', label: 'Delantera'),
+        const AlertDialogAction(key: 'cancel', label: 'Cancelar'),
+      ],
+    );
     if (response1 == 'yes') {
       firstCamera = cameras.first;
     }
@@ -730,11 +712,11 @@ class _MedidoresScreenState extends State<MedidoresScreen> {
 
     if (response1 != 'cancel') {
       Response? response = await Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => TakePicture2Screen(
-                    camera: firstCamera,
-                  )));
+        context,
+        MaterialPageRoute(
+          builder: (context) => TakePicture2Screen(camera: firstCamera),
+        ),
+      );
       if (response != null) {
         setState(() {
           _photoChanged = true;
@@ -745,20 +727,21 @@ class _MedidoresScreenState extends State<MedidoresScreen> {
     }
   }
 
-//---------------------------------------------------------------------
-//-------------------------- _selectPicture ---------------------------
-//---------------------------------------------------------------------
+  //---------------------------------------------------------------------
+  //-------------------------- _selectPicture ---------------------------
+  //---------------------------------------------------------------------
 
   Future<void> _selectPicture() async {
-    final ImagePicker _picker = ImagePicker();
-    final XFile? _image2 = await _picker.pickImage(source: ImageSource.gallery);
+    final ImagePicker picker = ImagePicker();
+    final XFile? image2 = await picker.pickImage(source: ImageSource.gallery);
 
-    if (_image2 != null) {
+    if (image2 != null) {
       _photoChanged = true;
-      Response? response = await Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => DisplayPicture2Screen(
-                image: _image2,
-              )));
+      Response? response = await Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => DisplayPicture2Screen(image: image2),
+        ),
+      );
       if (response != null) {
         setState(() {
           _photoChanged = true;
@@ -769,9 +752,9 @@ class _MedidoresScreenState extends State<MedidoresScreen> {
     }
   }
 
-//------------------------------------------------------------------
-//-------------------------- _addPicture ---------------------------
-//------------------------------------------------------------------
+  //------------------------------------------------------------------
+  //-------------------------- _addPicture ---------------------------
+  //------------------------------------------------------------------
 
   void _addPicture() async {
     setState(() {
@@ -784,12 +767,13 @@ class _MedidoresScreenState extends State<MedidoresScreen> {
         _showLoader = false;
       });
       await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: 'Verifica que estes conectado a internet.',
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message: 'Verifica que estes conectado a internet.',
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
       return;
     }
 
@@ -815,8 +799,10 @@ class _MedidoresScreenState extends State<MedidoresScreen> {
       'direccionfoto': _photo.direccion,
     };
 
-    Response response =
-        await ApiHelper.post('/api/ObrasDocuments/ObrasDocument2', request33);
+    Response response = await ApiHelper.post(
+      '/api/ObrasDocuments/ObrasDocument2',
+      request33,
+    );
 
     setState(() {
       _showLoader = false;
@@ -824,12 +810,13 @@ class _MedidoresScreenState extends State<MedidoresScreen> {
 
     if (!response.isSuccess) {
       await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: response.message,
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message: response.message,
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
       return;
     }
 
@@ -838,9 +825,9 @@ class _MedidoresScreenState extends State<MedidoresScreen> {
     });
   }
 
-//------------------------------------------------------------------
-//-------------------- _confirmDeletePhoto -------------------------
-//------------------------------------------------------------------
+  //------------------------------------------------------------------
+  //-------------------- _confirmDeletePhoto -------------------------
+  //------------------------------------------------------------------
 
   void _confirmDeletePhoto() async {
     if (_obrasDocumentos.isEmpty) {
@@ -849,32 +836,34 @@ class _MedidoresScreenState extends State<MedidoresScreen> {
 
     if (widget.user.habilitaFotos != 1) {
       await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: 'Su usuario no está habilitado para eliminar Fotos.',
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message: 'Su usuario no está habilitado para eliminar Fotos.',
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
       return;
     }
 
     var response = await showAlertDialog(
-        context: context,
-        title: 'Confirmación',
-        message: '¿Estas seguro de querer borrar esta foto?',
-        actions: <AlertDialogAction>[
-          const AlertDialogAction(key: 'no', label: 'No'),
-          const AlertDialogAction(key: 'yes', label: 'Sí'),
-        ]);
+      context: context,
+      title: 'Confirmación',
+      message: '¿Estas seguro de querer borrar esta foto?',
+      actions: <AlertDialogAction>[
+        const AlertDialogAction(key: 'no', label: 'No'),
+        const AlertDialogAction(key: 'yes', label: 'Sí'),
+      ],
+    );
 
     if (response == 'yes') {
       await _deletePhoto();
     }
   }
 
-//------------------------------------------------------------------
-//-------------------- _deletePhoto --------------------------------
-//------------------------------------------------------------------
+  //------------------------------------------------------------------
+  //-------------------- _deletePhoto --------------------------------
+  //------------------------------------------------------------------
 
   Future<void> _deletePhoto() async {
     setState(() {
@@ -887,17 +876,20 @@ class _MedidoresScreenState extends State<MedidoresScreen> {
         _showLoader = false;
       });
       await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: 'Verifica que estes conectado a internet.',
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message: 'Verifica que estes conectado a internet.',
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
       return;
     }
 
-    Response response = await ApiHelper.delete('/api/ObrasDocuments/',
-        _obrasDocumentos[_current].nroregistro.toString());
+    Response response = await ApiHelper.delete(
+      '/api/ObrasDocuments/',
+      _obrasDocumentos[_current].nroregistro.toString(),
+    );
 
     setState(() {
       _showLoader = false;
@@ -905,12 +897,13 @@ class _MedidoresScreenState extends State<MedidoresScreen> {
 
     if (!response.isSuccess) {
       await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: response.message,
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message: response.message,
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
       return;
     }
 
@@ -919,20 +912,21 @@ class _MedidoresScreenState extends State<MedidoresScreen> {
     });
   }
 
-//-------------------------------------------------------------
-//-------------------- _search --------------------------------
-//-------------------------------------------------------------
+  //-------------------------------------------------------------
+  //-------------------- _search --------------------------------
+  //-------------------------------------------------------------
 
-  _search() async {
+  Future<void> _search() async {
     FocusScope.of(context).unfocus();
     if (_codigo.isEmpty) {
       await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: 'Ingrese un Ticket.',
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message: 'Ingrese un Ticket.',
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
       return;
     }
     await _getTicket();
@@ -944,9 +938,9 @@ class _MedidoresScreenState extends State<MedidoresScreen> {
     });
   }
 
-//-------------------------------------------------------------
-//-------------------- _getTicket -----------------------------
-//-------------------------------------------------------------
+  //-------------------------------------------------------------
+  //-------------------- _getTicket -----------------------------
+  //-------------------------------------------------------------
 
   Future<void> _getTicket() async {
     setState(() {
@@ -959,12 +953,13 @@ class _MedidoresScreenState extends State<MedidoresScreen> {
         _showLoader = false;
       });
       await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: 'Verifica que estes conectado a internet.',
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message: 'Verifica que estes conectado a internet.',
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
       return;
     }
 
@@ -972,12 +967,13 @@ class _MedidoresScreenState extends State<MedidoresScreen> {
 
     if (!response.isSuccess) {
       await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: 'N° de Ticket no válido',
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message: 'N° de Ticket no válido',
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
 
       setState(() {
         _ticket = _ticketVacio;
@@ -1003,12 +999,13 @@ class _MedidoresScreenState extends State<MedidoresScreen> {
 
     if (_ticket.idActaCertif != 0) {
       await showAlertDialog(
-          context: context,
-          title: 'Aviso',
-          message: 'Este medidor ya fue certificado',
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Aviso',
+        message: 'Este medidor ya fue certificado',
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
 
       setState(() {
         _ticket = _ticketVacio;
@@ -1031,15 +1028,15 @@ class _MedidoresScreenState extends State<MedidoresScreen> {
       return;
     }
 
-    Response response2 =
-        await ApiHelper.getObrasDocumentos(_ticket.nroregistro.toString());
+    Response response2 = await ApiHelper.getObrasDocumentos(
+      _ticket.nroregistro.toString(),
+    );
 
     _obrasDocumentos = response2.result;
     _obrasDocumentos.sort((a, b) {
-      return a.tipoDeFoto
-          .toString()
-          .toLowerCase()
-          .compareTo(b.tipoDeFoto.toString().toLowerCase());
+      return a.tipoDeFoto.toString().toLowerCase().compareTo(
+        b.tipoDeFoto.toString().toLowerCase(),
+      );
     });
 
     setState(() {
@@ -1061,9 +1058,9 @@ class _MedidoresScreenState extends State<MedidoresScreen> {
     });
   }
 
-//--------------------------------------------------------
-//-------------------- _save -----------------------------
-//--------------------------------------------------------
+  //--------------------------------------------------------
+  //-------------------- _save -----------------------------
+  //--------------------------------------------------------
 
   void _save() {
     if (!validateFields()) {
@@ -1072,9 +1069,9 @@ class _MedidoresScreenState extends State<MedidoresScreen> {
     _saveRecord();
   }
 
-//-----------------------------------------------------------------
-//-------------------- validateFields -----------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //-------------------- validateFields -----------------------------
+  //-----------------------------------------------------------------
 
   bool validateFields() {
     bool isValid = true;
@@ -1146,11 +1143,11 @@ class _MedidoresScreenState extends State<MedidoresScreen> {
     return isValid;
   }
 
-//--------------------------------------------------------------
-//-------------------- _saveRecord -----------------------------
-//--------------------------------------------------------------
+  //--------------------------------------------------------------
+  //-------------------- _saveRecord -----------------------------
+  //--------------------------------------------------------------
 
-  _saveRecord() async {
+  Future<void> _saveRecord() async {
     setState(() {
       _showLoader = true;
     });
@@ -1196,11 +1193,17 @@ class _MedidoresScreenState extends State<MedidoresScreen> {
         _showLoader = false;
       });
       showMyDialog(
-          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
+        'Error',
+        'Verifica que estés conectado a Internet',
+        'Aceptar',
+      );
     }
 
     Response response = await ApiHelper.put(
-        '/api/ObrasPostes/', _ticket.nroregistro.toString(), request);
+      '/api/ObrasPostes/',
+      _ticket.nroregistro.toString(),
+      request,
+    );
 
     setState(() {
       _showLoader = false;
@@ -1208,12 +1211,13 @@ class _MedidoresScreenState extends State<MedidoresScreen> {
 
     if (!response.isSuccess) {
       await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: response.message,
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message: response.message,
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
       return;
     }
     _codigo = '';

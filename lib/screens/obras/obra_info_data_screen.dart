@@ -1,5 +1,5 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
-import 'package:connectivity/connectivity.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
@@ -12,17 +12,16 @@ class ObraInfoDataScreen extends StatefulWidget {
   final User user;
   final Obra obra;
 
-  const ObraInfoDataScreen({Key? key, required this.user, required this.obra})
-      : super(key: key);
+  const ObraInfoDataScreen({super.key, required this.user, required this.obra});
 
   @override
   State<ObraInfoDataScreen> createState() => _ObraInfoDataScreenState();
 }
 
 class _ObraInfoDataScreenState extends State<ObraInfoDataScreen> {
-//----------------------------------------------------------------------
-//------------------------ Variables -----------------------------------
-//----------------------------------------------------------------------
+  //----------------------------------------------------------------------
+  //------------------------ Variables -----------------------------------
+  //----------------------------------------------------------------------
 
   bool _showLoader = false;
   bool _mostrarConexiones = false;
@@ -82,50 +81,54 @@ class _ObraInfoDataScreenState extends State<ObraInfoDataScreen> {
   List<Catalogo> _catalogos = [];
 
   Obra _obra = Obra(
-      nroObra: 0,
-      nombreObra: '',
-      nroOE: '',
-      defProy: '',
-      central: '',
-      elempep: '',
-      observaciones: '',
-      finalizada: 0,
-      supervisore: '',
-      codigoEstado: '',
-      codigoSubEstado: '',
-      modulo: '',
-      grupoAlmacen: '',
-      obrasDocumentos: [],
-      fechaCierreElectrico: '',
-      fechaUltimoMovimiento: '',
-      photos: 0,
-      audios: 0,
-      videos: 0,
-      posx: '',
-      posy: '',
-      direccion: '',
-      textoLocalizacion: '',
-      textoClase: '',
-      textoTipo: '',
-      textoComponente: '',
-      codigoDiametro: '',
-      motivo: '',
-      planos: '',
-      grupoCausante: '');
+    nroObra: 0,
+    nombreObra: '',
+    nroOE: '',
+    defProy: '',
+    central: '',
+    elempep: '',
+    observaciones: '',
+    finalizada: 0,
+    supervisore: '',
+    codigoEstado: '',
+    codigoSubEstado: '',
+    modulo: '',
+    grupoAlmacen: '',
+    obrasDocumentos: [],
+    fechaCierreElectrico: '',
+    fechaUltimoMovimiento: '',
+    photos: 0,
+    audios: 0,
+    videos: 0,
+    posx: '',
+    posy: '',
+    direccion: '',
+    textoLocalizacion: '',
+    textoClase: '',
+    textoTipo: '',
+    textoComponente: '',
+    codigoDiametro: '',
+    motivo: '',
+    planos: '',
+    grupoCausante: '',
+  );
 
-  Position _positionUser = const Position(
-      longitude: 0,
-      latitude: 0,
-      timestamp: null,
-      accuracy: 0,
-      altitude: 0,
-      heading: 0,
-      speed: 0,
-      speedAccuracy: 0);
+  Position _positionUser =  Position(
+    longitude: 0,
+    latitude: 0,
+    timestamp: DateTime.now(),
+    altitudeAccuracy: 0,
+    headingAccuracy: 0,
+    accuracy: 0,
+    altitude: 0,
+    heading: 0,
+    speed: 0,
+    speedAccuracy: 0,
+  );
 
-//----------------------------------------------------------------------
-//------------------------  initState ----------------------------------
-//----------------------------------------------------------------------
+  //----------------------------------------------------------------------
+  //------------------------  initState ----------------------------------
+  //----------------------------------------------------------------------
 
   @override
   void initState() {
@@ -133,8 +136,9 @@ class _ObraInfoDataScreenState extends State<ObraInfoDataScreen> {
     _obra = widget.obra;
     _obra.posx ??= '';
     _obra.posy ??= '';
-    _direccionController.text =
-        _obra.direccion != null ? _obra.direccion.toString() : '';
+    _direccionController.text = _obra.direccion != null
+        ? _obra.direccion.toString()
+        : '';
 
     if (_obra.textoLocalizacion == null || _obra.textoLocalizacion == '') {
       _obra.textoLocalizacion = 'Seleccione un Motivo...';
@@ -160,16 +164,17 @@ class _ObraInfoDataScreenState extends State<ObraInfoDataScreen> {
       _obra.motivo = 'Seleccione un Tipo de Fuga...';
     }
 
-    _comentariosController.text =
-        _obra.planos != null ? _obra.planos.toString() : '';
+    _comentariosController.text = _obra.planos != null
+        ? _obra.planos.toString()
+        : '';
 
     _loadData();
     setState(() {});
   }
 
-//----------------------------------------------------------------------
-//------------------------ Pantalla ------------------------------------
-//----------------------------------------------------------------------
+  //----------------------------------------------------------------------
+  //------------------------ Pantalla ------------------------------------
+  //----------------------------------------------------------------------
 
   @override
   Widget build(BuildContext context) {
@@ -184,62 +189,44 @@ class _ObraInfoDataScreenState extends State<ObraInfoDataScreen> {
           SingleChildScrollView(
             child: Column(
               children: [
-                const SizedBox(
-                  height: 20,
-                ),
+                const SizedBox(height: 20),
                 _showDireccion(),
-                const Divider(
-                  color: Color(0xFF781f1e),
-                ),
+                const Divider(color: Color(0xFF781f1e)),
                 _showMotivos(),
                 _showConexiones(),
                 _showLugares(),
-                const Divider(
-                  color: Color(0xFF781f1e),
-                ),
+                const Divider(color: Color(0xFF781f1e)),
                 _showMaterialCanio(),
                 _catalogos.isEmpty
                     ? Row(
                         children: const [
                           CircularProgressIndicator(),
-                          SizedBox(
-                            width: 10,
-                          ),
+                          SizedBox(width: 10),
                           Text('Cargando Catálogos...'),
                         ],
                       )
                     : _showDiametroCanio(),
-                const Divider(
-                  color: Color(0xFF781f1e),
-                ),
+                const Divider(color: Color(0xFF781f1e)),
                 _showFugas(),
-                const Divider(
-                  color: Color(0xFF781f1e),
-                ),
+                const Divider(color: Color(0xFF781f1e)),
                 _showComentarios(),
-                const Divider(
-                  color: Color(0xFF781f1e),
-                ),
+                const Divider(color: Color(0xFF781f1e)),
                 _showButton(),
-                const SizedBox(
-                  height: 10,
-                ),
+                const SizedBox(height: 10),
               ],
             ),
           ),
           _showLoader
-              ? const LoaderComponent(
-                  text: 'Por favor espere...',
-                )
+              ? const LoaderComponent(text: 'Por favor espere...')
               : Container(),
         ],
       ),
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _showDireccion ----------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _showDireccion ----------------------------
+  //-----------------------------------------------------------------
 
   Widget _showDireccion() {
     double ancho = MediaQuery.of(context).size.width;
@@ -249,18 +236,9 @@ class _ObraInfoDataScreenState extends State<ObraInfoDataScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
-            children: [
-              Expanded(
-                flex: 2,
-                child: Row(
-                  children: const [],
-                ),
-              ),
-            ],
+            children: [Expanded(flex: 2, child: Row(children: const []))],
           ),
-          const SizedBox(
-            height: 10,
-          ),
+          const SizedBox(height: 10),
           Row(
             children: [
               Expanded(
@@ -278,52 +256,48 @@ class _ObraInfoDataScreenState extends State<ObraInfoDataScreen> {
                       child: TextField(
                         controller: _direccionController,
                         decoration: InputDecoration(
-                            fillColor: Colors.white,
-                            filled: true,
-                            hintText: 'Dirección',
-                            labelText: 'Dirección',
-                            errorText:
-                                _direccionShowError ? _direccionError : null,
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10))),
+                          fillColor: Colors.white,
+                          filled: true,
+                          hintText: 'Dirección',
+                          labelText: 'Dirección',
+                          errorText: _direccionShowError
+                              ? _direccionError
+                              : null,
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ),
                         onChanged: (value) {
                           _obra.direccion = value;
                         },
                       ),
                     ),
-                    const SizedBox(
-                      width: 10,
-                    ),
+                    const SizedBox(width: 10),
                     Expanded(
                       flex: 1,
                       child: ElevatedButton(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: const [
-                              Icon(Icons.location_on),
-                            ],
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFF781f1e),
+                          minimumSize: const Size(double.infinity, 60),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(5),
                           ),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color(0xFF781f1e),
-                            minimumSize: const Size(double.infinity, 60),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                          ),
-                          onPressed: () => _address()),
+                        ),
+                        onPressed: () => _address(),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: const [Icon(Icons.location_on)],
+                        ),
+                      ),
                     ),
                   ],
                 ),
               ),
             ],
           ),
-          const SizedBox(
-            height: 5,
-          ),
+          const SizedBox(height: 5),
           (_obra.posx != '' && _obra.posy != '')
-              ? Text(
-                  'Latitud: ${_obra.posx} - Latitud: ${_obra.posy}',
-                )
+              ? Text('Latitud: ${_obra.posx} - Latitud: ${_obra.posy}')
               : const Text(
                   'No hay coordenadas cargadas',
                   style: TextStyle(color: Colors.red),
@@ -333,17 +307,17 @@ class _ObraInfoDataScreenState extends State<ObraInfoDataScreen> {
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _address ----------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _address ----------------------------------
+  //-----------------------------------------------------------------
 
   void _address() async {
     await _getPosition();
   }
 
-//-----------------------------------------------------------------
-//--------------------- _getPosition ------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _getPosition ------------------------------
+  //-----------------------------------------------------------------
 
   Future _getPosition() async {
     bool serviceEnabled;
@@ -354,34 +328,6 @@ class _ObraInfoDataScreenState extends State<ObraInfoDataScreen> {
       permission = await Geolocator.requestPermission();
       if (permission == LocationPermission.denied) {
         showDialog(
-            context: context,
-            builder: (context) {
-              return AlertDialog(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                title: const Text('Aviso'),
-                content: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: const <Widget>[
-                      Text('El permiso de localización está negado.'),
-                      SizedBox(
-                        height: 10,
-                      ),
-                    ]),
-                actions: <Widget>[
-                  TextButton(
-                      onPressed: () => Navigator.of(context).pop(),
-                      child: const Text('Ok')),
-                ],
-              );
-            });
-        return;
-      }
-    }
-
-    if (permission == LocationPermission.deniedForever) {
-      showDialog(
           context: context,
           builder: (context) {
             return AlertDialog(
@@ -390,32 +336,65 @@ class _ObraInfoDataScreenState extends State<ObraInfoDataScreen> {
               ),
               title: const Text('Aviso'),
               content: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: const <Widget>[
-                    Text(
-                        'El permiso de localización está negado permanentemente. No se puede requerir este permiso.'),
-                    SizedBox(
-                      height: 10,
-                    ),
-                  ]),
+                mainAxisSize: MainAxisSize.min,
+                children: const <Widget>[
+                  Text('El permiso de localización está negado.'),
+                  SizedBox(height: 10),
+                ],
+              ),
               actions: <Widget>[
                 TextButton(
-                    onPressed: () => Navigator.of(context).pop(),
-                    child: const Text('Ok')),
+                  onPressed: () => Navigator.of(context).pop(),
+                  child: const Text('Ok'),
+                ),
               ],
             );
-          });
+          },
+        );
+        return;
+      }
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+            title: const Text('Aviso'),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: const <Widget>[
+                Text(
+                  'El permiso de localización está negado permanentemente. No se puede requerir este permiso.',
+                ),
+                SizedBox(height: 10),
+              ],
+            ),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(),
+                child: const Text('Ok'),
+              ),
+            ],
+          );
+        },
+      );
       return;
     }
 
     _positionUser = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high);
+      desiredAccuracy: LocationAccuracy.high,
+    );
 
     List<Placemark> placemarks = await placemarkFromCoordinates(
-        _positionUser.latitude, _positionUser.longitude);
-    _direccion = placemarks[0].street.toString() +
-        ' - ' +
-        placemarks[0].locality.toString();
+      _positionUser.latitude,
+      _positionUser.longitude,
+    );
+    _direccion =
+        '${placemarks[0].street} - ${placemarks[0].locality}';
 
     _obra.posx = _positionUser.latitude.toString();
     _obra.posy = _positionUser.longitude.toString();
@@ -424,112 +403,115 @@ class _ObraInfoDataScreenState extends State<ObraInfoDataScreen> {
     setState(() {});
   }
 
-//-------------------------------------------------------------------------
-//-------------------------- _showMotivos ---------------------------------
-//-------------------------------------------------------------------------
+  //-------------------------------------------------------------------------
+  //-------------------------- _showMotivos ---------------------------------
+  //-------------------------------------------------------------------------
 
-  _showMotivos() {
+  Container _showMotivos() {
     return Container(
       padding: const EdgeInsets.all(10),
       child: DropdownButtonFormField(
-          items: _motivos,
-          value: _obra.textoLocalizacion,
-          onChanged: (value) {
-            if (value == 'Seleccione un Motivo...') {
-              _mostrarConexiones = false;
-              _mostrarLugares = false;
-              _obra.textoClase = 'Seleccione una Conexión...';
-              _obra.textoTipo = 'Seleccione un Lugar...';
-            }
+        items: _motivos,
+        initialValue: _obra.textoLocalizacion,
+        onChanged: (value) {
+          if (value == 'Seleccione un Motivo...') {
+            _mostrarConexiones = false;
+            _mostrarLugares = false;
+            _obra.textoClase = 'Seleccione una Conexión...';
+            _obra.textoTipo = 'Seleccione un Lugar...';
+          }
 
-            if (value == 'Fuga' || value == 'Sospechoso') {
-              _mostrarConexiones = true;
-              _mostrarLugares = false;
-              _obra.textoClase = 'Seleccione una Conexión...';
-              _obra.textoTipo = 'Seleccione un Lugar...';
-            }
+          if (value == 'Fuga' || value == 'Sospechoso') {
+            _mostrarConexiones = true;
+            _mostrarLugares = false;
+            _obra.textoClase = 'Seleccione una Conexión...';
+            _obra.textoTipo = 'Seleccione un Lugar...';
+          }
 
-            if (value == 'Silencioso' || value == 'No verificable') {
-              _mostrarConexiones = false;
-              _mostrarLugares = false;
-              _obra.textoClase = 'Sin Datos';
-              _obra.textoTipo = 'Sin Datos';
-            }
+          if (value == 'Silencioso' || value == 'No verificable') {
+            _mostrarConexiones = false;
+            _mostrarLugares = false;
+            _obra.textoClase = 'Sin Datos';
+            _obra.textoTipo = 'Sin Datos';
+          }
 
-            _obra.textoLocalizacion = value as String;
+          _obra.textoLocalizacion = value as String;
 
-            setState(() {});
-          },
-          decoration: InputDecoration(
-            hintText: 'Seleccione un Motivo...',
-            labelText: 'Motivo',
-            fillColor: Colors.white,
-            filled: true,
-            errorText: _motivoShowError ? _motivoError : null,
-            border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
-          )),
+          setState(() {});
+        },
+        decoration: InputDecoration(
+          hintText: 'Seleccione un Motivo...',
+          labelText: 'Motivo',
+          fillColor: Colors.white,
+          filled: true,
+          errorText: _motivoShowError ? _motivoError : null,
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+        ),
+      ),
     );
   }
 
-//-------------------------------------------------------------------------
-//-------------------------- _showConexiones ---------------------------------
-//-------------------------------------------------------------------------
+  //-------------------------------------------------------------------------
+  //-------------------------- _showConexiones ---------------------------------
+  //-------------------------------------------------------------------------
 
-  _showConexiones() {
+  Container _showConexiones() {
     return Container(
       padding: const EdgeInsets.all(10),
       child: DropdownButtonFormField(
-          items: _conexiones,
-          value: _obra.textoClase,
-          onChanged: _mostrarConexiones
-              ? (value) {
-                  _mostrarLugares = value != 'Seleccione una Conexión...';
-                  _obra.textoClase = value as String;
-                  _obra.textoTipo = 'Seleccione un Lugar...';
-                  setState(() {});
-                }
-              : null,
-          decoration: InputDecoration(
-            hintText: 'Seleccione una Conexión...',
-            labelText: 'Conexión',
-            fillColor: Colors.white,
-            filled: true,
-            errorText: _conexionShowError ? _conexionError : null,
-            border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
-          )),
+        items: _conexiones,
+        initialValue: _obra.textoClase,
+        onChanged: _mostrarConexiones
+            ? (value) {
+                _mostrarLugares = value != 'Seleccione una Conexión...';
+                _obra.textoClase = value as String;
+                _obra.textoTipo = 'Seleccione un Lugar...';
+                setState(() {});
+              }
+            : null,
+        decoration: InputDecoration(
+          hintText: 'Seleccione una Conexión...',
+          labelText: 'Conexión',
+          fillColor: Colors.white,
+          filled: true,
+          errorText: _conexionShowError ? _conexionError : null,
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+        ),
+      ),
     );
   }
 
-//-------------------------------------------------------------------------
-//-------------------------- _showLugares ---------------------------------
-//-------------------------------------------------------------------------
+  //-------------------------------------------------------------------------
+  //-------------------------- _showLugares ---------------------------------
+  //-------------------------------------------------------------------------
 
-  _showLugares() {
+  Container _showLugares() {
     return Container(
       padding: const EdgeInsets.all(10),
       child: DropdownButtonFormField(
-          items: _getComboLugares(_obra.textoClase.toString()),
-          value: _obra.textoTipo,
-          onChanged: _mostrarLugares
-              ? (value) {
-                  _obra.textoTipo = value as String;
-                  setState(() {});
-                }
-              : null,
-          decoration: InputDecoration(
-            hintText: 'Seleccione un Lugar...',
-            labelText: 'Lugar',
-            fillColor: Colors.white,
-            filled: true,
-            errorText: _lugarShowError ? _lugarError : null,
-            border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
-          )),
+        items: _getComboLugares(_obra.textoClase.toString()),
+        initialValue: _obra.textoTipo,
+        onChanged: _mostrarLugares
+            ? (value) {
+                _obra.textoTipo = value as String;
+                setState(() {});
+              }
+            : null,
+        decoration: InputDecoration(
+          hintText: 'Seleccione un Lugar...',
+          labelText: 'Lugar',
+          fillColor: Colors.white,
+          filled: true,
+          errorText: _lugarShowError ? _lugarError : null,
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+        ),
+      ),
     );
   }
 
-//----------------------------------------------------------------------
-//------------------------ _getMotivos ---------------------------------
-//----------------------------------------------------------------------
+  //----------------------------------------------------------------------
+  //------------------------ _getMotivos ---------------------------------
+  //----------------------------------------------------------------------
 
   void _getMotivos() async {
     await _getDiametrosCanio();
@@ -554,24 +536,28 @@ class _ObraInfoDataScreenState extends State<ObraInfoDataScreen> {
     setState(() {});
   }
 
-//----------------------------------------------------------------------
-//------------------------ _getComboMotivos -----------------------------------
-//----------------------------------------------------------------------
+  //----------------------------------------------------------------------
+  //------------------------ _getComboMotivos -----------------------------------
+  //----------------------------------------------------------------------
 
   List<DropdownMenuItem<String>> _getComboMotivos() {
     _motivos = [];
 
     List<DropdownMenuItem<String>> listMotivos = [];
-    listMotivos.add(const DropdownMenuItem(
-      child: Text('Seleccione un Motivo...'),
-      value: 'Seleccione un Motivo...',
-    ));
+    listMotivos.add(
+      const DropdownMenuItem(
+        value: 'Seleccione un Motivo...',
+        child: Text('Seleccione un Motivo...'),
+      ),
+    );
 
     for (var _listoption in _motivoOptions) {
-      listMotivos.add(DropdownMenuItem(
-        child: Text(_listoption.description),
-        value: _listoption.description,
-      ));
+      listMotivos.add(
+        DropdownMenuItem(
+          value: _listoption.description,
+          child: Text(_listoption.description),
+        ),
+      );
     }
 
     _motivos = listMotivos;
@@ -579,9 +565,9 @@ class _ObraInfoDataScreenState extends State<ObraInfoDataScreen> {
     return listMotivos;
   }
 
-//----------------------------------------------------------------------
-//------------------------ _getConexiones ------------------------------
-//----------------------------------------------------------------------
+  //----------------------------------------------------------------------
+  //------------------------ _getConexiones ------------------------------
+  //----------------------------------------------------------------------
 
   void _getConexiones() {
     Option opt1 = Option(id: 1, description: 'Principal');
@@ -595,24 +581,28 @@ class _ObraInfoDataScreenState extends State<ObraInfoDataScreen> {
     _getComboConexiones();
   }
 
-//----------------------------------------------------------------------
-//------------------------ _getComboConexiones -------------------------
-//----------------------------------------------------------------------
+  //----------------------------------------------------------------------
+  //------------------------ _getComboConexiones -------------------------
+  //----------------------------------------------------------------------
 
   List<DropdownMenuItem<String>> _getComboConexiones() {
     _conexiones = [];
 
     List<DropdownMenuItem<String>> listConexiones = [];
-    listConexiones.add(const DropdownMenuItem(
-      child: Text('Seleccione una Conexión...'),
-      value: 'Seleccione una Conexión...',
-    ));
+    listConexiones.add(
+      const DropdownMenuItem(
+        value: 'Seleccione una Conexión...',
+        child: Text('Seleccione una Conexión...'),
+      ),
+    );
 
     for (var _listoption in _conexionOptions) {
-      listConexiones.add(DropdownMenuItem(
-        child: Text(_listoption.description),
-        value: _listoption.description,
-      ));
+      listConexiones.add(
+        DropdownMenuItem(
+          value: _listoption.description,
+          child: Text(_listoption.description),
+        ),
+      );
     }
 
     _conexiones = listConexiones;
@@ -620,9 +610,9 @@ class _ObraInfoDataScreenState extends State<ObraInfoDataScreen> {
     return listConexiones;
   }
 
-//----------------------------------------------------------------------
-//------------------------ _getLugares ---------------------------------
-//----------------------------------------------------------------------
+  //----------------------------------------------------------------------
+  //------------------------ _getLugares ---------------------------------
+  //----------------------------------------------------------------------
 
   void _getLugares() {
     Option opt1 = Option(id: 1, description: 'Cañería Principal');
@@ -656,51 +646,61 @@ class _ObraInfoDataScreenState extends State<ObraInfoDataScreen> {
     _lugarOptions.add(opt30);
   }
 
-//----------------------------------------------------------------------
-//------------------------ _getComboLugares ----------------------------
-//----------------------------------------------------------------------
+  //----------------------------------------------------------------------
+  //------------------------ _getComboLugares ----------------------------
+  //----------------------------------------------------------------------
 
   List<DropdownMenuItem<String>> _getComboLugares(String conexion) {
     _lugares = [];
 
     List<DropdownMenuItem<String>> listLugares = [];
-    listLugares.add(const DropdownMenuItem(
-      child: Text('Seleccione un Lugar...'),
-      value: 'Seleccione un Lugar...',
-    ));
+    listLugares.add(
+      const DropdownMenuItem(
+        value: 'Seleccione un Lugar...',
+        child: Text('Seleccione un Lugar...'),
+      ),
+    );
 
     for (var _listoption in _lugarOptions) {
       if (conexion == 'Principal') {
         if (_listoption.id < 10) {
-          listLugares.add(DropdownMenuItem(
-            child: Text(_listoption.description),
-            value: _listoption.description,
-          ));
+          listLugares.add(
+            DropdownMenuItem(
+              value: _listoption.description,
+              child: Text(_listoption.description),
+            ),
+          );
         }
       }
 
       if (conexion == 'Servicio') {
         if (_listoption.id > 10 && _listoption.id < 20) {
-          listLugares.add(DropdownMenuItem(
-            child: Text(_listoption.description),
-            value: _listoption.description,
-          ));
+          listLugares.add(
+            DropdownMenuItem(
+              value: _listoption.description,
+              child: Text(_listoption.description),
+            ),
+          );
         }
       }
 
       if (conexion == 'Privada') {
         if (_listoption.id > 20 && _listoption.id < 30) {
-          listLugares.add(DropdownMenuItem(
-            child: Text(_listoption.description),
-            value: _listoption.description,
-          ));
+          listLugares.add(
+            DropdownMenuItem(
+              value: _listoption.description,
+              child: Text(_listoption.description),
+            ),
+          );
         }
       }
       if (_listoption.id == 30) {
-        listLugares.add(DropdownMenuItem(
-          child: Text(_listoption.description),
-          value: _listoption.description,
-        ));
+        listLugares.add(
+          DropdownMenuItem(
+            value: _listoption.description,
+            child: Text(_listoption.description),
+          ),
+        );
       }
     }
 
@@ -709,34 +709,35 @@ class _ObraInfoDataScreenState extends State<ObraInfoDataScreen> {
     return listLugares;
   }
 
-//-------------------------------------------------------------------------
-//-------------------------- _showMaterialCanio ---------------------------
-//-------------------------------------------------------------------------
+  //-------------------------------------------------------------------------
+  //-------------------------- _showMaterialCanio ---------------------------
+  //-------------------------------------------------------------------------
 
-  _showMaterialCanio() {
+  Container _showMaterialCanio() {
     return Container(
       padding: const EdgeInsets.all(10),
       child: DropdownButtonFormField(
-          items: _materialesCanio,
-          value: _obra.textoComponente,
-          onChanged: (value) {
-            _obra.textoComponente = value as String;
-            setState(() {});
-          },
-          decoration: InputDecoration(
-            hintText: 'Seleccione un Material...',
-            labelText: 'Material Caño',
-            fillColor: Colors.white,
-            filled: true,
-            errorText: _materialCanioShowError ? _materialCanioError : null,
-            border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
-          )),
+        items: _materialesCanio,
+        initialValue: _obra.textoComponente,
+        onChanged: (value) {
+          _obra.textoComponente = value as String;
+          setState(() {});
+        },
+        decoration: InputDecoration(
+          hintText: 'Seleccione un Material...',
+          labelText: 'Material Caño',
+          fillColor: Colors.white,
+          filled: true,
+          errorText: _materialCanioShowError ? _materialCanioError : null,
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+        ),
+      ),
     );
   }
 
-//----------------------------------------------------------------------
-//------------------------ _getMaterialesCanio -------------------------
-//----------------------------------------------------------------------
+  //----------------------------------------------------------------------
+  //------------------------ _getMaterialesCanio -------------------------
+  //----------------------------------------------------------------------
 
   void _getMaterialesCanio() {
     Option opt1 = Option(id: 1, description: 'Hierro Fundido');
@@ -752,22 +753,26 @@ class _ObraInfoDataScreenState extends State<ObraInfoDataScreen> {
     _getComboMaterialCanios();
   }
 
-//----------------------------------------------------------------------
-//------------------------ _getComboMaterialCanios ---------------------
-//----------------------------------------------------------------------
+  //----------------------------------------------------------------------
+  //------------------------ _getComboMaterialCanios ---------------------
+  //----------------------------------------------------------------------
 
   List<DropdownMenuItem<String>> _getComboMaterialCanios() {
     List<DropdownMenuItem<String>> listMaterialesCanios = [];
-    listMaterialesCanios.add(const DropdownMenuItem(
-      child: Text('Seleccione un Material...'),
-      value: 'Seleccione un Material...',
-    ));
+    listMaterialesCanios.add(
+      const DropdownMenuItem(
+        value: 'Seleccione un Material...',
+        child: Text('Seleccione un Material...'),
+      ),
+    );
 
     for (var _listoption in _materialCanioOptions) {
-      listMaterialesCanios.add(DropdownMenuItem(
-        child: Text(_listoption.description),
-        value: _listoption.description,
-      ));
+      listMaterialesCanios.add(
+        DropdownMenuItem(
+          value: _listoption.description,
+          child: Text(_listoption.description),
+        ),
+      );
     }
 
     _materialesCanio = listMaterialesCanios;
@@ -775,41 +780,45 @@ class _ObraInfoDataScreenState extends State<ObraInfoDataScreen> {
     return listMaterialesCanios;
   }
 
-//-------------------------------------------------------------------------
-//-------------------------- _showDiametroCanio ---------------------------
-//-------------------------------------------------------------------------
+  //-------------------------------------------------------------------------
+  //-------------------------- _showDiametroCanio ---------------------------
+  //-------------------------------------------------------------------------
 
-  _showDiametroCanio() {
+  Container _showDiametroCanio() {
     return Container(
       padding: const EdgeInsets.all(10),
       child: DropdownButtonFormField(
-          items: _diametrosCanio,
-          value: _obra.codigoDiametro,
-          onChanged: (value) {
-            _obra.codigoDiametro = value as String;
-            setState(() {});
-          },
-          decoration: InputDecoration(
-            hintText: 'Seleccione un Diámetro de Caño...',
-            labelText: 'Diámetro Caño',
-            fillColor: Colors.white,
-            filled: true,
-            errorText: _diametroCanioShowError ? _diametroCanioError : null,
-            border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
-          )),
+        items: _diametrosCanio,
+        initialValue: _obra.codigoDiametro,
+        onChanged: (value) {
+          _obra.codigoDiametro = value as String;
+          setState(() {});
+        },
+        decoration: InputDecoration(
+          hintText: 'Seleccione un Diámetro de Caño...',
+          labelText: 'Diámetro Caño',
+          fillColor: Colors.white,
+          filled: true,
+          errorText: _diametroCanioShowError ? _diametroCanioError : null,
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+        ),
+      ),
     );
   }
 
-//---------------------------------------------------------------------
-//-------------------------- _getDiametrosCanio -----------------------
-//---------------------------------------------------------------------
+  //---------------------------------------------------------------------
+  //-------------------------- _getDiametrosCanio -----------------------
+  //---------------------------------------------------------------------
 
   Future<void> _getDiametrosCanio() async {
     var connectivityResult = await Connectivity().checkConnectivity();
 
     if (connectivityResult == ConnectivityResult.none) {
       showMyDialog(
-          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
+        'Error',
+        'Verifica que estés conectado a Internet',
+        'Aceptar',
+      );
     }
 
     Response response = Response(isSuccess: false);
@@ -818,21 +827,21 @@ class _ObraInfoDataScreenState extends State<ObraInfoDataScreen> {
 
     if (!response.isSuccess) {
       await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: response.message,
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message: response.message,
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
       return;
     }
 
     _catalogos = response.result;
     _catalogos.sort((a, b) {
-      return a.catCatalogo
-          .toString()
-          .toLowerCase()
-          .compareTo(b.catCatalogo.toString().toLowerCase());
+      return a.catCatalogo.toString().toLowerCase().compareTo(
+        b.catCatalogo.toString().toLowerCase(),
+      );
     });
 
     _diametrosCanio = _getComboDiametroCanios();
@@ -840,55 +849,60 @@ class _ObraInfoDataScreenState extends State<ObraInfoDataScreen> {
     setState(() {});
   }
 
-//---------------------------------------------------------------------
-//-------------------------- _getComboDiametroCanios ------------------
-//---------------------------------------------------------------------
+  //---------------------------------------------------------------------
+  //-------------------------- _getComboDiametroCanios ------------------
+  //---------------------------------------------------------------------
 
   List<DropdownMenuItem<String>> _getComboDiametroCanios() {
     List<DropdownMenuItem<String>> listCatalogos = [];
-    listCatalogos.add(const DropdownMenuItem(
-      child: Text('Seleccione un Diámetro de Caño...'),
-      value: 'Seleccione un Diámetro de Caño...',
-    ));
+    listCatalogos.add(
+      const DropdownMenuItem(
+        value: 'Seleccione un Diámetro de Caño...',
+        child: Text('Seleccione un Diámetro de Caño...'),
+      ),
+    );
 
     for (var catalogo in _catalogos) {
-      listCatalogos.add(DropdownMenuItem(
-        child: Text(catalogo.catCatalogo.toString()),
-        value: catalogo.catCodigo,
-      ));
+      listCatalogos.add(
+        DropdownMenuItem(
+          value: catalogo.catCodigo,
+          child: Text(catalogo.catCatalogo.toString()),
+        ),
+      );
     }
 
     return listCatalogos;
   }
 
-//-------------------------------------------------------------------------
-//-------------------------- _showFugas -----------------------------------
-//-------------------------------------------------------------------------
+  //-------------------------------------------------------------------------
+  //-------------------------- _showFugas -----------------------------------
+  //-------------------------------------------------------------------------
 
-  _showFugas() {
+  Container _showFugas() {
     return Container(
       padding: const EdgeInsets.all(10),
       child: DropdownButtonFormField(
-          items: _fugas,
-          value: _obra.motivo,
-          onChanged: (value) {
-            _obra.motivo = value as String;
-            setState(() {});
-          },
-          decoration: InputDecoration(
-            hintText: 'Seleccione un Tipo de Fuga...',
-            labelText: 'Tipo de Fuga',
-            fillColor: Colors.white,
-            filled: true,
-            errorText: _fugaShowError ? _fugaError : null,
-            border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
-          )),
+        items: _fugas,
+        initialValue: _obra.motivo,
+        onChanged: (value) {
+          _obra.motivo = value as String;
+          setState(() {});
+        },
+        decoration: InputDecoration(
+          hintText: 'Seleccione un Tipo de Fuga...',
+          labelText: 'Tipo de Fuga',
+          fillColor: Colors.white,
+          filled: true,
+          errorText: _fugaShowError ? _fugaError : null,
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+        ),
+      ),
     );
   }
 
-//----------------------------------------------------------------------
-//------------------------ _getFugas -----------------------------------
-//----------------------------------------------------------------------
+  //----------------------------------------------------------------------
+  //------------------------ _getFugas -----------------------------------
+  //----------------------------------------------------------------------
 
   void _getFugas() {
     Option opt1 = Option(id: 1, description: 'Visible');
@@ -904,22 +918,26 @@ class _ObraInfoDataScreenState extends State<ObraInfoDataScreen> {
     _getComboFugas();
   }
 
-//----------------------------------------------------------------------
-//------------------------ _getComboFugas ------------------------------
-//----------------------------------------------------------------------
+  //----------------------------------------------------------------------
+  //------------------------ _getComboFugas ------------------------------
+  //----------------------------------------------------------------------
 
   List<DropdownMenuItem<String>> _getComboFugas() {
     List<DropdownMenuItem<String>> listFugas = [];
-    listFugas.add(const DropdownMenuItem(
-      child: Text('Seleccione un Tipo de Fuga...'),
-      value: 'Seleccione un Tipo de Fuga...',
-    ));
+    listFugas.add(
+      const DropdownMenuItem(
+        value: 'Seleccione un Tipo de Fuga...',
+        child: Text('Seleccione un Tipo de Fuga...'),
+      ),
+    );
 
     for (var _listoption in _fugaOptions) {
-      listFugas.add(DropdownMenuItem(
-        child: Text(_listoption.description),
-        value: _listoption.description,
-      ));
+      listFugas.add(
+        DropdownMenuItem(
+          value: _listoption.description,
+          child: Text(_listoption.description),
+        ),
+      );
     }
 
     _fugas = listFugas;
@@ -927,9 +945,9 @@ class _ObraInfoDataScreenState extends State<ObraInfoDataScreen> {
     return listFugas;
   }
 
-//-----------------------------------------------------------------
-//--------------------- _showComentarios --------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _showComentarios --------------------------
+  //-----------------------------------------------------------------
 
   Widget _showComentarios() {
     return Container(
@@ -938,13 +956,13 @@ class _ObraInfoDataScreenState extends State<ObraInfoDataScreen> {
         controller: _comentariosController,
         maxLines: 3,
         decoration: InputDecoration(
-            fillColor: Colors.white,
-            filled: true,
-            hintText: 'Ingrese Comentarios...',
-            labelText: 'Comentarios:',
-            errorText: _comentariosShowError ? _comentariosError : null,
-            border:
-                OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
+          fillColor: Colors.white,
+          filled: true,
+          hintText: 'Ingrese Comentarios...',
+          labelText: 'Comentarios:',
+          errorText: _comentariosShowError ? _comentariosError : null,
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+        ),
         onChanged: (value) {
           _obra.planos = value;
         },
@@ -952,9 +970,9 @@ class _ObraInfoDataScreenState extends State<ObraInfoDataScreen> {
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _showButton -------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _showButton -------------------------------
+  //-----------------------------------------------------------------
 
   Widget _showButton() {
     return Container(
@@ -964,16 +982,6 @@ class _ObraInfoDataScreenState extends State<ObraInfoDataScreen> {
         children: <Widget>[
           Expanded(
             child: ElevatedButton(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  Icon(Icons.save),
-                  SizedBox(
-                    width: 20,
-                  ),
-                  Text('Guardar'),
-                ],
-              ),
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xFF781f1e),
                 minimumSize: const Size(double.infinity, 50),
@@ -982,35 +990,45 @@ class _ObraInfoDataScreenState extends State<ObraInfoDataScreen> {
                 ),
               ),
               onPressed: _save,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Icon(Icons.save),
+                  SizedBox(width: 20),
+                  Text('Guardar'),
+                ],
+              ),
             ),
           ),
         ],
       ),
     );
   }
-//-----------------------------------------------------------------
-//--------------------- _save -------------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _save -------------------------------------
+  //-----------------------------------------------------------------
 
-  _save() async {
+  Future<void> _save() async {
     if (widget.obra.finalizada == 1) {
       await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: 'Obra Terminada. No se pueden guardar datos.',
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message: 'Obra Terminada. No se pueden guardar datos.',
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
       return;
     }
     if (widget.user.rubro != 1) {
       await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: 'Su usuario no está habilitado para guardar Datos de Obra.',
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message: 'Su usuario no está habilitado para guardar Datos de Obra.',
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
       return;
     }
 
@@ -1021,21 +1039,22 @@ class _ObraInfoDataScreenState extends State<ObraInfoDataScreen> {
     _addRecord();
   }
 
-//-----------------------------------------------------------------
-//--------------------- validateFields ----------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- validateFields ----------------------------
+  //-----------------------------------------------------------------
 
   bool validateFields() {
     bool isValid = true;
 
     if (_obra.posx == '' || _obra.posy == '' || _obra.direccion == '') {
       showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: 'Debe cargar la dirección geolocalizada.',
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message: 'Debe cargar la dirección geolocalizada.',
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
       isValid = false;
     }
 
@@ -1121,9 +1140,9 @@ class _ObraInfoDataScreenState extends State<ObraInfoDataScreen> {
     return isValid;
   }
 
-//-----------------------------------------------------------------
-//--------------------- _addRecord --------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _addRecord --------------------------------
+  //-----------------------------------------------------------------
 
   void _addRecord() async {
     setState(() {
@@ -1137,7 +1156,10 @@ class _ObraInfoDataScreenState extends State<ObraInfoDataScreen> {
         _showLoader = false;
       });
       showMyDialog(
-          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
+        'Error',
+        'Verifica que estés conectado a Internet',
+        'Aceptar',
+      );
     }
 
     Map<String, dynamic> request = {
@@ -1155,7 +1177,10 @@ class _ObraInfoDataScreenState extends State<ObraInfoDataScreen> {
     };
 
     Response response = await ApiHelper.put(
-        '/api/Obras/PutDatosObra/', widget.obra.nroObra.toString(), request);
+      '/api/Obras/PutDatosObra/',
+      widget.obra.nroObra.toString(),
+      request,
+    );
 
     if (response.isSuccess) {
       _showSnackbar('Datos de Obra grabados con éxito');
@@ -1167,20 +1192,21 @@ class _ObraInfoDataScreenState extends State<ObraInfoDataScreen> {
 
     if (!response.isSuccess) {
       await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: response.message,
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message: response.message,
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
       return;
     }
     Navigator.pop(context, 'yes');
   }
 
-//-----------------------------------------------------------------
-//--------------------- _loadData --------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _loadData --------------------------------
+  //-----------------------------------------------------------------
 
   void _loadData() async {
     _getMotivos();
@@ -1192,8 +1218,8 @@ class _ObraInfoDataScreenState extends State<ObraInfoDataScreen> {
   }
 
   //-------------------------------------------------------------
-//-------------------- _showSnackbar --------------------------
-//-------------------------------------------------------------
+  //-------------------- _showSnackbar --------------------------
+  //-------------------------------------------------------------
 
   void _showSnackbar(String text) {
     SnackBar snackbar = SnackBar(

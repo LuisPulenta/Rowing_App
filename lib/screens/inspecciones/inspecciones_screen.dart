@@ -1,5 +1,5 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
-import 'package:connectivity/connectivity.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 
@@ -11,18 +11,20 @@ import '../screens.dart';
 class InspeccionesScreen extends StatefulWidget {
   final User user;
   final Position positionUser;
-  const InspeccionesScreen(
-      {Key? key, required this.user, required this.positionUser})
-      : super(key: key);
+  const InspeccionesScreen({
+    super.key,
+    required this.user,
+    required this.positionUser,
+  });
 
   @override
   _InspeccionesScreenState createState() => _InspeccionesScreenState();
 }
 
 class _InspeccionesScreenState extends State<InspeccionesScreen> {
-//----------------------------------------------------------------
-//------------------ Variables -----------------------------------
-//----------------------------------------------------------------
+  //----------------------------------------------------------------
+  //------------------ Variables -----------------------------------
+  //----------------------------------------------------------------
 
   String _codigo = '';
   final String _codigoError = '';
@@ -51,26 +53,30 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
   List<DetallesFormularioCompleto> _detallesFormulariosCompleto = [];
   DetallesFormularioCompleto detallesFormularioCompleto =
       DetallesFormularioCompleto(
-          idcliente: 0,
-          idgrupoformulario: 0,
-          descgrupoformulario: '',
-          detallef: '',
-          descripcion: '',
-          ponderacionpuntos: 0,
-          cumple: '',
-          foto: '',
-          soloTexto: 0,
-          obsApp: '');
+        idcliente: 0,
+        idgrupoformulario: 0,
+        descgrupoformulario: '',
+        detallef: '',
+        descripcion: '',
+        ponderacionpuntos: 0,
+        cumple: '',
+        foto: '',
+        soloTexto: 0,
+        obsApp: '',
+      );
 
-  Position _positionUser = const Position(
-      longitude: 0,
-      latitude: 0,
-      timestamp: null,
-      accuracy: 0,
-      altitude: 0,
-      heading: 0,
-      speed: 0,
-      speedAccuracy: 0);
+  Position _positionUser = Position(
+    longitude: 0,
+    latitude: 0,
+    timestamp: DateTime.now(),
+    altitudeAccuracy: 0,
+    headingAccuracy: 0,
+    accuracy: 0,
+    altitude: 0,
+    heading: 0,
+    speed: 0,
+    speedAccuracy: 0,
+  );
 
   String _nombreSR = '';
   final String _nombreSRError = '';
@@ -83,107 +89,107 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
   final TextEditingController _dniSRController = TextEditingController();
 
   Obra obra = Obra(
-      nroObra: 0,
-      nombreObra: '',
-      nroOE: '',
-      defProy: '',
-      central: '',
-      elempep: '',
-      observaciones: '',
-      finalizada: 0,
-      supervisore: '',
-      codigoEstado: '',
-      codigoSubEstado: '',
-      modulo: '',
-      grupoAlmacen: '',
-      obrasDocumentos: [],
-      fechaCierreElectrico: '',
-      fechaUltimoMovimiento: '',
-      photos: 0,
-      audios: 0,
-      videos: 0,
-      posx: '',
-      posy: '',
-      direccion: '',
-      textoLocalizacion: '',
-      textoClase: '',
-      textoTipo: '',
-      textoComponente: '',
-      codigoDiametro: '',
-      motivo: '',
-      planos: '',
-      grupoCausante: '');
+    nroObra: 0,
+    nombreObra: '',
+    nroOE: '',
+    defProy: '',
+    central: '',
+    elempep: '',
+    observaciones: '',
+    finalizada: 0,
+    supervisore: '',
+    codigoEstado: '',
+    codigoSubEstado: '',
+    modulo: '',
+    grupoAlmacen: '',
+    obrasDocumentos: [],
+    fechaCierreElectrico: '',
+    fechaUltimoMovimiento: '',
+    photos: 0,
+    audios: 0,
+    videos: 0,
+    posx: '',
+    posy: '',
+    direccion: '',
+    textoLocalizacion: '',
+    textoClase: '',
+    textoTipo: '',
+    textoComponente: '',
+    codigoDiametro: '',
+    motivo: '',
+    planos: '',
+    grupoCausante: '',
+  );
 
-//----------------------------------------------------------------
-//------------------ initState -----------------------------------
-//----------------------------------------------------------------
+  //----------------------------------------------------------------
+  //------------------ initState -----------------------------------
+  //----------------------------------------------------------------
 
   @override
   void initState() {
     super.initState();
     _causante = Causante(
-        nroCausante: 0,
-        codigo: '',
-        nombre: '',
-        encargado: '',
-        telefono: '',
-        grupo: '',
-        nroSAP: '',
-        estado: false,
-        razonSocial: '',
-        linkFoto: '',
-        imageFullPath: '',
-        image: null,
-        direccion: '',
-        numero: 0,
-        telefonoContacto1: '',
-        telefonoContacto2: '',
-        telefonoContacto3: '',
-        fecha: '',
-        notasCausantes: '',
-        ciudad: '',
-        provincia: '',
-        codigoSupervisorObras: 0,
-        zonaTrabajo: '',
-        nombreActividad: '',
-        notas: '',
-        presentismo: '',
-        perteneceCuadrilla: '',
-        firma: null,
-        firmaDigitalAPP: '',
-        firmaFullPath: '');
+      nroCausante: 0,
+      codigo: '',
+      nombre: '',
+      encargado: '',
+      telefono: '',
+      grupo: '',
+      nroSAP: '',
+      estado: false,
+      razonSocial: '',
+      linkFoto: '',
+      imageFullPath: '',
+      image: null,
+      direccion: '',
+      numero: 0,
+      telefonoContacto1: '',
+      telefonoContacto2: '',
+      telefonoContacto3: '',
+      fecha: '',
+      notasCausantes: '',
+      ciudad: '',
+      provincia: '',
+      codigoSupervisorObras: 0,
+      zonaTrabajo: '',
+      nombreActividad: '',
+      notas: '',
+      presentismo: '',
+      perteneceCuadrilla: '',
+      firma: null,
+      firmaDigitalAPP: '',
+      firmaFullPath: '',
+    );
     _getPosition();
     _loadData();
   }
 
-//----------------------------------------------------------------
-//------------------ Pantalla ------------------------------------
-//----------------------------------------------------------------
+  //----------------------------------------------------------------
+  //------------------ Pantalla ------------------------------------
+  //----------------------------------------------------------------
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 195, 191, 191),
-      appBar: AppBar(
-        title: const Text('Nueva Inspección'),
-        centerTitle: true,
-      ),
+      appBar: AppBar(title: const Text('Nueva Inspección'), centerTitle: true),
       body: Stack(
         children: [
           SingleChildScrollView(
             child: Column(
               children: <Widget>[
-                const SizedBox(
-                  height: 10,
-                ),
+                const SizedBox(height: 10),
                 Card(
                   shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20)),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
                   elevation: 15,
                   margin: const EdgeInsets.symmetric(horizontal: 5),
                   child: Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 15, vertical: 0),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 15,
+                      vertical: 0,
+                    ),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -198,31 +204,25 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
                     ),
                   ),
                 ),
-                const SizedBox(
-                  height: 10,
-                ),
+                const SizedBox(height: 10),
                 _esContratista ? _showCamposContratista() : _showInfo(),
-                const SizedBox(
-                  height: 10,
-                ),
+                const SizedBox(height: 10),
                 _showObra(),
                 _showClientes(),
                 _showTiposTrabajos(),
-                const SizedBox(
-                  height: 10,
-                ),
+                const SizedBox(height: 10),
                 _showButton2(),
               ],
             ),
-          )
+          ),
         ],
       ),
     );
   }
 
-//-----------------------------------------------------------
-//--------------------- _showLegajo -------------------------
-//-----------------------------------------------------------
+  //-----------------------------------------------------------
+  //--------------------- _showLegajo -------------------------
+  //-----------------------------------------------------------
 
   Widget _showLegajo() {
     return Container(
@@ -252,9 +252,9 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
     );
   }
 
-//-----------------------------------------------------------
-//--------------------- _showButton -------------------------
-//-----------------------------------------------------------
+  //-----------------------------------------------------------
+  //--------------------- _showButton -------------------------
+  //-----------------------------------------------------------
 
   Widget _showButton() {
     return Container(
@@ -264,15 +264,6 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
         children: <Widget>[
           Expanded(
             child: ElevatedButton(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  Icon(Icons.search),
-                  SizedBox(
-                    width: 5,
-                  ),
-                ],
-              ),
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xFF781f1e),
                 minimumSize: const Size(double.infinity, 50),
@@ -281,6 +272,7 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
                 ),
               ),
               onPressed: () => _search(),
+              child: Center(child: Icon(Icons.search)),
             ),
           ),
         ],
@@ -288,9 +280,9 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
     );
   }
 
-//------------------------------------------------------------
-//--------------------- _showButton2 -------------------------
-//------------------------------------------------------------
+  //------------------------------------------------------------
+  //--------------------- _showButton2 -------------------------
+  //------------------------------------------------------------
 
   Widget _showButton2() {
     return Container(
@@ -300,16 +292,6 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
         children: <Widget>[
           Expanded(
             child: ElevatedButton(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  Icon(Icons.search),
-                  SizedBox(
-                    width: 5,
-                  ),
-                  Text('Generar cuestionario')
-                ],
-              ),
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xFF781f1e),
                 minimumSize: const Size(double.infinity, 50),
@@ -320,6 +302,14 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
               onPressed: _enabled1 && _enabled2 && _enabled3 && obra.nroObra > 0
                   ? _generarCuestionario
                   : null,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Icon(Icons.search),
+                  SizedBox(width: 5),
+                  Text('Generar cuestionario'),
+                ],
+              ),
             ),
           ),
         ],
@@ -327,9 +317,9 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
     );
   }
 
-//-----------------------------------------------------------
-//--------------------- _showInfo ---------------------------
-//-----------------------------------------------------------
+  //-----------------------------------------------------------
+  //--------------------- _showInfo ---------------------------
+  //-----------------------------------------------------------
 
   Widget _showInfo() {
     return Card(
@@ -373,41 +363,37 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
     );
   }
 
-//------------------------------------------------------------
-//--------------------- _showCamposContratista ---------------
-//------------------------------------------------------------
+  //------------------------------------------------------------
+  //--------------------- _showCamposContratista ---------------
+  //------------------------------------------------------------
 
   Widget _showCamposContratista() {
-    return Column(
-      children: [
-        _shownombreSR(),
-        _showdniSR(),
-      ],
-    );
+    return Column(children: [_shownombreSR(), _showdniSR()]);
   }
 
-//-----------------------------------------------------------
-//--------------------- _search -----------------------------
-//-----------------------------------------------------------
+  //-----------------------------------------------------------
+  //--------------------- _search -----------------------------
+  //-----------------------------------------------------------
 
-  _search() async {
+  Future<void> _search() async {
     FocusScope.of(context).unfocus();
     if (_codigo.isEmpty) {
       await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: 'Ingrese un Legajo o Documento.',
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message: 'Ingrese un Legajo o Documento.',
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
       return;
     }
     await _getCausante();
   }
 
-//--------------------------------------------------------------
-//--------------------- _getCausante ---------------------------
-//--------------------------------------------------------------
+  //--------------------------------------------------------------
+  //--------------------- _getCausante ---------------------------
+  //--------------------------------------------------------------
 
   Future<void> _getCausante() async {
     if (_codigo == '000000') {
@@ -427,12 +413,13 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
     if (connectivityResult == ConnectivityResult.none) {
       setState(() {});
       await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: 'Verifica que estes conectado a internet.',
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message: 'Verifica que estes conectado a internet.',
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
       return;
     }
 
@@ -440,12 +427,13 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
 
     if (!response.isSuccess) {
       await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: 'Legajo o Documento no válido',
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message: 'Legajo o Documento no válido',
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
 
       setState(() {
         _enabled1 = false;
@@ -459,24 +447,27 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
     });
   }
 
-//--------------------------------------------------------------
-//--------------------- _loadData ------------------------------
-//--------------------------------------------------------------
+  //--------------------------------------------------------------
+  //--------------------- _loadData ------------------------------
+  //--------------------------------------------------------------
 
   void _loadData() async {
     await _getClientes();
   }
 
-//--------------------------------------------------------------
-//--------------------- _getClientes ---------------------------
-//--------------------------------------------------------------
+  //--------------------------------------------------------------
+  //--------------------- _getClientes ---------------------------
+  //--------------------------------------------------------------
 
   Future<void> _getClientes() async {
     var connectivityResult = await Connectivity().checkConnectivity();
 
     if (connectivityResult == ConnectivityResult.none) {
       showMyDialog(
-          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
+        'Error',
+        'Verifica que estés conectado a Internet',
+        'Aceptar',
+      );
     }
 
     bandera = false;
@@ -494,9 +485,9 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
     setState(() {});
   }
 
-//------------------------------------------------------------------------
-//------------------------------ _showClientes----------------------------
-//------------------------------------------------------------------------
+  //------------------------------------------------------------------------
+  //------------------------------ _showClientes----------------------------
+  //------------------------------------------------------------------------
 
   Widget _showClientes() {
     return Row(
@@ -508,14 +499,12 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
                 ? Row(
                     children: const [
                       CircularProgressIndicator(),
-                      SizedBox(
-                        width: 10,
-                      ),
+                      SizedBox(width: 10),
                       Text('Cargando Clientes...'),
                     ],
                   )
                 : DropdownButtonFormField(
-                    value: _cliente,
+                    initialValue: _cliente,
                     decoration: InputDecoration(
                       fillColor: Colors.white,
                       filled: true,
@@ -523,7 +512,8 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
                       labelText: 'Cliente',
                       errorText: _clienteShowError ? _clienteError : null,
                       border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10)),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
                     ),
                     items: _getComboClientes(),
                     onChanged: (value) {
@@ -540,31 +530,35 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
 
   List<DropdownMenuItem<int>> _getComboClientes() {
     List<DropdownMenuItem<int>> list = [];
-    list.add(const DropdownMenuItem(
-      child: Text('Elija un Cliente...'),
-      value: 0,
-    ));
+    list.add(
+      const DropdownMenuItem(value: 0, child: Text('Elija un Cliente...')),
+    );
 
     for (var cliente in _clientes) {
-      list.add(DropdownMenuItem(
-        child: Text(cliente.nombre.toString()),
-        value: cliente.nrocliente,
-      ));
+      list.add(
+        DropdownMenuItem(
+          value: cliente.nrocliente,
+          child: Text(cliente.nombre.toString()),
+        ),
+      );
     }
 
     return list;
   }
 
-//-----------------------------------------------------------------------
-//------------------------- _getTiposTrabajos----------------------------
-//-----------------------------------------------------------------------
+  //-----------------------------------------------------------------------
+  //------------------------- _getTiposTrabajos----------------------------
+  //-----------------------------------------------------------------------
 
   Future<void> _getTiposTrabajos() async {
     var connectivityResult = await Connectivity().checkConnectivity();
 
     if (connectivityResult == ConnectivityResult.none) {
       showMyDialog(
-          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
+        'Error',
+        'Verifica que estés conectado a Internet',
+        'Aceptar',
+      );
     }
 
     bandera = false;
@@ -582,9 +576,9 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
     setState(() {});
   }
 
-//------------------------------------------------------------------
-//------------------ _showTiposTrabajos-----------------------------
-//------------------------------------------------------------------
+  //------------------------------------------------------------------
+  //------------------ _showTiposTrabajos-----------------------------
+  //------------------------------------------------------------------
 
   Widget _showTiposTrabajos() {
     return Container(
@@ -593,7 +587,7 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
           ? const Text('')
           : DropdownButtonFormField(
               items: _getComboTiposTrabajos(),
-              value: _tipoTrabajoSelected,
+              initialValue: _tipoTrabajoSelected,
               onChanged: (option) {
                 _tipoTrabajoSelected = option as int;
                 if (_tipoTrabajoSelected > 0) {
@@ -610,39 +604,48 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
                 hintText: 'Seleccione un Tipo de Trabajo...',
                 labelText: 'Tipo de Trabajo',
                 errorText: _tipoTrabajoShowError ? _tipoTrabajoError : null,
-                border:
-                    OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
-              )),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+            ),
     );
   }
 
   List<DropdownMenuItem<int>> _getComboTiposTrabajos() {
     List<DropdownMenuItem<int>> list = [];
-    list.add(const DropdownMenuItem(
-      child: Text('Seleccione un Tipo de Trabajo...'),
-      value: 0,
-    ));
+    list.add(
+      const DropdownMenuItem(
+        value: 0,
+        child: Text('Seleccione un Tipo de Trabajo...'),
+      ),
+    );
 
     for (var tipoTrabajo in _tipoTrabajos) {
-      list.add(DropdownMenuItem(
-        child: Text(tipoTrabajo.descripcion),
-        value: tipoTrabajo.idtipotrabajo,
-      ));
+      list.add(
+        DropdownMenuItem(
+          value: tipoTrabajo.idtipotrabajo,
+          child: Text(tipoTrabajo.descripcion),
+        ),
+      );
     }
 
     return list;
   }
 
-//------------------------------------------------------------------
-//------------------ _getGruposFormularios--------------------------
-//------------------------------------------------------------------
+  //------------------------------------------------------------------
+  //------------------ _getGruposFormularios--------------------------
+  //------------------------------------------------------------------
 
   Future<void> _getGruposFormularios() async {
     var connectivityResult = await Connectivity().checkConnectivity();
 
     if (connectivityResult == ConnectivityResult.none) {
       showMyDialog(
-          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
+        'Error',
+        'Verifica que estés conectado a Internet',
+        'Aceptar',
+      );
     }
 
     bandera = false;
@@ -650,8 +653,10 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
 
     do {
       Response response = Response(isSuccess: false);
-      response =
-          await ApiHelper.getGruposFormularios(_cliente, _tipoTrabajoSelected);
+      response = await ApiHelper.getGruposFormularios(
+        _cliente,
+        _tipoTrabajoSelected,
+      );
       intentos++;
       if (response.isSuccess) {
         bandera = true;
@@ -663,16 +668,19 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
     _detallesFormulariosAux = _detallesFormularios;
   }
 
-//------------------------------------------------------------------
-//------------------ _getDetallesFormularios------------------------
-//------------------------------------------------------------------
+  //------------------------------------------------------------------
+  //------------------ _getDetallesFormularios------------------------
+  //------------------------------------------------------------------
 
   Future<void> _getDetallesFormularios() async {
     var connectivityResult = await Connectivity().checkConnectivity();
 
     if (connectivityResult == ConnectivityResult.none) {
       showMyDialog(
-          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
+        'Error',
+        'Verifica que estés conectado a Internet',
+        'Aceptar',
+      );
     }
 
     _detallesFormularios = [];
@@ -693,16 +701,17 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
             grupoFormulario.idgrupoformulario) {
           _detallesFormularios.add(detalleFormularioAux);
           detallesFormularioCompleto = DetallesFormularioCompleto(
-              idcliente: detalleFormularioAux.idcliente,
-              idgrupoformulario: detalleFormularioAux.idgrupoformulario,
-              descgrupoformulario: grupoFormulario.descripcion,
-              detallef: detalleFormularioAux.detallef,
-              descripcion: detalleFormularioAux.descripcion,
-              ponderacionpuntos: detalleFormularioAux.ponderacionpuntos,
-              cumple: detalleFormularioAux.cumple,
-              foto: '',
-              soloTexto: detalleFormularioAux.soloTexto,
-              obsApp: '');
+            idcliente: detalleFormularioAux.idcliente,
+            idgrupoformulario: detalleFormularioAux.idgrupoformulario,
+            descgrupoformulario: grupoFormulario.descripcion,
+            detallef: detalleFormularioAux.detallef,
+            descripcion: detalleFormularioAux.descripcion,
+            ponderacionpuntos: detalleFormularioAux.ponderacionpuntos,
+            cumple: detalleFormularioAux.cumple,
+            foto: '',
+            soloTexto: detalleFormularioAux.soloTexto,
+            obsApp: '',
+          );
           _detallesFormulariosCompleto.add(detallesFormularioCompleto);
         }
       }
@@ -711,34 +720,36 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
     setState(() {});
   }
 
-//-----------------------------------------------------------
-//--------------------- _generarCuestionario ----------------
-//-----------------------------------------------------------
+  //-----------------------------------------------------------
+  //--------------------- _generarCuestionario ----------------
+  //-----------------------------------------------------------
 
-  _generarCuestionario() async {
+  Future<void> _generarCuestionario() async {
     FocusScope.of(context).unfocus();
 
     String? result = await Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => InspeccionCuestionarioScreen(
-                  user: widget.user,
-                  causante: _causante,
-                  obra: obra,
-                  cliente: _cliente,
-                  tipotrabajo: _tipoTrabajoSelected,
-                  esContratista: _esContratista,
-                  nombreSR: _nombreSRController.text,
-                  dniSR: _dniSRController.text,
-                  detallesFormulariosCompleto: _detallesFormulariosCompleto,
-                  positionUser: _positionUser,
-                )));
+      context,
+      MaterialPageRoute(
+        builder: (context) => InspeccionCuestionarioScreen(
+          user: widget.user,
+          causante: _causante,
+          obra: obra,
+          cliente: _cliente,
+          tipotrabajo: _tipoTrabajoSelected,
+          esContratista: _esContratista,
+          nombreSR: _nombreSRController.text,
+          dniSR: _dniSRController.text,
+          detallesFormulariosCompleto: _detallesFormulariosCompleto,
+          positionUser: _positionUser,
+        ),
+      ),
+    );
     if (result == 'yes') {}
   }
 
-//-----------------------------------------------------------
-//--------------------- _getPosition ------------------------
-//-----------------------------------------------------------
+  //-----------------------------------------------------------
+  //--------------------- _getPosition ------------------------
+  //-----------------------------------------------------------
 
   Future _getPosition() async {
     LocationPermission permission;
@@ -747,34 +758,6 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
       permission = await Geolocator.requestPermission();
       if (permission == LocationPermission.denied) {
         showDialog(
-            context: context,
-            builder: (context) {
-              return AlertDialog(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                title: const Text('Aviso'),
-                content: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: const <Widget>[
-                      Text('El permiso de localización está negado.'),
-                      SizedBox(
-                        height: 10,
-                      ),
-                    ]),
-                actions: <Widget>[
-                  TextButton(
-                      onPressed: () => Navigator.of(context).pop(),
-                      child: const Text('Ok')),
-                ],
-              );
-            });
-        return;
-      }
-    }
-
-    if (permission == LocationPermission.deniedForever) {
-      showDialog(
           context: context,
           builder: (context) {
             return AlertDialog(
@@ -783,21 +766,52 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
               ),
               title: const Text('Aviso'),
               content: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: const <Widget>[
-                    Text(
-                        'El permiso de localización está negado permanentemente. No se puede requerir este permiso.'),
-                    SizedBox(
-                      height: 10,
-                    ),
-                  ]),
+                mainAxisSize: MainAxisSize.min,
+                children: const <Widget>[
+                  Text('El permiso de localización está negado.'),
+                  SizedBox(height: 10),
+                ],
+              ),
               actions: <Widget>[
                 TextButton(
-                    onPressed: () => Navigator.of(context).pop(),
-                    child: const Text('Ok')),
+                  onPressed: () => Navigator.of(context).pop(),
+                  child: const Text('Ok'),
+                ),
               ],
             );
-          });
+          },
+        );
+        return;
+      }
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+            title: const Text('Aviso'),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: const <Widget>[
+                Text(
+                  'El permiso de localización está negado permanentemente. No se puede requerir este permiso.',
+                ),
+                SizedBox(height: 10),
+              ],
+            ),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(),
+                child: const Text('Ok'),
+              ),
+            ],
+          );
+        },
+      );
       return;
     }
 
@@ -805,13 +819,14 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
 
     if (connectivityResult != ConnectivityResult.none) {
       _positionUser = await Geolocator.getCurrentPosition(
-          desiredAccuracy: LocationAccuracy.high);
+        desiredAccuracy: LocationAccuracy.high,
+      );
     }
   }
 
-//-----------------------------------------------------------
-//--------------------- _shownombreSR -----------------------
-//-----------------------------------------------------------
+  //-----------------------------------------------------------
+  //--------------------- _shownombreSR -----------------------
+  //-----------------------------------------------------------
 
   Widget _shownombreSR() {
     return Container(
@@ -819,14 +834,14 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
       child: TextField(
         controller: _nombreSRController,
         decoration: InputDecoration(
-            fillColor: Colors.white,
-            filled: true,
-            hintText: 'Ingrese Nombre Contratista...',
-            labelText: 'Nombre Contratista:',
-            errorText: _nombreSRShowError ? _nombreSRError : null,
-            prefixIcon: const Icon(Icons.person),
-            border:
-                OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
+          fillColor: Colors.white,
+          filled: true,
+          hintText: 'Ingrese Nombre Contratista...',
+          labelText: 'Nombre Contratista:',
+          errorText: _nombreSRShowError ? _nombreSRError : null,
+          prefixIcon: const Icon(Icons.person),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+        ),
         onChanged: (value) {
           _nombreSR = value;
           _enabled3 = _dniSR.isNotEmpty && _nombreSR.isNotEmpty;
@@ -838,9 +853,9 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
     );
   }
 
-//-----------------------------------------------------------
-//--------------------- _showdniSR --------------------------
-//-----------------------------------------------------------
+  //-----------------------------------------------------------
+  //--------------------- _showdniSR --------------------------
+  //-----------------------------------------------------------
 
   Widget _showdniSR() {
     return Container(
@@ -848,14 +863,14 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
       child: TextField(
         controller: _dniSRController,
         decoration: InputDecoration(
-            fillColor: Colors.white,
-            filled: true,
-            hintText: 'Ingrese DNI Contratista...',
-            labelText: 'DNI Contratista:',
-            errorText: _dniSRShowError ? _dniSRError : null,
-            prefixIcon: const Icon(Icons.assignment_ind),
-            border:
-                OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
+          fillColor: Colors.white,
+          filled: true,
+          hintText: 'Ingrese DNI Contratista...',
+          labelText: 'DNI Contratista:',
+          errorText: _dniSRShowError ? _dniSRError : null,
+          prefixIcon: const Icon(Icons.assignment_ind),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+        ),
         onChanged: (value) {
           _dniSR = value;
           _enabled3 = _dniSR.isNotEmpty && _nombreSR.isNotEmpty;
@@ -866,76 +881,70 @@ class _InspeccionesScreenState extends State<InspeccionesScreen> {
     );
   }
 
-//-----------------------------------------------------------
-//--------------------- _showObra ---------------------------
-//-----------------------------------------------------------
+  //-----------------------------------------------------------
+  //--------------------- _showObra ---------------------------
+  //-----------------------------------------------------------
 
   Widget _showObra() {
     return Container(
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-        child: Row(
-          children: [
-            Expanded(
-              child: Container(
-                height: 60,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border.all(
-                    color: Colors.black,
-                    width: 1,
-                  ),
-                  color: Colors.white,
-                ),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Row(
-                        children: [
-                          const SizedBox(
-                            width: 10,
-                          ),
-                          const Text('Obra: ',
-                              style: TextStyle(fontWeight: FontWeight.bold)),
-                          Expanded(
-                            child: Text(obra.nombreObra),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+      child: Row(
+        children: [
+          Expanded(
+            child: Container(
+              height: 60,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                border: Border.all(color: Colors.black, width: 1),
+                color: Colors.white,
               ),
-            ),
-            const SizedBox(
-              width: 10,
-            ),
-            ElevatedButton(
-              child: const Icon(Icons.search),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFF781f1e),
-                minimumSize: const Size(50, 50),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(5),
-                ),
-              ),
-              onPressed: () async {
-                Obra? obra2 = await Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => ObrasScreen(
-                      user: widget.user,
-                      opcion: 2,
-                      positionUser: widget.positionUser,
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Row(
+                      children: [
+                        const SizedBox(width: 10),
+                        const Text(
+                          'Obra: ',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        Expanded(child: Text(obra.nombreObra)),
+                      ],
                     ),
                   ),
-                );
-                if (obra2 != null) {
-                  obra = obra2;
-                }
-                setState(() {});
-              },
+                ],
+              ),
             ),
-          ],
-        ));
+          ),
+          const SizedBox(width: 10),
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: const Color(0xFF781f1e),
+              minimumSize: const Size(50, 50),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(5),
+              ),
+            ),
+            onPressed: () async {
+              Obra? obra2 = await Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ObrasScreen(
+                    user: widget.user,
+                    opcion: 2,
+                    positionUser: widget.positionUser,
+                  ),
+                ),
+              );
+              if (obra2 != null) {
+                obra = obra2;
+              }
+              setState(() {});
+            },
+            child: const Icon(Icons.search),
+          ),
+        ],
+      ),
+    );
   }
 }

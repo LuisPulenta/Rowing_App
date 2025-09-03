@@ -3,7 +3,7 @@ import 'dart:io';
 
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:camera/camera.dart';
-import 'package:connectivity/connectivity.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
@@ -21,18 +21,20 @@ import 'take_pictureb.dart';
 class NovedadAgregarScreen extends StatefulWidget {
   final User user;
   final Causante causante;
-  const NovedadAgregarScreen(
-      {Key? key, required this.user, required this.causante})
-      : super(key: key);
+  const NovedadAgregarScreen({
+    super.key,
+    required this.user,
+    required this.causante,
+  });
 
   @override
   _NovedadAgregarScreenState createState() => _NovedadAgregarScreenState();
 }
 
 class _NovedadAgregarScreenState extends State<NovedadAgregarScreen> {
-//---------------------------------------------------------------
-//----------------------- Variables -----------------------------
-//---------------------------------------------------------------
+  //---------------------------------------------------------------
+  //----------------------- Variables -----------------------------
+  //---------------------------------------------------------------
 
   bool _showLoader = false;
   bool bandera = false;
@@ -58,9 +60,9 @@ class _NovedadAgregarScreenState extends State<NovedadAgregarScreen> {
   String _tiponovedadError = '';
   bool _tiponovedadShowError = false;
 
-//---------------------------------------------------------------
-//----------------------- initState -----------------------------
-//---------------------------------------------------------------
+  //---------------------------------------------------------------
+  //----------------------- initState -----------------------------
+  //---------------------------------------------------------------
 
   @override
   void initState() {
@@ -68,9 +70,9 @@ class _NovedadAgregarScreenState extends State<NovedadAgregarScreen> {
     _loadData();
   }
 
-//---------------------------------------------------------------
-//----------------------- Pantalla ------------------------------
-//---------------------------------------------------------------
+  //---------------------------------------------------------------
+  //----------------------- Pantalla ------------------------------
+  //---------------------------------------------------------------
 
   @override
   Widget build(BuildContext context) {
@@ -85,39 +87,29 @@ class _NovedadAgregarScreenState extends State<NovedadAgregarScreen> {
           SingleChildScrollView(
             child: Column(
               children: <Widget>[
-                const SizedBox(
-                  height: 20,
-                ),
+                const SizedBox(height: 20),
                 _showNovedades(),
                 _showFechas(),
                 _showObservaciones(),
-                const SizedBox(
-                  height: 5,
-                ),
+                const SizedBox(height: 5),
                 _showPhotos(),
-                const SizedBox(
-                  height: 25,
-                ),
+                const SizedBox(height: 25),
                 _showButton(),
-                const SizedBox(
-                  height: 10,
-                ),
+                const SizedBox(height: 10),
               ],
             ),
           ),
           _showLoader
-              ? const LoaderComponent(
-                  text: 'Por favor espere...',
-                )
+              ? const LoaderComponent(text: 'Por favor espere...')
               : Container(),
         ],
       ),
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _showPhotos -------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _showPhotos -------------------------------
+  //-----------------------------------------------------------------
 
   Widget _showPhotos() {
     return Row(
@@ -125,22 +117,24 @@ class _NovedadAgregarScreenState extends State<NovedadAgregarScreen> {
       children: [
         //----------------- FOTO 1 -----------------------------
         InkWell(
-          child: Stack(children: <Widget>[
-            Container(
-              margin: const EdgeInsets.only(top: 10),
-              child: !_photoChanged1
-                  ? const Image(
-                      image: AssetImage('assets/noimage.png'),
-                      width: 160,
-                      height: 160,
-                      fit: BoxFit.cover)
-                  : Image.file(
-                      File(_image1.path),
-                      width: 160,
-                      fit: BoxFit.contain,
-                    ),
-            ),
-            Positioned(
+          child: Stack(
+            children: <Widget>[
+              Container(
+                margin: const EdgeInsets.only(top: 10),
+                child: !_photoChanged1
+                    ? const Image(
+                        image: AssetImage('assets/noimage.png'),
+                        width: 160,
+                        height: 160,
+                        fit: BoxFit.cover,
+                      )
+                    : Image.file(
+                        File(_image1.path),
+                        width: 160,
+                        fit: BoxFit.contain,
+                      ),
+              ),
+              Positioned(
                 bottom: 0,
                 left: 100,
                 child: InkWell(
@@ -158,8 +152,9 @@ class _NovedadAgregarScreenState extends State<NovedadAgregarScreen> {
                       ),
                     ),
                   ),
-                )),
-            Positioned(
+                ),
+              ),
+              Positioned(
                 bottom: 0,
                 left: 0,
                 child: InkWell(
@@ -177,26 +172,30 @@ class _NovedadAgregarScreenState extends State<NovedadAgregarScreen> {
                       ),
                     ),
                   ),
-                )),
-          ]),
+                ),
+              ),
+            ],
+          ),
         ),
         //----------------- FOTO 2 -----------------------------
         InkWell(
-          child: Stack(children: <Widget>[
-            Container(
-              margin: const EdgeInsets.only(top: 10),
-              child: !_photoChanged2
-                  ? const Image(
-                      image: AssetImage('assets/noimage.png'),
-                      height: 160,
-                      fit: BoxFit.contain)
-                  : Image.file(
-                      File(_image2.path),
-                      width: 160,
-                      fit: BoxFit.contain,
-                    ),
-            ),
-            Positioned(
+          child: Stack(
+            children: <Widget>[
+              Container(
+                margin: const EdgeInsets.only(top: 10),
+                child: !_photoChanged2
+                    ? const Image(
+                        image: AssetImage('assets/noimage.png'),
+                        height: 160,
+                        fit: BoxFit.contain,
+                      )
+                    : Image.file(
+                        File(_image2.path),
+                        width: 160,
+                        fit: BoxFit.contain,
+                      ),
+              ),
+              Positioned(
                 bottom: 0,
                 left: 100,
                 child: InkWell(
@@ -214,8 +213,9 @@ class _NovedadAgregarScreenState extends State<NovedadAgregarScreen> {
                       ),
                     ),
                   ),
-                )),
-            Positioned(
+                ),
+              ),
+              Positioned(
                 bottom: 0,
                 left: 0,
                 child: InkWell(
@@ -233,16 +233,18 @@ class _NovedadAgregarScreenState extends State<NovedadAgregarScreen> {
                       ),
                     ),
                   ),
-                )),
-          ]),
+                ),
+              ),
+            ],
+          ),
         ),
       ],
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _showNovedades ----------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _showNovedades ----------------------------
+  //-----------------------------------------------------------------
 
   Widget _showNovedades() {
     return Container(
@@ -250,15 +252,16 @@ class _NovedadAgregarScreenState extends State<NovedadAgregarScreen> {
       child: _tiposnovedades.isEmpty
           ? const Text('Cargando novedades...')
           : DropdownButtonFormField(
-              value: _tiponovedad,
+              initialValue: _tiponovedad,
               decoration: InputDecoration(
                 fillColor: Colors.white,
                 filled: true,
                 hintText: 'Elija una novedad...',
                 labelText: 'Novedad',
                 errorText: _tiponovedadShowError ? _tiponovedadError : null,
-                border:
-                    OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
               ),
               items: _getComboNovedades(),
               onChanged: (value) {
@@ -268,98 +271,41 @@ class _NovedadAgregarScreenState extends State<NovedadAgregarScreen> {
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _getComboNovedades ------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _getComboNovedades ------------------------
+  //-----------------------------------------------------------------
 
   List<DropdownMenuItem<String>> _getComboNovedades() {
     List<DropdownMenuItem<String>> list = [];
-    list.add(const DropdownMenuItem(
-      child: Text('Elija una novedad...'),
-      value: 'Elija una novedad...',
-    ));
+    list.add(
+      const DropdownMenuItem(
+        value: 'Elija una novedad...',
+        child: Text('Elija una novedad...'),
+      ),
+    );
 
     for (var novedad in _tiposnovedades) {
-      list.add(DropdownMenuItem(
-        child: Text(novedad.tipodenovedad),
-        value: novedad.tipodenovedad,
-      ));
+      list.add(
+        DropdownMenuItem(
+          value: novedad.tipodenovedad,
+          child: Text(novedad.tipodenovedad),
+        ),
+      );
     }
 
     return list;
   }
 
-//-----------------------------------------------------------------
-//--------------------- _showFechas -------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _showFechas -------------------------------
+  //-----------------------------------------------------------------
 
   Widget _showFechas() {
     return Container(
       padding: const EdgeInsets.all(10),
       child: Column(
         children: [
-          Row(
-            children: [
-              Expanded(
-                flex: 2,
-                child: Row(
-                  children: const [
-                    // Container(
-                    //   alignment: Alignment.centerLeft,
-                    //   color: Color(0xFF781f1e),
-                    //   width: 140,
-                    //   height: 30,
-                    //   child: Text(
-                    //     '  Fecha Novedad:',
-                    //     style: TextStyle(
-                    //         fontWeight: FontWeight.bold, color: Colors.white),
-                    //   ),
-                    // ),
-                    // Expanded(
-                    //   flex: 3,
-                    //   child: Container(
-                    //     alignment: Alignment.center,
-                    //     color: Color(0xFF781f1e).withOpacity(0.2),
-                    //     width: 140,
-                    //     height: 30,
-                    //     child: Text(
-                    //       fechaNovedad != null
-                    //           ? "    ${fechaNovedad!.day}/${fechaNovedad!.month}/${fechaNovedad!.year}"
-                    //           : "",
-                    //       style: TextStyle(color: Color(0xFF781f1e)),
-                    //     ),
-                    //   ),
-                    // ),
-                    // SizedBox(
-                    //   width: 10,
-                    // ),
-                    // Expanded(
-                    //   flex: 1,
-                    //   child: ElevatedButton(
-                    //     child: Row(
-                    //       mainAxisAlignment: MainAxisAlignment.center,
-                    //       children: [
-                    //         Icon(Icons.calendar_month),
-                    //       ],
-                    //     ),
-                    //     style: ElevatedButton.styleFrom(
-                    //       backgroundColor: Color(0xFF781f1e),
-                    //       minimumSize: Size(double.infinity, 50),
-                    //       shape: RoundedRectangleBorder(
-                    //         borderRadius: BorderRadius.circular(5),
-                    //       ),
-                    //     ),
-                    //     onPressed: () => _fechaNovedad(),
-                    //   ),
-                    // ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(
-            height: 10,
-          ),
+          const SizedBox(height: 10),
           Row(
             children: [
               Expanded(
@@ -374,7 +320,9 @@ class _NovedadAgregarScreenState extends State<NovedadAgregarScreen> {
                       child: const Text(
                         '  Fecha Inicio:',
                         style: TextStyle(
-                            fontWeight: FontWeight.bold, color: Colors.white),
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
                     Expanded(
@@ -392,18 +340,10 @@ class _NovedadAgregarScreenState extends State<NovedadAgregarScreen> {
                         ),
                       ),
                     ),
-                    const SizedBox(
-                      width: 10,
-                    ),
+                    const SizedBox(width: 10),
                     Expanded(
                       flex: 1,
                       child: ElevatedButton(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: const [
-                            Icon(Icons.calendar_month),
-                          ],
-                        ),
                         style: ElevatedButton.styleFrom(
                           backgroundColor: const Color(0xFF781f1e),
                           minimumSize: const Size(double.infinity, 50),
@@ -412,6 +352,7 @@ class _NovedadAgregarScreenState extends State<NovedadAgregarScreen> {
                           ),
                         ),
                         onPressed: () => _fechaInicio(),
+                        child: Icon(Icons.calendar_month),
                       ),
                     ),
                   ],
@@ -419,9 +360,7 @@ class _NovedadAgregarScreenState extends State<NovedadAgregarScreen> {
               ),
             ],
           ),
-          const SizedBox(
-            height: 10,
-          ),
+          const SizedBox(height: 10),
           Row(
             children: [
               Expanded(
@@ -436,7 +375,9 @@ class _NovedadAgregarScreenState extends State<NovedadAgregarScreen> {
                       child: const Text(
                         '  Fecha Fin:',
                         style: TextStyle(
-                            fontWeight: FontWeight.bold, color: Colors.white),
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
                     Expanded(
@@ -454,18 +395,10 @@ class _NovedadAgregarScreenState extends State<NovedadAgregarScreen> {
                         ),
                       ),
                     ),
-                    const SizedBox(
-                      width: 10,
-                    ),
+                    const SizedBox(width: 10),
                     Expanded(
                       flex: 1,
                       child: ElevatedButton(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: const [
-                            Icon(Icons.calendar_month),
-                          ],
-                        ),
                         style: ElevatedButton.styleFrom(
                           backgroundColor: const Color(0xFF781f1e),
                           minimumSize: const Size(double.infinity, 50),
@@ -474,6 +407,7 @@ class _NovedadAgregarScreenState extends State<NovedadAgregarScreen> {
                           ),
                         ),
                         onPressed: () => _fechaFin(),
+                        child: Icon(Icons.calendar_month),
                       ),
                     ),
                   ],
@@ -486,9 +420,9 @@ class _NovedadAgregarScreenState extends State<NovedadAgregarScreen> {
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _showObservaciones ------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _showObservaciones ------------------------
+  //-----------------------------------------------------------------
 
   Widget _showObservaciones() {
     return Container(
@@ -497,12 +431,12 @@ class _NovedadAgregarScreenState extends State<NovedadAgregarScreen> {
         controller: _observacionesController,
         maxLines: 3,
         decoration: InputDecoration(
-            hintText: 'Ingresa Observaciones...',
-            labelText: 'Observaciones',
-            errorText: _observacionesShowError ? _observacionesError : null,
-            suffixIcon: const Icon(Icons.notes),
-            border:
-                OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
+          hintText: 'Ingresa Observaciones...',
+          labelText: 'Observaciones',
+          errorText: _observacionesShowError ? _observacionesError : null,
+          suffixIcon: const Icon(Icons.notes),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+        ),
         onChanged: (value) {
           _observaciones = value;
         },
@@ -510,9 +444,9 @@ class _NovedadAgregarScreenState extends State<NovedadAgregarScreen> {
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _showButton -------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _showButton -------------------------------
+  //-----------------------------------------------------------------
 
   Widget _showButton() {
     return Container(
@@ -522,16 +456,6 @@ class _NovedadAgregarScreenState extends State<NovedadAgregarScreen> {
         children: <Widget>[
           Expanded(
             child: ElevatedButton(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  Icon(Icons.save),
-                  SizedBox(
-                    width: 20,
-                  ),
-                  Text('Guardar novedad'),
-                ],
-              ),
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xFF781f1e),
                 minimumSize: const Size(double.infinity, 50),
@@ -540,6 +464,14 @@ class _NovedadAgregarScreenState extends State<NovedadAgregarScreen> {
                 ),
               ),
               onPressed: _save,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Icon(Icons.save),
+                  SizedBox(width: 20),
+                  Text('Guardar novedad'),
+                ],
+              ),
             ),
           ),
         ],
@@ -547,11 +479,11 @@ class _NovedadAgregarScreenState extends State<NovedadAgregarScreen> {
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _save -------------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _save -------------------------------------
+  //-----------------------------------------------------------------
 
-  _save() {
+  void _save() {
     if (!validateFields()) {
       setState(() {});
       return;
@@ -559,9 +491,9 @@ class _NovedadAgregarScreenState extends State<NovedadAgregarScreen> {
     _addRecord();
   }
 
-//-----------------------------------------------------------------
-//--------------------- validateFields ----------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- validateFields ----------------------------
+  //-----------------------------------------------------------------
 
   bool validateFields() {
     bool isValid = true;
@@ -580,28 +512,29 @@ class _NovedadAgregarScreenState extends State<NovedadAgregarScreen> {
     if (fechaInicio == null) {
       isValid = false;
       showDialog(
-          context: context,
-          builder: (context) {
-            return AlertDialog(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
-              ),
-              title: const Text('Aviso!'),
-              content: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: const <Widget>[
-                    Text('Debe ingresar una Fecha Inicio.'),
-                    SizedBox(
-                      height: 10,
-                    ),
-                  ]),
-              actions: <Widget>[
-                TextButton(
-                    onPressed: () => Navigator.of(context).pop(),
-                    child: const Text('Ok')),
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+            title: const Text('Aviso!'),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: const <Widget>[
+                Text('Debe ingresar una Fecha Inicio.'),
+                SizedBox(height: 10),
               ],
-            );
-          });
+            ),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(),
+                child: const Text('Ok'),
+              ),
+            ],
+          );
+        },
+      );
       setState(() {});
       return isValid;
     }
@@ -609,28 +542,29 @@ class _NovedadAgregarScreenState extends State<NovedadAgregarScreen> {
     if (fechaFin == null) {
       isValid = false;
       showDialog(
-          context: context,
-          builder: (context) {
-            return AlertDialog(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
-              ),
-              title: const Text('Aviso!'),
-              content: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: const <Widget>[
-                    Text('Debe ingresar una Fecha Fin.'),
-                    SizedBox(
-                      height: 10,
-                    ),
-                  ]),
-              actions: <Widget>[
-                TextButton(
-                    onPressed: () => Navigator.of(context).pop(),
-                    child: const Text('Ok')),
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+            title: const Text('Aviso!'),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: const <Widget>[
+                Text('Debe ingresar una Fecha Fin.'),
+                SizedBox(height: 10),
               ],
-            );
-          });
+            ),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(),
+                child: const Text('Ok'),
+              ),
+            ],
+          );
+        },
+      );
       setState(() {});
       return isValid;
     }
@@ -640,28 +574,29 @@ class _NovedadAgregarScreenState extends State<NovedadAgregarScreen> {
         fechaFin!.isBefore(fechaInicio!)) {
       isValid = false;
       showDialog(
-          context: context,
-          builder: (context) {
-            return AlertDialog(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
-              ),
-              title: const Text('Aviso!'),
-              content: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: const <Widget>[
-                    Text('La Fecha Fin no puede ser menor a la Fecha Incicio'),
-                    SizedBox(
-                      height: 10,
-                    ),
-                  ]),
-              actions: <Widget>[
-                TextButton(
-                    onPressed: () => Navigator.of(context).pop(),
-                    child: const Text('Ok')),
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+            title: const Text('Aviso!'),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: const <Widget>[
+                Text('La Fecha Fin no puede ser menor a la Fecha Incicio'),
+                SizedBox(height: 10),
               ],
-            );
-          });
+            ),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(),
+                child: const Text('Ok'),
+              ),
+            ],
+          );
+        },
+      );
       setState(() {});
       return isValid;
     }
@@ -671,9 +606,9 @@ class _NovedadAgregarScreenState extends State<NovedadAgregarScreen> {
     return isValid;
   }
 
-//-----------------------------------------------------------------
-//--------------------- _addRecord --------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _addRecord --------------------------------
+  //-----------------------------------------------------------------
 
   void _addRecord() async {
     setState(() {
@@ -687,7 +622,10 @@ class _NovedadAgregarScreenState extends State<NovedadAgregarScreen> {
         _showLoader = false;
       });
       showMyDialog(
-          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
+        'Error',
+        'Verifica que estés conectado a Internet',
+        'Aceptar',
+      );
     }
 
     String base64Image1 = '';
@@ -697,8 +635,11 @@ class _NovedadAgregarScreenState extends State<NovedadAgregarScreen> {
       Uint8List imageBytes1 = await _image1.readAsBytes();
       int maxWidth1 = 800; // Ancho máximo
       int maxHeight1 = 600; // Alto máximo
-      Uint8List resizedBytes1 =
-          await resizeImage(imageBytes1, maxWidth1, maxHeight1);
+      Uint8List resizedBytes1 = await resizeImage(
+        imageBytes1,
+        maxWidth1,
+        maxHeight1,
+      );
       base64Image1 = base64Encode(resizedBytes1);
     }
 
@@ -706,8 +647,11 @@ class _NovedadAgregarScreenState extends State<NovedadAgregarScreen> {
       Uint8List imageBytes2 = await _image2.readAsBytes();
       int maxWidth2 = 800; // Ancho máximo
       int maxHeight2 = 600; // Alto máximo
-      Uint8List resizedBytes2 =
-          await resizeImage(imageBytes2, maxWidth2, maxHeight2);
+      Uint8List resizedBytes2 = await resizeImage(
+        imageBytes2,
+        maxWidth2,
+        maxHeight2,
+      );
       base64Image2 = base64Encode(resizedBytes2);
     }
 
@@ -735,7 +679,9 @@ class _NovedadAgregarScreenState extends State<NovedadAgregarScreen> {
     };
 
     Response response = await ApiHelper.postNoToken(
-        '/api/CausantesNovedades/PostNovedades', request);
+      '/api/CausantesNovedades/PostNovedades',
+      request,
+    );
 
     setState(() {
       _showLoader = false;
@@ -743,35 +689,39 @@ class _NovedadAgregarScreenState extends State<NovedadAgregarScreen> {
 
     if (!response.isSuccess) {
       await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: response.message,
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message: response.message,
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
       return;
     }
     Navigator.pop(context, 'yes');
   }
 
-//-----------------------------------------------------------------
-//--------------------- _loadData ---------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _loadData ---------------------------------
+  //-----------------------------------------------------------------
 
   void _loadData() async {
     await _getTiposNovedades();
   }
 
-//-----------------------------------------------------------------
-//--------------------- _getTiposNovedades ------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _getTiposNovedades ------------------------
+  //-----------------------------------------------------------------
 
   Future<void> _getTiposNovedades() async {
     var connectivityResult = await Connectivity().checkConnectivity();
 
     if (connectivityResult == ConnectivityResult.none) {
       showMyDialog(
-          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
+        'Error',
+        'Verifica que estés conectado a Internet',
+        'Aceptar',
+      );
     }
 
     bandera = false;
@@ -789,11 +739,11 @@ class _NovedadAgregarScreenState extends State<NovedadAgregarScreen> {
     setState(() {});
   }
 
-//-----------------------------------------------------------------
-//--------------------- _fechaInicio ------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _fechaInicio ------------------------------
+  //-----------------------------------------------------------------
 
-  _fechaInicio() async {
+  Future<void> _fechaInicio() async {
     FocusScope.of(context).unfocus();
     final DateTime? selected = await showDatePicker(
       context: context,
@@ -808,11 +758,11 @@ class _NovedadAgregarScreenState extends State<NovedadAgregarScreen> {
     }
   }
 
-//-----------------------------------------------------------------
-//--------------------- _fechaFin ---------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _fechaFin ---------------------------------
+  //-----------------------------------------------------------------
 
-  _fechaFin() async {
+  Future<void> _fechaFin() async {
     FocusScope.of(context).unfocus();
     final DateTime? selected = await showDatePicker(
       context: context,
@@ -827,23 +777,24 @@ class _NovedadAgregarScreenState extends State<NovedadAgregarScreen> {
     }
   }
 
-//-----------------------------------------------------------------
-//--------------------- _takePicture1 -----------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _takePicture1 -----------------------------
+  //-----------------------------------------------------------------
 
   void _takePicture1() async {
     WidgetsFlutterBinding.ensureInitialized();
     final cameras = await availableCameras();
     var firstCamera = cameras.first;
     var response1 = await showAlertDialog(
-        context: context,
-        title: 'Seleccionar cámara',
-        message: '¿Qué cámara desea utilizar?',
-        actions: <AlertDialogAction>[
-          const AlertDialogAction(key: 'no', label: 'Trasera'),
-          const AlertDialogAction(key: 'yes', label: 'Delantera'),
-          const AlertDialogAction(key: 'cancel', label: 'Cancelar'),
-        ]);
+      context: context,
+      title: 'Seleccionar cámara',
+      message: '¿Qué cámara desea utilizar?',
+      actions: <AlertDialogAction>[
+        const AlertDialogAction(key: 'no', label: 'Trasera'),
+        const AlertDialogAction(key: 'yes', label: 'Delantera'),
+        const AlertDialogAction(key: 'cancel', label: 'Cancelar'),
+      ],
+    );
     if (response1 == 'yes') {
       firstCamera = cameras.first;
     }
@@ -853,11 +804,11 @@ class _NovedadAgregarScreenState extends State<NovedadAgregarScreen> {
 
     if (response1 != 'cancel') {
       Response? response = await Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => TakePictureaScreen(
-                    camera: firstCamera,
-                  )));
+        context,
+        MaterialPageRoute(
+          builder: (context) => TakePictureaScreen(camera: firstCamera),
+        ),
+      );
       if (response != null) {
         setState(() {
           _photoChanged1 = true;
@@ -867,23 +818,24 @@ class _NovedadAgregarScreenState extends State<NovedadAgregarScreen> {
     }
   }
 
-//-----------------------------------------------------------------
-//--------------------- _takePicture2 -----------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _takePicture2 -----------------------------
+  //-----------------------------------------------------------------
 
   void _takePicture2() async {
     WidgetsFlutterBinding.ensureInitialized();
     final cameras = await availableCameras();
     var firstCamera = cameras.first;
     var response1 = await showAlertDialog(
-        context: context,
-        title: 'Seleccionar cámara',
-        message: '¿Qué cámara desea utilizar?',
-        actions: <AlertDialogAction>[
-          const AlertDialogAction(key: 'no', label: 'Trasera'),
-          const AlertDialogAction(key: 'yes', label: 'Delantera'),
-          const AlertDialogAction(key: 'cancel', label: 'Cancelar'),
-        ]);
+      context: context,
+      title: 'Seleccionar cámara',
+      message: '¿Qué cámara desea utilizar?',
+      actions: <AlertDialogAction>[
+        const AlertDialogAction(key: 'no', label: 'Trasera'),
+        const AlertDialogAction(key: 'yes', label: 'Delantera'),
+        const AlertDialogAction(key: 'cancel', label: 'Cancelar'),
+      ],
+    );
     if (response1 == 'yes') {
       firstCamera = cameras.first;
     }
@@ -893,11 +845,11 @@ class _NovedadAgregarScreenState extends State<NovedadAgregarScreen> {
 
     if (response1 != 'cancel') {
       Response? response = await Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => TakePicturebScreen(
-                    camera: firstCamera,
-                  )));
+        context,
+        MaterialPageRoute(
+          builder: (context) => TakePicturebScreen(camera: firstCamera),
+        ),
+      );
       if (response != null) {
         setState(() {
           _photoChanged2 = true;
@@ -907,13 +859,13 @@ class _NovedadAgregarScreenState extends State<NovedadAgregarScreen> {
     }
   }
 
-//-----------------------------------------------------------------
-//--------------------- _selectPicture1 ---------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _selectPicture1 ---------------------------
+  //-----------------------------------------------------------------
 
   void _selectPicture1() async {
-    final ImagePicker _picker = ImagePicker();
-    final XFile? image1 = await _picker.pickImage(source: ImageSource.gallery);
+    final ImagePicker picker = ImagePicker();
+    final XFile? image1 = await picker.pickImage(source: ImageSource.gallery);
     if (image1 != null) {
       setState(() {
         _photoChanged1 = true;
@@ -922,13 +874,13 @@ class _NovedadAgregarScreenState extends State<NovedadAgregarScreen> {
     }
   }
 
-//-----------------------------------------------------------------
-//--------------------- _selectPicture2 ---------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _selectPicture2 ---------------------------
+  //-----------------------------------------------------------------
 
   void _selectPicture2() async {
-    final ImagePicker _picker = ImagePicker();
-    final XFile? image2 = await _picker.pickImage(source: ImageSource.gallery);
+    final ImagePicker picker = ImagePicker();
+    final XFile? image2 = await picker.pickImage(source: ImageSource.gallery);
     if (image2 != null) {
       setState(() {
         _photoChanged2 = true;

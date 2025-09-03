@@ -1,5 +1,5 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
-import 'package:connectivity/connectivity.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 
 import '../../components/loader_component.dart';
@@ -10,17 +10,16 @@ import '../screens.dart';
 class ReqAppScreen extends StatefulWidget {
   final User user;
   final Obra obra;
-  const ReqAppScreen({Key? key, required this.user, required this.obra})
-      : super(key: key);
+  const ReqAppScreen({super.key, required this.user, required this.obra});
 
   @override
   _ReqAppScreenState createState() => _ReqAppScreenState();
 }
 
 class _ReqAppScreenState extends State<ReqAppScreen> {
-//---------------------------------------------------------------
-//----------------------- Variables -----------------------------
-//---------------------------------------------------------------
+  //---------------------------------------------------------------
+  //----------------------- Variables -----------------------------
+  //---------------------------------------------------------------
 
   bool _showLoader = false;
   List<Catalogo> _catalogos = [];
@@ -51,45 +50,46 @@ class _ReqAppScreenState extends State<ReqAppScreen> {
   late Causante _causante;
   late Subcontratista _subcontratista;
 
-//---------------------------------------------------------------
-//----------------------- initState -----------------------------
-//---------------------------------------------------------------
+  //---------------------------------------------------------------
+  //----------------------- initState -----------------------------
+  //---------------------------------------------------------------
 
   @override
   void initState() {
     super.initState();
     _loadData();
     _causante = Causante(
-        nroCausante: 0,
-        codigo: '',
-        nombre: '',
-        encargado: '',
-        telefono: '',
-        grupo: '',
-        nroSAP: '',
-        estado: false,
-        razonSocial: '',
-        linkFoto: '',
-        image: null,
-        imageFullPath: '',
-        direccion: '',
-        numero: 0,
-        telefonoContacto1: '',
-        telefonoContacto2: '',
-        telefonoContacto3: '',
-        fecha: '',
-        notasCausantes: '',
-        ciudad: '',
-        provincia: '',
-        codigoSupervisorObras: 0,
-        zonaTrabajo: '',
-        nombreActividad: '',
-        notas: '',
-        presentismo: '',
-        perteneceCuadrilla: '',
-        firma: null,
-        firmaDigitalAPP: '',
-        firmaFullPath: '');
+      nroCausante: 0,
+      codigo: '',
+      nombre: '',
+      encargado: '',
+      telefono: '',
+      grupo: '',
+      nroSAP: '',
+      estado: false,
+      razonSocial: '',
+      linkFoto: '',
+      image: null,
+      imageFullPath: '',
+      direccion: '',
+      numero: 0,
+      telefonoContacto1: '',
+      telefonoContacto2: '',
+      telefonoContacto3: '',
+      fecha: '',
+      notasCausantes: '',
+      ciudad: '',
+      provincia: '',
+      codigoSupervisorObras: 0,
+      zonaTrabajo: '',
+      nombreActividad: '',
+      notas: '',
+      presentismo: '',
+      perteneceCuadrilla: '',
+      firma: null,
+      firmaDigitalAPP: '',
+      firmaFullPath: '',
+    );
 
     _subcontratista = Subcontratista(
       subCodigo: '',
@@ -98,9 +98,9 @@ class _ReqAppScreenState extends State<ReqAppScreen> {
     );
   }
 
-//---------------------------------------------------------------
-//----------------------- Pantalla ------------------------------
-//---------------------------------------------------------------
+  //---------------------------------------------------------------
+  //----------------------- Pantalla ------------------------------
+  //---------------------------------------------------------------
 
   @override
   Widget build(BuildContext context) {
@@ -115,23 +115,26 @@ class _ReqAppScreenState extends State<ReqAppScreen> {
               _isFiltered
                   ? IconButton(
                       onPressed: _removeFilter,
-                      icon: const Icon(Icons.filter_none))
+                      icon: const Icon(Icons.filter_none),
+                    )
                   : IconButton(
                       onPressed: _showFilter,
-                      icon: const Icon(Icons.filter_alt)),
+                      icon: const Icon(Icons.filter_alt),
+                    ),
               const Text(
                 'C/N°:',
                 style: TextStyle(color: Colors.white, fontSize: 14),
               ),
               Switch(
-                  value: _todas,
-                  activeColor: Colors.green,
-                  inactiveThumbColor: Colors.grey,
-                  onChanged: (value) {
-                    _todas = value;
-                    _mostrarCatalogos();
-                    setState(() {});
-                  }),
+                value: _todas,
+                activeThumbColor: Colors.green,
+                inactiveThumbColor: Colors.grey,
+                onChanged: (value) {
+                  _todas = value;
+                  _mostrarCatalogos();
+                  setState(() {});
+                },
+              ),
             ],
           ),
         ],
@@ -141,9 +144,7 @@ class _ReqAppScreenState extends State<ReqAppScreen> {
           children: [
             _getContent(),
             _showLoader
-                ? const LoaderComponent(
-                    text: 'Grabando...',
-                  )
+                ? const LoaderComponent(text: 'Grabando...')
                 : Container(),
           ],
         ),
@@ -151,9 +152,9 @@ class _ReqAppScreenState extends State<ReqAppScreen> {
     );
   }
 
-//-----------------------------------------------------------------------
-//------------------------------ _showCatalogosCount --------------------
-//-----------------------------------------------------------------------
+  //-----------------------------------------------------------------------
+  //------------------------------ _showCatalogosCount --------------------
+  //-----------------------------------------------------------------------
 
   Widget _showCatalogosCount() {
     return Container(
@@ -161,66 +162,58 @@ class _ReqAppScreenState extends State<ReqAppScreen> {
       height: 40,
       child: Row(
         children: [
-          const Text('Cantidad de Catálogos: ',
-              style: TextStyle(
-                fontSize: 14,
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-              )),
-          Text(_catalogos2.length.toString(),
-              style: const TextStyle(
-                fontSize: 14,
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-              )),
+          const Text(
+            'Cantidad de Catálogos: ',
+            style: TextStyle(
+              fontSize: 14,
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          Text(
+            _catalogos2.length.toString(),
+            style: const TextStyle(
+              fontSize: 14,
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ],
       ),
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _getContent -------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _getContent -------------------------------
+  //-----------------------------------------------------------------
 
   Widget _getContent() {
     return Column(
       children: <Widget>[
-        const SizedBox(
-          height: 10,
-        ),
+        const SizedBox(height: 10),
         _showPersona(),
         _showCatalogosCount(),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: const [
-            Text(
-              'Material         ',
-              style: TextStyle(color: Colors.white),
-            ),
-            Text(
-              '   ',
-              style: TextStyle(color: Colors.white),
-            ),
+            Text('Material         ', style: TextStyle(color: Colors.white)),
+            Text('   ', style: TextStyle(color: Colors.white)),
             Text(
               'Cantidad                 ',
               style: TextStyle(color: Colors.white),
             ),
           ],
         ),
-        Expanded(
-          child: _getListView(),
-        ),
+        Expanded(child: _getListView()),
         _showButtons(),
-        const SizedBox(
-          height: 10,
-        ),
+        const SizedBox(height: 10),
       ],
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _getListView ------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _getListView ------------------------------
+  //-----------------------------------------------------------------
 
   Widget _getListView() {
     return ListView(
@@ -249,169 +242,158 @@ class _ReqAppScreenState extends State<ReqAppScreen> {
                                   Expanded(
                                     flex: 4,
                                     child: Text(
-                                        e.codigoSap.toString() +
-                                            ' - ' +
-                                            e.catCatalogo.toString(),
-                                        style: const TextStyle(
-                                          fontSize: 12,
-                                        )),
+                                      '${e.codigoSap} - ${e.catCatalogo}',
+                                      style: const TextStyle(fontSize: 12),
+                                    ),
                                   ),
-                                  const SizedBox(
-                                    width: 5,
-                                  ),
+                                  const SizedBox(width: 5),
                                   Expanded(
                                     flex: 1,
-                                    child: Text(e.cantidad.toString(),
-                                        style: const TextStyle(
-                                          fontSize: 14,
-                                          color: Colors.blue,
-                                          fontWeight: FontWeight.bold,
-                                        )),
+                                    child: Text(
+                                      e.cantidad.toString(),
+                                      style: const TextStyle(
+                                        fontSize: 14,
+                                        color: Colors.blue,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
                                   ),
-                                  const SizedBox(
-                                    width: 10,
-                                  ),
+                                  const SizedBox(width: 10),
                                   IconButton(
-                                      onPressed: () {
-                                        _cantidadController.text =
-                                            e.cantidad == 0.0
-                                                ? ''
-                                                : e.cantidad.toString();
-                                        showDialog(
-                                            context: context,
-                                            builder: (BuildContext context) {
-                                              return AlertDialog(
-                                                backgroundColor:
-                                                    Colors.grey[300],
-                                                title: const Text(
-                                                    'Ingrese la cantidad'),
-                                                content: TextField(
-                                                  autofocus: true,
-                                                  controller:
-                                                      _cantidadController,
-                                                  decoration: InputDecoration(
-                                                      fillColor: Colors.white,
-                                                      filled: true,
-                                                      hintText: '',
-                                                      labelText: '',
-                                                      errorText:
-                                                          _cantidadShowError
-                                                              ? _cantidadError
-                                                              : null,
-                                                      prefixIcon:
-                                                          const Icon(Icons.tag),
-                                                      border:
-                                                          OutlineInputBorder(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          10))),
-                                                  onChanged: (value) {
-                                                    _cantidad = value;
-                                                  },
+                                    onPressed: () {
+                                      _cantidadController.text =
+                                          e.cantidad == 0.0
+                                          ? ''
+                                          : e.cantidad.toString();
+                                      showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          return AlertDialog(
+                                            backgroundColor: Colors.grey[300],
+                                            title: const Text(
+                                              'Ingrese la cantidad',
+                                            ),
+                                            content: TextField(
+                                              autofocus: true,
+                                              controller: _cantidadController,
+                                              decoration: InputDecoration(
+                                                fillColor: Colors.white,
+                                                filled: true,
+                                                hintText: '',
+                                                labelText: '',
+                                                errorText: _cantidadShowError
+                                                    ? _cantidadError
+                                                    : null,
+                                                prefixIcon: const Icon(
+                                                  Icons.tag,
                                                 ),
-                                                actions: [
-                                                  Row(
-                                                    children: [
-                                                      Expanded(
-                                                        child: ElevatedButton(
-                                                          child: Row(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .spaceAround,
-                                                            children: const [
-                                                              Icon(
-                                                                  Icons.cancel),
-                                                              Text('Cancelar'),
-                                                            ],
-                                                          ),
-                                                          style: ElevatedButton
-                                                              .styleFrom(
-                                                            backgroundColor:
-                                                                const Color(
-                                                                    0xFFB4161B),
-                                                            minimumSize:
-                                                                const Size(
-                                                                    double
-                                                                        .infinity,
-                                                                    50),
-                                                            shape:
-                                                                RoundedRectangleBorder(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          5),
+                                                border: OutlineInputBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                ),
+                                              ),
+                                              onChanged: (value) {
+                                                _cantidad = value;
+                                              },
+                                            ),
+                                            actions: [
+                                              Row(
+                                                children: [
+                                                  Expanded(
+                                                    child: ElevatedButton(
+                                                      style: ElevatedButton.styleFrom(
+                                                        backgroundColor:
+                                                            const Color(
+                                                              0xFFB4161B,
                                                             ),
-                                                          ),
-                                                          onPressed: () {
-                                                            Navigator.pop(
-                                                                context);
-                                                          },
+                                                        minimumSize: const Size(
+                                                          double.infinity,
+                                                          50,
+                                                        ),
+                                                        shape: RoundedRectangleBorder(
+                                                          borderRadius:
+                                                              BorderRadius.circular(
+                                                                5,
+                                                              ),
                                                         ),
                                                       ),
-                                                      const SizedBox(
-                                                        width: 10,
+                                                      onPressed: () {
+                                                        Navigator.pop(context);
+                                                      },
+                                                      child: Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceAround,
+                                                        children: const [
+                                                          Icon(Icons.cancel),
+                                                          Text('Cancelar'),
+                                                        ],
                                                       ),
-                                                      Expanded(
-                                                        child: ElevatedButton(
-                                                          child: Row(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .spaceAround,
-                                                            children: const [
-                                                              Icon(Icons.save),
-                                                              Text('Aceptar'),
-                                                            ],
-                                                          ),
-                                                          style: ElevatedButton
-                                                              .styleFrom(
-                                                            backgroundColor:
-                                                                const Color(
-                                                                    0xFF120E43),
-                                                            minimumSize:
-                                                                const Size(
-                                                                    double
-                                                                        .infinity,
-                                                                    50),
-                                                            shape:
-                                                                RoundedRectangleBorder(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          5),
+                                                    ),
+                                                  ),
+                                                  const SizedBox(width: 10),
+                                                  Expanded(
+                                                    child: ElevatedButton(
+                                                      style: ElevatedButton.styleFrom(
+                                                        backgroundColor:
+                                                            const Color(
+                                                              0xFF120E43,
                                                             ),
-                                                          ),
-                                                          onPressed: () {
-                                                            for (Catalogo catalogo
-                                                                in _catalogos) {
-                                                              if (catalogo
-                                                                      .catCodigo ==
-                                                                  e.catCodigo) {
-                                                                catalogo.cantidad =
-                                                                    double.parse(
-                                                                        _cantidad);
-                                                              }
-                                                            }
+                                                        minimumSize: const Size(
+                                                          double.infinity,
+                                                          50,
+                                                        ),
+                                                        shape: RoundedRectangleBorder(
+                                                          borderRadius:
+                                                              BorderRadius.circular(
+                                                                5,
+                                                              ),
+                                                        ),
+                                                      ),
+                                                      onPressed: () {
+                                                        for (Catalogo catalogo
+                                                            in _catalogos) {
+                                                          if (catalogo
+                                                                  .catCodigo ==
+                                                              e.catCodigo) {
+                                                            catalogo.cantidad =
+                                                                double.parse(
+                                                                  _cantidad,
+                                                                );
+                                                          }
+                                                        }
 
-                                                            Navigator.pop(
-                                                                context);
-                                                            setState(() {});
-                                                          },
-                                                        ),
+                                                        Navigator.pop(context);
+                                                        setState(() {});
+                                                      },
+                                                      child: Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceAround,
+                                                        children: const [
+                                                          Icon(Icons.save),
+                                                          Text('Aceptar'),
+                                                        ],
                                                       ),
-                                                    ],
+                                                    ),
                                                   ),
                                                 ],
-                                                shape: RoundedRectangleBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            10)),
-                                              );
-                                            },
-                                            barrierDismissible: false);
-                                      },
-                                      icon: const Icon(Icons.loop,
-                                          color: Colors.blue)),
+                                              ),
+                                            ],
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                            ),
+                                          );
+                                        },
+                                        barrierDismissible: false,
+                                      );
+                                    },
+                                    icon: const Icon(
+                                      Icons.loop,
+                                      color: Colors.blue,
+                                    ),
+                                  ),
                                 ],
                               ),
                             ],
@@ -429,54 +411,48 @@ class _ReqAppScreenState extends State<ReqAppScreen> {
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _showButtons ------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _showButtons ------------------------------
+  //-----------------------------------------------------------------
 
   Widget _showButtons() {
     return Container(
       margin: const EdgeInsets.only(left: 10, right: 10),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: <Widget>[
-          _showSaveButton(),
-        ],
+        children: <Widget>[_showSaveButton()],
       ),
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _showSaveButton ---------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _showSaveButton ---------------------------
+  //-----------------------------------------------------------------
 
   Widget _showSaveButton() {
     return Expanded(
       child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: const Color(0xFF781f1e),
+          minimumSize: const Size(double.infinity, 50),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+        ),
+        onPressed: () => _save(),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: const [
             Icon(Icons.save),
-            SizedBox(
-              width: 15,
-            ),
+            SizedBox(width: 15),
             Text('Guardar'),
           ],
         ),
-        style: ElevatedButton.styleFrom(
-          backgroundColor: const Color(0xFF781f1e),
-          minimumSize: const Size(double.infinity, 50),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(5),
-          ),
-        ),
-        onPressed: () => _save(),
       ),
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _loadData ---------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _loadData ---------------------------------
+  //-----------------------------------------------------------------
 
   void _loadData() async {
     await _getCatalogos();
@@ -487,9 +463,9 @@ class _ReqAppScreenState extends State<ReqAppScreen> {
     _getlistOptions();
   }
 
-//-----------------------------------------------------------------
-//--------------------- _getCatalogos -----------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _getCatalogos -----------------------------
+  //-----------------------------------------------------------------
 
   Future<void> _getCatalogos() async {
     setState(() {
@@ -503,7 +479,10 @@ class _ReqAppScreenState extends State<ReqAppScreen> {
         _showLoader = false;
       });
       showMyDialog(
-          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
+        'Error',
+        'Verifica que estés conectado a Internet',
+        'Aceptar',
+      );
     }
 
     Response response = Response(isSuccess: false);
@@ -516,12 +495,13 @@ class _ReqAppScreenState extends State<ReqAppScreen> {
 
     if (!response.isSuccess) {
       await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: response.message,
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message: response.message,
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
       return;
     }
 
@@ -530,9 +510,9 @@ class _ReqAppScreenState extends State<ReqAppScreen> {
     });
   }
 
-//-----------------------------------------------------------------
-//--------------------- _getlistOptions ---------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _getlistOptions ---------------------------
+  //-----------------------------------------------------------------
 
   void _getlistOptions() {
     _items = [];
@@ -552,24 +532,28 @@ class _ReqAppScreenState extends State<ReqAppScreen> {
     _getComboObras();
   }
 
-//-----------------------------------------------------------------
-//--------------------- _getComboObras ----------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _getComboObras ----------------------------
+  //-----------------------------------------------------------------
 
   List<DropdownMenuItem<String>> _getComboObras() {
     _items = [];
 
     List<DropdownMenuItem<String>> list = [];
-    list.add(const DropdownMenuItem(
-      child: Text('Seleccione un Proyecto Módulo...'),
-      value: 'Seleccione un Proyecto Módulo...',
-    ));
+    list.add(
+      const DropdownMenuItem(
+        value: 'Seleccione un Proyecto Módulo...',
+        child: Text('Seleccione un Proyecto Módulo...'),
+      ),
+    );
 
     for (var _listoption in _listoptions) {
-      list.add(DropdownMenuItem(
-        child: Text(_listoption.description),
-        value: _listoption.id,
-      ));
+      list.add(
+        DropdownMenuItem(
+          value: _listoption.id,
+          child: Text(_listoption.description),
+        ),
+      );
     }
 
     _items = list;
@@ -577,20 +561,20 @@ class _ReqAppScreenState extends State<ReqAppScreen> {
     return list;
   }
 
-//-----------------------------------------------------------------
-//--------------------- _save -------------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _save -------------------------------------
+  //-----------------------------------------------------------------
 
-  _save() {
+  void _save() {
     if (!validateFields()) {
       return;
     }
     _addRecord();
   }
 
-//-----------------------------------------------------------------
-//--------------------- validateFields ----------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- validateFields ----------------------------
+  //-----------------------------------------------------------------
 
   bool validateFields() {
     bool isValid = true;
@@ -598,23 +582,24 @@ class _ReqAppScreenState extends State<ReqAppScreen> {
     if (_subcontratista.subCodigo == '' || _causante.codigo == '') {
       isValid = false;
       showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: 'Debes seleccionar un Contratista/Causante',
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message: 'Debes seleccionar un Contratista/Causante',
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
     }
     setState(() {});
     return isValid;
   }
 
-//-----------------------------------------------------------------
-//--------------------- _addRecord --------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _addRecord --------------------------------
+  //-----------------------------------------------------------------
 
-  _addRecord() async {
-//-----------------Controlo que haya catálogos con cantidades--------------
+  Future<void> _addRecord() async {
+    //-----------------Controlo que haya catálogos con cantidades--------------
     bool bandera = false;
     for (Catalogo catalogo in _catalogos) {
       if (catalogo.cantidad != 0) {
@@ -622,9 +607,9 @@ class _ReqAppScreenState extends State<ReqAppScreen> {
       }
     }
 
-//-----------------Grabar Cabecera y Detalle--------------
+    //-----------------Grabar Cabecera y Detalle--------------
     if (bandera) {
-//-----------------Chequea Internet--------------
+      //-----------------Chequea Internet--------------
       setState(() {
         _showLoader = true;
       });
@@ -636,12 +621,13 @@ class _ReqAppScreenState extends State<ReqAppScreen> {
           _showLoader = false;
         });
         await showAlertDialog(
-            context: context,
-            title: 'Error',
-            message: 'Verifica que estés conectado a Internet',
-            actions: <AlertDialogAction>[
-              const AlertDialogAction(key: null, label: 'Aceptar'),
-            ]);
+          context: context,
+          title: 'Error',
+          message: 'Verifica que estés conectado a Internet',
+          actions: <AlertDialogAction>[
+            const AlertDialogAction(key: null, label: 'Aceptar'),
+          ],
+        );
         return;
       }
 
@@ -663,11 +649,13 @@ class _ReqAppScreenState extends State<ReqAppScreen> {
         'NROOP': 0,
         'VALORIZACION': 0,
         'CODGRUPOC': widget.obra.grupoAlmacen ?? '',
-        'CODCAUSANTEC': widget.obra.grupoCausante ?? ''
+        'CODCAUSANTEC': widget.obra.grupoCausante ?? '',
       };
 
-      Response response =
-          await ApiHelper.post('/api/WRemitosCab/PostWRemitosCab', request);
+      Response response = await ApiHelper.post(
+        '/api/WRemitosCab/PostWRemitosCab',
+        request,
+      );
 
       setState(() {
         _showLoader = false;
@@ -675,12 +663,13 @@ class _ReqAppScreenState extends State<ReqAppScreen> {
 
       if (!response.isSuccess) {
         await showAlertDialog(
-            context: context,
-            title: 'Error',
-            message: response.message,
-            actions: <AlertDialogAction>[
-              const AlertDialogAction(key: null, label: 'Aceptar'),
-            ]);
+          context: context,
+          title: 'Error',
+          message: response.message,
+          actions: <AlertDialogAction>[
+            const AlertDialogAction(key: null, label: 'Aceptar'),
+          ],
+        );
       }
 
       Response response2 = await ApiHelper.getNroRemitoMax();
@@ -688,7 +677,7 @@ class _ReqAppScreenState extends State<ReqAppScreen> {
         _nroReg = int.parse(response2.result.toString());
       }
 
-//-----------------Graba Detalle--------------
+      //-----------------Graba Detalle--------------
       for (Catalogo catalogo in _catalogos) {
         if (catalogo.cantidad != 0) {
           bandera = true;
@@ -704,145 +693,140 @@ class _ReqAppScreenState extends State<ReqAppScreen> {
             'COSTOTOTAL': 0,
           };
 
-          Response response =
-              await ApiHelper.post('/api/WRemitosCab/PostWRemitosDet', request);
+          Response response = await ApiHelper.post(
+            '/api/WRemitosCab/PostWRemitosDet',
+            request,
+          );
 
           if (!response.isSuccess) {
             await showAlertDialog(
-                context: context,
-                title: 'Error',
-                message: response.message,
-                actions: <AlertDialogAction>[
-                  const AlertDialogAction(key: null, label: 'Aceptar'),
-                ]);
+              context: context,
+              title: 'Error',
+              message: response.message,
+              actions: <AlertDialogAction>[
+                const AlertDialogAction(key: null, label: 'Aceptar'),
+              ],
+            );
           }
         }
       }
 
       await showAlertDialog(
-          context: context,
-          title: 'Aviso',
-          message: 'Requerimiento guardado con éxito!',
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Aviso',
+        message: 'Requerimiento guardado con éxito!',
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
       Navigator.pop(context);
     } else {
       await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: 'No hay materiales que tengan cantidades',
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message: 'No hay materiales que tengan cantidades',
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
       return;
     } //Termina Bandera
   }
 
-//-----------------------------------------------------------------
-//--------------------- _showPersona ------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _showPersona ------------------------------
+  //-----------------------------------------------------------------
 
   Widget _showPersona() {
     return Container(
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-        child: Row(
-          children: [
-            Expanded(
-              child: Container(
-                height: 60,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border.all(
-                    color: Colors.black,
-                    width: 1,
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+      child: Row(
+        children: [
+          Expanded(
+            child: Container(
+              height: 60,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                border: Border.all(color: Colors.black, width: 1),
+                color: Colors.white,
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Row(
+                          children: [
+                            const SizedBox(width: 10),
+                            const Text(
+                              'Contratista: ',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            Expanded(
+                              child: Text(_subcontratista.subSubcontratista),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
-                  color: Colors.white,
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Row(
-                            children: [
-                              const SizedBox(
-                                width: 10,
-                              ),
-                              const Text('Contratista: ',
-                                  style:
-                                      TextStyle(fontWeight: FontWeight.bold)),
-                              Expanded(
-                                child: Text(_subcontratista.subSubcontratista),
-                              ),
-                            ],
-                          ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Row(
+                          children: [
+                            const SizedBox(width: 10),
+                            const Text(
+                              'Causante: ',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            Expanded(child: Text(_causante.nombre)),
+                          ],
                         ),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Row(
-                            children: [
-                              const SizedBox(
-                                width: 10,
-                              ),
-                              const Text('Causante: ',
-                                  style:
-                                      TextStyle(fontWeight: FontWeight.bold)),
-                              Expanded(
-                                child: Text(_causante.nombre),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
+                      ),
+                    ],
+                  ),
+                ],
               ),
             ),
-            const SizedBox(
-              width: 10,
-            ),
-            ElevatedButton(
-              child: const Icon(Icons.search),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFF781f1e),
-                minimumSize: const Size(50, 50),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(5),
-                ),
+          ),
+          const SizedBox(width: 10),
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: const Color(0xFF781f1e),
+              minimumSize: const Size(50, 50),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(5),
               ),
-              onPressed: () async {
-                Persona? persona = await Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => CausantesScreen(
-                      user: widget.user,
-                    ),
-                  ),
-                );
-
-                if (persona != null) {
-                  _subcontratista = persona.subcontratista;
-                  _causante = persona.causante;
-                }
-
-                setState(() {});
-              },
             ),
-          ],
-        ));
+            onPressed: () async {
+              Persona? persona = await Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => CausantesScreen(user: widget.user),
+                ),
+              );
+
+              if (persona != null) {
+                _subcontratista = persona.subcontratista;
+                _causante = persona.causante;
+              }
+
+              setState(() {});
+            },
+            child: const Icon(Icons.search),
+          ),
+        ],
+      ),
+    );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _mostrarCatalogos -------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _mostrarCatalogos -------------------------
+  //-----------------------------------------------------------------
 
-  _mostrarCatalogos() async {
+  Future<void> _mostrarCatalogos() async {
     if (!_todas) {
       _catalogos2 = _catalogos;
     } else {
@@ -853,18 +837,17 @@ class _ReqAppScreenState extends State<ReqAppScreen> {
         }
       }
       _catalogos2.sort((a, b) {
-        return a.catCatalogo
-            .toString()
-            .toLowerCase()
-            .compareTo(b.catCatalogo.toString().toLowerCase());
+        return a.catCatalogo.toString().toLowerCase().compareTo(
+          b.catCatalogo.toString().toLowerCase(),
+        );
       });
       setState(() {});
     }
   }
 
-//-----------------------------------------------------------------------
-//------------------------------ _removeFilter --------------------------
-//-----------------------------------------------------------------------
+  //-----------------------------------------------------------------------
+  //------------------------------ _removeFilter --------------------------
+  //-----------------------------------------------------------------------
 
   void _removeFilter() async {
     _catalogos2 = _catalogos;
@@ -874,56 +857,63 @@ class _ReqAppScreenState extends State<ReqAppScreen> {
     });
   }
 
-//---------------------------------------------------------------------
-//------------------------------ _showFilter --------------------------
-//---------------------------------------------------------------------
+  //---------------------------------------------------------------------
+  //------------------------------ _showFilter --------------------------
+  //---------------------------------------------------------------------
 
   void _showFilter() {
     showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
-            title: const Text('Filtrar Catálogos'),
-            content: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+          title: const Text('Filtrar Catálogos'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
               const Text(
                 'Escriba texto o números a buscar en CatSAP o Descripción del Material: ',
                 style: TextStyle(fontSize: 12),
               ),
-              const SizedBox(
-                height: 10,
-              ),
+              const SizedBox(height: 10),
               TextField(
                 autofocus: true,
                 decoration: InputDecoration(
-                    hintText: 'Criterio de búsqueda...',
-                    labelText: 'Buscar',
-                    suffixIcon: const Icon(Icons.search),
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10))),
+                  hintText: 'Criterio de búsqueda...',
+                  labelText: 'Buscar',
+                  suffixIcon: const Icon(Icons.search),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
                 onChanged: (value) {
                   _search = value;
                 },
               ),
-            ]),
-            actions: <Widget>[
-              TextButton(
-                  onPressed: () => Navigator.of(context).pop(),
-                  child: const Text('Cancelar')),
-              TextButton(
-                  onPressed: () => _filter(), child: const Text('Filtrar')),
             ],
-          );
-        });
+          ),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text('Cancelar'),
+            ),
+            TextButton(
+              onPressed: () => _filter(),
+              child: const Text('Filtrar'),
+            ),
+          ],
+        );
+      },
+    );
   }
 
-//-----------------------------------------------------------------
-//------------------------------ _filter --------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //------------------------------ _filter --------------------------
+  //-----------------------------------------------------------------
 
-  _filter() {
+  void _filter() {
     if (_search.isEmpty) {
       return;
     }

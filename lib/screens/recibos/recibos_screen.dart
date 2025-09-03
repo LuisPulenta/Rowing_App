@@ -1,16 +1,10 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:adaptive_dialog/adaptive_dialog.dart';
-import 'package:connectivity/connectivity.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
-import 'package:path/path.dart' as path;
-import 'package:path_provider/path_provider.dart';
-import 'package:permission_handler/permission_handler.dart';
-import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../components/loader_component.dart';
@@ -23,12 +17,12 @@ class RecibosScreen extends StatefulWidget {
   final Position positionUser;
   final Token token;
 
-  const RecibosScreen(
-      {Key? key,
-      required this.user,
-      required this.positionUser,
-      required this.token})
-      : super(key: key);
+  const RecibosScreen({
+    super.key,
+    required this.user,
+    required this.positionUser,
+    required this.token,
+  });
 
   @override
   State<RecibosScreen> createState() => _RecibosScreenState();
@@ -40,22 +34,19 @@ class _RecibosScreenState extends State<RecibosScreen> {
   bool _showLoader = false;
   String _email = '';
 
-//----------------------- initState -----------------------------
+  //----------------------- initState -----------------------------
   @override
   void initState() {
     super.initState();
     _getRecibos();
   }
 
-//----------------------- Pantalla -----------------------------
+  //----------------------- Pantalla -----------------------------
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFF484848),
-      appBar: AppBar(
-        title: const Text('Mis Recibos'),
-        centerTitle: true,
-      ),
+      appBar: AppBar(title: const Text('Mis Recibos'), centerTitle: true),
       body: Center(
         child: _showLoader
             ? const LoaderComponent(text: 'Por favor espere...')
@@ -64,19 +55,17 @@ class _RecibosScreenState extends State<RecibosScreen> {
     );
   }
 
-//------------------------------ _getContent --------------------------
+  //------------------------------ _getContent --------------------------
   Widget _getContent() {
     return Column(
       children: <Widget>[
         _showRecibosCount(),
-        Expanded(
-          child: _recibos.isEmpty ? _noContent() : _getListView(),
-        )
+        Expanded(child: _recibos.isEmpty ? _noContent() : _getListView()),
       ],
     );
   }
 
-//------------------------------ _showRecibosCount ------------------------
+  //------------------------------ _showRecibosCount ------------------------
 
   Widget _showRecibosCount() {
     return Container(
@@ -84,26 +73,30 @@ class _RecibosScreenState extends State<RecibosScreen> {
       height: 40,
       child: Row(
         children: [
-          const Text('Cantidad de Recibos: ',
-              style: TextStyle(
-                fontSize: 14,
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-              )),
-          Text(_recibos.length.toString(),
-              style: const TextStyle(
-                fontSize: 14,
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-              )),
+          const Text(
+            'Cantidad de Recibos: ',
+            style: TextStyle(
+              fontSize: 14,
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          Text(
+            _recibos.length.toString(),
+            style: const TextStyle(
+              fontSize: 14,
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ],
       ),
     );
   }
 
-//-----------------------------------------------------------------------
-//------------------------------ _noContent -----------------------------
-//-----------------------------------------------------------------------
+  //-----------------------------------------------------------------------
+  //------------------------------ _noContent -----------------------------
+  //-----------------------------------------------------------------------
 
   Widget _noContent() {
     return Container(
@@ -117,9 +110,9 @@ class _RecibosScreenState extends State<RecibosScreen> {
     );
   }
 
-//-----------------------------------------------------------------------
-//------------------------------ _getListView ---------------------------
-//-----------------------------------------------------------------------
+  //-----------------------------------------------------------------------
+  //------------------------------ _getListView ---------------------------
+  //-----------------------------------------------------------------------
 
   Widget _getListView() {
     return RefreshIndicator(
@@ -153,44 +146,50 @@ class _RecibosScreenState extends State<RecibosScreen> {
                                 children: [
                                   Row(
                                     children: [
-                                      const Text('N° Recibo: ',
-                                          style: TextStyle(
-                                            fontSize: 12,
-                                            color: Color(0xFF781f1e),
-                                            fontWeight: FontWeight.bold,
-                                          )),
+                                      const Text(
+                                        'N° Recibo: ',
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                          color: Color(0xFF781f1e),
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
                                       Expanded(
                                         flex: 5,
-                                        child: Text(e.idrecibo.toString(),
-                                            style: const TextStyle(
-                                              fontSize: 12,
-                                            )),
+                                        child: Text(
+                                          e.idrecibo.toString(),
+                                          style: const TextStyle(fontSize: 12),
+                                        ),
                                       ),
-                                      const Text('Año: ',
-                                          style: TextStyle(
-                                            fontSize: 12,
-                                            color: Color(0xFF781f1e),
-                                            fontWeight: FontWeight.bold,
-                                          )),
+                                      const Text(
+                                        'Año: ',
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                          color: Color(0xFF781f1e),
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
                                       Expanded(
                                         flex: 4,
-                                        child: Text(e.anio.toString(),
-                                            style: const TextStyle(
-                                              fontSize: 12,
-                                            )),
+                                        child: Text(
+                                          e.anio.toString(),
+                                          style: const TextStyle(fontSize: 12),
+                                        ),
                                       ),
-                                      const Text('Mes: ',
-                                          style: TextStyle(
-                                            fontSize: 12,
-                                            color: Color(0xFF781f1e),
-                                            fontWeight: FontWeight.bold,
-                                          )),
+                                      const Text(
+                                        'Mes: ',
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                          color: Color(0xFF781f1e),
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
                                       Expanded(
                                         flex: 4,
-                                        child: Text(e.mes.toString(),
-                                            style: const TextStyle(
-                                              fontSize: 12,
-                                            )),
+                                        child: Text(
+                                          e.mes.toString(),
+                                          style: const TextStyle(fontSize: 12),
+                                        ),
                                       ),
                                       if (e.firmado == 1)
                                         const Text(
@@ -203,96 +202,102 @@ class _RecibosScreenState extends State<RecibosScreen> {
                                         ),
                                     ],
                                   ),
-                                  const SizedBox(
-                                    height: 5,
-                                  ),
+                                  const SizedBox(height: 5),
                                   Row(
                                     children: [
-                                      const Text('Nª Secuencia: ',
-                                          style: TextStyle(
-                                            fontSize: 12,
-                                            color: Color(0xFF781f1e),
-                                            fontWeight: FontWeight.bold,
-                                          )),
+                                      const Text(
+                                        'Nª Secuencia: ',
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                          color: Color(0xFF781f1e),
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
                                       Expanded(
-                                        child: Text(e.nroSecuencia.toString(),
-                                            style: const TextStyle(
-                                              fontSize: 12,
-                                            )),
+                                        child: Text(
+                                          e.nroSecuencia.toString(),
+                                          style: const TextStyle(fontSize: 12),
+                                        ),
                                       ),
                                     ],
                                   ),
-                                  const SizedBox(
-                                    height: 5,
-                                  ),
+                                  const SizedBox(height: 5),
                                   e.fechaPagoExcel != null
                                       ? Row(
                                           children: [
-                                            const Text('Fecha Pago: ',
-                                                style: TextStyle(
-                                                  fontSize: 12,
-                                                  color: Color(0xFF781f1e),
-                                                  fontWeight: FontWeight.bold,
-                                                )),
+                                            const Text(
+                                              'Fecha Pago: ',
+                                              style: TextStyle(
+                                                fontSize: 12,
+                                                color: Color(0xFF781f1e),
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
                                             Expanded(
                                               child: Text(
-                                                  DateFormat('dd/MM/yyyy')
-                                                      .format(DateTime.parse(e
-                                                          .fechaPagoExcel
-                                                          .toString())),
-                                                  style: const TextStyle(
-                                                    fontSize: 12,
-                                                  )),
+                                                DateFormat('dd/MM/yyyy').format(
+                                                  DateTime.parse(
+                                                    e.fechaPagoExcel.toString(),
+                                                  ),
+                                                ),
+                                                style: const TextStyle(
+                                                  fontSize: 12,
+                                                ),
+                                              ),
                                             ),
                                           ],
                                         )
                                       : Container(),
-                                  const SizedBox(
-                                    height: 5,
-                                  ),
+                                  const SizedBox(height: 5),
                                   e.fechaIniExcel != null
                                       ? Row(
                                           children: [
-                                            const Text('Fecha Inic.: ',
-                                                style: TextStyle(
-                                                  fontSize: 12,
-                                                  color: Color(0xFF781f1e),
-                                                  fontWeight: FontWeight.bold,
-                                                )),
+                                            const Text(
+                                              'Fecha Inic.: ',
+                                              style: TextStyle(
+                                                fontSize: 12,
+                                                color: Color(0xFF781f1e),
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
                                             Expanded(
                                               child: Text(
-                                                  DateFormat('dd/MM/yyyy')
-                                                      .format(DateTime.parse(e
-                                                          .fechaIniExcel
-                                                          .toString())),
-                                                  style: const TextStyle(
-                                                    fontSize: 12,
-                                                  )),
+                                                DateFormat('dd/MM/yyyy').format(
+                                                  DateTime.parse(
+                                                    e.fechaIniExcel.toString(),
+                                                  ),
+                                                ),
+                                                style: const TextStyle(
+                                                  fontSize: 12,
+                                                ),
+                                              ),
                                             ),
                                           ],
                                         )
                                       : Container(),
-                                  const SizedBox(
-                                    height: 5,
-                                  ),
+                                  const SizedBox(height: 5),
                                   e.fechaFinExcel != null
                                       ? Row(
                                           children: [
-                                            const Text('Fecha Fin: ',
-                                                style: TextStyle(
-                                                  fontSize: 12,
-                                                  color: Color(0xFF781f1e),
-                                                  fontWeight: FontWeight.bold,
-                                                )),
+                                            const Text(
+                                              'Fecha Fin: ',
+                                              style: TextStyle(
+                                                fontSize: 12,
+                                                color: Color(0xFF781f1e),
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
                                             Expanded(
                                               child: Text(
-                                                  DateFormat('dd/MM/yyyy')
-                                                      .format(DateTime.parse(e
-                                                          .fechaFinExcel
-                                                          .toString())),
-                                                  style: const TextStyle(
-                                                    fontSize: 12,
-                                                  )),
+                                                DateFormat('dd/MM/yyyy').format(
+                                                  DateTime.parse(
+                                                    e.fechaFinExcel.toString(),
+                                                  ),
+                                                ),
+                                                style: const TextStyle(
+                                                  fontSize: 12,
+                                                ),
+                                              ),
                                             ),
                                           ],
                                         )
@@ -307,10 +312,7 @@ class _RecibosScreenState extends State<RecibosScreen> {
                     Column(
                       children: [
                         const Icon(Icons.arrow_forward_ios),
-                        if (e.firmado == 1)
-                          const SizedBox(
-                            height: 10,
-                          ),
+                        if (e.firmado == 1) const SizedBox(height: 10),
                         if (e.firmado == 1)
                           Container(
                             width: 40,
@@ -320,42 +322,48 @@ class _RecibosScreenState extends State<RecibosScreen> {
                               borderRadius: BorderRadius.circular(40),
                             ),
                             child: IconButton(
-                                onPressed: () async {
-                                  Response response =
-                                      Response(isSuccess: false);
-                                  Map<String, dynamic> request = {
-                                    'to': 'luisalbertonu@gmail.com', //_email,
-                                    'subject':
-                                        'Recibo Mes: ${e.mes}-${e.anio} Secuencia: ${e.nroSecuencia}',
-                                    'body':
-                                        'Se adjunta recibo del Mes ${e.mes}-${e.anio} Secuencia: ${e.nroSecuencia}',
-                                    'fileUrl':
-                                        'http://190.111.249.225/RowingAppApi/images/Recibos/${e.link}',
-                                    'fileName':
-                                        'Recibo Mes ${e.mes}-${e.anio} Secuencia ${e.nroSecuencia}.pdf'
-                                  };
-                                  response = await ApiHelper.sendMail(
-                                      request, widget.token);
-                                  if (!response.isSuccess) {
-                                    await showAlertDialog(
-                                        context: context,
-                                        title: 'Error',
-                                        message: response.message,
-                                        actions: <AlertDialogAction>[
-                                          const AlertDialogAction(
-                                              key: null, label: 'Aceptar'),
-                                        ]);
-                                    return;
-                                  }
-                                  _showSnackbar(
-                                      'Se le ha enviado el Recibo por mail',
-                                      Colors.lightGreen);
-                                },
-                                icon: const Icon(
-                                  Icons.mail,
-                                  color: Colors.white,
-                                  size: 20,
-                                )),
+                              onPressed: () async {
+                                Response response = Response(isSuccess: false);
+                                Map<String, dynamic> request = {
+                                  'to': _email, //'luisalbertonu@gmail.com',
+                                  'subject':
+                                      'Recibo Mes: ${e.mes}-${e.anio} Secuencia: ${e.nroSecuencia}',
+                                  'body':
+                                      'Se adjunta recibo del Mes ${e.mes}-${e.anio} Secuencia: ${e.nroSecuencia}',
+                                  'fileUrl':
+                                      'http://190.111.249.225/RowingAppApi/images/Recibos/${e.link}',
+                                  'fileName':
+                                      'Recibo Mes ${e.mes}-${e.anio} Secuencia ${e.nroSecuencia}.pdf',
+                                };
+                                response = await ApiHelper.sendMail(
+                                  request,
+                                  widget.token,
+                                );
+                                if (!response.isSuccess) {
+                                  await showAlertDialog(
+                                    context: context,
+                                    title: 'Error',
+                                    message: response.message,
+                                    actions: <AlertDialogAction>[
+                                      const AlertDialogAction(
+                                        key: null,
+                                        label: 'Aceptar',
+                                      ),
+                                    ],
+                                  );
+                                  return;
+                                }
+                                _showSnackbar(
+                                  'Se le ha enviado el Recibo por mail',
+                                  Colors.lightGreen,
+                                );
+                              },
+                              icon: const Icon(
+                                Icons.mail,
+                                color: Colors.white,
+                                size: 20,
+                              ),
+                            ),
                           ),
                       ],
                     ),
@@ -369,7 +377,7 @@ class _RecibosScreenState extends State<RecibosScreen> {
     );
   }
 
-//----------------------- _getRecibos -----------------------------
+  //----------------------- _getRecibos -----------------------------
   Future<void> _getRecibos() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
@@ -386,18 +394,24 @@ class _RecibosScreenState extends State<RecibosScreen> {
         _showLoader = false;
       });
       showMyDialog(
-          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
+        'Error',
+        'Verifica que estés conectado a Internet',
+        'Aceptar',
+      );
     }
 
     Response response = Response(isSuccess: false);
 
     Map<String, dynamic> request = {
       'Grupo': widget.user.codigogrupo,
-      'Codigo': widget.user.codigoCausante
+      'Codigo': widget.user.codigoCausante,
     };
 
     response = await ApiHelper.post3(
-        '/api/CausanteRecibos/GetRecibos', request, widget.token);
+      '/api/CausanteRecibos/GetRecibos',
+      request,
+      widget.token,
+    );
 
     setState(() {
       _showLoader = false;
@@ -405,12 +419,13 @@ class _RecibosScreenState extends State<RecibosScreen> {
 
     if (!response.isSuccess) {
       await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: response.message,
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message: response.message,
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
       return;
     }
 
@@ -426,7 +441,7 @@ class _RecibosScreenState extends State<RecibosScreen> {
     });
   }
 
-//----------------------- _goInfoRecibo ---------------------------
+  //----------------------- _goInfoRecibo ---------------------------
 
   void _goInfoRecibo(Recibo recibo) async {
     String? result = await Navigator.push(
@@ -461,90 +476,7 @@ class _RecibosScreenState extends State<RecibosScreen> {
     }
   }
 
-  //--------------------------------------------------------------------------
-  Future<void> downloadPDF(
-      BuildContext context, String pdfUrl, String fileName) async {
-    try {
-      // 1. Solicitar permisos (solo en Android)
-
-      final status = await Permission.storage.request();
-      if (!status.isGranted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            backgroundColor: Colors.red,
-            content: Text('Permiso de almacenamiento denegado.'),
-          ),
-        );
-        return;
-      }
-
-      // 2. Descargar el archivo
-      final response = await http.get(Uri.parse(
-          'http://190.111.249.225/RowingAppApi/images/Recibos/$pdfUrl'));
-
-      if (response.statusCode != 200) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            backgroundColor: Colors.red,
-            content: Text('Error al descargar el archivo del servidor'),
-          ),
-        );
-        return;
-      }
-
-      final bytes = response.bodyBytes;
-
-      // 3. Obtener carpeta de descarga
-      final directory = await getExternalStorageDirectory();
-
-      final downloadsDir = Directory(path.join(directory!.path, 'Download'));
-
-      if (!downloadsDir.existsSync()) {
-        downloadsDir.createSync(recursive: true);
-      }
-
-      final filePath = path.join(downloadsDir.path, '$fileName.pdf');
-      final file = File(filePath);
-
-      if (await downloadsDir.exists()) {
-        final archivos = downloadsDir.listSync();
-        for (var archivo in archivos) {
-          try {
-            if (archivo is File) {
-              await archivo.delete();
-            }
-          } catch (e) {}
-        }
-      }
-
-      // 5. Escribir el archivo (una sola vez)
-      await file.writeAsBytes(bytes, flush: true);
-
-      // 6. Éxito
-      // ScaffoldMessenger.of(context).showSnackBar(
-      //   SnackBar(
-      //     backgroundColor: Colors.green,
-      //     duration: const Duration(seconds: 2),
-      //     content: Text('Archivo guardado en: ${file.path}'),
-      //   ),
-      // );
-
-      //OpenFile.open(filePath);
-
-      await Share.shareFiles([filePath], text: fileName);
-    } catch (e) {
-      // Error general
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          backgroundColor: Colors.red,
-          duration: const Duration(seconds: 2),
-          content: Text('Error al descargar el archivo: $e'),
-        ),
-      );
-    }
-  }
-
-//-------------------- _showSnackbar --------------------------
+  //-------------------- _showSnackbar --------------------------
   void _showSnackbar(String message, Color color) {
     SnackBar snackbar = SnackBar(
       content: Text(message),

@@ -10,8 +10,7 @@ import '../../models/response.dart';
 class DisplayPictureMovScreen extends StatefulWidget {
   final XFile image;
 
-  const DisplayPictureMovScreen({Key? key, required this.image})
-      : super(key: key);
+  const DisplayPictureMovScreen({super.key, required this.image});
 
   @override
   _DisplayPictureMovScreenState createState() =>
@@ -19,9 +18,9 @@ class DisplayPictureMovScreen extends StatefulWidget {
 }
 
 class _DisplayPictureMovScreenState extends State<DisplayPictureMovScreen> {
-//---------------------------------------------------------------------
-//-------------------------- Variables --------------------------------
-//---------------------------------------------------------------------
+  //---------------------------------------------------------------------
+  //-------------------------- Variables --------------------------------
+  //---------------------------------------------------------------------
   final String _observaciones = '';
   final String _observacionesError = '';
   final bool _observacionesShowError = false;
@@ -30,21 +29,17 @@ class _DisplayPictureMovScreenState extends State<DisplayPictureMovScreen> {
   final String _optionIdError = '';
   final bool _optionIdShowError = false;
 
-//---------------------------------------------------------------------
-//-------------------------- Pantalla --------------------------------
-//---------------------------------------------------------------------
+  //---------------------------------------------------------------------
+  //-------------------------- Pantalla --------------------------------
+  //---------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Vista previa de la foto'),
-      ),
+      appBar: AppBar(title: const Text('Vista previa de la foto')),
       body: SingleChildScrollView(
         child: Column(
           children: [
-            const SizedBox(
-              height: 10,
-            ),
+            const SizedBox(height: 10),
             SizedBox(
               width: 300,
               height: 440,
@@ -71,71 +66,69 @@ class _DisplayPictureMovScreenState extends State<DisplayPictureMovScreen> {
     );
   }
 
-//---------------------------------------------------------------------
-//-------------------------- _showButtons -----------------------------
-//---------------------------------------------------------------------
+  //---------------------------------------------------------------------
+  //-------------------------- _showButtons -----------------------------
+  //---------------------------------------------------------------------
 
   Widget _showButtons() {
     return Container(
-        margin: const EdgeInsets.all(10),
-        child: Row(
-          children: <Widget>[
-            Expanded(
-              child: ElevatedButton(
-                child: const Text('Usar Foto'),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF120E43),
-                  minimumSize: const Size(double.infinity, 50),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5),
-                  ),
+      margin: const EdgeInsets.all(10),
+      child: Row(
+        children: <Widget>[
+          Expanded(
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFF120E43),
+                minimumSize: const Size(double.infinity, 50),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(5),
                 ),
-                onPressed: () {
-                  _usePhoto();
-                },
               ),
+              onPressed: () {
+                _usePhoto();
+              },
+              child: const Text('Usar Foto'),
             ),
-            const SizedBox(
-              width: 10,
-            ),
-            Expanded(
-              child: ElevatedButton(
-                child: const Text('Volver a tomar'),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFFE03B8B),
-                  minimumSize: const Size(double.infinity, 50),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5),
-                  ),
+          ),
+          const SizedBox(width: 10),
+          Expanded(
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFFE03B8B),
+                minimumSize: const Size(double.infinity, 50),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(5),
                 ),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
               ),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: const Text('Volver a tomar'),
             ),
-          ],
-        ));
+          ),
+        ],
+      ),
+    );
   }
 
-//------------------------------------------------------------
-//-------------------------- _usePhoto -----------------------
-//------------------------------------------------------------
+  //------------------------------------------------------------
+  //-------------------------- _usePhoto -----------------------
+  //------------------------------------------------------------
   void _usePhoto() async {
     if (_observaciones.length > 100) {
       showAlertDialog(
-          context: context,
-          title: 'Error',
-          message:
-              'Las observaciones no pueden superar los 100 caracteres. Ha escrito ' +
-                  _observaciones.length.toString() +
-                  '.',
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message:
+            'Las observaciones no pueden superar los 100 caracteres. Ha escrito ${_observaciones.length}.',
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
       return;
     }
 
-    Photo _photo = Photo(
+    Photo photo = Photo(
       image: widget.image,
       tipofoto: 0,
       observaciones: _observaciones,
@@ -144,7 +137,7 @@ class _DisplayPictureMovScreenState extends State<DisplayPictureMovScreen> {
       direccion: '',
     );
 
-    Response response = Response(isSuccess: true, result: _photo);
+    Response response = Response(isSuccess: true, result: photo);
     Navigator.pop(context, response);
   }
 }

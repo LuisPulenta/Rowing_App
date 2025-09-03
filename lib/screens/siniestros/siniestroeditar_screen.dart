@@ -1,5 +1,5 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
-import 'package:connectivity/connectivity.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 
 import '../../components/loader_component.dart';
@@ -9,18 +9,20 @@ import '../../models/models.dart';
 class SiniestroEditarScreen extends StatefulWidget {
   final User user;
   final VehiculosSiniestro siniestro;
-  const SiniestroEditarScreen(
-      {Key? key, required this.user, required this.siniestro})
-      : super(key: key);
+  const SiniestroEditarScreen({
+    super.key,
+    required this.user,
+    required this.siniestro,
+  });
 
   @override
   _SiniestroEditarScreenState createState() => _SiniestroEditarScreenState();
 }
 
 class _SiniestroEditarScreenState extends State<SiniestroEditarScreen> {
-//---------------------------------------------------------------
-//----------------------- Variables -----------------------------
-//---------------------------------------------------------------
+  //---------------------------------------------------------------
+  //----------------------- Variables -----------------------------
+  //---------------------------------------------------------------
 
   bool _showLoader = false;
   bool bandera = false;
@@ -122,9 +124,9 @@ class _SiniestroEditarScreenState extends State<SiniestroEditarScreen> {
   bool _notificadoaShowError = false;
   final TextEditingController _notificadoaController = TextEditingController();
 
-//---------------------------------------------------------------
-//----------------------- initState -----------------------------
-//---------------------------------------------------------------
+  //---------------------------------------------------------------
+  //----------------------- initState -----------------------------
+  //---------------------------------------------------------------
 
   @override
   void initState() {
@@ -132,30 +134,23 @@ class _SiniestroEditarScreenState extends State<SiniestroEditarScreen> {
     _loadFields();
   }
 
-//---------------------------------------------------------------
-//----------------------- Pantalla ------------------------------
-//---------------------------------------------------------------
+  //---------------------------------------------------------------
+  //----------------------- Pantalla ------------------------------
+  //---------------------------------------------------------------
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        title: const Text('Editar Siniestro'),
-        centerTitle: true,
-      ),
+      appBar: AppBar(title: const Text('Editar Siniestro'), centerTitle: true),
       body: Stack(
         children: [
           SingleChildScrollView(
             child: Column(
               children: <Widget>[
-                const SizedBox(
-                  height: 1,
-                ),
+                const SizedBox(height: 1),
                 _showFecha(),
-                const SizedBox(
-                  height: 5,
-                ),
+                const SizedBox(height: 5),
                 _showNumcha(),
                 const Divider(
                   height: 5,
@@ -190,29 +185,23 @@ class _SiniestroEditarScreenState extends State<SiniestroEditarScreen> {
                 _showDetallesDanosPropio(),
                 _showNotificado(),
                 _showNotificadoa(),
-                const SizedBox(
-                  height: 5,
-                ),
+                const SizedBox(height: 5),
                 _showButton(),
-                const SizedBox(
-                  height: 10,
-                ),
+                const SizedBox(height: 10),
               ],
             ),
           ),
           _showLoader
-              ? const LoaderComponent(
-                  text: 'Por favor espere...',
-                )
+              ? const LoaderComponent(text: 'Por favor espere...')
               : Container(),
         ],
       ),
     );
   }
 
-//------------------------------------------------------------------
-//----------------------- _showNumcha ------------------------------
-//------------------------------------------------------------------
+  //------------------------------------------------------------------
+  //----------------------- _showNumcha ------------------------------
+  //------------------------------------------------------------------
 
   Widget _showNumcha() {
     return Container(
@@ -220,14 +209,14 @@ class _SiniestroEditarScreenState extends State<SiniestroEditarScreen> {
       child: TextField(
         controller: _numchaController,
         decoration: InputDecoration(
-            fillColor: Colors.white,
-            filled: true,
-            hintText: 'Patente Propia',
-            labelText: 'Patente Propia',
-            errorText: _numchaShowError ? _numchaError : null,
-            suffixIcon: const Icon(Icons.abc),
-            border:
-                OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
+          fillColor: Colors.white,
+          filled: true,
+          hintText: 'Patente Propia',
+          labelText: 'Patente Propia',
+          errorText: _numchaShowError ? _numchaError : null,
+          suffixIcon: const Icon(Icons.abc),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+        ),
         onChanged: (value) {
           _numcha = value;
         },
@@ -235,9 +224,9 @@ class _SiniestroEditarScreenState extends State<SiniestroEditarScreen> {
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _showNumchaTercero ------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _showNumchaTercero ------------------------
+  //-----------------------------------------------------------------
 
   Widget _showNumchaTercero() {
     return Container(
@@ -245,14 +234,14 @@ class _SiniestroEditarScreenState extends State<SiniestroEditarScreen> {
       child: TextField(
         controller: _numchaterceroController,
         decoration: InputDecoration(
-            fillColor: Colors.white,
-            filled: true,
-            hintText: 'Patente Tercero',
-            labelText: 'Patente Tercero',
-            errorText: _numchaterceroShowError ? _numchaterceroError : null,
-            suffixIcon: const Icon(Icons.abc),
-            border:
-                OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
+          fillColor: Colors.white,
+          filled: true,
+          hintText: 'Patente Tercero',
+          labelText: 'Patente Tercero',
+          errorText: _numchaterceroShowError ? _numchaterceroError : null,
+          suffixIcon: const Icon(Icons.abc),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+        ),
         onChanged: (value) {
           _numchatercero = value;
         },
@@ -260,9 +249,9 @@ class _SiniestroEditarScreenState extends State<SiniestroEditarScreen> {
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _showCalle --------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _showCalle --------------------------------
+  //-----------------------------------------------------------------
 
   Widget _showCalle() {
     return Container(
@@ -270,14 +259,14 @@ class _SiniestroEditarScreenState extends State<SiniestroEditarScreen> {
       child: TextField(
         controller: _calleController,
         decoration: InputDecoration(
-            fillColor: Colors.white,
-            filled: true,
-            hintText: 'Calle',
-            labelText: 'Calle',
-            errorText: _calleShowError ? _calleError : null,
-            suffixIcon: const Icon(Icons.place),
-            border:
-                OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
+          fillColor: Colors.white,
+          filled: true,
+          hintText: 'Calle',
+          labelText: 'Calle',
+          errorText: _calleShowError ? _calleError : null,
+          suffixIcon: const Icon(Icons.place),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+        ),
         onChanged: (value) {
           _calle = value;
         },
@@ -285,9 +274,9 @@ class _SiniestroEditarScreenState extends State<SiniestroEditarScreen> {
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _showNumero -------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _showNumero -------------------------------
+  //-----------------------------------------------------------------
 
   Widget _showNumero() {
     return Container(
@@ -296,14 +285,14 @@ class _SiniestroEditarScreenState extends State<SiniestroEditarScreen> {
         controller: _numeroController,
         keyboardType: TextInputType.number,
         decoration: InputDecoration(
-            fillColor: Colors.white,
-            filled: true,
-            hintText: 'N°',
-            labelText: 'N°',
-            errorText: _numeroShowError ? _numeroError : null,
-            suffixIcon: const Icon(Icons.pin),
-            border:
-                OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
+          fillColor: Colors.white,
+          filled: true,
+          hintText: 'N°',
+          labelText: 'N°',
+          errorText: _numeroShowError ? _numeroError : null,
+          suffixIcon: const Icon(Icons.pin),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+        ),
         onChanged: (value) {
           _numero = value;
         },
@@ -311,9 +300,9 @@ class _SiniestroEditarScreenState extends State<SiniestroEditarScreen> {
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _showCiudad -------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _showCiudad -------------------------------
+  //-----------------------------------------------------------------
 
   Widget _showCiudad() {
     return Container(
@@ -321,14 +310,14 @@ class _SiniestroEditarScreenState extends State<SiniestroEditarScreen> {
       child: TextField(
         controller: _ciudadController,
         decoration: InputDecoration(
-            fillColor: Colors.white,
-            filled: true,
-            hintText: 'Ciudad',
-            labelText: 'Ciudad',
-            errorText: _ciudadShowError ? _ciudadError : null,
-            suffixIcon: const Icon(Icons.apartment),
-            border:
-                OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
+          fillColor: Colors.white,
+          filled: true,
+          hintText: 'Ciudad',
+          labelText: 'Ciudad',
+          errorText: _ciudadShowError ? _ciudadError : null,
+          suffixIcon: const Icon(Icons.apartment),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+        ),
         onChanged: (value) {
           _ciudad = value;
         },
@@ -336,9 +325,9 @@ class _SiniestroEditarScreenState extends State<SiniestroEditarScreen> {
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _showProvincia ----------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _showProvincia ----------------------------
+  //-----------------------------------------------------------------
 
   Widget _showProvincia() {
     return Container(
@@ -346,14 +335,14 @@ class _SiniestroEditarScreenState extends State<SiniestroEditarScreen> {
       child: TextField(
         controller: _provinciaController,
         decoration: InputDecoration(
-            fillColor: Colors.white,
-            filled: true,
-            hintText: 'Provincia',
-            labelText: 'Provincia',
-            errorText: _provinciaShowError ? _provinciaError : null,
-            suffixIcon: const Icon(Icons.public),
-            border:
-                OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
+          fillColor: Colors.white,
+          filled: true,
+          hintText: 'Provincia',
+          labelText: 'Provincia',
+          errorText: _provinciaShowError ? _provinciaError : null,
+          suffixIcon: const Icon(Icons.public),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+        ),
         onChanged: (value) {
           _provincia = value;
         },
@@ -361,9 +350,9 @@ class _SiniestroEditarScreenState extends State<SiniestroEditarScreen> {
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _showTercero ------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _showTercero ------------------------------
+  //-----------------------------------------------------------------
 
   Widget _showTercero() {
     return Container(
@@ -371,14 +360,14 @@ class _SiniestroEditarScreenState extends State<SiniestroEditarScreen> {
       child: TextField(
         controller: _terceroController,
         decoration: InputDecoration(
-            fillColor: Colors.white,
-            filled: true,
-            hintText: 'Nombre y Apellido del Tercero',
-            labelText: 'Nombre y Apellido del Tercero',
-            errorText: _terceroShowError ? _terceroError : null,
-            suffixIcon: const Icon(Icons.person),
-            border:
-                OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
+          fillColor: Colors.white,
+          filled: true,
+          hintText: 'Nombre y Apellido del Tercero',
+          labelText: 'Nombre y Apellido del Tercero',
+          errorText: _terceroShowError ? _terceroError : null,
+          suffixIcon: const Icon(Icons.person),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+        ),
         onChanged: (value) {
           _tercero = value;
         },
@@ -386,9 +375,9 @@ class _SiniestroEditarScreenState extends State<SiniestroEditarScreen> {
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _showTelefonoTercero ----------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _showTelefonoTercero ----------------------
+  //-----------------------------------------------------------------
 
   Widget _showTelefonoTercero() {
     return Container(
@@ -397,14 +386,14 @@ class _SiniestroEditarScreenState extends State<SiniestroEditarScreen> {
         controller: _telefonoterceroController,
         keyboardType: TextInputType.phone,
         decoration: InputDecoration(
-            fillColor: Colors.white,
-            filled: true,
-            hintText: 'Teléfono',
-            labelText: 'Teléfono',
-            errorText: _telefonoterceroShowError ? _telefonoterceroError : null,
-            suffixIcon: const Icon(Icons.phone),
-            border:
-                OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
+          fillColor: Colors.white,
+          filled: true,
+          hintText: 'Teléfono',
+          labelText: 'Teléfono',
+          errorText: _telefonoterceroShowError ? _telefonoterceroError : null,
+          suffixIcon: const Icon(Icons.phone),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+        ),
         onChanged: (value) {
           _telefonotercero = value;
         },
@@ -412,9 +401,9 @@ class _SiniestroEditarScreenState extends State<SiniestroEditarScreen> {
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _showEmailTercero -------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _showEmailTercero -------------------------
+  //-----------------------------------------------------------------
 
   Widget _showEmailTercero() {
     return Container(
@@ -423,14 +412,14 @@ class _SiniestroEditarScreenState extends State<SiniestroEditarScreen> {
         controller: _emailterceroController,
         keyboardType: TextInputType.emailAddress,
         decoration: InputDecoration(
-            fillColor: Colors.white,
-            filled: true,
-            hintText: 'Mail',
-            labelText: 'Mail',
-            errorText: _emailterceroShowError ? _emailterceroError : null,
-            suffixIcon: const Icon(Icons.mail),
-            border:
-                OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
+          fillColor: Colors.white,
+          filled: true,
+          hintText: 'Mail',
+          labelText: 'Mail',
+          errorText: _emailterceroShowError ? _emailterceroError : null,
+          suffixIcon: const Icon(Icons.mail),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+        ),
         onChanged: (value) {
           _emailtercero = value;
         },
@@ -438,9 +427,9 @@ class _SiniestroEditarScreenState extends State<SiniestroEditarScreen> {
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _showCompaniaSeguro -----------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _showCompaniaSeguro -----------------------
+  //-----------------------------------------------------------------
 
   Widget _showCompaniaSeguro() {
     return Container(
@@ -448,14 +437,14 @@ class _SiniestroEditarScreenState extends State<SiniestroEditarScreen> {
       child: TextField(
         controller: _companiaseguroController,
         decoration: InputDecoration(
-            fillColor: Colors.white,
-            filled: true,
-            hintText: 'Compañía de Seguros',
-            labelText: 'Compañía de Seguros',
-            errorText: _companiaseguroShowError ? _companiaseguroError : null,
-            suffixIcon: const Icon(Icons.factory),
-            border:
-                OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
+          fillColor: Colors.white,
+          filled: true,
+          hintText: 'Compañía de Seguros',
+          labelText: 'Compañía de Seguros',
+          errorText: _companiaseguroShowError ? _companiaseguroError : null,
+          suffixIcon: const Icon(Icons.factory),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+        ),
         onChanged: (value) {
           _companiaseguro = value;
         },
@@ -463,9 +452,9 @@ class _SiniestroEditarScreenState extends State<SiniestroEditarScreen> {
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _showNroPoliza ----------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _showNroPoliza ----------------------------
+  //-----------------------------------------------------------------
 
   Widget _showNroPoliza() {
     return Container(
@@ -473,14 +462,14 @@ class _SiniestroEditarScreenState extends State<SiniestroEditarScreen> {
       child: TextField(
         controller: _nropolizaController,
         decoration: InputDecoration(
-            fillColor: Colors.white,
-            filled: true,
-            hintText: 'N° de Póliza',
-            labelText: 'N° de Póliza',
-            errorText: _nropolizaShowError ? _nropolizaError : null,
-            suffixIcon: const Icon(Icons.tag),
-            border:
-                OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
+          fillColor: Colors.white,
+          filled: true,
+          hintText: 'N° de Póliza',
+          labelText: 'N° de Póliza',
+          errorText: _nropolizaShowError ? _nropolizaError : null,
+          suffixIcon: const Icon(Icons.tag),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+        ),
         onChanged: (value) {
           _nropoliza = value;
         },
@@ -488,9 +477,9 @@ class _SiniestroEditarScreenState extends State<SiniestroEditarScreen> {
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _showLesionados ---------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _showLesionados ---------------------------
+  //-----------------------------------------------------------------
 
   Widget _showLesionados() {
     return Padding(
@@ -499,11 +488,10 @@ class _SiniestroEditarScreenState extends State<SiniestroEditarScreen> {
         children: [
           const SizedBox(
             width: 160,
-            child: Text('Hubo lesionados: ',
-                style: TextStyle(
-                  fontSize: 15,
-                  color: Colors.black,
-                )),
+            child: Text(
+              'Hubo lesionados: ',
+              style: TextStyle(fontSize: 15, color: Colors.black),
+            ),
           ),
           Checkbox(
             value: _huboLesionados,
@@ -523,16 +511,18 @@ class _SiniestroEditarScreenState extends State<SiniestroEditarScreen> {
                     controller: _numlesionadosController,
                     keyboardType: TextInputType.number,
                     decoration: InputDecoration(
-                        fillColor: Colors.white,
-                        filled: true,
-                        hintText: 'N° Lesion.',
-                        labelText: 'N° Lesion.',
-                        errorText: _numlesionadosShowError
-                            ? _numlesionadosError
-                            : null,
-                        suffixIcon: const Icon(Icons.tag),
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10))),
+                      fillColor: Colors.white,
+                      filled: true,
+                      hintText: 'N° Lesion.',
+                      labelText: 'N° Lesion.',
+                      errorText: _numlesionadosShowError
+                          ? _numlesionadosError
+                          : null,
+                      suffixIcon: const Icon(Icons.tag),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
                     onChanged: (value) {
                       _numlesionados = value;
                     },
@@ -544,9 +534,9 @@ class _SiniestroEditarScreenState extends State<SiniestroEditarScreen> {
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _showPolicia ------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _showPolicia ------------------------------
+  //-----------------------------------------------------------------
 
   Widget _showPolicia() {
     return Padding(
@@ -555,11 +545,10 @@ class _SiniestroEditarScreenState extends State<SiniestroEditarScreen> {
         children: [
           const SizedBox(
             width: 160,
-            child: Text('Intervino la Policía: ',
-                style: TextStyle(
-                  fontSize: 15,
-                  color: Colors.black,
-                )),
+            child: Text(
+              'Intervino la Policía: ',
+              style: TextStyle(fontSize: 15, color: Colors.black),
+            ),
           ),
           Checkbox(
             value: _intervinoPolicia,
@@ -577,9 +566,9 @@ class _SiniestroEditarScreenState extends State<SiniestroEditarScreen> {
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _showAmbulancia ---------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _showAmbulancia ---------------------------
+  //-----------------------------------------------------------------
 
   Widget _showAmbulancia() {
     return Padding(
@@ -588,11 +577,10 @@ class _SiniestroEditarScreenState extends State<SiniestroEditarScreen> {
         children: [
           const SizedBox(
             width: 160,
-            child: Text('Intervino Ambulancia: ',
-                style: TextStyle(
-                  fontSize: 15,
-                  color: Colors.black,
-                )),
+            child: Text(
+              'Intervino Ambulancia: ',
+              style: TextStyle(fontSize: 15, color: Colors.black),
+            ),
           ),
           Checkbox(
             value: _intervinoAmbulancia,
@@ -610,9 +598,9 @@ class _SiniestroEditarScreenState extends State<SiniestroEditarScreen> {
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _showObservaciones ------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _showObservaciones ------------------------
+  //-----------------------------------------------------------------
 
   Widget _showObservaciones() {
     return Container(
@@ -621,12 +609,12 @@ class _SiniestroEditarScreenState extends State<SiniestroEditarScreen> {
         controller: _observacionesController,
         maxLines: 3,
         decoration: InputDecoration(
-            hintText: 'Relato del Siniestro',
-            labelText: 'Relato del Siniestro',
-            errorText: _observacionesShowError ? _observacionesError : null,
-            suffixIcon: const Icon(Icons.notes),
-            border:
-                OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
+          hintText: 'Relato del Siniestro',
+          labelText: 'Relato del Siniestro',
+          errorText: _observacionesShowError ? _observacionesError : null,
+          suffixIcon: const Icon(Icons.notes),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+        ),
         onChanged: (value) {
           _observaciones = value;
         },
@@ -634,9 +622,9 @@ class _SiniestroEditarScreenState extends State<SiniestroEditarScreen> {
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _showDetallesDanosTercero -----------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _showDetallesDanosTercero -----------------
+  //-----------------------------------------------------------------
 
   Widget _showDetallesDanosTercero() {
     return Container(
@@ -645,14 +633,14 @@ class _SiniestroEditarScreenState extends State<SiniestroEditarScreen> {
         controller: _detalleDanosTerceroController,
         maxLines: 3,
         decoration: InputDecoration(
-            hintText: 'Detalle daños Tercero',
-            labelText: 'Detalle daños Tercero',
-            errorText: _detalleDanosTerceroShowError
-                ? _detalleDanosTerceroError
-                : null,
-            suffixIcon: const Icon(Icons.notes),
-            border:
-                OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
+          hintText: 'Detalle daños Tercero',
+          labelText: 'Detalle daños Tercero',
+          errorText: _detalleDanosTerceroShowError
+              ? _detalleDanosTerceroError
+              : null,
+          suffixIcon: const Icon(Icons.notes),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+        ),
         onChanged: (value) {
           _detalleDanosTercero = value;
         },
@@ -660,9 +648,9 @@ class _SiniestroEditarScreenState extends State<SiniestroEditarScreen> {
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _showDetallesDanosPropio ------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _showDetallesDanosPropio ------------------
+  //-----------------------------------------------------------------
 
   Widget _showDetallesDanosPropio() {
     return Container(
@@ -671,13 +659,14 @@ class _SiniestroEditarScreenState extends State<SiniestroEditarScreen> {
         controller: _detalleDanosPropioController,
         maxLines: 3,
         decoration: InputDecoration(
-            hintText: 'Detalle daños Propios',
-            labelText: 'Detalle daños Propio',
-            errorText:
-                _detalleDanosPropioShowError ? _detalleDanosPropioError : null,
-            suffixIcon: const Icon(Icons.notes),
-            border:
-                OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
+          hintText: 'Detalle daños Propios',
+          labelText: 'Detalle daños Propio',
+          errorText: _detalleDanosPropioShowError
+              ? _detalleDanosPropioError
+              : null,
+          suffixIcon: const Icon(Icons.notes),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+        ),
         onChanged: (value) {
           _detalleDanosPropio = value;
         },
@@ -685,9 +674,9 @@ class _SiniestroEditarScreenState extends State<SiniestroEditarScreen> {
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _showNotificado ---------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _showNotificado ---------------------------
+  //-----------------------------------------------------------------
 
   Widget _showNotificado() {
     return Padding(
@@ -696,11 +685,10 @@ class _SiniestroEditarScreenState extends State<SiniestroEditarScreen> {
         children: [
           const SizedBox(
             width: 160,
-            child: Text('Notif. a la Empresa: ',
-                style: TextStyle(
-                  fontSize: 15,
-                  color: Colors.black,
-                )),
+            child: Text(
+              'Notif. a la Empresa: ',
+              style: TextStyle(fontSize: 15, color: Colors.black),
+            ),
           ),
           Checkbox(
             value: _notifico,
@@ -718,9 +706,9 @@ class _SiniestroEditarScreenState extends State<SiniestroEditarScreen> {
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _showNotificadoa --------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _showNotificadoa --------------------------
+  //-----------------------------------------------------------------
 
   Widget _showNotificadoa() {
     return Container(
@@ -728,14 +716,14 @@ class _SiniestroEditarScreenState extends State<SiniestroEditarScreen> {
       child: TextField(
         controller: _notificadoaController,
         decoration: InputDecoration(
-            fillColor: Colors.white,
-            filled: true,
-            hintText: 'Notificado a...',
-            labelText: 'Notificado a...',
-            errorText: _notificadoaShowError ? _notificadoaError : null,
-            suffixIcon: const Icon(Icons.support_agent),
-            border:
-                OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
+          fillColor: Colors.white,
+          filled: true,
+          hintText: 'Notificado a...',
+          labelText: 'Notificado a...',
+          errorText: _notificadoaShowError ? _notificadoaError : null,
+          suffixIcon: const Icon(Icons.support_agent),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+        ),
         onChanged: (value) {
           _notificadoa = value;
         },
@@ -743,26 +731,28 @@ class _SiniestroEditarScreenState extends State<SiniestroEditarScreen> {
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _showFecha --------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _showFecha --------------------------------
+  //-----------------------------------------------------------------
 
   Widget _showFecha() {
     return Stack(
       children: <Widget>[
-        Container(
-          height: 80,
-        ),
+        Container(height: 80),
         Positioned(
           bottom: 0,
           left: 20,
           child: Row(
             children: [
               const Icon(Icons.calendar_today),
-              const SizedBox(
-                width: 20,
-              ),
+              const SizedBox(width: 20),
               Container(
+                width: 110,
+                height: 50,
+                decoration: BoxDecoration(
+                  borderRadius: const BorderRadius.all(Radius.circular(5)),
+                  border: Border.all(color: Colors.black, width: 1.0),
+                ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -772,26 +762,23 @@ class _SiniestroEditarScreenState extends State<SiniestroEditarScreen> {
                       },
                       child: InkWell(
                         child: Text(
-                            '    ${selectedDate.day}/${selectedDate.month}/${selectedDate.year}'),
+                          '    ${selectedDate.day}/${selectedDate.month}/${selectedDate.year}',
+                        ),
                       ),
                     ),
                   ],
                 ),
+              ),
+              const SizedBox(width: 40),
+              const Icon(Icons.schedule),
+              const SizedBox(width: 20),
+              Container(
                 width: 110,
                 height: 50,
                 decoration: BoxDecoration(
                   borderRadius: const BorderRadius.all(Radius.circular(5)),
                   border: Border.all(color: Colors.black, width: 1.0),
                 ),
-              ),
-              const SizedBox(
-                width: 40,
-              ),
-              const Icon(Icons.schedule),
-              const SizedBox(
-                width: 20,
-              ),
-              Container(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -801,16 +788,11 @@ class _SiniestroEditarScreenState extends State<SiniestroEditarScreen> {
                       },
                       child: InkWell(
                         child: Text(
-                            '        ${selectedTime.hour}:${selectedTime.minute}'),
+                          '        ${selectedTime.hour}:${selectedTime.minute}',
+                        ),
                       ),
                     ),
                   ],
-                ),
-                width: 110,
-                height: 50,
-                decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.all(Radius.circular(5)),
-                  border: Border.all(color: Colors.black, width: 1.0),
                 ),
               ),
             ],
@@ -820,38 +802,40 @@ class _SiniestroEditarScreenState extends State<SiniestroEditarScreen> {
           left: 70,
           bottom: 40,
           child: Container(
-              color: Colors.white,
-              child: const Text(
-                ' Fecha: ',
-                style: TextStyle(fontSize: 12),
-              )),
+            color: Colors.white,
+            child: const Text(' Fecha: ', style: TextStyle(fontSize: 12)),
+          ),
         ),
         Positioned(
           left: 264,
           bottom: 40,
           child: Container(
-              color: Colors.white,
-              child: const Text(
-                ' Hora: ',
-                style: TextStyle(fontSize: 12),
-              )),
-        )
+            color: Colors.white,
+            child: const Text(' Hora: ', style: TextStyle(fontSize: 12)),
+          ),
+        ),
       ],
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _selectDate -------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _selectDate -------------------------------
+  //-----------------------------------------------------------------
 
   void _selectDate(BuildContext context) async {
     final DateTime? selected = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
       firstDate: DateTime(
-          DateTime.now().year, DateTime.now().month, DateTime.now().day),
+        DateTime.now().year,
+        DateTime.now().month,
+        DateTime.now().day,
+      ),
       lastDate: DateTime(
-          DateTime.now().year + 5, DateTime.now().month, DateTime.now().day),
+        DateTime.now().year + 5,
+        DateTime.now().month,
+        DateTime.now().day,
+      ),
     );
     if (selected != null && selected != selectedDate) {
       setState(() {
@@ -860,9 +844,9 @@ class _SiniestroEditarScreenState extends State<SiniestroEditarScreen> {
     }
   }
 
-//-----------------------------------------------------------------
-//--------------------- _selectTime -------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _selectTime -------------------------------
+  //-----------------------------------------------------------------
 
   void _selectTime(BuildContext context) async {
     final TimeOfDay? selected = await showTimePicker(
@@ -876,9 +860,9 @@ class _SiniestroEditarScreenState extends State<SiniestroEditarScreen> {
     }
   }
 
-//-----------------------------------------------------------------
-//--------------------- _showButton -------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _showButton -------------------------------
+  //-----------------------------------------------------------------
 
   Widget _showButton() {
     return Container(
@@ -888,16 +872,6 @@ class _SiniestroEditarScreenState extends State<SiniestroEditarScreen> {
         children: <Widget>[
           Expanded(
             child: ElevatedButton(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  Icon(Icons.save),
-                  SizedBox(
-                    width: 20,
-                  ),
-                  Text('Guardar siniestro'),
-                ],
-              ),
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xFF781f1e),
                 minimumSize: const Size(double.infinity, 50),
@@ -906,6 +880,14 @@ class _SiniestroEditarScreenState extends State<SiniestroEditarScreen> {
                 ),
               ),
               onPressed: _save,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Icon(Icons.save),
+                  SizedBox(width: 20),
+                  Text('Guardar siniestro'),
+                ],
+              ),
             ),
           ),
         ],
@@ -913,11 +895,11 @@ class _SiniestroEditarScreenState extends State<SiniestroEditarScreen> {
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _save -------------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _save -------------------------------------
+  //-----------------------------------------------------------------
 
-  _save() {
+  void _save() {
     if (!validateFields()) {
       setState(() {});
       return;
@@ -925,9 +907,9 @@ class _SiniestroEditarScreenState extends State<SiniestroEditarScreen> {
     _addRecord();
   }
 
-//-----------------------------------------------------------------
-//--------------------- validateFields ----------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- validateFields ----------------------------
+  //-----------------------------------------------------------------
 
   bool validateFields() {
     bool isValid = true;
@@ -1090,9 +1072,9 @@ class _SiniestroEditarScreenState extends State<SiniestroEditarScreen> {
     return isValid;
   }
 
-//-----------------------------------------------------------------
-//--------------------- _addRecord --------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _addRecord --------------------------------
+  //-----------------------------------------------------------------
 
   void _addRecord() async {
     setState(() {
@@ -1106,7 +1088,10 @@ class _SiniestroEditarScreenState extends State<SiniestroEditarScreen> {
         _showLoader = false;
       });
       showMyDialog(
-          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
+        'Error',
+        'Verifica que estés conectado a Internet',
+        'Aceptar',
+      );
     }
 
     Map<String, dynamic> request = {
@@ -1138,8 +1123,11 @@ class _SiniestroEditarScreenState extends State<SiniestroEditarScreen> {
       'numchatercero': _numchatercero,
     };
 
-    Response response = await ApiHelper.put('/api/VehiculosSiniestros/',
-        widget.siniestro.nrosiniestro.toString(), request);
+    Response response = await ApiHelper.put(
+      '/api/VehiculosSiniestros/',
+      widget.siniestro.nrosiniestro.toString(),
+      request,
+    );
 
     setState(() {
       _showLoader = false;
@@ -1147,20 +1135,21 @@ class _SiniestroEditarScreenState extends State<SiniestroEditarScreen> {
 
     if (!response.isSuccess) {
       await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: response.message,
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message: response.message,
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
       return;
     }
     Navigator.pop(context, 'yes');
   }
 
-//-----------------------------------------------------------------
-//--------------------- pLMayusc ----------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- pLMayusc ----------------------------------
+  //-----------------------------------------------------------------
 
   String pLMayusc(String string) {
     String name = '';
@@ -1186,9 +1175,9 @@ class _SiniestroEditarScreenState extends State<SiniestroEditarScreen> {
     return name;
   }
 
-//-------------------------------------------------------------
-//-------------------- _loadFields ----------------------------
-//-------------------------------------------------------------
+  //-------------------------------------------------------------
+  //-------------------- _loadFields ----------------------------
+  //-------------------------------------------------------------
 
   void _loadFields() async {
     DateTime fechacar = DateTime.parse(widget.siniestro.fechacarga);
@@ -1237,14 +1226,16 @@ class _SiniestroEditarScreenState extends State<SiniestroEditarScreen> {
     _huboLesionados = widget.siniestro.lesionados == 'SI' ? true : false;
 
     _numlesionados = widget.siniestro.cantidadlesionados.toString();
-    _numlesionadosController.text =
-        widget.siniestro.cantidadlesionados.toString();
+    _numlesionadosController.text = widget.siniestro.cantidadlesionados
+        .toString();
 
-    _intervinoPolicia =
-        widget.siniestro.intervinopolicia == 'SI' ? true : false;
+    _intervinoPolicia = widget.siniestro.intervinopolicia == 'SI'
+        ? true
+        : false;
 
-    _intervinoAmbulancia =
-        widget.siniestro.intervinoambulancia == 'SI' ? true : false;
+    _intervinoAmbulancia = widget.siniestro.intervinoambulancia == 'SI'
+        ? true
+        : false;
 
     _observaciones = widget.siniestro.relatosiniestro;
     _observacionesController.text = widget.siniestro.relatosiniestro;

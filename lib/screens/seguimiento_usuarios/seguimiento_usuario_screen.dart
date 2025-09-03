@@ -1,5 +1,5 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
-import 'package:connectivity/connectivity.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:custom_info_window/custom_info_window.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -11,8 +11,7 @@ import '../screens.dart';
 
 class SeguimientoUsuarioScreen extends StatefulWidget {
   final User user;
-  const SeguimientoUsuarioScreen({Key? key, required this.user})
-      : super(key: key);
+  const SeguimientoUsuarioScreen({super.key, required this.user});
 
   @override
   State<SeguimientoUsuarioScreen> createState() =>
@@ -20,9 +19,9 @@ class SeguimientoUsuarioScreen extends StatefulWidget {
 }
 
 class _SeguimientoUsuarioScreenState extends State<SeguimientoUsuarioScreen> {
-//---------------------------------------------------------------------
-//-------------------------- Variables --------------------------------
-//---------------------------------------------------------------------
+  //---------------------------------------------------------------------
+  //-------------------------- Variables --------------------------------
+  //---------------------------------------------------------------------
   DateTime _fecha = DateTime.now();
   List<UsuarioGeo> _usuarios = [];
   List<UsuarioGeo> _usuariosAux = [];
@@ -45,9 +44,9 @@ class _SeguimientoUsuarioScreenState extends State<SeguimientoUsuarioScreen> {
 
   final Set<Polyline> _polylines = {};
 
-//---------------------------------------------------------------------
-//-------------------------- InitState --------------------------------
-//---------------------------------------------------------------------
+  //---------------------------------------------------------------------
+  //-------------------------- InitState --------------------------------
+  //---------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
@@ -55,42 +54,37 @@ class _SeguimientoUsuarioScreenState extends State<SeguimientoUsuarioScreen> {
     setState(() {});
   }
 
-//---------------------------------------------------------------------
-//-------------------------- Pantalla ---------------------------------
-//---------------------------------------------------------------------
+  //---------------------------------------------------------------------
+  //-------------------------- Pantalla ---------------------------------
+  //---------------------------------------------------------------------
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: const Color(0xFF484848),
-        appBar: AppBar(
-          title: const Text('Seguimiento Usuarios'),
-          centerTitle: true,
+      backgroundColor: const Color(0xFF484848),
+      appBar: AppBar(
+        title: const Text('Seguimiento Usuarios'),
+        centerTitle: true,
+      ),
+      body: Center(
+        child: Column(
+          children: [
+            _showFecha(),
+            _usuarios.isEmpty ? Container() : _showUsuarios(),
+            const SizedBox(height: 15),
+            _usuario != 0 && _puntos.isNotEmpty ? DatosUsuario() : Container(),
+            const Spacer(),
+            _showButton(),
+            const SizedBox(height: 20),
+          ],
         ),
-        body: Center(
-          child: Column(
-            children: [
-              _showFecha(),
-              _usuarios.isEmpty ? Container() : _showUsuarios(),
-              const SizedBox(
-                height: 15,
-              ),
-              _usuario != 0 && _puntos.isNotEmpty
-                  ? DatosUsuario()
-                  : Container(),
-              const Spacer(),
-              _showButton(),
-              const SizedBox(
-                height: 20,
-              ),
-            ],
-          ),
-        ));
+      ),
+    );
   }
 
-//-----------------------------------------------------------------
-//--------------------- DatosUsuario ------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- DatosUsuario ------------------------------
+  //-----------------------------------------------------------------
 
   Widget DatosUsuario() {
     double? ancho = 140;
@@ -117,114 +111,120 @@ class _SeguimientoUsuarioScreenState extends State<SeguimientoUsuarioScreen> {
                             children: [
                               SizedBox(
                                 width: ancho,
-                                child: const Text('Cantidad de Puntos: ',
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      color: Color(0xFF781f1e),
-                                      fontWeight: FontWeight.bold,
-                                    )),
+                                child: const Text(
+                                  'Cantidad de Puntos: ',
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: Color(0xFF781f1e),
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
                               ),
                               Expanded(
-                                child: Text(_puntos.length.toString(),
-                                    style: const TextStyle(
-                                      fontSize: 12,
-                                    )),
+                                child: Text(
+                                  _puntos.length.toString(),
+                                  style: const TextStyle(fontSize: 12),
+                                ),
                               ),
                             ],
                           ),
-                          const SizedBox(
-                            height: 5,
-                          ),
+                          const SizedBox(height: 5),
                           Row(
                             children: [
                               SizedBox(
                                 width: ancho,
-                                child: const Text('Puntos por Menú: ',
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      color: Color(0xFF781f1e),
-                                      fontWeight: FontWeight.bold,
-                                    )),
+                                child: const Text(
+                                  'Puntos por Menú: ',
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: Color(0xFF781f1e),
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
                               ),
                               Expanded(
-                                child: Text(_puntosMenu.toString(),
-                                    style: const TextStyle(
-                                      fontSize: 12,
-                                    )),
+                                child: Text(
+                                  _puntosMenu.toString(),
+                                  style: const TextStyle(fontSize: 12),
+                                ),
                               ),
                             ],
                           ),
-                          const SizedBox(
-                            height: 5,
-                          ),
+                          const SizedBox(height: 5),
                           Row(
                             children: [
                               SizedBox(
                                 width: ancho,
-                                child: const Text('Puntos automáticos: ',
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      color: Color(0xFF781f1e),
-                                      fontWeight: FontWeight.bold,
-                                    )),
+                                child: const Text(
+                                  'Puntos automáticos: ',
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: Color(0xFF781f1e),
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
                               ),
                               Expanded(
-                                child: Text(_puntosAutomaticos.toString(),
-                                    style: const TextStyle(
-                                      fontSize: 12,
-                                    )),
+                                child: Text(
+                                  _puntosAutomaticos.toString(),
+                                  style: const TextStyle(fontSize: 12),
+                                ),
                               ),
                             ],
                           ),
-                          const SizedBox(
-                            height: 5,
-                          ),
+                          const SizedBox(height: 5),
                           Row(
                             children: [
                               SizedBox(
                                 width: ancho,
-                                child: const Text('Hora Primer Punto: ',
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      color: Color(0xFF781f1e),
-                                      fontWeight: FontWeight.bold,
-                                    )),
+                                child: const Text(
+                                  'Hora Primer Punto: ',
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: Color(0xFF781f1e),
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
                               ),
                               Expanded(
-                                  child: Text(
-                                      DateFormat('HH:mm').format(DateTime.parse(
-                                          _puntos.first.fecha.toString())),
-                                      style: const TextStyle(
-                                        fontSize: 12,
-                                      ))),
+                                child: Text(
+                                  DateFormat('HH:mm').format(
+                                    DateTime.parse(
+                                      _puntos.first.fecha.toString(),
+                                    ),
+                                  ),
+                                  style: const TextStyle(fontSize: 12),
+                                ),
+                              ),
                             ],
                           ),
-                          const SizedBox(
-                            height: 5,
-                          ),
+                          const SizedBox(height: 5),
                           Row(
                             children: [
                               SizedBox(
                                 width: ancho,
-                                child: const Text('Hora Ultimo Punto: ',
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      color: Color(0xFF781f1e),
-                                      fontWeight: FontWeight.bold,
-                                    )),
+                                child: const Text(
+                                  'Hora Ultimo Punto: ',
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: Color(0xFF781f1e),
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
                               ),
                               Expanded(
-                                  child: Text(
-                                      DateFormat('HH:mm').format(DateTime.parse(
-                                          _puntos.last.fecha.toString())),
-                                      style: const TextStyle(
-                                        fontSize: 12,
-                                      ))),
+                                child: Text(
+                                  DateFormat('HH:mm').format(
+                                    DateTime.parse(
+                                      _puntos.last.fecha.toString(),
+                                    ),
+                                  ),
+                                  style: const TextStyle(fontSize: 12),
+                                ),
+                              ),
                             ],
                           ),
-                          const SizedBox(
-                            height: 5,
-                          ),
+                          const SizedBox(height: 5),
                         ],
                       ),
                     ),
@@ -238,9 +238,9 @@ class _SeguimientoUsuarioScreenState extends State<SeguimientoUsuarioScreen> {
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _showFecha --------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _showFecha --------------------------------
+  //-----------------------------------------------------------------
 
   Widget _showFecha() {
     double ancho = MediaQuery.of(context).size.width;
@@ -249,18 +249,9 @@ class _SeguimientoUsuarioScreenState extends State<SeguimientoUsuarioScreen> {
       child: Column(
         children: [
           Row(
-            children: [
-              Expanded(
-                flex: 2,
-                child: Row(
-                  children: const [],
-                ),
-              ),
-            ],
+            children: [Expanded(flex: 2, child: Row(children: const []))],
           ),
-          const SizedBox(
-            height: 10,
-          ),
+          const SizedBox(height: 10),
           Row(
             children: [
               Expanded(
@@ -277,30 +268,29 @@ class _SeguimientoUsuarioScreenState extends State<SeguimientoUsuarioScreen> {
                       height: 60,
                       child: Text(
                         '  Fecha: ${_fecha.day}/${_fecha.month}/${_fecha.year}',
-                        style:
-                            const TextStyle(color: Colors.black, fontSize: 15),
+                        style: const TextStyle(
+                          color: Colors.black,
+                          fontSize: 15,
+                        ),
                       ),
                     ),
-                    const SizedBox(
-                      width: 10,
-                    ),
+                    const SizedBox(width: 10),
                     Expanded(
                       flex: 1,
                       child: ElevatedButton(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: const [
-                              Icon(Icons.calendar_month),
-                            ],
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFF781f1e),
+                          minimumSize: const Size(double.infinity, 60),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(5),
                           ),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color(0xFF781f1e),
-                            minimumSize: const Size(double.infinity, 60),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                          ),
-                          onPressed: () => _elegirFecha()),
+                        ),
+                        onPressed: () => _elegirFecha(),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: const [Icon(Icons.calendar_month)],
+                        ),
+                      ),
                     ),
                   ],
                 ),
@@ -312,11 +302,11 @@ class _SeguimientoUsuarioScreenState extends State<SeguimientoUsuarioScreen> {
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _elegirFecha ------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _elegirFecha ------------------------------
+  //-----------------------------------------------------------------
 
-  _elegirFecha() async {
+  Future<void> _elegirFecha() async {
     FocusScope.of(context).unfocus();
     final DateTime? selected = await showDatePicker(
       context: context,
@@ -331,9 +321,9 @@ class _SeguimientoUsuarioScreenState extends State<SeguimientoUsuarioScreen> {
     }
   }
 
-//-----------------------------------------------------------------
-//--------------------- _showUsuarios -----------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _showUsuarios -----------------------------
+  //-----------------------------------------------------------------
 
   Widget _showUsuarios() {
     return Row(
@@ -345,14 +335,12 @@ class _SeguimientoUsuarioScreenState extends State<SeguimientoUsuarioScreen> {
                 ? Row(
                     children: const [
                       CircularProgressIndicator(),
-                      SizedBox(
-                        width: 10,
-                      ),
+                      SizedBox(width: 10),
                       Text('Cargando Usuarios...'),
                     ],
                   )
                 : DropdownButtonFormField(
-                    value: _usuario,
+                    initialValue: _usuario,
                     isExpanded: true,
                     isDense: true,
                     decoration: InputDecoration(
@@ -362,7 +350,8 @@ class _SeguimientoUsuarioScreenState extends State<SeguimientoUsuarioScreen> {
                       labelText: 'Usuario',
                       errorText: _usuarioShowError ? _usuarioError : null,
                       border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10)),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
                     ),
                     items: _getComboUsuarios(),
                     onChanged: (value) {
@@ -378,24 +367,25 @@ class _SeguimientoUsuarioScreenState extends State<SeguimientoUsuarioScreen> {
 
   List<DropdownMenuItem<int>> _getComboUsuarios() {
     List<DropdownMenuItem<int>> list = [];
-    list.add(const DropdownMenuItem(
-      child: Text('Seleccione un Usuario...'),
-      value: 0,
-    ));
+    list.add(
+      const DropdownMenuItem(value: 0, child: Text('Seleccione un Usuario...')),
+    );
 
     for (var usuario in _usuarios) {
-      list.add(DropdownMenuItem(
-        child: Text(usuario.usuarioStr.toString()),
-        value: usuario.idUsuario,
-      ));
+      list.add(
+        DropdownMenuItem(
+          value: usuario.idUsuario,
+          child: Text(usuario.usuarioStr.toString()),
+        ),
+      );
     }
 
     return list;
   }
 
-//-----------------------------------------------------------------
-//--------------------- _showSaveButton ---------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _showSaveButton ---------------------------
+  //-----------------------------------------------------------------
 
   Widget _showButton() {
     return Container(
@@ -405,16 +395,6 @@ class _SeguimientoUsuarioScreenState extends State<SeguimientoUsuarioScreen> {
         children: <Widget>[
           Expanded(
             child: ElevatedButton(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  Icon(Icons.map),
-                  SizedBox(
-                    width: 20,
-                  ),
-                  Text('Ver Mapa'),
-                ],
-              ),
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xFF781f1e),
                 minimumSize: const Size(double.infinity, 70),
@@ -436,6 +416,14 @@ class _SeguimientoUsuarioScreenState extends State<SeguimientoUsuarioScreen> {
                   ),
                 );
               },
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Icon(Icons.map),
+                  SizedBox(width: 20),
+                  Text('Ver Mapa'),
+                ],
+              ),
             ),
           ),
         ],
@@ -443,31 +431,38 @@ class _SeguimientoUsuarioScreenState extends State<SeguimientoUsuarioScreen> {
     );
   }
 
-//---------------------------------------------------------------------
-//-------------------------- _getUsuarios -----------------------------
-//---------------------------------------------------------------------
+  //---------------------------------------------------------------------
+  //-------------------------- _getUsuarios -----------------------------
+  //---------------------------------------------------------------------
 
   Future<void> _getUsuarios() async {
     var connectivityResult = await Connectivity().checkConnectivity();
 
     if (connectivityResult == ConnectivityResult.none) {
       showMyDialog(
-          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
+        'Error',
+        'Verifica que estés conectado a Internet',
+        'Aceptar',
+      );
     }
 
     Response response = Response(isSuccess: false);
 
-    response =
-        await ApiHelper.getUsuariosGeo(_fecha.year, _fecha.month, _fecha.day);
+    response = await ApiHelper.getUsuariosGeo(
+      _fecha.year,
+      _fecha.month,
+      _fecha.day,
+    );
 
     if (!response.isSuccess) {
       await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: response.message,
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message: response.message,
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
       return;
     }
 
@@ -489,59 +484,66 @@ class _SeguimientoUsuarioScreenState extends State<SeguimientoUsuarioScreen> {
       }
     }
 
-    List<UsuarioGeo> _usuarios2 = [];
+    List<UsuarioGeo> usuarios2 = [];
     bool bandera = true;
 
     for (var usuario1 in _usuarios) {
       bandera = true;
 
-      for (var usuario2 in _usuarios2) {
+      for (var usuario2 in usuarios2) {
         if (usuario1.usuarioStr == usuario2.usuarioStr) {
           bandera = false;
         }
       }
       if (bandera) {
-        _usuarios2.add(usuario1);
+        usuarios2.add(usuario1);
       }
     }
 
-    _usuarios = _usuarios2;
+    _usuarios = usuarios2;
 
     _usuarios.sort((a, b) {
-      return a.usuarioStr
-          .toString()
-          .toLowerCase()
-          .compareTo(b.usuarioStr.toString().toLowerCase());
+      return a.usuarioStr.toString().toLowerCase().compareTo(
+        b.usuarioStr.toString().toLowerCase(),
+      );
     });
 
     setState(() {});
   }
 
-//---------------------------------------------------------------------
-//-------------------------- _getPuntos -------------------------------
-//---------------------------------------------------------------------
+  //---------------------------------------------------------------------
+  //-------------------------- _getPuntos -------------------------------
+  //---------------------------------------------------------------------
 
   Future<void> _getPuntos() async {
     var connectivityResult = await Connectivity().checkConnectivity();
 
     if (connectivityResult == ConnectivityResult.none) {
       showMyDialog(
-          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
+        'Error',
+        'Verifica que estés conectado a Internet',
+        'Aceptar',
+      );
     }
 
     Response response = Response(isSuccess: false);
 
     response = await ApiHelper.getPuntos(
-        _usuario, _fecha.year, _fecha.month, _fecha.day);
+      _usuario,
+      _fecha.year,
+      _fecha.month,
+      _fecha.day,
+    );
 
     if (!response.isSuccess) {
       await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: response.message,
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message: response.message,
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
       return;
     }
 
@@ -583,90 +585,96 @@ class _SeguimientoUsuarioScreenState extends State<SeguimientoUsuarioScreen> {
         _puntosPolyline.add(latlng);
 
         Polyline pol = Polyline(
-            polylineId: const PolylineId('myRoute'),
-            color: const Color(0xFF781f1e),
-            width: 5,
-            startCap: Cap.roundCap,
-            endCap: Cap.roundCap,
-            points: _puntosPolyline);
+          polylineId: const PolylineId('myRoute'),
+          color: const Color(0xFF781f1e),
+          width: 5,
+          startCap: Cap.roundCap,
+          endCap: Cap.roundCap,
+          points: _puntosPolyline,
+        );
 
         _polylines.add(pol);
 
         //------------ Voy construyendo los markers ---------------
         Marker marker = Marker(
-            markerId: MarkerId(punto.idgeo.toString()),
-            position: LatLng(lat, long),
-            onTap: () {
-              _customInfoWindowController.addInfoWindow!(
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 5),
-                    width: 300,
-                    height: 60,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(4),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Icon(Icons.info),
-                        const SizedBox(
-                          width: 8.0,
-                        ),
-                        Expanded(
-                            child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Row(
-                              children: [
-                                const SizedBox(
-                                  width: 80,
-                                  child: Text('Domicilio: ',
-                                      style: TextStyle(
-                                        fontSize: 12,
-                                        color: Color(0xFF781f1e),
-                                        fontWeight: FontWeight.bold,
-                                      )),
+          markerId: MarkerId(punto.idgeo.toString()),
+          position: LatLng(lat, long),
+          onTap: () {
+            _customInfoWindowController.addInfoWindow!(
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 5),
+                width: 300,
+                height: 60,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(4),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Icon(Icons.info),
+                    const SizedBox(width: 8.0),
+                    Expanded(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Row(
+                            children: [
+                              const SizedBox(
+                                width: 80,
+                                child: Text(
+                                  'Domicilio: ',
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: Color(0xFF781f1e),
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
-                                Expanded(
-                                    child: Text(punto.posicionCalle.toString(),
-                                        style: const TextStyle(
-                                          fontSize: 12,
-                                        ))),
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                const SizedBox(
-                                  width: 80,
-                                  child: Text('Hora: ',
-                                      style: TextStyle(
-                                        fontSize: 12,
-                                        color: Color(0xFF781f1e),
-                                        fontWeight: FontWeight.bold,
-                                      )),
+                              ),
+                              Expanded(
+                                child: Text(
+                                  punto.posicionCalle.toString(),
+                                  style: const TextStyle(fontSize: 12),
                                 ),
-                                Expanded(
-                                    child: Text(
-                                        DateFormat('HH:mm').format(
-                                            DateTime.parse(
-                                                punto.fecha.toString())),
-                                        style: const TextStyle(
-                                          fontSize: 12,
-                                        ))),
-                              ],
-                            ),
-                          ],
-                        )),
-                      ],
+                              ),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              const SizedBox(
+                                width: 80,
+                                child: Text(
+                                  'Hora: ',
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: Color(0xFF781f1e),
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                child: Text(
+                                  DateFormat('HH:mm').format(
+                                    DateTime.parse(punto.fecha.toString()),
+                                  ),
+                                  style: const TextStyle(fontSize: 12),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                  LatLng(lat, long));
-            },
-            icon: punto.origen == 0
-                ? BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed)
-                : BitmapDescriptor.defaultMarkerWithHue(
-                    BitmapDescriptor.hueBlue));
+                  ],
+                ),
+              ),
+              LatLng(lat, long),
+            );
+          },
+          icon: punto.origen == 0
+              ? BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed)
+              : BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueBlue),
+        );
         _markers.add(marker);
       }
 

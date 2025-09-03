@@ -1,5 +1,5 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
-import 'package:connectivity/connectivity.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 
 import '../../components/loader_component.dart';
@@ -8,15 +8,15 @@ import '../../models/models.dart';
 
 class CausantesScreen extends StatefulWidget {
   final User user;
-  const CausantesScreen({Key? key, required this.user}) : super(key: key);
+  const CausantesScreen({super.key, required this.user});
   @override
   _CausantesScreenState createState() => _CausantesScreenState();
 }
 
 class _CausantesScreenState extends State<CausantesScreen> {
-//---------------------------------------------------------------
-//----------------------- Variables -----------------------------
-//---------------------------------------------------------------
+  //---------------------------------------------------------------
+  //----------------------- Variables -----------------------------
+  //---------------------------------------------------------------
 
   List<Causante> _causantes = [];
   List<Subcontratista> _subcontratistas = [];
@@ -31,56 +31,62 @@ class _CausantesScreenState extends State<CausantesScreen> {
   bool _showLoader = false;
   bool _isFiltered = false;
   String _search = '';
-  Subcontratista subcontratistaSelected =
-      Subcontratista(subCodigo: '', subSubcontratista: '', modulo: '');
+  Subcontratista subcontratistaSelected = Subcontratista(
+    subCodigo: '',
+    subSubcontratista: '',
+    modulo: '',
+  );
 
   Causante causanteSelected = Causante(
-      nroCausante: 0,
-      codigo: '',
-      nombre: '',
-      encargado: '',
-      telefono: '',
-      grupo: '',
-      nroSAP: '',
-      estado: false,
-      razonSocial: '',
-      linkFoto: '',
-      image: null,
-      imageFullPath: '',
-      direccion: '',
-      numero: 0,
-      telefonoContacto1: '',
-      telefonoContacto2: '',
-      telefonoContacto3: '',
-      fecha: '',
-      notasCausantes: '',
-      ciudad: '',
-      provincia: '',
-      codigoSupervisorObras: 0,
-      zonaTrabajo: '',
-      nombreActividad: '',
-      notas: '',
-      presentismo: '',
-      perteneceCuadrilla: '',
-      firma: null,
-      firmaDigitalAPP: '',
-      firmaFullPath: '');
+    nroCausante: 0,
+    codigo: '',
+    nombre: '',
+    encargado: '',
+    telefono: '',
+    grupo: '',
+    nroSAP: '',
+    estado: false,
+    razonSocial: '',
+    linkFoto: '',
+    image: null,
+    imageFullPath: '',
+    direccion: '',
+    numero: 0,
+    telefonoContacto1: '',
+    telefonoContacto2: '',
+    telefonoContacto3: '',
+    fecha: '',
+    notasCausantes: '',
+    ciudad: '',
+    provincia: '',
+    codigoSupervisorObras: 0,
+    zonaTrabajo: '',
+    nombreActividad: '',
+    notas: '',
+    presentismo: '',
+    perteneceCuadrilla: '',
+    firma: null,
+    firmaDigitalAPP: '',
+    firmaFullPath: '',
+  );
 
-//---------------------------------------------------------------
-//----------------------- initState -----------------------------
-//---------------------------------------------------------------
+  //---------------------------------------------------------------
+  //----------------------- initState -----------------------------
+  //---------------------------------------------------------------
 
   @override
   void initState() {
     super.initState();
     _persona = Persona(
-        subcontratista: subcontratistaSelected, causante: causanteSelected);
+      subcontratista: subcontratistaSelected,
+      causante: causanteSelected,
+    );
     _getSubcontratistas();
   }
 
-//---------------------------------------------------------------
-//----------------------- Pantalla ------------------------------
-//---------------------------------------------------------------
+  //---------------------------------------------------------------
+  //----------------------- Pantalla ------------------------------
+  //---------------------------------------------------------------
 
   @override
   Widget build(BuildContext context) {
@@ -92,26 +98,28 @@ class _CausantesScreenState extends State<CausantesScreen> {
         actions: <Widget>[
           _isFiltered
               ? IconButton(
-                  onPressed: _removeFilter, icon: const Icon(Icons.filter_none))
+                  onPressed: _removeFilter,
+                  icon: const Icon(Icons.filter_none),
+                )
               : IconButton(
-                  onPressed: _showFilter, icon: const Icon(Icons.filter_alt))
+                  onPressed: _showFilter,
+                  icon: const Icon(Icons.filter_alt),
+                ),
         ],
       ),
       body: Center(
         child: _showLoader
-            ? const LoaderComponent(
-                text: 'Cargando Subcontratistas.',
-              )
+            ? const LoaderComponent(text: 'Cargando Subcontratistas.')
             : _getContent(),
       ),
     );
   }
 
-//-----------------------------------------------------------------
-//------------------------------ _filter --------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //------------------------------ _filter --------------------------
+  //-----------------------------------------------------------------
 
-  _filter() {
+  void _filter() {
     if (_search.isEmpty) {
       return;
     }
@@ -128,9 +136,9 @@ class _CausantesScreenState extends State<CausantesScreen> {
     });
   }
 
-//-----------------------------------------------------------------------
-//------------------------------ _removeFilter --------------------------
-//-----------------------------------------------------------------------
+  //-----------------------------------------------------------------------
+  //------------------------------ _removeFilter --------------------------
+  //-----------------------------------------------------------------------
 
   void _removeFilter() {
     setState(() {
@@ -139,54 +147,61 @@ class _CausantesScreenState extends State<CausantesScreen> {
     _getSubcontratistas();
   }
 
-//---------------------------------------------------------------------
-//------------------------------ _showFilter --------------------------
-//---------------------------------------------------------------------
+  //---------------------------------------------------------------------
+  //------------------------------ _showFilter --------------------------
+  //---------------------------------------------------------------------
 
   void _showFilter() {
     showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
-            title: const Text('Filtrar Obras'),
-            content: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+          title: const Text('Filtrar Obras'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
               const Text(
                 'Escriba texto a buscar en Nombre del Causante: ',
                 style: TextStyle(fontSize: 12),
               ),
-              const SizedBox(
-                height: 10,
-              ),
+              const SizedBox(height: 10),
               TextField(
                 autofocus: true,
                 decoration: InputDecoration(
-                    hintText: 'Criterio de búsqueda...',
-                    labelText: 'Buscar',
-                    suffixIcon: const Icon(Icons.search),
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10))),
+                  hintText: 'Criterio de búsqueda...',
+                  labelText: 'Buscar',
+                  suffixIcon: const Icon(Icons.search),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
                 onChanged: (value) {
                   _search = value;
                 },
               ),
-            ]),
-            actions: <Widget>[
-              TextButton(
-                  onPressed: () => Navigator.of(context).pop(),
-                  child: const Text('Cancelar')),
-              TextButton(
-                  onPressed: () => _filter(), child: const Text('Filtrar')),
             ],
-          );
-        });
+          ),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text('Cancelar'),
+            ),
+            TextButton(
+              onPressed: () => _filter(),
+              child: const Text('Filtrar'),
+            ),
+          ],
+        );
+      },
+    );
   }
 
-//---------------------------------------------------------------------
-//------------------------------ _getContent --------------------------
-//---------------------------------------------------------------------
+  //---------------------------------------------------------------------
+  //------------------------------ _getContent --------------------------
+  //---------------------------------------------------------------------
 
   Widget _getContent() {
     return Padding(
@@ -195,17 +210,15 @@ class _CausantesScreenState extends State<CausantesScreen> {
         children: <Widget>[
           _causantes.isEmpty ? _showSubcontratistas() : _showTextFilter(),
           _showCausantesCount(),
-          Expanded(
-            child: _causantes.isEmpty ? _noContent() : _getListView(),
-          )
+          Expanded(child: _causantes.isEmpty ? _noContent() : _getListView()),
         ],
       ),
     );
   }
 
-//------------------------------------------------------------
-//------------------- _showSubcontratistas--------------------
-//------------------------------------------------------------
+  //------------------------------------------------------------
+  //------------------- _showSubcontratistas--------------------
+  //------------------------------------------------------------
 
   Widget _showSubcontratistas() {
     return Row(
@@ -217,9 +230,7 @@ class _CausantesScreenState extends State<CausantesScreen> {
                 ? Row(
                     children: const [
                       CircularProgressIndicator(),
-                      SizedBox(
-                        width: 10,
-                      ),
+                      SizedBox(width: 10),
                       Text('Cargando Subcontratistas...'),
                     ],
                   )
@@ -227,7 +238,7 @@ class _CausantesScreenState extends State<CausantesScreen> {
                     width: 200,
                     padding: const EdgeInsets.all(10),
                     child: DropdownButtonFormField(
-                      value: _subcontratista,
+                      initialValue: _subcontratista,
                       isExpanded: true,
                       isDense: true,
                       decoration: InputDecoration(
@@ -239,7 +250,8 @@ class _CausantesScreenState extends State<CausantesScreen> {
                             ? _subcontratistaError
                             : null,
                         border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10)),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
                       ),
                       items: _getComboSubcontratistas(),
                       onChanged: (value) {
@@ -249,50 +261,53 @@ class _CausantesScreenState extends State<CausantesScreen> {
                   ),
           ),
         ),
-        const SizedBox(
-          width: 5,
-        ),
+        const SizedBox(width: 5),
         ElevatedButton(
-            child: const Icon(Icons.search),
-            style: ElevatedButton.styleFrom(
-              backgroundColor: const Color(0xFF282886),
-              minimumSize: const Size(50, 50),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(5),
-              ),
+          style: ElevatedButton.styleFrom(
+            backgroundColor: const Color(0xFF282886),
+            minimumSize: const Size(50, 50),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(5),
             ),
-            //onPressed: () => _getObras(),
-            onPressed: () async {
-              await _getCausantes();
-            }),
+          ),
+          //onPressed: () => _getObras(),
+          onPressed: () async {
+            await _getCausantes();
+          },
+          child: const Icon(Icons.search),
+        ),
       ],
     );
   }
 
-//---------------------------------------------------------------------
-//------------------------ _getComboSubcontratistas -------------------
-//---------------------------------------------------------------------
+  //---------------------------------------------------------------------
+  //------------------------ _getComboSubcontratistas -------------------
+  //---------------------------------------------------------------------
 
   List<DropdownMenuItem<String>> _getComboSubcontratistas() {
     List<DropdownMenuItem<String>> list = [];
-    list.add(const DropdownMenuItem(
-      child: Text('Elija un Subcontratista...'),
-      value: 'Elija un Subcontratista...',
-    ));
+    list.add(
+      const DropdownMenuItem(
+        value: 'Elija un Subcontratista...',
+        child: Text('Elija un Subcontratista...'),
+      ),
+    );
 
     for (var subcontratista in _subcontratistas) {
-      list.add(DropdownMenuItem(
-        child: Text(subcontratista.subSubcontratista.toString()),
-        value: subcontratista.subCodigo.toString(),
-      ));
+      list.add(
+        DropdownMenuItem(
+          value: subcontratista.subCodigo.toString(),
+          child: Text(subcontratista.subSubcontratista.toString()),
+        ),
+      );
     }
 
     return list;
   }
 
-//------------------------------------------------------------------
-//--------------------------- _showTextFilter ----------------------
-//------------------------------------------------------------------
+  //------------------------------------------------------------------
+  //--------------------------- _showTextFilter ----------------------
+  //------------------------------------------------------------------
 
   Widget _showTextFilter() {
     return Padding(
@@ -307,17 +322,15 @@ class _CausantesScreenState extends State<CausantesScreen> {
               Expanded(flex: 2, child: _showButtons()),
             ],
           ),
-          const SizedBox(
-            height: 0,
-          ),
+          const SizedBox(height: 0),
         ],
       ),
     );
   }
 
-//----------------------------------------------------------
-//--------------------- _showTextoBuscar -------------------
-//----------------------------------------------------------
+  //----------------------------------------------------------
+  //--------------------- _showTextoBuscar -------------------
+  //----------------------------------------------------------
 
   Widget _showTextoBuscar() {
     return Container(
@@ -330,12 +343,10 @@ class _CausantesScreenState extends State<CausantesScreen> {
           filled: true,
           hintText: 'Texto a buscar...',
           labelText: 'Texto a buscar',
-          //errorText: _codigoShowError ? _codigoError : null,
 
+          //errorText: _codigoShowError ? _codigoError : null,
           border: OutlineInputBorder(
-            borderSide: const BorderSide(
-              color: Color(0xFF282886),
-            ),
+            borderSide: const BorderSide(color: Color(0xFF282886)),
             borderRadius: BorderRadius.circular(10),
           ),
         ),
@@ -346,9 +357,9 @@ class _CausantesScreenState extends State<CausantesScreen> {
     );
   }
 
-//-----------------------------------------------------------
-//--------------------- _showButtons ------------------------
-//-----------------------------------------------------------
+  //-----------------------------------------------------------
+  //--------------------- _showButtons ------------------------
+  //-----------------------------------------------------------
 
   Widget _showButtons() {
     return Row(
@@ -356,41 +367,26 @@ class _CausantesScreenState extends State<CausantesScreen> {
       children: <Widget>[
         Expanded(
           child: ElevatedButton(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  Icon(Icons.search),
-                  SizedBox(
-                    width: 5,
-                  ),
-                ],
+            style: ElevatedButton.styleFrom(
+              backgroundColor: const Color(0xFF282886),
+              minimumSize: const Size(50, 50),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(5),
               ),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFF282886),
-                minimumSize: const Size(50, 50),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(5),
-                ),
-              ),
-              onPressed: () {
-                FocusScope.of(context).requestFocus(FocusNode());
-                _filter();
-              }),
-        ),
-        const SizedBox(
-          width: 5,
-        ),
-        Expanded(
-          child: ElevatedButton(
+            ),
+            onPressed: () {
+              FocusScope.of(context).requestFocus(FocusNode());
+              _filter();
+            },
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
-                Icon(Icons.cancel),
-                SizedBox(
-                  width: 5,
-                ),
-              ],
+              children: const [Icon(Icons.search), SizedBox(width: 5)],
             ),
+          ),
+        ),
+        const SizedBox(width: 5),
+        Expanded(
+          child: ElevatedButton(
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.red,
               minimumSize: const Size(50, 50),
@@ -403,16 +399,20 @@ class _CausantesScreenState extends State<CausantesScreen> {
               _search = '';
               _searchController.text = '';
               _filter();
-            }, //=> _search(),
+            },
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: const [Icon(Icons.cancel), SizedBox(width: 5)],
+            ), //=> _search(),
           ),
         ),
       ],
     );
   }
 
-//---------------------------------------------------------------------
-//------------------------------ _showCausantesCount ------------------
-//---------------------------------------------------------------------
+  //---------------------------------------------------------------------
+  //------------------------------ _showCausantesCount ------------------
+  //---------------------------------------------------------------------
 
   Widget _showCausantesCount() {
     return Container(
@@ -420,26 +420,30 @@ class _CausantesScreenState extends State<CausantesScreen> {
       height: 40,
       child: Row(
         children: [
-          const Text('Cantidad de Causantes: ',
-              style: TextStyle(
-                fontSize: 14,
-                color: Colors.black,
-                fontWeight: FontWeight.bold,
-              )),
-          Text(_causantes.length.toString(),
-              style: const TextStyle(
-                fontSize: 14,
-                color: Colors.black,
-                fontWeight: FontWeight.bold,
-              )),
+          const Text(
+            'Cantidad de Causantes: ',
+            style: TextStyle(
+              fontSize: 14,
+              color: Colors.black,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          Text(
+            _causantes.length.toString(),
+            style: const TextStyle(
+              fontSize: 14,
+              color: Colors.black,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ],
       ),
     );
   }
 
-//-----------------------------------------------------------------------
-//------------------------------ _noContent -----------------------------
-//-----------------------------------------------------------------------
+  //-----------------------------------------------------------------------
+  //------------------------------ _noContent -----------------------------
+  //-----------------------------------------------------------------------
 
   Widget _noContent() {
     return Container(
@@ -455,9 +459,9 @@ class _CausantesScreenState extends State<CausantesScreen> {
     );
   }
 
-//-----------------------------------------------------------------------
-//------------------------------ _getListView ---------------------------
-//-----------------------------------------------------------------------
+  //-----------------------------------------------------------------------
+  //------------------------------ _getListView ---------------------------
+  //-----------------------------------------------------------------------
 
   Widget _getListView() {
     return RefreshIndicator(
@@ -492,10 +496,10 @@ class _CausantesScreenState extends State<CausantesScreen> {
                                     children: [
                                       Expanded(
                                         flex: 5,
-                                        child: Text(e.nombre.toString(),
-                                            style: const TextStyle(
-                                              fontSize: 12,
-                                            )),
+                                        child: Text(
+                                          e.nombre.toString(),
+                                          style: const TextStyle(fontSize: 12),
+                                        ),
                                       ),
                                     ],
                                   ),
@@ -517,9 +521,9 @@ class _CausantesScreenState extends State<CausantesScreen> {
     );
   }
 
-//---------------------------------------------------------------------
-//------------------- _getSubcontratistas -----------------------------
-//---------------------------------------------------------------------
+  //---------------------------------------------------------------------
+  //------------------- _getSubcontratistas -----------------------------
+  //---------------------------------------------------------------------
 
   Future<void> _getSubcontratistas() async {
     setState(() {
@@ -533,7 +537,10 @@ class _CausantesScreenState extends State<CausantesScreen> {
         _showLoader = false;
       });
       showMyDialog(
-          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
+        'Error',
+        'Verifica que estés conectado a Internet',
+        'Aceptar',
+      );
     }
 
     Response response = Response(isSuccess: false);
@@ -546,33 +553,36 @@ class _CausantesScreenState extends State<CausantesScreen> {
 
     if (!response.isSuccess) {
       await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: response.message,
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message: response.message,
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
       return;
     }
 
     setState(() {
       _subcontratistas = response.result;
       _subcontratistas.sort((a, b) {
-        return a.subSubcontratista
-            .toString()
-            .toLowerCase()
-            .compareTo(b.subSubcontratista.toString().toLowerCase());
+        return a.subSubcontratista.toString().toLowerCase().compareTo(
+          b.subSubcontratista.toString().toLowerCase(),
+        );
       });
     });
   }
 
-//-------------------------------------------------------------
-//------------------- _goCausante -----------------------------
-//-------------------------------------------------------------
+  //-------------------------------------------------------------
+  //------------------- _goCausante -----------------------------
+  //-------------------------------------------------------------
 
   void _goCausante(String subcontratista, Causante causante) async {
-    Subcontratista subcontratistaSelected =
-        Subcontratista(subCodigo: '', subSubcontratista: '', modulo: '');
+    Subcontratista subcontratistaSelected = Subcontratista(
+      subCodigo: '',
+      subSubcontratista: '',
+      modulo: '',
+    );
 
     for (var subc in _subcontratistas) {
       if (subc.subCodigo == subcontratista) {
@@ -580,14 +590,16 @@ class _CausantesScreenState extends State<CausantesScreen> {
       }
     }
 
-    _persona =
-        Persona(subcontratista: subcontratistaSelected, causante: causante);
+    _persona = Persona(
+      subcontratista: subcontratistaSelected,
+      causante: causante,
+    );
     Navigator.pop(context, _persona);
   }
 
-//-------------------------------------------------------------
-//------------------- _getCausantes ---------------------------
-//-------------------------------------------------------------
+  //-------------------------------------------------------------
+  //------------------- _getCausantes ---------------------------
+  //-------------------------------------------------------------
 
   Future<void> _getCausantes() async {
     if (_subcontratista == 'Elija un Subcontratista...') {
@@ -610,7 +622,10 @@ class _CausantesScreenState extends State<CausantesScreen> {
         _showLoader = false;
       });
       showMyDialog(
-          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
+        'Error',
+        'Verifica que estés conectado a Internet',
+        'Aceptar',
+      );
     }
 
     Response response = Response(isSuccess: false);
@@ -618,21 +633,21 @@ class _CausantesScreenState extends State<CausantesScreen> {
 
     if (!response.isSuccess) {
       await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: response.message,
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message: response.message,
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
       return;
     }
     _causantes = response.result;
 
     _causantes.sort((a, b) {
-      return a.nombre
-          .toString()
-          .toLowerCase()
-          .compareTo(b.nombre.toString().toLowerCase());
+      return a.nombre.toString().toLowerCase().compareTo(
+        b.nombre.toString().toLowerCase(),
+      );
     });
     setState(() {
       _showLoader = false;

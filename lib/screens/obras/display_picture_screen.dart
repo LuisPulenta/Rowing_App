@@ -11,16 +11,16 @@ import '../../models/response.dart';
 class DisplayPictureScreen extends StatefulWidget {
   final XFile image;
 
-  const DisplayPictureScreen({Key? key, required this.image}) : super(key: key);
+  const DisplayPictureScreen({super.key, required this.image});
 
   @override
   _DisplayPictureScreenState createState() => _DisplayPictureScreenState();
 }
 
 class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
-//---------------------------------------------------------------
-//----------------------- Variables -----------------------------
-//---------------------------------------------------------------
+  //---------------------------------------------------------------
+  //----------------------- Variables -----------------------------
+  //---------------------------------------------------------------
 
   String _observaciones = '';
   final String _observacionesError = '';
@@ -37,25 +37,21 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
     'Vereda conforme',
     'Finalización del Trabajo',
     'Proceso de geofonía',
-    'Proceso de reparación'
+    'Proceso de reparación',
   ];
 
-//---------------------------------------------------------------
-//----------------------- Pantalla ------------------------------
-//---------------------------------------------------------------
+  //---------------------------------------------------------------
+  //----------------------- Pantalla ------------------------------
+  //---------------------------------------------------------------
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Vista previa de la foto'),
-      ),
+      appBar: AppBar(title: const Text('Vista previa de la foto')),
       body: SingleChildScrollView(
         child: Column(
           children: [
-            const SizedBox(
-              height: 10,
-            ),
+            const SizedBox(height: 10),
             SizedBox(
               width: 300,
               height: 440,
@@ -84,81 +80,81 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
     );
   }
 
-//---------------------------------------------------------------
-//----------------------- _showOptions --------------------------
-//---------------------------------------------------------------
+  //---------------------------------------------------------------
+  //----------------------- _showOptions --------------------------
+  //---------------------------------------------------------------
 
   Widget _showOptions() {
     return Container(
       padding: const EdgeInsets.all(10),
       child: DropdownButtonFormField(
-          value: _optionId,
-          onChanged: (option) {
-            setState(() {
-              _optionId = option as int;
-            });
-          },
-          items: _getOptions(),
-          decoration: InputDecoration(
-            hintText: 'Seleccione un Tipo de Foto...',
-            labelText: '',
-            fillColor: Colors.white,
-            filled: true,
-            errorText: _optionIdShowError ? _optionIdError : null,
-            border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
-          )),
+        initialValue: _optionId,
+        onChanged: (option) {
+          setState(() {
+            _optionId = option as int;
+          });
+        },
+        items: _getOptions(),
+        decoration: InputDecoration(
+          hintText: 'Seleccione un Tipo de Foto...',
+          labelText: '',
+          fillColor: Colors.white,
+          filled: true,
+          errorText: _optionIdShowError ? _optionIdError : null,
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+        ),
+      ),
     );
   }
 
-//---------------------------------------------------------------
-//----------------------- _showButtons --------------------------
-//---------------------------------------------------------------
+  //---------------------------------------------------------------
+  //----------------------- _showButtons --------------------------
+  //---------------------------------------------------------------
 
   Widget _showButtons() {
     return Container(
-        margin: const EdgeInsets.all(10),
-        child: Row(
-          children: <Widget>[
-            Expanded(
-              child: ElevatedButton(
-                child: const Text('Usar Foto'),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF120E43),
-                  minimumSize: const Size(double.infinity, 50),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5),
-                  ),
+      margin: const EdgeInsets.all(10),
+      child: Row(
+        children: <Widget>[
+          Expanded(
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFF120E43),
+                minimumSize: const Size(double.infinity, 50),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(5),
                 ),
-                onPressed: () {
-                  _usePhoto();
-                },
               ),
+              onPressed: () {
+                _usePhoto();
+              },
+              child: const Text('Usar Foto'),
             ),
-            const SizedBox(
-              width: 10,
-            ),
-            Expanded(
-              child: ElevatedButton(
-                child: const Text('Volver a tomar'),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFFE03B8B),
-                  minimumSize: const Size(double.infinity, 50),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5),
-                  ),
+          ),
+          const SizedBox(width: 10),
+          Expanded(
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFFE03B8B),
+                minimumSize: const Size(double.infinity, 50),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(5),
                 ),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
               ),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: const Text('Volver a tomar'),
             ),
-          ],
-        ));
+          ),
+        ],
+      ),
+    );
   }
 
-//---------------------------------------------------------------
-//----------------------- _showObservaciones --------------------
-//---------------------------------------------------------------
+  //---------------------------------------------------------------
+  //----------------------- _showObservaciones --------------------
+  //---------------------------------------------------------------
 
   Widget _showObservaciones() {
     return Container(
@@ -166,14 +162,14 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
       child: TextField(
         keyboardType: TextInputType.emailAddress,
         decoration: InputDecoration(
-            fillColor: Colors.white,
-            filled: true,
-            hintText: 'Observaciones...',
-            labelText: 'Observaciones',
-            errorText: _observacionesShowError ? _observacionesError : null,
-            prefixIcon: const Icon(Icons.person),
-            border:
-                OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
+          fillColor: Colors.white,
+          filled: true,
+          hintText: 'Observaciones...',
+          labelText: 'Observaciones',
+          errorText: _observacionesShowError ? _observacionesError : null,
+          prefixIcon: const Icon(Icons.person),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+        ),
         onChanged: (value) {
           _observaciones = value;
         },
@@ -181,9 +177,9 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
     );
   }
 
-//---------------------------------------------------------------
-//----------------------- _usePhoto -----------------------------
-//---------------------------------------------------------------
+  //---------------------------------------------------------------
+  //----------------------- _usePhoto -----------------------------
+  //---------------------------------------------------------------
 
   void _usePhoto() async {
     if (_optionId == -1) {
@@ -207,34 +203,6 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
       permission = await Geolocator.requestPermission();
       if (permission == LocationPermission.denied) {
         showDialog(
-            context: context,
-            builder: (context) {
-              return AlertDialog(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                title: const Text('Aviso'),
-                content: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: const <Widget>[
-                      Text('El permiso de localización está negado.'),
-                      SizedBox(
-                        height: 10,
-                      ),
-                    ]),
-                actions: <Widget>[
-                  TextButton(
-                      onPressed: () => Navigator.of(context).pop(),
-                      child: const Text('Ok')),
-                ],
-              );
-            });
-        return;
-      }
-    }
-
-    if (permission == LocationPermission.deniedForever) {
-      showDialog(
           context: context,
           builder: (context) {
             return AlertDialog(
@@ -243,81 +211,112 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
               ),
               title: const Text('Aviso'),
               content: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: const <Widget>[
-                    Text(
-                        'El permiso de localización está negado permanentemente. No se puede requerir este permiso.'),
-                    SizedBox(
-                      height: 10,
-                    ),
-                  ]),
+                mainAxisSize: MainAxisSize.min,
+                children: const <Widget>[
+                  Text('El permiso de localización está negado.'),
+                  SizedBox(height: 10),
+                ],
+              ),
               actions: <Widget>[
                 TextButton(
-                    onPressed: () => Navigator.of(context).pop(),
-                    child: const Text('Ok')),
+                  onPressed: () => Navigator.of(context).pop(),
+                  child: const Text('Ok'),
+                ),
               ],
             );
-          });
+          },
+        );
+        return;
+      }
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+            title: const Text('Aviso'),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: const <Widget>[
+                Text(
+                  'El permiso de localización está negado permanentemente. No se puede requerir este permiso.',
+                ),
+                SizedBox(height: 10),
+              ],
+            ),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(),
+                child: const Text('Ok'),
+              ),
+            ],
+          );
+        },
+      );
       return;
     }
 
     Position position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high);
+      desiredAccuracy: LocationAccuracy.high,
+    );
 
-    List<Placemark> placemarks =
-        await placemarkFromCoordinates(position.latitude, position.longitude);
+    List<Placemark> placemarks = await placemarkFromCoordinates(
+      position.latitude,
+      position.longitude,
+    );
 
-    Photo _photo = Photo(
+    Photo photo = Photo(
       image: widget.image,
       tipofoto: _optionId,
       observaciones: _observaciones,
       latitud: position.latitude,
       longitud: position.longitude,
-      direccion: placemarks[0].street.toString() +
-          ' - ' +
-          placemarks[0].locality.toString(),
+      direccion: '${placemarks[0].street} - ${placemarks[0].locality}',
     );
 
-    Response response = Response(isSuccess: true, result: _photo);
+    Response response = Response(isSuccess: true, result: photo);
     Navigator.pop(context, response);
   }
 
   List<DropdownMenuItem<int>> _getOptions() {
     List<DropdownMenuItem<int>> list = [];
-    list.add(const DropdownMenuItem(
-      child: Text('Seleccione un Tipo de Foto...'),
-      value: -1,
-    ));
+    list.add(
+      const DropdownMenuItem(
+        value: -1,
+        child: Text('Seleccione un Tipo de Foto...'),
+      ),
+    );
     int nro = 0;
-    int _nro = 0;
+    int nro0 = 0;
     for (var element in _options) {
       //CORREGIR EL NUMERO PARA VEREDA CONFORME
       if (nro == 0) {
-        _nro = 0;
+        nro0 = 0;
       }
       if (nro == 1) {
-        _nro = 1;
+        nro0 = 1;
       }
       if (nro == 2) {
-        _nro = 2;
+        nro0 = 2;
       }
       if (nro == 3) {
-        _nro = 10;
+        nro0 = 10;
       }
       if (nro == 4) {
-        _nro = 3;
+        nro0 = 3;
       }
       if (nro == 5) {
-        _nro = 5;
+        nro0 = 5;
       }
       if (nro == 6) {
-        _nro = 6;
+        nro0 = 6;
       }
 
-      list.add(DropdownMenuItem(
-        child: Text(element),
-        value: _nro,
-      ));
+      list.add(DropdownMenuItem(value: nro0, child: Text(element)));
       nro++;
     }
 

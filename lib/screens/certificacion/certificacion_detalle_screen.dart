@@ -12,14 +12,14 @@ class CertificacionDetalleScreen extends StatefulWidget {
   final bool editMode;
   final CabeceraCertificacion cabeceraCertificacion;
 
-  const CertificacionDetalleScreen(
-      {Key? key,
-      required this.user,
-      required this.positionUser,
-      required this.imei,
-      required this.editMode,
-      required this.cabeceraCertificacion})
-      : super(key: key);
+  const CertificacionDetalleScreen({
+    super.key,
+    required this.user,
+    required this.positionUser,
+    required this.imei,
+    required this.editMode,
+    required this.cabeceraCertificacion,
+  });
 
   @override
   State<CertificacionDetalleScreen> createState() =>
@@ -32,8 +32,9 @@ class _CertificacionDetalleScreenState
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title:
-            Text('Certificado ${widget.cabeceraCertificacion.id.toString()}'),
+        title: Text(
+          'Certificado ${widget.cabeceraCertificacion.id.toString()}',
+        ),
         centerTitle: true,
       ),
       body: Padding(
@@ -51,13 +52,13 @@ class _CertificacionDetalleScreenState
               CustomRow(
                 nombredato: 'Fecha: ',
                 dato: DateFormat('dd/MM/yyyy').format(
-                    DateTime.parse(widget.cabeceraCertificacion.fechacarga!)),
+                  DateTime.parse(widget.cabeceraCertificacion.fechacarga!),
+                ),
               ),
               CustomRow(
                 nombredato: 'N° Obra: ',
-                dato: widget.cabeceraCertificacion.nroobra.toString() +
-                    ' - ' +
-                    widget.cabeceraCertificacion.nombreObra.toString(),
+                dato:
+                    '${widget.cabeceraCertificacion.nroobra} - ${widget.cabeceraCertificacion.nombreObra}',
               ),
               CustomRow(
                 nombredato: 'Def.Proy.: ',
@@ -69,17 +70,20 @@ class _CertificacionDetalleScreenState
               ),
               CustomRow(
                 nombredato: 'SubC: ',
-                dato: widget.cabeceraCertificacion.subCodigo.toString() +
-                    ' - ' +
-                    widget.cabeceraCertificacion.codCausanteC.toString(),
+                dato:
+                    '${widget.cabeceraCertificacion.subCodigo} - ${widget.cabeceraCertificacion.codCausanteC}',
               ),
               CustomRow(
                 nombredato: 'Fecha Corresp.: ',
-                dato: DateFormat('dd/MM/yyyy').format(DateTime(1900, 1, 1).add(
+                dato: DateFormat('dd/MM/yyyy').format(
+                  DateTime(1900, 1, 1).add(
                     Duration(
-                        days:
-                            widget.cabeceraCertificacion.fechacorrespondencia! -
-                                36163))),
+                      days:
+                          widget.cabeceraCertificacion.fechacorrespondencia! -
+                          36163,
+                    ),
+                  ),
+                ),
               ),
               CustomRow(
                 nombredato: 'Cod.Prod.: ',
@@ -96,21 +100,24 @@ class _CertificacionDetalleScreenState
               CustomRow(
                 nombredato: 'MontoC: ',
                 dato: widget.cabeceraCertificacion.valortotalc != null
-                    ? NumberFormat.currency(symbol: '\$')
-                        .format(widget.cabeceraCertificacion.valortotalc)
+                    ? NumberFormat.currency(
+                        symbol: '\$',
+                      ).format(widget.cabeceraCertificacion.valortotalc)
                     : '',
               ),
               CustomRow(
                 nombredato: 'MontoT: ',
                 dato: widget.cabeceraCertificacion.valortotalc != null
-                    ? NumberFormat.currency(symbol: '\$')
-                        .format(widget.cabeceraCertificacion.valortotalt)
+                    ? NumberFormat.currency(
+                        symbol: '\$',
+                      ).format(widget.cabeceraCertificacion.valortotalt)
                     : '',
               ),
               CustomRow(
                 nombredato: 'Porc. Acta: ',
-                dato: NumberFormat.currency(symbol: '%')
-                    .format(widget.cabeceraCertificacion.porcActa),
+                dato: NumberFormat.currency(
+                  symbol: '%',
+                ).format(widget.cabeceraCertificacion.porcActa),
               ),
               CustomRow(
                 nombredato: 'Observ.: ',
@@ -479,9 +486,7 @@ class _CertificacionDetalleScreenState
               //     ),
               //   ],
               // ),
-              const SizedBox(
-                height: 20,
-              ),
+              const SizedBox(height: 20),
               _showButton(),
             ],
           ),
@@ -490,9 +495,9 @@ class _CertificacionDetalleScreenState
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _showButton -------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _showButton -------------------------------
+  //-----------------------------------------------------------------
 
   Widget _showButton() {
     return Container(
@@ -502,16 +507,6 @@ class _CertificacionDetalleScreenState
         children: <Widget>[
           Expanded(
             child: ElevatedButton(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  Icon(Icons.arrow_back_ios),
-                  SizedBox(
-                    width: 20,
-                  ),
-                  Text('Volver'),
-                ],
-              ),
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xFF781f1e),
                 minimumSize: const Size(double.infinity, 50),
@@ -520,6 +515,14 @@ class _CertificacionDetalleScreenState
                 ),
               ),
               onPressed: _volver,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Icon(Icons.arrow_back_ios),
+                  SizedBox(width: 20),
+                  Text('Volver'),
+                ],
+              ),
             ),
           ),
         ],
@@ -527,9 +530,9 @@ class _CertificacionDetalleScreenState
     );
   }
 
-//-------------------------------------------------------------
-//--------------------- _volver -------------------------------
-//-------------------------------------------------------------
+  //-------------------------------------------------------------
+  //--------------------- _volver -------------------------------
+  //-------------------------------------------------------------
   void _volver() {
     Navigator.pop(context, 'yes');
   }

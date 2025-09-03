@@ -1,4 +1,5 @@
 import 'dart:io';
+
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:rowing_app/models/models.dart';
@@ -6,7 +7,7 @@ import 'package:rowing_app/models/models.dart';
 class MostrarFotoScreen extends StatefulWidget {
   final XFile image;
 
-  const MostrarFotoScreen({Key? key, required this.image}) : super(key: key);
+  const MostrarFotoScreen({super.key, required this.image});
 
   @override
   _MostrarFotoScreenState createState() => _MostrarFotoScreenState();
@@ -36,11 +37,10 @@ class _MostrarFotoScreenState extends State<MostrarFotoScreen> {
                 children: <Widget>[
                   Expanded(
                     child: ElevatedButton(
-                      child: const Text('Usar Foto'),
                       style: ButtonStyle(
                         backgroundColor:
-                            MaterialStateProperty.resolveWith<Color>(
-                                (Set<MaterialState> states) {
+                            WidgetStateProperty.resolveWith<Color>(
+                                (Set<WidgetState> states) {
                           return const Color(0xFF120E43);
                         }),
                       ),
@@ -49,6 +49,7 @@ class _MostrarFotoScreenState extends State<MostrarFotoScreen> {
                             Response(isSuccess: true, result: widget.image);
                         Navigator.pop(context, response);
                       },
+                      child: const Text('Usar Foto'),
                     ),
                   ),
                   const SizedBox(
@@ -56,17 +57,17 @@ class _MostrarFotoScreenState extends State<MostrarFotoScreen> {
                   ),
                   Expanded(
                     child: ElevatedButton(
-                      child: const Text('Volver a tomar'),
                       style: ButtonStyle(
                         backgroundColor:
-                            MaterialStateProperty.resolveWith<Color>(
-                                (Set<MaterialState> states) {
+                            WidgetStateProperty.resolveWith<Color>(
+                                (Set<WidgetState> states) {
                           return const Color(0xFFE03B8B);
                         }),
                       ),
                       onPressed: () {
                         Navigator.pop(context);
                       },
+                      child: const Text('Volver a tomar'),
                     ),
                   ),
                 ],

@@ -6,12 +6,11 @@ import 'package:camera/camera.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:rowing_app/helpers/helpers.dart';
 
 import '../../components/loader_component.dart';
-import '../../helpers/dbsuministros_helper.dart';
 import '../../helpers/resize_image.dart';
 import '../../models/models.dart';
 import '../screens.dart';
@@ -21,12 +20,12 @@ class ObraSuministroAgregarScreen extends StatefulWidget {
   final bool editMode;
 
   final ObrasNuevoSuministro suministro;
-  const ObraSuministroAgregarScreen(
-      {Key? key,
-      required this.user,
-      required this.editMode,
-      required this.suministro})
-      : super(key: key);
+  const ObraSuministroAgregarScreen({
+    super.key,
+    required this.user,
+    required this.editMode,
+    required this.suministro,
+  });
 
   @override
   State<ObraSuministroAgregarScreen> createState() =>
@@ -36,9 +35,9 @@ class ObraSuministroAgregarScreen extends StatefulWidget {
 class _ObraSuministroAgregarScreenState
     extends State<ObraSuministroAgregarScreen>
     with SingleTickerProviderStateMixin {
-//--------------------------------------------------------------
-//-------------------------- Variables -------------------------
-//--------------------------------------------------------------
+  //--------------------------------------------------------------
+  //-------------------------- Variables -------------------------
+  //--------------------------------------------------------------
 
   List<ObrasNuevoSuministro> _suministros = [];
 
@@ -192,9 +191,9 @@ class _ObraSuministroAgregarScreenState
   final TextEditingController _observacionesController =
       TextEditingController();
 
-//--------------------------------------------------------------
-//-------------------------- initState -------------------------
-//--------------------------------------------------------------
+  //--------------------------------------------------------------
+  //-------------------------- initState -------------------------
+  //--------------------------------------------------------------
 
   @override
   void initState() {
@@ -207,9 +206,9 @@ class _ObraSuministroAgregarScreenState
     }
   }
 
-//--------------------------------------------------------------
-//-------------------------- Pantalla --------------------------
-//--------------------------------------------------------------
+  //--------------------------------------------------------------
+  //-------------------------- Pantalla --------------------------
+  //--------------------------------------------------------------
 
   @override
   Widget build(BuildContext context) {
@@ -221,7 +220,7 @@ class _ObraSuministroAgregarScreenState
             : const Text('Nuevo Suministro'),
         centerTitle: true,
         actions: [
-          IconButton(onPressed: _guardar, icon: const Icon(Icons.save))
+          IconButton(onPressed: _guardar, icon: const Icon(Icons.save)),
         ],
       ),
       body: Stack(
@@ -231,10 +230,7 @@ class _ObraSuministroAgregarScreenState
               gradient: LinearGradient(
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
-                colors: [
-                  Color(0xff8c8c94),
-                  Color(0xff8c8c94),
-                ],
+                colors: [Color(0xff8c8c94), Color(0xff8c8c94)],
               ),
             ),
             child: TabBarView(
@@ -242,10 +238,9 @@ class _ObraSuministroAgregarScreenState
               physics: const AlwaysScrollableScrollPhysics(),
               dragStartBehavior: DragStartBehavior.start,
               children: <Widget>[
-//-------------------------------------------------------------------------
-//-------------------------- 1° TABBAR ------------------------------------
-//-------------------------------------------------------------------------
-
+                //-------------------------------------------------------------------------
+                //-------------------------- 1° TABBAR ------------------------------------
+                //-------------------------------------------------------------------------
                 SingleChildScrollView(
                   physics: const BouncingScrollPhysics(),
                   child: Column(
@@ -255,30 +250,37 @@ class _ObraSuministroAgregarScreenState
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: const [
-                          Text('DNI Frente',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold)),
-                          Text('DNI Dorso',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold))
+                          Text(
+                            'DNI Frente',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Text(
+                            'DNI Dorso',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
                         ],
                       ),
                       _showButtonsDNI(ancho),
-                      const SizedBox(
-                        height: 10,
-                      ),
+                      const SizedBox(height: 10),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: const [
-                          Text('Firma Cliente',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold)),
+                          Text(
+                            'Firma Cliente',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
                         ],
                       ),
                       _showButtonsFirma(ancho),
@@ -299,10 +301,9 @@ class _ObraSuministroAgregarScreenState
                   ),
                 ),
 
-//-------------------------------------------------------------------------
-//-------------------------- 2° TABBAR ------------------------------------
-//-------------------------------------------------------------------------
-
+                //-------------------------------------------------------------------------
+                //-------------------------- 2° TABBAR ------------------------------------
+                //-------------------------------------------------------------------------
                 SingleChildScrollView(
                   child: Column(
                     children: <Widget>[
@@ -311,24 +312,26 @@ class _ObraSuministroAgregarScreenState
                           Expanded(
                             flex: 1,
                             child: SwitchListTile.adaptive(
-                                title: const Text('Corte:'),
-                                activeColor: const Color(0xFF781f1e),
-                                value: _corte,
-                                onChanged: (value) {
-                                  _corte = value;
-                                  setState(() {});
-                                }),
+                              title: const Text('Corte:'),
+                              activeColor: const Color(0xFF781f1e),
+                              value: _corte,
+                              onChanged: (value) {
+                                _corte = value;
+                                setState(() {});
+                              },
+                            ),
                           ),
                           Expanded(
                             flex: 1,
                             child: SwitchListTile.adaptive(
-                                title: const Text('Denuncia:'),
-                                activeColor: const Color(0xFF781f1e),
-                                value: _denuncia,
-                                onChanged: (value) {
-                                  _denuncia = value;
-                                  setState(() {});
-                                }),
+                              title: const Text('Denuncia:'),
+                              activeColor: const Color(0xFF781f1e),
+                              value: _denuncia,
+                              onChanged: (value) {
+                                _denuncia = value;
+                                setState(() {});
+                              },
+                            ),
                           ),
                         ],
                       ),
@@ -337,24 +340,26 @@ class _ObraSuministroAgregarScreenState
                           Expanded(
                             flex: 1,
                             child: SwitchListTile.adaptive(
-                                title: const Text('Retiro Cruce Calle:'),
-                                activeColor: const Color(0xFF781f1e),
-                                value: _retirocrucecalle,
-                                onChanged: (value) {
-                                  _retirocrucecalle = value;
-                                  setState(() {});
-                                }),
+                              title: const Text('Retiro Cruce Calle:'),
+                              activeColor: const Color(0xFF781f1e),
+                              value: _retirocrucecalle,
+                              onChanged: (value) {
+                                _retirocrucecalle = value;
+                                setState(() {});
+                              },
+                            ),
                           ),
                           Expanded(
                             flex: 1,
                             child: SwitchListTile.adaptive(
-                                title: const Text('Trabajo con Hidro:'),
-                                activeColor: const Color(0xFF781f1e),
-                                value: _trabajoconhidro,
-                                onChanged: (value) {
-                                  _trabajoconhidro = value;
-                                  setState(() {});
-                                }),
+                              title: const Text('Trabajo con Hidro:'),
+                              activeColor: const Color(0xFF781f1e),
+                              value: _trabajoconhidro,
+                              onChanged: (value) {
+                                _trabajoconhidro = value;
+                                setState(() {});
+                              },
+                            ),
                           ),
                         ],
                       ),
@@ -363,50 +368,56 @@ class _ObraSuministroAgregarScreenState
                           Expanded(
                             flex: 1,
                             child: SwitchListTile.adaptive(
-                                title: const Text('Poste podrido:'),
-                                activeColor: const Color(0xFF781f1e),
-                                value: _postepodrido,
-                                onChanged: (value) {
-                                  _postepodrido = value;
-                                  setState(() {});
-                                }),
+                              title: const Text('Poste podrido:'),
+                              activeColor: const Color(0xFF781f1e),
+                              value: _postepodrido,
+                              onChanged: (value) {
+                                _postepodrido = value;
+                                setState(() {});
+                              },
+                            ),
                           ),
                         ],
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 10, vertical: 0),
+                          horizontal: 10,
+                          vertical: 0,
+                        ),
                         child: Row(
                           children: [
                             const SizedBox(
-                                width: 70, child: Text('Tipo de Red: ')),
+                              width: 70,
+                              child: Text('Tipo de Red: '),
+                            ),
                             Expanded(
                               child: Container(
                                 padding: const EdgeInsets.all(10),
                                 child: DropdownButtonFormField(
-                                    items: _itemsTipoRed,
-                                    value: _optionTipoRed,
-                                    onChanged: (option2) {
-                                      setState(() {
-                                        _optionTipoRed = option2.toString();
-                                        _tipoRed = option2.toString();
-                                      });
-                                    },
-                                    decoration: InputDecoration(
-                                      hintText: 'Seleccione Tipo de Red...',
-                                      labelText: '',
-                                      fillColor: _tipoRed ==
-                                              'Seleccione Tipo de Red...'
-                                          ? Colors.yellow[200]
-                                          : Colors.white,
-                                      filled: true,
-                                      errorText: _optionTipoRedShowError
-                                          ? _optionTipoRedError
-                                          : null,
-                                      border: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(10)),
-                                    )),
+                                  items: _itemsTipoRed,
+                                  initialValue: _optionTipoRed,
+                                  onChanged: (option2) {
+                                    setState(() {
+                                      _optionTipoRed = option2.toString();
+                                      _tipoRed = option2.toString();
+                                    });
+                                  },
+                                  decoration: InputDecoration(
+                                    hintText: 'Seleccione Tipo de Red...',
+                                    labelText: '',
+                                    fillColor:
+                                        _tipoRed == 'Seleccione Tipo de Red...'
+                                        ? Colors.yellow[200]
+                                        : Colors.white,
+                                    filled: true,
+                                    errorText: _optionTipoRedShowError
+                                        ? _optionTipoRedError
+                                        : null,
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                  ),
+                                ),
                               ),
                             ),
                           ],
@@ -414,40 +425,45 @@ class _ObraSuministroAgregarScreenState
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 10, vertical: 0),
+                          horizontal: 10,
+                          vertical: 0,
+                        ),
                         child: Row(
                           children: [
                             const SizedBox(
-                                width: 70, child: Text('Conexión Directa: ')),
+                              width: 70,
+                              child: Text('Conexión Directa: '),
+                            ),
                             Expanded(
                               child: Container(
                                 padding: const EdgeInsets.all(10),
                                 child: DropdownButtonFormField(
-                                    items: _itemsConexionDirecta,
-                                    value: _optionConexionDirecta,
-                                    onChanged: (option2) {
-                                      setState(() {
-                                        _optionConexionDirecta =
-                                            option2.toString();
-                                        _conexionDirecta = option2.toString();
-                                      });
-                                    },
-                                    decoration: InputDecoration(
-                                      hintText:
-                                          'Seleccione Conexión Directa...',
-                                      labelText: '',
-                                      fillColor: _conexionDirecta ==
-                                              'Seleccione Conexión Directa...'
-                                          ? Colors.yellow[200]
-                                          : Colors.white,
-                                      filled: true,
-                                      errorText: _optionConexionDirectaShowError
-                                          ? _optionConexionDirectaError
-                                          : null,
-                                      border: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(10)),
-                                    )),
+                                  items: _itemsConexionDirecta,
+                                  initialValue: _optionConexionDirecta,
+                                  onChanged: (option2) {
+                                    setState(() {
+                                      _optionConexionDirecta = option2
+                                          .toString();
+                                      _conexionDirecta = option2.toString();
+                                    });
+                                  },
+                                  decoration: InputDecoration(
+                                    hintText: 'Seleccione Conexión Directa...',
+                                    labelText: '',
+                                    fillColor:
+                                        _conexionDirecta ==
+                                            'Seleccione Conexión Directa...'
+                                        ? Colors.yellow[200]
+                                        : Colors.white,
+                                    filled: true,
+                                    errorText: _optionConexionDirectaShowError
+                                        ? _optionConexionDirectaError
+                                        : null,
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                  ),
+                                ),
                               ),
                             ),
                           ],
@@ -455,39 +471,45 @@ class _ObraSuministroAgregarScreenState
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 10, vertical: 0),
+                          horizontal: 10,
+                          vertical: 0,
+                        ),
                         child: Row(
                           children: [
                             const SizedBox(
-                                width: 70, child: Text('Retiro Conexión: ')),
+                              width: 70,
+                              child: Text('Retiro Conexión: '),
+                            ),
                             Expanded(
                               child: Container(
                                 padding: const EdgeInsets.all(10),
                                 child: DropdownButtonFormField(
-                                    items: _itemsRetiroConexion,
-                                    value: _optionRetiroConexion,
-                                    onChanged: (option2) {
-                                      setState(() {
-                                        _optionRetiroConexion =
-                                            option2.toString();
-                                        _retiroConexion = option2.toString();
-                                      });
-                                    },
-                                    decoration: InputDecoration(
-                                      hintText: 'Seleccione Retiro Conexión...',
-                                      labelText: '',
-                                      fillColor: _retiroConexion ==
-                                              'Seleccione Retiro Conexión...'
-                                          ? Colors.yellow[200]
-                                          : Colors.white,
-                                      filled: true,
-                                      errorText: _optionRetiroConexionShowError
-                                          ? _optionRetiroConexionError
-                                          : null,
-                                      border: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(10)),
-                                    )),
+                                  items: _itemsRetiroConexion,
+                                  initialValue: _optionRetiroConexion,
+                                  onChanged: (option2) {
+                                    setState(() {
+                                      _optionRetiroConexion = option2
+                                          .toString();
+                                      _retiroConexion = option2.toString();
+                                    });
+                                  },
+                                  decoration: InputDecoration(
+                                    hintText: 'Seleccione Retiro Conexión...',
+                                    labelText: '',
+                                    fillColor:
+                                        _retiroConexion ==
+                                            'Seleccione Retiro Conexión...'
+                                        ? Colors.yellow[200]
+                                        : Colors.white,
+                                    filled: true,
+                                    errorText: _optionRetiroConexionShowError
+                                        ? _optionRetiroConexionError
+                                        : null,
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                  ),
+                                ),
                               ),
                             ),
                           ],
@@ -510,17 +532,12 @@ class _ObraSuministroAgregarScreenState
                   ),
                 ),
 
-//-------------------------------------------------------------------------
-//-------------------------- 3° TABBAR ------------------------------------
-//-------------------------------------------------------------------------
-
+                //-------------------------------------------------------------------------
+                //-------------------------- 3° TABBAR ------------------------------------
+                //-------------------------------------------------------------------------
                 SingleChildScrollView(
                   physics: const BouncingScrollPhysics(),
-                  child: Column(
-                    children: <Widget>[
-                      _showFotos(ancho),
-                    ],
-                  ),
+                  child: Column(children: <Widget>[_showFotos(ancho)]),
                 ),
               ],
             ),
@@ -537,65 +554,52 @@ class _ObraSuministroAgregarScreenState
             ? const Color.fromARGB(255, 219, 8, 5)
             : Colors.white,
         child: TabBar(
-            controller: _tabController,
-            indicatorColor: const Color(0xFF781f1e),
-            indicatorSize: TabBarIndicatorSize.tab,
-            indicatorWeight: 5,
-            labelColor: const Color(0xFF781f1e),
-            unselectedLabelColor:
-                paraSincronizar > 0 ? Colors.white : Colors.grey,
-            labelPadding: const EdgeInsets.all(10),
-            tabs: <Widget>[
-              Tab(
-                child: Column(
-                  children: const [
-                    Icon(Icons.person),
-                    SizedBox(
-                      width: 5,
-                    ),
-                    Text(
-                      'Cliente',
-                      style: TextStyle(fontSize: 14),
-                    ),
-                  ],
-                ),
+          controller: _tabController,
+          indicatorColor: const Color(0xFF781f1e),
+          indicatorSize: TabBarIndicatorSize.tab,
+          indicatorWeight: 5,
+          labelColor: const Color(0xFF781f1e),
+          unselectedLabelColor: paraSincronizar > 0
+              ? Colors.white
+              : Colors.grey,
+          labelPadding: const EdgeInsets.symmetric(horizontal: 5),
+          tabs: <Widget>[
+            Tab(
+              child: Column(
+                children: const [
+                  Icon(Icons.person),
+                  SizedBox(width: 5),
+                  Text('Cliente', style: TextStyle(fontSize: 14)),
+                ],
               ),
-              Tab(
-                child: Column(
-                  children: const [
-                    Icon(Icons.electrical_services),
-                    SizedBox(
-                      width: 5,
-                    ),
-                    Text(
-                      'Suministro',
-                      style: TextStyle(fontSize: 14),
-                    ),
-                  ],
-                ),
+            ),
+            Tab(
+              child: Column(
+                children: const [
+                  Icon(Icons.electrical_services),
+                  SizedBox(width: 5),
+                  Text('Suministro', style: TextStyle(fontSize: 14)),
+                ],
               ),
-              Tab(
-                child: Column(
-                  children: const [
-                    Icon(Icons.photo),
-                    SizedBox(
-                      width: 5,
-                    ),
-                    Text(
-                      'Fotos',
-                      style: TextStyle(fontSize: 14),
-                    ),
-                  ],
-                ),
+            ),
+            Tab(
+              child: Column(
+                children: const [
+                  Icon(Icons.photo),
+                  SizedBox(width: 5),
+                  Text('Fotos', style: TextStyle(fontSize: 14)),
+                ],
               ),
-            ]),
+            ),
+          ],
+        ),
       ),
     );
   }
 
-//--------------------------------------------------------------
-//-------------------------- _showName -------------------------
-//--------------------------------------------------------------
+  //--------------------------------------------------------------
+  //-------------------------- _showName -------------------------
+  //--------------------------------------------------------------
 
   Widget _showName() {
     return Container(
@@ -603,14 +607,14 @@ class _ObraSuministroAgregarScreenState
       child: TextField(
         controller: _nameController,
         decoration: InputDecoration(
-            fillColor: _name == '' ? Colors.yellow : Colors.white,
-            filled: true,
-            hintText: 'Ingrese apellido y nombre...',
-            labelText: 'Apellido y Nombre',
-            errorText: _nameShowError ? _nameError : null,
-            suffixIcon: const Icon(Icons.person),
-            border:
-                OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
+          fillColor: _name == '' ? Colors.yellow : Colors.white,
+          filled: true,
+          hintText: 'Ingrese apellido y nombre...',
+          labelText: 'Apellido y Nombre',
+          errorText: _nameShowError ? _nameError : null,
+          suffixIcon: const Icon(Icons.person),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+        ),
         onChanged: (value) {
           _name = value;
         },
@@ -618,9 +622,9 @@ class _ObraSuministroAgregarScreenState
     );
   }
 
-//--------------------------------------------------------------
-//-------------------------- _showDocument ---------------------
-//--------------------------------------------------------------
+  //--------------------------------------------------------------
+  //-------------------------- _showDocument ---------------------
+  //--------------------------------------------------------------
 
   Widget _showDocument() {
     return Container(
@@ -632,15 +636,17 @@ class _ObraSuministroAgregarScreenState
               controller: _documentController,
               keyboardType: TextInputType.number,
               decoration: InputDecoration(
-                  fillColor: _document == '' ? Colors.yellow : Colors.white,
-                  filled: true,
-                  enabled: true,
-                  hintText: 'Ingresa documento...',
-                  labelText: 'Documento',
-                  errorText: _documentShowError ? _documentError : null,
-                  suffixIcon: const Icon(Icons.assignment_ind),
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10))),
+                fillColor: _document == '' ? Colors.yellow : Colors.white,
+                filled: true,
+                enabled: true,
+                hintText: 'Ingresa documento...',
+                labelText: 'Documento',
+                errorText: _documentShowError ? _documentError : null,
+                suffixIcon: const Icon(Icons.assignment_ind),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
               onChanged: (value) {
                 _document = value;
               },
@@ -648,83 +654,88 @@ class _ObraSuministroAgregarScreenState
           ),
           const SizedBox(width: 10),
           ElevatedButton(
-              child: const Icon(Icons.qr_code_2),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFF781f1e),
-                minimumSize: const Size(50, 40),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(5),
-                ),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: const Color(0xFF781f1e),
+              minimumSize: const Size(50, 40),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(5),
               ),
-              onPressed: () async {
-                String barcodeScanRes;
-                try {
-                  barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
-                      '#3D8BEF', 'Cancelar', false, ScanMode.DEFAULT);
-                } on PlatformException {
-                  barcodeScanRes = 'Error';
-                }
-                if (barcodeScanRes == '-1') {
-                  return;
-                }
+            ),
+            onPressed: () async {
+              String barcodeScanRes;
+              try {
+                String? barcodeScanResAux = await Navigator.of(context)
+                    .push<String>(
+                      MaterialPageRoute(
+                        builder: (context) => const BarCodeReader(),
+                      ),
+                    );
+                barcodeScanRes = barcodeScanResAux ?? '-1';
+              } on PlatformException {
+                barcodeScanRes = 'Error';
+              }
+              if (barcodeScanRes == '-1') {
+                return;
+              }
 
-                int cantArrobas = 0;
-                int arroba1 = 0;
-                int arroba2 = 0;
-                int arroba3 = 0;
-                int arroba4 = 0;
-                int arroba5 = 0;
+              int cantArrobas = 0;
+              int arroba1 = 0;
+              int arroba2 = 0;
+              int arroba3 = 0;
+              int arroba4 = 0;
+              int arroba5 = 0;
 
-                for (int c = 0; c <= barcodeScanRes.length - 1; c++) {
-                  if (barcodeScanRes[c] == '@') {
-                    cantArrobas++;
+              for (int c = 0; c <= barcodeScanRes.length - 1; c++) {
+                if (barcodeScanRes[c] == '@') {
+                  cantArrobas++;
 
-                    if (arroba4 != 0 && arroba5 == 0) {
-                      arroba5 = c;
-                    }
-                    if (arroba3 != 0 && arroba4 == 0) {
-                      arroba4 = c;
-                    }
-                    if (arroba2 != 0 && arroba3 == 0) {
-                      arroba3 = c;
-                    }
+                  if (arroba4 != 0 && arroba5 == 0) {
+                    arroba5 = c;
+                  }
+                  if (arroba3 != 0 && arroba4 == 0) {
+                    arroba4 = c;
+                  }
+                  if (arroba2 != 0 && arroba3 == 0) {
+                    arroba3 = c;
+                  }
 
-                    if (arroba1 != 0 && arroba2 == 0) {
-                      arroba2 = c;
-                    }
-                    if (arroba1 == 0) {
-                      arroba1 = c;
-                    }
+                  if (arroba1 != 0 && arroba2 == 0) {
+                    arroba2 = c;
+                  }
+                  if (arroba1 == 0) {
+                    arroba1 = c;
                   }
                 }
+              }
 
-                if (cantArrobas < 6) {
-                  _documentController.text = '';
-                  _nameController.text = '';
-                } else {
-                  _documentController.text =
-                      barcodeScanRes.substring(arroba4 + 1, arroba5);
+              if (cantArrobas < 6) {
+                _documentController.text = '';
+                _nameController.text = '';
+              } else {
+                _documentController.text = barcodeScanRes.substring(
+                  arroba4 + 1,
+                  arroba5,
+                );
 
-                  _document = barcodeScanRes.substring(arroba4 + 1, arroba5);
+                _document = barcodeScanRes.substring(arroba4 + 1, arroba5);
 
-                  _nameController.text =
-                      barcodeScanRes.substring(arroba1 + 1, arroba2) +
-                          ' ' +
-                          barcodeScanRes.substring(arroba2 + 1, arroba3);
+                _nameController.text =
+                    '${barcodeScanRes.substring(arroba1 + 1, arroba2)} ${barcodeScanRes.substring(arroba2 + 1, arroba3)}';
 
-                  _name = barcodeScanRes.substring(arroba1 + 1, arroba2) +
-                      ' ' +
-                      barcodeScanRes.substring(arroba2 + 1, arroba3);
-                }
-              }),
+                _name =
+                    '${barcodeScanRes.substring(arroba1 + 1, arroba2)} ${barcodeScanRes.substring(arroba2 + 1, arroba3)}';
+              }
+            },
+            child: const Icon(Icons.qr_code_2),
+          ),
         ],
       ),
     );
   }
 
-//--------------------------------------------------------------
-//-------------------------- _showButtonsDNI -------------------
-//--------------------------------------------------------------
+  //--------------------------------------------------------------
+  //-------------------------- _showButtonsDNI -------------------
+  //--------------------------------------------------------------
 
   Widget _showButtonsDNI(double ancho) {
     return Container(
@@ -734,26 +745,28 @@ class _ObraSuministroAgregarScreenState
         children: <Widget>[
           Expanded(
             child: InkWell(
-              child: Stack(children: <Widget>[
-                Container(
-                  child: !_photoChangedDNIFrente
-                      ? Center(
-                          child: Image(
+              child: Stack(
+                children: <Widget>[
+                  Container(
+                    child: !_photoChangedDNIFrente
+                        ? Center(
+                            child: Image(
                               image: const AssetImage('assets/dnifrente.jpg'),
                               width: ancho * 0.3,
                               height: 60,
-                              fit: BoxFit.contain),
-                        )
-                      : Center(
-                          child: Image.file(
-                            File(_imageFrente.path),
-                            width: 80,
-                            height: 60,
-                            fit: BoxFit.contain,
+                              fit: BoxFit.contain,
+                            ),
+                          )
+                        : Center(
+                            child: Image.file(
+                              File(_imageFrente.path),
+                              width: 80,
+                              height: 60,
+                              fit: BoxFit.contain,
+                            ),
                           ),
-                        ),
-                ),
-                Positioned(
+                  ),
+                  Positioned(
                     bottom: 0,
                     left: ancho * 0.34,
                     child: InkWell(
@@ -771,8 +784,9 @@ class _ObraSuministroAgregarScreenState
                           ),
                         ),
                       ),
-                    )),
-                Positioned(
+                    ),
+                  ),
+                  Positioned(
                     bottom: 0,
                     left: 0,
                     child: InkWell(
@@ -790,35 +804,37 @@ class _ObraSuministroAgregarScreenState
                           ),
                         ),
                       ),
-                    )),
-              ]),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
-          const SizedBox(
-            width: 15,
-          ),
+          const SizedBox(width: 15),
           Expanded(
             child: InkWell(
-              child: Stack(children: <Widget>[
-                Container(
-                  child: !_photoChangedDNIDorso
-                      ? Center(
-                          child: Image(
+              child: Stack(
+                children: <Widget>[
+                  Container(
+                    child: !_photoChangedDNIDorso
+                        ? Center(
+                            child: Image(
                               image: const AssetImage('assets/dnidorso.jpg'),
                               width: ancho * 0.3,
                               height: 60,
-                              fit: BoxFit.contain),
-                        )
-                      : Center(
-                          child: Image.file(
-                            File(_imageDorso.path),
-                            width: 80,
-                            height: 60,
-                            fit: BoxFit.contain,
+                              fit: BoxFit.contain,
+                            ),
+                          )
+                        : Center(
+                            child: Image.file(
+                              File(_imageDorso.path),
+                              width: 80,
+                              height: 60,
+                              fit: BoxFit.contain,
+                            ),
                           ),
-                        ),
-                ),
-                Positioned(
+                  ),
+                  Positioned(
                     bottom: 0,
                     left: ancho * 0.34,
                     child: InkWell(
@@ -836,8 +852,9 @@ class _ObraSuministroAgregarScreenState
                           ),
                         ),
                       ),
-                    )),
-                Positioned(
+                    ),
+                  ),
+                  Positioned(
                     bottom: 0,
                     left: 0,
                     child: InkWell(
@@ -855,8 +872,10 @@ class _ObraSuministroAgregarScreenState
                           ),
                         ),
                       ),
-                    )),
-              ]),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ],
@@ -864,9 +883,9 @@ class _ObraSuministroAgregarScreenState
     );
   }
 
-//--------------------------------------------------------------
-//-------------------------- _showFotos ------------------------
-//--------------------------------------------------------------
+  //--------------------------------------------------------------
+  //-------------------------- _showFotos ------------------------
+  //--------------------------------------------------------------
 
   Widget _showFotos(double ancho) {
     return Column(
@@ -876,11 +895,14 @@ class _ObraSuministroAgregarScreenState
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: const [
-              Text('Foto Antes 1',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold)),
+              Text(
+                'Foto Antes 1',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ],
           ),
         ),
@@ -889,26 +911,28 @@ class _ObraSuministroAgregarScreenState
           children: <Widget>[
             Expanded(
               child: InkWell(
-                child: Stack(children: <Widget>[
-                  Container(
-                    child: !_photoChangedAntes1
-                        ? Center(
-                            child: Image(
+                child: Stack(
+                  children: <Widget>[
+                    Container(
+                      child: !_photoChangedAntes1
+                          ? Center(
+                              child: Image(
                                 image: const AssetImage('assets/noimage.png'),
                                 width: ancho * 0.6,
                                 height: ancho * 0.6,
-                                fit: BoxFit.contain),
-                          )
-                        : Center(
-                            child: Image.file(
-                              File(_imageAntes1.path),
-                              width: ancho * 0.6,
-                              height: ancho * 0.6,
-                              fit: BoxFit.contain,
+                                fit: BoxFit.contain,
+                              ),
+                            )
+                          : Center(
+                              child: Image.file(
+                                File(_imageAntes1.path),
+                                width: ancho * 0.6,
+                                height: ancho * 0.6,
+                                fit: BoxFit.contain,
+                              ),
                             ),
-                          ),
-                  ),
-                  Positioned(
+                    ),
+                    Positioned(
                       bottom: 0,
                       left: ancho * 0.8,
                       child: InkWell(
@@ -926,8 +950,9 @@ class _ObraSuministroAgregarScreenState
                             ),
                           ),
                         ),
-                      )),
-                  Positioned(
+                      ),
+                    ),
+                    Positioned(
                       bottom: 0,
                       left: ancho * 0.1,
                       child: InkWell(
@@ -945,26 +970,28 @@ class _ObraSuministroAgregarScreenState
                             ),
                           ),
                         ),
-                      )),
-                ]),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ],
         ),
-        const Divider(
-          height: 10,
-          color: Colors.white,
-        ),
+        const Divider(height: 10, color: Colors.white),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: const [
-              Text('Foto Antes 2',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold)),
+              Text(
+                'Foto Antes 2',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ],
           ),
         ),
@@ -973,26 +1000,28 @@ class _ObraSuministroAgregarScreenState
           children: <Widget>[
             Expanded(
               child: InkWell(
-                child: Stack(children: <Widget>[
-                  Container(
-                    child: !_photoChangedAntes2
-                        ? Center(
-                            child: Image(
+                child: Stack(
+                  children: <Widget>[
+                    Container(
+                      child: !_photoChangedAntes2
+                          ? Center(
+                              child: Image(
                                 image: const AssetImage('assets/noimage.png'),
                                 width: ancho * 0.6,
                                 height: ancho * 0.6,
-                                fit: BoxFit.contain),
-                          )
-                        : Center(
-                            child: Image.file(
-                              File(_imageAntes2.path),
-                              width: ancho * 0.6,
-                              height: ancho * 0.6,
-                              fit: BoxFit.contain,
+                                fit: BoxFit.contain,
+                              ),
+                            )
+                          : Center(
+                              child: Image.file(
+                                File(_imageAntes2.path),
+                                width: ancho * 0.6,
+                                height: ancho * 0.6,
+                                fit: BoxFit.contain,
+                              ),
                             ),
-                          ),
-                  ),
-                  Positioned(
+                    ),
+                    Positioned(
                       bottom: 0,
                       left: ancho * 0.8,
                       child: InkWell(
@@ -1010,8 +1039,9 @@ class _ObraSuministroAgregarScreenState
                             ),
                           ),
                         ),
-                      )),
-                  Positioned(
+                      ),
+                    ),
+                    Positioned(
                       bottom: 0,
                       left: ancho * 0.1,
                       child: InkWell(
@@ -1029,26 +1059,28 @@ class _ObraSuministroAgregarScreenState
                             ),
                           ),
                         ),
-                      )),
-                ]),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ],
         ),
-        const Divider(
-          height: 10,
-          color: Colors.white,
-        ),
+        const Divider(height: 10, color: Colors.white),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: const [
-              Text('Foto Después 1',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold)),
+              Text(
+                'Foto Después 1',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ],
           ),
         ),
@@ -1057,26 +1089,28 @@ class _ObraSuministroAgregarScreenState
           children: <Widget>[
             Expanded(
               child: InkWell(
-                child: Stack(children: <Widget>[
-                  Container(
-                    child: !_photoChangedDespues1
-                        ? Center(
-                            child: Image(
+                child: Stack(
+                  children: <Widget>[
+                    Container(
+                      child: !_photoChangedDespues1
+                          ? Center(
+                              child: Image(
                                 image: const AssetImage('assets/noimage.png'),
                                 width: ancho * 0.6,
                                 height: ancho * 0.6,
-                                fit: BoxFit.contain),
-                          )
-                        : Center(
-                            child: Image.file(
-                              File(_imageDespues1.path),
-                              width: ancho * 0.6,
-                              height: ancho * 0.6,
-                              fit: BoxFit.contain,
+                                fit: BoxFit.contain,
+                              ),
+                            )
+                          : Center(
+                              child: Image.file(
+                                File(_imageDespues1.path),
+                                width: ancho * 0.6,
+                                height: ancho * 0.6,
+                                fit: BoxFit.contain,
+                              ),
                             ),
-                          ),
-                  ),
-                  Positioned(
+                    ),
+                    Positioned(
                       bottom: 0,
                       left: ancho * 0.8,
                       child: InkWell(
@@ -1094,8 +1128,9 @@ class _ObraSuministroAgregarScreenState
                             ),
                           ),
                         ),
-                      )),
-                  Positioned(
+                      ),
+                    ),
+                    Positioned(
                       bottom: 0,
                       left: ancho * 0.1,
                       child: InkWell(
@@ -1113,26 +1148,28 @@ class _ObraSuministroAgregarScreenState
                             ),
                           ),
                         ),
-                      )),
-                ]),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ],
         ),
-        const Divider(
-          height: 10,
-          color: Colors.white,
-        ),
+        const Divider(height: 10, color: Colors.white),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: const [
-              Text('Foto Después 2',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold)),
+              Text(
+                'Foto Después 2',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ],
           ),
         ),
@@ -1141,26 +1178,28 @@ class _ObraSuministroAgregarScreenState
           children: <Widget>[
             Expanded(
               child: InkWell(
-                child: Stack(children: <Widget>[
-                  Container(
-                    child: !_photoChangedDespues2
-                        ? Center(
-                            child: Image(
+                child: Stack(
+                  children: <Widget>[
+                    Container(
+                      child: !_photoChangedDespues2
+                          ? Center(
+                              child: Image(
                                 image: const AssetImage('assets/noimage.png'),
                                 width: ancho * 0.6,
                                 height: ancho * 0.6,
-                                fit: BoxFit.contain),
-                          )
-                        : Center(
-                            child: Image.file(
-                              File(_imageDespues2.path),
-                              width: ancho * 0.6,
-                              height: ancho * 0.6,
-                              fit: BoxFit.contain,
+                                fit: BoxFit.contain,
+                              ),
+                            )
+                          : Center(
+                              child: Image.file(
+                                File(_imageDespues2.path),
+                                width: ancho * 0.6,
+                                height: ancho * 0.6,
+                                fit: BoxFit.contain,
+                              ),
                             ),
-                          ),
-                  ),
-                  Positioned(
+                    ),
+                    Positioned(
                       bottom: 0,
                       left: ancho * 0.8,
                       child: InkWell(
@@ -1178,8 +1217,9 @@ class _ObraSuministroAgregarScreenState
                             ),
                           ),
                         ),
-                      )),
-                  Positioned(
+                      ),
+                    ),
+                    Positioned(
                       bottom: 0,
                       left: ancho * 0.1,
                       child: InkWell(
@@ -1197,23 +1237,22 @@ class _ObraSuministroAgregarScreenState
                             ),
                           ),
                         ),
-                      )),
-                ]),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ],
         ),
-        const Divider(
-          height: 10,
-          color: Colors.white,
-        ),
+        const Divider(height: 10, color: Colors.white),
       ],
     );
   }
 
-//--------------------------------------------------------------
-//-------------------------- _showDomicilio --------------------
-//--------------------------------------------------------------
+  //--------------------------------------------------------------
+  //-------------------------- _showDomicilio --------------------
+  //--------------------------------------------------------------
 
   Widget _showDomicilio() {
     return Container(
@@ -1225,15 +1264,16 @@ class _ObraSuministroAgregarScreenState
               controller: _domicilioController,
               keyboardType: TextInputType.streetAddress,
               decoration: InputDecoration(
-                  fillColor:
-                      _domicilio == '' ? Colors.yellow[200] : Colors.white,
-                  filled: true,
-                  hintText: 'Ingresa domicilio...',
-                  labelText: 'Domicilio',
-                  errorText: _domicilioShowError ? _domicilioError : null,
-                  suffixIcon: const Icon(Icons.home),
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10))),
+                fillColor: _domicilio == '' ? Colors.yellow[200] : Colors.white,
+                filled: true,
+                hintText: 'Ingresa domicilio...',
+                labelText: 'Domicilio',
+                errorText: _domicilioShowError ? _domicilioError : null,
+                suffixIcon: const Icon(Icons.home),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
               onChanged: (value) {
                 _domicilio = value;
               },
@@ -1244,9 +1284,9 @@ class _ObraSuministroAgregarScreenState
     );
   }
 
-//--------------------------------------------------------------
-//-------------------------- _showBarrio --------------------
-//--------------------------------------------------------------
+  //--------------------------------------------------------------
+  //-------------------------- _showBarrio --------------------
+  //--------------------------------------------------------------
 
   Widget _showBarrio() {
     return Container(
@@ -1258,14 +1298,16 @@ class _ObraSuministroAgregarScreenState
               controller: _barrioController,
               keyboardType: TextInputType.streetAddress,
               decoration: InputDecoration(
-                  fillColor: _barrio == '' ? Colors.yellow[200] : Colors.white,
-                  filled: true,
-                  hintText: 'Ingresa barrio...',
-                  labelText: 'Barrio',
-                  errorText: _barrioShowError ? _barrioError : null,
-                  suffixIcon: const Icon(Icons.apartment),
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10))),
+                fillColor: _barrio == '' ? Colors.yellow[200] : Colors.white,
+                filled: true,
+                hintText: 'Ingresa barrio...',
+                labelText: 'Barrio',
+                errorText: _barrioShowError ? _barrioError : null,
+                suffixIcon: const Icon(Icons.apartment),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
               onChanged: (value) {
                 _barrio = value;
               },
@@ -1276,9 +1318,9 @@ class _ObraSuministroAgregarScreenState
     );
   }
 
-//--------------------------------------------------------------
-//-------------------------- _showLocalidad --------------------
-//--------------------------------------------------------------
+  //--------------------------------------------------------------
+  //-------------------------- _showLocalidad --------------------
+  //--------------------------------------------------------------
 
   Widget _showLocalidad() {
     return Container(
@@ -1290,15 +1332,16 @@ class _ObraSuministroAgregarScreenState
               controller: _localidadController,
               keyboardType: TextInputType.streetAddress,
               decoration: InputDecoration(
-                  fillColor:
-                      _localidad == '' ? Colors.yellow[200] : Colors.white,
-                  filled: true,
-                  hintText: 'Ingresa localidad...',
-                  labelText: 'Localidad',
-                  errorText: _localidadShowError ? _localidadError : null,
-                  suffixIcon: const Icon(Icons.location_city),
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10))),
+                fillColor: _localidad == '' ? Colors.yellow[200] : Colors.white,
+                filled: true,
+                hintText: 'Ingresa localidad...',
+                labelText: 'Localidad',
+                errorText: _localidadShowError ? _localidadError : null,
+                suffixIcon: const Icon(Icons.location_city),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
               onChanged: (value) {
                 _localidad = value;
               },
@@ -1309,9 +1352,9 @@ class _ObraSuministroAgregarScreenState
     );
   }
 
-//--------------------------------------------------------------
-//-------------------------- _showPartido --------------------
-//--------------------------------------------------------------
+  //--------------------------------------------------------------
+  //-------------------------- _showPartido --------------------
+  //--------------------------------------------------------------
 
   Widget _showPartido() {
     return Container(
@@ -1323,14 +1366,16 @@ class _ObraSuministroAgregarScreenState
               controller: _partidoController,
               keyboardType: TextInputType.streetAddress,
               decoration: InputDecoration(
-                  fillColor: _partido == '' ? Colors.yellow[200] : Colors.white,
-                  filled: true,
-                  hintText: 'Ingresa partido...',
-                  labelText: 'Partido',
-                  errorText: _partidoShowError ? _partidoError : null,
-                  suffixIcon: const Icon(Icons.public),
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10))),
+                fillColor: _partido == '' ? Colors.yellow[200] : Colors.white,
+                filled: true,
+                hintText: 'Ingresa partido...',
+                labelText: 'Partido',
+                errorText: _partidoShowError ? _partidoError : null,
+                suffixIcon: const Icon(Icons.public),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
               onChanged: (value) {
                 _partido = value;
               },
@@ -1341,9 +1386,9 @@ class _ObraSuministroAgregarScreenState
     );
   }
 
-//--------------------------------------------------------------
-//-------------------------- _showEntrecalles1 -----------------
-//--------------------------------------------------------------
+  //--------------------------------------------------------------
+  //-------------------------- _showEntrecalles1 -----------------
+  //--------------------------------------------------------------
 
   Widget _showEntrecalles1() {
     return Container(
@@ -1355,15 +1400,18 @@ class _ObraSuministroAgregarScreenState
               controller: _entrecalles1Controller,
               keyboardType: TextInputType.streetAddress,
               decoration: InputDecoration(
-                  fillColor:
-                      _entrecalles1 == '' ? Colors.yellow[200] : Colors.white,
-                  filled: true,
-                  hintText: 'Ingresa entrecalle 1...',
-                  labelText: 'Entrecalle 1',
-                  errorText: _entrecalles1ShowError ? _entrecalles1Error : null,
-                  suffixIcon: const Icon(Icons.add_road),
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10))),
+                fillColor: _entrecalles1 == ''
+                    ? Colors.yellow[200]
+                    : Colors.white,
+                filled: true,
+                hintText: 'Ingresa entrecalle 1...',
+                labelText: 'Entrecalle 1',
+                errorText: _entrecalles1ShowError ? _entrecalles1Error : null,
+                suffixIcon: const Icon(Icons.add_road),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
               onChanged: (value) {
                 _entrecalles1 = value;
               },
@@ -1374,9 +1422,9 @@ class _ObraSuministroAgregarScreenState
     );
   }
 
-//--------------------------------------------------------------
-//-------------------------- _showEntrecalles2 -----------------
-//--------------------------------------------------------------
+  //--------------------------------------------------------------
+  //-------------------------- _showEntrecalles2 -----------------
+  //--------------------------------------------------------------
 
   Widget _showEntrecalles2() {
     return Container(
@@ -1388,15 +1436,18 @@ class _ObraSuministroAgregarScreenState
               controller: _entrecalles2Controller,
               keyboardType: TextInputType.streetAddress,
               decoration: InputDecoration(
-                  fillColor:
-                      _entrecalles2 == '' ? Colors.yellow[200] : Colors.white,
-                  filled: true,
-                  hintText: 'Ingresa entrecalle 2...',
-                  labelText: 'Entrecalle 2',
-                  errorText: _entrecalles2ShowError ? _entrecalles2Error : null,
-                  suffixIcon: const Icon(Icons.edit_road),
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10))),
+                fillColor: _entrecalles2 == ''
+                    ? Colors.yellow[200]
+                    : Colors.white,
+                filled: true,
+                hintText: 'Ingresa entrecalle 2...',
+                labelText: 'Entrecalle 2',
+                errorText: _entrecalles2ShowError ? _entrecalles2Error : null,
+                suffixIcon: const Icon(Icons.edit_road),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
               onChanged: (value) {
                 _entrecalles2 = value;
               },
@@ -1407,9 +1458,9 @@ class _ObraSuministroAgregarScreenState
     );
   }
 
-//--------------------------------------------------------------
-//-------------------------- _showTelefono ---------------------
-//--------------------------------------------------------------
+  //--------------------------------------------------------------
+  //-------------------------- _showTelefono ---------------------
+  //--------------------------------------------------------------
 
   Widget _showTelefono() {
     return Container(
@@ -1418,14 +1469,14 @@ class _ObraSuministroAgregarScreenState
         controller: _telefonoController,
         keyboardType: TextInputType.phone,
         decoration: InputDecoration(
-            fillColor: _telefono == '' ? Colors.yellow[200] : Colors.white,
-            filled: true,
-            hintText: 'Ingresa Teléfono...',
-            labelText: 'Teléfono',
-            errorText: _telefonoShowError ? _telefonoError : null,
-            suffixIcon: const Icon(Icons.phone),
-            border:
-                OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
+          fillColor: _telefono == '' ? Colors.yellow[200] : Colors.white,
+          filled: true,
+          hintText: 'Ingresa Teléfono...',
+          labelText: 'Teléfono',
+          errorText: _telefonoShowError ? _telefonoError : null,
+          suffixIcon: const Icon(Icons.phone),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+        ),
         onChanged: (value) {
           _telefono = value;
         },
@@ -1433,9 +1484,9 @@ class _ObraSuministroAgregarScreenState
     );
   }
 
-//--------------------------------------------------------------
-//-------------------------- _showEmail ------------------------
-//--------------------------------------------------------------
+  //--------------------------------------------------------------
+  //-------------------------- _showEmail ------------------------
+  //--------------------------------------------------------------
 
   Widget _showEmail() {
     return Container(
@@ -1445,15 +1496,15 @@ class _ObraSuministroAgregarScreenState
         controller: _emailController,
         keyboardType: TextInputType.emailAddress,
         decoration: InputDecoration(
-            fillColor: _email == '' ? Colors.yellow[200] : Colors.white,
-            filled: true,
-            enabled: false,
-            hintText: 'Ingresa Email...',
-            labelText: 'Email',
-            errorText: _emailShowError ? _emailError : null,
-            suffixIcon: const Icon(Icons.email),
-            border:
-                OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
+          fillColor: _email == '' ? Colors.yellow[200] : Colors.white,
+          filled: true,
+          enabled: false,
+          hintText: 'Ingresa Email...',
+          labelText: 'Email',
+          errorText: _emailShowError ? _emailError : null,
+          suffixIcon: const Icon(Icons.email),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+        ),
         onChanged: (value) {
           _email = value;
         },
@@ -1461,23 +1512,24 @@ class _ObraSuministroAgregarScreenState
     );
   }
 
-//--------------------------------------------------------------
-//-------------------------- _takePicture ----------------------
-//--------------------------------------------------------------
+  //--------------------------------------------------------------
+  //-------------------------- _takePicture ----------------------
+  //--------------------------------------------------------------
 
   void _takePicture(int opcion) async {
     WidgetsFlutterBinding.ensureInitialized();
     final cameras = await availableCameras();
     var firstCamera = cameras.first;
     var response1 = await showAlertDialog(
-        context: context,
-        title: 'Seleccionar cámara',
-        message: '¿Qué cámara desea utilizar?',
-        actions: <AlertDialogAction>[
-          const AlertDialogAction(key: 'no', label: 'Trasera'),
-          const AlertDialogAction(key: 'yes', label: 'Delantera'),
-          const AlertDialogAction(key: 'cancel', label: 'Cancelar'),
-        ]);
+      context: context,
+      title: 'Seleccionar cámara',
+      message: '¿Qué cámara desea utilizar?',
+      actions: <AlertDialogAction>[
+        const AlertDialogAction(key: 'no', label: 'Trasera'),
+        const AlertDialogAction(key: 'yes', label: 'Delantera'),
+        const AlertDialogAction(key: 'cancel', label: 'Cancelar'),
+      ],
+    );
     if (response1 == 'yes') {
       firstCamera = cameras.first;
     }
@@ -1487,11 +1539,11 @@ class _ObraSuministroAgregarScreenState
 
     if (response1 != 'cancel') {
       Response? response = await Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => SacarFotoScreen(
-                    camera: firstCamera,
-                  )));
+        context,
+        MaterialPageRoute(
+          builder: (context) => SacarFotoScreen(camera: firstCamera),
+        ),
+      );
       if (response != null) {
         if (opcion == 1) {
           _photoChangedDNIFrente = true;
@@ -1522,14 +1574,14 @@ class _ObraSuministroAgregarScreenState
     }
   }
 
-//--------------------------------------------------------------
-//-------------------------- _selectPicture --------------------
-//--------------------------------------------------------------
+  //--------------------------------------------------------------
+  //-------------------------- _selectPicture --------------------
+  //--------------------------------------------------------------
 
   void _selectPicture(int opcion) async {
-    final ImagePicker _picker = ImagePicker();
+    final ImagePicker picker = ImagePicker();
 
-    final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+    final XFile? image = await picker.pickImage(source: ImageSource.gallery);
 
     if (image != null) {
       if (opcion == 1) {
@@ -1560,9 +1612,9 @@ class _ObraSuministroAgregarScreenState
     }
   }
 
-//--------------------------------------------------------------
-//-------------------------- _showButtonsFirma -----------------
-//--------------------------------------------------------------
+  //--------------------------------------------------------------
+  //-------------------------- _showButtonsFirma -----------------
+  //--------------------------------------------------------------
 
   Widget _showButtonsFirma(ancho) {
     return Container(
@@ -1578,16 +1630,15 @@ class _ObraSuministroAgregarScreenState
                         image: AssetImage('assets/firma.png'),
                         width: 80,
                         height: 60,
-                        fit: BoxFit.contain)
+                        fit: BoxFit.contain,
+                      )
                     : Image.memory(
                         _signature!.buffer.asUint8List(),
                         width: 80,
                         height: 60,
                       ),
               ),
-              const SizedBox(
-                width: 10,
-              ),
+              const SizedBox(width: 10),
               InkWell(
                 onTap: () => _takeSignature(),
                 child: ClipRRect(
@@ -1605,22 +1656,20 @@ class _ObraSuministroAgregarScreenState
                 ),
               ),
             ],
-          )
+          ),
         ],
       ),
     );
   }
 
-//--------------------------------------------------------------
-//-------------------------- _takeSignature --------------------
-//--------------------------------------------------------------
+  //--------------------------------------------------------------
+  //-------------------------- _takeSignature --------------------
+  //--------------------------------------------------------------
 
   void _takeSignature() async {
     Response? response = await Navigator.push(
       context,
-      MaterialPageRoute(
-        builder: (context) => const FirmaScreen(),
-      ),
+      MaterialPageRoute(builder: (context) => const FirmaScreen()),
     );
     if (response != null) {
       setState(() {
@@ -1632,9 +1681,9 @@ class _ObraSuministroAgregarScreenState
     }
   }
 
-//--------------------------------------------------------------
-//-------------------------- _getlistOptionsTipoRed ------------
-//--------------------------------------------------------------
+  //--------------------------------------------------------------
+  //-------------------------- _getlistOptionsTipoRed ------------
+  //--------------------------------------------------------------
 
   void _getlistOptionsTipoRed() {
     _itemsTipoRed = [];
@@ -1654,9 +1703,9 @@ class _ObraSuministroAgregarScreenState
     _getlistOptionsConexionDirecta();
   }
 
-//--------------------------------------------------------------
-//------------------ _getlistOptionsConexionDirecta ------------
-//--------------------------------------------------------------
+  //--------------------------------------------------------------
+  //------------------ _getlistOptionsConexionDirecta ------------
+  //--------------------------------------------------------------
 
   void _getlistOptionsConexionDirecta() {
     _itemsConexionDirecta = [];
@@ -1676,20 +1725,24 @@ class _ObraSuministroAgregarScreenState
     _getlistOptionsRetiroConexion();
   }
 
-//--------------------------------------------------------------
-//------------------ _getlistOptionsRetiroConexion -------------
-//--------------------------------------------------------------
+  //--------------------------------------------------------------
+  //------------------ _getlistOptionsRetiroConexion -------------
+  //--------------------------------------------------------------
 
   void _getlistOptionsRetiroConexion() {
     _itemsRetiroConexion = [];
     _listoptionsRetiroConexion = [];
 
-    Option2 opt1 =
-        Option2(id: 'Caja Distribuidora', description: 'Caja Distribuidora');
+    Option2 opt1 = Option2(
+      id: 'Caja Distribuidora',
+      description: 'Caja Distribuidora',
+    );
     Option2 opt2 = Option2(id: 'Luminaria', description: 'Luminaria');
     Option2 opt3 = Option2(id: 'Red', description: 'Red');
-    Option2 opt4 =
-        Option2(id: 'Acometida vecino', description: 'Acometida vecino');
+    Option2 opt4 = Option2(
+      id: 'Acometida vecino',
+      description: 'Acometida vecino',
+    );
     Option2 opt5 = Option2(id: 'Otro', description: 'Otro');
     _listoptionsRetiroConexion.add(opt1);
     _listoptionsRetiroConexion.add(opt2);
@@ -1700,9 +1753,9 @@ class _ObraSuministroAgregarScreenState
     _loadFieldValues();
   }
 
-//--------------------------------------------------------------
-//-------------------------- _loadFieldValues -------------------
-//--------------------------------------------------------------
+  //--------------------------------------------------------------
+  //-------------------------- _loadFieldValues -------------------
+  //--------------------------------------------------------------
 
   void _loadFieldValues() {
     _optionTipoRed = 'Seleccione Tipo de Red...';
@@ -1714,24 +1767,28 @@ class _ObraSuministroAgregarScreenState
     _getComboRetiroConexion();
   }
 
-//--------------------------------------------------------------
-//-------------------------- _getComboTipoRed ------------------
-//--------------------------------------------------------------
+  //--------------------------------------------------------------
+  //-------------------------- _getComboTipoRed ------------------
+  //--------------------------------------------------------------
 
   List<DropdownMenuItem<String>> _getComboTipoRed() {
     _itemsTipoRed = [];
 
     List<DropdownMenuItem<String>> list = [];
-    list.add(const DropdownMenuItem(
-      child: Text('Seleccione Tipo de Red...'),
-      value: 'Seleccione Tipo de Red...',
-    ));
+    list.add(
+      const DropdownMenuItem(
+        value: 'Seleccione Tipo de Red...',
+        child: Text('Seleccione Tipo de Red...'),
+      ),
+    );
 
     for (var _listoption in _listoptionsTipoRed) {
-      list.add(DropdownMenuItem(
-        child: Text(_listoption.description),
-        value: _listoption.id,
-      ));
+      list.add(
+        DropdownMenuItem(
+          value: _listoption.id,
+          child: Text(_listoption.description),
+        ),
+      );
     }
 
     _itemsTipoRed = list;
@@ -1739,24 +1796,28 @@ class _ObraSuministroAgregarScreenState
     return list;
   }
 
-//--------------------------------------------------------------
-//------------------ _getComboConexionDirecta ------------------
-//--------------------------------------------------------------
+  //--------------------------------------------------------------
+  //------------------ _getComboConexionDirecta ------------------
+  //--------------------------------------------------------------
 
   List<DropdownMenuItem<String>> _getComboConexionDirecta() {
     _itemsConexionDirecta = [];
 
     List<DropdownMenuItem<String>> list = [];
-    list.add(const DropdownMenuItem(
-      child: Text('Seleccione Conexión Directa...'),
-      value: 'Seleccione Conexión Directa...',
-    ));
+    list.add(
+      const DropdownMenuItem(
+        value: 'Seleccione Conexión Directa...',
+        child: Text('Seleccione Conexión Directa...'),
+      ),
+    );
 
     for (var _listoption in _listoptionsConexionDirecta) {
-      list.add(DropdownMenuItem(
-        child: Text(_listoption.description),
-        value: _listoption.id,
-      ));
+      list.add(
+        DropdownMenuItem(
+          value: _listoption.id,
+          child: Text(_listoption.description),
+        ),
+      );
     }
 
     _itemsConexionDirecta = list;
@@ -1764,24 +1825,28 @@ class _ObraSuministroAgregarScreenState
     return list;
   }
 
-//--------------------------------------------------------------
-//------------------ _getComboRetiroConexion -------------------
-//--------------------------------------------------------------
+  //--------------------------------------------------------------
+  //------------------ _getComboRetiroConexion -------------------
+  //--------------------------------------------------------------
 
   List<DropdownMenuItem<String>> _getComboRetiroConexion() {
     _itemsRetiroConexion = [];
 
     List<DropdownMenuItem<String>> list = [];
-    list.add(const DropdownMenuItem(
-      child: Text('Seleccione Retiro Conexión...'),
-      value: 'Seleccione Retiro Conexión...',
-    ));
+    list.add(
+      const DropdownMenuItem(
+        value: 'Seleccione Retiro Conexión...',
+        child: Text('Seleccione Retiro Conexión...'),
+      ),
+    );
 
     for (var _listoption in _listoptionsRetiroConexion) {
-      list.add(DropdownMenuItem(
-        child: Text(_listoption.description),
-        value: _listoption.id,
-      ));
+      list.add(
+        DropdownMenuItem(
+          value: _listoption.id,
+          child: Text(_listoption.description),
+        ),
+      );
     }
 
     _itemsRetiroConexion = list;
@@ -1789,9 +1854,9 @@ class _ObraSuministroAgregarScreenState
     return list;
   }
 
-//--------------------------------------------------------------
-//-------------------------- _showEnre -------------------------
-//--------------------------------------------------------------
+  //--------------------------------------------------------------
+  //-------------------------- _showEnre -------------------------
+  //--------------------------------------------------------------
 
   Widget _showEnre() {
     return Container(
@@ -1802,14 +1867,16 @@ class _ObraSuministroAgregarScreenState
             child: TextField(
               controller: _enreController,
               decoration: InputDecoration(
-                  fillColor: Colors.white,
-                  filled: true,
-                  hintText: 'Enre...',
-                  labelText: 'Enre',
-                  errorText: _enreShowError ? _enreError : null,
-                  suffixIcon: const Icon(Icons.e_mobiledata),
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10))),
+                fillColor: Colors.white,
+                filled: true,
+                hintText: 'Enre...',
+                labelText: 'Enre',
+                errorText: _enreShowError ? _enreError : null,
+                suffixIcon: const Icon(Icons.e_mobiledata),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
               onChanged: (value) {
                 _enre = value;
               },
@@ -1820,9 +1887,9 @@ class _ObraSuministroAgregarScreenState
     );
   }
 
-//--------------------------------------------------------------
-//-------------------------- _showOtro -------------------------
-//--------------------------------------------------------------
+  //--------------------------------------------------------------
+  //-------------------------- _showOtro -------------------------
+  //--------------------------------------------------------------
 
   Widget _showOtro() {
     return Container(
@@ -1833,14 +1900,16 @@ class _ObraSuministroAgregarScreenState
             child: TextField(
               controller: _otroController,
               decoration: InputDecoration(
-                  fillColor: Colors.white,
-                  filled: true,
-                  hintText: 'Otro...',
-                  labelText: 'Otro',
-                  errorText: _otroShowError ? _otroError : null,
-                  suffixIcon: const Icon(Icons.alt_route),
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10))),
+                fillColor: Colors.white,
+                filled: true,
+                hintText: 'Otro...',
+                labelText: 'Otro',
+                errorText: _otroShowError ? _otroError : null,
+                suffixIcon: const Icon(Icons.alt_route),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
               onChanged: (value) {
                 _otro = value;
               },
@@ -1851,9 +1920,9 @@ class _ObraSuministroAgregarScreenState
     );
   }
 
-//--------------------------------------------------------------
-//-------------------------- _showMedidorColocado --------------
-//--------------------------------------------------------------
+  //--------------------------------------------------------------
+  //-------------------------- _showMedidorColocado --------------
+  //--------------------------------------------------------------
 
   Widget _showMedidorColocado() {
     return Container(
@@ -1864,17 +1933,20 @@ class _ObraSuministroAgregarScreenState
             child: TextField(
               controller: _medidorcolocadoController,
               decoration: InputDecoration(
-                  fillColor: _medidorcolocado == ''
-                      ? Colors.yellow[200]
-                      : Colors.white,
-                  filled: true,
-                  hintText: 'Medidor colocado...',
-                  labelText: 'Medidor colocado',
-                  errorText:
-                      _medidorcolocadoShowError ? _medidorcolocadoError : null,
-                  suffixIcon: const Icon(Icons.schedule),
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10))),
+                fillColor: _medidorcolocado == ''
+                    ? Colors.yellow[200]
+                    : Colors.white,
+                filled: true,
+                hintText: 'Medidor colocado...',
+                labelText: 'Medidor colocado',
+                errorText: _medidorcolocadoShowError
+                    ? _medidorcolocadoError
+                    : null,
+                suffixIcon: const Icon(Icons.schedule),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
               onChanged: (value) {
                 _medidorcolocado = value;
               },
@@ -1885,9 +1957,9 @@ class _ObraSuministroAgregarScreenState
     );
   }
 
-//--------------------------------------------------------------
-//-------------------------- _showMedidorVecino ----------------
-//--------------------------------------------------------------
+  //--------------------------------------------------------------
+  //-------------------------- _showMedidorVecino ----------------
+  //--------------------------------------------------------------
 
   Widget _showMedidorVecino() {
     return Container(
@@ -1898,15 +1970,16 @@ class _ObraSuministroAgregarScreenState
             child: TextField(
               controller: _medidorvecinoController,
               decoration: InputDecoration(
-                  fillColor: Colors.white,
-                  filled: true,
-                  hintText: 'Medidor vecino...',
-                  labelText: 'Medidor vecino',
-                  errorText:
-                      _medidorvecinoShowError ? _medidorvecinoError : null,
-                  suffixIcon: const Icon(Icons.history),
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10))),
+                fillColor: Colors.white,
+                filled: true,
+                hintText: 'Medidor vecino...',
+                labelText: 'Medidor vecino',
+                errorText: _medidorvecinoShowError ? _medidorvecinoError : null,
+                suffixIcon: const Icon(Icons.history),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
               onChanged: (value) {
                 _medidorvecino = value;
               },
@@ -1917,9 +1990,9 @@ class _ObraSuministroAgregarScreenState
     );
   }
 
-//--------------------------------------------------------------
-//-------------------------- _showTensionContratada ------------
-//--------------------------------------------------------------
+  //--------------------------------------------------------------
+  //-------------------------- _showTensionContratada ------------
+  //--------------------------------------------------------------
 
   Widget _showTensionContratada() {
     return Container(
@@ -1931,16 +2004,18 @@ class _ObraSuministroAgregarScreenState
               controller: _tensionContratadaController,
               keyboardType: TextInputType.number,
               decoration: InputDecoration(
-                  fillColor: Colors.white,
-                  filled: true,
-                  hintText: 'Tensión contratada...',
-                  labelText: 'Tensión contratada',
-                  errorText: _tensionContratadaShowError
-                      ? _tensionContratadaError
-                      : null,
-                  suffixIcon: const Icon(Icons.power),
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10))),
+                fillColor: Colors.white,
+                filled: true,
+                hintText: 'Tensión contratada...',
+                labelText: 'Tensión contratada',
+                errorText: _tensionContratadaShowError
+                    ? _tensionContratadaError
+                    : null,
+                suffixIcon: const Icon(Icons.power),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
               onChanged: (value) {
                 _tensionContratada = value;
               },
@@ -1951,9 +2026,9 @@ class _ObraSuministroAgregarScreenState
     );
   }
 
-//--------------------------------------------------------------
-//-------------------------- _showPotenciaContratada -----------
-//--------------------------------------------------------------
+  //--------------------------------------------------------------
+  //-------------------------- _showPotenciaContratada -----------
+  //--------------------------------------------------------------
 
   Widget _showPotenciaContratada() {
     return Container(
@@ -1965,16 +2040,18 @@ class _ObraSuministroAgregarScreenState
               controller: _potenciaContratadaController,
               keyboardType: TextInputType.number,
               decoration: InputDecoration(
-                  fillColor: Colors.white,
-                  filled: true,
-                  hintText: 'Potencia contratada...',
-                  labelText: 'Potencia contratada',
-                  errorText: _potenciaContratadaShowError
-                      ? _potenciaContratadaError
-                      : null,
-                  suffixIcon: const Icon(Icons.battery_charging_full),
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10))),
+                fillColor: Colors.white,
+                filled: true,
+                hintText: 'Potencia contratada...',
+                labelText: 'Potencia contratada',
+                errorText: _potenciaContratadaShowError
+                    ? _potenciaContratadaError
+                    : null,
+                suffixIcon: const Icon(Icons.battery_charging_full),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
               onChanged: (value) {
                 _potenciaContratada = value;
               },
@@ -1985,9 +2062,9 @@ class _ObraSuministroAgregarScreenState
     );
   }
 
-//--------------------------------------------------------------
-//-------------------------- _showMtsCableRetirado -------------
-//--------------------------------------------------------------
+  //--------------------------------------------------------------
+  //-------------------------- _showMtsCableRetirado -------------
+  //--------------------------------------------------------------
 
   Widget _showMtsCableRetirado() {
     return Container(
@@ -1999,16 +2076,18 @@ class _ObraSuministroAgregarScreenState
               controller: _mtsCableRetiradoController,
               keyboardType: TextInputType.number,
               decoration: InputDecoration(
-                  fillColor: Colors.white,
-                  filled: true,
-                  hintText: 'Mts. Cable Retirado...',
-                  labelText: 'Mts. Cable Retirado',
-                  errorText: _mtsCableRetiradoShowError
-                      ? _mtsCableRetiradoError
-                      : null,
-                  suffixIcon: const Icon(Icons.straighten),
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10))),
+                fillColor: Colors.white,
+                filled: true,
+                hintText: 'Mts. Cable Retirado...',
+                labelText: 'Mts. Cable Retirado',
+                errorText: _mtsCableRetiradoShowError
+                    ? _mtsCableRetiradoError
+                    : null,
+                suffixIcon: const Icon(Icons.straighten),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
               onChanged: (value) {
                 _mtsCableRetirado = value;
               },
@@ -2019,9 +2098,9 @@ class _ObraSuministroAgregarScreenState
     );
   }
 
-//--------------------------------------------------------------
-//-------------------------- _showObservaciones ----------------
-//--------------------------------------------------------------
+  //--------------------------------------------------------------
+  //-------------------------- _showObservaciones ----------------
+  //--------------------------------------------------------------
 
   Widget _showObservaciones() {
     return Container(
@@ -2032,15 +2111,16 @@ class _ObraSuministroAgregarScreenState
             child: TextField(
               controller: _observacionesController,
               decoration: InputDecoration(
-                  fillColor: Colors.white,
-                  filled: true,
-                  hintText: 'Observaciones...',
-                  labelText: 'Observaciones',
-                  errorText:
-                      _observacionesShowError ? _observacionesError : null,
-                  suffixIcon: const Icon(Icons.notes),
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10))),
+                fillColor: Colors.white,
+                filled: true,
+                hintText: 'Observaciones...',
+                labelText: 'Observaciones',
+                errorText: _observacionesShowError ? _observacionesError : null,
+                suffixIcon: const Icon(Icons.notes),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
               onChanged: (value) {
                 _observaciones = value;
               },
@@ -2051,9 +2131,9 @@ class _ObraSuministroAgregarScreenState
     );
   }
 
-//------------------------------------------------------
-//-------------------- _guardar ------------------------
-//------------------------------------------------------
+  //------------------------------------------------------
+  //-------------------- _guardar ------------------------
+  //------------------------------------------------------
 
   void _guardar() async {
     if (!validateFields()) {
@@ -2069,9 +2149,9 @@ class _ObraSuministroAgregarScreenState
     }
   }
 
-//--------------------------------------------------------------
-//-------------------- validateFields --------------------------
-//--------------------------------------------------------------
+  //--------------------------------------------------------------
+  //-------------------- validateFields --------------------------
+  //--------------------------------------------------------------
 
   bool validateFields() {
     bool isValid = true;
@@ -2112,9 +2192,9 @@ class _ObraSuministroAgregarScreenState
     return isValid;
   }
 
-//-----------------------------------------------------------------
-//-------------------------- pLMayusc -----------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //-------------------------- pLMayusc -----------------------------
+  //-----------------------------------------------------------------
   String pLMayusc(String string) {
     String name = '';
     bool isSpace = false;
@@ -2139,9 +2219,9 @@ class _ObraSuministroAgregarScreenState
     return name;
   }
 
-//--------------------------------------------------------------
-//-------------------- _grabarEnBDLocal ------------------------
-//-------------------------------------------------------------
+  //--------------------------------------------------------------
+  //-------------------- _grabarEnBDLocal ------------------------
+  //-------------------------------------------------------------
 
   Future<void> _grabarEnBDLocal() async {
     int maxWidth = 800; // Ancho máximo
@@ -2150,48 +2230,66 @@ class _ObraSuministroAgregarScreenState
     String base64ImageAntes1 = '';
     if (_photoChangedAntes1) {
       Uint8List imageBytesAntes1 = await _imageAntes1.readAsBytes();
-      Uint8List resizedBytes =
-          await resizeImage(imageBytesAntes1, maxWidth, maxHeight);
+      Uint8List resizedBytes = await resizeImage(
+        imageBytesAntes1,
+        maxWidth,
+        maxHeight,
+      );
       base64ImageAntes1 = base64Encode(resizedBytes);
     }
 
     String base64ImageAntes2 = '';
     if (_photoChangedAntes2) {
       Uint8List imageBytesAntes2 = await _imageAntes2.readAsBytes();
-      Uint8List resizedBytes =
-          await resizeImage(imageBytesAntes2, maxWidth, maxHeight);
+      Uint8List resizedBytes = await resizeImage(
+        imageBytesAntes2,
+        maxWidth,
+        maxHeight,
+      );
       base64ImageAntes2 = base64Encode(resizedBytes);
     }
 
     String base64ImageDespues1 = '';
     if (_photoChangedDespues1) {
       Uint8List imageBytesDespues1 = await _imageDespues1.readAsBytes();
-      Uint8List resizedBytes =
-          await resizeImage(imageBytesDespues1, maxWidth, maxHeight);
+      Uint8List resizedBytes = await resizeImage(
+        imageBytesDespues1,
+        maxWidth,
+        maxHeight,
+      );
       base64ImageDespues1 = base64Encode(resizedBytes);
     }
 
     String base64ImageDespues2 = '';
     if (_photoChangedDespues2) {
       Uint8List imageBytesDespues2 = await _imageDespues2.readAsBytes();
-      Uint8List resizedBytes =
-          await resizeImage(imageBytesDespues2, maxWidth, maxHeight);
+      Uint8List resizedBytes = await resizeImage(
+        imageBytesDespues2,
+        maxWidth,
+        maxHeight,
+      );
       base64ImageDespues2 = base64Encode(resizedBytes);
     }
 
     String base64ImageDNIFrente = '';
     if (_photoChangedDNIFrente) {
       Uint8List imageBytesDNIFrente = await _imageFrente.readAsBytes();
-      Uint8List resizedBytes =
-          await resizeImage(imageBytesDNIFrente, maxWidth, maxHeight);
+      Uint8List resizedBytes = await resizeImage(
+        imageBytesDNIFrente,
+        maxWidth,
+        maxHeight,
+      );
       base64ImageDNIFrente = base64Encode(resizedBytes);
     }
 
     String base64ImageDNIDorso = '';
     if (_photoChangedDNIDorso) {
       Uint8List imageBytesDNIDorso = await _imageDorso.readAsBytes();
-      Uint8List resizedBytes =
-          await resizeImage(imageBytesDNIDorso, maxWidth, maxHeight);
+      Uint8List resizedBytes = await resizeImage(
+        imageBytesDNIDorso,
+        maxWidth,
+        maxHeight,
+      );
       base64ImageDNIDorso = base64Encode(resizedBytes);
     }
 
@@ -2211,25 +2309,25 @@ class _ObraSuministroAgregarScreenState
       _enviado = 0;
     }
 
-    int _nrosuministro = 0;
+    int nrosuministro = 0;
 
-    List<ObrasNuevoSuministro> _suministros = [];
-    _suministros = await DBSuministros.suministros();
+    List<ObrasNuevoSuministro> suministros = [];
+    suministros = await DBSuministros.suministros();
 
-    if (_suministros.isEmpty) {
-      _nrosuministro = 1;
+    if (suministros.isEmpty) {
+      nrosuministro = 1;
     } else {
-      for (var suministro in _suministros) {
-        if (suministro.nrosuministro > _nrosuministro) {
-          _nrosuministro = suministro.nrosuministro;
+      for (var suministro in suministros) {
+        if (suministro.nrosuministro > nrosuministro) {
+          nrosuministro = suministro.nrosuministro;
         }
       }
-      _nrosuministro = _nrosuministro + 1;
+      nrosuministro = nrosuministro + 1;
     }
 
     widget.editMode
-        ? _nrosuministro = widget.suministro.nrosuministro
-        : _nrosuministro = _nrosuministro;
+        ? nrosuministro = widget.suministro.nrosuministro
+        : nrosuministro = nrosuministro;
 
     ObrasNuevoSuministro requestObrasNuevoSuministro = ObrasNuevoSuministro(
       antesfotO1: base64ImageAntes1,
@@ -2263,29 +2361,32 @@ class _ObraSuministroAgregarScreenState
       materiales: 0,
       medidorcolocado: _medidorcolocado,
       medidorvecino: _medidorvecino,
-      mtscableretirado:
-          _mtsCableRetirado == '' ? 0 : int.parse(_mtsCableRetirado!),
+      mtscableretirado: _mtsCableRetirado == ''
+          ? 0
+          : int.parse(_mtsCableRetirado!),
       nroobra:
           105693, //Decia 82501 lo pide cambiar Leonardo Diaz el dìa 12/4/2023
-      nrosuministro: _nrosuministro,
+      nrosuministro: nrosuministro,
       observaciones: _observaciones,
       otro: _otro,
       partido: pLMayusc(_partido!),
       postepodrido: _postepodrido ? 'SI' : 'NO',
-      potenciacontratada:
-          _potenciaContratada == '' ? 0 : int.parse(_potenciaContratada!),
+      potenciacontratada: _potenciaContratada == ''
+          ? 0
+          : int.parse(_potenciaContratada!),
       retiroconexion: _retiroConexion,
       retirocrucecalle: _retirocrucecalle ? 'SI' : 'NO',
       telefono: _telefono,
-      tensioncontratada:
-          _tensionContratada == '' ? 0 : int.parse(_tensionContratada!),
+      tensioncontratada: _tensionContratada == ''
+          ? 0
+          : int.parse(_tensionContratada!),
       tipored: _tipoRed,
       trabajoconhidro: _trabajoconhidro ? 'SI' : 'NO',
     );
 
     bool existeDNIenBD = false;
 
-    for (var suministro in _suministros) {
+    for (var suministro in suministros) {
       if (suministro.dni == _document && _document != dniAntesEditar) {
         _showSnackbar('El DNI ya existe', Colors.red);
         existeDNIenBD = true;
@@ -2313,9 +2414,9 @@ class _ObraSuministroAgregarScreenState
     }
   }
 
-//-------------------------------------------------------------
-//-------------------- _showSnackbar --------------------------
-//-------------------------------------------------------------
+  //-------------------------------------------------------------
+  //-------------------- _showSnackbar --------------------------
+  //-------------------------------------------------------------
 
   void _showSnackbar(String message, Color color) {
     SnackBar snackbar = SnackBar(
@@ -2327,9 +2428,9 @@ class _ObraSuministroAgregarScreenState
     //ScaffoldMessenger.of(context).hideCurrentSnackBar();
   }
 
-//-------------------------------------------------------------
-//-------------------- _loadFields ----------------------------
-//-------------------------------------------------------------
+  //-------------------------------------------------------------
+  //-------------------- _loadFields ----------------------------
+  //-------------------------------------------------------------
 
   void _loadFields() async {
     _document = widget.suministro.dni!;
@@ -2366,8 +2467,9 @@ class _ObraSuministroAgregarScreenState
 
     _denuncia = widget.suministro.denuncia == 'SI' ? true : false;
 
-    _retirocrucecalle =
-        widget.suministro.retirocrucecalle == 'SI' ? true : false;
+    _retirocrucecalle = widget.suministro.retirocrucecalle == 'SI'
+        ? true
+        : false;
 
     _trabajoconhidro = widget.suministro.trabajoconhidro == 'SI' ? true : false;
 
@@ -2414,7 +2516,7 @@ class _ObraSuministroAgregarScreenState
 
     Uint8List fotoDNIFrente = base64Decode(widget.suministro.fotodnifrente!);
     final String pathRutafotoDNIFrente =
-        (await getTemporaryDirectory()).path + '/fotoDNIFrente.png';
+        '${(await getTemporaryDirectory()).path}/fotoDNIFrente.png';
     File fotoDNIFrenteFile = await File(pathRutafotoDNIFrente).create();
     fotoDNIFrenteFile.writeAsBytesSync(fotoDNIFrente, flush: true);
     _imageFrente = XFile(fotoDNIFrenteFile.path);
@@ -2424,7 +2526,7 @@ class _ObraSuministroAgregarScreenState
 
     Uint8List fotoDNIDorso = base64Decode(widget.suministro.fotodnireverso!);
     final String pathRutafotoDNIDorso =
-        (await getTemporaryDirectory()).path + '/fotoDNIDorso.png';
+        '${(await getTemporaryDirectory()).path}/fotoDNIDorso.png';
     File fotoDNIDorsoFile = await File(pathRutafotoDNIDorso).create();
     fotoDNIDorsoFile.writeAsBytesSync(fotoDNIDorso, flush: true);
     _imageDorso = XFile(fotoDNIDorsoFile.path);
@@ -2434,7 +2536,7 @@ class _ObraSuministroAgregarScreenState
 
     Uint8List fotoAntes1 = base64Decode(widget.suministro.antesfotO1!);
     final String pathRutafotoAntes1 =
-        (await getTemporaryDirectory()).path + '/fotoAntes1.png';
+        '${(await getTemporaryDirectory()).path}/fotoAntes1.png';
     File fotoAntes1File = await File(pathRutafotoAntes1).create();
     fotoAntes1File.writeAsBytesSync(fotoAntes1, flush: true);
     _imageAntes1 = XFile(fotoAntes1File.path);
@@ -2444,7 +2546,7 @@ class _ObraSuministroAgregarScreenState
 
     Uint8List fotoAntes2 = base64Decode(widget.suministro.antesfotO2!);
     final String pathRutafotoAntes2 =
-        (await getTemporaryDirectory()).path + '/fotoAntes2.png';
+        '${(await getTemporaryDirectory()).path}/fotoAntes2.png';
     File fotoAntes2File = await File(pathRutafotoAntes2).create();
     fotoAntes2File.writeAsBytesSync(fotoAntes2, flush: true);
     _imageAntes2 = XFile(fotoAntes2File.path);
@@ -2454,7 +2556,7 @@ class _ObraSuministroAgregarScreenState
 
     Uint8List fotoDespues1 = base64Decode(widget.suministro.despuesfotO1!);
     final String pathRutafotoDespues1 =
-        (await getTemporaryDirectory()).path + '/fotoDespues1.png';
+        '${(await getTemporaryDirectory()).path}/fotoDespues1.png';
     File fotoDespues1File = await File(pathRutafotoDespues1).create();
     fotoDespues1File.writeAsBytesSync(fotoDespues1, flush: true);
     _imageDespues1 = XFile(fotoDespues1File.path);
@@ -2464,7 +2566,7 @@ class _ObraSuministroAgregarScreenState
 
     Uint8List fotoDespues2 = base64Decode(widget.suministro.despuesfotO2!);
     final String pathRutafotoDespues2 =
-        (await getTemporaryDirectory()).path + '/fotoDespues2.png';
+        '${(await getTemporaryDirectory()).path}/fotoDespues2.png';
     File fotoDespues2File = await File(pathRutafotoDespues2).create();
     fotoDespues2File.writeAsBytesSync(fotoDespues2, flush: true);
     _imageDespues2 = XFile(fotoDespues2File.path);
@@ -2484,9 +2586,9 @@ class _ObraSuministroAgregarScreenState
     _getSuministros();
   }
 
-//-----------------------------------------------------------------
-//--------------------- _getSuministros ---------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _getSuministros ---------------------------
+  //-----------------------------------------------------------------
 
   Future<void> _getSuministros() async {
     _showLoader = true;

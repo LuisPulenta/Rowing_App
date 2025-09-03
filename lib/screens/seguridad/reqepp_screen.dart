@@ -1,5 +1,5 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
-import 'package:connectivity/connectivity.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 
 import '../../components/loader_component.dart';
@@ -9,17 +9,16 @@ import '../../models/models.dart';
 class ReqEppScreen extends StatefulWidget {
   final User user;
   final Causante causante;
-  const ReqEppScreen({Key? key, required this.user, required this.causante})
-      : super(key: key);
+  const ReqEppScreen({super.key, required this.user, required this.causante});
 
   @override
   _ReqEppScreenState createState() => _ReqEppScreenState();
 }
 
 class _ReqEppScreenState extends State<ReqEppScreen> {
-//---------------------------------------------------------------
-//----------------------- Variables -----------------------------
-//---------------------------------------------------------------
+  //---------------------------------------------------------------
+  //----------------------- Variables -----------------------------
+  //---------------------------------------------------------------
 
   bool _isFiltered = false;
   String _search = '';
@@ -43,9 +42,9 @@ class _ReqEppScreenState extends State<ReqEppScreen> {
 
   List<TextEditingController> controllers = [];
 
-//---------------------------------------------------------------
-//----------------------- initState -----------------------------
-//---------------------------------------------------------------
+  //---------------------------------------------------------------
+  //----------------------- initState -----------------------------
+  //---------------------------------------------------------------
 
   @override
   void initState() {
@@ -53,9 +52,9 @@ class _ReqEppScreenState extends State<ReqEppScreen> {
     _loadData();
   }
 
-//---------------------------------------------------------------
-//----------------------- Pantalla ------------------------------
-//---------------------------------------------------------------
+  //---------------------------------------------------------------
+  //----------------------- Pantalla ------------------------------
+  //---------------------------------------------------------------
 
   @override
   Widget build(BuildContext context) {
@@ -70,23 +69,26 @@ class _ReqEppScreenState extends State<ReqEppScreen> {
               _isFiltered
                   ? IconButton(
                       onPressed: _removeFilter,
-                      icon: const Icon(Icons.filter_none))
+                      icon: const Icon(Icons.filter_none),
+                    )
                   : IconButton(
                       onPressed: _showFilter,
-                      icon: const Icon(Icons.filter_alt)),
+                      icon: const Icon(Icons.filter_alt),
+                    ),
               const Text(
                 'C/N°:',
                 style: TextStyle(color: Colors.white, fontSize: 14),
               ),
               Switch(
-                  value: _todas,
-                  activeColor: Colors.green,
-                  inactiveThumbColor: Colors.grey,
-                  onChanged: (value) {
-                    _todas = value;
-                    _mostrarCatalogos();
-                    setState(() {});
-                  }),
+                value: _todas,
+                activeThumbColor: Colors.green,
+                inactiveThumbColor: Colors.grey,
+                onChanged: (value) {
+                  _todas = value;
+                  _mostrarCatalogos();
+                  setState(() {});
+                },
+              ),
             ],
           ),
         ],
@@ -96,9 +98,7 @@ class _ReqEppScreenState extends State<ReqEppScreen> {
           children: [
             _getContent(),
             _showLoader
-                ? const LoaderComponent(
-                    text: 'Grabando...',
-                  )
+                ? const LoaderComponent(text: 'Grabando...')
                 : Container(),
           ],
         ),
@@ -106,9 +106,9 @@ class _ReqEppScreenState extends State<ReqEppScreen> {
     );
   }
 
-//-----------------------------------------------------------------------
-//------------------------------ _showCatalogosCount --------------------
-//-----------------------------------------------------------------------
+  //-----------------------------------------------------------------------
+  //------------------------------ _showCatalogosCount --------------------
+  //-----------------------------------------------------------------------
 
   Widget _showCatalogosCount() {
     return Container(
@@ -116,72 +116,60 @@ class _ReqEppScreenState extends State<ReqEppScreen> {
       height: 40,
       child: Row(
         children: [
-          const Text('Cantidad de Catálogos: ',
-              style: TextStyle(
-                fontSize: 14,
-                color: Colors.black,
-                fontWeight: FontWeight.bold,
-              )),
-          Text(_catalogos2.length.toString(),
-              style: const TextStyle(
-                fontSize: 14,
-                color: Colors.black,
-                fontWeight: FontWeight.bold,
-              )),
+          const Text(
+            'Cantidad de Catálogos: ',
+            style: TextStyle(
+              fontSize: 14,
+              color: Colors.black,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          Text(
+            _catalogos2.length.toString(),
+            style: const TextStyle(
+              fontSize: 14,
+              color: Colors.black,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ],
       ),
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _getContent -------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _getContent -------------------------------
+  //-----------------------------------------------------------------
 
   Widget _getContent() {
     return Column(
       children: <Widget>[
-        const SizedBox(
-          height: 10,
-        ),
+        const SizedBox(height: 10),
         _showObras(),
         _showCatalogosCount(),
-        const SizedBox(
-          height: 15,
-        ),
+        const SizedBox(height: 15),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: const [
-            Text(
-              'Material         ',
-              style: TextStyle(color: Colors.black),
-            ),
-            Text(
-              '   ',
-              style: TextStyle(color: Colors.black),
-            ),
+            Text('Material         ', style: TextStyle(color: Colors.black)),
+            Text('   ', style: TextStyle(color: Colors.black)),
             Text(
               'Cantidad                 ',
               style: TextStyle(color: Colors.black),
             ),
           ],
         ),
-        const SizedBox(
-          height: 5,
-        ),
-        Expanded(
-          child: _getListView(),
-        ),
+        const SizedBox(height: 5),
+        Expanded(child: _getListView()),
         _showButtons(),
-        const SizedBox(
-          height: 10,
-        ),
+        const SizedBox(height: 10),
       ],
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _showObras --------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _showObras --------------------------------
+  //-----------------------------------------------------------------
 
   Widget _showObras() {
     return Row(
@@ -193,14 +181,12 @@ class _ReqEppScreenState extends State<ReqEppScreen> {
                 ? Row(
                     children: const [
                       CircularProgressIndicator(),
-                      SizedBox(
-                        width: 10,
-                      ),
+                      SizedBox(width: 10),
                       Text('Cargando Obras...'),
                     ],
                   )
                 : DropdownButtonFormField(
-                    value: _obra,
+                    initialValue: _obra,
                     isExpanded: true,
                     isDense: true,
                     decoration: InputDecoration(
@@ -210,7 +196,8 @@ class _ReqEppScreenState extends State<ReqEppScreen> {
                       labelText: 'Obra',
                       errorText: _obraShowError ? _obraError : null,
                       border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10)),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
                     ),
                     items: _getComboObras(),
                     onChanged: (value) {
@@ -223,30 +210,34 @@ class _ReqEppScreenState extends State<ReqEppScreen> {
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _getComboObras ----------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _getComboObras ----------------------------
+  //-----------------------------------------------------------------
 
   List<DropdownMenuItem<String>> _getComboObras() {
     List<DropdownMenuItem<String>> list = [];
-    list.add(const DropdownMenuItem(
-      child: Text('Seleccione una Obra...'),
-      value: 'Seleccione una Obra...',
-    ));
+    list.add(
+      const DropdownMenuItem(
+        value: 'Seleccione una Obra...',
+        child: Text('Seleccione una Obra...'),
+      ),
+    );
 
     for (var obra in _obras) {
-      list.add(DropdownMenuItem(
-        child: Text(obra.nombreObra.toString()),
-        value: obra.nroObra.toString(),
-      ));
+      list.add(
+        DropdownMenuItem(
+          value: obra.nroObra.toString(),
+          child: Text(obra.nombreObra.toString()),
+        ),
+      );
     }
 
     return list;
   }
 
-//-----------------------------------------------------------------
-//--------------------- _getListView ------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _getListView ------------------------------
+  //-----------------------------------------------------------------
 
   Widget _getListView() {
     return ListView(
@@ -274,167 +265,159 @@ class _ReqEppScreenState extends State<ReqEppScreen> {
                                 children: [
                                   Expanded(
                                     flex: 4,
-                                    child: Text(e.catCatalogo.toString(),
-                                        style: const TextStyle(
-                                          fontSize: 12,
-                                        )),
+                                    child: Text(
+                                      e.catCatalogo.toString(),
+                                      style: const TextStyle(fontSize: 12),
+                                    ),
                                   ),
-                                  const SizedBox(
-                                    width: 5,
-                                  ),
+                                  const SizedBox(width: 5),
                                   Expanded(
                                     flex: 1,
-                                    child: Text(e.cantidad.toString(),
-                                        style: const TextStyle(
-                                          fontSize: 14,
-                                          color: Colors.blue,
-                                          fontWeight: FontWeight.bold,
-                                        )),
+                                    child: Text(
+                                      e.cantidad.toString(),
+                                      style: const TextStyle(
+                                        fontSize: 14,
+                                        color: Colors.blue,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
                                   ),
-                                  const SizedBox(
-                                    width: 10,
-                                  ),
+                                  const SizedBox(width: 10),
                                   IconButton(
-                                      onPressed: () {
-                                        _cantidadController.text =
-                                            e.cantidad == 0.0
-                                                ? ''
-                                                : e.cantidad.toString();
-                                        showDialog(
-                                            context: context,
-                                            builder: (BuildContext context) {
-                                              return AlertDialog(
-                                                backgroundColor:
-                                                    Colors.grey[300],
-                                                title: const Text(
-                                                    'Ingrese la cantidad'),
-                                                content: TextField(
-                                                  autofocus: true,
-                                                  controller:
-                                                      _cantidadController,
-                                                  decoration: InputDecoration(
-                                                      fillColor: Colors.white,
-                                                      filled: true,
-                                                      hintText: '',
-                                                      labelText: '',
-                                                      errorText:
-                                                          _cantidadShowError
-                                                              ? _cantidadError
-                                                              : null,
-                                                      prefixIcon:
-                                                          const Icon(Icons.tag),
-                                                      border:
-                                                          OutlineInputBorder(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          10))),
-                                                  onChanged: (value) {
-                                                    _cantidad = value;
-                                                  },
+                                    onPressed: () {
+                                      _cantidadController.text =
+                                          e.cantidad == 0.0
+                                          ? ''
+                                          : e.cantidad.toString();
+                                      showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          return AlertDialog(
+                                            backgroundColor: Colors.grey[300],
+                                            title: const Text(
+                                              'Ingrese la cantidad',
+                                            ),
+                                            content: TextField(
+                                              autofocus: true,
+                                              controller: _cantidadController,
+                                              decoration: InputDecoration(
+                                                fillColor: Colors.white,
+                                                filled: true,
+                                                hintText: '',
+                                                labelText: '',
+                                                errorText: _cantidadShowError
+                                                    ? _cantidadError
+                                                    : null,
+                                                prefixIcon: const Icon(
+                                                  Icons.tag,
                                                 ),
-                                                actions: [
-                                                  Row(
-                                                    children: [
-                                                      Expanded(
-                                                        child: ElevatedButton(
-                                                          child: Row(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .spaceAround,
-                                                            children: const [
-                                                              Icon(
-                                                                  Icons.cancel),
-                                                              Text('Cancelar'),
-                                                            ],
-                                                          ),
-                                                          style: ElevatedButton
-                                                              .styleFrom(
-                                                            backgroundColor:
-                                                                const Color(
-                                                                    0xFFB4161B),
-                                                            minimumSize:
-                                                                const Size(
-                                                                    double
-                                                                        .infinity,
-                                                                    50),
-                                                            shape:
-                                                                RoundedRectangleBorder(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          5),
+                                                border: OutlineInputBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                ),
+                                              ),
+                                              onChanged: (value) {
+                                                _cantidad = value;
+                                              },
+                                            ),
+                                            actions: [
+                                              Row(
+                                                children: [
+                                                  Expanded(
+                                                    child: ElevatedButton(
+                                                      style: ElevatedButton.styleFrom(
+                                                        backgroundColor:
+                                                            const Color(
+                                                              0xFFB4161B,
                                                             ),
-                                                          ),
-                                                          onPressed: () {
-                                                            Navigator.pop(
-                                                                context);
-                                                          },
+                                                        minimumSize: const Size(
+                                                          double.infinity,
+                                                          50,
+                                                        ),
+                                                        shape: RoundedRectangleBorder(
+                                                          borderRadius:
+                                                              BorderRadius.circular(
+                                                                5,
+                                                              ),
                                                         ),
                                                       ),
-                                                      const SizedBox(
-                                                        width: 10,
+                                                      onPressed: () {
+                                                        Navigator.pop(context);
+                                                      },
+                                                      child: Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceAround,
+                                                        children: const [
+                                                          Icon(Icons.cancel),
+                                                          Text('Cancelar'),
+                                                        ],
                                                       ),
-                                                      Expanded(
-                                                        child: ElevatedButton(
-                                                          child: Row(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .spaceAround,
-                                                            children: const [
-                                                              Icon(Icons.save),
-                                                              Text('Aceptar'),
-                                                            ],
-                                                          ),
-                                                          style: ElevatedButton
-                                                              .styleFrom(
-                                                            backgroundColor:
-                                                                const Color(
-                                                                    0xFF120E43),
-                                                            minimumSize:
-                                                                const Size(
-                                                                    double
-                                                                        .infinity,
-                                                                    50),
-                                                            shape:
-                                                                RoundedRectangleBorder(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          5),
+                                                    ),
+                                                  ),
+                                                  const SizedBox(width: 10),
+                                                  Expanded(
+                                                    child: ElevatedButton(
+                                                      style: ElevatedButton.styleFrom(
+                                                        backgroundColor:
+                                                            const Color(
+                                                              0xFF120E43,
                                                             ),
-                                                          ),
-                                                          onPressed: () {
-                                                            for (Catalogo catalogo
-                                                                in _catalogos) {
-                                                              if (catalogo
-                                                                      .catCodigo ==
-                                                                  e.catCodigo) {
-                                                                catalogo.cantidad =
-                                                                    double.parse(
-                                                                        _cantidad);
-                                                              }
-                                                            }
+                                                        minimumSize: const Size(
+                                                          double.infinity,
+                                                          50,
+                                                        ),
+                                                        shape: RoundedRectangleBorder(
+                                                          borderRadius:
+                                                              BorderRadius.circular(
+                                                                5,
+                                                              ),
+                                                        ),
+                                                      ),
+                                                      onPressed: () {
+                                                        for (Catalogo catalogo
+                                                            in _catalogos) {
+                                                          if (catalogo
+                                                                  .catCodigo ==
+                                                              e.catCodigo) {
+                                                            catalogo.cantidad =
+                                                                double.parse(
+                                                                  _cantidad,
+                                                                );
+                                                          }
+                                                        }
 
-                                                            Navigator.pop(
-                                                                context);
-                                                            setState(() {});
-                                                          },
-                                                        ),
+                                                        Navigator.pop(context);
+                                                        setState(() {});
+                                                      },
+                                                      child: Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceAround,
+                                                        children: const [
+                                                          Icon(Icons.save),
+                                                          Text('Aceptar'),
+                                                        ],
                                                       ),
-                                                    ],
+                                                    ),
                                                   ),
                                                 ],
-                                                shape: RoundedRectangleBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            10)),
-                                              );
-                                            },
-                                            barrierDismissible: false);
-                                      },
-                                      icon: const Icon(Icons.loop,
-                                          color: Colors.blue)),
+                                              ),
+                                            ],
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                            ),
+                                          );
+                                        },
+                                        barrierDismissible: false,
+                                      );
+                                    },
+                                    icon: const Icon(
+                                      Icons.loop,
+                                      color: Colors.blue,
+                                    ),
+                                  ),
                                 ],
                               ),
                             ],
@@ -452,54 +435,48 @@ class _ReqEppScreenState extends State<ReqEppScreen> {
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _showButtons ------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _showButtons ------------------------------
+  //-----------------------------------------------------------------
 
   Widget _showButtons() {
     return Container(
       margin: const EdgeInsets.only(left: 10, right: 10),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: <Widget>[
-          _showSaveButton(),
-        ],
+        children: <Widget>[_showSaveButton()],
       ),
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _showSaveButton ---------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _showSaveButton ---------------------------
+  //-----------------------------------------------------------------
 
   Widget _showSaveButton() {
     return Expanded(
       child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: const Color(0xFF781f1e),
+          minimumSize: const Size(double.infinity, 50),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+        ),
+        onPressed: () => _save(),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: const [
             Icon(Icons.save),
-            SizedBox(
-              width: 15,
-            ),
+            SizedBox(width: 15),
             Text('Guardar'),
           ],
         ),
-        style: ElevatedButton.styleFrom(
-          backgroundColor: const Color(0xFF781f1e),
-          minimumSize: const Size(double.infinity, 50),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(5),
-          ),
-        ),
-        onPressed: () => _save(),
       ),
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _loadData ---------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _loadData ---------------------------------
+  //-----------------------------------------------------------------
 
   void _loadData() async {
     await _getCatalogos();
@@ -510,9 +487,9 @@ class _ReqEppScreenState extends State<ReqEppScreen> {
     _getObras();
   }
 
-//-----------------------------------------------------------------
-//--------------------- _getCatalogos -----------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _getCatalogos -----------------------------
+  //-----------------------------------------------------------------
 
   Future<void> _getCatalogos() async {
     setState(() {
@@ -526,7 +503,10 @@ class _ReqEppScreenState extends State<ReqEppScreen> {
         _showLoader = false;
       });
       showMyDialog(
-          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
+        'Error',
+        'Verifica que estés conectado a Internet',
+        'Aceptar',
+      );
     }
 
     Response response = Response(isSuccess: false);
@@ -539,12 +519,13 @@ class _ReqEppScreenState extends State<ReqEppScreen> {
 
     if (!response.isSuccess) {
       await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: response.message,
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message: response.message,
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
       return;
     }
 
@@ -553,16 +534,19 @@ class _ReqEppScreenState extends State<ReqEppScreen> {
     });
   }
 
-//-----------------------------------------------------------------
-//--------------------- _getObras ---------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _getObras ---------------------------------
+  //-----------------------------------------------------------------
 
   Future<void> _getObras() async {
     var connectivityResult = await Connectivity().checkConnectivity();
 
     if (connectivityResult == ConnectivityResult.none) {
       showMyDialog(
-          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
+        'Error',
+        'Verifica que estés conectado a Internet',
+        'Aceptar',
+      );
     }
     Response response = Response(isSuccess: false);
     response = await ApiHelper.getObrasEPP(widget.user.modulo);
@@ -572,20 +556,20 @@ class _ReqEppScreenState extends State<ReqEppScreen> {
     setState(() {});
   }
 
-//-----------------------------------------------------------------
-//--------------------- _save -------------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _save -------------------------------------
+  //-----------------------------------------------------------------
 
-  _save() {
+  void _save() {
     if (!validateFields()) {
       return;
     }
     _addRecord();
   }
 
-//-----------------------------------------------------------------
-//--------------------- validateFields ----------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- validateFields ----------------------------
+  //-----------------------------------------------------------------
 
   bool validateFields() {
     bool isValid = true;
@@ -601,12 +585,12 @@ class _ReqEppScreenState extends State<ReqEppScreen> {
     return isValid;
   }
 
-//-----------------------------------------------------------------
-//--------------------- _addRecord --------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _addRecord --------------------------------
+  //-----------------------------------------------------------------
 
-  _addRecord() async {
-//-----------------Controlo que haya catálogos con cantidades--------------
+  Future<void> _addRecord() async {
+    //-----------------Controlo que haya catálogos con cantidades--------------
     bool bandera = false;
     for (Catalogo catalogo in _catalogos) {
       if (catalogo.cantidad != 0) {
@@ -614,9 +598,9 @@ class _ReqEppScreenState extends State<ReqEppScreen> {
       }
     }
 
-//-----------------Grabar Cabecera y Detalle--------------
+    //-----------------Grabar Cabecera y Detalle--------------
     if (bandera) {
-//-----------------Chequea Internet--------------
+      //-----------------Chequea Internet--------------
       setState(() {
         _showLoader = true;
       });
@@ -628,12 +612,13 @@ class _ReqEppScreenState extends State<ReqEppScreen> {
           _showLoader = false;
         });
         await showAlertDialog(
-            context: context,
-            title: 'Error',
-            message: 'Verifica que estés conectado a Internet',
-            actions: <AlertDialogAction>[
-              const AlertDialogAction(key: null, label: 'Aceptar'),
-            ]);
+          context: context,
+          title: 'Error',
+          message: 'Verifica que estés conectado a Internet',
+          actions: <AlertDialogAction>[
+            const AlertDialogAction(key: null, label: 'Aceptar'),
+          ],
+        );
         return;
       }
 
@@ -656,8 +641,10 @@ class _ReqEppScreenState extends State<ReqEppScreen> {
         'VALORIZACION': 0,
       };
 
-      Response response =
-          await ApiHelper.post('/api/WRemitosCab/PostWRemitosCab', request);
+      Response response = await ApiHelper.post(
+        '/api/WRemitosCab/PostWRemitosCab',
+        request,
+      );
 
       setState(() {
         _showLoader = false;
@@ -665,12 +652,13 @@ class _ReqEppScreenState extends State<ReqEppScreen> {
 
       if (!response.isSuccess) {
         await showAlertDialog(
-            context: context,
-            title: 'Error',
-            message: response.message,
-            actions: <AlertDialogAction>[
-              const AlertDialogAction(key: null, label: 'Aceptar'),
-            ]);
+          context: context,
+          title: 'Error',
+          message: response.message,
+          actions: <AlertDialogAction>[
+            const AlertDialogAction(key: null, label: 'Aceptar'),
+          ],
+        );
       }
 
       Response response2 = await ApiHelper.getNroRemitoMax();
@@ -678,7 +666,7 @@ class _ReqEppScreenState extends State<ReqEppScreen> {
         _nroReg = int.parse(response2.result.toString());
       }
 
-//-----------------Graba Detalle--------------
+      //-----------------Graba Detalle--------------
       for (Catalogo catalogo in _catalogos) {
         if (catalogo.cantidad != 0) {
           bandera = true;
@@ -694,46 +682,51 @@ class _ReqEppScreenState extends State<ReqEppScreen> {
             'COSTOTOTAL': 0,
           };
 
-          Response response =
-              await ApiHelper.post('/api/WRemitosCab/PostWRemitosDet', request);
+          Response response = await ApiHelper.post(
+            '/api/WRemitosCab/PostWRemitosDet',
+            request,
+          );
 
           if (!response.isSuccess) {
             await showAlertDialog(
-                context: context,
-                title: 'Error',
-                message: response.message,
-                actions: <AlertDialogAction>[
-                  const AlertDialogAction(key: null, label: 'Aceptar'),
-                ]);
+              context: context,
+              title: 'Error',
+              message: response.message,
+              actions: <AlertDialogAction>[
+                const AlertDialogAction(key: null, label: 'Aceptar'),
+              ],
+            );
           }
         }
       }
 
       await showAlertDialog(
-          context: context,
-          title: 'Aviso',
-          message: 'Requerimiento guardado con éxito!',
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Aviso',
+        message: 'Requerimiento guardado con éxito!',
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
       Navigator.pop(context);
     } else {
       await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: 'No hay materiales que tengan cantidades',
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message: 'No hay materiales que tengan cantidades',
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
       return;
     } //Termina Bandera
   }
 
-//-----------------------------------------------------------------
-//--------------------- _mostrarCatalogos -------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _mostrarCatalogos -------------------------
+  //-----------------------------------------------------------------
 
-  _mostrarCatalogos() async {
+  Future<void> _mostrarCatalogos() async {
     if (!_todas) {
       _catalogos2 = _catalogos;
     } else {
@@ -744,18 +737,17 @@ class _ReqEppScreenState extends State<ReqEppScreen> {
         }
       }
       _catalogos2.sort((a, b) {
-        return a.catCatalogo
-            .toString()
-            .toLowerCase()
-            .compareTo(b.catCatalogo.toString().toLowerCase());
+        return a.catCatalogo.toString().toLowerCase().compareTo(
+          b.catCatalogo.toString().toLowerCase(),
+        );
       });
       setState(() {});
     }
   }
 
-//-----------------------------------------------------------------------
-//------------------------------ _removeFilter --------------------------
-//-----------------------------------------------------------------------
+  //-----------------------------------------------------------------------
+  //------------------------------ _removeFilter --------------------------
+  //-----------------------------------------------------------------------
 
   void _removeFilter() async {
     _catalogos2 = _catalogos;
@@ -765,56 +757,63 @@ class _ReqEppScreenState extends State<ReqEppScreen> {
     });
   }
 
-//---------------------------------------------------------------------
-//------------------------------ _showFilter --------------------------
-//---------------------------------------------------------------------
+  //---------------------------------------------------------------------
+  //------------------------------ _showFilter --------------------------
+  //---------------------------------------------------------------------
 
   void _showFilter() {
     showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
-            title: const Text('Filtrar Catálogos'),
-            content: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+          title: const Text('Filtrar Catálogos'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
               const Text(
                 'Escriba texto o números a buscar en CatSAP o Descripción del Material: ',
                 style: TextStyle(fontSize: 12),
               ),
-              const SizedBox(
-                height: 10,
-              ),
+              const SizedBox(height: 10),
               TextField(
                 autofocus: true,
                 decoration: InputDecoration(
-                    hintText: 'Criterio de búsqueda...',
-                    labelText: 'Buscar',
-                    suffixIcon: const Icon(Icons.search),
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10))),
+                  hintText: 'Criterio de búsqueda...',
+                  labelText: 'Buscar',
+                  suffixIcon: const Icon(Icons.search),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
                 onChanged: (value) {
                   _search = value;
                 },
               ),
-            ]),
-            actions: <Widget>[
-              TextButton(
-                  onPressed: () => Navigator.of(context).pop(),
-                  child: const Text('Cancelar')),
-              TextButton(
-                  onPressed: () => _filter(), child: const Text('Filtrar')),
             ],
-          );
-        });
+          ),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text('Cancelar'),
+            ),
+            TextButton(
+              onPressed: () => _filter(),
+              child: const Text('Filtrar'),
+            ),
+          ],
+        );
+      },
+    );
   }
 
-//-----------------------------------------------------------------
-//------------------------------ _filter --------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //------------------------------ _filter --------------------------
+  //-----------------------------------------------------------------
 
-  _filter() {
+  void _filter() {
     if (_search.isEmpty) {
       return;
     }

@@ -1,5 +1,5 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
-import 'package:connectivity/connectivity.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -12,41 +12,40 @@ class NotificacionesScreen extends StatefulWidget {
   final User user;
   final Juicio juicio;
 
-  const NotificacionesScreen(
-      {Key? key, required this.user, required this.juicio})
-      : super(key: key);
+  const NotificacionesScreen({
+    Key? key,
+    required this.user,
+    required this.juicio,
+  }) : super(key: key);
 
   @override
   State<NotificacionesScreen> createState() => _NotificacionesScreenState();
 }
 
 class _NotificacionesScreenState extends State<NotificacionesScreen> {
-//---------------------------------------------------------------------
-//-------------------------- Variables --------------------------------
-//---------------------------------------------------------------------
+  //---------------------------------------------------------------------
+  //-------------------------- Variables --------------------------------
+  //---------------------------------------------------------------------
   List<Notificacion> _notificaciones = [];
   bool _showLoader = false;
 
-//---------------------------------------------------------------------
-//-------------------------- InitState --------------------------------
-//---------------------------------------------------------------------
+  //---------------------------------------------------------------------
+  //-------------------------- InitState --------------------------------
+  //---------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
     _getNotificaciones();
   }
 
-//---------------------------------------------------------------------
-//-------------------------- Pantalla ---------------------------------
-//---------------------------------------------------------------------
+  //---------------------------------------------------------------------
+  //-------------------------- Pantalla ---------------------------------
+  //---------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFF484848),
-      appBar: AppBar(
-        title: const Text('Notificaciones'),
-        centerTitle: true,
-      ),
+      appBar: AppBar(title: const Text('Notificaciones'), centerTitle: true),
       body: Center(
         child: _showLoader
             ? const LoaderComponent(text: 'Por favor espere...')
@@ -57,12 +56,14 @@ class _NotificacionesScreenState extends State<NotificacionesScreen> {
         child: const Icon(Icons.add),
         onPressed: () async {
           String? result = await Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => NotificacionAgregarScreen(
-                        user: widget.user,
-                        juicio: widget.juicio,
-                      )));
+            context,
+            MaterialPageRoute(
+              builder: (context) => NotificacionAgregarScreen(
+                user: widget.user,
+                juicio: widget.juicio,
+              ),
+            ),
+          );
           if (result == 'yes' || result != 'yes') {
             _getNotificaciones();
             setState(() {});
@@ -72,9 +73,9 @@ class _NotificacionesScreenState extends State<NotificacionesScreen> {
     );
   }
 
-//----------------------------------------------------------
-//------------------- _getContent --------------------------
-//----------------------------------------------------------
+  //----------------------------------------------------------
+  //------------------- _getContent --------------------------
+  //----------------------------------------------------------
 
   Widget _getContent() {
     return Column(
@@ -82,14 +83,14 @@ class _NotificacionesScreenState extends State<NotificacionesScreen> {
         _showNotificacionesCount(),
         Expanded(
           child: _notificaciones.isEmpty ? _noContent() : _getListView(),
-        )
+        ),
       ],
     );
   }
 
-//----------------------------------------------------------------
-//--------------------  _showNotificacionesCount -----------------
-//----------------------------------------------------------------
+  //----------------------------------------------------------------
+  //--------------------  _showNotificacionesCount -----------------
+  //----------------------------------------------------------------
 
   Widget _showNotificacionesCount() {
     return Container(
@@ -97,26 +98,30 @@ class _NotificacionesScreenState extends State<NotificacionesScreen> {
       height: 40,
       child: Row(
         children: [
-          const Text('Cantidad de Notificaciones: ',
-              style: TextStyle(
-                fontSize: 14,
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-              )),
-          Text(_notificaciones.length.toString(),
-              style: const TextStyle(
-                fontSize: 14,
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-              )),
+          const Text(
+            'Cantidad de Notificaciones: ',
+            style: TextStyle(
+              fontSize: 14,
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          Text(
+            _notificaciones.length.toString(),
+            style: const TextStyle(
+              fontSize: 14,
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ],
       ),
     );
   }
 
-//-----------------------------------------------------------------------
-//------------------------------ _noContent -----------------------------
-//-----------------------------------------------------------------------
+  //-----------------------------------------------------------------------
+  //------------------------------ _noContent -----------------------------
+  //-----------------------------------------------------------------------
 
   Widget _noContent() {
     return Container(
@@ -130,9 +135,9 @@ class _NotificacionesScreenState extends State<NotificacionesScreen> {
     );
   }
 
-//-----------------------------------------------------------------------
-//------------------------------ _getListView ---------------------------
-//-----------------------------------------------------------------------
+  //-----------------------------------------------------------------------
+  //------------------------------ _getListView ---------------------------
+  //-----------------------------------------------------------------------
 
   Widget _getListView() {
     double ancho = 130.0;
@@ -174,27 +179,32 @@ class _NotificacionesScreenState extends State<NotificacionesScreen> {
                                     ),
                                     Expanded(
                                       flex: 2,
-                                      child: Text(e.idnotificacion.toString(),
-                                          style: const TextStyle(
-                                            fontSize: 12,
-                                          )),
+                                      child: Text(
+                                        e.idnotificacion.toString(),
+                                        style: const TextStyle(fontSize: 12),
+                                      ),
                                     ),
-                                    const Text('Fecha Carga: ',
-                                        style: TextStyle(
-                                          fontSize: 12,
-                                          color: Color(0xFF781f1e),
-                                          fontWeight: FontWeight.bold,
-                                        )),
+                                    const Text(
+                                      'Fecha Carga: ',
+                                      style: TextStyle(
+                                        fontSize: 12,
+                                        color: Color(0xFF781f1e),
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
                                     Expanded(
                                       flex: 2,
                                       child: e.fechacarga != null
                                           ? Text(
                                               DateFormat('dd/MM/yyyy').format(
-                                                  DateTime.parse(
-                                                      e.fechacarga.toString())),
+                                                DateTime.parse(
+                                                  e.fechacarga.toString(),
+                                                ),
+                                              ),
                                               style: const TextStyle(
                                                 fontSize: 12,
-                                              ))
+                                              ),
+                                            )
                                           : Container(),
                                     ),
                                   ],
@@ -214,12 +224,9 @@ class _NotificacionesScreenState extends State<NotificacionesScreen> {
                                     ),
                                     Expanded(
                                       child: Text(
-                                          e.tipo != null
-                                              ? e.tipo.toString()
-                                              : '',
-                                          style: const TextStyle(
-                                            fontSize: 12,
-                                          )),
+                                        e.tipo != null ? e.tipo.toString() : '',
+                                        style: const TextStyle(fontSize: 12),
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -238,12 +245,11 @@ class _NotificacionesScreenState extends State<NotificacionesScreen> {
                                     ),
                                     Expanded(
                                       child: Text(
-                                          e.titulo != null
-                                              ? e.titulo.toString()
-                                              : '',
-                                          style: const TextStyle(
-                                            fontSize: 12,
-                                          )),
+                                        e.titulo != null
+                                            ? e.titulo.toString()
+                                            : '',
+                                        style: const TextStyle(fontSize: 12),
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -262,12 +268,11 @@ class _NotificacionesScreenState extends State<NotificacionesScreen> {
                                     ),
                                     Expanded(
                                       child: Text(
-                                          e.observaciones != null
-                                              ? e.observaciones.toString()
-                                              : '',
-                                          style: const TextStyle(
-                                            fontSize: 12,
-                                          )),
+                                        e.observaciones != null
+                                            ? e.observaciones.toString()
+                                            : '',
+                                        style: const TextStyle(fontSize: 12),
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -275,21 +280,22 @@ class _NotificacionesScreenState extends State<NotificacionesScreen> {
                                   children: [
                                     SizedBox(
                                       width: ancho,
-                                      child: const Text('Moneda: ',
-                                          style: TextStyle(
-                                            fontSize: 12,
-                                            color: Color(0xFF781f1e),
-                                            fontWeight: FontWeight.bold,
-                                          )),
+                                      child: const Text(
+                                        'Moneda: ',
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                          color: Color(0xFF781f1e),
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
                                     ),
                                     Expanded(
                                       child: Text(
-                                          e.moneda != null
-                                              ? e.moneda.toString()
-                                              : '',
-                                          style: const TextStyle(
-                                            fontSize: 12,
-                                          )),
+                                        e.moneda != null
+                                            ? e.moneda.toString()
+                                            : '',
+                                        style: const TextStyle(fontSize: 12),
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -308,14 +314,13 @@ class _NotificacionesScreenState extends State<NotificacionesScreen> {
                                     ),
                                     Expanded(
                                       child: Text(
-                                          e.monto != null
-                                              ? NumberFormat.currency(
-                                                      symbol: '\$')
-                                                  .format(e.monto)
-                                              : '',
-                                          style: const TextStyle(
-                                            fontSize: 12,
-                                          )),
+                                        e.monto != null
+                                            ? NumberFormat.currency(
+                                                symbol: '\$',
+                                              ).format(e.monto)
+                                            : '',
+                                        style: const TextStyle(fontSize: 12),
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -334,12 +339,11 @@ class _NotificacionesScreenState extends State<NotificacionesScreen> {
                                     ),
                                     Expanded(
                                       child: Text(
-                                          e.tipotransaccion != null
-                                              ? e.tipotransaccion.toString()
-                                              : '',
-                                          style: const TextStyle(
-                                            fontSize: 12,
-                                          )),
+                                        e.tipotransaccion != null
+                                            ? e.tipotransaccion.toString()
+                                            : '',
+                                        style: const TextStyle(fontSize: 12),
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -358,12 +362,11 @@ class _NotificacionesScreenState extends State<NotificacionesScreen> {
                                     ),
                                     Expanded(
                                       child: Text(
-                                          e.condicionpago != null
-                                              ? e.condicionpago.toString()
-                                              : '',
-                                          style: const TextStyle(
-                                            fontSize: 12,
-                                          )),
+                                        e.condicionpago != null
+                                            ? e.condicionpago.toString()
+                                            : '',
+                                        style: const TextStyle(fontSize: 12),
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -382,12 +385,11 @@ class _NotificacionesScreenState extends State<NotificacionesScreen> {
                                     ),
                                     Expanded(
                                       child: Text(
-                                          e.nrofactura != null
-                                              ? e.nrofactura.toString()
-                                              : '',
-                                          style: const TextStyle(
-                                            fontSize: 12,
-                                          )),
+                                        e.nrofactura != null
+                                            ? e.nrofactura.toString()
+                                            : '',
+                                        style: const TextStyle(fontSize: 12),
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -406,12 +408,11 @@ class _NotificacionesScreenState extends State<NotificacionesScreen> {
                                     ),
                                     Expanded(
                                       child: Text(
-                                          e.lugar != null
-                                              ? e.lugar.toString()
-                                              : '',
-                                          style: const TextStyle(
-                                            fontSize: 12,
-                                          )),
+                                        e.lugar != null
+                                            ? e.lugar.toString()
+                                            : '',
+                                        style: const TextStyle(fontSize: 12),
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -430,12 +431,11 @@ class _NotificacionesScreenState extends State<NotificacionesScreen> {
                                     ),
                                     Expanded(
                                       child: Text(
-                                          e.participantes != null
-                                              ? e.participantes.toString()
-                                              : '',
-                                          style: const TextStyle(
-                                            fontSize: 12,
-                                          )),
+                                        e.participantes != null
+                                            ? e.participantes.toString()
+                                            : '',
+                                        style: const TextStyle(fontSize: 12),
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -455,9 +455,9 @@ class _NotificacionesScreenState extends State<NotificacionesScreen> {
     );
   }
 
-//---------------------------------------------------------------------
-//-------------------------- _getNotificaciones -----------------------
-//---------------------------------------------------------------------
+  //---------------------------------------------------------------------
+  //-------------------------- _getNotificaciones -----------------------
+  //---------------------------------------------------------------------
 
   Future<void> _getNotificaciones() async {
     setState(() {
@@ -471,13 +471,17 @@ class _NotificacionesScreenState extends State<NotificacionesScreen> {
         _showLoader = false;
       });
       showMyDialog(
-          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
+        'Error',
+        'Verifica que estés conectado a Internet',
+        'Aceptar',
+      );
     }
 
     Response response = Response(isSuccess: false);
 
-    response =
-        await ApiHelper.getNotificaciones(widget.juicio.iDCASO.toString());
+    response = await ApiHelper.getNotificaciones(
+      widget.juicio.iDCASO.toString(),
+    );
 
     setState(() {
       _showLoader = false;
@@ -485,12 +489,13 @@ class _NotificacionesScreenState extends State<NotificacionesScreen> {
 
     if (!response.isSuccess) {
       await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: response.message,
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message: response.message,
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
       return;
     }
 

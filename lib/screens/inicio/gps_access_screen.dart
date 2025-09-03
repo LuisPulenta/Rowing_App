@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rowing_app/blocs/blocs.dart';
 
 class GpsAccessScreen extends StatelessWidget {
-  const GpsAccessScreen({Key? key}) : super(key: key);
+  const GpsAccessScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -23,9 +23,7 @@ class GpsAccessScreen extends StatelessWidget {
 
 //--------------- _AccessButton ---------------
 class _AccessButton extends StatelessWidget {
-  const _AccessButton({
-    Key? key,
-  }) : super(key: key);
+  const _AccessButton({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -34,16 +32,19 @@ class _AccessButton extends StatelessWidget {
       children: [
         const Text('Debe habilitar el Permiso de GPS'),
         MaterialButton(
-            child: const Text('Solicitar Permiso',
-                style: TextStyle(color: Colors.white)),
-            color: Colors.black,
-            shape: const StadiumBorder(),
-            elevation: 0,
-            splashColor: Colors.transparent,
-            onPressed: () {
-              final gpsBloc = BlocProvider.of<GpsBloc>(context);
-              gpsBloc.askGpsAccess();
-            })
+          color: Colors.black,
+          shape: const StadiumBorder(),
+          elevation: 0,
+          splashColor: Colors.transparent,
+          onPressed: () {
+            final gpsBloc = BlocProvider.of<GpsBloc>(context);
+            gpsBloc.askGpsAccess();
+          },
+          child: const Text(
+            'Solicitar Permiso',
+            style: TextStyle(color: Colors.white),
+          ),
+        ),
       ],
     );
   }
@@ -51,14 +52,17 @@ class _AccessButton extends StatelessWidget {
 
 //--------------- _EnableGpsMessage ---------------
 class _EnableGpsMessage extends StatelessWidget {
-  const _EnableGpsMessage({
-    Key? key,
-  }) : super(key: key);
+  const _EnableGpsMessage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Text('Debe habilitar la Ubicación',
-        style: TextStyle(
-            color: Colors.black, fontSize: 25, fontWeight: FontWeight.w300));
+    return const Text(
+      'Debe habilitar la Ubicación',
+      style: TextStyle(
+        color: Colors.black,
+        fontSize: 25,
+        fontWeight: FontWeight.w300,
+      ),
+    );
   }
 }

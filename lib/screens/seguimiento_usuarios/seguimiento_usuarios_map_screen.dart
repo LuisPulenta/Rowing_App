@@ -12,12 +12,11 @@ class SeguimientoUsuariosMapScreen extends StatefulWidget {
   final CustomInfoWindowController customInfoWindowController;
 
   const SeguimientoUsuariosMapScreen(
-      {Key? key,
+      {super.key,
       required this.posicion,
       required this.markers,
       required this.polylines,
-      required this.customInfoWindowController})
-      : super(key: key);
+      required this.customInfoWindowController});
 
   @override
   _SeguimientoUsuariosMapScreenState createState() =>
@@ -40,10 +39,12 @@ class _SeguimientoUsuariosMapScreenState
   Set<Polyline> _polylines = {};
   MapType _defaultMapType = MapType.normal;
   String direccion = '';
-  Position position = const Position(
+  Position position =  Position(
       longitude: 0,
       latitude: 0,
-      timestamp: null,
+      timestamp: DateTime.now(),
+    altitudeAccuracy: 0,
+    headingAccuracy: 0,
       accuracy: 0,
       altitude: 0,
       heading: 0,
@@ -106,12 +107,12 @@ class _SeguimientoUsuariosMapScreenState
                     alignment: Alignment.topRight,
                     child: Column(children: <Widget>[
                       FloatingActionButton(
-                          child: const Icon(Icons.layers),
                           elevation: 5,
                           backgroundColor: const Color(0xfff4ab04),
                           onPressed: () {
                             _changeMapType();
-                          }),
+                          },
+                          child: const Icon(Icons.layers)),
                     ]),
                   ),
                 ])

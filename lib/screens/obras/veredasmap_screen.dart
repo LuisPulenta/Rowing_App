@@ -1,9 +1,9 @@
 import 'package:custom_info_window/custom_info_window.dart';
-import 'package:rowing_app/components/loader_component.dart';
-import 'package:rowing_app/models/models.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:rowing_app/components/loader_component.dart';
+import 'package:rowing_app/models/models.dart';
 
 class VeredasMapScreen extends StatefulWidget {
   final User user;
@@ -14,14 +14,13 @@ class VeredasMapScreen extends StatefulWidget {
   final CustomInfoWindowController customInfoWindowController;
 
   const VeredasMapScreen(
-      {Key? key,
+      {super.key,
       required this.user,
       required this.positionUser,
       required this.obraReparo,
       required this.posicion,
       required this.markers,
-      required this.customInfoWindowController})
-      : super(key: key);
+      required this.customInfoWindowController});
 
   @override
   _VeredasMapScreenState createState() => _VeredasMapScreenState();
@@ -42,10 +41,12 @@ class _VeredasMapScreenState extends State<VeredasMapScreen> {
   MapType _defaultMapType = MapType.normal;
   String direccion = '';
   final double _sliderValue = 20;
-  Position position = const Position(
+  Position position =  Position(
       longitude: 0,
       latitude: 0,
-      timestamp: null,
+      timestamp: DateTime.now(),
+    altitudeAccuracy: 0,
+    headingAccuracy: 0,
       accuracy: 0,
       altitude: 0,
       heading: 0,
@@ -107,12 +108,12 @@ class _VeredasMapScreenState extends State<VeredasMapScreen> {
                     alignment: Alignment.topRight,
                     child: Column(children: <Widget>[
                       FloatingActionButton(
-                          child: const Icon(Icons.layers),
                           elevation: 5,
                           backgroundColor: const Color(0xfff4ab04),
                           onPressed: () {
                             _changeMapType();
-                          }),
+                          },
+                          child: const Icon(Icons.layers)),
                     ]),
                   ),
                 ])

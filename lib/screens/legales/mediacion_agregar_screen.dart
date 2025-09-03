@@ -4,7 +4,7 @@ import 'dart:typed_data';
 
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:camera/camera.dart';
-import 'package:connectivity/connectivity.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -17,18 +17,20 @@ import '../screens.dart';
 class MediacionAgregarScreen extends StatefulWidget {
   final User user;
   final Juicio juicio;
-  const MediacionAgregarScreen(
-      {Key? key, required this.user, required this.juicio})
-      : super(key: key);
+  const MediacionAgregarScreen({
+    super.key,
+    required this.user,
+    required this.juicio,
+  });
 
   @override
   State<MediacionAgregarScreen> createState() => _MediacionAgregarScreenState();
 }
 
 class _MediacionAgregarScreenState extends State<MediacionAgregarScreen> {
-//---------------------------------------------------------------------
-//-------------------------- Variables --------------------------------
-//---------------------------------------------------------------------
+  //---------------------------------------------------------------------
+  //-------------------------- Variables --------------------------------
+  //---------------------------------------------------------------------
   bool _showLoader = false;
   bool _photoChanged = false;
 
@@ -78,61 +80,59 @@ class _MediacionAgregarScreenState extends State<MediacionAgregarScreen> {
 
   DateTime? _fechaVencimientoOferta = DateTime.now();
 
-//---------------------------------------------------------------------
-//-------------------------- InitState --------------------------------
-//---------------------------------------------------------------------
+  //---------------------------------------------------------------------
+  //-------------------------- InitState --------------------------------
+  //---------------------------------------------------------------------
 
-//---------------------------------------------------------------------
-//-------------------------- Pantalla ---------------------------------
-//---------------------------------------------------------------------
+  //---------------------------------------------------------------------
+  //-------------------------- Pantalla ---------------------------------
+  //---------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        //backgroundColor: const Color(0xFF484848),
-        backgroundColor: const Color(0xff8c8c94),
-        appBar: AppBar(
-          title: const Text('Nueva Mediación'),
-          centerTitle: true,
+      //backgroundColor: const Color(0xFF484848),
+      backgroundColor: const Color(0xff8c8c94),
+      appBar: AppBar(title: const Text('Nueva Mediación'), centerTitle: true),
+      body: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
+        child: Column(
+          children: [
+            _showMediadores(),
+            _showMoneda(),
+            _showOfrecimiento(),
+            _showTipoTransaccion(),
+            _showCondicionPago(),
+            _showVencimientoOferta(),
+            _showResultadoOferta(),
+            _showMontoContraOferta(),
+            _showAceptacionContraoferta(),
+            _showPhoto(),
+            const SizedBox(height: 15),
+            _showButton(),
+            const SizedBox(height: 50),
+          ],
         ),
-        body: SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
-          child: Column(
-            children: [
-              _showMediadores(),
-              _showMoneda(),
-              _showOfrecimiento(),
-              _showTipoTransaccion(),
-              _showCondicionPago(),
-              _showVencimientoOferta(),
-              _showResultadoOferta(),
-              _showMontoContraOferta(),
-              _showAceptacionContraoferta(),
-              _showPhoto(),
-              const SizedBox(height: 15),
-              _showButton(),
-              const SizedBox(height: 50),
-            ],
-          ),
-        ));
+      ),
+    );
   }
 
-//---------------------------------------------------------------------
-//-------------------------- _showMediadores ------------------------------
-//---------------------------------------------------------------------
+  //---------------------------------------------------------------------
+  //-------------------------- _showMediadores ------------------------------
+  //---------------------------------------------------------------------
   Widget _showMediadores() {
     return Container(
       padding: const EdgeInsets.all(10),
       child: TextField(
         controller: _mediadoresController,
         decoration: InputDecoration(
-            fillColor: Colors.white,
-            filled: true,
-            hintText: 'Ingrese Mediadores...',
-            labelText: 'Mediadores',
-            errorText: _mediadoresShowError ? _mediadoresError : null,
-            suffixIcon: const Icon(Icons.title),
-            border:
-                OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
+          fillColor: Colors.white,
+          filled: true,
+          hintText: 'Ingrese Mediadores...',
+          labelText: 'Mediadores',
+          errorText: _mediadoresShowError ? _mediadoresError : null,
+          suffixIcon: const Icon(Icons.title),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+        ),
         onChanged: (value) {
           _mediadores = value;
         },
@@ -140,52 +140,57 @@ class _MediacionAgregarScreenState extends State<MediacionAgregarScreen> {
     );
   }
 
-//---------------------------------------------------------------------
-//-------------------------- _showMoneda -------------------------------
-//---------------------------------------------------------------------
+  //---------------------------------------------------------------------
+  //-------------------------- _showMoneda -------------------------------
+  //---------------------------------------------------------------------
   Widget _showMoneda() {
     return Container(
-        padding: const EdgeInsets.all(10),
-        margin: const EdgeInsets.all(10),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(5),
-        ),
-        child: Row(
-          children: [
-            const Text(' Moneda: ',
-                style: TextStyle(color: Colors.black, fontSize: 15)),
-            Expanded(
-              flex: 1,
-              child: RadioListTile<String>(
-                  activeColor: const Color(0xFF781f1e),
-                  value: 'ARG',
-                  groupValue: _moneda,
-                  title: const Text('ARG'),
-                  onChanged: (value) {
-                    _moneda = value ?? 'ARG';
-                    setState(() {});
-                  }),
+      padding: const EdgeInsets.all(10),
+      margin: const EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(5),
+      ),
+      child: Row(
+        children: [
+          const Text(
+            ' Moneda: ',
+            style: TextStyle(color: Colors.black, fontSize: 15),
+          ),
+          Expanded(
+            flex: 1,
+            child: RadioListTile<String>(
+              activeColor: const Color(0xFF781f1e),
+              value: 'ARG',
+              groupValue: _moneda,
+              title: const Text('ARG'),
+              onChanged: (value) {
+                _moneda = value ?? 'ARG';
+                setState(() {});
+              },
             ),
-            Expanded(
-              flex: 1,
-              child: RadioListTile<String>(
-                  activeColor: const Color(0xFF781f1e),
-                  value: 'USD',
-                  groupValue: _moneda,
-                  title: const Text('USD'),
-                  onChanged: (value) {
-                    _moneda = value ?? 'USD';
-                    setState(() {});
-                  }),
+          ),
+          Expanded(
+            flex: 1,
+            child: RadioListTile<String>(
+              activeColor: const Color(0xFF781f1e),
+              value: 'USD',
+              groupValue: _moneda,
+              title: const Text('USD'),
+              onChanged: (value) {
+                _moneda = value ?? 'USD';
+                setState(() {});
+              },
             ),
-          ],
-        ));
+          ),
+        ],
+      ),
+    );
   }
 
-//----------------------------------------------------------
-//--------------------- _showOfrecimiento ------------------
-//----------------------------------------------------------
+  //----------------------------------------------------------
+  //--------------------- _showOfrecimiento ------------------
+  //----------------------------------------------------------
 
   Widget _showOfrecimiento() {
     return Container(
@@ -194,14 +199,14 @@ class _MediacionAgregarScreenState extends State<MediacionAgregarScreen> {
         controller: _ofrecimientoController,
         keyboardType: TextInputType.number,
         decoration: InputDecoration(
-            fillColor: Colors.white,
-            filled: true,
-            hintText: 'Ingresa Ofrecimiento...',
-            labelText: 'Ofrecimiento',
-            errorText: _ofrecimientoShowError ? _ofrecimientoError : null,
-            suffixIcon: const Icon(Icons.monetization_on),
-            border:
-                OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
+          fillColor: Colors.white,
+          filled: true,
+          hintText: 'Ingresa Ofrecimiento...',
+          labelText: 'Ofrecimiento',
+          errorText: _ofrecimientoShowError ? _ofrecimientoError : null,
+          suffixIcon: const Icon(Icons.monetization_on),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+        ),
         onChanged: (value) {
           _ofrecimiento = value;
         },
@@ -209,15 +214,15 @@ class _MediacionAgregarScreenState extends State<MediacionAgregarScreen> {
     );
   }
 
-//---------------------------------------------------------------------
-//-------------------------- _showTipoTransaccion ---------------------
-//---------------------------------------------------------------------
+  //---------------------------------------------------------------------
+  //-------------------------- _showTipoTransaccion ---------------------
+  //---------------------------------------------------------------------
 
   Widget _showTipoTransaccion() {
     return Container(
       padding: const EdgeInsets.all(10),
       child: DropdownButtonFormField(
-        value: _tipoTransaccion,
+        initialValue: _tipoTransaccion,
         decoration: InputDecoration(
           fillColor: Colors.white,
           filled: true,
@@ -231,22 +236,13 @@ class _MediacionAgregarScreenState extends State<MediacionAgregarScreen> {
             value: 'Elija un tipo de transacción...',
             child: Text('Elija un tipo de transacción...'),
           ),
-          DropdownMenuItem(
-            value: 'Efectivo',
-            child: Text('Efectivo'),
-          ),
-          DropdownMenuItem(
-            value: 'E-Cheq',
-            child: Text('E-Cheq'),
-          ),
+          DropdownMenuItem(value: 'Efectivo', child: Text('Efectivo')),
+          DropdownMenuItem(value: 'E-Cheq', child: Text('E-Cheq')),
           DropdownMenuItem(
             value: 'Transferencia',
             child: Text('Transferencia'),
           ),
-          DropdownMenuItem(
-            value: 'Otro',
-            child: Text('Otro'),
-          ),
+          DropdownMenuItem(value: 'Otro', child: Text('Otro')),
         ],
         onChanged: (value) {
           _tipoTransaccion = value.toString();
@@ -255,23 +251,23 @@ class _MediacionAgregarScreenState extends State<MediacionAgregarScreen> {
     );
   }
 
-//---------------------------------------------------------------------
-//-------------------------- _showCondicionPago --------------------------
-//---------------------------------------------------------------------
+  //---------------------------------------------------------------------
+  //-------------------------- _showCondicionPago --------------------------
+  //---------------------------------------------------------------------
   Widget _showCondicionPago() {
     return Container(
       padding: const EdgeInsets.all(10),
       child: TextField(
         controller: _condicionPagoController,
         decoration: InputDecoration(
-            fillColor: Colors.white,
-            filled: true,
-            hintText: 'Ingresa Condición de Pago...',
-            labelText: 'Condición de Pago',
-            errorText: _condicionPagoShowError ? _condicionPagoError : null,
-            suffixIcon: const Icon(Icons.title),
-            border:
-                OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
+          fillColor: Colors.white,
+          filled: true,
+          hintText: 'Ingresa Condición de Pago...',
+          labelText: 'Condición de Pago',
+          errorText: _condicionPagoShowError ? _condicionPagoError : null,
+          suffixIcon: const Icon(Icons.title),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+        ),
         onChanged: (value) {
           _condicionPago = value;
         },
@@ -279,9 +275,9 @@ class _MediacionAgregarScreenState extends State<MediacionAgregarScreen> {
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _showVencimientoOferta --------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _showVencimientoOferta --------------------
+  //-----------------------------------------------------------------
 
   Widget _showVencimientoOferta() {
     double ancho = MediaQuery.of(context).size.width;
@@ -290,18 +286,9 @@ class _MediacionAgregarScreenState extends State<MediacionAgregarScreen> {
       child: Column(
         children: [
           Row(
-            children: [
-              Expanded(
-                flex: 2,
-                child: Row(
-                  children: const [],
-                ),
-              ),
-            ],
+            children: [Expanded(flex: 2, child: Row(children: const []))],
           ),
-          const SizedBox(
-            height: 10,
-          ),
+          const SizedBox(height: 10),
           Row(
             children: [
               Expanded(
@@ -317,35 +304,30 @@ class _MediacionAgregarScreenState extends State<MediacionAgregarScreen> {
                       width: ancho * 0.75,
                       height: 60,
                       child: Text(
-                        '  Vencimiento Oferta: ' +
-                            ((_fechaVencimientoOferta != null)
-                                ? '    ${_fechaVencimientoOferta!.day}/${_fechaVencimientoOferta!.month}/${_fechaVencimientoOferta!.year}'
-                                : ''),
-                        style:
-                            const TextStyle(color: Colors.black, fontSize: 15),
+                        '  Vencimiento Oferta: ${(_fechaVencimientoOferta != null) ? '    ${_fechaVencimientoOferta!.day}/${_fechaVencimientoOferta!.month}/${_fechaVencimientoOferta!.year}' : ''}',
+                        style: const TextStyle(
+                          color: Colors.black,
+                          fontSize: 15,
+                        ),
                       ),
                     ),
-                    const SizedBox(
-                      width: 10,
-                    ),
+                    const SizedBox(width: 10),
                     Expanded(
                       flex: 1,
                       child: ElevatedButton(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: const [
-                              Icon(Icons.calendar_month),
-                            ],
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFF781f1e),
+                          minimumSize: const Size(double.infinity, 60),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(5),
                           ),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color(0xFF781f1e),
-                            minimumSize: const Size(double.infinity, 60),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                          ),
-                          onPressed: () =>
-                              _elegirFechaVencimientoOferta(context)),
+                        ),
+                        onPressed: () => _elegirFechaVencimientoOferta(context),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: const [Icon(Icons.calendar_month)],
+                        ),
+                      ),
                     ),
                   ],
                 ),
@@ -357,20 +339,24 @@ class _MediacionAgregarScreenState extends State<MediacionAgregarScreen> {
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _elegirFechaVencimientoOferta --------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _elegirFechaVencimientoOferta --------------------
+  //-----------------------------------------------------------------
 
   void _elegirFechaVencimientoOferta(BuildContext context) async {
     final DateTime? selected = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
       firstDate: DateTime(
-          DateTime.now().year, DateTime.now().month, DateTime.now().day),
+        DateTime.now().year,
+        DateTime.now().month,
+        DateTime.now().day,
+      ),
       lastDate: DateTime(
-          DateTime.now().add(const Duration(days: 60)).year + 5,
-          DateTime.now().add(const Duration(days: 60)).month,
-          DateTime.now().add(const Duration(days: 60)).day),
+        DateTime.now().add(const Duration(days: 60)).year + 5,
+        DateTime.now().add(const Duration(days: 60)).month,
+        DateTime.now().add(const Duration(days: 60)).day,
+      ),
     );
     if (selected != null && selected != _fechaVencimientoOferta) {
       setState(() {
@@ -379,23 +365,23 @@ class _MediacionAgregarScreenState extends State<MediacionAgregarScreen> {
     }
   }
 
-//---------------------------------------------------------------------
-//-------------------------- _showResultadoOferta ---------------------
-//---------------------------------------------------------------------
+  //---------------------------------------------------------------------
+  //-------------------------- _showResultadoOferta ---------------------
+  //---------------------------------------------------------------------
   Widget _showResultadoOferta() {
     return Container(
       padding: const EdgeInsets.all(10),
       child: TextField(
         controller: _resultadoOfertaController,
         decoration: InputDecoration(
-            fillColor: Colors.white,
-            filled: true,
-            hintText: 'Ingresa Resultado Oferta...',
-            labelText: 'Resultado Oferta',
-            errorText: _resultadoOfertaShowError ? _resultadoOfertaError : null,
-            suffixIcon: const Icon(Icons.title),
-            border:
-                OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
+          fillColor: Colors.white,
+          filled: true,
+          hintText: 'Ingresa Resultado Oferta...',
+          labelText: 'Resultado Oferta',
+          errorText: _resultadoOfertaShowError ? _resultadoOfertaError : null,
+          suffixIcon: const Icon(Icons.title),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+        ),
         onChanged: (value) {
           _resultadoOferta = value;
         },
@@ -403,9 +389,9 @@ class _MediacionAgregarScreenState extends State<MediacionAgregarScreen> {
     );
   }
 
-//---------------------------------------------------------------------
-//-------------------------- _showMontoContraOferta -------------------
-//---------------------------------------------------------------------
+  //---------------------------------------------------------------------
+  //-------------------------- _showMontoContraOferta -------------------
+  //---------------------------------------------------------------------
   Widget _showMontoContraOferta() {
     return Container(
       padding: const EdgeInsets.all(10),
@@ -413,15 +399,16 @@ class _MediacionAgregarScreenState extends State<MediacionAgregarScreen> {
         controller: _montoContraOfertaController,
         keyboardType: TextInputType.number,
         decoration: InputDecoration(
-            fillColor: Colors.white,
-            filled: true,
-            hintText: 'Ingresa Monto Contraoferta...',
-            labelText: 'Monto Contraoferta',
-            errorText:
-                _montoContraOfertaShowError ? _montoContraOfertaError : null,
-            suffixIcon: const Icon(Icons.monetization_on),
-            border:
-                OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
+          fillColor: Colors.white,
+          filled: true,
+          hintText: 'Ingresa Monto Contraoferta...',
+          labelText: 'Monto Contraoferta',
+          errorText: _montoContraOfertaShowError
+              ? _montoContraOfertaError
+              : null,
+          suffixIcon: const Icon(Icons.monetization_on),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+        ),
         onChanged: (value) {
           _montoContraOferta = value;
         },
@@ -429,14 +416,14 @@ class _MediacionAgregarScreenState extends State<MediacionAgregarScreen> {
     );
   }
 
-//----------------------------------------------------------
-//--------------- _showAceptacionContraoferta --------------
-//----------------------------------------------------------
+  //----------------------------------------------------------
+  //--------------- _showAceptacionContraoferta --------------
+  //----------------------------------------------------------
   Widget _showAceptacionContraoferta() {
     return Container(
       padding: const EdgeInsets.all(10),
       child: DropdownButtonFormField(
-        value: _aceptacionContraOferta,
+        initialValue: _aceptacionContraOferta,
         decoration: InputDecoration(
           fillColor: Colors.white,
           filled: true,
@@ -452,14 +439,8 @@ class _MediacionAgregarScreenState extends State<MediacionAgregarScreen> {
             value: 'Aceptación Contraoferta...',
             child: Text('Aceptación Contraoferta...'),
           ),
-          DropdownMenuItem(
-            value: 'SI',
-            child: Text('SI'),
-          ),
-          DropdownMenuItem(
-            value: 'NO',
-            child: Text('NO'),
-          ),
+          DropdownMenuItem(value: 'SI', child: Text('SI')),
+          DropdownMenuItem(value: 'NO', child: Text('NO')),
         ],
         onChanged: (value) {
           _aceptacionContraOferta = value.toString();
@@ -467,36 +448,39 @@ class _MediacionAgregarScreenState extends State<MediacionAgregarScreen> {
       ),
     );
   }
-//-----------------------------------------------------------------
-//--------------------- _showPhoto --------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _showPhoto --------------------------------
+  //-----------------------------------------------------------------
 
   Widget _showPhoto() {
-    return Stack(children: <Widget>[
-      Container(
-        padding: const EdgeInsets.symmetric(horizontal: 10),
-        width: double.infinity,
-        height: 240,
-        margin: const EdgeInsets.only(top: 10),
-        child: base64ImagePdf == ''
-            ? !_photoChanged
-                ? const Image(
-                    image: AssetImage('assets/noimage.png'),
-                    width: double.infinity,
-                    height: 160,
-                    fit: BoxFit.contain)
-                : Image.file(
-                    File(_image.path),
-                    width: 160,
-                    fit: BoxFit.contain,
-                  )
-            : const Image(
-                image: AssetImage('assets/pdf.png'),
-                width: double.infinity,
-                height: 160,
-                fit: BoxFit.contain),
-      ),
-      Positioned(
+    return Stack(
+      children: <Widget>[
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+          width: double.infinity,
+          height: 240,
+          margin: const EdgeInsets.only(top: 10),
+          child: base64ImagePdf == ''
+              ? !_photoChanged
+                    ? const Image(
+                        image: AssetImage('assets/noimage.png'),
+                        width: double.infinity,
+                        height: 160,
+                        fit: BoxFit.contain,
+                      )
+                    : Image.file(
+                        File(_image.path),
+                        width: 160,
+                        fit: BoxFit.contain,
+                      )
+              : const Image(
+                  image: AssetImage('assets/pdf.png'),
+                  width: double.infinity,
+                  height: 160,
+                  fit: BoxFit.contain,
+                ),
+        ),
+        Positioned(
           top: 15,
           left: 30,
           child: InkWell(
@@ -514,8 +498,9 @@ class _MediacionAgregarScreenState extends State<MediacionAgregarScreen> {
                 ),
               ),
             ),
-          )),
-      Positioned(
+          ),
+        ),
+        Positioned(
           bottom: 15,
           left: 30,
           child: InkWell(
@@ -533,8 +518,9 @@ class _MediacionAgregarScreenState extends State<MediacionAgregarScreen> {
                 ),
               ),
             ),
-          )),
-      Positioned(
+          ),
+        ),
+        Positioned(
           top: 90,
           right: 30,
           child: InkWell(
@@ -552,27 +538,30 @@ class _MediacionAgregarScreenState extends State<MediacionAgregarScreen> {
                 ),
               ),
             ),
-          )),
-    ]);
+          ),
+        ),
+      ],
+    );
   }
 
-//-------------------------------------------------------------------------
-//----------------------------- _takePicture ------------------------------
-//-------------------------------------------------------------------------
+  //-------------------------------------------------------------------------
+  //----------------------------- _takePicture ------------------------------
+  //-------------------------------------------------------------------------
 
   void _takePicture() async {
     WidgetsFlutterBinding.ensureInitialized();
     final cameras = await availableCameras();
     var firstCamera = cameras.first;
     var response = await showAlertDialog(
-        context: context,
-        title: 'Seleccionar cámara',
-        message: '¿Qué cámara desea utilizar?',
-        actions: <AlertDialogAction>[
-          const AlertDialogAction(key: 'no', label: 'Trasera'),
-          const AlertDialogAction(key: 'yes', label: 'Delantera'),
-          const AlertDialogAction(key: 'cancel', label: 'Cancelar'),
-        ]);
+      context: context,
+      title: 'Seleccionar cámara',
+      message: '¿Qué cámara desea utilizar?',
+      actions: <AlertDialogAction>[
+        const AlertDialogAction(key: 'no', label: 'Trasera'),
+        const AlertDialogAction(key: 'yes', label: 'Delantera'),
+        const AlertDialogAction(key: 'cancel', label: 'Cancelar'),
+      ],
+    );
     if (response == 'yes') {
       firstCamera = cameras.first;
     }
@@ -582,11 +571,11 @@ class _MediacionAgregarScreenState extends State<MediacionAgregarScreen> {
 
     if (response != 'cancel') {
       Response? response = await Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => TakePictureaScreen(
-                    camera: firstCamera,
-                  )));
+        context,
+        MaterialPageRoute(
+          builder: (context) => TakePictureaScreen(camera: firstCamera),
+        ),
+      );
       if (response != null) {
         setState(() {
           _photoChanged = true;
@@ -598,13 +587,13 @@ class _MediacionAgregarScreenState extends State<MediacionAgregarScreen> {
     }
   }
 
-//-------------------------------------------------------------------------
-//----------------------------- _selectPicture ----------------------------
-//-------------------------------------------------------------------------
+  //-------------------------------------------------------------------------
+  //----------------------------- _selectPicture ----------------------------
+  //-------------------------------------------------------------------------
 
   void _selectPicture() async {
-    final ImagePicker _picker = ImagePicker();
-    final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+    final ImagePicker picker = ImagePicker();
+    final XFile? image = await picker.pickImage(source: ImageSource.gallery);
     if (image != null) {
       setState(() {
         _photoChanged = true;
@@ -615,9 +604,9 @@ class _MediacionAgregarScreenState extends State<MediacionAgregarScreen> {
     }
   }
 
-//-----------------------------------------------------------------
-//--------------------- _showButton -------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _showButton -------------------------------
+  //-----------------------------------------------------------------
 
   Widget _showButton() {
     return Container(
@@ -627,16 +616,6 @@ class _MediacionAgregarScreenState extends State<MediacionAgregarScreen> {
         children: <Widget>[
           Expanded(
             child: ElevatedButton(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  Icon(Icons.save),
-                  SizedBox(
-                    width: 20,
-                  ),
-                  Text('Guardar Mediación'),
-                ],
-              ),
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xFF781f1e),
                 minimumSize: const Size(double.infinity, 50),
@@ -645,6 +624,14 @@ class _MediacionAgregarScreenState extends State<MediacionAgregarScreen> {
                 ),
               ),
               onPressed: _save,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Icon(Icons.save),
+                  SizedBox(width: 20),
+                  Text('Guardar Mediación'),
+                ],
+              ),
             ),
           ),
         ],
@@ -652,11 +639,11 @@ class _MediacionAgregarScreenState extends State<MediacionAgregarScreen> {
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _save -------------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _save -------------------------------------
+  //-----------------------------------------------------------------
 
-  _save() {
+  void _save() {
     if (!validateFields()) {
       setState(() {});
       return;
@@ -664,14 +651,14 @@ class _MediacionAgregarScreenState extends State<MediacionAgregarScreen> {
     _addRecord();
   }
 
-//-----------------------------------------------------------------
-//--------------------- validateFields ----------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- validateFields ----------------------------
+  //-----------------------------------------------------------------
 
   bool validateFields() {
     bool isValid = true;
 
-//--------- Mediadores ----------
+    //--------- Mediadores ----------
     if (_mediadores == '') {
       isValid = false;
       _mediadoresShowError = true;
@@ -690,7 +677,7 @@ class _MediacionAgregarScreenState extends State<MediacionAgregarScreen> {
       _mediadoresShowError = false;
     }
 
-//--------- Ofrecimiento ----------
+    //--------- Ofrecimiento ----------
     if (_ofrecimiento == '') {
       isValid = false;
       _ofrecimientoShowError = true;
@@ -702,7 +689,7 @@ class _MediacionAgregarScreenState extends State<MediacionAgregarScreen> {
       _ofrecimientoShowError = false;
     }
 
-//--------- TipoTransaccion ----------
+    //--------- TipoTransaccion ----------
     if (_tipoTransaccion == 'Elija un tipo de transacción...') {
       isValid = false;
       _tipoTransaccionShowError = true;
@@ -714,7 +701,7 @@ class _MediacionAgregarScreenState extends State<MediacionAgregarScreen> {
       _tipoTransaccionShowError = false;
     }
 
-//--------- CondicionPago ----------
+    //--------- CondicionPago ----------
     if (_condicionPago == '') {
       isValid = false;
       _condicionPagoShowError = true;
@@ -738,9 +725,9 @@ class _MediacionAgregarScreenState extends State<MediacionAgregarScreen> {
     return isValid;
   }
 
-//-----------------------------------------------------------------
-//--------------------- _addRecord ----------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _addRecord ----------------------------
+  //-----------------------------------------------------------------
 
   void _addRecord() async {
     setState(() {
@@ -754,7 +741,10 @@ class _MediacionAgregarScreenState extends State<MediacionAgregarScreen> {
         _showLoader = false;
       });
       showMyDialog(
-          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
+        'Error',
+        'Verifica que estés conectado a Internet',
+        'Aceptar',
+      );
     }
 
     String base64Image = '';
@@ -763,8 +753,11 @@ class _MediacionAgregarScreenState extends State<MediacionAgregarScreen> {
       Uint8List imageBytes = await _image.readAsBytes();
       int maxWidth = 800; // Ancho máximo
       int maxHeight = 600; // Alto máximo
-      Uint8List resizedBytes =
-          await resizeImage(imageBytes, maxWidth, maxHeight);
+      Uint8List resizedBytes = await resizeImage(
+        imageBytes,
+        maxWidth,
+        maxHeight,
+      );
       base64Image = base64Encode(resizedBytes);
     }
 
@@ -794,14 +787,16 @@ class _MediacionAgregarScreenState extends State<MediacionAgregarScreen> {
       'MONTOCONTRAOFERTA': _montoContraOferta,
       'ACEPTACIONCONTRAOFERTA':
           _aceptacionContraOferta != 'Aceptación Contraoferta...'
-              ? _aceptacionContraOferta
-              : '',
+          ? _aceptacionContraOferta
+          : '',
       'TIPOARRAY': _tipoArray,
       'ImageArray': base64Image,
     };
 
     Response response = await ApiHelper.postNoToken(
-        '/api/CausantesJuicios/PostMediacion', request);
+      '/api/CausantesJuicios/PostMediacion',
+      request,
+    );
 
     setState(() {
       _showLoader = false;
@@ -809,20 +804,21 @@ class _MediacionAgregarScreenState extends State<MediacionAgregarScreen> {
 
     if (!response.isSuccess) {
       await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: response.message,
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message: response.message,
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
       return;
     }
     Navigator.pop(context, 'yes');
   }
 
-//-----------------------------------------------------------------
-//------------------------- _loadPdf ------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //------------------------- _loadPdf ------------------------------
+  //-----------------------------------------------------------------
 
   Future<void> _loadPdf() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles(

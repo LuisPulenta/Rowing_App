@@ -1,5 +1,5 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
-import 'package:connectivity/connectivity.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -10,39 +10,36 @@ import '../screens.dart';
 
 class ConteosScreen extends StatefulWidget {
   final User user;
-  const ConteosScreen({Key? key, required this.user}) : super(key: key);
+  const ConteosScreen({super.key, required this.user});
 
   @override
   State<ConteosScreen> createState() => _ConteosScreenState();
 }
 
 class _ConteosScreenState extends State<ConteosScreen> {
-//---------------------------------------------------------------------
-//-------------------------- Variables --------------------------------
-//---------------------------------------------------------------------
+  //---------------------------------------------------------------------
+  //-------------------------- Variables --------------------------------
+  //---------------------------------------------------------------------
   List<Conteo> _conteos = [];
   bool _showLoader = false;
 
-//---------------------------------------------------------------------
-//-------------------------- InitState --------------------------------
-//---------------------------------------------------------------------
+  //---------------------------------------------------------------------
+  //-------------------------- InitState --------------------------------
+  //---------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
     _getConteos();
   }
 
-//---------------------------------------------------------------------
-//-------------------------- Pantalla ---------------------------------
-//---------------------------------------------------------------------
+  //---------------------------------------------------------------------
+  //-------------------------- Pantalla ---------------------------------
+  //---------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFF484848),
-      appBar: AppBar(
-        title: const Text('Conteos Cíclicos'),
-        centerTitle: true,
-      ),
+      appBar: AppBar(title: const Text('Conteos Cíclicos'), centerTitle: true),
       body: Center(
         child: _showLoader
             ? const LoaderComponent(text: 'Por favor espere...')
@@ -51,24 +48,22 @@ class _ConteosScreenState extends State<ConteosScreen> {
     );
   }
 
-//---------------------------------------------------------------------
-//------------------------------ _getContent --------------------------
-//---------------------------------------------------------------------
+  //---------------------------------------------------------------------
+  //------------------------------ _getContent --------------------------
+  //---------------------------------------------------------------------
 
   Widget _getContent() {
     return Column(
       children: <Widget>[
         _showConteosCount(),
-        Expanded(
-          child: _conteos.isEmpty ? _noContent() : _getListView(),
-        )
+        Expanded(child: _conteos.isEmpty ? _noContent() : _getListView()),
       ],
     );
   }
 
-//--------------------------------------------------------------------------
-//------------------------------  _showConteosCount ------------------------
-//--------------------------------------------------------------------------
+  //--------------------------------------------------------------------------
+  //------------------------------  _showConteosCount ------------------------
+  //--------------------------------------------------------------------------
 
   Widget _showConteosCount() {
     return Container(
@@ -76,26 +71,30 @@ class _ConteosScreenState extends State<ConteosScreen> {
       height: 40,
       child: Row(
         children: [
-          const Text('Cantidad de Conteos: ',
-              style: TextStyle(
-                fontSize: 14,
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-              )),
-          Text(_conteos.length.toString(),
-              style: const TextStyle(
-                fontSize: 14,
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-              )),
+          const Text(
+            'Cantidad de Conteos: ',
+            style: TextStyle(
+              fontSize: 14,
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          Text(
+            _conteos.length.toString(),
+            style: const TextStyle(
+              fontSize: 14,
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ],
       ),
     );
   }
 
-//-----------------------------------------------------------------------
-//------------------------------ _noContent -----------------------------
-//-----------------------------------------------------------------------
+  //-----------------------------------------------------------------------
+  //------------------------------ _noContent -----------------------------
+  //-----------------------------------------------------------------------
 
   Widget _noContent() {
     return Container(
@@ -109,9 +108,9 @@ class _ConteosScreenState extends State<ConteosScreen> {
     );
   }
 
-//-----------------------------------------------------------------------
-//------------------------------ _getListView ---------------------------
-//-----------------------------------------------------------------------
+  //-----------------------------------------------------------------------
+  //------------------------------ _getListView ---------------------------
+  //-----------------------------------------------------------------------
 
   Widget _getListView() {
     return RefreshIndicator(
@@ -156,10 +155,10 @@ class _ConteosScreenState extends State<ConteosScreen> {
                                       ),
                                       SizedBox(
                                         width: 42,
-                                        child: Text(e.grupoD,
-                                            style: const TextStyle(
-                                              fontSize: 12,
-                                            )),
+                                        child: Text(
+                                          e.grupoD,
+                                          style: const TextStyle(fontSize: 12),
+                                        ),
                                       ),
                                       const Text(
                                         'Almacén: ',
@@ -170,17 +169,14 @@ class _ConteosScreenState extends State<ConteosScreen> {
                                         ),
                                       ),
                                       Expanded(
-                                        child:
-                                            Text(e.causanteD + '-' + e.nombre,
-                                                style: const TextStyle(
-                                                  fontSize: 12,
-                                                )),
+                                        child: Text(
+                                          '${e.causanteD}-${e.nombre}',
+                                          style: const TextStyle(fontSize: 12),
+                                        ),
                                       ),
                                     ],
                                   ),
-                                  const SizedBox(
-                                    height: 5,
-                                  ),
+                                  const SizedBox(height: 5),
                                   Row(
                                     children: [
                                       const SizedBox(
@@ -195,10 +191,10 @@ class _ConteosScreenState extends State<ConteosScreen> {
                                         ),
                                       ),
                                       Expanded(
-                                        child: Text(e.idregistro.toString(),
-                                            style: const TextStyle(
-                                              fontSize: 12,
-                                            )),
+                                        child: Text(
+                                          e.idregistro.toString(),
+                                          style: const TextStyle(fontSize: 12),
+                                        ),
                                       ),
                                       const Text(
                                         'Fecha: ',
@@ -209,21 +205,18 @@ class _ConteosScreenState extends State<ConteosScreen> {
                                         ),
                                       ),
                                       Expanded(
-                                        child: e.fechaCarga != null
-                                            ? Text(
-                                                DateFormat('dd/MM/yyyy').format(
-                                                    DateTime.parse(e.fechaCarga
-                                                        .toString())),
-                                                style: const TextStyle(
-                                                  fontSize: 12,
-                                                ))
-                                            : Container(),
+                                        child: Text(
+                                          DateFormat('dd/MM/yyyy').format(
+                                            DateTime.parse(
+                                              e.fechaCarga.toString(),
+                                            ),
+                                          ),
+                                          style: const TextStyle(fontSize: 12),
+                                        ),
                                       ),
                                     ],
                                   ),
-                                  const SizedBox(
-                                    height: 5,
-                                  ),
+                                  const SizedBox(height: 5),
                                   Row(
                                     children: [
                                       const SizedBox(
@@ -238,16 +231,14 @@ class _ConteosScreenState extends State<ConteosScreen> {
                                         ),
                                       ),
                                       Expanded(
-                                        child: Text(e.observacion.toString(),
-                                            style: const TextStyle(
-                                              fontSize: 12,
-                                            )),
+                                        child: Text(
+                                          e.observacion.toString(),
+                                          style: const TextStyle(fontSize: 12),
+                                        ),
                                       ),
                                     ],
                                   ),
-                                  const SizedBox(
-                                    height: 5,
-                                  ),
+                                  const SizedBox(height: 5),
                                 ],
                               ),
                             ),
@@ -266,9 +257,9 @@ class _ConteosScreenState extends State<ConteosScreen> {
     );
   }
 
-//---------------------------------------------------------------------
-//-------------------------- _getConteos ------------------------------
-//---------------------------------------------------------------------
+  //---------------------------------------------------------------------
+  //-------------------------- _getConteos ------------------------------
+  //---------------------------------------------------------------------
 
   Future<void> _getConteos() async {
     setState(() {
@@ -282,7 +273,10 @@ class _ConteosScreenState extends State<ConteosScreen> {
         _showLoader = false;
       });
       showMyDialog(
-          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
+        'Error',
+        'Verifica que estés conectado a Internet',
+        'Aceptar',
+      );
     }
 
     Response response = Response(isSuccess: false);
@@ -295,12 +289,13 @@ class _ConteosScreenState extends State<ConteosScreen> {
 
     if (!response.isSuccess) {
       await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: response.message,
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message: response.message,
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
       return;
     }
 
@@ -312,18 +307,18 @@ class _ConteosScreenState extends State<ConteosScreen> {
     });
   }
 
-//---------------------------------------------------------------------------
-//------------------------------ _goInfoConteo ------------------------------
-//---------------------------------------------------------------------------
+  //---------------------------------------------------------------------------
+  //------------------------------ _goInfoConteo ------------------------------
+  //---------------------------------------------------------------------------
 
   void _goInfoConteo(Conteo conteo) async {
     String? result = await Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => ConteoInfoScreen(
-                  user: widget.user,
-                  conteo: conteo,
-                )));
+      context,
+      MaterialPageRoute(
+        builder: (context) =>
+            ConteoInfoScreen(user: widget.user, conteo: conteo),
+      ),
+    );
     if (result == 'yes' || result != 'yes') {
       //_getJuicios();
       setState(() {});

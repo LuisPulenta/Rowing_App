@@ -1,5 +1,5 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
-import 'package:connectivity/connectivity.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 
 import '../../helpers/helpers.dart';
@@ -8,16 +8,16 @@ import '../../widgets/widgets.dart';
 
 class TurnosAgregarScreen extends StatefulWidget {
   final User user;
-  const TurnosAgregarScreen({Key? key, required this.user}) : super(key: key);
+  const TurnosAgregarScreen({super.key, required this.user});
 
   @override
   State<TurnosAgregarScreen> createState() => _TurnosAgregarScreenState();
 }
 
 class _TurnosAgregarScreenState extends State<TurnosAgregarScreen> {
-//---------------------------------------------------------------------
-//-------------------------- Variables --------------------------------
-//---------------------------------------------------------------------
+  //---------------------------------------------------------------------
+  //-------------------------- Variables --------------------------------
+  //---------------------------------------------------------------------
 
   bool _showLoader = false;
 
@@ -43,102 +43,98 @@ class _TurnosAgregarScreenState extends State<TurnosAgregarScreen> {
   String _tallerError = '';
   bool _tallerShowError = false;
 
-//---------------------------------------------------------------------
-//-------------------------- InitState --------------------------------
-//---------------------------------------------------------------------
+  //---------------------------------------------------------------------
+  //-------------------------- InitState --------------------------------
+  //---------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
     _vehiculo = Vehiculo(
-        codveh: 0,
-        numcha: '',
-        nrotar: '',
-        codProducto: '',
-        aniofa: 0,
-        descripcion: '',
-        nmotor: '',
-        chasis: '',
-        fechaVencITV: 0,
-        nroPolizaSeguro: '',
-        centroCosto: '',
-        propiedadDe: '',
-        telepase: '',
-        kmhsactual: 0,
-        usaHoras: 0,
-        habilitado: 0,
-        fechaVencObleaGAS: 0,
-        modulo: '',
-        campomemo: '',
-        habilitaChecklist: 0);
+      codveh: 0,
+      numcha: '',
+      nrotar: '',
+      codProducto: '',
+      aniofa: 0,
+      descripcion: '',
+      nmotor: '',
+      chasis: '',
+      fechaVencITV: 0,
+      nroPolizaSeguro: '',
+      centroCosto: '',
+      propiedadDe: '',
+      telepase: '',
+      kmhsactual: 0,
+      usaHoras: 0,
+      habilitado: 0,
+      fechaVencObleaGAS: 0,
+      modulo: '',
+      campomemo: '',
+      habilitaChecklist: 0,
+    );
     _loadData();
   }
 
-//---------------------------------------------------------------------
-//-------------------------- Pantalla ---------------------------------
-//---------------------------------------------------------------------
+  //---------------------------------------------------------------------
+  //-------------------------- Pantalla ---------------------------------
+  //---------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        //backgroundColor: const Color(0xFF484848),
-        backgroundColor: const Color(0xff8c8c94),
-        appBar: AppBar(
-          title: const Text('Nuevo Turno Taller'),
-          centerTitle: true,
-        ),
-        body: SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
-          child: Column(
-            children: [
-              Card(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20)),
-                elevation: 15,
-                margin: const EdgeInsets.all(5),
-                child: Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Row(
-                        children: [
-                          Expanded(
-                            child: _showLegajo(),
-                            flex: 10,
-                          ),
-                          Expanded(
-                            child: _showButtonConsultar(),
-                            flex: 7,
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
+      //backgroundColor: const Color(0xFF484848),
+      backgroundColor: const Color(0xff8c8c94),
+      appBar: AppBar(
+        title: const Text('Nuevo Turno Taller'),
+        centerTitle: true,
+      ),
+      body: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
+        child: Column(
+          children: [
+            Card(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20),
+              ),
+              elevation: 15,
+              margin: const EdgeInsets.all(5),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Row(
+                      children: [
+                        Expanded(flex: 10, child: _showLegajo()),
+                        Expanded(flex: 7, child: _showButtonConsultar()),
+                      ],
+                    ),
+                  ],
                 ),
               ),
-              _showInfo(),
-              _showObservaciones(),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 30),
-                child: _getFecha(context),
-              ),
-              const SizedBox(height: 15),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: _showTalleres(),
-              ),
-              const SizedBox(height: 30),
-              _showButton(),
-              const SizedBox(height: 50),
-            ],
-          ),
-        ));
+            ),
+            _showInfo(),
+            _showObservaciones(),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 30),
+              child: _getFecha(context),
+            ),
+            const SizedBox(height: 15),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: _showTalleres(),
+            ),
+            const SizedBox(height: 30),
+            _showButton(),
+            const SizedBox(height: 50),
+          ],
+        ),
+      ),
+    );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _showLegajo -------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _showLegajo -------------------------------
+  //-----------------------------------------------------------------
 
   Widget _showLegajo() {
     return Container(
@@ -147,14 +143,14 @@ class _TurnosAgregarScreenState extends State<TurnosAgregarScreen> {
         keyboardType: TextInputType.emailAddress,
         controller: _codigoController,
         decoration: InputDecoration(
-            fillColor: Colors.white,
-            filled: true,
-            hintText: 'Ingrese Patente...',
-            labelText: 'Patente:',
-            errorText: _codigoShowError ? _codigoError : null,
-            prefixIcon: const Icon(Icons.badge),
-            border:
-                OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
+          fillColor: Colors.white,
+          filled: true,
+          hintText: 'Ingrese Patente...',
+          labelText: 'Patente:',
+          errorText: _codigoShowError ? _codigoError : null,
+          prefixIcon: const Icon(Icons.badge),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+        ),
         onChanged: (value) {
           _codigo = value;
         },
@@ -162,9 +158,9 @@ class _TurnosAgregarScreenState extends State<TurnosAgregarScreen> {
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _showButtonConsultar ----------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _showButtonConsultar ----------------------
+  //-----------------------------------------------------------------
 
   Widget _showButtonConsultar() {
     return Container(
@@ -174,16 +170,6 @@ class _TurnosAgregarScreenState extends State<TurnosAgregarScreen> {
         children: <Widget>[
           Expanded(
             child: ElevatedButton(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  Icon(Icons.search),
-                  SizedBox(
-                    width: 5,
-                  ),
-                  Text('Consultar'),
-                ],
-              ),
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xFF781f1e),
                 minimumSize: const Size(double.infinity, 50),
@@ -192,6 +178,14 @@ class _TurnosAgregarScreenState extends State<TurnosAgregarScreen> {
                 ),
               ),
               onPressed: () => _search(),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Icon(Icons.search),
+                  SizedBox(width: 5),
+                  Text('Consultar'),
+                ],
+              ),
             ),
           ),
         ],
@@ -199,9 +193,9 @@ class _TurnosAgregarScreenState extends State<TurnosAgregarScreen> {
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _showInfo ---------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _showInfo ---------------------------------
+  //-----------------------------------------------------------------
 
   Widget _showInfo() {
     return Card(
@@ -230,9 +224,9 @@ class _TurnosAgregarScreenState extends State<TurnosAgregarScreen> {
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _showObservaciones ------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _showObservaciones ------------------------
+  //-----------------------------------------------------------------
 
   Widget _showObservaciones() {
     return Container(
@@ -241,14 +235,14 @@ class _TurnosAgregarScreenState extends State<TurnosAgregarScreen> {
         controller: _observacionesController,
         maxLines: 3,
         decoration: InputDecoration(
-            fillColor: Colors.white,
-            filled: true,
-            hintText: 'Ingrese una breve descripción del problema...',
-            labelText: 'Observaciones',
-            errorText: _observacionesShowError ? _observacionesError : null,
-            suffixIcon: const Icon(Icons.notes),
-            border:
-                OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
+          fillColor: Colors.white,
+          filled: true,
+          hintText: 'Ingrese una breve descripción del problema...',
+          labelText: 'Observaciones',
+          errorText: _observacionesShowError ? _observacionesError : null,
+          suffixIcon: const Icon(Icons.notes),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+        ),
         onChanged: (value) {
           _observaciones = value;
         },
@@ -256,9 +250,9 @@ class _TurnosAgregarScreenState extends State<TurnosAgregarScreen> {
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _showTalleres -----------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _showTalleres -----------------------------
+  //-----------------------------------------------------------------
 
   Widget _showTalleres() {
     return Container(
@@ -266,15 +260,16 @@ class _TurnosAgregarScreenState extends State<TurnosAgregarScreen> {
       child: _talleres.isEmpty
           ? const Text('Cargando talleres...')
           : DropdownButtonFormField(
-              value: _taller,
+              initialValue: _taller,
               decoration: InputDecoration(
                 fillColor: Colors.white,
                 filled: true,
                 hintText: 'Elija un taller...',
                 labelText: 'Taller',
                 errorText: _tallerShowError ? _tallerError : null,
-                border:
-                    OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
               ),
               items: _getComboTalleres(),
               onChanged: (value) {
@@ -284,46 +279,53 @@ class _TurnosAgregarScreenState extends State<TurnosAgregarScreen> {
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _getComboTalleres -------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _getComboTalleres -------------------------
+  //-----------------------------------------------------------------
 
   List<DropdownMenuItem<String>> _getComboTalleres() {
     List<DropdownMenuItem<String>> list = [];
-    list.add(const DropdownMenuItem(
-      child: Text('Elija un taller...'),
-      value: 'Elija un taller...',
-    ));
+    list.add(
+      const DropdownMenuItem(
+        value: 'Elija un taller...',
+        child: Text('Elija un taller...'),
+      ),
+    );
 
     for (var taller in _talleres) {
-      list.add(DropdownMenuItem(
-        child: Text(taller.nombre.replaceAll('  ', '')),
-        value: taller.codigo,
-      ));
+      list.add(
+        DropdownMenuItem(
+          value: taller.codigo,
+          child: Text(taller.nombre.replaceAll('  ', '')),
+        ),
+      );
     }
 
     return list;
   }
 
-//----------------------------------------------------------------------------
-//------------------------------- _getFecha ----------------------------------
-//----------------------------------------------------------------------------
+  //----------------------------------------------------------------------------
+  //------------------------------- _getFecha ----------------------------------
+  //----------------------------------------------------------------------------
 
   Widget _getFecha(context) {
     return Stack(
       children: <Widget>[
-        Container(
-          height: 80,
-        ),
+        Container(height: 80),
         Positioned(
           bottom: 0,
           child: Row(
             children: [
               const Icon(Icons.calendar_today),
-              const SizedBox(
-                width: 20,
-              ),
+              const SizedBox(width: 20),
               Container(
+                width: 110,
+                height: 50,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: const BorderRadius.all(Radius.circular(5)),
+                  border: Border.all(color: Colors.black, width: 1.0),
+                ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -333,11 +335,17 @@ class _TurnosAgregarScreenState extends State<TurnosAgregarScreen> {
                       },
                       child: InkWell(
                         child: Text(
-                            '    ${selectedDate.day}/${selectedDate.month}/${selectedDate.year}'),
+                          '    ${selectedDate.day}/${selectedDate.month}/${selectedDate.year}',
+                        ),
                       ),
                     ),
                   ],
                 ),
+              ),
+              const SizedBox(width: 40),
+              const Icon(Icons.schedule),
+              const SizedBox(width: 20),
+              Container(
                 width: 110,
                 height: 50,
                 decoration: BoxDecoration(
@@ -345,15 +353,6 @@ class _TurnosAgregarScreenState extends State<TurnosAgregarScreen> {
                   borderRadius: const BorderRadius.all(Radius.circular(5)),
                   border: Border.all(color: Colors.black, width: 1.0),
                 ),
-              ),
-              const SizedBox(
-                width: 40,
-              ),
-              const Icon(Icons.schedule),
-              const SizedBox(
-                width: 20,
-              ),
-              Container(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -363,17 +362,11 @@ class _TurnosAgregarScreenState extends State<TurnosAgregarScreen> {
                       },
                       child: InkWell(
                         child: Text(
-                            '        ${selectedTime.hour}:${selectedTime.minute}'),
+                          '        ${selectedTime.hour}:${selectedTime.minute}',
+                        ),
                       ),
                     ),
                   ],
-                ),
-                width: 110,
-                height: 50,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: const BorderRadius.all(Radius.circular(5)),
-                  border: Border.all(color: Colors.black, width: 1.0),
                 ),
               ),
             ],
@@ -382,37 +375,35 @@ class _TurnosAgregarScreenState extends State<TurnosAgregarScreen> {
         const Positioned(
           left: 50,
           bottom: 50,
-          child: Text(
-            ' Fecha Turno: ',
-            style: TextStyle(fontSize: 12),
-          ),
+          child: Text(' Fecha Turno: ', style: TextStyle(fontSize: 12)),
         ),
         const Positioned(
           left: 244,
           bottom: 50,
-          child: Text(
-            ' Hora Turno: ',
-            style: TextStyle(fontSize: 12),
-          ),
-        )
+          child: Text(' Hora Turno: ', style: TextStyle(fontSize: 12)),
+        ),
       ],
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _selectDate -------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _selectDate -------------------------------
+  //-----------------------------------------------------------------
 
   void _selectDate(BuildContext context) async {
     final DateTime? selected = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
       firstDate: DateTime(
-          DateTime.now().year, DateTime.now().month, DateTime.now().day),
+        DateTime.now().year,
+        DateTime.now().month,
+        DateTime.now().day,
+      ),
       lastDate: DateTime(
-          DateTime.now().add(const Duration(days: 30)).year,
-          DateTime.now().add(const Duration(days: 30)).month,
-          DateTime.now().add(const Duration(days: 30)).day),
+        DateTime.now().add(const Duration(days: 30)).year,
+        DateTime.now().add(const Duration(days: 30)).month,
+        DateTime.now().add(const Duration(days: 30)).day,
+      ),
     );
     if (selected != null && selected != selectedDate) {
       setState(() {
@@ -421,9 +412,9 @@ class _TurnosAgregarScreenState extends State<TurnosAgregarScreen> {
     }
   }
 
-//-----------------------------------------------------------------
-//--------------------- _selectTime -------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _selectTime -------------------------------
+  //-----------------------------------------------------------------
 
   void _selectTime(BuildContext context) async {
     final TimeOfDay? selected = await showTimePicker(
@@ -437,9 +428,9 @@ class _TurnosAgregarScreenState extends State<TurnosAgregarScreen> {
     }
   }
 
-//-----------------------------------------------------------------
-//--------------------- _showButton -------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _showButton -------------------------------
+  //-----------------------------------------------------------------
 
   Widget _showButton() {
     return Container(
@@ -449,16 +440,6 @@ class _TurnosAgregarScreenState extends State<TurnosAgregarScreen> {
         children: <Widget>[
           Expanded(
             child: ElevatedButton(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  Icon(Icons.save),
-                  SizedBox(
-                    width: 20,
-                  ),
-                  Text('Guardar Turno'),
-                ],
-              ),
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xFF781f1e),
                 minimumSize: const Size(double.infinity, 50),
@@ -467,6 +448,14 @@ class _TurnosAgregarScreenState extends State<TurnosAgregarScreen> {
                 ),
               ),
               onPressed: _save,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Icon(Icons.save),
+                  SizedBox(width: 20),
+                  Text('Guardar Turno'),
+                ],
+              ),
             ),
           ),
         ],
@@ -474,30 +463,31 @@ class _TurnosAgregarScreenState extends State<TurnosAgregarScreen> {
     );
   }
 
-//-----------------------------------------------------------------------------
-//-------------------------------- _search ------------------------------------
-//-----------------------------------------------------------------------------
+  //-----------------------------------------------------------------------------
+  //-------------------------------- _search ------------------------------------
+  //-----------------------------------------------------------------------------
 
-  _search() async {
+  Future<void> _search() async {
     FocusScope.of(context).unfocus();
     _codigoController.text = _codigo.toUpperCase();
     if (_codigo.isEmpty) {
       await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: 'Ingrese una Patente.',
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message: 'Ingrese una Patente.',
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
       return;
     }
 
     await _getVehiculo();
   }
 
-//-----------------------------------------------------------------------------
-//-------------------------------- _getVehiculo -------------------------------
-//-----------------------------------------------------------------------------
+  //-----------------------------------------------------------------------------
+  //-------------------------------- _getVehiculo -------------------------------
+  //-----------------------------------------------------------------------------
 
   Future<void> _getVehiculo() async {
     setState(() {
@@ -510,12 +500,13 @@ class _TurnosAgregarScreenState extends State<TurnosAgregarScreen> {
         _showLoader = false;
       });
       await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: 'Verifica que estes conectado a internet.',
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message: 'Verifica que estes conectado a internet.',
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
       return;
     }
 
@@ -523,12 +514,13 @@ class _TurnosAgregarScreenState extends State<TurnosAgregarScreen> {
 
     if (!response.isSuccess) {
       await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: 'Patente no válida',
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message: 'Patente no válida',
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
 
       setState(() {
         _showLoader = false;
@@ -543,11 +535,11 @@ class _TurnosAgregarScreenState extends State<TurnosAgregarScreen> {
     setState(() {});
   }
 
-//-----------------------------------------------------------------------------
-//-------------------------------- _save --------------------------------------
-//-----------------------------------------------------------------------------
+  //-----------------------------------------------------------------------------
+  //-------------------------------- _save --------------------------------------
+  //-----------------------------------------------------------------------------
 
-  _save() {
+  void _save() {
     if (!validateFields()) {
       setState(() {});
       return;
@@ -555,9 +547,9 @@ class _TurnosAgregarScreenState extends State<TurnosAgregarScreen> {
     _addRecord();
   }
 
-//-----------------------------------------------------------------------------
-//-------------------------------- validateFields -----------------------------
-//-----------------------------------------------------------------------------
+  //-----------------------------------------------------------------------------
+  //-------------------------------- validateFields -----------------------------
+  //-----------------------------------------------------------------------------
 
   bool validateFields() {
     bool isValid = true;
@@ -611,7 +603,7 @@ class _TurnosAgregarScreenState extends State<TurnosAgregarScreen> {
       _observacionesShowError = false;
     }
 
-//--------- Taller ----------
+    //--------- Taller ----------
     if (_taller == 'Elija un taller...') {
       isValid = false;
       _tallerShowError = true;
@@ -644,7 +636,10 @@ class _TurnosAgregarScreenState extends State<TurnosAgregarScreen> {
         _showLoader = false;
       });
       showMyDialog(
-          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
+        'Error',
+        'Verifica que estés conectado a Internet',
+        'Aceptar',
+      );
     }
 
     String ahora = DateTime.now().toString().substring(0, 10);
@@ -669,8 +664,10 @@ class _TurnosAgregarScreenState extends State<TurnosAgregarScreen> {
       'IdVehiculoParteTaller': 0,
     };
 
-    Response response =
-        await ApiHelper.postNoToken('/api/Vehiculos/PostTurno', request);
+    Response response = await ApiHelper.postNoToken(
+      '/api/Vehiculos/PostTurno',
+      request,
+    );
 
     setState(() {
       _showLoader = false;
@@ -678,12 +675,13 @@ class _TurnosAgregarScreenState extends State<TurnosAgregarScreen> {
 
     if (!response.isSuccess) {
       await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: response.message,
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message: response.message,
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
       return;
     }
 
@@ -691,32 +689,35 @@ class _TurnosAgregarScreenState extends State<TurnosAgregarScreen> {
     setState(() {});
   }
 
-//-------------------------------------------------------------
-//------------------------- _gato -----------------------------
-//-------------------------------------------------------------
+  //-------------------------------------------------------------
+  //------------------------- _gato -----------------------------
+  //-------------------------------------------------------------
 
   String _gato(String? dato) {
     return dato != null ? dato.toString() : '';
   }
 
-//-------------------------------------------------------------
-//------------------------- _loadData -------------------------
-//-------------------------------------------------------------
+  //-------------------------------------------------------------
+  //------------------------- _loadData -------------------------
+  //-------------------------------------------------------------
 
   void _loadData() async {
     await _getTalleres();
   }
 
-//-------------------------------------------------------------
-//------------------------- _getTalleres ----------------------
-//-------------------------------------------------------------
+  //-------------------------------------------------------------
+  //------------------------- _getTalleres ----------------------
+  //-------------------------------------------------------------
 
   Future<void> _getTalleres() async {
     var connectivityResult = await Connectivity().checkConnectivity();
 
     if (connectivityResult == ConnectivityResult.none) {
       showMyDialog(
-          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
+        'Error',
+        'Verifica que estés conectado a Internet',
+        'Aceptar',
+      );
     }
 
     Response response = Response(isSuccess: false);

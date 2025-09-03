@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:adaptive_dialog/adaptive_dialog.dart';
-import 'package:connectivity/connectivity.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -12,16 +12,16 @@ import '../../widgets/widgets.dart';
 
 class StocksMaximosScreen extends StatefulWidget {
   final User user;
-  const StocksMaximosScreen({Key? key, required this.user}) : super(key: key);
+  const StocksMaximosScreen({super.key, required this.user});
 
   @override
   State<StocksMaximosScreen> createState() => _StocksMaximosScreenState();
 }
 
 class _StocksMaximosScreenState extends State<StocksMaximosScreen> {
-//---------------------------------------------------------------
-//----------------------- Variables -----------------------------
-//---------------------------------------------------------------
+  //---------------------------------------------------------------
+  //----------------------- Variables -----------------------------
+  //---------------------------------------------------------------
   List<Grupo> _grupos = [];
   bool _isloading = false;
   String _grupo = 'Elija un Grupo...';
@@ -48,42 +48,43 @@ class _StocksMaximosScreenState extends State<StocksMaximosScreen> {
   bool _showLoader = false;
 
   Causante _causante = Causante(
-      nroCausante: 0,
-      codigo: '',
-      nombre: '',
-      encargado: '',
-      telefono: '',
-      grupo: '',
-      nroSAP: '',
-      estado: false,
-      razonSocial: '',
-      linkFoto: '',
-      imageFullPath: '',
-      image: null,
-      direccion: '',
-      numero: 0,
-      telefonoContacto1: '',
-      telefonoContacto2: '',
-      telefonoContacto3: '',
-      fecha: '',
-      notasCausantes: '',
-      ciudad: '',
-      provincia: '',
-      codigoSupervisorObras: 0,
-      zonaTrabajo: '',
-      nombreActividad: '',
-      notas: '',
-      presentismo: '',
-      perteneceCuadrilla: '',
-      firma: null,
-      firmaDigitalAPP: '',
-      firmaFullPath: '');
+    nroCausante: 0,
+    codigo: '',
+    nombre: '',
+    encargado: '',
+    telefono: '',
+    grupo: '',
+    nroSAP: '',
+    estado: false,
+    razonSocial: '',
+    linkFoto: '',
+    imageFullPath: '',
+    image: null,
+    direccion: '',
+    numero: 0,
+    telefonoContacto1: '',
+    telefonoContacto2: '',
+    telefonoContacto3: '',
+    fecha: '',
+    notasCausantes: '',
+    ciudad: '',
+    provincia: '',
+    codigoSupervisorObras: 0,
+    zonaTrabajo: '',
+    nombreActividad: '',
+    notas: '',
+    presentismo: '',
+    perteneceCuadrilla: '',
+    firma: null,
+    firmaDigitalAPP: '',
+    firmaFullPath: '',
+  );
 
   late Causante _causanteVacio;
 
-//---------------------------------------------------------------
-//----------------------- initState -----------------------------
-//---------------------------------------------------------------
+  //---------------------------------------------------------------
+  //----------------------- initState -----------------------------
+  //---------------------------------------------------------------
 
   @override
   void initState() {
@@ -92,9 +93,9 @@ class _StocksMaximosScreenState extends State<StocksMaximosScreen> {
     _loadData();
   }
 
-//---------------------------------------------------------------
-//----------------------- Pantalla ------------------------------
-//---------------------------------------------------------------
+  //---------------------------------------------------------------
+  //----------------------- Pantalla ------------------------------
+  //---------------------------------------------------------------
 
   @override
   Widget build(BuildContext context) {
@@ -109,10 +110,12 @@ class _StocksMaximosScreenState extends State<StocksMaximosScreen> {
               _isFiltered
                   ? IconButton(
                       onPressed: _removeFilter,
-                      icon: const Icon(Icons.filter_none))
+                      icon: const Icon(Icons.filter_none),
+                    )
                   : IconButton(
                       onPressed: _showFilter,
-                      icon: const Icon(Icons.filter_alt)),
+                      icon: const Icon(Icons.filter_alt),
+                    ),
             ],
           ),
         ],
@@ -121,9 +124,7 @@ class _StocksMaximosScreenState extends State<StocksMaximosScreen> {
         children: [
           Column(
             children: [
-              const SizedBox(
-                height: 10,
-              ),
+              const SizedBox(height: 10),
               _showGrupos(),
               widget.user.habilitaRRHH == 1
                   ? Column(
@@ -140,9 +141,7 @@ class _StocksMaximosScreenState extends State<StocksMaximosScreen> {
                     )
                   : Container(),
               _showInfo(),
-              const SizedBox(
-                height: 15,
-              ),
+              const SizedBox(height: 15),
               _showCatalogosCount(),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -151,42 +150,32 @@ class _StocksMaximosScreenState extends State<StocksMaximosScreen> {
                     'Material         ',
                     style: TextStyle(color: Colors.black),
                   ),
-                  Text(
-                    '   ',
-                    style: TextStyle(color: Colors.black),
-                  ),
+                  Text('   ', style: TextStyle(color: Colors.black)),
                   Text(
                     'Cantidad                 ',
                     style: TextStyle(color: Colors.black),
                   ),
                 ],
               ),
-              Expanded(
-                child: _getListView(),
-              ),
+              Expanded(child: _getListView()),
             ],
           ),
           _showLoader
-              ? const LoaderComponent(
-                  text: 'Por favor espere...',
-                )
+              ? const LoaderComponent(text: 'Por favor espere...')
               : Container(),
         ],
       ),
       floatingActionButton: _enabled
           ? FloatingActionButton(
-              child: const Icon(
-                Icons.add,
-                size: 38,
-              ),
               backgroundColor: const Color(0xFF781f1e),
               onPressed: _enabled ? null : null,
+              child: const Icon(Icons.add, size: 38),
             )
           : Container(),
     );
   }
 
-//--------------------- _getListView ------------------------------
+  //--------------------- _getListView ------------------------------
   Widget _getListView() {
     return ListView(
       children: _catalogos2.map((e) {
@@ -214,174 +203,165 @@ class _StocksMaximosScreenState extends State<StocksMaximosScreen> {
                                   Expanded(
                                     flex: 4,
                                     child: Text(
-                                        e.codigosap.toString() +
-                                            ' - ' +
-                                            e.catCatalogo.toString(),
-                                        style: const TextStyle(
-                                          fontSize: 12,
-                                        )),
+                                      '${e.codigosap} - ${e.catCatalogo}',
+                                      style: const TextStyle(fontSize: 12),
+                                    ),
                                   ),
-                                  const SizedBox(
-                                    width: 5,
-                                  ),
+                                  const SizedBox(width: 5),
                                   Expanded(
                                     flex: 1,
-                                    child: Text(e.maximo.toString(),
-                                        style: const TextStyle(
-                                          fontSize: 14,
-                                          color: Colors.blue,
-                                          fontWeight: FontWeight.bold,
-                                        )),
+                                    child: Text(
+                                      e.maximo.toString(),
+                                      style: const TextStyle(
+                                        fontSize: 14,
+                                        color: Colors.blue,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
                                   ),
-                                  const SizedBox(
-                                    width: 10,
-                                  ),
+                                  const SizedBox(width: 10),
                                   IconButton(
-                                      onPressed: () {
-                                        _cantidadController.text =
-                                            e.maximo == 0.0
-                                                ? ''
-                                                : e.maximo.toString();
-                                        showDialog(
-                                            context: context,
-                                            builder: (BuildContext context) {
-                                              return AlertDialog(
-                                                backgroundColor:
-                                                    Colors.grey[300],
-                                                title: const Text(
-                                                    'Ingrese la cantidad'),
-                                                content: TextField(
-                                                  autofocus: true,
-                                                  controller:
-                                                      _cantidadController,
-                                                  decoration: InputDecoration(
-                                                      fillColor: Colors.white,
-                                                      filled: true,
-                                                      hintText: '',
-                                                      labelText: '',
-                                                      errorText:
-                                                          _cantidadShowError
-                                                              ? _cantidadError
-                                                              : null,
-                                                      prefixIcon:
-                                                          const Icon(Icons.tag),
-                                                      border:
-                                                          OutlineInputBorder(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          10))),
-                                                  onChanged: (value) {
-                                                    _cantidad = value;
-                                                  },
+                                    onPressed: () {
+                                      _cantidadController.text = e.maximo == 0.0
+                                          ? ''
+                                          : e.maximo.toString();
+                                      showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          return AlertDialog(
+                                            backgroundColor: Colors.grey[300],
+                                            title: const Text(
+                                              'Ingrese la cantidad',
+                                            ),
+                                            content: TextField(
+                                              autofocus: true,
+                                              controller: _cantidadController,
+                                              decoration: InputDecoration(
+                                                fillColor: Colors.white,
+                                                filled: true,
+                                                hintText: '',
+                                                labelText: '',
+                                                errorText: _cantidadShowError
+                                                    ? _cantidadError
+                                                    : null,
+                                                prefixIcon: const Icon(
+                                                  Icons.tag,
                                                 ),
-                                                actions: [
-                                                  Row(
-                                                    children: [
-                                                      Expanded(
-                                                        child: ElevatedButton(
-                                                          child: Row(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .spaceAround,
-                                                            children: const [
-                                                              Icon(
-                                                                  Icons.cancel),
-                                                              Text('Cancelar'),
-                                                            ],
-                                                          ),
-                                                          style: ElevatedButton
-                                                              .styleFrom(
-                                                            backgroundColor:
-                                                                const Color(
-                                                                    0xFFB4161B),
-                                                            minimumSize:
-                                                                const Size(
-                                                                    double
-                                                                        .infinity,
-                                                                    50),
-                                                            shape:
-                                                                RoundedRectangleBorder(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          5),
+                                                border: OutlineInputBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                ),
+                                              ),
+                                              onChanged: (value) {
+                                                _cantidad = value;
+                                              },
+                                            ),
+                                            actions: [
+                                              Row(
+                                                children: [
+                                                  Expanded(
+                                                    child: ElevatedButton(
+                                                      style: ElevatedButton.styleFrom(
+                                                        backgroundColor:
+                                                            const Color(
+                                                              0xFFB4161B,
                                                             ),
-                                                          ),
-                                                          onPressed: () {
-                                                            Navigator.pop(
-                                                                context);
-                                                          },
+                                                        minimumSize: const Size(
+                                                          double.infinity,
+                                                          50,
+                                                        ),
+                                                        shape: RoundedRectangleBorder(
+                                                          borderRadius:
+                                                              BorderRadius.circular(
+                                                                5,
+                                                              ),
                                                         ),
                                                       ),
-                                                      const SizedBox(
-                                                        width: 10,
+                                                      onPressed: () {
+                                                        Navigator.pop(context);
+                                                      },
+                                                      child: Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceAround,
+                                                        children: const [
+                                                          Icon(Icons.cancel),
+                                                          Text('Cancelar'),
+                                                        ],
                                                       ),
-                                                      Expanded(
-                                                        child: ElevatedButton(
-                                                          child: Row(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .spaceAround,
-                                                            children: const [
-                                                              Icon(Icons.save),
-                                                              Text('Aceptar'),
-                                                            ],
-                                                          ),
-                                                          style: ElevatedButton
-                                                              .styleFrom(
-                                                            backgroundColor:
-                                                                const Color(
-                                                                    0xFF120E43),
-                                                            minimumSize:
-                                                                const Size(
-                                                                    double
-                                                                        .infinity,
-                                                                    50),
-                                                            shape:
-                                                                RoundedRectangleBorder(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          5),
+                                                    ),
+                                                  ),
+                                                  const SizedBox(width: 10),
+                                                  Expanded(
+                                                    child: ElevatedButton(
+                                                      style: ElevatedButton.styleFrom(
+                                                        backgroundColor:
+                                                            const Color(
+                                                              0xFF120E43,
                                                             ),
-                                                          ),
-                                                          onPressed: () {
-                                                            for (StockMaximo catalogo
-                                                                in _catalogos) {
-                                                              if (catalogo
-                                                                      .codigosiag ==
-                                                                  e.codigosiag) {
-                                                                catalogo.maximo =
-                                                                    double.parse(
-                                                                        _cantidad);
-                                                                _actualizarStockMaximo(
-                                                                    e.codigosiag
-                                                                        .toString(),
-                                                                    double.parse(
-                                                                        _cantidad));
-                                                              }
-                                                            }
+                                                        minimumSize: const Size(
+                                                          double.infinity,
+                                                          50,
+                                                        ),
+                                                        shape: RoundedRectangleBorder(
+                                                          borderRadius:
+                                                              BorderRadius.circular(
+                                                                5,
+                                                              ),
+                                                        ),
+                                                      ),
+                                                      onPressed: () {
+                                                        for (StockMaximo
+                                                            catalogo
+                                                            in _catalogos) {
+                                                          if (catalogo
+                                                                  .codigosiag ==
+                                                              e.codigosiag) {
+                                                            catalogo.maximo =
+                                                                double.parse(
+                                                                  _cantidad,
+                                                                );
+                                                            _actualizarStockMaximo(
+                                                              e.codigosiag
+                                                                  .toString(),
+                                                              double.parse(
+                                                                _cantidad,
+                                                              ),
+                                                            );
+                                                          }
+                                                        }
 
-                                                            Navigator.pop(
-                                                                context);
-                                                            setState(() {});
-                                                          },
-                                                        ),
+                                                        Navigator.pop(context);
+                                                        setState(() {});
+                                                      },
+                                                      child: Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceAround,
+                                                        children: const [
+                                                          Icon(Icons.save),
+                                                          Text('Aceptar'),
+                                                        ],
                                                       ),
-                                                    ],
+                                                    ),
                                                   ),
                                                 ],
-                                                shape: RoundedRectangleBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            10)),
-                                              );
-                                            },
-                                            barrierDismissible: false);
-                                      },
-                                      icon: const Icon(Icons.loop,
-                                          color: Colors.blue)),
+                                              ),
+                                            ],
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                            ),
+                                          );
+                                        },
+                                        barrierDismissible: false,
+                                      );
+                                    },
+                                    icon: const Icon(
+                                      Icons.loop,
+                                      color: Colors.blue,
+                                    ),
+                                  ),
                                 ],
                               ),
                             ],
@@ -399,31 +379,35 @@ class _StocksMaximosScreenState extends State<StocksMaximosScreen> {
     );
   }
 
-//------------------------------ _showCatalogosCount --------------------
+  //------------------------------ _showCatalogosCount --------------------
   Widget _showCatalogosCount() {
     return Container(
       padding: const EdgeInsets.all(10),
       height: 40,
       child: Row(
         children: [
-          const Text('Cantidad de Catálogos: ',
-              style: TextStyle(
-                fontSize: 14,
-                color: Colors.black,
-                fontWeight: FontWeight.bold,
-              )),
-          Text(_catalogos2.length.toString(),
-              style: const TextStyle(
-                fontSize: 14,
-                color: Colors.black,
-                fontWeight: FontWeight.bold,
-              )),
+          const Text(
+            'Cantidad de Catálogos: ',
+            style: TextStyle(
+              fontSize: 14,
+              color: Colors.black,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          Text(
+            _catalogos2.length.toString(),
+            style: const TextStyle(
+              fontSize: 14,
+              color: Colors.black,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ],
       ),
     );
   }
 
-//--------------------- _showGrupos ----------------------
+  //--------------------- _showGrupos ----------------------
   Widget _showGrupos() {
     return Container(
       padding: const EdgeInsets.only(left: 10, right: 10, top: 5),
@@ -431,42 +415,38 @@ class _StocksMaximosScreenState extends State<StocksMaximosScreen> {
           ? Row(
               children: const [
                 CircularProgressIndicator(),
-                SizedBox(
-                  width: 10,
-                ),
+                SizedBox(width: 10),
                 Text('Cargando Grupos...'),
               ],
             )
           : _grupos.isEmpty
-              ? Row(
-                  children: const [
-                    Text(
-                      'No hay Grupos',
-                      style: TextStyle(
-                        color: Colors.red,
-                        fontSize: 18,
-                      ),
-                    ),
-                  ],
-                )
-              : DropdownButtonFormField(
-                  value: _grupo,
-                  decoration: InputDecoration(
-                    contentPadding: const EdgeInsets.all(8),
-                    isDense: true,
-                    fillColor: Colors.white,
-                    filled: true,
-                    hintText: 'Elija un Grupo...',
-                    labelText: 'Grupo',
-                    errorText: _grupoShowError ? _grupoError : null,
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10)),
-                  ),
-                  items: _getComboGrupos(),
-                  onChanged: (value) {
-                    _grupo = value.toString();
-                  },
+          ? Row(
+              children: const [
+                Text(
+                  'No hay Grupos',
+                  style: TextStyle(color: Colors.red, fontSize: 18),
                 ),
+              ],
+            )
+          : DropdownButtonFormField(
+              initialValue: _grupo,
+              decoration: InputDecoration(
+                contentPadding: const EdgeInsets.all(8),
+                isDense: true,
+                fillColor: Colors.white,
+                filled: true,
+                hintText: 'Elija un Grupo...',
+                labelText: 'Grupo',
+                errorText: _grupoShowError ? _grupoError : null,
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+              items: _getComboGrupos(),
+              onChanged: (value) {
+                _grupo = value.toString();
+              },
+            ),
     );
   }
 
@@ -474,32 +454,34 @@ class _StocksMaximosScreenState extends State<StocksMaximosScreen> {
 
   List<DropdownMenuItem<String>> _getComboGrupos() {
     List<DropdownMenuItem<String>> list = [];
-    list.add(const DropdownMenuItem(
-      value: 'Elija un Grupo...',
-      child: Text('Elija un Grupo...'),
-    ));
+    list.add(
+      const DropdownMenuItem(
+        value: 'Elija un Grupo...',
+        child: Text('Elija un Grupo...'),
+      ),
+    );
 
     for (var grupo in _grupos) {
-      list.add(DropdownMenuItem(
-        value: grupo.codigo.toString(),
-        child: Text(
+      list.add(
+        DropdownMenuItem(
+          value: grupo.codigo.toString(),
+          child: Text(
             '${grupo.codigo.toString()}-${grupo.detalle.toString().trim()}',
-            style: const TextStyle(
-              color: Colors.black,
-              fontSize: 14,
-            )),
-      ));
+            style: const TextStyle(color: Colors.black, fontSize: 14),
+          ),
+        ),
+      );
     }
 
     return list;
   }
 
-//--------------------- _loadData ------------------------
+  //--------------------- _loadData ------------------------
   void _loadData() async {
     await _getGrupos();
   }
 
-//--------------------- _actualizarStockMaximo -----------------------------
+  //--------------------- _actualizarStockMaximo -----------------------------
   Future<void> _actualizarStockMaximo(String catSiag, double cantidad) async {
     setState(() {
       _showLoader = true;
@@ -512,7 +494,10 @@ class _StocksMaximosScreenState extends State<StocksMaximosScreen> {
         _showLoader = false;
       });
       showMyDialog(
-          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
+        'Error',
+        'Verifica que estés conectado a Internet',
+        'Aceptar',
+      );
     }
 
     Response response = Response(isSuccess: false);
@@ -524,8 +509,11 @@ class _StocksMaximosScreenState extends State<StocksMaximosScreen> {
       'Cantidad': cantidad,
     };
 
-    response = await ApiHelper.put('/api/StockMaximosSubcons/UpdateMaximo/',
-        '$_grupo/$_codigo/$catSiag', request);
+    response = await ApiHelper.put(
+      '/api/StockMaximosSubcons/UpdateMaximo/',
+      '$_grupo/$_codigo/$catSiag',
+      request,
+    );
 
     setState(() {
       _showLoader = false;
@@ -533,19 +521,20 @@ class _StocksMaximosScreenState extends State<StocksMaximosScreen> {
 
     if (!response.isSuccess) {
       await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: response.message,
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message: response.message,
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
       return;
     }
 
     setState(() {});
   }
 
-//--------------------- _getCatalogos -----------------------------
+  //--------------------- _getCatalogos -----------------------------
   Future<void> _getCatalogos() async {
     setState(() {
       _showLoader = true;
@@ -558,19 +547,20 @@ class _StocksMaximosScreenState extends State<StocksMaximosScreen> {
         _showLoader = false;
       });
       showMyDialog(
-          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
+        'Error',
+        'Verifica que estés conectado a Internet',
+        'Aceptar',
+      );
     }
 
     Response response = Response(isSuccess: false);
 
-    Map<String, dynamic> request = {
-      'Grupo': _grupo,
-      'Codigo': _codigo,
-    };
+    Map<String, dynamic> request = {'Grupo': _grupo, 'Codigo': _codigo};
 
     response = await ApiHelper.post(
-        '/api/VistaStocksMaximo/GetVistaStocksMaximosByGrupoAndByCodigo',
-        request);
+      '/api/VistaStocksMaximo/GetVistaStocksMaximosByGrupoAndByCodigo',
+      request,
+    );
 
     setState(() {
       _showLoader = false;
@@ -578,12 +568,13 @@ class _StocksMaximosScreenState extends State<StocksMaximosScreen> {
 
     if (!response.isSuccess) {
       await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: response.message,
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message: response.message,
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
       return;
     }
 
@@ -599,14 +590,17 @@ class _StocksMaximosScreenState extends State<StocksMaximosScreen> {
     });
   }
 
-//--------------------- _getGrupos ------------
+  //--------------------- _getGrupos ------------
 
   Future<void> _getGrupos() async {
     var connectivityResult = await Connectivity().checkConnectivity();
 
     if (connectivityResult == ConnectivityResult.none) {
       showMyDialog(
-          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
+        'Error',
+        'Verifica que estés conectado a Internet',
+        'Aceptar',
+      );
       return;
     }
 
@@ -629,7 +623,7 @@ class _StocksMaximosScreenState extends State<StocksMaximosScreen> {
     setState(() {});
   }
 
-//--------------------- _showLegajo -------------------------
+  //--------------------- _showLegajo -------------------------
   Widget _showLegajo() {
     return Container(
       padding: const EdgeInsets.all(10),
@@ -660,7 +654,7 @@ class _StocksMaximosScreenState extends State<StocksMaximosScreen> {
     );
   }
 
-//--------------------- _showButton -------------------------
+  //--------------------- _showButton -------------------------
   Widget _showButton() {
     return Container(
       margin: const EdgeInsets.only(left: 5, right: 5),
@@ -669,15 +663,6 @@ class _StocksMaximosScreenState extends State<StocksMaximosScreen> {
         children: <Widget>[
           Expanded(
             child: ElevatedButton(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  Icon(Icons.search),
-                  SizedBox(
-                    width: 5,
-                  ),
-                ],
-              ),
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xFF781f1e),
                 minimumSize: const Size(double.infinity, 40),
@@ -686,6 +671,10 @@ class _StocksMaximosScreenState extends State<StocksMaximosScreen> {
                 ),
               ),
               onPressed: () => _search(),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [Icon(Icons.search), SizedBox(width: 5)],
+              ),
             ),
           ),
         ],
@@ -693,7 +682,7 @@ class _StocksMaximosScreenState extends State<StocksMaximosScreen> {
     );
   }
 
-//--------------------- _showInfo ---------------------------
+  //--------------------- _showInfo ---------------------------
 
   Widget _showInfo() {
     return Padding(
@@ -714,9 +703,9 @@ class _StocksMaximosScreenState extends State<StocksMaximosScreen> {
     );
   }
 
-//--------------------- _search -----------------------------
+  //--------------------- _search -----------------------------
 
-  _search() async {
+  Future<void> _search() async {
     FocusScope.of(context).unfocus();
     if (_codigo.isEmpty) {
       showMyDialog('Error', 'Ingrese Código.', 'Aceptar');
@@ -726,7 +715,7 @@ class _StocksMaximosScreenState extends State<StocksMaximosScreen> {
     await _getCausante();
   }
 
-//--------------------- _getCausante -----------------------
+  //--------------------- _getCausante -----------------------
   Future<void> _getCausante() async {
     setState(() {
       _showLoader = true;
@@ -739,18 +728,19 @@ class _StocksMaximosScreenState extends State<StocksMaximosScreen> {
       });
 
       showMyDialog(
-          'Error', 'Verifica que estes conectado a internet.', 'Aceptar');
+        'Error',
+        'Verifica que estes conectado a internet.',
+        'Aceptar',
+      );
 
       return;
     }
 
-    Map<String, dynamic> request = {
-      'Codigo': _codigo,
-      'Grupo': _grupo,
-    };
+    Map<String, dynamic> request = {'Codigo': _codigo, 'Grupo': _grupo};
 
     var url = Uri.parse(
-        '${Constants.apiUrl}/Api/Causantes/GetCausanteByGrupoAndByCodigo2');
+      '${Constants.apiUrl}/Api/Causantes/GetCausanteByGrupoAndByCodigo2',
+    );
     var response = await http.post(
       url,
       headers: {
@@ -796,7 +786,7 @@ class _StocksMaximosScreenState extends State<StocksMaximosScreen> {
     });
   }
 
-//------------------------------ _removeFilter --------------------------
+  //------------------------------ _removeFilter --------------------------
   void _removeFilter() async {
     _catalogos2 = _catalogos;
 
@@ -805,53 +795,60 @@ class _StocksMaximosScreenState extends State<StocksMaximosScreen> {
     });
   }
 
-//------------------------------ _showFilter --------------------------
+  //------------------------------ _showFilter --------------------------
   void _showFilter() {
     showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
-            title: const Text('Filtrar Catálogos'),
-            content: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+          title: const Text('Filtrar Catálogos'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
               const Text(
                 'Escriba texto o números a buscar en CatSAP o Descripción del Material: ',
                 style: TextStyle(fontSize: 12),
               ),
-              const SizedBox(
-                height: 10,
-              ),
+              const SizedBox(height: 10),
               TextField(
                 autofocus: true,
                 decoration: InputDecoration(
-                    hintText: 'Criterio de búsqueda...',
-                    labelText: 'Buscar',
-                    suffixIcon: const Icon(Icons.search),
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10))),
+                  hintText: 'Criterio de búsqueda...',
+                  labelText: 'Buscar',
+                  suffixIcon: const Icon(Icons.search),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
                 onChanged: (value) {
                   _buscar = value;
                 },
               ),
-            ]),
-            actions: <Widget>[
-              TextButton(
-                  onPressed: () => Navigator.of(context).pop(),
-                  child: const Text('Cancelar')),
-              TextButton(
-                  onPressed: () => _filter(), child: const Text('Filtrar')),
             ],
-          );
-        });
+          ),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text('Cancelar'),
+            ),
+            TextButton(
+              onPressed: () => _filter(),
+              child: const Text('Filtrar'),
+            ),
+          ],
+        );
+      },
+    );
   }
 
-//-----------------------------------------------------------------
-//------------------------------ _filter --------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //------------------------------ _filter --------------------------
+  //-----------------------------------------------------------------
 
-  _filter() {
+  void _filter() {
     if (_buscar.isEmpty) {
       return;
     }

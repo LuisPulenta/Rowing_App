@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:camera/camera.dart';
-import 'package:connectivity/connectivity.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
@@ -19,21 +19,21 @@ class Elementosencallerec extends StatefulWidget {
   final Position positionUser;
   final ElemEnCalle elemEnCalle;
 
-  const Elementosencallerec(
-      {Key? key,
-      required this.user,
-      required this.positionUser,
-      required this.elemEnCalle})
-      : super(key: key);
+  const Elementosencallerec({
+    super.key,
+    required this.user,
+    required this.positionUser,
+    required this.elemEnCalle,
+  });
 
   @override
   State<Elementosencallerec> createState() => _ElementosencallerecState();
 }
 
 class _ElementosencallerecState extends State<Elementosencallerec> {
-//---------------------------------------------------------------------
-//-------------------------- Variables --------------------------------
-//---------------------------------------------------------------------
+  //---------------------------------------------------------------------
+  //-------------------------- Variables --------------------------------
+  //---------------------------------------------------------------------
 
   final int _nroReg = 0;
   int _nroObra = 0;
@@ -47,7 +47,6 @@ class _ElementosencallerecState extends State<Elementosencallerec> {
   final bool _cantidadShowError = false;
   final TextEditingController _cantidadController = TextEditingController();
 
-  final List<Catalogo> _catalogosBD = [];
   List<Catalogo> _catalogos = [];
   List<Catalogo> _catalogos2 = [];
 
@@ -63,15 +62,18 @@ class _ElementosencallerecState extends State<Elementosencallerec> {
   final TextEditingController _observacionesController =
       TextEditingController();
 
-  Position _positionUser = const Position(
-      longitude: 0,
-      latitude: 0,
-      timestamp: null,
-      accuracy: 0,
-      altitude: 0,
-      heading: 0,
-      speed: 0,
-      speedAccuracy: 0);
+  Position _positionUser = Position(
+    longitude: 0,
+    latitude: 0,
+    timestamp: DateTime.now(),
+    altitudeAccuracy: 0,
+    headingAccuracy: 0,
+    accuracy: 0,
+    altitude: 0,
+    heading: 0,
+    speed: 0,
+    speedAccuracy: 0,
+  );
 
   bool _habilitaPosicion = false;
 
@@ -88,40 +90,41 @@ class _ElementosencallerecState extends State<Elementosencallerec> {
   final TextEditingController _direccionController = TextEditingController();
 
   Obra obra = Obra(
-      nroObra: 0,
-      nombreObra: '',
-      nroOE: '',
-      defProy: '',
-      central: '',
-      elempep: '',
-      observaciones: '',
-      finalizada: 0,
-      supervisore: '',
-      codigoEstado: '',
-      codigoSubEstado: '',
-      modulo: '',
-      grupoAlmacen: '',
-      obrasDocumentos: [],
-      fechaCierreElectrico: '',
-      fechaUltimoMovimiento: '',
-      photos: 0,
-      audios: 0,
-      videos: 0,
-      posx: '',
-      posy: '',
-      direccion: '',
-      textoLocalizacion: '',
-      textoClase: '',
-      textoTipo: '',
-      textoComponente: '',
-      codigoDiametro: '',
-      motivo: '',
-      planos: '',
-      grupoCausante: '');
+    nroObra: 0,
+    nombreObra: '',
+    nroOE: '',
+    defProy: '',
+    central: '',
+    elempep: '',
+    observaciones: '',
+    finalizada: 0,
+    supervisore: '',
+    codigoEstado: '',
+    codigoSubEstado: '',
+    modulo: '',
+    grupoAlmacen: '',
+    obrasDocumentos: [],
+    fechaCierreElectrico: '',
+    fechaUltimoMovimiento: '',
+    photos: 0,
+    audios: 0,
+    videos: 0,
+    posx: '',
+    posy: '',
+    direccion: '',
+    textoLocalizacion: '',
+    textoClase: '',
+    textoTipo: '',
+    textoComponente: '',
+    codigoDiametro: '',
+    motivo: '',
+    planos: '',
+    grupoCausante: '',
+  );
 
-//---------------------------------------------------------------------
-//-------------------------- initState --------------------------------
-//---------------------------------------------------------------------
+  //---------------------------------------------------------------------
+  //-------------------------- initState --------------------------------
+  //---------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
@@ -131,13 +134,14 @@ class _ElementosencallerecState extends State<Elementosencallerec> {
 
   void _loadPositionUser() async {
     _positionUser = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high);
+      desiredAccuracy: LocationAccuracy.high,
+    );
     _center = LatLng(_positionUser.latitude, _positionUser.longitude);
   }
 
-//---------------------------------------------------------------------
-//-------------------------- Pantalla --------------------------------
-//---------------------------------------------------------------------
+  //---------------------------------------------------------------------
+  //-------------------------- Pantalla --------------------------------
+  //---------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     double ancho = MediaQuery.of(context).size.width;
@@ -152,27 +156,24 @@ class _ElementosencallerecState extends State<Elementosencallerec> {
           Column(
             children: <Widget>[
               Card(
-                  color: Colors.white,
-                  shadowColor: Colors.white,
-                  elevation: 10,
-                  margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      children: [
-                        _showObra(),
-                        _showAddress(),
-                        _showObservaciones(),
-                        _showPhoto(ancho),
-                      ],
-                    ),
-                  )),
-              const SizedBox(
-                height: 3,
+                color: Colors.white,
+                shadowColor: Colors.white,
+                elevation: 10,
+                margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    children: [
+                      _showObra(),
+                      _showAddress(),
+                      _showObservaciones(),
+                      _showPhoto(ancho),
+                    ],
+                  ),
+                ),
               ),
-              const Divider(
-                color: Colors.black,
-              ),
+              const SizedBox(height: 3),
+              const Divider(color: Colors.black),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: const [
@@ -180,26 +181,17 @@ class _ElementosencallerecState extends State<Elementosencallerec> {
                     'Material               ',
                     style: TextStyle(color: Colors.black),
                   ),
-                  Text(
-                    'Cant. Dejada',
-                    style: TextStyle(color: Colors.black),
-                  ),
+                  Text('Cant. Dejada', style: TextStyle(color: Colors.black)),
                   Text(
                     'Recup.                  ',
                     style: TextStyle(color: Colors.black),
                   ),
                 ],
               ),
-              const SizedBox(
-                height: 3,
-              ),
-              Expanded(
-                child: _getListView(),
-              ),
+              const SizedBox(height: 3),
+              Expanded(child: _getListView()),
               _showButtons(),
-              const SizedBox(
-                height: 10,
-              ),
+              const SizedBox(height: 10),
             ],
           ),
           _showLoader
@@ -209,55 +201,59 @@ class _ElementosencallerecState extends State<Elementosencallerec> {
       ),
     );
   }
-//-----------------------------------------------------------
-//--------------------- _showObra ---------------------------
-//-----------------------------------------------------------
+  //-----------------------------------------------------------
+  //--------------------- _showObra ---------------------------
+  //-----------------------------------------------------------
 
   Widget _showObra() {
     return Row(
       children: [
-        const Text('Obra: ',
-            style: TextStyle(
-              fontSize: 12,
-              color: Color(0xFF781f1e),
-              fontWeight: FontWeight.bold,
-            )),
+        const Text(
+          'Obra: ',
+          style: TextStyle(
+            fontSize: 12,
+            color: Color(0xFF781f1e),
+            fontWeight: FontWeight.bold,
+          ),
+        ),
         Expanded(
-          child: Text(widget.elemEnCalle.nombreObra,
-              style: const TextStyle(
-                fontSize: 12,
-              )),
+          child: Text(
+            widget.elemEnCalle.nombreObra,
+            style: const TextStyle(fontSize: 12),
+          ),
         ),
       ],
     );
   }
 
-//----------------------------------------------------------------------
-//------------------------------ _showAddress --------------------------
-//----------------------------------------------------------------------
+  //----------------------------------------------------------------------
+  //------------------------------ _showAddress --------------------------
+  //----------------------------------------------------------------------
 
   Widget _showAddress() {
     return Row(
       children: [
-        const Text('Dirección: ',
-            style: TextStyle(
-              fontSize: 12,
-              color: Color(0xFF781f1e),
-              fontWeight: FontWeight.bold,
-            )),
+        const Text(
+          'Dirección: ',
+          style: TextStyle(
+            fontSize: 12,
+            color: Color(0xFF781f1e),
+            fontWeight: FontWeight.bold,
+          ),
+        ),
         Expanded(
-          child: Text(widget.elemEnCalle.domicilio,
-              style: const TextStyle(
-                fontSize: 12,
-              )),
+          child: Text(
+            widget.elemEnCalle.domicilio,
+            style: const TextStyle(fontSize: 12),
+          ),
         ),
       ],
     );
   }
 
   //------------------------------------------------------------------
-//------------------------------ _address --------------------------
-//------------------------------------------------------------------
+  //------------------------------ _address --------------------------
+  //------------------------------------------------------------------
 
   void _address() async {
     setState(() {
@@ -272,15 +268,14 @@ class _ElementosencallerecState extends State<Elementosencallerec> {
     }
 
     if (_habilitaPosicion) {
-      List<Placemark> placemarks =
-          await placemarkFromCoordinates(_center.latitude, _center.longitude);
+      List<Placemark> placemarks = await placemarkFromCoordinates(
+        _center.latitude,
+        _center.longitude,
+      );
       latitud = _center.latitude;
       longitud = _center.longitude;
-      _direccionController.text = placemarks[0].thoroughfare.toString() +
-          ' ' +
-          placemarks[0].name.toString() +
-          ' ' +
-          placemarks[0].locality.toString();
+      _direccionController.text =
+          '${placemarks[0].thoroughfare} ${placemarks[0].name} ${placemarks[0].locality}';
       _direccion = _direccionController.text;
       setState(() {
         _showLoader = false;
@@ -289,8 +284,8 @@ class _ElementosencallerecState extends State<Elementosencallerec> {
   }
 
   //------------------------------------------------------------------
-//------------------------------ _getPosition ----------------------
-//------------------------------------------------------------------
+  //------------------------------ _getPosition ----------------------
+  //------------------------------------------------------------------
 
   Future _getPosition() async {
     bool serviceEnabled;
@@ -301,34 +296,6 @@ class _ElementosencallerecState extends State<Elementosencallerec> {
       permission = await Geolocator.requestPermission();
       if (permission == LocationPermission.denied) {
         showDialog(
-            context: context,
-            builder: (context) {
-              return AlertDialog(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                title: const Text('Aviso'),
-                content: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: const <Widget>[
-                      Text('El permiso de localización está negado.'),
-                      SizedBox(
-                        height: 10,
-                      ),
-                    ]),
-                actions: <Widget>[
-                  TextButton(
-                      onPressed: () => Navigator.of(context).pop(),
-                      child: const Text('Ok')),
-                ],
-              );
-            });
-        return;
-      }
-    }
-
-    if (permission == LocationPermission.deniedForever) {
-      showDialog(
           context: context,
           builder: (context) {
             return AlertDialog(
@@ -337,55 +304,89 @@ class _ElementosencallerecState extends State<Elementosencallerec> {
               ),
               title: const Text('Aviso'),
               content: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: const <Widget>[
-                    Text(
-                        'El permiso de localización está negado permanentemente. No se puede requerir este permiso.'),
-                    SizedBox(
-                      height: 10,
-                    ),
-                  ]),
+                mainAxisSize: MainAxisSize.min,
+                children: const <Widget>[
+                  Text('El permiso de localización está negado.'),
+                  SizedBox(height: 10),
+                ],
+              ),
               actions: <Widget>[
                 TextButton(
-                    onPressed: () => Navigator.of(context).pop(),
-                    child: const Text('Ok')),
+                  onPressed: () => Navigator.of(context).pop(),
+                  child: const Text('Ok'),
+                ),
               ],
             );
-          });
+          },
+        );
+        return;
+      }
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+            title: const Text('Aviso'),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: const <Widget>[
+                Text(
+                  'El permiso de localización está negado permanentemente. No se puede requerir este permiso.',
+                ),
+                SizedBox(height: 10),
+              ],
+            ),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(),
+                child: const Text('Ok'),
+              ),
+            ],
+          );
+        },
+      );
       return;
     }
 
     _habilitaPosicion = true;
     _positionUser = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high);
+      desiredAccuracy: LocationAccuracy.high,
+    );
   }
 
   //----------------------------------------------------------------------------
-//------------------------------ _showObservaciones --------------------------
-//----------------------------------------------------------------------------
+  //------------------------------ _showObservaciones --------------------------
+  //----------------------------------------------------------------------------
 
   Widget _showObservaciones() {
     return Row(
       children: [
-        const Text('Observaciones: ',
-            style: TextStyle(
-              fontSize: 12,
-              color: Color(0xFF781f1e),
-              fontWeight: FontWeight.bold,
-            )),
+        const Text(
+          'Observaciones: ',
+          style: TextStyle(
+            fontSize: 12,
+            color: Color(0xFF781f1e),
+            fontWeight: FontWeight.bold,
+          ),
+        ),
         Expanded(
-          child: Text(widget.elemEnCalle.observacion,
-              style: const TextStyle(
-                fontSize: 12,
-              )),
+          child: Text(
+            widget.elemEnCalle.observacion,
+            style: const TextStyle(fontSize: 12),
+          ),
         ),
       ],
     );
   }
 
-//--------------------------------------------------------------
-//-------------------------- _showPhoto ------------------------
-//--------------------------------------------------------------
+  //--------------------------------------------------------------
+  //-------------------------- _showPhoto ------------------------
+  //--------------------------------------------------------------
 
   Widget _showPhoto(double ancho) {
     return Container(
@@ -394,50 +395,55 @@ class _ElementosencallerecState extends State<Elementosencallerec> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Expanded(
-            child: Stack(children: <Widget>[
-              Container(
-                child: !_photoChanged
-                    ? Center(
-                        child: FadeInImage(
-                          width: 160,
-                          height: 120,
-                          placeholder: const AssetImage('assets/loading.gif'),
-                          image: NetworkImage(widget.elemEnCalle.imageFullPath),
+            child: Stack(
+              children: <Widget>[
+                Container(
+                  child: !_photoChanged
+                      ? Center(
+                          child: FadeInImage(
+                            width: 160,
+                            height: 120,
+                            placeholder: const AssetImage('assets/loading.gif'),
+                            image: NetworkImage(
+                              widget.elemEnCalle.imageFullPath,
+                            ),
+                          ),
+                        )
+                      : Center(
+                          child: Image.file(
+                            File(_image.path),
+                            width: 160,
+                            height: 120,
+                            fit: BoxFit.contain,
+                          ),
                         ),
-                      )
-                    : Center(
-                        child: Image.file(
-                          File(_image.path),
-                          width: 160,
-                          height: 120,
-                          fit: BoxFit.contain,
-                        ),
-                      ),
-              ),
-            ]),
+                ),
+              ],
+            ),
           ),
         ],
       ),
     );
   }
 
-//--------------------------------------------------------------
-//-------------------------- _takePicture ----------------------
-//--------------------------------------------------------------
+  //--------------------------------------------------------------
+  //-------------------------- _takePicture ----------------------
+  //--------------------------------------------------------------
 
   void _takePicture(int opcion) async {
     WidgetsFlutterBinding.ensureInitialized();
     final cameras = await availableCameras();
     var firstCamera = cameras.first;
     var response1 = await showAlertDialog(
-        context: context,
-        title: 'Seleccionar cámara',
-        message: '¿Qué cámara desea utilizar?',
-        actions: <AlertDialogAction>[
-          const AlertDialogAction(key: 'no', label: 'Trasera'),
-          const AlertDialogAction(key: 'yes', label: 'Delantera'),
-          const AlertDialogAction(key: 'cancel', label: 'Cancelar'),
-        ]);
+      context: context,
+      title: 'Seleccionar cámara',
+      message: '¿Qué cámara desea utilizar?',
+      actions: <AlertDialogAction>[
+        const AlertDialogAction(key: 'no', label: 'Trasera'),
+        const AlertDialogAction(key: 'yes', label: 'Delantera'),
+        const AlertDialogAction(key: 'cancel', label: 'Cancelar'),
+      ],
+    );
     if (response1 == 'yes') {
       firstCamera = cameras.first;
     }
@@ -447,11 +453,11 @@ class _ElementosencallerecState extends State<Elementosencallerec> {
 
     if (response1 != 'cancel') {
       Response? response = await Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => SacarFotoScreen(
-                    camera: firstCamera,
-                  )));
+        context,
+        MaterialPageRoute(
+          builder: (context) => SacarFotoScreen(camera: firstCamera),
+        ),
+      );
       if (response != null) {
         if (opcion == 1) {
           _photoChanged = true;
@@ -462,14 +468,14 @@ class _ElementosencallerecState extends State<Elementosencallerec> {
     }
   }
 
-//--------------------------------------------------------------
-//-------------------------- _selectPicture --------------------
-//--------------------------------------------------------------
+  //--------------------------------------------------------------
+  //-------------------------- _selectPicture --------------------
+  //--------------------------------------------------------------
 
   void _selectPicture(int opcion) async {
-    final ImagePicker _picker = ImagePicker();
+    final ImagePicker picker = ImagePicker();
 
-    final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+    final XFile? image = await picker.pickImage(source: ImageSource.gallery);
 
     if (image != null) {
       if (opcion == 1) {
@@ -480,9 +486,9 @@ class _ElementosencallerecState extends State<Elementosencallerec> {
     }
   }
 
-//-----------------------------------------------------------------
-//--------------------- _getCatalogos -----------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _getCatalogos -----------------------------
+  //-----------------------------------------------------------------
 
   Future<void> _getCatalogos() async {
     setState(() {
@@ -496,7 +502,10 @@ class _ElementosencallerecState extends State<Elementosencallerec> {
         _showLoader = false;
       });
       showMyDialog(
-          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
+        'Error',
+        'Verifica que estés conectado a Internet',
+        'Aceptar',
+      );
     }
 
     Response response = Response(isSuccess: false);
@@ -509,12 +518,13 @@ class _ElementosencallerecState extends State<Elementosencallerec> {
 
     if (!response.isSuccess) {
       await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: response.message,
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message: response.message,
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
       return;
     }
 
@@ -523,9 +533,9 @@ class _ElementosencallerecState extends State<Elementosencallerec> {
     });
   }
 
-//-----------------------------------------------------------------
-//--------------------- _getListView ------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _getListView ------------------------------
+  //-----------------------------------------------------------------
 
   Widget _getListView() {
     return ListView(
@@ -553,182 +563,174 @@ class _ElementosencallerecState extends State<Elementosencallerec> {
                                 children: [
                                   Expanded(
                                     flex: 4,
-                                    child: Text(e.catCatalogo.toString(),
-                                        style: const TextStyle(
-                                          fontSize: 12,
-                                        )),
+                                    child: Text(
+                                      e.catCatalogo.toString(),
+                                      style: const TextStyle(fontSize: 12),
+                                    ),
                                   ),
-                                  const SizedBox(
-                                    width: 5,
-                                  ),
+                                  const SizedBox(width: 5),
                                   Expanded(
                                     flex: 1,
-                                    child: Text(e.cantidad.toString(),
-                                        style: const TextStyle(
-                                          fontSize: 14,
-                                          color: Colors.blue,
-                                          fontWeight: FontWeight.bold,
-                                        )),
+                                    child: Text(
+                                      e.cantidad.toString(),
+                                      style: const TextStyle(
+                                        fontSize: 14,
+                                        color: Colors.blue,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
                                   ),
-                                  const SizedBox(
-                                    width: 10,
-                                  ),
+                                  const SizedBox(width: 10),
                                   Expanded(
                                     flex: 1,
-                                    child: Text(e.cantidad2.toString(),
-                                        style: const TextStyle(
-                                          fontSize: 14,
-                                          color: Colors.blue,
-                                          fontWeight: FontWeight.bold,
-                                        )),
+                                    child: Text(
+                                      e.cantidad2.toString(),
+                                      style: const TextStyle(
+                                        fontSize: 14,
+                                        color: Colors.blue,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
                                   ),
-                                  const SizedBox(
-                                    width: 10,
-                                  ),
+                                  const SizedBox(width: 10),
                                   IconButton(
-                                      onPressed: () {
-                                        _cantidadController.text =
-                                            e.cantidad2 == 0.0
-                                                ? ''
-                                                : e.cantidad2.toString();
-                                        showDialog(
-                                            context: context,
-                                            builder: (BuildContext context) {
-                                              return AlertDialog(
-                                                backgroundColor:
-                                                    Colors.grey[300],
-                                                title: const Text(
-                                                    'Ingrese la cantidad'),
-                                                content: TextField(
-                                                  autofocus: true,
-                                                  keyboardType:
-                                                      TextInputType.number,
-                                                  controller:
-                                                      _cantidadController,
-                                                  decoration: InputDecoration(
-                                                      fillColor: Colors.white,
-                                                      filled: true,
-                                                      hintText: '',
-                                                      labelText: '',
-                                                      isDense: true,
-                                                      errorText:
-                                                          _cantidadShowError
-                                                              ? _cantidadError
-                                                              : null,
-                                                      prefixIcon:
-                                                          const Icon(Icons.tag),
-                                                      border:
-                                                          OutlineInputBorder(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          10))),
-                                                  onChanged: (value) {
-                                                    _cantidad = value;
-                                                  },
+                                    onPressed: () {
+                                      _cantidadController.text =
+                                          e.cantidad2 == 0.0
+                                          ? ''
+                                          : e.cantidad2.toString();
+                                      showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          return AlertDialog(
+                                            backgroundColor: Colors.grey[300],
+                                            title: const Text(
+                                              'Ingrese la cantidad',
+                                            ),
+                                            content: TextField(
+                                              autofocus: true,
+                                              keyboardType:
+                                                  TextInputType.number,
+                                              controller: _cantidadController,
+                                              decoration: InputDecoration(
+                                                fillColor: Colors.white,
+                                                filled: true,
+                                                hintText: '',
+                                                labelText: '',
+                                                isDense: true,
+                                                errorText: _cantidadShowError
+                                                    ? _cantidadError
+                                                    : null,
+                                                prefixIcon: const Icon(
+                                                  Icons.tag,
                                                 ),
-                                                actions: [
-                                                  Row(
-                                                    children: [
-                                                      Expanded(
-                                                        child: ElevatedButton(
-                                                          child: Row(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .spaceAround,
-                                                            children: const [
-                                                              Icon(
-                                                                  Icons.cancel),
-                                                              Text('Cancelar'),
-                                                            ],
-                                                          ),
-                                                          style: ElevatedButton
-                                                              .styleFrom(
-                                                            backgroundColor:
-                                                                const Color(
-                                                                    0xFFB4161B),
-                                                            minimumSize:
-                                                                const Size(
-                                                                    double
-                                                                        .infinity,
-                                                                    30),
-                                                            shape:
-                                                                RoundedRectangleBorder(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          5),
+                                                border: OutlineInputBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                ),
+                                              ),
+                                              onChanged: (value) {
+                                                _cantidad = value;
+                                              },
+                                            ),
+                                            actions: [
+                                              Row(
+                                                children: [
+                                                  Expanded(
+                                                    child: ElevatedButton(
+                                                      style: ElevatedButton.styleFrom(
+                                                        backgroundColor:
+                                                            const Color(
+                                                              0xFFB4161B,
                                                             ),
-                                                          ),
-                                                          onPressed: () {
-                                                            Navigator.pop(
-                                                                context);
-                                                          },
+                                                        minimumSize: const Size(
+                                                          double.infinity,
+                                                          30,
+                                                        ),
+                                                        shape: RoundedRectangleBorder(
+                                                          borderRadius:
+                                                              BorderRadius.circular(
+                                                                5,
+                                                              ),
                                                         ),
                                                       ),
-                                                      const SizedBox(
-                                                        width: 10,
+                                                      onPressed: () {
+                                                        Navigator.pop(context);
+                                                      },
+                                                      child: Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceAround,
+                                                        children: const [
+                                                          Icon(Icons.cancel),
+                                                          Text('Cancelar'),
+                                                        ],
                                                       ),
-                                                      Expanded(
-                                                        child: ElevatedButton(
-                                                          child: Row(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .spaceAround,
-                                                            children: const [
-                                                              Icon(Icons.save),
-                                                              Text('Aceptar'),
-                                                            ],
-                                                          ),
-                                                          style: ElevatedButton
-                                                              .styleFrom(
-                                                            backgroundColor:
-                                                                const Color(
-                                                                    0xFF120E43),
-                                                            minimumSize:
-                                                                const Size(
-                                                                    double
-                                                                        .infinity,
-                                                                    30),
-                                                            shape:
-                                                                RoundedRectangleBorder(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          5),
+                                                    ),
+                                                  ),
+                                                  const SizedBox(width: 10),
+                                                  Expanded(
+                                                    child: ElevatedButton(
+                                                      style: ElevatedButton.styleFrom(
+                                                        backgroundColor:
+                                                            const Color(
+                                                              0xFF120E43,
                                                             ),
-                                                          ),
-                                                          onPressed: () {
-                                                            for (Catalogo catalogo
-                                                                in _catalogos) {
-                                                              if (catalogo
-                                                                      .catCodigo ==
-                                                                  e.catCodigo) {
-                                                                catalogo.cantidad2 =
-                                                                    double.parse(
-                                                                        _cantidad);
-                                                              }
-                                                            }
+                                                        minimumSize: const Size(
+                                                          double.infinity,
+                                                          30,
+                                                        ),
+                                                        shape: RoundedRectangleBorder(
+                                                          borderRadius:
+                                                              BorderRadius.circular(
+                                                                5,
+                                                              ),
+                                                        ),
+                                                      ),
+                                                      onPressed: () {
+                                                        for (Catalogo catalogo
+                                                            in _catalogos) {
+                                                          if (catalogo
+                                                                  .catCodigo ==
+                                                              e.catCodigo) {
+                                                            catalogo.cantidad2 =
+                                                                double.parse(
+                                                                  _cantidad,
+                                                                );
+                                                          }
+                                                        }
 
-                                                            Navigator.pop(
-                                                                context);
-                                                            setState(() {});
-                                                          },
-                                                        ),
+                                                        Navigator.pop(context);
+                                                        setState(() {});
+                                                      },
+                                                      child: Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceAround,
+                                                        children: const [
+                                                          Icon(Icons.save),
+                                                          Text('Aceptar'),
+                                                        ],
                                                       ),
-                                                    ],
+                                                    ),
                                                   ),
                                                 ],
-                                                shape: RoundedRectangleBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            10)),
-                                              );
-                                            },
-                                            barrierDismissible: false);
-                                      },
-                                      icon: const Icon(Icons.loop,
-                                          color: Colors.blue)),
+                                              ),
+                                            ],
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                            ),
+                                          );
+                                        },
+                                        barrierDismissible: false,
+                                      );
+                                    },
+                                    icon: const Icon(
+                                      Icons.loop,
+                                      color: Colors.blue,
+                                    ),
+                                  ),
                                 ],
                               ),
                             ],
@@ -747,8 +749,8 @@ class _ElementosencallerecState extends State<Elementosencallerec> {
   }
 
   //-----------------------------------------------------------------
-//--------------------- _showButtons ------------------------------
-//-----------------------------------------------------------------
+  //--------------------- _showButtons ------------------------------
+  //-----------------------------------------------------------------
 
   Widget _showButtons() {
     return Container(
@@ -757,88 +759,74 @@ class _ElementosencallerecState extends State<Elementosencallerec> {
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: <Widget>[
-              _showRecButton(),
-            ],
+            children: <Widget>[_showRecButton()],
           ),
-          const SizedBox(
-            height: 20,
-          ),
+          const SizedBox(height: 20),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: <Widget>[
-              _showSaveButton(),
-            ],
+            children: <Widget>[_showSaveButton()],
           ),
         ],
       ),
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _showRecButton ---------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _showRecButton ---------------------------
+  //-----------------------------------------------------------------
 
   Widget _showRecButton() {
     return Expanded(
       child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: const Color.fromARGB(255, 42, 120, 30),
+          minimumSize: const Size(double.infinity, 50),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+        ),
+        onPressed: () => _recTodo(),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: const [
             Icon(Icons.assignment_return),
-            SizedBox(
-              width: 15,
-            ),
+            SizedBox(width: 15),
             Text('Recuperar Todo'),
           ],
         ),
-        style: ElevatedButton.styleFrom(
-          backgroundColor: const Color.fromARGB(255, 42, 120, 30),
-          minimumSize: const Size(double.infinity, 50),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(5),
-          ),
-        ),
-        onPressed: () => _recTodo(),
       ),
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _showSaveButton ---------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _showSaveButton ---------------------------
+  //-----------------------------------------------------------------
 
   Widget _showSaveButton() {
     return Expanded(
       child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: const Color(0xFF781f1e),
+          minimumSize: const Size(double.infinity, 50),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+        ),
+        onPressed: () => _save(),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: const [
             Icon(Icons.save),
-            SizedBox(
-              width: 15,
-            ),
+            SizedBox(width: 15),
             Text('Guardar'),
           ],
         ),
-        style: ElevatedButton.styleFrom(
-          backgroundColor: const Color(0xFF781f1e),
-          minimumSize: const Size(double.infinity, 50),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(5),
-          ),
-        ),
-        onPressed: () => _save(),
       ),
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _save -------------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _save -------------------------------------
+  //-----------------------------------------------------------------
 
-  _save() async {
-//-----------------Controlo que haya catálogos con cantidades--------------
+  Future<void> _save() async {
+    //-----------------Controlo que haya catálogos con cantidades--------------
     bool bandera = false;
     for (Catalogo catalogo in _catalogos) {
       if (catalogo.cantidad != catalogo.cantidad2) {
@@ -852,9 +840,9 @@ class _ElementosencallerecState extends State<Elementosencallerec> {
       _estado = 'TOTAL';
     }
 
-//-----------------Grabar Cabecera y Detalle--------------
+    //-----------------Grabar Cabecera y Detalle--------------
 
-//-----------------Chequea Internet--------------
+    //-----------------Chequea Internet--------------
     setState(() {
       _showLoader = true;
     });
@@ -866,7 +854,10 @@ class _ElementosencallerecState extends State<Elementosencallerec> {
         _showLoader = false;
       });
       showMyDialog(
-          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
+        'Error',
+        'Verifica que estés conectado a Internet',
+        'Aceptar',
+      );
     }
 
     //-----------------Graba Cabecera--------------
@@ -885,9 +876,10 @@ class _ElementosencallerecState extends State<Elementosencallerec> {
     };
 
     Response response = await ApiHelper.put(
-        '/api/ElementosEnCalleCab/PutElementosEnCalleCab/',
-        widget.elemEnCalle.idelementocab.toString(),
-        request);
+      '/api/ElementosEnCalleCab/PutElementosEnCalleCab/',
+      widget.elemEnCalle.idelementocab.toString(),
+      request,
+    );
 
     setState(() {
       _showLoader = false;
@@ -895,21 +887,24 @@ class _ElementosencallerecState extends State<Elementosencallerec> {
 
     if (!response.isSuccess) {
       await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: response.message,
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message: response.message,
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
     }
 
-//-----------------Borra Detalle--------------
+    //-----------------Borra Detalle--------------
     for (ElemEnCalleDet _elem in _elemEnCalleDet) {
       Response response = await ApiHelper.delete(
-          '/api/ElementosEnCalleDet/', _elem.id.toString());
+        '/api/ElementosEnCalleDet/',
+        _elem.id.toString(),
+      );
     }
 
-//-----------------Graba Detalle--------------
+    //-----------------Graba Detalle--------------
     for (Catalogo catalogo in _catalogos) {
       if (catalogo.cantidad != 0) {
         bandera = true;
@@ -922,33 +917,37 @@ class _ElementosencallerecState extends State<Elementosencallerec> {
         };
 
         Response response = await ApiHelper.post(
-            '/api/ElementosEnCalleDet/PostElementosEnCalleDet', request);
+          '/api/ElementosEnCalleDet/PostElementosEnCalleDet',
+          request,
+        );
 
         if (!response.isSuccess) {
           await showAlertDialog(
-              context: context,
-              title: 'Error',
-              message: response.message,
-              actions: <AlertDialogAction>[
-                const AlertDialogAction(key: null, label: 'Aceptar'),
-              ]);
+            context: context,
+            title: 'Error',
+            message: response.message,
+            actions: <AlertDialogAction>[
+              const AlertDialogAction(key: null, label: 'Aceptar'),
+            ],
+          );
         }
       }
     }
 
     await showAlertDialog(
-        context: context,
-        title: 'Aviso',
-        message: 'Elementos en Calle guardado con éxito!',
-        actions: <AlertDialogAction>[
-          const AlertDialogAction(key: null, label: 'Aceptar'),
-        ]);
+      context: context,
+      title: 'Aviso',
+      message: 'Elementos en Calle guardado con éxito!',
+      actions: <AlertDialogAction>[
+        const AlertDialogAction(key: null, label: 'Aceptar'),
+      ],
+    );
     Navigator.pop(context);
   }
 
-//-----------------------------------------------------------------
-//--------------------- _loadData ---------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _loadData ---------------------------------
+  //-----------------------------------------------------------------
 
   void _recTodo() async {
     for (Catalogo catalogo in _catalogos) {
@@ -957,9 +956,9 @@ class _ElementosencallerecState extends State<Elementosencallerec> {
     setState(() {});
   }
 
-//-----------------------------------------------------------------
-//--------------------- _loadData ---------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _loadData ---------------------------------
+  //-----------------------------------------------------------------
 
   void _loadData() async {
     await _getCatalogos();
@@ -999,9 +998,9 @@ class _ElementosencallerecState extends State<Elementosencallerec> {
     _catalogos2 = [];
   }
 
-//-----------------------------------------------------------------
-//--------------------- _loadDetalles -----------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _loadDetalles -----------------------------
+  //-----------------------------------------------------------------
 
   Future<void> _loadDetalles() async {
     setState(() {
@@ -1015,31 +1014,35 @@ class _ElementosencallerecState extends State<Elementosencallerec> {
         _showLoader = false;
       });
       showMyDialog(
-          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
+        'Error',
+        'Verifica que estés conectado a Internet',
+        'Aceptar',
+      );
     }
 
     Response response = Response(isSuccess: false);
 
     response = await ApiHelper.getElemEnCalleDet(
-        widget.elemEnCalle.idelementocab.toString());
+      widget.elemEnCalle.idelementocab.toString(),
+    );
 
     if (!response.isSuccess) {
       await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: response.message,
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message: response.message,
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
       return;
     }
     setState(() {
       _elemEnCalleDet = response.result;
       _elemEnCalleDet.sort((a, b) {
-        return a.idelementocab
-            .toString()
-            .toLowerCase()
-            .compareTo(b.idelementocab.toString().toLowerCase());
+        return a.idelementocab.toString().toLowerCase().compareTo(
+          b.idelementocab.toString().toLowerCase(),
+        );
       });
       _showLoader = false;
     });

@@ -3,10 +3,10 @@ import 'dart:convert';
 import 'dart:math';
 
 import 'package:adaptive_dialog/adaptive_dialog.dart';
-import 'package:connectivity/connectivity.dart';
-import 'package:device_information/device_information.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_device_imei/flutter_device_imei.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
 import 'package:permission_handler/permission_handler.dart';
@@ -18,24 +18,24 @@ import '../../models/models.dart';
 import '../screens.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+  const LoginScreen({super.key});
 
   @override
   _LoginScreenState createState() => _LoginScreenState();
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-//---------------------------------------------------------------
-//----------------------- Variables -----------------------------
-//---------------------------------------------------------------
+  //---------------------------------------------------------------
+  //----------------------- Variables -----------------------------
+  //---------------------------------------------------------------
 
   String imei = '';
 
-  // String _email = '';
-  // String _password = '';
+  String _email = '';
+  String _password = '';
 
-  String _email = 'GPRIETO';
-  String _password = 'CELESTE';
+  // String _email = 'GPRIETO';
+  // String _password = 'CELESTE';
 
   // String _email = '102131';
   // String _password = '32766601';
@@ -63,41 +63,37 @@ class _LoginScreenState extends State<LoginScreen> {
 
   List<Catalogo> _catalogos = [];
 
-  String _platformVersion = 'Unknown',
-      _imeiNo = '',
-      _modelName = '',
-      _manufacturerName = '',
-      _deviceName = '',
-      _productName = '',
-      _cpuType = '',
-      _hardware = '';
-  var _apiLevel;
+  String _imeiNo = '';
 
   bool _rememberme = true;
   bool _passwordShow = false;
   bool _showLoader = false;
 
-  Position _positionUser = const Position(
-      longitude: 0,
-      latitude: 0,
-      timestamp: null,
-      accuracy: 0,
-      altitude: 0,
-      heading: 0,
-      speed: 0,
-      speedAccuracy: 0);
+  Position _positionUser = Position(
+    longitude: 0,
+    latitude: 0,
+    timestamp: DateTime.now(),
+    altitudeAccuracy: 0,
+    headingAccuracy: 0,
+    accuracy: 0,
+    altitude: 0,
+    heading: 0,
+    speed: 0,
+    speedAccuracy: 0,
+  );
 
   Parametro parametro = Parametro(
-      id: 0,
-      bloqueaactas: 0,
-      ipServ: '',
-      metros: 0,
-      tiempo: 0,
-      appBloqueada: 2);
+    id: 0,
+    bloqueaactas: 0,
+    ipServ: '',
+    metros: 0,
+    tiempo: 0,
+    appBloqueada: 2,
+  );
 
-//---------------------------------------------------------------
-//----------------------- initState -----------------------------
-//---------------------------------------------------------------
+  //---------------------------------------------------------------
+  //----------------------- initState -----------------------------
+  //---------------------------------------------------------------
 
   @override
   void initState() {
@@ -111,9 +107,9 @@ class _LoginScreenState extends State<LoginScreen> {
     super.dispose();
   }
 
-//---------------------------------------------------------------
-//----------------------- Pantalla ------------------------------
-//---------------------------------------------------------------
+  //---------------------------------------------------------------
+  //----------------------- Pantalla ------------------------------
+  //---------------------------------------------------------------
 
   @override
   Widget build(BuildContext context) {
@@ -122,36 +118,30 @@ class _LoginScreenState extends State<LoginScreen> {
       body: Stack(
         children: <Widget>[
           Container(
-              width: double.infinity,
-              padding: const EdgeInsets.symmetric(vertical: 0),
-              decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [
-                    Color(0xff242424),
-                    Color(0xff8c8c94),
+            width: double.infinity,
+            padding: const EdgeInsets.symmetric(vertical: 0),
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [Color(0xff242424), Color(0xff8c8c94)],
+              ),
+            ),
+            child: Column(
+              children: [
+                Image.asset('assets/logo.png', height: 200),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      Constants.version,
+                      style: const TextStyle(fontSize: 20, color: Colors.white),
+                    ),
                   ],
                 ),
-              ),
-              child: Column(
-                children: [
-                  Image.asset(
-                    'assets/logo.png',
-                    height: 200,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        Constants.version,
-                        style:
-                            const TextStyle(fontSize: 20, color: Colors.white),
-                      ),
-                    ],
-                  ),
-                ],
-              )),
+              ],
+            ),
+          ),
           Transform.translate(
             offset: const Offset(0, -60),
             child: parametro.appBloqueada == 0
@@ -159,22 +149,27 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: SingleChildScrollView(
                       child: Card(
                         shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20)),
+                          borderRadius: BorderRadius.circular(20),
+                        ),
                         elevation: 15,
                         margin: const EdgeInsets.only(
-                            left: 20, right: 20, top: 260, bottom: 20),
+                          left: 20,
+                          right: 20,
+                          top: 260,
+                          bottom: 20,
+                        ),
                         child: Padding(
                           padding: const EdgeInsets.symmetric(
-                              horizontal: 35, vertical: 20),
+                            horizontal: 35,
+                            vertical: 20,
+                          ),
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
                               _showEmail(),
                               _showPassword(),
-                              const SizedBox(
-                                height: 10,
-                              ),
+                              const SizedBox(height: 10),
                               _showRememberme(),
                               _showButtons(),
                             ],
@@ -184,48 +179,48 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   )
                 : parametro.appBloqueada == 1
-                    ? Center(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: const [
-                            Text('App bloqueada temporalmente.',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold)),
-                            Text('Por favor reintente en unos minutos.',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold)),
-                          ],
+                ? Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: const [
+                        Text(
+                          'App bloqueada temporalmente.',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                      )
-                    : Container(),
+                        Text(
+                          'Por favor reintente en unos minutos.',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+                : Container(),
           ),
           Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: const <Widget>[
-                SizedBox(
-                  height: 40,
-                ),
-              ],
+              children: const <Widget>[SizedBox(height: 40)],
             ),
           ),
           _showLoader
-              ? const LoaderComponent(
-                  text: 'Por favor espere...',
-                )
+              ? const LoaderComponent(text: 'Por favor espere...')
               : Container(),
         ],
       ),
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _showEmail --------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _showEmail --------------------------------
+  //-----------------------------------------------------------------
 
   Widget _showEmail() {
     return Container(
@@ -233,14 +228,14 @@ class _LoginScreenState extends State<LoginScreen> {
       child: TextField(
         keyboardType: TextInputType.emailAddress,
         decoration: InputDecoration(
-            fillColor: Colors.white,
-            filled: true,
-            hintText: 'Usuario...',
-            labelText: 'Usuario',
-            errorText: _emailShowError ? _emailError : null,
-            prefixIcon: const Icon(Icons.person),
-            border:
-                OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
+          fillColor: Colors.white,
+          filled: true,
+          hintText: 'Usuario...',
+          labelText: 'Usuario',
+          errorText: _emailShowError ? _emailError : null,
+          prefixIcon: const Icon(Icons.person),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+        ),
         onChanged: (value) {
           _email = value;
         },
@@ -248,9 +243,9 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _showPassword -----------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _showPassword -----------------------------
+  //-----------------------------------------------------------------
 
   Widget _showPassword() {
     return Container(
@@ -258,24 +253,24 @@ class _LoginScreenState extends State<LoginScreen> {
       child: TextField(
         obscureText: !_passwordShow,
         decoration: InputDecoration(
-            fillColor: Colors.white,
-            filled: true,
-            hintText: 'Contraseña...',
-            labelText: 'Contraseña',
-            errorText: _passwordShowError ? _passwordError : null,
-            prefixIcon: const Icon(Icons.lock),
-            suffixIcon: IconButton(
-              icon: _passwordShow
-                  ? const Icon(Icons.visibility)
-                  : const Icon(Icons.visibility_off),
-              onPressed: () {
-                setState(() {
-                  _passwordShow = !_passwordShow;
-                });
-              },
-            ),
-            border:
-                OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
+          fillColor: Colors.white,
+          filled: true,
+          hintText: 'Contraseña...',
+          labelText: 'Contraseña',
+          errorText: _passwordShowError ? _passwordError : null,
+          prefixIcon: const Icon(Icons.lock),
+          suffixIcon: IconButton(
+            icon: _passwordShow
+                ? const Icon(Icons.visibility)
+                : const Icon(Icons.visibility_off),
+            onPressed: () {
+              setState(() {
+                _passwordShow = !_passwordShow;
+              });
+            },
+          ),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+        ),
         onChanged: (value) {
           _password = value;
         },
@@ -283,11 +278,11 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _showRememberme ---------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _showRememberme ---------------------------
+  //-----------------------------------------------------------------
 
-  _showRememberme() {
+  CheckboxListTile _showRememberme() {
     return CheckboxListTile(
       title: const Text('Recordarme:'),
       value: _rememberme,
@@ -300,9 +295,9 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _showButtons ------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _showButtons ------------------------------
+  //-----------------------------------------------------------------
 
   Widget _showButtons() {
     return Container(
@@ -312,16 +307,6 @@ class _LoginScreenState extends State<LoginScreen> {
         children: <Widget>[
           Expanded(
             child: ElevatedButton(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  Icon(Icons.login),
-                  SizedBox(
-                    width: 20,
-                  ),
-                  Text('Iniciar Sesión'),
-                ],
-              ),
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xFF781f1e),
                 minimumSize: const Size(double.infinity, 50),
@@ -330,6 +315,14 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
               onPressed: () => _login(),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Icon(Icons.login),
+                  SizedBox(width: 20),
+                  Text('Iniciar Sesión'),
+                ],
+              ),
             ),
           ),
         ],
@@ -337,9 +330,9 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-//-----------------------------------------------------------------
-//--------------------- _login ------------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _login ------------------------------------
+  //-----------------------------------------------------------------
 
   void _login() async {
     FocusScope.of(context).unfocus(); //Oculta el teclado
@@ -365,28 +358,29 @@ class _LoginScreenState extends State<LoginScreen> {
       });
 
       await showDialog(
-          context: context,
-          builder: (context) {
-            return AlertDialog(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
-              ),
-              title: const Text('Error'),
-              content: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: const <Widget>[
-                    Text('Verifica que estes conectado a internet.'),
-                    SizedBox(
-                      height: 10,
-                    ),
-                  ]),
-              actions: <Widget>[
-                TextButton(
-                    onPressed: () => Navigator.of(context).pop(),
-                    child: const Text('Aceptar')),
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+            title: const Text('Error'),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: const <Widget>[
+                Text('Verifica que estes conectado a internet.'),
+                SizedBox(height: 10),
               ],
-            );
-          });
+            ),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(),
+                child: const Text('Aceptar'),
+              ),
+            ],
+          );
+        },
+      );
       return;
     }
 
@@ -424,9 +418,7 @@ class _LoginScreenState extends State<LoginScreen> {
       var decodedJson = jsonDecode(body);
       var token = Token.fromJson(decodedJson);
 
-      Map<String, dynamic> request2 = {
-        'Email': _email,
-      };
+      Map<String, dynamic> request2 = {'Email': _email};
       url = Uri.parse('${Constants.apiUrl}/Api/Account/GetUserByEmail2');
       var response2 = await http.post(
         url,
@@ -456,44 +448,45 @@ class _LoginScreenState extends State<LoginScreen> {
 
       //---------- user3 -------------
       var user3 = User(
-          idUsuario: 0,
-          codigoCausante: '000000',
-          login: '',
-          contrasena: '',
-          nombre: '',
-          apellido: '',
-          autorWOM: 0,
-          estado: 0,
-          habilitaAPP: 0,
-          habilitaFotos: 0,
-          habilitaReclamos: 0,
-          habilitaSSHH: 0,
-          habilitaRRHH: 0,
-          modulo: '',
-          habilitaMedidores: 0,
-          habilitaFlotas: '',
-          reHabilitaUsuarios: 0,
-          codigogrupo: '',
-          codigocausante: '',
-          fullName: '',
-          fechaCaduca: 0,
-          intentosInvDiario: 0,
-          opeAutorizo: 0,
-          habilitaNuevoSuministro: 0,
-          habilitaVeredas: 0,
-          habilitaJuicios: 0,
-          habilitaPresentismo: 0,
-          habilitaSeguimientoUsuarios: 0,
-          habilitaVerObrasCerradas: 0,
-          habilitaElementosCalle: 0,
-          habilitaCertificacion: 0,
-          conceptomov: 0,
-          conceptomova: 0,
-          limitarGrupo: 0,
-          rubro: 0,
-          firmaUsuario: '',
-          firmaUsuarioImageFullPath: '',
-          appIMEI: '');
+        idUsuario: 0,
+        codigoCausante: '000000',
+        login: '',
+        contrasena: '',
+        nombre: '',
+        apellido: '',
+        autorWOM: 0,
+        estado: 0,
+        habilitaAPP: 0,
+        habilitaFotos: 0,
+        habilitaReclamos: 0,
+        habilitaSSHH: 0,
+        habilitaRRHH: 0,
+        modulo: '',
+        habilitaMedidores: 0,
+        habilitaFlotas: '',
+        reHabilitaUsuarios: 0,
+        codigogrupo: '',
+        codigocausante: '',
+        fullName: '',
+        fechaCaduca: 0,
+        intentosInvDiario: 0,
+        opeAutorizo: 0,
+        habilitaNuevoSuministro: 0,
+        habilitaVeredas: 0,
+        habilitaJuicios: 0,
+        habilitaPresentismo: 0,
+        habilitaSeguimientoUsuarios: 0,
+        habilitaVerObrasCerradas: 0,
+        habilitaElementosCalle: 0,
+        habilitaCertificacion: 0,
+        conceptomov: 0,
+        conceptomova: 0,
+        limitarGrupo: 0,
+        rubro: 0,
+        firmaUsuario: '',
+        firmaUsuarioImageFullPath: '',
+        appIMEI: '',
+      );
 
       if (user2.userType == 1) {
         Map<String, dynamic> request3 = {
@@ -534,35 +527,38 @@ class _LoginScreenState extends State<LoginScreen> {
         }
       }
 
-//--------------- Control del IMEI ---------------------------
+      //--------------- Control del IMEI ---------------------------
       if (user3.appIMEI != null && user3.appIMEI!.isNotEmpty) {
         if (user3.appIMEI != imei) {
           setState(() {
             _showLoader = false;
           });
           await showDialog(
-              context: context,
-              builder: (context) {
-                return AlertDialog(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  title: const Text('Aviso'),
-                  content:
-                      Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
+            context: context,
+            builder: (context) {
+              return AlertDialog(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                title: const Text('Aviso'),
+                content: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
                     Text(
-                        'Este celular tiene el IMEI $imei, el cual no coincide con el IMEI que tiene registrado su Usuario.'),
-                    const SizedBox(
-                      height: 10,
+                      'Este celular tiene el IMEI $imei, el cual no coincide con el IMEI que tiene registrado su Usuario.',
                     ),
-                  ]),
-                  actions: <Widget>[
-                    TextButton(
-                        onPressed: () => Navigator.of(context).pop(),
-                        child: const Text('Ok')),
+                    const SizedBox(height: 10),
                   ],
-                );
-              });
+                ),
+                actions: <Widget>[
+                  TextButton(
+                    onPressed: () => Navigator.of(context).pop(),
+                    child: const Text('Ok'),
+                  ),
+                ],
+              );
+            },
+          );
           return;
         }
       }
@@ -573,7 +569,11 @@ class _LoginScreenState extends State<LoginScreen> {
         context,
         MaterialPageRoute(
           builder: (context) => Home3Screen(
-              token: token, user2: user2, user: user3, password: _password),
+            token: token,
+            user2: user2,
+            user: user3,
+            password: _password,
+          ),
         ),
       );
       return;
@@ -581,10 +581,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
     //---------- Login si el Usuario NO ES un email -------------
 
-    Map<String, dynamic> request = {
-      'Email': _email,
-      'password': _password,
-    };
+    Map<String, dynamic> request = {'Email': _email, 'password': _password};
 
     var url = Uri.parse('${Constants.apiUrl}/Api/Account/GetUserByEmail');
     var response = await http.post(
@@ -627,35 +624,38 @@ class _LoginScreenState extends State<LoginScreen> {
       return;
     }
 
-//--------------- Control del IMEI ---------------------------
+    //--------------- Control del IMEI ---------------------------
     if (user.appIMEI != null && user.appIMEI!.isNotEmpty) {
       if (user.appIMEI != imei) {
         setState(() {
           _showLoader = false;
         });
         await showDialog(
-            context: context,
-            builder: (context) {
-              return AlertDialog(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                title: const Text('Aviso'),
-                content:
-                    Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              title: const Text('Aviso'),
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
                   Text(
-                      'Este celular tiene el IMEI $imei, el cual no coincide con el IMEI que tiene registrado su Usuario.'),
-                  const SizedBox(
-                    height: 10,
+                    'Este celular tiene el IMEI $imei, el cual no coincide con el IMEI que tiene registrado su Usuario.',
                   ),
-                ]),
-                actions: <Widget>[
-                  TextButton(
-                      onPressed: () => Navigator.of(context).pop(),
-                      child: const Text('Ok')),
+                  const SizedBox(height: 10),
                 ],
-              );
-            });
+              ),
+              actions: <Widget>[
+                TextButton(
+                  onPressed: () => Navigator.of(context).pop(),
+                  child: const Text('Ok'),
+                ),
+              ],
+            );
+          },
+        );
         return;
       }
     }
@@ -668,24 +668,26 @@ class _LoginScreenState extends State<LoginScreen> {
 
     Random r = Random();
     int resultado = r.nextInt((99999999 - 10000000) + 1) + 10000000;
-    double hora = (DateTime.now().hour * 3600 +
+    double hora =
+        (DateTime.now().hour * 3600 +
             DateTime.now().minute * 60 +
             DateTime.now().second +
             DateTime.now().millisecond * 0.001) *
         100;
 
     WebSesion webSesion = WebSesion(
-        nroConexion: resultado,
-        usuario: user.idUsuario.toString(),
-        iP: _imeiNo,
-        loginDate: DateTime.now().toString(),
-        loginTime: hora.round(),
-        modulo: 'App-${user.codigoCausante}',
-        logoutDate: '',
-        logoutTime: 0,
-        conectAverage: 0,
-        id_ws: 0,
-        versionsistema: Constants.version);
+      nroConexion: resultado,
+      usuario: user.idUsuario.toString(),
+      iP: _imeiNo,
+      loginDate: DateTime.now().toString(),
+      loginTime: hora.round(),
+      modulo: 'App-${user.codigoCausante}',
+      logoutDate: '',
+      logoutTime: 0,
+      conectAverage: 0,
+      id_ws: 0,
+      versionsistema: Constants.version,
+    );
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setInt('nroConexion', resultado);
@@ -724,19 +726,17 @@ class _LoginScreenState extends State<LoginScreen> {
       await Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => Home2Screen(
-            user: user,
-            nroConexion: webSesion.nroConexion,
-          ),
+          builder: (context) =>
+              Home2Screen(user: user, nroConexion: webSesion.nroConexion),
         ),
       );
       return;
     }
   }
 
-//-----------------------------------------------------------------
-//--------------------- validateFields ----------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- validateFields ----------------------------
+  //-----------------------------------------------------------------
 
   bool validateFields() {
     bool isValid = true;
@@ -773,9 +773,9 @@ class _LoginScreenState extends State<LoginScreen> {
     await prefs.setString('date', DateTime.now().toString());
   }
 
-//-----------------------------------------------------------------
-//--------------------- _postWebSesion ----------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _postWebSesion ----------------------------
+  //-----------------------------------------------------------------
 
   Future<void> _postWebSesion(WebSesion webSesion) async {
     Map<String, dynamic> requestWebSesion = {
@@ -792,13 +792,15 @@ class _LoginScreenState extends State<LoginScreen> {
       'versionsistema': webSesion.versionsistema,
     };
 
-    Response response =
-        await ApiHelper.post('/api/WebSesions/', requestWebSesion);
+    Response response = await ApiHelper.post(
+      '/api/WebSesions/',
+      requestWebSesion,
+    );
   }
 
-//-----------------------------------------------------------------
-//--------------------- initPlatformState -------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- initPlatformState -------------------------
+  //-----------------------------------------------------------------
 
   Future<void> initPlatformState() async {
     late String platformVersion,
@@ -817,44 +819,38 @@ class _LoginScreenState extends State<LoginScreen> {
 
     if (status.isDenied) {
       await showDialog(
-          context: context,
-          builder: (context) {
-            return AlertDialog(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
-              ),
-              title: const Text('Aviso'),
-              content: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: const <Widget>[
-                    Text(
-                        'La App necesita que habilite el Permiso de acceso al teléfono para registrar el IMEI del celular con que se loguea.'),
-                    SizedBox(
-                      height: 10,
-                    ),
-                  ]),
-              actions: <Widget>[
-                TextButton(
-                    onPressed: () => Navigator.of(context).pop(),
-                    child: const Text('Ok')),
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+            title: const Text('Aviso'),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: const <Widget>[
+                Text(
+                  'La App necesita que habilite el Permiso de acceso al teléfono para registrar el IMEI del celular con que se loguea.',
+                ),
+                SizedBox(height: 10),
               ],
-            );
-          });
+            ),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(),
+                child: const Text('Ok'),
+              ),
+            ],
+          );
+        },
+      );
       openAppSettings();
       //exit(0);
     }
 
     try {
-      platformVersion = await DeviceInformation.platformVersion;
-      imeiNo = await DeviceInformation.deviceIMEINumber;
+      imeiNo = await FlutterDeviceImei.instance.getIMEI() ?? '';
       imei = imeiNo;
-      modelName = await DeviceInformation.deviceModel;
-      manufacturer = await DeviceInformation.deviceManufacturer;
-      apiLevel = await DeviceInformation.apiLevel;
-      deviceName = await DeviceInformation.deviceName;
-      productName = await DeviceInformation.productName;
-      cpuType = await DeviceInformation.cpuName;
-      hardware = await DeviceInformation.hardware;
     } on PlatformException catch (e) {
       platformVersion = '${e.message}';
     }
@@ -863,23 +859,14 @@ class _LoginScreenState extends State<LoginScreen> {
     // message was in flight, we want to discard the reply rather than calling
     // setState to update our non-existent appearance.
     if (!mounted) return;
-
-    _platformVersion = 'Running on :$platformVersion';
     _imeiNo = imeiNo;
-    _modelName = modelName;
-    _manufacturerName = manufacturer;
-    _apiLevel = apiLevel;
-    _deviceName = deviceName;
-    _productName = productName;
-    _cpuType = cpuType;
-    _hardware = hardware;
 
     setState(() {});
   }
 
-//-----------------------------------------------------------------
-//--------------------- _getPosition ------------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _getPosition ------------------------------
+  //-----------------------------------------------------------------
 
   Future _getPosition() async {
     LocationPermission permission;
@@ -888,34 +875,6 @@ class _LoginScreenState extends State<LoginScreen> {
       permission = await Geolocator.requestPermission();
       if (permission == LocationPermission.denied) {
         showDialog(
-            context: context,
-            builder: (context) {
-              return AlertDialog(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                title: const Text('Aviso'),
-                content: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: const <Widget>[
-                      Text('El permiso de localización está negado.'),
-                      SizedBox(
-                        height: 10,
-                      ),
-                    ]),
-                actions: <Widget>[
-                  TextButton(
-                      onPressed: () => Navigator.of(context).pop(),
-                      child: const Text('Ok')),
-                ],
-              );
-            });
-        return;
-      }
-    }
-
-    if (permission == LocationPermission.deniedForever) {
-      showDialog(
           context: context,
           builder: (context) {
             return AlertDialog(
@@ -924,21 +883,52 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               title: const Text('Aviso'),
               content: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: const <Widget>[
-                    Text(
-                        'El permiso de localización está negado permanentemente. No se puede requerir este permiso.'),
-                    SizedBox(
-                      height: 10,
-                    ),
-                  ]),
+                mainAxisSize: MainAxisSize.min,
+                children: const <Widget>[
+                  Text('El permiso de localización está negado.'),
+                  SizedBox(height: 10),
+                ],
+              ),
               actions: <Widget>[
                 TextButton(
-                    onPressed: () => Navigator.of(context).pop(),
-                    child: const Text('Ok')),
+                  onPressed: () => Navigator.of(context).pop(),
+                  child: const Text('Ok'),
+                ),
               ],
             );
-          });
+          },
+        );
+        return;
+      }
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+            title: const Text('Aviso'),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: const <Widget>[
+                Text(
+                  'El permiso de localización está negado permanentemente. No se puede requerir este permiso.',
+                ),
+                SizedBox(height: 10),
+              ],
+            ),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(),
+                child: const Text('Ok'),
+              ),
+            ],
+          );
+        },
+      );
       return;
     }
 
@@ -946,7 +936,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
     if (connectivityResult != ConnectivityResult.none) {
       _positionUser = await Geolocator.getCurrentPosition(
-          desiredAccuracy: LocationAccuracy.high);
+        desiredAccuracy: LocationAccuracy.high,
+      );
     }
 
     setState(() {
@@ -954,16 +945,19 @@ class _LoginScreenState extends State<LoginScreen> {
     });
   }
 
-//-----------------------------------------------------------------
-//--------------------- _getCatalogos -----------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _getCatalogos -----------------------------
+  //-----------------------------------------------------------------
 
   Future<void> _getCatalogos(String modulo) async {
     var connectivityResult = await Connectivity().checkConnectivity();
 
     if (connectivityResult == ConnectivityResult.none) {
       showMyDialog(
-          'Error', 'Verifica que estés conectado a Internet', 'Aceptar');
+        'Error',
+        'Verifica que estés conectado a Internet',
+        'Aceptar',
+      );
     }
 
     Response response = Response(isSuccess: false);
@@ -972,12 +966,13 @@ class _LoginScreenState extends State<LoginScreen> {
 
     if (!response.isSuccess) {
       await showAlertDialog(
-          context: context,
-          title: 'Error',
-          message: response.message,
-          actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
+        context: context,
+        title: 'Error',
+        message: response.message,
+        actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+        ],
+      );
       return;
     }
 
@@ -989,9 +984,9 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
-//-----------------------------------------------------------------
-//--------------------- _getParametro -----------------------------
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
+  //--------------------- _getParametro -----------------------------
+  //-----------------------------------------------------------------
 
   Future<void> _getParametro() async {
     _showLoader = true;
