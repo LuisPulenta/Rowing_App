@@ -6,17 +6,18 @@ class CustomRow extends StatelessWidget {
   final String? dato;
   bool? alert;
 
-  CustomRow(
-      {Key? key,
-      this.icon,
-      required this.nombredato,
-      required this.dato,
-      this.alert})
-      : super(key: key);
+  CustomRow({
+    super.key,
+    this.icon,
+    required this.nombredato,
+    required this.dato,
+    this.alert,
+  });
 
   @override
   Widget build(BuildContext context) {
     double ancho = MediaQuery.of(context).size.width;
+
     return Padding(
       padding: const EdgeInsets.only(right: 20),
       child: Row(
@@ -24,24 +25,18 @@ class CustomRow extends StatelessWidget {
         children: <Widget>[
           icon != null
               ? alert == true
-                  ? const Icon(
-                      Icons.warning,
-                      color: Colors.red,
-                    )
-                  : Icon(
-                      icon,
-                      color: const Color(0xFF781f1e),
-                    )
+                    ? const Icon(Icons.warning, color: Colors.red)
+                    : Icon(icon, color: const Color(0xFF781f1e))
               : Container(),
-          const SizedBox(
-            width: 15,
-          ),
-          Container(
+          const SizedBox(width: 15),
+          SizedBox(
             width: ancho * 0.3,
             child: Text(
               nombredato,
               style: const TextStyle(
-                  fontWeight: FontWeight.bold, color: Color(0xFF781f1e)),
+                fontWeight: FontWeight.bold,
+                color: Color(0xFF781f1e),
+              ),
             ),
           ),
           Expanded(
