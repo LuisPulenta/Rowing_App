@@ -17,7 +17,6 @@ class CustomRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double ancho = MediaQuery.of(context).size.width;
-
     return Padding(
       padding: const EdgeInsets.only(right: 20),
       child: Row(
